@@ -24,6 +24,10 @@ body {
   background-color: var(--primary-color);
 }
 
+.bg-color-secondary {
+  background-color: var(--secondary-color);
+}
+
 .text-color-white {
   color: var(--white-color);
 }
