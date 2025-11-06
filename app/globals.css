@@ -2,7 +2,7 @@
 
 :root {
   --white-color: #F9FAFB;
-  ---black-color: #2C2C2C;
+  --black-color: #2C2C2C;
   --primary-color: #032A49;
   --secondary-color: #E9D07F;
 }
@@ -13,7 +13,7 @@ body {
 
 
 .bg-color-black {
-  background-color: var(---black-color);
+  background-color: var(--black-color);
 }
 
 .bg-color-primary {
