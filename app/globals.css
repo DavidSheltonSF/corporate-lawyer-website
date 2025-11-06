@@ -12,10 +12,10 @@ body {
 }
 
 
-.bg-black {
+.bg-color-black {
   background-color: var(---black-color);
 }
 
-.bg-primary {
+.bg-color-primary {
   background-color: var(--primary-color);
 }
