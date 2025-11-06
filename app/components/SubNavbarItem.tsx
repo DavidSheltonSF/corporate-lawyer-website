@@ -1,5 +1,6 @@
-import React from "react";
-import styles from "./SubNavBar.module.css"
+'use client'
+
+import React, { useState } from "react";
 
 interface Props {
   index: number;
@@ -10,28 +11,18 @@ interface Props {
 
 export function SubNavbarItem(props: Props) {
   const { index, name, selected, setSelected } = props
+   const [isOver, setOver] = useState(false);
 
   function handleClick(e: React.MouseEvent<HTMLElement>){
     setSelected(index);
   }
 
-  function handleMouseEnter(e: React.MouseEvent<HTMLElement>) {
-    const navItem = e.currentTarget;
-    const navSelectionBar = navItem.querySelector(`.${styles.NavSelectionBar}`) as HTMLElement | null
-
-    if (navSelectionBar && !isSelected) {
-      navSelectionBar.classList.add(styles.Active)
-    }
+  function handleMouseEnter() {
+    setOver(true)
   }
 
   function handleMouseOut(e: React.MouseEvent<HTMLElement>) {
-    const navItem = e.currentTarget; 
-    const navSelectionBar = navItem.querySelector(`.${styles.NavSelectionBar}`)  as HTMLElement | null;
-
-    if (navSelectionBar && !isSelected) {
-      navSelectionBar.classList.remove(styles.Active)
-    }
-  
+    setOver(false)
   }
 
   const isSelected = index === selected;
@@ -40,7 +31,7 @@ export function SubNavbarItem(props: Props) {
        <span className="text-color-white text-[24px] mt-[5px]">
         {name}
         </span>
-      <span className={`bg-color-primary w-full h-[4px] appear-animation ${styles.NavSelectionBar} ${ isSelected ? styles.Active : ''}`}>
+      <span className={`NavSelectionBar bg-color-secondary h-[4px] transition-all ${ isOver || isSelected ? 'ml-0 mr-auto w-full' : 'ml-auto mr-0 w-0'}`}>
       </span>
     </li>
   )
