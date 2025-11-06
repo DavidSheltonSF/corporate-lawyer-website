@@ -6,7 +6,7 @@ export function Navbar(){
       </a>
     </div>
     <div>
-      <ul className="flex items-center gap-[24px] text-color-white text-[24px]">
+      <ul className="flex items-center justify-center gap-[24px] text-color-white text-[24px]">
         <a href="#">Início</a>
         <a href="#">Contato</a>
         <a href="#">Blog</a>
