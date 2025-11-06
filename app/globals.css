@@ -10,3 +10,12 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+.bg-black {
+  background-color: var(---black-color);
+}
+
+.bg-primary {
+  background-color: var(--primary-color);
+}
