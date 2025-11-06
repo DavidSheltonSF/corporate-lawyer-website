@@ -19,3 +19,11 @@ body {
 .bg-color-primary {
   background-color: var(--primary-color);
 }
+
+.text-color-white {
+  color: var(--white-color);
+}
+
+.text-color-secondary {
+  color: var(--secondary-color);
+}
