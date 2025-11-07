@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from "react";
+import { useState } from "react";
 
 interface Props {
   index: number;
@@ -14,7 +14,7 @@ export function SubNavbarItem(props: Props) {
   const { index, name, selectionLineColor, selected, setSelected } = props
    const [isOver, setOver] = useState(false);
 
-  function handleClick(e: React.MouseEvent<HTMLElement>){
+  function handleClick(){
     setSelected(index);
   }
 
@@ -22,7 +22,7 @@ export function SubNavbarItem(props: Props) {
     setOver(true)
   }
 
-  function handleMouseOut(e: React.MouseEvent<HTMLElement>) {
+  function handleMouseOut() {
     setOver(false)
   }
 
