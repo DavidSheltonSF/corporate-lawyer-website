@@ -31,7 +31,7 @@ export function SubNavbarItem(props: Props) {
        <span className="text-color-white text-[24px] mt-[5px]">
         {name}
         </span>
-      <span className={`NavSelectionBar bg-color-secondary h-[4px] transition-all ${ isOver || isSelected ? 'ml-0 mr-auto w-full' : 'ml-auto mr-0 w-0'}`}>
+      <span className={`bg-color-secondary h-[4px] transition-all ${ isOver || isSelected ? 'ml-0 mr-auto w-full' : 'ml-auto mr-0 w-0'}`}>
       </span>
     </li>
   )
