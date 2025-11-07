@@ -1,6 +1,10 @@
+'use client';
+import { useState } from 'react';
+import { DynamicSection } from './components/DynamicSection';
 import { SubNavbar } from './components/SubNavbar';
 
 export default function Home() {
+  const [selectedSection, setSelectedSection] = useState(0);
   return (
     <div className="flex flex-col min-h-screen items-center bg-zinc-50 font-sans bg-color-white">
       <header className="w-full">
@@ -11,8 +15,48 @@ export default function Home() {
         </div>
       </header>
       <main className="w-full">
-        <SubNavbar />
-
+        <section className="flex flex-col items-center bg-color-black w-full h-[90vh]">
+          <SubNavbar
+            itemsNames={['Sobre nós', 'Serviços', 'Equipe']}
+            selectedSection={selectedSection}
+            setSelectedSection={setSelectedSection}
+          />
+          <div className="flex justify-center items-center w-full h-full">
+            <DynamicSection
+              index={0}
+              title="Sobre Nós"
+              selectedSection={selectedSection}
+              style="appear-animation text-white text-2xl w-[80%] h-full"
+            >
+              <div className="flex flex-col gap-[32px] w-[736px] mt-[40px]">
+                <div className="flex flex-col gap-[24px]">
+                  <h3 className="text-color-secondary font-bold">Somos experiêntes</h3>
+                  <p>
+                    Com mais de 5 anos prestando atendimento com empatia, ética e dedicação, somos
+                    um escritório de advocacia comprometido em oferecer soluções jurídicas eficazes
+                    e humanizadas.
+                  </p>
+                </div>
+                <div className="flex flex-col gap-[24px]">
+                  <h3 className="text-color-secondary font-bold">Somos experiêntes</h3>
+                  <p>
+                    Com mais de 5 anos prestando atendimento com empatia, ética e dedicação, somos
+                    um escritório de advocacia comprometido em oferecer soluções jurídicas eficazes
+                    e humanizadas.
+                  </p>
+                </div>
+                <div className="flex flex-col gap-[24px]">
+                  <h3 className="text-color-secondary font-bold">Somos experiêntes</h3>
+                  <p>
+                    Com mais de 5 anos prestando atendimento com empatia, ética e dedicação, somos
+                    um escritório de advocacia comprometido em oferecer soluções jurídicas eficazes
+                    e humanizadas.
+                  </p>
+                </div>
+              </div>
+            </DynamicSection>
+          </div>
+        </section>
       </main>
     </div>
   );
