@@ -20,6 +20,10 @@ body {
   background-color: var(--black-color);
 }
 
+.bg-color-white {
+  background-color: var(--white-color);
+}
+
 .bg-color-primary {
   background-color: var(--primary-color);
 }
