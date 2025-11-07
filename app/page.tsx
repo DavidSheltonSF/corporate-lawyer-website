@@ -1,5 +1,4 @@
 import { SubNavbar } from './components/SubNavbar';
-import { SubNavbarItem } from './components/SubNavbarItem';
 
 export default function Home() {
   return (
@@ -13,6 +12,7 @@ export default function Home() {
       </header>
       <main className="w-full">
         <SubNavbar />
+
       </main>
     </div>
   );
