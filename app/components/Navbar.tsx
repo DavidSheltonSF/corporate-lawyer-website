@@ -1,3 +1,5 @@
+import { NavbarItem } from "./NavbarItem";
+
 export function Navbar(){
   return <nav className="absolute top-0 flex justify-between items-center bg-[var(--black-color)]/48 w-full h-[80px] px-[40px]">
     <div>
@@ -7,10 +9,22 @@ export function Navbar(){
     </div>
     <div>
       <ul className="flex items-center justify-center gap-[24px] text-color-white text-[24px]">
-        <a href="#">Início</a>
-        <a href="#">Contato</a>
-        <a href="#">Blog</a>
-        <a href="#">Página do Cliente</a>
+        <NavbarItem
+          name="Início"
+          link="#"
+        />
+        <NavbarItem
+          name="Contato"
+          link="#"
+        />
+        <NavbarItem
+          name="Blog"
+          link="#"
+        />
+        <NavbarItem
+          name="Página do Cliente"
+          link="#"
+        />
       </ul>
     </div>
   </nav>
