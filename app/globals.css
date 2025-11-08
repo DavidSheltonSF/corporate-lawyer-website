@@ -38,3 +38,13 @@ body {
 .text-color-secondary {
   color: var(--secondary-color);
 }
+
+/* Chrome... */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Firefox */
+.no-scrollbar {
+  scrollbar-width: none;
+}
