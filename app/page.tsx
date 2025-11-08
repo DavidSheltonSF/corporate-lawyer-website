@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import { DynamicSection } from './components/DynamicSection';
 import { SubNavbar } from './components/SubNavbar';
+import { ServiceCard } from './components/ServiceCard';
+import { DraggableCarousel } from './components/DraggableCarousel';
 
 export default function Home() {
   const [selectedSection, setSelectedSection] = useState(0);
@@ -48,6 +50,40 @@ export default function Home() {
                     e humanizadas.
                   </p>
                 </div>
+              </div>
+            </DynamicSection>
+            <DynamicSection index={1} title="Serviços" selectedSection={selectedSection}>
+              <div className="flex flex-col h-[95%] gap-[32px] w-full">
+                <DraggableCarousel additionalStyles=" w-full h-[70%] bg-black select-none rounded-xl">
+                  <ServiceCard
+                    title="Família"
+                    image="https://cdn-icons-png.flaticon.com/512/33/33728.png"
+                    content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dicta, incidunt cum
+          sapiente libero officiis beatae recusandae quidem, magnam illum adipisci aspernatur, in
+          vero similique vitae autem aliquid natus nisi."
+                  />
+                  <ServiceCard
+                    title="Família"
+                    image="https://cdn-icons-png.flaticon.com/512/33/33728.png"
+                    content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dicta, incidunt cum
+          sapiente libero officiis beatae recusandae quidem, magnam illum adipisci aspernatur, in
+          vero similique vitae autem aliquid natus nisi."
+                  />
+                  <ServiceCard
+                    title="Família"
+                    image="https://cdn-icons-png.flaticon.com/512/33/33728.png"
+                    content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dicta, incidunt cum
+          sapiente libero officiis beatae recusandae quidem, magnam illum adipisci aspernatur, in
+          vero similique vitae autem aliquid natus nisi."
+                  />
+                  <ServiceCard
+                    title="Família"
+                    image="https://cdn-icons-png.flaticon.com/512/33/33728.png"
+                    content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dicta, incidunt cum
+          sapiente libero officiis beatae recusandae quidem, magnam illum adipisci aspernatur, in
+          vero similique vitae autem aliquid natus nisi."
+                  />
+                </DraggableCarousel>
               </div>
             </DynamicSection>
           </div>
