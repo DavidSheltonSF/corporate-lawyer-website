@@ -57,28 +57,28 @@ export default function Home() {
                 <DraggableCarousel additionalStyles=" w-full h-[70%] bg-black select-none rounded-xl">
                   <ServiceCard
                     title="Família"
-                    image="https://cdn-icons-png.flaticon.com/512/33/33728.png"
+                    image="icons/familia.png"
                     content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dicta, incidunt cum
           sapiente libero officiis beatae recusandae quidem, magnam illum adipisci aspernatur, in
           vero similique vitae autem aliquid natus nisi."
                   />
                   <ServiceCard
-                    title="Família"
-                    image="https://cdn-icons-png.flaticon.com/512/33/33728.png"
+                    title="Trabalhista"
+                    image="icons/trabalhista.png"
                     content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dicta, incidunt cum
           sapiente libero officiis beatae recusandae quidem, magnam illum adipisci aspernatur, in
           vero similique vitae autem aliquid natus nisi."
                   />
                   <ServiceCard
-                    title="Família"
-                    image="https://cdn-icons-png.flaticon.com/512/33/33728.png"
+                    title="Cívil"
+                    image="icons/civil.png"
                     content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dicta, incidunt cum
           sapiente libero officiis beatae recusandae quidem, magnam illum adipisci aspernatur, in
           vero similique vitae autem aliquid natus nisi."
                   />
                   <ServiceCard
-                    title="Família"
-                    image="https://cdn-icons-png.flaticon.com/512/33/33728.png"
+                    title="Previdenciário"
+                    image="icons/previdenciario.png"
                     content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dicta, incidunt cum
           sapiente libero officiis beatae recusandae quidem, magnam illum adipisci aspernatur, in
           vero similique vitae autem aliquid natus nisi."
