@@ -20,13 +20,13 @@ export function ServiceCard(props: Props) {
 
   return (
     <article
-      className="flex flex-col w-[480px] h-[480px] shrink-0"
+      className="flex flex-col w-[calc((100%-160px)/3)] h-[440px] shrink-0"
       onMouseOver={handleMouseOver}
       onMouseLeave={handleMouseLeave}
     >
       <header className="flex justify-center">
         <div
-          className={`flex items-center justify-center rounded-full bg-color-secondary h-[160px] w-[160px] mt-[16px] hover:cursor-pointer ${
+          className={`flex items-center justify-center rounded-full bg-color-secondary h-[144px] w-[144px] mt-[16px] hover:cursor-pointer ${
             isOver ? 'shadow-[var(--bright-yellow-shadow)]' : ''
           }`}
         >
@@ -35,7 +35,7 @@ export function ServiceCard(props: Props) {
       </header>
       <main className="flex flex-col items-center text-center gap-[16px]">
         <h1 className="text-3xl font-bold mt-[16px]">{title}</h1>
-        <p className="w-[92%]">{content}</p>
+        <p className="w-[92%] text-xl">{content}</p>
       </main>
     </article>
   );
