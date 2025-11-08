@@ -9,7 +9,6 @@ interface Props {
 }
 
 export function SubNavbar(props: Props) {
-  
   const { itemsNames, selectedSection, setSelectedSection } = props;
 
   return (
