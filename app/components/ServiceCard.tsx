@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 interface Props {
   title: string;
   image: string;
@@ -6,12 +8,29 @@ interface Props {
 
 export function ServiceCard(props: Props) {
   const { title, image, content } = props;
+  const [isOver, setIsOver] = useState(false);
+
+  function handleMouseOver() {
+    setIsOver(true);
+  }
+
+  function handleMouseLeave() {
+    setIsOver(false);
+  }
 
   return (
-    <article className="flex flex-col w-[480px] h-[480px] shrink-0">
+    <article
+      className="flex flex-col w-[480px] h-[480px] shrink-0"
+      onMouseOver={handleMouseOver}
+      onMouseLeave={handleMouseLeave}
+    >
       <header className="flex justify-center">
-        <div className="flex items-center justify-center rounded-full bg-color-secondary h-[160px] w-[160px] mt-[16px]">
-          <img className="size-[50%]" src={image} alt="" />
+        <div
+          className={`flex items-center justify-center rounded-full bg-color-secondary h-[160px] w-[160px] mt-[16px] hover:cursor-pointer ${
+            isOver ? 'shadow-[var(--bright-yellow-shadow)]' : ''
+          }`}
+        >
+          <img className={`size-[50%] ${isOver ? 'invert' : ''}`} src={image} alt="" />
         </div>
       </header>
       <main className="flex flex-col items-center text-center gap-[16px]">
