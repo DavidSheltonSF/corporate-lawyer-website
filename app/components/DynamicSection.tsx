@@ -4,16 +4,16 @@ interface Props {
   index: number;
   title: string;
   selectedSection: number;
-  style: string;
+  additionalStyle: string;
   children: ReactNode;
 }
 
-export function DynamicSection({ index, title, selectedSection, style, children }: Props) {
+export function DynamicSection({ index, title, selectedSection, additionalStyle, children }: Props) {
   const isSelected = index === selectedSection;
 
   return (
     <Activity mode={isSelected ? 'visible' : 'hidden'}>
-      <section className={style}>
+      <section className={`appear-animation text-white text-2xl h-full ${additionalStyle}`}>
         <h1 className="font-bold text-[3rem] mt-[40px]">{title}</h1>
         {children}
       </section>

@@ -26,7 +26,7 @@ export default function Home() {
               index={0}
               title="Sobre Nós"
               selectedSection={selectedSection}
-              style="appear-animation text-white text-2xl w-[80%] h-full"
+              additionalStyle="w-[80%]"
             >
               <div className="flex flex-col gap-[32px] w-[736px] mt-[40px]">
                 <div className="flex flex-col gap-[24px]">
