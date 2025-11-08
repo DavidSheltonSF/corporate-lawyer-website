@@ -22,12 +22,8 @@ export default function Home() {
             setSelectedSection={setSelectedSection}
           />
           <div className="flex justify-center items-center w-full h-full">
-            <DynamicSection
-              index={0}
-              title="Sobre Nós"
-              selectedSection={selectedSection}
-            >
-              <div className="flex flex-col gap-[32px] w-[736px] mt-[40px]">
+            <DynamicSection index={0} title="Sobre Nós" selectedSection={selectedSection}>
+              <div className="flex flex-col gap-[32px] w-[736px]">
                 <div className="flex flex-col gap-[24px]">
                   <h3 className="text-color-secondary font-bold">Somos experiêntes</h3>
                   <p>

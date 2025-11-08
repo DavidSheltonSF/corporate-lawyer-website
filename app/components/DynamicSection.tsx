@@ -13,7 +13,7 @@ export function DynamicSection({ index, title, selectedSection, children }: Prop
   return (
     <Activity mode={isSelected ? 'visible' : 'hidden'}>
       <section className={`appear-animation text-white text-2xl h-full w-[80%] `}>
-        <h1 className="font-bold text-[3rem] mt-[40px]">{title}</h1>
+        <h1 className="font-bold text-[3rem] my-[40px]">{title}</h1>
         {children}
       </section>
     </Activity>
