@@ -4,9 +4,34 @@ import { DynamicSection } from './components/DynamicSection';
 import { SubNavbar } from './components/SubNavbar';
 import { ServiceCard } from './components/ServiceCard';
 import { DraggableCarousel } from './components/DraggableCarousel';
+import { ProfessionalCard } from './components/ProfessionalCard';
 
 export default function Home() {
   const [selectedSection, setSelectedSection] = useState(0);
+
+  const professionalsData = [
+    {
+      imagePath: 'photos/carla.png',
+      title: 'Dr. Carla Medeiros',
+      description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero aliquam non fugit magnam
+            facere nam iusto sint natus libero dignissimos! Nesciunt animi provident, asperiores aut
+            accusantium explicabo sint saepe dicta.`,
+      specializations: ['trabalhista', 'previdenciario'],
+      emailLink: '#',
+      whatsAppLink: '#',
+    },
+    {
+      imagePath: 'photos/flavia.png',
+      title: 'Dr. Flávia Santiago',
+      description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero aliquam non fugit magnam
+            facere nam iusto sint natus libero dignissimos! Nesciunt animi provident, asperiores aut
+            accusantium explicabo sint saepe dicta.`,
+      specializations: ['familia', 'civil'],
+      emailLink: '#',
+      whatsAppLink: '#',
+    },
+  ];
+
   return (
     <div className="flex flex-col min-h-screen items-center bg-zinc-50 font-sans bg-color-white">
       <header className="w-full">
@@ -84,6 +109,12 @@ export default function Home() {
           vero similique vitae autem aliquid natus nisi."
                   />
                 </DraggableCarousel>
+              </div>
+            </DynamicSection>
+            <DynamicSection index={2} title="Equipe" selectedSection={selectedSection}>
+              <div className="flex flex-col gap-[40px]">
+                <ProfessionalCard {...professionalsData[0]} />
+                <ProfessionalCard {...professionalsData[1]} />
               </div>
             </DynamicSection>
           </div>
