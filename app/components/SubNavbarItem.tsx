@@ -28,7 +28,7 @@ export function SubNavbarItem(props: Props) {
   const isSelected = index === selected;
   return (
     <li
-      className="flex flex-col justify-between items-between h-full"
+      className="flex flex-col cursor-pointer justify-between items-between h-full"
       onClick={handleClick}
       onMouseOver={handleMouseEnter}
       onMouseOut={handleMouseOut}
