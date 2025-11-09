@@ -14,8 +14,8 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
   const { imagePath, title, description, specializations, emailLink, whatsAppLink } = props;
 
   function renderSpecializations(): ReactNode {
-    return specializations.map((specialization) => {
-      return <IconCircle iconPath={`icons/${specialization}.png`} size="56px" />;
+    return specializations.map((specialization, index) => {
+      return <IconCircle key={`${index}-professional-specialization`} iconPath={`icons/${specialization}.png`} size="56px" />;
     });
   }
   return (
