@@ -40,6 +40,10 @@ body {
   color: var(--secondary-color);
 }
 
+.border-color-secondary {
+  border-color: var(--secondary-color);
+}
+
 /* Chrome... */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
