@@ -17,7 +17,7 @@ export default function Home() {
         </div>
       </header>
       <main className="w-full">
-        <section className="flex flex-col items-center bg-color-black w-full h-[90vh]">
+        <section className="flex flex-col items-center bg-color-black w-full min-h-[90vh] h-auto">
           <SubNavbar
             itemsNames={['Sobre nós', 'Serviços', 'Equipe']}
             selectedSection={selectedSection}
