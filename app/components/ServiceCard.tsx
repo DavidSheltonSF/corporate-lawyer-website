@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { IconCircle } from './IconCircle';
 
 interface Props {
   title: string;
@@ -25,13 +26,8 @@ export function ServiceCard(props: Props) {
       onMouseLeave={handleMouseLeave}
     >
       <header className="flex justify-center">
-        <div
-          className={`flex items-center justify-center rounded-full bg-color-secondary h-[144px] w-[144px] mt-[16px] hover:cursor-pointer ${
-            isOver ? 'shadow-[var(--bright-yellow-shadow)]' : ''
-          }`}
-        >
-          <img className={`size-[50%] ${isOver ? 'invert' : ''}`} src={image} alt="" />
-        </div>
+        <IconCircle iconPath={image} size="144px" isOverParent={isOver}/>
+
       </header>
       <main className="flex flex-col items-center text-center gap-[16px]">
         <h1 className="text-3xl font-bold mt-[16px]">{title}</h1>
