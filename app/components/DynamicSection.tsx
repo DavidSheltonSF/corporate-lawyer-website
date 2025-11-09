@@ -1,4 +1,4 @@
-import { Activity, ReactNode, useContext } from 'react';
+import { Activity, ReactNode } from 'react';
 
 interface Props {
   index: number;
@@ -12,7 +12,7 @@ export function DynamicSection({ index, title, selectedSection, children }: Prop
 
   return (
     <Activity mode={isSelected ? 'visible' : 'hidden'}>
-      <section className={`flex flex-col appear-animation text-white text-2xl h-full w-[80%] `}>
+      <section className={`flex flex-col appear-animation text-white text-2xl h-full w-[80%]`}>
         <h1 className="font-bold text-[3rem] my-[40px]">{title}</h1>
         {children}
       </section>
