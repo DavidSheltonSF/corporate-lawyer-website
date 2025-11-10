@@ -7,6 +7,22 @@
   }
 }
 
+@keyframes bounce-x {
+  0% {
+    transform: translateX(0px);
+  }
+  50% {
+    transform: translateX(-8px);
+  }
+ 50% {
+    transform: translateX(8px);
+  }
+}
+
 .appear-animation {
-  animation: appear 1s ease both;
+  animation: appear 800ms ease both;
+}
+
+.bounce-x-animation {
+  animation: bounce-x 800ms ease infinite;
 }
