@@ -11,7 +11,7 @@ export default function Home() {
 
   const professionalsData = [
     {
-      imagePath: 'photos/carla.png',
+      imagePath: 'photos/carla-224px.webp',
       title: 'Dr. Carla Medeiros',
       description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero aliquam non fugit magnam
             facere nam iusto sint natus libero dignissimos! Nesciunt animi provident, asperiores aut
@@ -21,7 +21,7 @@ export default function Home() {
       whatsAppLink: '#',
     },
     {
-      imagePath: 'photos/flavia.png',
+      imagePath: 'photos/flavia-224px.webp',
       title: 'Dr. Flávia Santiago',
       description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero aliquam non fugit magnam
             facere nam iusto sint natus libero dignissimos! Nesciunt animi provident, asperiores aut
