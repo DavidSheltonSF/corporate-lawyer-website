@@ -85,28 +85,28 @@ export default function Home() {
                 >
                   <ServiceCard
                     title="Família"
-                    image="icons/familia.png"
+                    image="icons/familia.svg"
                     content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dicta, incidunt cum
           sapiente libero officiis beatae recusandae quidem, magnam illum adipisci aspernatur, in
           vero similique vitae autem aliquid natus nisi."
                   />
                   <ServiceCard
                     title="Trabalhista"
-                    image="icons/trabalhista.png"
+                    image="icons/trabalhista.svg"
                     content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dicta, incidunt cum
           sapiente libero officiis beatae recusandae quidem, magnam illum adipisci aspernatur, in
           vero similique vitae autem aliquid natus nisi."
                   />
                   <ServiceCard
                     title="Cívil"
-                    image="icons/civil.png"
+                    image="icons/civil.svg"
                     content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dicta, incidunt cum
           sapiente libero officiis beatae recusandae quidem, magnam illum adipisci aspernatur, in
           vero similique vitae autem aliquid natus nisi."
                   />
                   <ServiceCard
                     title="Previdenciário"
-                    image="icons/previdenciario.png"
+                    image="icons/previdenciario.svg"
                     content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dicta, incidunt cum
           sapiente libero officiis beatae recusandae quidem, magnam illum adipisci aspernatur, in
           vero similique vitae autem aliquid natus nisi."
