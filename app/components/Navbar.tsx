@@ -10,8 +10,8 @@ export function Navbar() {
       </div>
       <div>
         <ul className="flex items-center justify-center gap-[24px] text-color-white text-[24px]">
-          <NavbarItem name="Início" link="#" />
-          <NavbarItem name="Contato" link="#" />
+          <NavbarItem name="Início" link="/" />
+          <NavbarItem name="Contato" link="/contact" />
           <NavbarItem name="Blog" link="#" />
           <NavbarItem name="Página do Cliente" link="#" />
         </ul>
