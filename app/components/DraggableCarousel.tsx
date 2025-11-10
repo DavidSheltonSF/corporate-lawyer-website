@@ -66,11 +66,17 @@ export function DraggableCarousel({ additionalStyles, gap, children }: Props) {
         {children}
       </div>
       <div
-        className={`absolute left-[8px] top-[50%] translate-y-[-50%] ${inStart ? 'hidden' : ''}`}
+        className={`bounce-x-animation absolute left-[8px] top-[50%] translate-y-[-50%] ${
+          inStart ? 'hidden' : ''
+        }`}
       >
         <img className="size-[80px]" src="icons/arrow-back.svg" alt="" />
       </div>
-      <div className={`absolute right-0 top-[50%] translate-y-[-50%] ${inEnd ? 'hidden' : ''}`}>
+      <div
+        className={`bounce-x-animation absolute right-0 top-[50%] translate-y-[-50%] ${
+          inEnd ? 'hidden' : ''
+        }`}
+      >
         <img className="size-[80px]" src="icons/arrow-forward.svg" alt="" />
       </div>
     </div>
