@@ -19,23 +19,22 @@ export default function Contact() {
             action=""
           >
             <div className="flex flex-col gap-[8px] w-full">
-              <label className="" htmlFor="input-email">
+              <label className="" htmlFor="input-name">
                 Nome
               </label>
               <div className="flex justify-between">
                 <span className="flex gap-[8px] border-b-[2px] border-color-primary-light w-[48%]">
                   <img className="size-[32px]" src="icons/user-primary-light.svg" alt="" />
                   <input
-                    id="input-email"
-                    className="flex-1 placeholder:text-[var(--primary-color-light)]"
+                    id="input-name"
+                    className="w-full placeholder:text-[var(--primary-color-light)]"
                     type="text"
                     placeholder="Primeiro"
                   />
                 </span>
                 <span className="flex border-b-[2px] border-color-primary-light w-[48%]">
                   <input
-                    id="input-email"
-                    className="flex-1 placeholder:text-[var(--primary-color-light)]"
+                    className="w-full placeholder:text-[var(--primary-color-light)]"
                     type="text"
                     placeholder="Segundo"
                   />
