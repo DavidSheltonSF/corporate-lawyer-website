@@ -5,12 +5,15 @@ import React, { ReactNode, useState } from 'react';
 interface Props {
   additionalStyles: string;
   children: ReactNode;
+  gap: number;
 }
 
-export function DraggableCarousel({ additionalStyles, children }: Props) {
+export function DraggableCarousel({ additionalStyles, gap, children }: Props) {
   const [isDown, setIsDown] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+  const [inStart, setInStart] = useState(true);
+  const [inEnd, setInEnd] = useState(false);
 
   const carouselContainer = document.querySelector('.drag-carousel-container') as HTMLElement;
 
@@ -35,17 +38,41 @@ export function DraggableCarousel({ additionalStyles, children }: Props) {
     let x = e.pageX - carouselContainer.offsetLeft;
     let walk = (x - startX) * 1.5;
     carouselContainer.scrollLeft = scrollLeft - walk;
+    checkPosition();
+  }
+
+  function checkPosition() {
+    const currentScrollLeft = carouselContainer.scrollLeft;
+    const visibleWidth = carouselContainer.clientWidth;
+    const totalWidth = carouselContainer.scrollWidth;
+
+    const isInStart = currentScrollLeft < 160;
+    setInStart(isInStart ? true : false);
+
+    const isInEnd = currentScrollLeft + 5 >= totalWidth - visibleWidth;
+    setInEnd(isInEnd ? true : false);
   }
 
   return (
-    <div
-      className={`drag-carousel-container flex items-center overflow-x-auto gap-[80px] no-scrollbar active:cursor-grab px-[80px] ${additionalStyles}`}
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-    >
-      {children}
+    <div className="relative">
+      <div
+        className={`drag-carousel-container flex items-center overflow-x-auto no-scrollbar active:cursor-grab ${additionalStyles}`}
+        style={{ gap, paddingInline: gap }}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+      >
+        {children}
+      </div>
+      <div
+        className={`absolute left-[8px] top-[50%] translate-y-[-50%] ${inStart ? 'hidden' : ''}`}
+      >
+        <img className="size-[80px]" src="icons/arrow-back.svg" alt="" />
+      </div>
+      <div className={`absolute right-0 top-[50%] translate-y-[-50%] ${inEnd ? 'hidden' : ''}`}>
+        <img className="size-[80px]" src="icons/arrow-forward.svg" alt="" />
+      </div>
     </div>
   );
 }
