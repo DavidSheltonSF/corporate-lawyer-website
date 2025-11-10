@@ -10,6 +10,10 @@
   --blue-gradient: linear-gradient(90deg,rgba(7, 93, 163, 1) 16%, rgba(1, 71, 128, 1) 55%, rgba(3, 42, 73, 1) 84%);;
 }
 
+input {
+  outline: none;
+}
+
 * {
   box-sizing: border-box;
 }
