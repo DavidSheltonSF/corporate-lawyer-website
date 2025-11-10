@@ -5,6 +5,7 @@ import { SubNavbar } from './components/SubNavbar';
 import { ServiceCard } from './components/ServiceCard';
 import { DraggableCarousel } from './components/DraggableCarousel';
 import { ProfessionalCard } from './components/ProfessionalCard';
+import { HeroSection } from './components/HeroSection';
 
 export default function Home() {
   const [selectedSection, setSelectedSection] = useState(0);
@@ -34,11 +35,11 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen items-center bg-zinc-50 font-sans bg-color-white">
-      <div className="flex items-end bg-[url(/hero-image.webp)] w-full h-[728px] bg-cover bg-center">
-        <h1 className="text-[64px] font-bold text-white w-[936px] ml-[160px] mb-[40px]">
-          ESCRITÓRIO DE ADVOCACIA MEDEIROS E SANTIAGO
-        </h1>
-      </div>
+      <HeroSection additionalStyles="h-[728px] pt-[488px]" background="url(/hero-image.webp)">
+        <div className="flex flex-col ml-[160px] w-[936px] text-color-white pb-[40px]">
+          <h1 className="text-[64px] font-bold">ESCRITÓRIO DE ADVOCACIA MEDEIROS E SANTIAGO</h1>
+        </div>
+      </HeroSection>
       <main className="w-full">
         <section className="flex flex-col items-center bg-color-black w-full min-h-[90vh] h-auto pb-[80px]">
           <SubNavbar
