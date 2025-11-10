@@ -6,6 +6,7 @@
   --primary-color: #032a49;
   --secondary-color: #e9d07f;
   --bright-yellow-shadow: 0 0 10px 5px #e9d07f8f;
+  --blue-gradient: linear-gradient(90deg,rgba(7, 93, 163, 1) 16%, rgba(1, 71, 128, 1) 55%, rgba(3, 42, 73, 1) 84%);;
 }
 
 * {
