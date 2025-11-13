@@ -9,7 +9,7 @@ interface Props {
 export function HeroSection({ background, additionalStyles, children }: Props) {
   return (
     <div
-      className={`flex text-2xl font-bold w-full ${additionalStyles}`}
+      className={`flex items-end font-bold w-full ${additionalStyles}`}
       style={{
         background,
         backgroundPosition: 'center',
