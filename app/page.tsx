@@ -47,9 +47,14 @@ export default function Home() {
             selectedSection={selectedSection}
             setSelectedSection={setSelectedSection}
           />
-          <div className="flex justify-center items-center w-full h-full">
-            <DynamicSection index={0} title="Sobre Nós" selectedSection={selectedSection}>
-              <div className="flex flex-col gap-[32px] w-[736px]">
+          <div className="flex justify-center items-center w-[80%] h-full">
+            <DynamicSection
+              index={0}
+              title="Sobre Nós"
+              selectedSection={selectedSection}
+              additionalStyle="text-[1rem] min-lg:text-[2em]"
+            >
+              <div className="flex flex-col gap-[32px] w-full">
                 <div className="flex flex-col gap-[24px]">
                   <h3 className="text-color-secondary font-bold">Somos experiêntes</h3>
                   <p>
@@ -59,19 +64,19 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="flex flex-col gap-[24px]">
-                  <h3 className="text-color-secondary font-bold">Somos experiêntes</h3>
+                  <h3 className="text-color-secondary font-bold">Diversificados</h3>
                   <p>
-                    Com mais de 5 anos prestando atendimento com empatia, ética e dedicação, somos
-                    um escritório de advocacia comprometido em oferecer soluções jurídicas eficazes
-                    e humanizadas.
+                    Atuamos em diversas áreas do Direito, com destaque para Direito de Família,
+                    Previdenciário, Trabalhista e Civil, sempre buscando garantir os melhores
+                    resultados para cada cliente, de forma personalizada e transparente.
                   </p>
                 </div>
                 <div className="flex flex-col gap-[24px]">
-                  <h3 className="text-color-secondary font-bold">Somos experiêntes</h3>
+                  <h3 className="text-color-secondary font-bold">Também somos adaptáveis</h3>
                   <p>
-                    Com mais de 5 anos prestando atendimento com empatia, ética e dedicação, somos
-                    um escritório de advocacia comprometido em oferecer soluções jurídicas eficazes
-                    e humanizadas.
+                    Além disso, somos um escritório moderno e adaptável, que utiliza tecnologias
+                    inovadoras para agilizar atendimentos, acompanhar processos e oferecer suporte
+                    jurídico de excelência, onde quer que você esteja.
                   </p>
                 </div>
               </div>
