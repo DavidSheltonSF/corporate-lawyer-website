@@ -67,3 +67,7 @@ body {
 .no-scrollbar {
   scrollbar-width: none;
 }
+
+.navbar-menu.active {
+  height: auto;
+}
