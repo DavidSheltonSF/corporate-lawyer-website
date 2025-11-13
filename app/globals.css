@@ -69,5 +69,5 @@ body {
 }
 
 .navbar-menu.active {
-  height: auto;
+  height: 256px;
 }
