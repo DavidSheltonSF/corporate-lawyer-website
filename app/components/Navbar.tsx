@@ -27,7 +27,7 @@ export function Navbar() {
           <NavbarItem name="Página do Cliente" link="#" />
         </ul>
       </div>
-      <button className="min-lg:hidden" onClick={toggleMenu}>
+      <button className="min-md:hidden" onClick={toggleMenu}>
         <img className="size-[48px]" src="icons/menu.svg" alt="" />
       </button>
     </nav>
