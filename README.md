@@ -2,6 +2,8 @@
 
 This website was made to be easy to use and intuitive. Here people can see information about the firm.
 
+ [Click here to access the website](https://corporate-lawyer-website.onrender.com/)
+
 
 ## Technologies:
 ### Front-end
