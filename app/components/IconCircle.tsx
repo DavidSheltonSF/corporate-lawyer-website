@@ -1,18 +1,17 @@
 interface Props {
   iconPath: string;
   isOverParent?: boolean;
-  size: string;
+  additionalStyles?: string;
 }
 
 export function IconCircle(props: Props) {
-  const { iconPath, isOverParent, size } = props;
+  const { iconPath, isOverParent , additionalStyles} = props;
 
   return (
     <div
       className={`flex items-center justify-center rounded-full bg-color-secondary  overflow-hidden mt-[16px] cursor-pointer ${
         isOverParent ? 'shadow-[var(--bright-yellow-shadow)]' : ''
-      }`}
-      style={{ width: size, height: size }}
+      } ${additionalStyles}`}
     >
       <img
         className={`size-[68%] hover:invert  ${isOverParent ? 'invert' : ''}`}
