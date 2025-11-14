@@ -15,7 +15,7 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
 
   function renderSpecializations(): ReactNode {
     return specializations.map((specialization, index) => {
-      return <IconCircle key={`${index}-professional-specialization`} iconPath={`icons/${specialization}.svg`} size="56px" />;
+      return <IconCircle key={`${index}-professional-specialization`} iconPath={`icons/${specialization}.svg`} additionalStyles="size-[56px]" />;
     });
   }
   return (
