@@ -37,7 +37,6 @@ export function DraggableCarousel({ additionalStyles, children }: Props) {
     let x = e.pageX - carouselContainer.offsetLeft;
     let walk = (x - startX) * 1.5;
     carouselContainer.scrollLeft = scrollLeft - walk;
-    checkPosition();
   }
 
   function checkPosition() {
@@ -60,6 +59,7 @@ export function DraggableCarousel({ additionalStyles, children }: Props) {
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        onScroll={checkPosition}
       >
         {children}
       </div>
