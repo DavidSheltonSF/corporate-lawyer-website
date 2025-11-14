@@ -5,10 +5,9 @@ import React, { ReactNode, useState } from 'react';
 interface Props {
   additionalStyles: string;
   children: ReactNode;
-  gap: number;
 }
 
-export function DraggableCarousel({ additionalStyles, gap, children }: Props) {
+export function DraggableCarousel({ additionalStyles, children }: Props) {
   const [isDown, setIsDown] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
@@ -57,7 +56,6 @@ export function DraggableCarousel({ additionalStyles, gap, children }: Props) {
     <div className="relative">
       <div
         className={`drag-carousel-container flex items-center overflow-x-auto no-scrollbar active:cursor-grab ${additionalStyles}`}
-        style={{ gap, paddingInline: gap }}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
