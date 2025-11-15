@@ -22,11 +22,11 @@ export function NavbarItem(props: Props) {
 
   return (
     <li
-      className="flex flex-col justify-between items-between h-full"
+      className="flex flex-col justify-between items-between"
       onMouseOver={handleMouseEnter}
       onMouseOut={handleMouseOut}
     >
-      <Link href={`${link}`} className="text-color-white text-[24px] mt-[5px]">
+      <Link href={`${link}`} className="text-color-white">
         {name}
       </Link>
       <span
