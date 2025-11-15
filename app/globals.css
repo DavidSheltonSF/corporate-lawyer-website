@@ -71,3 +71,7 @@ body {
 .navbar-menu.active {
   height: 30vh;
 }
+
+.invertedImage {
+  filter: invert();
+}
