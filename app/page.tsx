@@ -54,9 +54,9 @@ export default function Home() {
               index={0}
               title="Sobre Nós"
               selectedSection={selectedSection}
-              additionalStyle="text-[1rem] min-lg:text-[2em]"
+              additionalStyle="text-[1rem] lg:text-[1rem]"
             >
-              <div className="flex flex-col gap-[32px] w-full">
+              <div className="flex flex-col gap-[32px] w-[70%]">
                 <div className="flex flex-col gap-[24px]">
                   <h3 className="text-color-secondary font-bold">Somos experiêntes</h3>
                   <p>
