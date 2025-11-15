@@ -37,7 +37,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen items-center bg-zinc-50 font-sans bg-color-white">
       <HeroSection additionalStyles="h-[50vh] min-lg:h-[70vh]" background="url(/hero-image.webp)">
         <div className="flex flex-col justify-end w-full mb-[40px] max-md:px-[40px] min-lg:pl-[80px] bg-[var(--black-color)]/40 h-fit text-color-white">
-          <h1 className="text-[1.5rem] min-lg:text-[3rem]  font-bold min-lg:w-[50%]">
+          <h1 className="text-[1.5rem] lg:text-[2rem] font-bold lg:w-[50%]">
             ESCRITÓRIO DE ADVOCACIA MEDEIROS E SANTIAGO
           </h1>
         </div>
