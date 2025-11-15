@@ -52,7 +52,7 @@ export function DraggableCarousel({ additionalStyles, children }: Props) {
   }
 
   return (
-    <div className="relative">
+    <div className="relative w-full h-full">
       <div
         className={`drag-carousel-container flex items-center overflow-x-auto no-scrollbar active:cursor-grab ${additionalStyles}`}
         onMouseDown={handleMouseDown}

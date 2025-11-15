@@ -21,16 +21,20 @@ export function ServiceCard(props: Props) {
 
   return (
     <article
-      className="flex flex-col w-[calc((100%-160px)/3)] max-md:w-full h-[440px] shrink-0"
+      className="flex flex-col w-full h-[440px] lg:h-auto lg:w-[calc((100%-160px)/3)] shrink-0"
       onMouseOver={handleMouseOver}
       onMouseLeave={handleMouseLeave}
     >
       <header className="flex justify-center">
-        <IconCircle iconPath={image} additionalStyles="size-[144px] max-md:size-[116px]" isOverParent={isOver} />
+        <IconCircle
+          iconPath={image}
+          additionalStyles="size-[116px] lg:size-[80px]"
+          isOverParent={isOver}
+        />
       </header>
       <main className="flex flex-col items-center text-center gap-[16px]">
-        <h1 className="text-3xl font-bold mt-[16px]">{title}</h1>
-        <p className="w-[92%] text-xl max-md:text-lg">{content}</p>
+        <h1 className="text-3xl lg:text-xl font-bold mt-[16px]">{title}</h1>
+        <p className="w-[92%] lg:w-auto text-xl lg:text-sm">{content}</p>
       </main>
     </article>
   );
