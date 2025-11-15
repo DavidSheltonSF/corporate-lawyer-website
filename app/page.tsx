@@ -85,7 +85,7 @@ export default function Home() {
             </DynamicSection>
             <DynamicSection index={1} title="Serviços" selectedSection={selectedSection}>
               <div className="flex flex-col gap-[32px] w-full h-full flex-1">
-                <DraggableCarousel additionalStyles="w-full h-[512px] bg-black select-none rounded-xl gap-[80px] max-md:px-[16px] px-[80px]">
+                <DraggableCarousel additionalStyles="min-h-[50vh] h-auto bg-black select-none rounded-xl gap-[16px] lg:gap-[80px] p-[16px] lg:px-[80px]">
                   <ServiceCard
                     title="Família"
                     image="icons/familia.svg"
