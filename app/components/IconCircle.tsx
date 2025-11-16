@@ -19,7 +19,7 @@ export function IconCircle(props: Props) {
 
   return (
     <div
-      className={`flex items-center justify-center rounded-full bg-color-secondary  overflow-hidden mt-[16px] cursor-pointer ${
+      className={`flex items-center justify-center rounded-full bg-color-secondary  overflow-hidden cursor-pointer ${
         isOverParent ? 'shadow-[var(--bright-yellow-shadow)]' : ''
       } ${additionalStyles}`}
       onMouseOver={handleMouseOver}
