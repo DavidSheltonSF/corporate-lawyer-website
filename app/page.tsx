@@ -54,11 +54,11 @@ export default function Home() {
               index={0}
               title="Sobre Nós"
               selectedSection={selectedSection}
-              additionalStyle="text-[1rem]"
+              additionalStyle="text-[1.5rem]"
             >
               <div className="flex flex-col gap-[32px] lg:w-[70%]">
                 <div className="flex flex-col gap-[16px]">
-                  <h3 className="text-[1.2rem] text-color-secondary font-bold">
+                  <h3 className="text-[1.7rem] text-color-secondary font-bold">
                     Somos experiêntes
                   </h3>
                   <p>
@@ -68,7 +68,7 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="flex flex-col gap-[16px]">
-                  <h3 className="text-[1.2rem] text-color-secondary font-bold">Diversificados</h3>
+                  <h3 className="text-[1.7rem] ] text-color-secondary font-bold">Diversificados</h3>
                   <p>
                     Atuamos em diversas áreas do Direito, com destaque para Direito de Família,
                     Previdenciário, Trabalhista e Civil, sempre buscando garantir os melhores
@@ -76,7 +76,7 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="flex flex-col gap-[16px]">
-                  <h3 className="text-[1.2rem] text-color-secondary font-bold">
+                  <h3 className="text-[1.7rem] text-color-secondary font-bold">
                     Também somos adaptáveis
                   </h3>
                   <p>
