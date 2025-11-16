@@ -9,7 +9,7 @@ export function Navbar() {
   }
 
   return (
-    <nav className="absolute top-0 flex justify-between items-center bg-[var(--black-color)]/48 w-full h-auto py-[4px] px-[40px] max-md:px-[24px]">
+    <nav className="absolute top-0 flex justify-between items-center bg-[var(--black-color)]/48 w-full h-auto py-[4px] px-[24px] lg:px-[40px]">
       <div>
         <a href="#">
           <img
