@@ -33,7 +33,7 @@ export function SubNavbarItem(props: Props) {
       onMouseOver={handleMouseEnter}
       onMouseOut={handleMouseOut}
     >
-      <span className="text-color-white text-[1.5rem] lg:text-[1rem]">{name}</span>
+      <span className="text-color-white text-[1.5rem]">{name}</span>
       <span
         className={`absolute bottom-0 bg-color-secondary h-[2px] transition-all ${
           isOver || isSelected ? 'left-0 w-full' : 'right-0 w-0'
