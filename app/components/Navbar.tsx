@@ -13,14 +13,14 @@ export function Navbar() {
       <div>
         <a href="#">
           <img
-            className="size-[56px] lg:size-[40px]"
+            className="size-[56px]"
             src="./website-logo-with-circle-72px.webp"
             alt="website-logo"
           />
         </a>
       </div>
       <div className="navbar-menu flex justify-center absolute lg:static left-0 top-[100%] w-full lg:w-auto bg-[var(--black-color)]/75 lg:bg-transparent h-0 lg:h-auto overflow-hidden transition-height duration-300">
-        <ul className="flex flex-col lg:flex-row items-center justify-center gap-[16px] lg:gap-[24px] text-color-white text-[1.5rem] lg:text-[1rem]">
+        <ul className="flex flex-col lg:flex-row items-center justify-center gap-[16px] lg:gap-[24px] text-color-white text-[1.5rem]">
           <NavbarItem name="Início" link="/" />
           <NavbarItem name="Contato" link="#" />
           <NavbarItem name="Blog" link="#" />
