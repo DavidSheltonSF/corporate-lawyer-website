@@ -19,7 +19,7 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
         <IconCircle
           key={`${index}-professional-specialization`}
           iconPath={`icons/${specialization}.svg`}
-          additionalStyles="size-[56px] :size-[48px]"
+          additionalStyles="size-[56px] lg:size-[48px]"
         />
       );
     });
@@ -32,7 +32,7 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
         </div>
         <div className="flex lg:w-[70%] flex-col gap-[8px] px-[16px] pb-[16px]">
           <h3 className="text-2xl lg:mt-[24px] font-bold text-color-secondary">{title}</h3>
-          <p className="w-full text-xl">{description}</p>
+          <p className="w-full text-base">{description}</p>
         </div>
       </main>
       <footer className="flex h-fit border-t border-[var(--secondary-color)] md:text-xl">
