@@ -21,7 +21,7 @@ export function ServiceCard(props: Props) {
 
   return (
     <article
-      className="flex flex-col w-full h-[440px] lg:h-auto lg:w-[calc((100%-160px)/3)] shrink-0"
+      className="flex flex-col w-full h-[440px] lg:h-auto lg:w-[calc((100%-112px)/3)] shrink-0"
       onMouseOver={handleMouseOver}
       onMouseLeave={handleMouseLeave}
     >
