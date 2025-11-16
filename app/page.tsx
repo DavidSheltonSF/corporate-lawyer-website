@@ -89,30 +89,22 @@ export default function Home() {
                   <ServiceCard
                     title="Família"
                     image="icons/familia.svg"
-                    content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dicta, incidunt cum
-          sapiente libero officiis beatae recusandae quidem, magnam illum adipisci aspernatur, in
-          vero similique vitae autem aliquid natus nisi."
+                    content="Cuidamos de casos com sensibilidade e respeito, oferecendo suporte jurídico em divórcios, pensões alimentícias, guarda de filhos, uniões estáveis e inventários. Nosso objetivo é promover acordos justos e preservar o bem-estar familiar."
                   />
                   <ServiceCard
                     title="Trabalhista"
                     image="icons/trabalhista.svg"
-                    content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dicta, incidunt cum
-          sapiente libero officiis beatae recusandae quidem, magnam illum adipisci aspernatur, in
-          vero similique vitae autem aliquid natus nisi."
+                    content="Representamos empregados e empregadores em questões relacionadas a rescisões, horas extras, indenizações, assédio e direitos trabalhistas. Trabalhamos para assegurar que as relações de trabalho sejam justas e equilibradas."
                   />
                   <ServiceCard
                     title="Cívil"
                     image="icons/civil.svg"
-                    content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dicta, incidunt cum
-          sapiente libero officiis beatae recusandae quidem, magnam illum adipisci aspernatur, in
-          vero similique vitae autem aliquid natus nisi."
+                    content="Atuamos na resolução de conflitos e proteção de direitos em contratos, responsabilidade civil, cobranças e indenizações. Buscamos sempre soluções rápidas, seguras e eficientes, seja pela via judicial ou extrajudicial."
                   />
                   <ServiceCard
                     title="Previdenciário"
                     image="icons/previdenciario.svg"
-                    content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat dicta, incidunt cum
-          sapiente libero officiis beatae recusandae quidem, magnam illum adipisci aspernatur, in
-          vero similique vitae autem aliquid natus nisi."
+                    content="Defendemos os direitos de quem contribuiu durante toda a vida. Atuamos em processos de aposentadoria, pensões, auxílios e revisões de benefícios, garantindo que nossos clientes recebam o que é justo e de forma ágil."
                   />
                 </DraggableCarousel>
               </div>
