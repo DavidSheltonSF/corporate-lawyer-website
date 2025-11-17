@@ -3,11 +3,11 @@
 :root {
   --white-color: #f9fafb;
   --black-color: #2c2c2c;
+  --black-color-dark: #1d1c1c;
   --primary-color: #032a49;
   --primary-color-light: #0475d1;
   --secondary-color: #e9d07f;
-  --bright-yellow-shadow: 0 0 10px 5px #e9d07f8f;
-  --blue-gradient: linear-gradient(90deg,rgba(7, 93, 163, 1) 16%, rgba(1, 71, 128, 1) 55%, rgba(3, 42, 73, 1) 84%);;
+  --bright-yellow-shadow: 0 0 10pxecc030 5px #e9d07f8f;
 }
 
 input {
@@ -24,6 +24,10 @@ body {
 
 .bg-color-black {
   background-color: var(--black-color);
+}
+
+.bg-color-black-dark {
+  background-color: var(--black-color-dark);
 }
 
 .bg-color-white {
@@ -44,6 +48,10 @@ body {
 
 .text-color-white {
   color: var(--white-color);
+}
+
+.text-color-black {
+  color: var(--black-color);
 }
 
 .text-color-secondary {
