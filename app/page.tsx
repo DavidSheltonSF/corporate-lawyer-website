@@ -6,28 +6,12 @@ import { ServiceCard } from './components/ServiceCard';
 import { DraggableCarousel } from './components/DraggableCarousel';
 import { ProfessionalCard } from './components/ProfessionalCard';
 import { HeroSection } from './components/HeroSection';
+import { professionalsInfo } from './data/professionalsInfo';
 
 export default function Home() {
   const [selectedSection, setSelectedSection] = useState(0);
 
- const professionalsData = [
-   {
-     imagePath: 'photos/carla-224px.webp',
-     title: 'Dr. Carla Medeiros',
-     description: `Profissional dedicada à defesa dos direitos do trabalhador e do segurado, atuando com precisão em causas previdenciárias e trabalhistas. Sempre comprometida em garantir benefícios, solucionar conflitos e oferecer orientação clara e humanizada.`,
-     specializations: ['trabalhista', 'previdenciario'],
-     emailLink: '#',
-     whatsAppLink: '#',
-   },
-   {
-     imagePath: 'photos/flavia-224px.webp',
-     title: 'Dr. Flávia Santiago',
-     description: `Especialista em Direito de Família e Direito Cível, com foco em resolver conflitos de forma sensível, estratégica e eficiente. Atua em divórcios, guarda, pensão, contratos e questões patrimoniais, sempre priorizando o bem-estar e a segurança jurídica do cliente.`,
-     specializations: ['familia', 'civil'],
-     emailLink: '#',
-     whatsAppLink: '#',
-   },
- ];
+
 
 
   return (
@@ -112,8 +96,8 @@ export default function Home() {
             </DynamicSection>
             <DynamicSection index={2} title="Equipe" selectedSection={selectedSection}>
               <div className="flex flex-col gap-[40px]">
-                <ProfessionalCard {...professionalsData[0]} />
-                <ProfessionalCard {...professionalsData[1]} />
+                <ProfessionalCard {...professionalsInfo[0]} />
+                <ProfessionalCard {...professionalsInfo[1]} />
               </div>
             </DynamicSection>
           </div>
