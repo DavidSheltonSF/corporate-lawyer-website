@@ -1,11 +1,6 @@
 import { useState } from "react";
+import { ServiceDetails } from "../types/ServiceDetails";
 
-export interface ServiceDetails {
-  title: string;
-  iconPath: string;
-  description: string;
-  services: string[]
-}
 
 export function ServiceDetailsModel({title, services}: ServiceDetails) {
 
