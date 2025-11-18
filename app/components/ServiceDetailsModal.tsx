@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ServiceDetails } from "../types/ServiceDetails";
 
 
-export function ServiceDetailsModel({title, services}: ServiceDetails) {
+export function ServiceDetailsModal({title, services}: ServiceDetails) {
 
   const [displayed, setDisplayed] = useState(true);
 

@@ -8,6 +8,7 @@ import { ProfessionalCard } from './components/ProfessionalCard';
 import { HeroSection } from './components/HeroSection';
 import { professionalsInfo } from './data/professionalsInfo';
 import { servicesDetails } from './data/servicesDetails';
+import { ServiceDetailsModal } from './components/ServiceDetailsModal';
 
 export default function Home() {
   const [selectedSection, setSelectedSection] = useState(0);
