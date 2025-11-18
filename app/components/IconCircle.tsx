@@ -4,7 +4,7 @@ interface Props {
   iconPath: string;
   isOverParent?: boolean;
   additionalStyles?: string;
-  onClickHandler: ReactEventHandler;
+  onClickHandler?: ReactEventHandler;
 }
 
 export function IconCircle(props: Props) {
