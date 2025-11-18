@@ -1,14 +1,9 @@
 import { useState } from 'react';
 import { IconCircle } from './IconCircle';
+import { ServiceDetails } from '../types/ServiceDetails';
 
-interface Props {
-  title: string;
-  image: string;
-  content: string;
-}
 
-export function ServiceCard(props: Props) {
-  const { title, image, content } = props;
+export function ServiceCard(serviceDetails: ServiceDetails) {
   const [isOver, setIsOver] = useState(false);
 
   function handleMouseOver() {
@@ -19,6 +14,8 @@ export function ServiceCard(props: Props) {
     setIsOver(false);
   }
 
+  const {title, iconPath, description} = serviceDetails
+
   return (
     <article
       className="flex flex-col w-full h-[440px] lg:h-auto lg:w-[calc((100%-160px)/3)] shrink-0"
@@ -27,14 +24,14 @@ export function ServiceCard(props: Props) {
     >
       <header className="flex justify-center">
         <IconCircle
-          iconPath={image}
+          iconPath={iconPath}
           additionalStyles="size-[116px]"
           isOverParent={isOver}
         />
       </header>
       <main className="flex flex-col items-center text-center gap-[16px]">
         <h1 className="text-3xl lfont-bold mt-[16px]">{title}</h1>
-        <p className="w-[92%] lg:w-auto text-xl">{content}</p>
+        <p className="w-[92%] lg:w-auto text-xl">{description}</p>
       </main>
     </article>
   );
