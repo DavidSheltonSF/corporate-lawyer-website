@@ -1,11 +1,14 @@
+import { ReactEventHandler } from 'react';
+
 interface Props {
   iconPath: string;
   isOverParent?: boolean;
   additionalStyles?: string;
+  onClickHandler: ReactEventHandler;
 }
 
 export function IconCircle(props: Props) {
-  const { iconPath, isOverParent, additionalStyles } = props;
+  const { iconPath, isOverParent, additionalStyles, onClickHandler } = props;
 
   function handleMouseOver(e: React.MouseEvent<HTMLElement>) {
     const iconImage = e.currentTarget.querySelector('.icon-image');
@@ -24,6 +27,7 @@ export function IconCircle(props: Props) {
       } ${additionalStyles}`}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
+      onClick={onClickHandler}
     >
       <img
         className={`icon-image size-[68%] hover:invert  ${isOverParent ? 'invert' : ''}`}
