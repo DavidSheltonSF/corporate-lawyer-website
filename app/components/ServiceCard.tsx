@@ -2,8 +2,13 @@ import { useState } from 'react';
 import { IconCircle } from './IconCircle';
 import { ServiceDetails } from '../types/ServiceDetails';
 
+interface Props {
+  serviceDetails: ServiceDetails;
+  setModalIsOpen: any;
+  setModalData: any;
+}
 
-export function ServiceCard(serviceDetails: ServiceDetails) {
+export function ServiceCard({ serviceDetails, setModalIsOpen, setModalData }: Props) {
   const [isOver, setIsOver] = useState(false);
 
   function handleMouseOver() {
@@ -14,7 +19,15 @@ export function ServiceCard(serviceDetails: ServiceDetails) {
     setIsOver(false);
   }
 
-  const {title, iconPath, description} = serviceDetails
+  function handleClick() {
+    setModalIsOpen(true);
+    setModalData({
+      title,
+      services,
+    });
+  }
+
+  const { title, iconPath, description, services } = serviceDetails;
 
   return (
     <article
@@ -24,6 +37,7 @@ export function ServiceCard(serviceDetails: ServiceDetails) {
     >
       <header className="flex justify-center">
         <IconCircle
+          onClickHandler={handleClick}
           iconPath={iconPath}
           additionalStyles="size-[116px]"
           isOverParent={isOver}
