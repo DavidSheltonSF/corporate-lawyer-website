@@ -13,7 +13,7 @@ import { ServiceDetailsModal } from './components/ServiceDetailsModal';
 export default function Home() {
   const [selectedSection, setSelectedSection] = useState(0);
 
-  const [modalIsOpen, setModalIsOpen] = useState(true)
+  const [modalIsOpen, setModalIsOpen] = useState(false)
   const [modalData, setModalData] = useState({
     title: '',
     services: []
