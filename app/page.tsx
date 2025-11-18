@@ -13,11 +13,16 @@ import { ServiceDetailsModal } from './components/ServiceDetailsModal';
 export default function Home() {
   const [selectedSection, setSelectedSection] = useState(0);
 
-
+  const [modalIsOpen, setModalIsOpen] = useState(true)
+  const [modalData, setModalData] = useState({
+    title: '',
+    services: []
+  })
 
 
   return (
     <div className="flex flex-col min-h-screen items-center bg-zinc-50 font-sans bg-color-white">
+      <ServiceDetailsModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} modalData={modalData}/>
       <HeroSection additionalStyles="h-[50vh] min-lg:h-[70vh]" background="url(/hero-image.webp)">
         <div className="flex flex-col justify-end w-full mb-[40px] px-[40px] lg:pl-[160px] bg-[var(--black-color)]/40 h-fit text-color-white">
           <h1 className="text-xl lg:text-5xl font-bold lg:w-[50%]">
@@ -73,10 +78,26 @@ export default function Home() {
             <DynamicSection index={1} title="Serviços" selectedSection={selectedSection}>
               <div className="flex flex-col gap-[32px] w-full h-full flex-1">
                 <DraggableCarousel additionalStyles="min-h-[80vh] lg:min-h-[50vh] h-auto bg-black select-none rounded-xl gap-[16px] lg:gap-[80px] p-[16px] lg:p-[80px]">
-                  <ServiceCard {...servicesDetails['familia']} />
-                  <ServiceCard {...servicesDetails['trabalhista']} />
-                  <ServiceCard {...servicesDetails['civil']} />
-                  <ServiceCard {...servicesDetails['previdenciario']} />
+                  <ServiceCard
+                    serviceDetails={servicesDetails['familia']}
+                    setModalIsOpen={setModalIsOpen}
+                    setModalData={setModalData}
+                  />
+                  <ServiceCard
+                    serviceDetails={servicesDetails['trabalhista']}
+                    setModalIsOpen={setModalIsOpen}
+                    setModalData={setModalData}
+                  />
+                  <ServiceCard
+                    serviceDetails={servicesDetails['civil']}
+                    setModalIsOpen={setModalIsOpen}
+                    setModalData={setModalData}
+                  />
+                  <ServiceCard
+                    serviceDetails={servicesDetails['previdenciario']}
+                    setModalIsOpen={setModalIsOpen}
+                    setModalData={setModalData}
+                  />
                 </DraggableCarousel>
               </div>
             </DynamicSection>
