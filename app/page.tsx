@@ -7,6 +7,7 @@ import { DraggableCarousel } from './components/DraggableCarousel';
 import { ProfessionalCard } from './components/ProfessionalCard';
 import { HeroSection } from './components/HeroSection';
 import { professionalsInfo } from './data/professionalsInfo';
+import { servicesDetails } from './data/servicesDetails';
 
 export default function Home() {
   const [selectedSection, setSelectedSection] = useState(0);
@@ -71,26 +72,10 @@ export default function Home() {
             <DynamicSection index={1} title="Serviços" selectedSection={selectedSection}>
               <div className="flex flex-col gap-[32px] w-full h-full flex-1">
                 <DraggableCarousel additionalStyles="min-h-[80vh] lg:min-h-[50vh] h-auto bg-black select-none rounded-xl gap-[16px] lg:gap-[80px] p-[16px] lg:p-[80px]">
-                  <ServiceCard
-                    title="Família"
-                    image="icons/familia.svg"
-                    content="Cuidamos de casos com sensibilidade e respeito, oferecendo suporte jurídico em divórcios, pensões alimentícias, guarda de filhos, uniões estáveis e inventários. Nosso objetivo é promover acordos justos e preservar o bem-estar familiar."
-                  />
-                  <ServiceCard
-                    title="Trabalhista"
-                    image="icons/trabalhista.svg"
-                    content="Representamos empregados e empregadores em questões relacionadas a rescisões, horas extras, indenizações, assédio e direitos trabalhistas. Trabalhamos para assegurar que as relações de trabalho sejam justas e equilibradas."
-                  />
-                  <ServiceCard
-                    title="Cívil"
-                    image="icons/civil.svg"
-                    content="Atuamos na resolução de conflitos e proteção de direitos em contratos, responsabilidade civil, cobranças e indenizações. Buscamos sempre soluções rápidas, seguras e eficientes, seja pela via judicial ou extrajudicial."
-                  />
-                  <ServiceCard
-                    title="Previdenciário"
-                    image="icons/previdenciario.svg"
-                    content="Defendemos os direitos de quem contribuiu durante toda a vida. Atuamos em processos de aposentadoria, pensões, auxílios e revisões de benefícios, garantindo que nossos clientes recebam o que é justo e de forma ágil."
-                  />
+                  <ServiceCard {...servicesDetails['familia']} />
+                  <ServiceCard {...servicesDetails['trabalhista']} />
+                  <ServiceCard {...servicesDetails['civil']} />
+                  <ServiceCard {...servicesDetails['previdenciario']} />
                 </DraggableCarousel>
               </div>
             </DynamicSection>
