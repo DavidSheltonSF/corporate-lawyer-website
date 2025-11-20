@@ -21,12 +21,8 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
       return (
         <IconCircle
           key={`${index}-professional-specialization`}
-          iconPath={`icons/${specialization}.svg`}
+          serviceAreaId={specialization}
           additionalStyles="size-[56px] lg:size-[48px]"
-          onClickHandler={() => {
-            setModalIsOpen(true);
-            setServiceAreaId(specialization);
-          }}
         />
       );
     });

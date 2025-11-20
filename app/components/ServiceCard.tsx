@@ -4,11 +4,9 @@ import { ServiceDetails } from '../types/ServiceDetails';
 
 interface Props {
   serviceDetails: ServiceDetails;
-  setModalIsOpen: any;
-  setServiceAreaId: any;
 }
 
-export function ServiceCard({ serviceDetails, setModalIsOpen, setServiceAreaId }: Props) {
+export function ServiceCard({ serviceDetails }: Props) {
   const [isOver, setIsOver] = useState(false);
 
   function handleMouseOver() {
@@ -19,12 +17,8 @@ export function ServiceCard({ serviceDetails, setModalIsOpen, setServiceAreaId }
     setIsOver(false);
   }
 
-  function handleClick() {
-    setModalIsOpen(true);
-    setServiceAreaId(id);
-  }
 
-  const {id , title, iconPath, description, services } = serviceDetails;
+  const {id , title, description, services } = serviceDetails;
 
   return (
     <article
@@ -34,8 +28,7 @@ export function ServiceCard({ serviceDetails, setModalIsOpen, setServiceAreaId }
     >
       <header className="flex justify-center">
         <IconCircle
-          onClickHandler={handleClick}
-          iconPath={iconPath}
+          serviceAreaId={id}
           additionalStyles="size-[116px]"
           isOverParent={isOver}
         />

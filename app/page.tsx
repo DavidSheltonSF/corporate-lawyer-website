@@ -84,23 +84,15 @@ export default function Home() {
                   <DraggableCarousel additionalStyles="min-h-[80vh] lg:min-h-[50vh] h-auto bg-black select-none rounded-xl gap-[16px] lg:gap-[80px] p-[16px] lg:p-[80px]">
                     <ServiceCard
                       serviceDetails={servicesDetails['familia']}
-                      setModalIsOpen={setModalIsOpen}
-                      setServiceAreaId={setServiceAreaId}
                     />
                     <ServiceCard
                       serviceDetails={servicesDetails['trabalhista']}
-                      setModalIsOpen={setModalIsOpen}
-                      setServiceAreaId={setServiceAreaId}
                     />
                     <ServiceCard
                       serviceDetails={servicesDetails['civil']}
-                      setModalIsOpen={setModalIsOpen}
-                      setServiceAreaId={setServiceAreaId}
                     />
                     <ServiceCard
                       serviceDetails={servicesDetails['previdenciario']}
-                      setModalIsOpen={setModalIsOpen}
-                      setServiceAreaId={setServiceAreaId}
                     />
                   </DraggableCarousel>
                 </div>
