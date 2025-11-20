@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -7,21 +7,36 @@ interface Props {
 }
 
 export function ModalWindow({ modalIsOpen, setModalIsOpen, children }: Props) {
-  function closeModal() {
+  useEffect(() => {
+    const modalWindow: HTMLElement | null = document.querySelector('.modal-window');
+
+    function openModal() {
+      modalWindow?.classList.remove('hidden');
+      modalWindow?.classList.add('appear-animation');
+      modalWindow?.classList.remove('desappear-animation');
+    }
+
+    function closeModal() {
+      modalWindow?.classList.add('desappear-animation');
+      modalWindow?.classList.remove('appear-animation');
+    }
+
+    modalIsOpen ? openModal() : closeModal();
+  }, [modalIsOpen]);
+
+  function handleClick() {
     setModalIsOpen(false);
   }
 
   return (
     <div
-      className={`flex z-9999 flex-col fixed left-[50%] translate-x-[-50%] top-[10vh] lg:top-[15vh]  w-[80%] lg:w-[30rem] min-h-[25rem] rounded-xl p-[16px] text-color-white font-bold bg-color-black-dark border border-color-secondary ${
-        !modalIsOpen ? 'hidden' : ''
-      }`}
+      className={`flex hidden modal-window z-9999 flex-col fixed left-[50%] translate-x-[-50%] top-[10vh] lg:top-[15vh]  w-[80%] lg:w-[30rem] min-h-[25rem] rounded-xl p-[16px] text-color-white font-bold bg-color-black-dark border border-color-secondary`}
     >
       <div>{children}</div>
 
       <button
         className="self-end w-full lg:w-[88px] rounded-full lg:rounded-md bg-color-secondary text-color-black font-bold py-[8px] cursor-pointer hover:brightness-150"
-        onClick={closeModal}
+        onClick={handleClick}
       >
         Ok
       </button>
