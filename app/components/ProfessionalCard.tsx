@@ -1,5 +1,6 @@
-import { ReactNode } from 'react';
+import { ReactNode, useContext } from 'react';
 import { IconCircle } from './IconCircle';
+import { ModalContext } from '../contexts/ModalContext';
 
 interface ProfessionalCardProps {
   imagePath: string;
@@ -13,6 +14,8 @@ interface ProfessionalCardProps {
 export function ProfessionalCard(props: ProfessionalCardProps) {
   const { imagePath, title, description, specializations, emailLink, whatsAppLink } = props;
 
+  const { setModalIsOpen, setServiceAreaId } = useContext<any | null>(ModalContext);
+
   function renderSpecializations(): ReactNode {
     return specializations.map((specialization, index) => {
       return (
@@ -20,6 +23,10 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
           key={`${index}-professional-specialization`}
           iconPath={`icons/${specialization}.svg`}
           additionalStyles="size-[56px] lg:size-[48px]"
+          onClickHandler={() => {
+            setModalIsOpen(true);
+            setServiceAreaId(specialization);
+          }}
         />
       );
     });
