@@ -2,6 +2,7 @@ import { ServiceDetails } from "../types/ServiceDetails"
 
 export const servicesDetails: Record<string, ServiceDetails> = {
   familia: {
+    id: 'familia',
     title: 'Família',
     iconPath: 'icons/familia.svg',
     description:
@@ -18,6 +19,7 @@ export const servicesDetails: Record<string, ServiceDetails> = {
     ],
   },
   trabalhista: {
+    id: 'trabalhista',
     title: 'Trabalhista',
     iconPath: 'icons/trabalhista.svg',
     description:
@@ -34,6 +36,7 @@ export const servicesDetails: Record<string, ServiceDetails> = {
     ],
   },
   civil: {
+    id: 'civil',
     title: 'Cívil',
     iconPath: 'icons/civil.svg',
     description:
@@ -50,6 +53,7 @@ export const servicesDetails: Record<string, ServiceDetails> = {
     ],
   },
   previdenciario: {
+    id: 'previdenciario',
     title: 'Previdenciário',
     iconPath: 'icons/previdenciario.svg',
     description:
