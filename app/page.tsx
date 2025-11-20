@@ -9,6 +9,7 @@ import { HeroSection } from './components/HeroSection';
 import { professionalsInfo } from './data/professionalsInfo';
 import { servicesDetails } from './data/servicesDetails';
 import { ServiceDetailsModal } from './components/ServiceDetailsModal';
+import { ModalWindow } from './components/ModalWindow';
 
 export default function Home() {
   const [selectedSection, setSelectedSection] = useState(0);
@@ -22,7 +23,11 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen items-center bg-zinc-50 font-sans bg-color-white">
-      <ServiceDetailsModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} modalData={modalData}/>
+      <ModalWindow modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}>
+        <ServiceDetailsModal
+          modalData={modalData}
+        />
+      </ModalWindow>
       <HeroSection additionalStyles="h-[50vh] min-lg:h-[70vh]" background="url(/hero-image.webp)">
         <div className="flex flex-col justify-end w-full mb-[40px] px-[40px] lg:pl-[160px] bg-[var(--black-color)]/40 h-fit text-color-white">
           <h1 className="text-xl lg:text-5xl font-bold lg:w-[50%]">
