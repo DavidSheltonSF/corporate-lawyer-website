@@ -32,7 +32,7 @@ export default function Home() {
         </div>
       </HeroSection>
       <main className="w-full">
-        <ModalContext value={{ modalIsOpen, setModalIsOpen }}>
+        <ModalContext value={{ modalIsOpen, setModalIsOpen, serviceAreaId, setServiceAreaId }}>
           <section className="flex flex-col items-center bg-color-black w-full min-h-[90vh] h-auto pb-[80px]">
             <SubNavbar
               itemsNames={['Sobre nós', 'Serviços', 'Equipe']}
