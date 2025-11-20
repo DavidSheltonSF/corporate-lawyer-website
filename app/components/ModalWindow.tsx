@@ -7,7 +7,7 @@ interface Props {
 }
 
 export function ModalWindow({ modalIsOpen, setModalIsOpen, children }: Props) {
-  function handleClickOk() {
+  function closeModal() {
     setModalIsOpen(false);
   }
 
@@ -21,7 +21,7 @@ export function ModalWindow({ modalIsOpen, setModalIsOpen, children }: Props) {
 
       <button
         className="self-end w-full lg:w-[88px] rounded-full lg:rounded-md bg-color-secondary text-color-black font-bold py-[8px] cursor-pointer hover:brightness-150"
-        onClick={handleClickOk}
+        onClick={closeModal}
       >
         Ok
       </button>
