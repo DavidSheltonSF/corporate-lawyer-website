@@ -5,10 +5,10 @@ import { ServiceDetails } from '../types/ServiceDetails';
 interface Props {
   serviceDetails: ServiceDetails;
   setModalIsOpen: any;
-  setModalData: any;
+  setServiceAreaId: any;
 }
 
-export function ServiceCard({ serviceDetails, setModalIsOpen, setModalData }: Props) {
+export function ServiceCard({ serviceDetails, setModalIsOpen, setServiceAreaId }: Props) {
   const [isOver, setIsOver] = useState(false);
 
   function handleMouseOver() {
@@ -21,13 +21,10 @@ export function ServiceCard({ serviceDetails, setModalIsOpen, setModalData }: Pr
 
   function handleClick() {
     setModalIsOpen(true);
-    setModalData({
-      title,
-      services,
-    });
+    setServiceAreaId(id);
   }
 
-  const { title, iconPath, description, services } = serviceDetails;
+  const {id , title, iconPath, description, services } = serviceDetails;
 
   return (
     <article
