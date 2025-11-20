@@ -30,12 +30,12 @@ export function ModalWindow({ modalIsOpen, setModalIsOpen, children }: Props) {
 
   return (
     <div
-      className={`flex hidden modal-window z-9999 flex-col fixed left-[50%] translate-x-[-50%] top-[10vh] lg:top-[15vh]  w-[80%] lg:w-[30rem] min-h-[25rem] rounded-xl p-[16px] text-color-white font-bold bg-color-black-dark border border-color-secondary`}
+      className={`flex flex-col hidden modal-window z-9999 flex-col fixed left-[50%] translate-x-[-50%] top-[10vh] lg:top-[15vh]  w-[80%] md:w-[50%] lg:w-[30rem] min-h-[25rem] rounded-xl p-[16px] text-color-white font-bold bg-color-black-dark border border-color-secondary`}
     >
       <div>{children}</div>
 
       <button
-        className="self-end w-full lg:w-[88px] rounded-full lg:rounded-md bg-color-secondary text-color-black font-bold py-[8px] cursor-pointer hover:brightness-150"
+        className="self-end w-full rounded-full py-[8px] lg:absolute lg:w-[88px] lg:rounded-md right-[16px] bottom-[16px] bg-color-secondary text-color-black font-bold cursor-pointer hover:brightness-150"
         onClick={handleClick}
       >
         Ok
