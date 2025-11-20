@@ -7,6 +7,15 @@
   }
 }
 
+@keyframes desappear {
+  from {
+  }
+  to {
+    opacity: 0;
+    display: none;
+  }
+}
+
 @keyframes bounce-x {
   0% {
     transform: translateX(0px);
@@ -22,6 +31,11 @@
 .appear-animation {
   animation: appear 800ms ease both;
 }
+
+.desappear-animation {
+  animation: desappear 500ms ease both;
+}
+
 
 .bounce-x-animation {
   animation: bounce-x 800ms ease infinite;
