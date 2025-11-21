@@ -1,6 +1,7 @@
 import { ReactNode, useContext } from 'react';
 import { IconCircle } from './IconCircle';
 import { ModalContext } from '../contexts/ModalContext';
+import { TooltipContainer } from './TooltipContainer';
 
 interface ProfessionalCardProps {
   imagePath: string;
@@ -19,11 +20,20 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
   function renderSpecializations(): ReactNode {
     return specializations.map((specialization, index) => {
       return (
-        <IconCircle
-          key={`${index}-professional-specialization`}
-          serviceAreaId={specialization}
-          additionalStyles="size-[56px] lg:size-[48px]"
-        />
+        <TooltipContainer
+          label={specialization}
+          tooltipLabelProps={{
+            position: 'top',
+            backgroundColor: '#000',
+            fontSize: '16px',
+          }}
+        >
+          <IconCircle
+            key={`${index}-professional-specialization`}
+            serviceAreaId={specialization}
+            additionalStyles="size-[56px] lg:size-[48px]"
+          />
+        </TooltipContainer>
       );
     });
   }
