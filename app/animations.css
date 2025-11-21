@@ -32,6 +32,10 @@
   animation: appear 800ms ease both;
 }
 
+.appear-animation-fast {
+  animation: appear 200ms ease both;
+}
+
 .desappear-animation {
   animation: desappear 500ms ease both;
 }
