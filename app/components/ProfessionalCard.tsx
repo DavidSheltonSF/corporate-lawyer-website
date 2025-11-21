@@ -30,7 +30,7 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
           }}
         >
           <IconCircle
-            key={`${index}-professional-specialization`}
+            key={index}
             serviceAreaId={specialization}
             additionalStyles="size-[56px] lg:size-[48px]"
           />
