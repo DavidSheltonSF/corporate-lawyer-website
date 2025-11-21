@@ -21,6 +21,7 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
     return specializations.map((specialization, index) => {
       return (
         <TooltipContainer
+          key={index}
           label={specialization}
           tooltipLabelProps={{
             position: 'top',
