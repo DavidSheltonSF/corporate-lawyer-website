@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { IconCircle } from './IconCircle';
 import { ServiceDetails } from '../types/ServiceDetails';
+import { TooltipContainer } from './TooltipContainer';
 
 interface Props {
   serviceDetails: ServiceDetails;
@@ -17,8 +18,7 @@ export function ServiceCard({ serviceDetails }: Props) {
     setIsOver(false);
   }
 
-
-  const {id , title, description, services } = serviceDetails;
+  const { id, title, description, services } = serviceDetails;
 
   return (
     <article
@@ -27,11 +27,16 @@ export function ServiceCard({ serviceDetails }: Props) {
       onMouseLeave={handleMouseLeave}
     >
       <header className="flex justify-center">
-        <IconCircle
-          serviceAreaId={id}
-          additionalStyles="size-[116px]"
-          isOverParent={isOver}
-        />
+        <TooltipContainer
+          label={`Serviços - ${title}`}
+          tooltipLabelProps={{
+            position: 'top',
+            fontSize: '24px',
+            color: 'var(--secondary-color)',
+          }}
+        >
+          <IconCircle serviceAreaId={id} additionalStyles="size-[116px]" isOverParent={isOver} />
+        </TooltipContainer>
       </header>
       <main className="flex flex-col items-center text-center gap-[16px]">
         <h1 className="text-3xl lfont-bold mt-[16px]">{title}</h1>
