@@ -37,7 +37,7 @@ export function TooltipLabel({ tooltipLabelProps, children }: Props) {
 
   return (
     <span
-      className={`absolute z-9999 hidden group-hover:block w-max p-[4px] rounded-md ${positionConfig}`}
+      className={`absolute hidden z-9999 group-hover:block appear-animation-fast w-max p-[4px] rounded-md ${positionConfig}`}
       style={{
         color,
         fontSize,
