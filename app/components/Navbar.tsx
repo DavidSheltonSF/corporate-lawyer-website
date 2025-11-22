@@ -15,7 +15,7 @@ export function Navbar() {
           <img
             className="size-[56px]"
             src="./website-logo-with-circle-72px.webp"
-            alt="website-logo"
+            alt="Medeiros e Santiago"
           />
         </a>
       </div>
