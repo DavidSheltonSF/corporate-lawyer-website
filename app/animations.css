@@ -1,4 +1,4 @@
-@keyframes appear {
+@keyframes fade-in {
   from {
     opacity: 0;
   }
@@ -7,7 +7,7 @@
   }
 }
 
-@keyframes desappear {
+@keyframes fade-out {
   from {
   }
   to {
@@ -28,16 +28,16 @@
   }
 }
 
-.appear-animation {
-  animation: appear 800ms ease both;
+.fade-in-animation {
+  animation: fade-in 800ms ease both;
 }
 
-.appear-animation-fast {
-  animation: appear 200ms ease both;
+.fade-in-animation-fast {
+  animation: fade-in 200ms ease both;
 }
 
-.desappear-animation {
-  animation: desappear 500ms ease both;
+.fade-out-animation {
+  animation: fade-out 500ms ease both;
 }
 
 

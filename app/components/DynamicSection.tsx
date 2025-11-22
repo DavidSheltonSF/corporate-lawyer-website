@@ -13,7 +13,7 @@ export function DynamicSection({ index, title, selectedSection, additionalStyle,
 
   return (
     <Activity mode={isSelected ? 'visible' : 'hidden'}>
-      <section className={`flex flex-col appear-animation text-white w-full h-full ${additionalStyle}`}>
+      <section className={`flex flex-col fade-in-animation text-white w-full h-full ${additionalStyle}`}>
         <h1 className="font-bold text-[3rem] my-[40px]">{title}</h1>
         {children}
       </section>
