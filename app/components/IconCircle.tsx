@@ -11,10 +11,10 @@ interface Props {
 export function IconCircle(props: Props) {
   const { serviceAreaId, isOverParent, additionalStyles } = props;
 
-  const serviceArea = servicesDetails[serviceAreaId]
-  const {iconPath} = serviceArea
+  const serviceArea = servicesDetails[serviceAreaId];
+  const { iconPath } = serviceArea;
 
-   const { setModalIsOpen, setServiceAreaId } = useContext<any | null>(ModalContext);
+  const { setModalIsOpen, setServiceAreaId } = useContext<any | null>(ModalContext);
 
   function handleMouseOver(e: React.MouseEvent<HTMLElement>) {
     const iconImage = e.currentTarget.querySelector('.icon-image');
@@ -26,9 +26,9 @@ export function IconCircle(props: Props) {
     iconImage?.classList.remove('invertedImage');
   }
 
-  function handleClick(){
-    setModalIsOpen(true)
-    setServiceAreaId(serviceAreaId)
+  function handleClick() {
+    setModalIsOpen(true);
+    setServiceAreaId(serviceAreaId);
   }
 
   return (
@@ -44,6 +44,7 @@ export function IconCircle(props: Props) {
         className={`icon-image size-[68%] hover:invert  ${isOverParent ? 'invert' : ''}`}
         src={iconPath}
         alt=""
+        loading="lazy"
       />
     </div>
   );
