@@ -59,10 +59,10 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
           <h4 className="hidden md:block font-bold">Contato</h4>
           <span className="flex gap-[16px] m-auto md:ml-0 items-center">
             <a href={emailLink}>
-              <img className="size-[56px] lg:size-[48px]" src="icons/email.svg" alt="" />
+              <img className="size-[56px] lg:size-[48px]" src="icons/email.svg" alt={`Envie um email para ${title}`} />
             </a>
             <a href={whatsAppLink}>
-              <img className="size-[48px] lg:size-[42px]" src="icons/whatsApp.svg" alt="" />
+              <img className="size-[48px] lg:size-[42px]" src="icons/whatsApp.svg" alt={`Envie uma mensagem no WhatsApp para ${title} `} />
             </a>
           </span>
         </div>
