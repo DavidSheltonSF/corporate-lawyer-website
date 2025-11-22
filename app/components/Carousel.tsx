@@ -7,6 +7,8 @@ interface Props {
 
 export function Carousel({ children }: Props) {
   const [index, setIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
 
   const maxIndex = Children.count(children) - 1;
 
@@ -26,9 +28,53 @@ export function Carousel({ children }: Props) {
     setIndex(index - 1);
   }
 
+  function handleTouchStart(e: React.TouchEvent<HTMLElement>) {
+    const carousel = e.currentTarget;
+
+    //first touch
+    const touch = e.touches[0];
+
+    //element position
+    const boxRect = carousel.getBoundingClientRect();
+
+    const xInside = touch.clientX - boxRect.left;
+
+    setTouchStart(xInside);
+    setTouchEnd(xInside);
+  }
+
+  function handleTouchMove(e: React.TouchEvent<HTMLElement>) {
+    const carousel = e.currentTarget;
+
+    //first touch
+    const touch = e.touches[0];
+
+    //element position
+    const carouselPosition = carousel.getBoundingClientRect();
+
+    const xInside = touch.clientX - carouselPosition.left;
+
+    setTouchEnd(xInside);
+  }
+
+  function handleTouchEnd() {
+    if (touchEnd - touchStart > 50) {
+      moveLeft();
+    }
+
+    if (touchStart - touchEnd > 50) {
+      moveRight();
+    }
+  }
+
   return (
     <div className="relative flex items-center justify-center self-center w-full lg:w-[616px]">
-      <div className="h-[580px] w-full md:w-[70%] lg:w-[400px] border border-color-secondary bg-black rounded-xl overflow-hidden">
+      <div
+        className="carousel-wrapper h-[580px] w-full md:w-[70%] lg:w-[400px] border border-color-secondary bg-black rounded-xl overflow-hidden"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         <div
           className="flex size-full transition-[transform] duration-300"
           style={{
