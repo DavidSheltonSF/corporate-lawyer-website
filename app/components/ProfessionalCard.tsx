@@ -1,6 +1,5 @@
-import { ReactNode, useContext } from 'react';
+import { ReactNode } from 'react';
 import { IconCircle } from './IconCircle';
-import { ModalContext } from '../contexts/ModalContext';
 import { TooltipContainer } from './TooltipContainer';
 
 interface ProfessionalCardProps {
@@ -14,9 +13,15 @@ interface ProfessionalCardProps {
 }
 
 export function ProfessionalCard(props: ProfessionalCardProps) {
-  const { imagePath, imageAlternativeText, title, description, specializations, emailLink, whatsAppLink } = props;
-
-  const { setModalIsOpen, setServiceAreaId } = useContext<any | null>(ModalContext);
+  const {
+    imagePath,
+    imageAlternativeText,
+    title,
+    description,
+    specializations,
+    emailLink,
+    whatsAppLink,
+  } = props;
 
   function renderSpecializations(): ReactNode {
     return specializations.map((specialization, index) => {
@@ -43,7 +48,11 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
     <article className="flex self-center lg:self-start flex-col items-between justify-center bg-[#4D3B00] w-full md:w-[70%] lg:w-[760px] rounded-xl border border-[var(--secondary-color)] ">
       <main className="flex flex-col lg:flex-row">
         <div className="flex justify-center items-center lg:h-full p-[16px]">
-          <img className="size-full lg:size-[192px] rounded-xl" src={imagePath} alt={imageAlternativeText} />
+          <img
+            className="size-full lg:size-[192px] rounded-xl"
+            src={imagePath}
+            alt={imageAlternativeText}
+          />
         </div>
         <div className="flex lg:w-[70%] flex-col gap-[8px] px-[16px] pb-[16px]">
           <h3 className="text-2xl lg:mt-[24px] font-bold text-color-secondary">{title}</h3>
@@ -59,10 +68,18 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
           <h4 className="hidden md:block font-bold">Contato</h4>
           <span className="flex gap-[16px] m-auto md:ml-0 items-center">
             <a href={emailLink}>
-              <img className="size-[56px] lg:size-[48px]" src="icons/email.svg" alt={`Envie um email para ${title}`} />
+              <img
+                className="size-[56px] lg:size-[48px]"
+                src="icons/email.svg"
+                alt={`Envie um email para ${title}`}
+              />
             </a>
             <a href={whatsAppLink}>
-              <img className="size-[48px] lg:size-[42px]" src="icons/whatsApp.svg" alt={`Envie uma mensagem no WhatsApp para ${title} `} />
+              <img
+                className="size-[48px] lg:size-[42px]"
+                src="icons/whatsApp.svg"
+                alt={`Envie uma mensagem no WhatsApp para ${title} `}
+              />
             </a>
           </span>
         </div>
