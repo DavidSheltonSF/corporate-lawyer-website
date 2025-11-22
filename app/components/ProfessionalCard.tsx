@@ -5,6 +5,7 @@ import { TooltipContainer } from './TooltipContainer';
 
 interface ProfessionalCardProps {
   imagePath: string;
+  imageAlternativeText?: string;
   title: string;
   description: string;
   specializations: string[];
@@ -13,7 +14,7 @@ interface ProfessionalCardProps {
 }
 
 export function ProfessionalCard(props: ProfessionalCardProps) {
-  const { imagePath, title, description, specializations, emailLink, whatsAppLink } = props;
+  const { imagePath, imageAlternativeText, title, description, specializations, emailLink, whatsAppLink } = props;
 
   const { setModalIsOpen, setServiceAreaId } = useContext<any | null>(ModalContext);
 
@@ -42,7 +43,7 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
     <article className="flex self-center lg:self-start flex-col items-between justify-center bg-[#4D3B00] w-full md:w-[70%] lg:w-[760px] rounded-xl border border-[var(--secondary-color)] ">
       <main className="flex flex-col lg:flex-row">
         <div className="flex justify-center items-center lg:h-full p-[16px]">
-          <img className="size-full lg:size-[192px] rounded-xl" src={imagePath} alt="" />
+          <img className="size-full lg:size-[192px] rounded-xl" src={imagePath} alt={imageAlternativeText} />
         </div>
         <div className="flex lg:w-[70%] flex-col gap-[8px] px-[16px] pb-[16px]">
           <h3 className="text-2xl lg:mt-[24px] font-bold text-color-secondary">{title}</h3>
