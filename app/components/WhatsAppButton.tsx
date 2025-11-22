@@ -10,7 +10,7 @@ export function WhatsAppButton({ whatsAppNumber }: Props) {
         href={`https://wa.me/${whatsAppNumber}`}
         target="_blank"
       >
-        <img className="size-[70%]" src="/icons/whatsapp.svg" alt="" />
+        <img className="size-[70%]" src="/icons/whatsapp.svg" alt="" loading="lazy" />
       </a>
     </div>
   );
