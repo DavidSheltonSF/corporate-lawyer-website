@@ -27,8 +27,8 @@ export function Carousel({ children }: Props) {
   }
 
   return (
-    <div className="relative flex items-center justify-center self-center bg-black/20 w-[616px]">
-      <div className="h-[500px] w-[400px] border border-color-secondary  rounded-xl overflow-hidden">
+    <div className="relative flex items-center justify-center self-center w-[616px]">
+      <div className="h-[580px] w-[400px] border border-color-secondary bg-black rounded-xl overflow-hidden">
         <div
           className="flex size-full transition-[transform] duration-300"
           style={{
