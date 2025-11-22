@@ -11,6 +11,7 @@ import { servicesDetails } from './data/servicesDetails';
 import { ServiceDetailsModal } from './components/ServiceDetailsModal';
 import { ModalWindow } from './components/ModalWindow';
 import { ModalContext } from './contexts/ModalContext';
+import { Carousel } from './components/Carousel';
 
 export default function Home() {
   const [selectedSection, setSelectedSection] = useState(0);
@@ -81,20 +82,12 @@ export default function Home() {
               </DynamicSection>
               <DynamicSection index={1} title="Serviços" selectedSection={selectedSection}>
                 <div className="flex flex-col gap-[32px] w-full h-full flex-1">
-                  <DraggableCarousel additionalStyles="min-h-[80vh] lg:min-h-[50vh] h-auto bg-black select-none rounded-xl gap-[16px] lg:gap-[80px] p-[16px] lg:p-[80px]">
-                    <ServiceCard
-                      serviceDetails={servicesDetails['familia']}
-                    />
-                    <ServiceCard
-                      serviceDetails={servicesDetails['trabalhista']}
-                    />
-                    <ServiceCard
-                      serviceDetails={servicesDetails['civil']}
-                    />
-                    <ServiceCard
-                      serviceDetails={servicesDetails['previdenciario']}
-                    />
-                  </DraggableCarousel>
+                  <Carousel>
+                    <ServiceCard serviceDetails={servicesDetails['familia']} />
+                    <ServiceCard serviceDetails={servicesDetails['trabalhista']} />
+                    <ServiceCard serviceDetails={servicesDetails['civil']} />
+                    <ServiceCard serviceDetails={servicesDetails['previdenciario']} />
+                  </Carousel>
                 </div>
               </DynamicSection>
               <DynamicSection index={2} title="Equipe" selectedSection={selectedSection}>
