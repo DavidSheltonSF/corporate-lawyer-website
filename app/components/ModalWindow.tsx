@@ -12,13 +12,13 @@ export function ModalWindow({ modalIsOpen, setModalIsOpen, children }: Props) {
 
     function openModal() {
       modalWindow?.classList.remove('hidden');
-      modalWindow?.classList.add('fade-in-animation');
+      modalWindow?.classList.add('fade-in-animation-fast');
       modalWindow?.classList.remove('fade-out-animation');
     }
 
     function closeModal() {
       modalWindow?.classList.add('fade-out-animation');
-      modalWindow?.classList.remove('fade-in-animation');
+      modalWindow?.classList.remove('fade-in-animation-fast');
     }
 
     modalIsOpen ? openModal() : closeModal();
