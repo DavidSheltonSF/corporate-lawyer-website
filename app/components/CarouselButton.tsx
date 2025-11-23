@@ -1,3 +1,4 @@
+'use client';
 import { ReactEventHandler, ReactNode } from 'react';
 
 interface Props {

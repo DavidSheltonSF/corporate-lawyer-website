@@ -1,3 +1,4 @@
+'use client';
 import { Children, ReactNode, useState } from 'react';
 import { CarouselButton } from './CarouselButton';
 
