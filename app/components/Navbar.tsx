@@ -20,20 +20,18 @@ export function Navbar() {
           />
         </a>
       </div>
-      <div
-        className={`flex justify-center absolute lg:static left-0 top-[100%] w-full lg:w-auto bg-[var(--black-color)]/75 lg:bg-transparent h-0 lg:h-auto overflow-hidden transition-height duration-300 ${
+      <ul
+        className={`flex flex-col lg:flex-row items-center justify-center gap-[16px] lg:gap-[24px] text-color-white text-[1.5rem] absolute lg:static left-0 top-[100%] w-full lg:w-auto bg-[var(--black-color)]/75 lg:bg-transparent h-0 lg:h-auto overflow-hidden transition-height duration-300 ${
           menuIsOpen ? 'h-[30vh]' : ''
         }`}
       >
-        <ul className="flex flex-col lg:flex-row items-center justify-center gap-[16px] lg:gap-[24px] text-color-white text-[1.5rem]">
-          <NavbarItem name="Início" link="/" />
-          <NavbarItem name="Contato" link="/contact" />
-          <NavbarItem name="Blog" link="#" />
-          <NavbarItem name="Página do Cliente" link="#" />
-        </ul>
-      </div>
+        <NavbarItem name="Início" link="/" />
+        <NavbarItem name="Contato" link="/contact" />
+        <NavbarItem name="Blog" link="#" />
+        <NavbarItem name="Página do Cliente" link="#" />
+      </ul>
       <button className="min-md:hidden" onClick={toggleMenu}>
-        <img className="size-[48px]" src={`icons/${menuIsOpen ? 'close': 'menu'}.svg`} alt="" />
+        <img className="size-[48px]" src={`icons/${menuIsOpen ? 'close' : 'menu'}.svg`} alt="" />
       </button>
     </nav>
   );
