@@ -6,26 +6,27 @@ interface Props {
 }
 
 export function Carousel({ children }: Props) {
-  const [index, setIndex] = useState(0);
+  const [slideIndex, setSlideIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
 
-  const maxIndex = Children.count(children) - 1;
+  const childrenCount = Children.count(children);
+  const maxIndex = childrenCount - 1
 
   function moveRight() {
-    if (index === maxIndex) {
+    if (slideIndex === maxIndex) {
       return;
     }
 
-    setIndex(index + 1);
+    setSlideIndex(slideIndex + 1);
   }
 
   function moveLeft() {
-    if (index === 0) {
+    if (slideIndex === 0) {
       return;
     }
 
-    setIndex(index - 1);
+    setSlideIndex(slideIndex - 1);
   }
 
   function handleTouchStart(e: React.TouchEvent<HTMLElement>) {
@@ -78,7 +79,7 @@ export function Carousel({ children }: Props) {
         <div
           className="flex size-full transition-[transform] duration-300"
           style={{
-            transform: `translateX(calc(-${index} * 100%))`,
+            transform: `translateX(calc(-${slideIndex} * 100%))`,
           }}
         >
           {Children.map(children, (child) => {
@@ -89,14 +90,28 @@ export function Carousel({ children }: Props) {
         </div>
       </div>
       <div className={`absolute left-[8px] top-[50%] translate-y-[-50%]`}>
-        <CarouselButton onClickHandler={moveLeft} inert={index === 0}>
+        <CarouselButton onClickHandler={moveLeft} inert={slideIndex === 0}>
           <img className="size-full" src="icons/arrow-back.svg" alt="" />
         </CarouselButton>
       </div>
       <div className={`absolute right-[8px] top-[50%] translate-y-[-50%]`}>
-        <CarouselButton onClickHandler={moveRight} inert={index === maxIndex}>
+        <CarouselButton onClickHandler={moveRight} inert={slideIndex === maxIndex}>
           <img className="size-full" src="icons/arrow-forward.svg" alt="" />
         </CarouselButton>
+      </div>
+      <div className="absolute left-1/2 translate-x-[-50%] bottom-[16px] flex gap-[16px]">
+        {Array.from({ length: childrenCount }).map((indicator, index) => {
+          return (
+            <div
+              className={`size-[20px] transition-all duration-800 rounded-full cursor-pointer ${
+                index === slideIndex ? 'bg-color-secondary brightness-110' : 'bg-gray-300 opacity-50'
+              }`}
+              onClick={() => {
+                setSlideIndex(index)
+              }}
+            ></div>
+          );
+        })}
       </div>
     </div>
   );
