@@ -33,7 +33,7 @@ export function Navbar() {
         </ul>
       </div>
       <button className="min-md:hidden" onClick={toggleMenu}>
-        <img className="size-[48px]" src="icons/menu.svg" alt="" />
+        <img className="size-[48px]" src={`icons/${menuIsOpen ? 'close': 'menu'}.svg`} alt="" />
       </button>
     </nav>
   );
