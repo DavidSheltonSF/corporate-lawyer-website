@@ -11,7 +11,7 @@ export function Carousel({ children }: Props) {
   const [touchEnd, setTouchEnd] = useState(0);
 
   const childrenCount = Children.count(children);
-  const maxIndex = childrenCount - 1
+  const maxIndex = childrenCount - 1;
 
   function moveRight() {
     if (slideIndex === maxIndex) {
@@ -82,9 +82,11 @@ export function Carousel({ children }: Props) {
             transform: `translateX(calc(-${slideIndex} * 100%))`,
           }}
         >
-          {Children.map(children, (child) => {
+          {Children.map(children, (child, index) => {
             return (
-              <div className="flex justify-center items-center size-full shrink-0">{child}</div>
+              <div key={index} className="flex justify-center items-center size-full shrink-0">
+                {child}
+              </div>
             );
           })}
         </div>
@@ -103,11 +105,14 @@ export function Carousel({ children }: Props) {
         {Array.from({ length: childrenCount }).map((indicator, index) => {
           return (
             <div
+              key={index}
               className={`size-[20px] transition-all duration-800 rounded-full cursor-pointer ${
-                index === slideIndex ? 'bg-color-secondary brightness-110' : 'bg-gray-300 opacity-50'
+                index === slideIndex
+                  ? 'bg-color-secondary brightness-110'
+                  : 'bg-gray-300 opacity-50'
               }`}
               onClick={() => {
-                setSlideIndex(index)
+                setSlideIndex(index);
               }}
             ></div>
           );
