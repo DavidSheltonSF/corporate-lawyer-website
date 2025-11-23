@@ -4,12 +4,11 @@ import { servicesDetails } from '../data/servicesDetails';
 
 interface Props {
   serviceAreaId: string;
-  isOverParent?: boolean;
   additionalStyles?: string;
 }
 
 export function IconCircle(props: Props) {
-  const { serviceAreaId, isOverParent, additionalStyles } = props;
+  const { serviceAreaId, additionalStyles } = props;
 
   const serviceArea = servicesDetails[serviceAreaId];
   const { iconPath } = serviceArea;
@@ -33,15 +32,13 @@ export function IconCircle(props: Props) {
 
   return (
     <div
-      className={`flex items-center justify-center rounded-full bg-color-secondary  overflow-hidden cursor-pointer transition-[box-shadow] duration-400 ease-in-out ${
-        isOverParent ? 'shadow-[var(--bright-yellow-shadow)]' : ''
-      } ${additionalStyles}`}
+      className={`flex items-center justify-center rounded-full bg-color-secondary  overflow-hidden cursor-pointer transition-[box-shadow] duration-400 ease-in-out  group-hover:shadow-[var(--bright-yellow-shadow)] ${additionalStyles}`}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
       onClick={handleClick}
     >
       <img
-        className={`icon-image size-[68%] transition-[filter] duration-300 hover:invert  ${isOverParent ? 'invert' : ''}`}
+        className={`icon-image size-[68%] transition-[filter] duration-300 hover:invert  group-hover:invert`}
         src={iconPath}
         alt=""
         loading="lazy"

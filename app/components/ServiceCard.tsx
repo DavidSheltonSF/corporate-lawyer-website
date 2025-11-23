@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { IconCircle } from './IconCircle';
 import { ServiceDetails } from '../types/ServiceDetails';
 import { TooltipContainer } from './TooltipContainer';
@@ -8,24 +7,10 @@ interface Props {
 }
 
 export function ServiceCard({ serviceDetails }: Props) {
-  const [isOver, setIsOver] = useState(false);
-
-  function handleMouseOver() {
-    setIsOver(true);
-  }
-
-  function handleMouseLeave() {
-    setIsOver(false);
-  }
-
-  const { id, title, description, services } = serviceDetails;
+  const { id, title, description } = serviceDetails;
 
   return (
-    <article
-      className="flex flex-col w-full h-[440px] lg:h-auto lg:w-[80%] shrink-0"
-      onMouseOver={handleMouseOver}
-      onMouseLeave={handleMouseLeave}
-    >
+    <article className="flex flex-col w-full h-[440px] lg:h-auto lg:w-[80%] shrink-0 group">
       <header className="flex justify-center">
         <TooltipContainer
           label={`Serviços - ${title}`}
@@ -35,7 +20,7 @@ export function ServiceCard({ serviceDetails }: Props) {
             color: 'var(--secondary-color)',
           }}
         >
-          <IconCircle serviceAreaId={id} additionalStyles="size-[116px]" isOverParent={isOver} />
+          <IconCircle serviceAreaId={id} additionalStyles="size-[116px]" />
         </TooltipContainer>
       </header>
       <main className="flex flex-col items-center text-center gap-[16px]">
