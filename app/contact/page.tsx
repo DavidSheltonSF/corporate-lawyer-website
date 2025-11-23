@@ -13,8 +13,18 @@ export default function Contact() {
           </p>
         </div>
       </HeroSection>
-      <section className="flex flex-1 min-h-[70vh] items-center justify-center">
-        <ContactForm />
+      <section className="flex  h-[140vh] lg:h-[120vh] items-center justify-center items-center w-full">
+        {/* <ContactForm /> */}
+
+        {/* Google Contact form */}
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLSdUNMA9P3X0k89s14maNWvZZH2T0lsoD_Ha9q5uGvB-8AnhBA/viewform?embedded=true"
+          width=""
+          height=""
+          className='lg:pt-[80px] h-full w-full md:w-[70%] lg:w-[640px]'
+        >
+          Loading…
+        </iframe>
       </section>
     </div>
   );
