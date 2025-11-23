@@ -8,7 +8,12 @@
   --primary-color-light: #0475d1;
   --secondary-color: #e9d07f;
   --bright-yellow-shadow: 0 0 10px 5px #e9d07f8f;
-  --blue-gradient: linear-gradient(90deg,rgba(4, 117, 209, 1) 6%, rgba(3, 96, 171, 1) 34%, rgba(0, 76, 138, 1) 80%);;
+  --blue-gradient: linear-gradient(
+    90deg,
+    rgba(4, 117, 209, 1) 6%,
+    rgba(3, 96, 171, 1) 34%,
+    rgba(0, 76, 138, 1) 80%
+  );
 }
 
 input {
@@ -60,7 +65,7 @@ body {
 }
 
 .border-color-secondary {
-  border-color:  var(--secondary-color);
+  border-color: var(--secondary-color);
 }
 
 .border-color-primary-light {
@@ -75,12 +80,4 @@ body {
 /* Firefox */
 .no-scrollbar {
   scrollbar-width: none;
-}
-
-.navbar-menu.active {
-  height: 30vh;
-}
-
-.invertedImage {
-  filter: invert();
 }
