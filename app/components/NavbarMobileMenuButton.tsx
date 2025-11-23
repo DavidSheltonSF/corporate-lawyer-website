@@ -1,11 +1,11 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from 'react';
 
-interface Props{
+interface Props {
   menuIsOpen: boolean;
   setMenuIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export function NavbarMobileMenuButton({menuIsOpen, setMenuIsOpen}: Props) {
+export function NavbarMobileMenuButton({ menuIsOpen, setMenuIsOpen }: Props) {
   function toggleMenu() {
     setMenuIsOpen(!menuIsOpen);
   }
