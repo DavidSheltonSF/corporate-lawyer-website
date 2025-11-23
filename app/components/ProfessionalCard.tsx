@@ -2,14 +2,14 @@ import { ReactNode } from 'react';
 import { IconCircle } from './IconCircle';
 import { TooltipContainer } from './TooltipContainer';
 
-interface ProfessionalCardProps {
+export interface ProfessionalCardProps {
   imagePath: string;
   imageAlternativeText?: string;
   title: string;
   description: string;
   specializations: string[];
-  emailLink: string;
-  whatsAppLink: string;
+  email: string;
+  whatsAppNumber: string;
 }
 
 export function ProfessionalCard(props: ProfessionalCardProps) {
@@ -19,8 +19,8 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
     title,
     description,
     specializations,
-    emailLink,
-    whatsAppLink,
+    email,
+    whatsAppNumber,
   } = props;
 
   function renderSpecializations(): ReactNode {
@@ -67,14 +67,17 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
         <div className="flex md:flex-col gap-[16px] px-[16px] py-[8px] w-full md:w-[50%]">
           <h4 className="hidden md:block font-bold">Contato</h4>
           <span className="flex gap-[16px] m-auto md:ml-0 items-center">
-            <a href={emailLink}>
+            <a
+              href={`https://mail.google.com/mail/?view=cm&fs=1&to=${email}?su=Solicitação de apoio jurídico`}
+              target="_blank"
+            >
               <img
                 className="size-[56px] lg:size-[48px]"
                 src="icons/email.svg"
                 alt={`Envie um email para ${title}`}
               />
             </a>
-            <a href={whatsAppLink}>
+            <a href={`https://wa.me/5521969470527`} target="_blank">
               <img
                 className="size-[48px] lg:size-[42px]"
                 src="icons/whatsApp.svg"
