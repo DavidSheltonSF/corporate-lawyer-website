@@ -1,11 +1,12 @@
 'use client';
 
+import { useState } from 'react';
 import { NavbarItem } from './NavbarItem';
 
 export function Navbar() {
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
   function toggleMenu() {
-    const menu = document.querySelector('.navbar-menu');
-    menu?.classList.toggle('active');
+    setMenuIsOpen(!menuIsOpen);
   }
 
   return (
@@ -19,7 +20,11 @@ export function Navbar() {
           />
         </a>
       </div>
-      <div className="navbar-menu flex justify-center absolute lg:static left-0 top-[100%] w-full lg:w-auto bg-[var(--black-color)]/75 lg:bg-transparent h-0 lg:h-auto overflow-hidden transition-height duration-300">
+      <div
+        className={`flex justify-center absolute lg:static left-0 top-[100%] w-full lg:w-auto bg-[var(--black-color)]/75 lg:bg-transparent h-0 lg:h-auto overflow-hidden transition-height duration-300 ${
+          menuIsOpen ? 'h-[30vh]' : ''
+        }`}
+      >
         <ul className="flex flex-col lg:flex-row items-center justify-center gap-[16px] lg:gap-[24px] text-color-white text-[1.5rem]">
           <NavbarItem name="Início" link="/" />
           <NavbarItem name="Contato" link="/contact" />
