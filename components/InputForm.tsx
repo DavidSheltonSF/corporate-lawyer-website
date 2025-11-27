@@ -4,7 +4,7 @@ interface Props {
   id: string;
   name: string;
   label?: string;
-  type?: string;
+  type?: "text" | "email" | "password";
   placeholder?: string;
   iconPath?: string;
   required?: boolean;
@@ -34,7 +34,7 @@ export function InputForm({
           id={id}
           name={name}
           className="w-full placeholder:text-[var(--primary-color-light)]"
-          type={type}
+        type={type}
           placeholder={placeholder}
           required={required}
         />
