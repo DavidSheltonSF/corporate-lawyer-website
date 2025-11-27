@@ -6,7 +6,7 @@ import { InputForm } from '../../components/InputForm';
 
 export default async function Contact() {
   return (
-    <div className="flex flex-col min-h-screen items-center bg-zinc-50 font-sans bg-color-black">
+    <div className="bg-color-black">
       <HeroSection additionalStyles="h-[280px] items-end" background="var(--blue-gradient)">
         <div className="flex flex-col gap-[16px] justify-end w-full mb-[40px] px-[40px] lg:pl-[160px] h-fit text-color-white">
           <h1 className="text-3xl lg:text-5xl font-bold ">Contate-nos</h1>

@@ -20,7 +20,7 @@ export default function Home() {
   const [serviceAreaId, setServiceAreaId] = useState('');
 
   return (
-    <div className="flex flex-col min-h-screen items-center bg-zinc-50 font-sans bg-color-white">
+    <div className="bg-color-black">
       <ModalWindow modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}>
         <ServiceDetailsModal serviceAreaId={serviceAreaId} />
       </ModalWindow>
@@ -31,9 +31,9 @@ export default function Home() {
           </h1>
         </div>
       </HeroSection>
-      <main className="w-full">
+      <main>
         <ModalContext value={{ modalIsOpen, setModalIsOpen, serviceAreaId, setServiceAreaId }}>
-          <section className="flex flex-col items-center bg-color-black w-full min-h-[90vh] h-auto pb-[80px]">
+          <section className="flex flex-col items-center w-full min-h-[90vh] h-auto pb-[80px]">
             <SubNavbar
               itemsNames={['Sobre nós', 'Serviços', 'Equipe']}
               selectedSection={selectedSection}
