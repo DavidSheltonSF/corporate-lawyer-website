@@ -1,24 +1,23 @@
 'use client';
 import { useState } from 'react';
-import { DynamicSection } from './components/DynamicSection';
-import { SubNavbar } from './components/SubNavbar';
-import { ServiceCard } from './components/ServiceCard';
-import { DraggableCarousel } from './components/DraggableCarousel';
-import { ProfessionalCard } from './components/ProfessionalCard';
-import { HeroSection } from './components/HeroSection';
+import { DynamicSection } from '../components/DynamicSection';
+import { SubNavbar } from '../components/SubNavbar';
+import { ServiceCard } from '../components/ServiceCard';
+import { DraggableCarousel } from '../components/DraggableCarousel';
+import { ProfessionalCard } from '../components/ProfessionalCard';
+import { HeroSection } from '../components/HeroSection';
 import { professionalsInfo } from './data/professionalsInfo';
 import { servicesDetails } from './data/servicesDetails';
-import { ServiceDetailsModal } from './components/ServiceDetailsModal';
-import { ModalWindow } from './components/ModalWindow';
+import { ServiceDetailsModal } from '../components/ServiceDetailsModal';
+import { ModalWindow } from '../components/ModalWindow';
 import { ModalContext } from './contexts/ModalContext';
-import { Carousel } from './components/Carousel';
+import { Carousel } from '../components/Carousel';
 
 export default function Home() {
   const [selectedSection, setSelectedSection] = useState(0);
 
-  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [serviceAreaId, setServiceAreaId] = useState('');
-
 
   return (
     <div className="flex flex-col min-h-screen items-center bg-zinc-50 font-sans bg-color-white">

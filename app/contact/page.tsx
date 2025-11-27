@@ -1,8 +1,8 @@
 'use server';
 import { sendContactMessage } from '../actions/sendContactMessage';
-import { Form } from '../components/Form';
-import { HeroSection } from '../components/HeroSection';
-import { InputForm } from '../components/InputForm';
+import { Form } from '../../components/Form';
+import { HeroSection } from '../../components/HeroSection';
+import { InputForm } from '../../components/InputForm';
 
 export default async function Contact() {
   return (
