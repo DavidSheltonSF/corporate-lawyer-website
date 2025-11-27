@@ -1,5 +1,5 @@
 'use server';
-import { sendContactMessage } from '../actions/sendContactMessage';
+import { sendContactMessage } from '../../actions/sendContactMessage';
 import { Form } from '../../components/Form';
 import { HeroSection } from '../../components/HeroSection';
 import { InputForm } from '../../components/InputForm';
