@@ -24,13 +24,13 @@ export default function Home() {
       <ModalWindow modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}>
         <ServiceDetailsModal serviceAreaId={serviceAreaId} />
       </ModalWindow>
-      <HeroSection additionalStyles="h-[50vh] min-lg:h-[70vh]" background="url(/hero-image.webp)">
-        <div className="flex flex-col justify-end w-full mb-[40px] px-[40px] lg:pl-[160px] bg-[var(--black-color)]/40 h-fit text-color-white">
-          <h1 className="text-xl lg:text-5xl font-bold lg:w-[50%]">
-            ESCRITÓRIO DE ADVOCACIA MEDEIROS E SANTIAGO
-          </h1>
-        </div>
-      </HeroSection>
+      <HeroSection
+        title="ESCRITÓRIO DE ADVOCACIA MEDEIROS E SANTIAGO"
+        additionalStyles="h-[50vh] min-lg:h-[70vh]"
+        background="url(/hero-image.webp)"
+        textBackgroundColor="#00000059"
+      />
+
       <main>
         <ModalContext value={{ modalIsOpen, setModalIsOpen, serviceAreaId, setServiceAreaId }}>
           <section className="flex flex-col items-center w-full min-h-[90vh] h-auto pb-[80px]">
