@@ -1,5 +1,5 @@
 import { IconCircle } from './IconCircle';
-import { ServiceDetails } from '../app/types/ServiceDetails';
+import { ServiceDetails } from '../types/ServiceDetails';
 import { TooltipContainer } from './TooltipContainer';
 
 interface Props {
