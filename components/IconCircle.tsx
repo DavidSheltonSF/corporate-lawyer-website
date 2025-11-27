@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ModalContext } from '../app/contexts/ModalContext';
+import { ModalContext } from '../contexts/ModalContext';
 import { servicesDetails } from '../app/data/servicesDetails';
 
 interface Props {

@@ -10,7 +10,7 @@ import { professionalsInfo } from './data/professionalsInfo';
 import { servicesDetails } from './data/servicesDetails';
 import { ServiceDetailsModal } from '../components/ServiceDetailsModal';
 import { ModalWindow } from '../components/ModalWindow';
-import { ModalContext } from './contexts/ModalContext';
+import { ModalContext } from '../contexts/ModalContext';
 import { Carousel } from '../components/Carousel';
 
 export default function Home() {
