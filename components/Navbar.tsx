@@ -24,7 +24,7 @@ export function Navbar() {
         <NavbarItem name="Início" link="/" />
         <NavbarItem name="Contato" link="/contact" />
         <NavbarItem name="Blog" link="#" />
-        <NavbarItem name="Página do Cliente" link="/clientPage" />
+        <NavbarItem name="Página do Cliente" link="/clientPageLogin" />
       </NavbarList>
       <NavbarMobileMenuButton menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen} />
     </nav>
