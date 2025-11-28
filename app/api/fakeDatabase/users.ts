@@ -1,11 +1,4 @@
-export interface UserProps {
-  id?: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  cpf: string;
-  password: string;
-}
+import { UserProps } from '@/types/UserProps';
 
 export const fakeUserDatabase: UserProps[] = [
   {
@@ -15,5 +8,6 @@ export const fakeUserDatabase: UserProps[] = [
     email: 'flavia@email.com',
     cpf: '11144744474',
     password: 'flavia123',
+    role: 'lawyer'
   },
 ];
