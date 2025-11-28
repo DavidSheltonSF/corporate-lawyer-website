@@ -1,9 +1,24 @@
+'use client';
+
 import { login } from '@/actions/login';
 import { Form } from '@/components/Form';
 import { HeroSection } from '@/components/HeroSection';
 import { InputForm } from '@/components/InputForm';
+import { redirect } from 'next/navigation';
+import { Activity, useState } from 'react';
 
-export default function ClientPage() {
+export default function ClientPageLogin() {
+  const [errorMessage, setErrorMessage] = useState('');
+
+  async function handleSubmit(formData: FormData) {
+    const result = await login(formData);
+    if (result.error) {
+      setErrorMessage(result.message);
+      return;
+    }
+    redirect('/clientPage');
+  }
+
   return (
     <div className="bg-color-black">
       <HeroSection
@@ -14,13 +29,18 @@ export default function ClientPage() {
       />
       <main>
         <section className="flex items-center justify-center h-[90vh] lg:h-[60vh]">
-          <Form action={login}>
+          <Form action={handleSubmit}>
+            <Activity mode={errorMessage !== '' ? 'visible' : 'hidden'}>
+              <div className="text-red-400 text-center font-bold">
+                <p>{errorMessage}</p>
+              </div>
+            </Activity>
             <InputForm
               id="input-email"
               name="email"
               iconPath="/icons/email-primary-light.svg"
               label="Email"
-              type='email'
+              type="email"
               required={true}
             />
             <InputForm
@@ -28,7 +48,7 @@ export default function ClientPage() {
               name="password"
               iconPath="/icons/lock-primary-light.svg"
               label="Password"
-              type='password'
+              type="password"
               required={true}
             />
             <button
