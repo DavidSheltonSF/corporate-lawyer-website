@@ -12,8 +12,9 @@ export async function POST(req: Request) {
     });
   }
 
-  const fakeToken = 'dafdf1ad5f';
+  const fakeToken = email + '-token';
   return Response.json({
+    status: 200,
     token: fakeToken,
   });
 }
