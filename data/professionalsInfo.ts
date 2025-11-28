@@ -1,4 +1,4 @@
-import { ProfessionalCardProps } from '../../components/ProfessionalCard';
+import { ProfessionalCardProps } from '@/components/ProfessionalCard';
 
 export const professionalsInfo: ProfessionalCardProps[] = [
   {

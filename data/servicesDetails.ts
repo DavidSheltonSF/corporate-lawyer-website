@@ -1,4 +1,4 @@
-import { ServiceDetails } from "../types/ServiceDetails"
+import { ServiceDetails } from "@/types/ServiceDetails"
 
 export const servicesDetails: Record<string, ServiceDetails> = {
   familia: {
