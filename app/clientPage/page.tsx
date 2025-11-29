@@ -1,33 +1,26 @@
-'use client';
 import { DynamicSection } from '@/components/DynamicSection';
 import { DynamicSections } from '@/components/DynamicSections';
 import { HeroSection } from '@/components/HeroSection';
 import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 import { getUserInformation } from '@/lib/getUserInformation';
-import { UserProps } from '@/types/UserProps';
 import { redirect } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
-export default function ClientPage() {
-  const [user, setUser] = useState<UserProps | null>(null);
+export default async function ClientPage() {
+  const token = await getTokenFromCookies();
+  if (!token) {
+    redirect('/clientPageLogin');
+  }
 
-  useEffect(() => {
-    async function loadUserInfo() {
-      const token = await getTokenFromCookies();
-      if (!token) {
-        redirect('/clientPageLogin');
-      }
+  const user = await getUserInformation(token);
 
-      const userData = await getUserInformation(token);
+  if (!user) {
+    console.log('Something went wrong');
+    redirect('/clientPageLogin');
+  }
 
-      if (!userData) {
-        console.log('Something went wrong');
-        redirect('/clientPageLogin');
-      }
-      setUser(userData);
-    }
-    loadUserInfo();
-  }, []);
+  // await new Promise((resolve) => {
+  //   setTimeout(resolve, 2000); // 2 seconds
+  // });
 
   return (
     <div className="bg-color-black">
