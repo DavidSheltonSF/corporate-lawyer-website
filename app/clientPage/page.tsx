@@ -7,14 +7,7 @@ import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function ClientPage() {
-  const [user, setUser] = useState<UserProps>({
-    firstName: '',
-    lastName: '',
-    email: '',
-    cpf: '',
-    password: '',
-    role: 'client',
-  });
+  const [user, setUser] = useState<UserProps | null>(null);
 
   useEffect(() => {
     async function loadUserInfo() {
@@ -38,7 +31,7 @@ export default function ClientPage() {
     <div className="bg-color-black">
       <HeroSection
         background="var(--blue-gradient)"
-        title={`Bem vindo(a) ${user.role === 'lawyer' ? 'Dra' : ''} ${user.firstName}`}
+        title={`Bem vindo(a) ${user?.role === 'lawyer' ? 'Dra' : ''} ${user?.firstName}`}
         additionalStyles="h-[280px]"
       />
       <main>
