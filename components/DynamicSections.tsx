@@ -1,3 +1,4 @@
+'use client'
 import { Children, ReactElement, ReactNode, useState } from 'react';
 import { SubNavbar } from './SubNavbar';
 import { DynamicSectionWrapper } from './DynamicSectionWrapper';
