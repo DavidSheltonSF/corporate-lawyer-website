@@ -54,12 +54,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}>
+      <body
+        className={`flex flex-col ${geistSans.variable} ${geistMono.variable} antialiased relative min-h-screen`}
+      >
         {' '}
         <header>
           <Navbar />
         </header>
-        {children}
+        <main className="flex-1">{children}</main>
         <WhatsAppButton whatsAppNumber="#" />
         <Footer />
       </body>
