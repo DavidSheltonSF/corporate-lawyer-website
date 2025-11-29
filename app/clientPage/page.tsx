@@ -1,21 +1,38 @@
+'use client';
 import { HeroSection } from '@/components/HeroSection';
+import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 import { getUserInformation } from '@/lib/getUserInformation';
-import { cookies } from 'next/headers';
+import { UserProps } from '@/types/UserProps';
 import { redirect } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-export default async function ClientPage() {
-  const cookieStore = await cookies();
-  const auth = cookieStore.get('authentication');
-  const token = auth?.value;
-  if (!token) {
-    redirect('/clientLogin');
-  }
-  const user = await getUserInformation(token);
+export default function ClientPage() {
+  const [user, setUser] = useState<UserProps>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    cpf: '',
+    password: '',
+    role: 'client',
+  });
 
-  if (!user) {
-    console.log('Some thing went wrong');
-    redirect('/clientLogin');
-  }
+  useEffect(() => {
+    async function loadUserInfo() {
+      const token = await getTokenFromCookies();
+      if (!token) {
+        redirect('/clientPageLogin');
+      }
+
+      const userData = await getUserInformation(token);
+
+      if (!userData) {
+        console.log('Something went wrong');
+        redirect('/clientPageLogin');
+      }
+      setUser(userData);
+    }
+    loadUserInfo();
+  }, []);
 
   return (
     <div className="bg-color-black">
