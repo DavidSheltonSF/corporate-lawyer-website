@@ -21,6 +21,7 @@ export function DynamicSections({ sectionsNames, children }: Props) {
         {Children.map(children, (child, index) => {
           return (
             <DynamicSectionWrapper
+              key={index}
               index={index}
               title={sectionsNames[index]}
               selectedSection={selectedSection}
