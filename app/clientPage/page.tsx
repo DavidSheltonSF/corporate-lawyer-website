@@ -1,4 +1,6 @@
 'use client';
+import { DynamicSection } from '@/components/DynamicSection';
+import { DynamicSections } from '@/components/DynamicSections';
 import { HeroSection } from '@/components/HeroSection';
 import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 import { getUserInformation } from '@/lib/getUserInformation';
@@ -35,7 +37,18 @@ export default function ClientPage() {
         additionalStyles="h-[280px]"
       />
       <main>
-        <section className="flex items-center justify-center h-[90vh] lg:h-[60vh]"></section>
+        <DynamicSections sectionsNames={['Geral', 'Processos']}>
+          <DynamicSection>
+            <div>
+              <h1>Geral</h1>
+            </div>
+          </DynamicSection>
+          <DynamicSection>
+            <div>
+              <h1>Processos</h1>
+            </div>
+          </DynamicSection>
+        </DynamicSections>
       </main>
     </div>
   );
