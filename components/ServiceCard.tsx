@@ -1,9 +1,10 @@
 import { IconCircle } from './IconCircle';
-import { ServiceDetails } from '../types/ServiceDetails';
+import { ServiceModalProps } from '../types/ServiceModalProps';
 import { TooltipContainer } from './TooltipContainer';
+import { WithId } from '@/types/WIthId';
 
 interface Props {
-  serviceDetails: ServiceDetails;
+  serviceDetails: WithId<ServiceModalProps>;
 }
 
 export function ServiceCard({ serviceDetails }: Props) {
