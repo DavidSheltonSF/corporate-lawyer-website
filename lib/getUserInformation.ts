@@ -1,6 +1,7 @@
 import { UserProps } from '@/types/UserProps';
+import { WithId } from '@/types/WIthId';
 
-export async function getUserInformation(token: string): Promise<UserProps | null> {
+export async function getUserInformation(token: string): Promise<WithId<UserProps> | null> {
   const response = await fetch('http://localhost:3001/api/me', {
     headers: {
       Authorization: token,
