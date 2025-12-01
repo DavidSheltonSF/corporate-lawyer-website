@@ -4,7 +4,6 @@ import { HearingProps } from "./HearingProps";
 export type CaseStatus = 'aberto' | 'em_progresso' | 'esperando_documentos' | 'encerrado';
 
 export interface CaseProps {
-  id?: string;
   clientId: string;
   lawyerIds: string[];
   processNumber: string;
