@@ -2,7 +2,7 @@ import { UserProps } from '@/types/UserProps';
 
 export const fakeUserDatabase: UserProps[] = [
   {
-    id: 1,
+    id: 'u1',
     firstName: 'Flávia',
     lastName: 'Santiago',
     email: 'flavia@email.com',
