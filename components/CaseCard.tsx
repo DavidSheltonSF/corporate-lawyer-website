@@ -1,7 +1,9 @@
 import { UserDataContext } from '@/contexts/UserDataContext';
-import { getLawyersInformation } from '@/lib/getLawyerInformation';
-import { getUserInformation } from '@/lib/getUserInformation';
+import { formatStringList } from '@/lib/formatStringList';
+import { fetchLawyers } from '@/lib/ferchLawyers';
 import { CaseProps } from '@/types/CaseProps';
+import { UserProps } from '@/types/UserProps';
+import { WithId } from '@/types/WIthId';
 import { useContext, useEffect, useState } from 'react';
 
 interface Props {
@@ -9,22 +11,25 @@ interface Props {
 }
 
 export function CaseCard({ caseData }: Props) {
-  const [lawyer, setLawyer] = useState<any>(null)
+  const [lawyers, setLawyers] = useState<WithId<UserProps>[]>([]);
 
-  const context = useContext(UserDataContext)
+  const context = useContext(UserDataContext);
 
   const userData = context?.userData;
 
-  const {lawyerIds, title, processNumber, status} = caseData
+  const { lawyerIds, title, processNumber, status } = caseData;
+
+  const renderLawyers = lawyers?.map((lawyer) => {
+    return `${lawyer.firstName} ${lawyer.lastName}`;
+  });
 
   useEffect(() => {
     async function loadLawyerData() {
-      const data = await getLawyersInformation(['flavia1'])
-      console.log(data);
-      setLawyer(data)
+      const data = await fetchLawyers(lawyerIds);
+      setLawyers(data);
     }
-    loadLawyerData()
-  }, [])
+    loadLawyerData();
+  }, []);
 
   return (
     <div className="bg-color-primary w-[640px] h-[256px] rounded-xl">
@@ -44,7 +49,7 @@ export function CaseCard({ caseData }: Props) {
         </span>
         <span className="flex gap-[8px]">
           <p className="font-bold">advogados:</p>
-          <p>{lawyer}</p>
+          <p>{formatStringList(renderLawyers)}</p>
         </span>
         <span className="flex gap-[8px]">
           <p className="font-bold">status:</p>
