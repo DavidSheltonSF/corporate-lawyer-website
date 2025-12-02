@@ -5,8 +5,11 @@ import { UserProps } from '@/types/UserProps';
 import { WithId } from '@/types/WIthId';
 import { useEffect, useState } from 'react';
 import { CaseProps } from '@/types/CaseProps';
+import { CaseQueryTypeEnum } from './CaseQueryTypeEnum';
 
 interface Props {
+  query: string;
+  queryType: CaseQueryTypeEnum;
   userData: WithId<UserProps>;
 }
 

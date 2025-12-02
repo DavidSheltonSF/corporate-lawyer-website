@@ -1,11 +1,12 @@
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { DropDownButton } from './DropdownButton';
+import { CaseQueryTypeEnum } from './CaseQueryTypeEnum';
 
 interface Props {
   query: string;
   setQuery: Dispatch<SetStateAction<string>>;
-  queryType: string;
-  setQueryType: Dispatch<SetStateAction<string>>;
+  queryType: CaseQueryTypeEnum;
+  setQueryType: Dispatch<SetStateAction<CaseQueryTypeEnum>>;
 }
 
 export function CaseSearchBar({ query, setQuery, queryType, setQueryType }: Props) {
@@ -32,7 +33,7 @@ export function CaseSearchBar({ query, setQuery, queryType, setQueryType }: Prop
         <DropDownButton
           selectedItem={queryType}
           setSelectedItem={setQueryType}
-          listItems={['Nº processo', 'Título']}
+          listItems={Object.values(CaseQueryTypeEnum)}
         />
       </div>
       <button
