@@ -1,20 +1,34 @@
 'use client';
 
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import { CaseQueryTypeEnum } from './CaseQueryTypeEnum';
 
 interface Props {
-  listItems: string[];
+  listItems: CaseQueryTypeEnum[];
   selectedItem: string;
-  setSelectedItem: Dispatch<SetStateAction<string>>;
+  setSelectedItem: Dispatch<SetStateAction<CaseQueryTypeEnum>>;
 }
 export function DropDownButton({ listItems, selectedItem, setSelectedItem }: Props) {
   const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+
+    //Clean up to remove the listener when the component is destroyed
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   function toggleDropDown() {
     setIsOpen(!isOpen);
   }
 
-  function selectItem(item: string) {
+  function selectItem(item: CaseQueryTypeEnum) {
     setSelectedItem(item);
     setIsOpen(false);
   }
@@ -33,7 +47,7 @@ export function DropDownButton({ listItems, selectedItem, setSelectedItem }: Pro
   ));
 
   return (
-    <div className="relative h-full">
+    <div ref={menuRef} className="relative h-full">
       <button
         className="flex justify-between items-center bg-color-primary h-full px-[16px] w-[152px] text-nowrap font-bold rounded-lg cursor-pointer"
         onClick={toggleDropDown}
