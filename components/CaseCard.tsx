@@ -5,7 +5,7 @@ import { CaseProps } from '@/types/CaseProps';
 import { UserProps } from '@/types/UserProps';
 import { WithId } from '@/types/WIthId';
 import { useContext, useEffect, useState } from 'react';
-
+import { CaseStatusEnum } from '@/types/CaseProps';
 interface Props {
   caseData: CaseProps;
 }
@@ -18,6 +18,28 @@ export function CaseCard({ caseData }: Props) {
   const userData = context?.userData;
 
   const { lawyerIds, title, processNumber, status } = caseData;
+
+  let statusColor = '';
+
+  switch (status) {
+    case 'aberto':
+      statusColor = 'text-green-400';
+      break;
+
+    case 'em_progresso':
+      statusColor = 'text-green-600';
+      break;
+
+    case 'esperando_documentos':
+      statusColor = 'text-yellow-00';
+      break;
+    case 'encerrado':
+      statusColor = 'text-red-500';
+      break;
+
+    default:
+      break;
+  }
 
   const renderLawyers = lawyers?.map((lawyer) => {
     return `${lawyer.firstName} ${lawyer.lastName}`;
@@ -53,7 +75,7 @@ export function CaseCard({ caseData }: Props) {
         </span>
         <span className="flex gap-[8px]">
           <p className="font-bold">status:</p>
-          <p className="font-bold">{status}</p>
+          <p className={`font-bold ${statusColor}`}>{CaseStatusEnum[status]}</p>
         </span>
       </main>
     </div>
