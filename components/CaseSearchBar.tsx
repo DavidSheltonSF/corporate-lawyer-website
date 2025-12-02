@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, SetStateAction, useContext } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useContext, useState } from 'react';
 import { DropDownButton } from './DropdownButton';
 import { CaseQueryTypeEnum } from './CaseQueryTypeEnum';
 import { UserDataContext } from '@/contexts/UserDataContext';
@@ -11,13 +11,14 @@ interface Props {
 }
 
 export function CaseSearchBar({ query, setQuery, queryType, setQueryType }: Props) {
+  const [searchText, setSearchText] = useState('')
   function handleClick() {
-    console.log(query);
+    setQuery(searchText)
   }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const searchBar = e.target;
-    setQuery(searchBar.value);
+    setSearchText(searchBar.value);
   }
 
   const context = useContext(UserDataContext);
@@ -37,7 +38,7 @@ export function CaseSearchBar({ query, setQuery, queryType, setQueryType }: Prop
           type="text"
           placeholder="Pesquisar..."
           onChange={handleChange}
-          defaultValue={query}
+          defaultValue={searchText}
         />
         <DropDownButton
           selectedItem={queryType}
