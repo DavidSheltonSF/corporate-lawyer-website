@@ -3,7 +3,7 @@ import { CaseProps } from '@/types/CaseProps';
 export const fakeCases: CaseProps[] = [
   {
     clientId: 'raimundo1',
-    lawyerIds: ['flavia1'],
+    lawyerIds: ['flavia1', 'carla1'],
     processNumber: '01119418441616-44156',
     title: 'Ação de indenização por danos morais',
     description:
@@ -24,7 +24,7 @@ export const fakeCases: CaseProps[] = [
   },
   {
     clientId: 'raimundo1',
-    lawyerIds: ['flavia1', 'carlos3'],
+    lawyerIds: ['flavia1', 'carla1'],
     processNumber: '00293847320244-88211',
     title: 'Ação trabalhista por horas extras',
     description:
@@ -46,7 +46,7 @@ export const fakeCases: CaseProps[] = [
 
   {
     clientId: 'raimundo1',
-    lawyerIds: ['mariana4'],
+    lawyerIds: ['carla1'],
     processNumber: '11829374650133-55209',
     title: 'Ação de divórcio consensual',
     description:
@@ -67,7 +67,7 @@ export const fakeCases: CaseProps[] = [
   },
   {
     clientId: 'joao3',
-    lawyerIds: ['mariana4'],
+    lawyerIds: ['flavia1', 'carla1'],
     processNumber: '11829374650133-55209',
     title: 'Ação de divórcio consensual',
     description:
