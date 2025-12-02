@@ -37,7 +37,7 @@ export function CaseSearchContainer({ query, queryType, userData }: Props) {
       setCases(filteredData);
     }
     loadCases();
-  }, [query]);
+  }, [query, queryType]);
 
   const renderCases = cases?.map((cas, index) => {
     return <CaseCard key={index} caseData={cas} />;
