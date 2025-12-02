@@ -5,7 +5,7 @@ export function filterCasesByTitle(cases: WithId<CaseProps>[], title: string): W
   const data = cases.filter((cas) => {
     let similar = true;
     for (let i = 0; i < title.length; i++) {
-      if (title[i] !== cas.title[i]) {
+      if (title.toLowerCase()[i] !== cas.title.toLowerCase()[i]) {
         similar = false;
       }
     }
