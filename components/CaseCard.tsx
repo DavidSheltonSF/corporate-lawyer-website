@@ -54,7 +54,7 @@ export function CaseCard({ caseData }: Props) {
   }, []);
 
   return (
-    <div className="bg-color-primary w-[640px] h-[256px] rounded-xl">
+    <article className="bg-color-primary w-[640px] h-[256px] rounded-xl">
       <header className="pl-[24px] py-[8px]">
         <h1 className="font-bold text-3xl">{title}</h1>
       </header>
@@ -78,6 +78,6 @@ export function CaseCard({ caseData }: Props) {
           <p className={`font-bold ${statusColor}`}>{CaseStatusEnum[status]}</p>
         </span>
       </main>
-    </div>
+    </article>
   );
 }
