@@ -3,7 +3,7 @@ import { getClientCases } from '@/lib/getClientCases';
 import { CaseCard } from './CaseCard';
 import { UserProps } from '@/types/UserProps';
 import { WithId } from '@/types/WIthId';
-import { useEffect, useState } from 'react';
+import { Activity, useEffect, useState } from 'react';
 import { CaseProps } from '@/types/CaseProps';
 import { CaseQueryTypeEnum } from './CaseQueryTypeEnum';
 import { filterCasesByTitle } from '@/lib/filterCasesByTitle';
@@ -43,6 +43,11 @@ export function CaseSearchContainer({ query, queryType, userData }: Props) {
     return <CaseCard key={index} caseData={cas} />;
   });
   return (
-    <div className="flex flex-col gap-[32px] mt-[88px] min-h-[50vh] w-full ">{renderCases}</div>
+    <div className="flex flex-col gap-[32px] mt-[88px] min-h-[50vh] w-full ">
+      <Activity mode={!cases || cases.length === 0 ? 'visible' : 'hidden'}>
+        <h1 className="text-3xl">Nenhum caso encontrado</h1>
+      </Activity>
+      {renderCases}
+    </div>
   );
 }
