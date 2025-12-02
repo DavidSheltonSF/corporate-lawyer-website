@@ -12,6 +12,15 @@ export const fakeUserDatabase: WithId<UserProps>[] = [
     role: 'lawyer',
   },
   {
+    id: 'carla1',
+    firstName: 'Carla',
+    lastName: 'Medeiros',
+    email: 'carla@email.com',
+    cpf: '11148814474',
+    password: 'carla123',
+    role: 'lawyer',
+  },
+  {
     id: 'raimundo1',
     firstName: 'Raimundo',
     lastName: 'Teixeira',
