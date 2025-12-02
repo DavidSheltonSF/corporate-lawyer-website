@@ -1,6 +1,7 @@
-import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useContext } from 'react';
 import { DropDownButton } from './DropdownButton';
 import { CaseQueryTypeEnum } from './CaseQueryTypeEnum';
+import { UserDataContext } from '@/contexts/UserDataContext';
 
 interface Props {
   query: string;
@@ -19,6 +20,14 @@ export function CaseSearchBar({ query, setQuery, queryType, setQueryType }: Prop
     setQuery(searchBar.value);
   }
 
+  const context = useContext(UserDataContext);
+  const userData = context?.userData;
+
+  const listItems =
+    userData?.role === 'client'
+      ? [CaseQueryTypeEnum.num_processo, CaseQueryTypeEnum.titulo]
+      : Object.values(CaseQueryTypeEnum);
+
   return (
     <div className="flex bg-color-white w-[520px] h-[48px] rounded-full p-[2px]">
       <div className="flex flex-1 px-[8px]">
@@ -33,7 +42,7 @@ export function CaseSearchBar({ query, setQuery, queryType, setQueryType }: Prop
         <DropDownButton
           selectedItem={queryType}
           setSelectedItem={setQueryType}
-          listItems={Object.values(CaseQueryTypeEnum)}
+          listItems={listItems}
         />
       </div>
       <button
