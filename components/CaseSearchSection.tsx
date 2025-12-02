@@ -20,7 +20,6 @@ export default function CaseSearchSection() {
     <section>
       <div className="flex flex-col">
         <CaseSearchBar
-          query={query}
           setQuery={setQuery}
           queryType={queryType}
           setQueryType={setQueryType}

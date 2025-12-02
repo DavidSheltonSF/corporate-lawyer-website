@@ -4,13 +4,12 @@ import { CaseQueryTypeEnum } from './CaseQueryTypeEnum';
 import { UserDataContext } from '@/contexts/UserDataContext';
 
 interface Props {
-  query: string;
   setQuery: Dispatch<SetStateAction<string>>;
   queryType: CaseQueryTypeEnum;
   setQueryType: Dispatch<SetStateAction<CaseQueryTypeEnum>>;
 }
 
-export function CaseSearchBar({ query, setQuery, queryType, setQueryType }: Props) {
+export function CaseSearchBar({ setQuery, queryType, setQueryType }: Props) {
   const [searchText, setSearchText] = useState('')
   function handleClick() {
     setQuery(searchText)
