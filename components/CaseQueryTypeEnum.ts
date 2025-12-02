@@ -1,5 +1,5 @@
 export enum CaseQueryTypeEnum {
   num_processo = 'Nº processo',
-  titulo = 'Tídulo',
+  titulo = 'Título',
   cpf_cnpj = 'CPF/CNPJ',
 }
