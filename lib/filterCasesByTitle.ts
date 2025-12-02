@@ -1,16 +1,11 @@
 import { CaseProps } from '@/types/CaseProps';
 import { WithId } from '@/types/WIthId';
+import { normalizeString } from './normalizeString';
 
 export function filterCasesByTitle(cases: WithId<CaseProps>[], title: string): WithId<CaseProps>[] {
   const data = cases.filter((cas) => {
-    let similar = true;
-    for (let i = 0; i < title.length; i++) {
-      if (title.toLowerCase()[i] !== cas.title.toLowerCase()[i]) {
-        similar = false;
-      }
-    }
-
-    if (similar) {
+    // Check if the case's title starts with the title used to filter
+    if (normalizeString(cas.title).startsWith(normalizeString(title))) {
       return cas;
     }
   });
