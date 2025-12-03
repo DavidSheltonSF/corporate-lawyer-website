@@ -54,11 +54,11 @@ export function CaseCard({ caseData }: Props) {
   }, []);
 
   return (
-    <article className="bg-color-primary w-[640px] h-[256px] rounded-xl">
-      <header className="pl-[24px] py-[8px]">
-        <h1 className="font-bold text-3xl">{title}</h1>
+    <article className="flex flex-col fade-in-animation  bg-color-primary w-[640px] h-[256px] rounded-xl overflow-hidden">
+      <header className="flex items-center pl-[24px] h-[56px]">
+        <h1 className="h-fit font-bold text-3xl">{title}</h1>
       </header>
-      <main className="flex flex-col gap-[8px] px-[24px] py-[8px] bg-color-white text-color-black text-lg">
+      <main className="flex flex-col gap-[16px] px-[24px] py-[16px] flex-1 bg-color-white text-color-black text-lg">
         <span className="flex gap-[8px]">
           <p className="font-bold">nº:</p>
           <p>{processNumber}</p>
