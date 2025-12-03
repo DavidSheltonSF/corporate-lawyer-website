@@ -24,7 +24,6 @@ export function CaseSearchContainer({ query, queryType, userData }: Props) {
     async function loadCases() {
       const casesPagination = await getClientCases(userData.id, pageIndex, 4);
       const casesData = casesPagination.data;
-      console.log(casesData);
       setTotalPage(casesPagination.totalPages);
       let filteredData = null;
       switch (queryType) {
