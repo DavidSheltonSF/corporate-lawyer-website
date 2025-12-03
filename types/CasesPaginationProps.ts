@@ -2,7 +2,7 @@ import { CaseProps } from "./CaseProps";
 import { WithId } from "./WIthId";
 
 export interface CasesPaginationProps {
-  data: WithId<CaseProps>[];
+  cases: WithId<CaseProps>[];
   page: number;
   limit: number;
   total: number;
