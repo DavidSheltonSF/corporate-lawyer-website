@@ -1,7 +1,9 @@
 import { CaseProps } from '@/types/CaseProps';
+import { WithId } from '@/types/WIthId';
 
-export const fakeCases: CaseProps[] = [
+export const fakeCases: WithId<CaseProps>[] = [
   {
+    id: 'case1',
     clientId: 'raimundo1',
     lawyerIds: ['flavia1', 'carla1'],
     processNumber: '01119418441616-44156',
@@ -23,6 +25,7 @@ export const fakeCases: CaseProps[] = [
     updatedAt: new Date(),
   },
   {
+    id: 'case2',
     clientId: 'raimundo1',
     lawyerIds: ['flavia1', 'carla1'],
     processNumber: '00293847320244-88211',
@@ -46,6 +49,7 @@ export const fakeCases: CaseProps[] = [
 
   // 🔥 NEW UNIQUE CASES BEGIN HERE
   {
+    id: 'case3',
     clientId: 'raimundo1',
     lawyerIds: ['carla1'],
     processNumber: '55329184722017-11422',
@@ -67,6 +71,7 @@ export const fakeCases: CaseProps[] = [
     updatedAt: new Date(),
   },
   {
+    id: 'case4',
     clientId: 'raimundo1',
     lawyerIds: ['carla1'],
     processNumber: '77193840255120-66821',
@@ -88,6 +93,7 @@ export const fakeCases: CaseProps[] = [
     updatedAt: new Date(),
   },
   {
+    id: 'case5',
     clientId: 'raimundo1',
     lawyerIds: ['carla1'],
     processNumber: '91283746501923-44177',
@@ -109,6 +115,7 @@ export const fakeCases: CaseProps[] = [
     updatedAt: new Date(),
   },
   {
+    id: 'case6',
     clientId: 'raimundo1',
     lawyerIds: ['carla1'],
     processNumber: '44129837465100-99283',
@@ -130,6 +137,7 @@ export const fakeCases: CaseProps[] = [
     updatedAt: new Date(),
   },
   {
+    id: 'case7',
     clientId: 'raimundo1',
     lawyerIds: ['carla1'],
     processNumber: '66293847100182-33700',
@@ -151,6 +159,7 @@ export const fakeCases: CaseProps[] = [
     updatedAt: new Date(),
   },
   {
+    id: 'case8',
     clientId: 'raimundo1',
     lawyerIds: ['carla1'],
     processNumber: '10028374655192-66752',
@@ -174,6 +183,7 @@ export const fakeCases: CaseProps[] = [
 
   // Last one — different client
   {
+    id: 'case9',
     clientId: 'joao3',
     lawyerIds: ['flavia1', 'carla1'],
     processNumber: '77192837465111-88721',
