@@ -15,7 +15,7 @@ export const fakeCases: CaseProps[] = [
       {
         location: 'Rio de Janeiro/RJ',
         date: new Date('2024-08-08'),
-        description: 'Não houve acordo de nenhumas as partes.',
+        description: 'Não houve acordo de nenhuma das partes.',
       },
     ],
     status: 'em_progresso',
@@ -44,21 +44,22 @@ export const fakeCases: CaseProps[] = [
     updatedAt: new Date(),
   },
 
+  // 🔥 NEW UNIQUE CASES BEGIN HERE
   {
     clientId: 'raimundo1',
     lawyerIds: ['carla1'],
-    processNumber: '11829374650133-55209',
-    title: 'Ação de divórcio consensual',
+    processNumber: '55329184722017-11422',
+    title: 'Ação de usucapião urbano',
     description:
-      'As partes buscam formalizar o divórcio consensual e definir partilha de bens, guarda e pensão alimentícia. Documentação já anexada e processo segue para homologação.',
-    tribunal: 'TJ-SP',
-    vara: '3ª Vara de Família',
+      'O cliente busca o reconhecimento de posse prolongada de um imóvel urbano utilizado há mais de 15 anos ininterruptos.',
+    tribunal: 'TJ-RJ',
+    vara: '7ª Vara de Registros Públicos',
     documents: [],
     hearings: [
       {
-        location: 'Campinas/SP',
-        date: new Date('2024-10-02'),
-        description: 'Audiência para homologação do acordo.',
+        location: 'Rio de Janeiro/RJ',
+        date: new Date('2024-11-10'),
+        description: 'Audiência para apresentação de testemunhas sobre posse.',
       },
     ],
     status: 'em_progresso',
@@ -66,20 +67,127 @@ export const fakeCases: CaseProps[] = [
     updatedAt: new Date(),
   },
   {
-    clientId: 'joao3',
-    lawyerIds: ['flavia1', 'carla1'],
-    processNumber: '11829374650133-55209',
-    title: 'Ação de divórcio consensual',
+    clientId: 'raimundo1',
+    lawyerIds: ['carla1'],
+    processNumber: '77193840255120-66821',
+    title: 'Ação de cobrança por inadimplência contratual',
     description:
-      'As partes buscam formalizar o divórcio consensual e definir partilha de bens, guarda e pensão alimentícia. Documentação já anexada e processo segue para homologação.',
+      'A parte autora busca receber valores devidos referentes a um contrato de prestação de serviços não pago.',
     tribunal: 'TJ-SP',
-    vara: '3ª Vara de Família',
+    vara: '2ª Vara Cível',
+    documents: [],
+    hearings: [
+      {
+        location: 'São Paulo/SP',
+        date: new Date('2024-12-05'),
+        description: 'Audiência de conciliação e apresentação de proposta.',
+      },
+    ],
+    status: 'em_progresso',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    clientId: 'raimundo1',
+    lawyerIds: ['carla1'],
+    processNumber: '91283746501923-44177',
+    title: 'Ação de danos materiais por acidente de trânsito',
+    description:
+      'O cliente busca ressarcimento pelos danos causados ao seu veículo após colisão envolvendo terceiro.',
+    tribunal: 'TJ-SP',
+    vara: '14ª Vara Cível',
     documents: [],
     hearings: [
       {
         location: 'Campinas/SP',
-        date: new Date('2024-10-02'),
-        description: 'Audiência para homologação do acordo.',
+        date: new Date('2025-01-20'),
+        description: 'Audiência de instrução com perito e testemunhas.',
+      },
+    ],
+    status: 'em_progresso',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    clientId: 'raimundo1',
+    lawyerIds: ['carla1'],
+    processNumber: '44129837465100-99283',
+    title: 'Ação de reconhecimento e dissolução de união estável',
+    description:
+      'A autora busca o reconhecimento da união estável e definição da partilha de bens.',
+    tribunal: 'TJ-SP',
+    vara: '1ª Vara de Família',
+    documents: [],
+    hearings: [
+      {
+        location: 'Campinas/SP',
+        date: new Date('2024-11-22'),
+        description: 'Audiência inicial para oitiva das partes.',
+      },
+    ],
+    status: 'em_progresso',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    clientId: 'raimundo1',
+    lawyerIds: ['carla1'],
+    processNumber: '66293847100182-33700',
+    title: 'Ação de obrigação de fazer — plano de saúde',
+    description:
+      'A parte autora requer que o plano de saúde autorize procedimento médico que foi indevidamente negado.',
+    tribunal: 'TJ-SP',
+    vara: '6ª Vara Cível',
+    documents: [],
+    hearings: [
+      {
+        location: 'São Paulo/SP',
+        date: new Date('2025-02-14'),
+        description: 'Audiência de urgência para análise da tutela antecipada.',
+      },
+    ],
+    status: 'em_progresso',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    clientId: 'raimundo1',
+    lawyerIds: ['carla1'],
+    processNumber: '10028374655192-66752',
+    title: 'Ação de pensão alimentícia',
+    description:
+      'A mãe da criança solicita fixação de pensão alimentícia conforme necessidade do menor e capacidade do responsável.',
+    tribunal: 'TJ-SP',
+    vara: '9ª Vara de Família',
+    documents: [],
+    hearings: [
+      {
+        location: 'Campinas/SP',
+        date: new Date('2025-03-03'),
+        description: 'Audiência de conciliação e tentativa de acordo.',
+      },
+    ],
+    status: 'em_progresso',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+
+  // Last one — different client
+  {
+    clientId: 'joao3',
+    lawyerIds: ['flavia1', 'carla1'],
+    processNumber: '77192837465111-88721',
+    title: 'Ação de revisão contratual bancária',
+    description:
+      'O autor afirma que o banco aplicou juros abusivos em contrato de empréstimo e solicita revisão das cláusulas.',
+    tribunal: 'TJ-SP',
+    vara: '4ª Vara Cível',
+    documents: [],
+    hearings: [
+      {
+        location: 'São Paulo/SP',
+        date: new Date('2025-01-10'),
+        description: 'Audiência para apresentação de cálculos revisados.',
       },
     ],
     status: 'em_progresso',
