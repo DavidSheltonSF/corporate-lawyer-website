@@ -3,13 +3,15 @@ import { fakeCases } from '../../fakeDatabase/cases';
 import { filterCasesByTitle } from '@/lib/filterCasesByTitle';
 import { filterCasesByProcessNumber } from '@/lib/filterCasesByProcessNumber';
 import { HttpResponse } from '@/types/HttpResponse';
+import { getQueryParam } from '@/helpers/getQueryParam';
 
 export async function GET(req: Request, context: { params: Promise<{ clientId: string }> }) {
   const { clientId } = await context.params;
-  const { searchParams } = new URL(req.url);
 
-  const title = searchParams.get('title');
-  const processNumber = searchParams.get('processNumber');
+  const title = getQueryParam(req, 'title');
+  const processNumber = getQueryParam(req, 'processNumber');
+  const page = Number(getQueryParam(req, 'page')) || 1;
+  const limit = Number(getQueryParam(req, 'limit')) || 5;
 
   if (title && processNumber) {
     return Response.json({
@@ -18,22 +20,19 @@ export async function GET(req: Request, context: { params: Promise<{ clientId: s
     });
   }
 
-  const page = Number(searchParams.get('page')) || 1;
-  const limit = Number(searchParams.get('limit')) || 5;
-
   let casesByQuery = null;
 
-  const clientCases = fakeCases.filter((cas) => cas.clientId === clientId);
+  const casesByClientId = fakeCases.filter((cas) => cas.clientId === clientId);
 
   if (title) {
-    casesByQuery = filterCasesByTitle(clientCases, title);
+    casesByQuery = filterCasesByTitle(casesByClientId, title);
   }
 
   if (processNumber) {
-    casesByQuery = filterCasesByProcessNumber(clientCases, processNumber);
+    casesByQuery = filterCasesByProcessNumber(casesByClientId, processNumber);
   }
 
-  const cases = casesByQuery || clientCases;
+  const cases = casesByQuery || casesByClientId;
 
   const pagination = {
     cases: paginate(cases, page, limit),
