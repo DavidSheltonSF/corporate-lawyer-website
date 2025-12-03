@@ -1,6 +1,7 @@
-import { ServiceDetails } from '@/types/ServiceModalProps';
+import { ServiceModalProps } from '@/types/ServiceModalProps';
+import { WithId } from '@/types/WIthId';
 
-export const servicesDetails: Record<string, ServiceDetails> = {
+export const servicesDetails: Record<string, WithId<ServiceModalProps>> = {
   familia: {
     id: 'familia',
     title: 'Família',
