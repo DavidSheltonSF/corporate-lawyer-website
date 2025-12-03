@@ -27,9 +27,9 @@ export async function getClientCases(
 
     const response = await fetch(`${baseRoute}/${queryString}`);
 
-    const clientCases = await response.json();
+    const responseJson = await response.json();
 
-    return clientCases;
+    return responseJson.data;
   } catch (error) {
     console.log(error);
     throw new Error('Something went wrong');
