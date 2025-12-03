@@ -1,9 +1,12 @@
-import { CaseProps } from '@/types/CaseProps';
-import { WithId } from '@/types/WIthId';
+import { CasesPaginationProps } from '@/types/CasesPaginationProps';
 
-export async function getClientCases(clientId: string): Promise<WithId<CaseProps>[]> {
+export async function getClientCases(
+  clientId: string,
+  page: number,
+  limit: number
+): Promise<CasesPaginationProps> {
   try {
-    const response = await fetch(`/api/cases/${clientId}`);
+    const response = await fetch(`/api/cases/${clientId}?page=${page}&limit=${limit}`);
 
     const clientCases = await response.json();
 
