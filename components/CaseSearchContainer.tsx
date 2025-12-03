@@ -28,7 +28,7 @@ export function CaseSearchContainer({ query, queryType, userData }: Props) {
         type: queryType,
         value: query,
       });
-      const casesData = casesPagination.data;
+      const casesData = casesPagination.cases;
       setTotalPage(casesPagination.totalPages);
 
       setCases(casesData);
