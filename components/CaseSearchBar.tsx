@@ -10,9 +10,10 @@ interface Props {
 }
 
 export function CaseSearchBar({ setQuery, queryType, setQueryType }: Props) {
-  const [searchText, setSearchText] = useState('')
+  const [searchText, setSearchText] = useState('');
+
   function handleClick() {
-    setQuery(searchText)
+    setQuery(searchText);
   }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
