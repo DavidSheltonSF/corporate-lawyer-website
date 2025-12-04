@@ -7,4 +7,9 @@ describe('Test reduceString', () => {
     const reducedStr = reduceString(longStr, limit);
     expect(reducedStr.replace('...', '').length === limit).toBeTruthy();
   });
+  test('Should not modify strings that do not overflow the limit', () => {
+    const str = 'Abcd'
+    const reducedStr = reduceString(str, 4);
+    expect(reducedStr === str).toBeTruthy()
+  })
 });
