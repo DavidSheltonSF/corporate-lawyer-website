@@ -4,7 +4,7 @@ import { CaseSearchBar } from './CaseSearchBar';
 import { CasesList } from './CasesList';
 import { UserDataContext } from '@/contexts/UserDataContext';
 import { CaseQueryTypeEnum } from './CaseQueryTypeEnum';
-import { fetchClientCases } from '@/lib/fetchClientCases';
+import { fetchClientCases } from '@/services/fetchClientCases';
 import { CaseProps } from '@/types/CaseProps';
 import { WithId } from '@/types/WIthId';
 import { Pagination } from './Pagination';
