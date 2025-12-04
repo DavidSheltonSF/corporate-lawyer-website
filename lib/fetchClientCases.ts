@@ -1,7 +1,7 @@
 import { CaseQueryTypeEnum } from '@/components/CaseQueryTypeEnum';
 import { CasesPaginationProps } from '@/types/CasesPaginationProps';
 
-export async function getClientCases(
+export async function fetchClientCases(
   clientId: string,
   page: number,
   limit: number,

@@ -4,7 +4,7 @@ import { CaseSearchBar } from './CaseSearchBar';
 import { CasesList } from './CasesList';
 import { UserDataContext } from '@/contexts/UserDataContext';
 import { CaseQueryTypeEnum } from './CaseQueryTypeEnum';
-import { getClientCases } from '@/lib/getClientCases';
+import { fetchClientCases } from '@/lib/fetchClientCases';
 import { CaseProps } from '@/types/CaseProps';
 import { WithId } from '@/types/WIthId';
 import { Pagination } from './Pagination';
@@ -21,7 +21,7 @@ export default function CaseSearchSection() {
     setCasesLoading(true);
     setPageIndex(page);
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    const casesPagination = await getClientCases(userData.id, page, 4, {
+    const casesPagination = await fetchClientCases(userData.id, page, 4, {
       type: queryType,
       value: query,
     });
