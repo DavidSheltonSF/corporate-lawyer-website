@@ -1,5 +1,5 @@
 'use client';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { CaseSearchBar } from './CaseSearchBar';
 import { CasesList } from './CasesList';
 import { UserDataContext } from '@/contexts/UserDataContext';
@@ -17,11 +17,11 @@ export default function CaseSearchSection() {
   const [cases, setCases] = useState<WithId<CaseProps>[]>([]);
   const [casesLoading, setCasesLoading] = useState(false);
 
-  async function loadCases() {
+  async function loadCases(page: number) {
     setCasesLoading(true);
+    setPageIndex(page);
     await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    const casesPagination = await getClientCases(userData.id, pageIndex, 4, {
+    const casesPagination = await getClientCases(userData.id, page, 4, {
       type: queryType,
       value: query,
     });
@@ -32,22 +32,9 @@ export default function CaseSearchSection() {
     setCasesLoading(false);
   }
 
-  // Load case cards when component loads or page index changes
   useEffect(() => {
-    loadCases();
-  }, [pageIndex]);
-
-  // Load case cards and reset query when query
-  useEffect(() => {
-    if (!query) return;
-    loadCases();
-    setQuery('');
-  }, [query]);
-
-  // Reset query when queryType changes
-  useEffect(() => {
-    setQuery('');
-  }, [queryType]);
+    loadCases(1);
+  }, []);
 
   const context = useContext(UserDataContext);
   if (!context) {
@@ -59,10 +46,17 @@ export default function CaseSearchSection() {
   return (
     <section className="relative">
       <div className="flex flex-col">
-        <CaseSearchBar setQuery={setQuery} queryType={queryType} setQueryType={setQueryType} />
+        <CaseSearchBar
+          handleClick={() => {
+            loadCases(1);
+          }}
+          setQuery={setQuery}
+          queryType={queryType}
+          setQueryType={setQueryType}
+        />
       </div>
       <CasesList loading={casesLoading} cases={cases} />
-      <Pagination totalPage={totalPage} pageIndex={pageIndex} setPageIndex={setPageIndex} />
+      <Pagination pageIndex={pageIndex} reloadByPageIndex={loadCases} totalPage={totalPage} />
     </section>
   );
 }

@@ -4,21 +4,16 @@ import { CaseQueryTypeEnum } from './CaseQueryTypeEnum';
 import { UserDataContext } from '@/contexts/UserDataContext';
 
 interface Props {
+  handleClick: any;
   setQuery: Dispatch<SetStateAction<string>>;
   queryType: CaseQueryTypeEnum;
   setQueryType: Dispatch<SetStateAction<CaseQueryTypeEnum>>;
 }
 
-export function CaseSearchBar({ setQuery, queryType, setQueryType }: Props) {
-  const [searchText, setSearchText] = useState('');
-
-  function handleClick() {
-    setQuery(searchText);
-  }
-
+export function CaseSearchBar({ handleClick, setQuery, queryType, setQueryType }: Props) {
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const searchBar = e.target;
-    setSearchText(searchBar.value);
+    setQuery(searchBar.value);
   }
 
   const context = useContext(UserDataContext);
@@ -38,7 +33,6 @@ export function CaseSearchBar({ setQuery, queryType, setQueryType }: Props) {
           type="text"
           placeholder="Pesquisar..."
           onChange={handleChange}
-          defaultValue={searchText}
         />
         <DropDownButton
           selectedItem={queryType}
