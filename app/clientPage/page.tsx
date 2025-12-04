@@ -7,7 +7,7 @@ import { DynamicSections } from '@/components/DynamicSections';
 import { HeroSection } from '@/components/HeroSection';
 import { UserDataProvider } from '@/contexts/UserDataProvider';
 import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
-import { getUserInformation } from '@/lib/getUserInformation';
+import { getUserInformation } from '@/services/getUserInformation';
 import { redirect } from 'next/navigation';
 
 export default async function ClientPage() {
