@@ -1,7 +1,7 @@
 import { UserProps } from '@/types/UserProps';
 import { WithId } from '@/types/WIthId';
 
-export async function fetchUser(id: string): Promise<WithId<UserProps>> {
+export async function fetchUserById(id: string): Promise<WithId<UserProps>> {
   try {
     const response = await fetch(`http://localhost:3001/api/users/${id}`);
 

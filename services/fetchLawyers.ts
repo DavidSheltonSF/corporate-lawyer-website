@@ -1,9 +1,9 @@
 import { WithId } from '@/types/WIthId';
 import { UserProps } from '@/types/UserProps';
-import { fetchUser } from './fetchUser';
+import { fetchUserById } from './fetchUserById';
 
 export async function fetchLawyers(ids: string[]): Promise<WithId<UserProps>[]> {
-  const promises = ids.map((id) => fetchUser(id));
+  const promises = ids.map((id) => fetchUserById(id));
 
   return Promise.all(promises);
 }
