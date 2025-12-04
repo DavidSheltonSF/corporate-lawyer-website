@@ -1,6 +1,6 @@
 'use server';
 
-import { authenticateUser } from '@/lib/authenticateUser';
+import { authenticateUser } from '@/services/authenticateUser';
 import { isString } from '@/lib/isString';
 import { cookies } from 'next/headers';
 
