@@ -1,6 +1,6 @@
 import { UserDataContext } from '@/contexts/UserDataContext';
 import { formatStringList } from '@/lib/formatStringList';
-import { fetchLawyers } from '@/lib/fetchLawyers';
+import { fetchLawyers } from '@/services/fetchLawyers';
 import { CaseProps } from '@/types/CaseProps';
 import { UserProps } from '@/types/UserProps';
 import { WithId } from '@/types/WIthId';
