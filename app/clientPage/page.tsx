@@ -7,7 +7,7 @@ import { DynamicSections } from '@/components/DynamicSections';
 import { HeroSection } from '@/components/HeroSection';
 import { UserDataProvider } from '@/contexts/UserDataProvider';
 import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
-import { getUserInformation } from '@/services/getUserInformation';
+import { fetchUserByToken } from '@/services/fetchUserByToken';
 import { redirect } from 'next/navigation';
 
 export default async function ClientPage() {
@@ -16,7 +16,7 @@ export default async function ClientPage() {
     redirect('/clientPageLogin');
   }
 
-  const user = await getUserInformation(token);
+  const user = await fetchUserByToken(token);
 
   if (!user) {
     console.log('Something went wrong');
