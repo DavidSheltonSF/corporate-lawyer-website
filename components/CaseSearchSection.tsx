@@ -1,7 +1,7 @@
 'use client';
 import { useContext, useEffect, useState } from 'react';
 import { CaseSearchBar } from './CaseSearchBar';
-import { CaseSearchContainer } from './CaseSearchContainer';
+import { CasesList } from './CasesList';
 import { UserDataContext } from '@/contexts/UserDataContext';
 import { CaseQueryTypeEnum } from './CaseQueryTypeEnum';
 import { getClientCases } from '@/lib/getClientCases';
@@ -61,7 +61,7 @@ export default function CaseSearchSection() {
       <div className="flex flex-col">
         <CaseSearchBar setQuery={setQuery} queryType={queryType} setQueryType={setQueryType} />
       </div>
-      <CaseSearchContainer loading={casesLoading} cases={cases} />
+      <CasesList loading={casesLoading} cases={cases} />
       <Pagination totalPage={totalPage} pageIndex={pageIndex} setPageIndex={setPageIndex} />
     </section>
   );

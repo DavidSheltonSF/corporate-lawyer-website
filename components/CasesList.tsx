@@ -10,7 +10,7 @@ interface Props {
   loading: boolean;
 }
 
-export function CaseSearchContainer({ cases, loading }: Props) {
+export function CasesList({ cases, loading }: Props) {
   const renderCases = cases?.map((cas, index) => {
     return <CaseCard key={index} caseData={cas} />;
   });
