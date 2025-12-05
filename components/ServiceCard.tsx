@@ -16,7 +16,11 @@ export function ServiceCard({ serviceDetails }: Props) {
         <TooltipContainer
           label={`Serviços - ${title}`}
           tooltipLabelProps={{
-            position: 'top',
+            position: {
+              bottom: '120%',
+              left: '50%',
+              translateX: '-50%',
+            },
             fontSize: '24px',
             color: 'var(--secondary-color)',
           }}

@@ -30,7 +30,11 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
           key={index}
           label={specialization}
           tooltipLabelProps={{
-            position: 'top',
+            position: {
+              bottom: "120%",
+              left: "50%",
+              translateX: "-50%"
+            },
             backgroundColor: '#000',
             fontSize: '16px',
           }}

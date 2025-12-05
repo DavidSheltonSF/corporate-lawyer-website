@@ -4,7 +4,14 @@ export interface TooltipLabelProps {
   color?: string;
   fontSize?: string;
   backgroundColor?: string;
-  position?: 'top' | 'middle' | 'bottom';
+  position?: {
+    top?: string;
+    bottom?: string;
+    left?: string;
+    right?: string;
+    translateX?: string;
+    translateY?: string;
+  };
 }
 
 interface Props {
@@ -15,33 +22,18 @@ interface Props {
 export function TooltipLabel({ tooltipLabelProps, children }: Props) {
   const { color, fontSize, backgroundColor, position } = tooltipLabelProps;
 
-  let positionConfig = '';
-
-  switch (position) {
-    case 'top':
-      positionConfig = 'bottom-[120%] left-[50%] translate-x-[-50%]';
-      break;
-
-    case 'middle':
-      positionConfig = 'top-[50%] translate-y-[-50%] left-[50%] translate-x-[-50%]';
-      break;
-
-    case 'bottom':
-      positionConfig = 'top-[120%] left-[50%] translate-x-[-50%]';
-      break;
-
-    default:
-      positionConfig = 'bottom-[120%] left-[50%] translate-x-[-50%]';
-      break;
-  }
-
   return (
     <span
-      className={`absolute hidden z-9999 group-hover:block fade-in-animation-fast w-max p-[4px] rounded-md ${positionConfig}`}
+      className={`absolute hidden z-9999 group-hover:block fade-in-animation-fast w-max p-[4px] rounded-md`}
       style={{
         color,
         fontSize,
         backgroundColor,
+        top: position?.top,
+        bottom: position?.bottom,
+        left: position?.left,
+        right: position?.right,
+        transform: `translate(${position?.translateX || 0}, ${position?.translateY || 0}`,
       }}
     >
       {children}
