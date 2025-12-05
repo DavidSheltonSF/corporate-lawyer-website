@@ -49,7 +49,7 @@ export function DropDownButton({ listItems, selectedItem, setSelectedItem }: Pro
   return (
     <div ref={menuRef} className="relative h-full">
       <button
-        className="flex justify-between items-center bg-color-primary h-full px-[16px] w-[152px] text-nowrap font-bold rounded-lg cursor-pointer"
+        className="flex justify-between items-center bg-color-primary h-full px-[16px] w-[152px] text-nowrap font-bold rounded-l-md cursor-pointer"
         onClick={toggleDropDown}
       >
         <span>{selectedItem}</span>
@@ -62,7 +62,7 @@ export function DropDownButton({ listItems, selectedItem, setSelectedItem }: Pro
           isOpen ? 'h-fit' : 'h-0'
         }`}
       >
-        <ul className="py-[16px] h-full w-full">{renderItems}</ul>
+        <ul className="py-[8px] h-full w-full">{renderItems}</ul>
       </div>
     </div>
   );
