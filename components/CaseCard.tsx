@@ -7,6 +7,7 @@ import { WithId } from '@/types/WIthId';
 import { useContext, useEffect, useState } from 'react';
 import { CaseStatusEnum } from '@/types/CaseProps';
 import { reduceString } from '@/lib/reduceString';
+import { TooltipContainer } from './TooltipContainer';
 interface Props {
   caseData: CaseProps;
 }
@@ -55,30 +56,36 @@ export function CaseCard({ caseData }: Props) {
   }, []);
 
   return (
-    <article className="flex flex-col fade-in-animation  bg-color-primary w-[640px] h-[256px] rounded-xl overflow-hidden">
-      <header className="flex items-center pl-[24px] h-[56px]">
-        <h1 className="h-fit font-bold text-3xl">{reduceString(title, 35)}</h1>
-      </header>
-      <main className="flex flex-col gap-[16px] px-[24px] py-[16px] flex-1 bg-color-white text-color-black text-lg">
-        <span className="flex gap-[8px]">
-          <p className="font-bold">nº:</p>
-          <p>{processNumber}</p>
-        </span>
-        <span className="flex gap-[8px]">
-          <p className="font-bold">cliente:</p>
-          <p>
-            {userData?.firstName} {userData?.lastName}
-          </p>
-        </span>
-        <span className="flex gap-[8px]">
-          <p className="font-bold">advogados:</p>
-          <p>{formatStringList(renderLawyers)}</p>
-        </span>
-        <span className="flex gap-[8px]">
-          <p className="font-bold">status:</p>
-          <p className={`font-bold ${statusColor}`}>{CaseStatusEnum[status]}</p>
-        </span>
-      </main>
-    </article>
+    <TooltipContainer label={title} tooltipLabelProps={{color: '#ffd000ff', backgroundColor: '#000', position: {
+      bottom: "105%",
+      left: "50%",
+      translateX: '-50%'
+    }}}>
+      <article className="flex flex-col fade-in-animation  bg-color-primary w-[640px] h-[256px] rounded-xl overflow-hidden">
+        <header className="flex items-center pl-[24px] h-[56px]">
+          <h1 className="h-fit font-bold text-3xl">{reduceString(title, 35)}</h1>
+        </header>
+        <main className="flex flex-col gap-[16px] px-[24px] py-[16px] flex-1 bg-color-white text-color-black text-lg">
+          <span className="flex gap-[8px]">
+            <p className="font-bold">nº:</p>
+            <p>{processNumber}</p>
+          </span>
+          <span className="flex gap-[8px]">
+            <p className="font-bold">cliente:</p>
+            <p>
+              {userData?.firstName} {userData?.lastName}
+            </p>
+          </span>
+          <span className="flex gap-[8px]">
+            <p className="font-bold">advogados:</p>
+            <p>{formatStringList(renderLawyers)}</p>
+          </span>
+          <span className="flex gap-[8px]">
+            <p className="font-bold">status:</p>
+            <p className={`font-bold ${statusColor}`}>{CaseStatusEnum[status]}</p>
+          </span>
+        </main>
+      </article>
+    </TooltipContainer>
   );
 }
