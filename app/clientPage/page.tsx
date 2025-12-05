@@ -1,7 +1,6 @@
 import CaseSearchSection from '@/components/CaseSearchSection';
 import { DashboardCard } from '@/components/DashboardCard';
 import { DashboardCardInfo } from '@/components/DashboardCardInfo';
-import { DropDownButton } from '@/components/DropdownButton';
 import { DynamicSection } from '@/components/DynamicSection';
 import { DynamicSections } from '@/components/DynamicSections';
 import { HeroSection } from '@/components/HeroSection';
@@ -22,10 +21,6 @@ export default async function ClientPage() {
     console.log('Something went wrong');
     redirect('/clientPageLogin');
   }
-
-  // await new Promise((resolve) => {
-  //   setTimeout(resolve, 2000); // 2 seconds
-  // });
 
   return (
     <div className="bg-color-black">
