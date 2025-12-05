@@ -13,10 +13,11 @@ export function Pagination({ reloadByPageIndex, totalPage, pageIndex }: Props) {
           return (
             <div
               className={`flex justify-center items-center text-2xl bg-color-primary text-color-white size-[56px] rounded-lg ${
-                pageIndex === index + 1 ? 'brightness-180' : ''
+                pageIndex === index + 1 ? 'brightness-180' : 'cursor-pointer'
               }`}
               key={index}
               onClick={() => {
+                if (pageIndex == currentPageIndex) return;
                 reloadByPageIndex(currentPageIndex);
               }}
             >
