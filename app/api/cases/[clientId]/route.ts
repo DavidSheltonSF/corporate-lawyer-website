@@ -8,12 +8,12 @@ import { getQueryParam } from '@/helpers/getQueryParam';
 export async function GET(req: Request, context: { params: Promise<{ clientId: string }> }) {
   const { clientId } = await context.params;
 
-  const title = getQueryParam(req, 'title');
-  const processNumber = getQueryParam(req, 'processNumber');
+  const titleQuery = getQueryParam(req, 'title');
+  const processNumberQuery = getQueryParam(req, 'processNumber');
   const page = Number(getQueryParam(req, 'page')) || 1;
   const limit = Number(getQueryParam(req, 'limit')) || 5;
 
-  if (title && processNumber) {
+  if (titleQuery && processNumberQuery) {
     return Response.json({
       status: 400,
       message: "You must send ONLY 'title' OR 'processNumber', not both.",
@@ -23,17 +23,18 @@ export async function GET(req: Request, context: { params: Promise<{ clientId: s
   let casesByQuery = null;
 
   const casesByClientId = fakeCases.filter((cas) => cas.clientId === clientId);
+  casesByQuery = casesByClientId.slice();
 
-  if (title) {
-    casesByQuery = filterCasesByTitle(casesByClientId, title);
+  if (titleQuery) {
+    casesByQuery = filterCasesByTitle(casesByQuery, titleQuery);
   }
 
-  if (processNumber) {
-    casesByQuery = filterCasesByProcessNumber(casesByClientId, processNumber);
+  if (processNumberQuery) {
+    casesByQuery = filterCasesByProcessNumber(casesByQuery, processNumberQuery);
   }
 
   const cases = casesByQuery || casesByClientId;
-
+  
   const pagination = {
     cases: paginate(cases, page, limit),
     page,
