@@ -11,7 +11,7 @@ export async function fetchClientCases(
   }
 ): Promise<CasesPaginationProps> {
   try {
-    let baseRoute = '/api/cases/';
+    let baseRoute = 'http://localhost:3001/api/cases/';
     let queryString = `${clientId}?page=${page}&limit=${limit}`;
 
     switch (additionalQuery?.type) {
