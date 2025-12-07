@@ -1,6 +1,6 @@
 import { ChangeEvent, Dispatch, SetStateAction, useContext, useState } from 'react';
 import { DropDownButton } from './DropdownButton';
-import { CaseSearchEnum } from './CaseSearchEnum';
+import { CaseSearchEnum } from '../types/CaseSearchEnum';
 import { UserDataContext } from '@/contexts/UserDataContext';
 
 interface Props {

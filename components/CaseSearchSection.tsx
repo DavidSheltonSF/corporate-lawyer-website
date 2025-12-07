@@ -8,7 +8,7 @@ import { fetchClientCases } from '@/services/fetchClientCases';
 import { CaseProps } from '@/types/CaseProps';
 import { WithId } from '@/types/WIthId';
 import { Pagination } from './Pagination';
-import { CaseSearchEnum } from './CaseSearchEnum';
+import { CaseSearchEnum } from '../types/CaseSearchEnum';
 
 export default function CaseSearchSection() {
   const [query, setQuery] = useState('');

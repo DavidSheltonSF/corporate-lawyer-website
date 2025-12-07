@@ -1,7 +1,7 @@
 'use client';
 
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import { CaseSearchEnum } from './CaseSearchEnum';
+import { CaseSearchEnum } from '../types/CaseSearchEnum';
 
 interface Props {
   listItems: CaseSearchEnum[];
