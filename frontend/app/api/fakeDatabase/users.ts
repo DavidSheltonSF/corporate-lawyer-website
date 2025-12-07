@@ -1,0 +1,32 @@
+import { UserProps } from '@/frontend/types/UserProps';
+import { WithId } from '@/frontend/types/WithId';
+
+export const fakeUserDatabase: WithId<UserProps>[] = [
+  {
+    id: 'flavia1',
+    firstName: 'Flávia',
+    lastName: 'Santiago',
+    email: 'flavia@email.com',
+    cpf: '11144744474',
+    password: 'flavia123',
+    role: 'lawyer',
+  },
+  {
+    id: 'carla1',
+    firstName: 'Carla',
+    lastName: 'Medeiros',
+    email: 'carla@email.com',
+    cpf: '11148814474',
+    password: 'carla123',
+    role: 'lawyer',
+  },
+  {
+    id: 'raimundo1',
+    firstName: 'Raimundo',
+    lastName: 'Teixeira',
+    email: 'raimundo@email.com',
+    cpf: '18884744474',
+    password: 'raimundo123',
+    role: 'client',
+  },
+];
