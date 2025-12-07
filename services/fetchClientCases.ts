@@ -1,29 +1,21 @@
-import { CaseQueryTypeEnum } from '@/components/CaseQueryTypeEnum';
 import { CasesPaginationProps } from '@/types/CasesPaginationProps';
 
 export async function fetchClientCases(
   clientId: string,
-  page: number,
-  limit: number,
-  additionalQuery?: {
-    value: string;
-    type: CaseQueryTypeEnum;
+  queryParams: {
+    page: number;
+    limit: number;
+    title?: string;
+    processNumber?: string;
   }
 ): Promise<CasesPaginationProps> {
   try {
+    const { page, limit, processNumber, title } = queryParams;
+
     let baseRoute = 'http://localhost:3001/api/cases/';
-    let queryString = `${clientId}?page=${page}&limit=${limit}`;
-
-    switch (additionalQuery?.type) {
-      case CaseQueryTypeEnum.num_processo:
-        queryString += `&processNumber=${additionalQuery.value}`;
-        break;
-      case CaseQueryTypeEnum.titulo:
-        queryString += `&title=${additionalQuery.value}`;
-
-      default:
-        break;
-    }
+    let queryString = `${clientId}?page=${page}&limit=${limit || ''}&processNumber=${
+      processNumber || ''
+    }&title=${title || ''}`;
 
     const response = await fetch(`${baseRoute}/${queryString}`);
 
