@@ -2,11 +2,11 @@
 import { CaseCard } from './CaseCard';
 import { WithId } from '@/types/WithId';
 import { Activity } from 'react';
-import { CaseProps } from '@/types/CaseProps';
 import { CaseCardSkeleton } from './CaseCardSkeleton';
+import { CaseWithLawyersProps } from '@/types/CaseWithLawyersProps';
 
 interface Props {
-  cases: WithId<CaseProps>[];
+  cases: WithId<CaseWithLawyersProps>[];
   loading: boolean;
 }
 

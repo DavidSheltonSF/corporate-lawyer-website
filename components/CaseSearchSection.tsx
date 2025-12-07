@@ -3,19 +3,18 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { CaseSearchBar } from './CaseSearchBar';
 import { CasesList } from './CasesList';
 import { UserDataContext } from '@/contexts/UserDataContext';
-
 import { fetchClientCases } from '@/services/fetchClientCases';
-import { CaseProps } from '@/types/CaseProps';
 import { WithId } from '@/types/WithId';
 import { Pagination } from './Pagination';
 import { CaseSearchEnum } from '../types/CaseSearchEnum';
+import { CaseWithLawyersProps } from '@/types/CaseWithLawyersProps';
 
 export default function CaseSearchSection() {
   const [query, setQuery] = useState('');
   const [searchType, setSearchType] = useState<CaseSearchEnum>(CaseSearchEnum.num_processo);
   const [pageIndex, setPageIndex] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
-  const [cases, setCases] = useState<WithId<CaseProps>[]>([]);
+  const [cases, setCases] = useState<WithId<CaseWithLawyersProps>[]>([]);
   const [casesLoading, setCasesLoading] = useState(false);
 
   async function loadCases(page: number) {
