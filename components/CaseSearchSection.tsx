@@ -21,10 +21,28 @@ export default function CaseSearchSection() {
     setCasesLoading(true);
     setPageIndex(page);
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    const casesPagination = await fetchClientCases(userData.id, page, 4, {
-      type: queryType,
-      value: query,
-    });
+    let casesPagination = null;
+
+    switch (queryType) {
+      case CaseQueryTypeEnum.num_processo:
+        casesPagination = await fetchClientCases(userData.id, {
+          page,
+          limit: 4,
+          processNumber: query,
+        });
+        break;
+
+      case CaseQueryTypeEnum.titulo:
+        casesPagination = await fetchClientCases(userData.id, {
+          page,
+          limit: 4,
+          title: query,
+        });
+        break;
+      default:
+        throw new Error("Query should be 'Nº Processo', 'Título' OR 'Cpf/Cnpj'");
+    }
+
     const casesData = casesPagination.cases;
     setTotalPage(casesPagination.totalPages);
 
