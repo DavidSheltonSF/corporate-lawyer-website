@@ -1,10 +1,8 @@
 import { CaseDocumentProps } from './CaseDocumentProps';
 import { HearingProps } from './HearingProps';
 
-export type CaseStatus = 'aberto' | 'em_progresso' | 'esperando_documentos' | 'encerrado';
-
 export enum CaseStatusEnum {
-  em_progresso = 'Em progresso',
+  em_andamento = 'Em andamento',
   esperando_documentos = 'Esperando Documentos',
   aberto = 'Aberto',
   encerrado = 'Encerrado',
@@ -20,7 +18,7 @@ export interface CaseProps {
   vara?: string;
   documents?: CaseDocumentProps[];
   hearings?: HearingProps[];
-  status: CaseStatus;
+  status: CaseStatusEnum;
   createdAt: Date;
   updatedAt: Date;
 }
