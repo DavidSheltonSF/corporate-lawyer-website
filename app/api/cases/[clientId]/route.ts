@@ -8,6 +8,7 @@ import { getQueryParam } from '@/helpers/getQueryParam';
 export async function GET(req: Request, context: { params: Promise<{ clientId: string }> }) {
   const { clientId } = await context.params;
 
+  const statusQuery = getQueryParam(req, 'status');
   const titleQuery = getQueryParam(req, 'title');
   const processNumberQuery = getQueryParam(req, 'processNumber');
   const page = Number(getQueryParam(req, 'page')) || 1;
@@ -25,6 +26,10 @@ export async function GET(req: Request, context: { params: Promise<{ clientId: s
   const casesByClientId = fakeCases.filter((cas) => cas.clientId === clientId);
   casesByQuery = casesByClientId.slice();
 
+  if (statusQuery) {
+    casesByQuery = casesByQuery.filter((cas) => cas.status === statusQuery);
+  }
+
   if (titleQuery) {
     casesByQuery = filterCasesByTitle(casesByQuery, titleQuery);
   }
@@ -34,7 +39,7 @@ export async function GET(req: Request, context: { params: Promise<{ clientId: s
   }
 
   const cases = casesByQuery || casesByClientId;
-  
+
   const pagination = {
     cases: paginate(cases, page, limit),
     page,
