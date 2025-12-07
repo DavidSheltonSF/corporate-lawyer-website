@@ -24,18 +24,18 @@ export function CaseCard({ caseData }: Props) {
   let statusColor = '';
 
   switch (status) {
-    case 'aberto':
+    case CaseStatusEnum.aberto:
       statusColor = 'text-green-400';
       break;
 
-    case 'em_progresso':
+    case CaseStatusEnum.em_andamento:
       statusColor = 'text-green-600';
       break;
 
-    case 'esperando_documentos':
+    case CaseStatusEnum.esperando_documentos:
       statusColor = 'text-yellow-00';
       break;
-    case 'encerrado':
+    case CaseStatusEnum.encerrado:
       statusColor = 'text-red-500';
       break;
 
@@ -56,11 +56,18 @@ export function CaseCard({ caseData }: Props) {
   }, []);
 
   return (
-    <TooltipContainer label={title} tooltipLabelProps={{color: '#ffd000ff', backgroundColor: '#000', position: {
-      bottom: "105%",
-      left: "50%",
-      translateX: '-50%'
-    }}}>
+    <TooltipContainer
+      label={title}
+      tooltipLabelProps={{
+        color: '#ffd000ff',
+        backgroundColor: '#000',
+        position: {
+          bottom: '105%',
+          left: '50%',
+          translateX: '-50%',
+        },
+      }}
+    >
       <article className="flex flex-col fade-in-animation  bg-color-primary w-[640px] h-[256px] rounded-xl overflow-hidden">
         <header className="flex items-center pl-[24px] h-[56px]">
           <h1 className="h-fit font-bold text-3xl">{reduceString(title, 35)}</h1>
@@ -82,7 +89,7 @@ export function CaseCard({ caseData }: Props) {
           </span>
           <span className="flex gap-[8px]">
             <p className="font-bold">status:</p>
-            <p className={`font-bold ${statusColor}`}>{CaseStatusEnum[status]}</p>
+            <p className={`font-bold ${statusColor}`}>{status}</p>
           </span>
         </main>
       </article>
