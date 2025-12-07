@@ -1,8 +1,9 @@
+import { API_URL } from '@/config/api';
 import { UserProps } from '@/types/UserProps';
 import { WithId } from '@/types/WIthId';
 
 export async function fetchUserByToken(token: string): Promise<WithId<UserProps> | null> {
-  const response = await fetch('http://localhost:3001/api/me', {
+  const response = await fetch(`${API_URL}/api/me`, {
     headers: {
       Authorization: token,
     },

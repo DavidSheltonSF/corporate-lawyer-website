@@ -1,3 +1,4 @@
+import { API_URL } from '@/config/api';
 import { CasesPaginationProps } from '@/types/CasesPaginationProps';
 
 export async function fetchClientCases(
@@ -9,10 +10,11 @@ export async function fetchClientCases(
     processNumber?: string;
     status?: string;
   }
-): Promise<CasesPaginationProps> {
+): Promise<any> {
   try {
     const { page, limit, processNumber, title, status } = queryParams;
-    let baseRoute = 'http://localhost:3001/api/cases/';
+    let baseRoute = `${API_URL}/api/cases/`; 
+
     let queryString = `${clientId}?page=${page}&limit=${limit || ''}&processNumber=${
       processNumber || ''
     }&title=${title || ''}&status=${status || ''}`;

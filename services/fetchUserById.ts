@@ -1,9 +1,10 @@
+import { API_URL } from '@/config/api';
 import { UserProps } from '@/types/UserProps';
 import { WithId } from '@/types/WIthId';
 
 export async function fetchUserById(id: string): Promise<WithId<UserProps>> {
   try {
-    const response = await fetch(`http://localhost:3001/api/users/${id}`);
+    const response = await fetch(`${API_URL}/api/users/${id}`);
 
     if (!response.ok) {
       throw new Error(await response.text().catch(() => 'Unknown Error'));
