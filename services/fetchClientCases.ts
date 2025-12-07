@@ -7,15 +7,15 @@ export async function fetchClientCases(
     limit: number;
     title?: string;
     processNumber?: string;
+    status?: string;
   }
 ): Promise<CasesPaginationProps> {
   try {
-    const { page, limit, processNumber, title } = queryParams;
-
+    const { page, limit, processNumber, title, status } = queryParams;
     let baseRoute = 'http://localhost:3001/api/cases/';
     let queryString = `${clientId}?page=${page}&limit=${limit || ''}&processNumber=${
       processNumber || ''
-    }&title=${title || ''}`;
+    }&title=${title || ''}&status=${status || ''}`;
 
     const response = await fetch(`${baseRoute}/${queryString}`);
 
