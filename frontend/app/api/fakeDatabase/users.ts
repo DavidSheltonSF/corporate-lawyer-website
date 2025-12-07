@@ -1,5 +1,5 @@
-import { UserProps } from '@/frontend/types/UserProps';
-import { WithId } from '@/frontend/types/WithId';
+import { UserProps } from '@/types/UserProps';
+import { WithId } from '@/types/WithId';
 
 export const fakeUserDatabase: WithId<UserProps>[] = [
   {

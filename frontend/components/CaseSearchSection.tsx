@@ -2,12 +2,12 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { CaseSearchBar } from './CaseSearchBar';
 import { CasesList } from './CasesList';
-import { UserDataContext } from '@/frontend/contexts/UserDataContext';
-import { fetchClientCases } from '@/frontend/services/fetchClientCases';
-import { WithId } from '@/frontend/types/WithId';
+import { UserDataContext } from '@/contexts/UserDataContext';
+import { fetchClientCases } from '@/services/fetchClientCases';
+import { WithId } from '@/types/WithId';
 import { Pagination } from './Pagination';
 import { CaseSearchEnum } from '../types/CaseSearchEnum';
-import { CaseWithLawyersProps } from '@/frontend/types/CaseWithLawyersProps';
+import { CaseWithLawyersProps } from '@/types/CaseWithLawyersProps';
 
 export default function CaseSearchSection() {
   const [query, setQuery] = useState('');

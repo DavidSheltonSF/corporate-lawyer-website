@@ -1,6 +1,6 @@
-import { fakeUserDatabase } from '@/frontend/app/api/fakeDatabase/users';
-import { LawyerBasicInfoProps } from '@/frontend/types/LawyerBasicInfoProps';
-import { WithId } from '@/frontend/types/WithId';
+import { fakeUserDatabase } from '@/app/api/fakeDatabase/users';
+import { LawyerBasicInfoProps } from '@/types/LawyerBasicInfoProps';
+import { WithId } from '@/types/WithId';
 
 export function getCaseLawyers(lawyersIds: string[]): WithId<LawyerBasicInfoProps>[] | null {
   let lawyers: any[] = [];

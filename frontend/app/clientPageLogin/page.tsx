@@ -1,9 +1,9 @@
 'use client';
 
-import { login } from '@/frontend/actions/login';
-import { Form } from '@/frontend/components/Form';
-import { HeroSection } from '@/frontend/components/HeroSection';
-import { InputForm } from '@/frontend/components/InputForm';
+import { login } from '@/actions/login';
+import { Form } from '@/components/Form';
+import { HeroSection } from '@/components/HeroSection';
+import { InputForm } from '@/components/InputForm';
 import { redirect } from 'next/navigation';
 import { Activity, useState } from 'react';
 

@@ -1,9 +1,9 @@
 import { DashboardCard } from './DashboardCard';
 import { DashboardCardInfo } from './DashboardCardInfo';
-import { WithId } from '@/frontend/types/WithId';
-import { UserProps } from '@/frontend/types/UserProps';
-import { fetchClientCases } from '@/frontend/services/fetchClientCases';
-import { CaseStatusEnum } from '@/frontend/types/CaseProps';
+import { WithId } from '@/types/WithId';
+import { UserProps } from '@/types/UserProps';
+import { fetchClientCases } from '@/services/fetchClientCases';
+import { CaseStatusEnum } from '@/types/CaseProps';
 
 interface Props {
   userData: WithId<UserProps>;

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { ModalContext } from '../contexts/ModalContext';
-import { servicesDetails } from '@/frontend/data/servicesDetails';
+import { servicesDetails } from '@/data/servicesDetails';
 
 interface Props {
   serviceAreaId: string;

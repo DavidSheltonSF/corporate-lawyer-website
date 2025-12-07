@@ -1,5 +1,5 @@
-import { API_URL } from '@/frontend/config/api';
-import { CasesPaginationProps } from '@/frontend/types/CasesPaginationProps';
+import { API_URL } from '@/config/api';
+import { CasesPaginationProps } from '@/types/CasesPaginationProps';
 
 export async function fetchClientCases(
   clientId: string,

@@ -1,6 +1,6 @@
-import { API_URL } from '@/frontend/config/api';
-import { UserProps } from '@/frontend/types/UserProps';
-import { WithId } from '@/frontend/types/WithId';
+import { API_URL } from '@/config/api';
+import { UserProps } from '@/types/UserProps';
+import { WithId } from '@/types/WithId';
 
 export async function fetchUserById(id: string): Promise<WithId<UserProps>> {
   try {

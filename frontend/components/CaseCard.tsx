@@ -1,12 +1,12 @@
-import { UserDataContext } from '@/frontend/contexts/UserDataContext';
-import { formatStringList } from '@/frontend/lib/formatStringList';
-import { CaseProps } from '@/frontend/types/CaseProps';
+import { UserDataContext } from '@/contexts/UserDataContext';
+import { formatStringList } from '@/lib/formatStringList';
+import { CaseProps } from '@/types/CaseProps';
 import { useContext } from 'react';
-import { CaseStatusEnum } from '@/frontend/types/CaseProps';
-import { reduceString } from '@/frontend/lib/reduceString';
+import { CaseStatusEnum } from '@/types/CaseProps';
+import { reduceString } from '@/lib/reduceString';
 import { TooltipContainer } from './TooltipContainer';
-import { LawyerBasicInfoProps } from '@/frontend/types/LawyerBasicInfoProps';
-import { WithId } from '@/frontend/types/WithId';
+import { LawyerBasicInfoProps } from '@/types/LawyerBasicInfoProps';
+import { WithId } from '@/types/WithId';
 
 interface Props {
   caseData: CaseProps & {

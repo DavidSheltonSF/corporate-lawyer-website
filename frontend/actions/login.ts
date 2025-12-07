@@ -1,7 +1,7 @@
 'use server';
 
-import { authenticateUser } from '@/frontend/services/authenticateUser';
-import { isString } from '@/frontend/lib/isString';
+import { authenticateUser } from '@/services/authenticateUser';
+import { isString } from '@/lib/isString';
 import { cookies } from 'next/headers';
 
 export async function login(formData: FormData): Promise<{ error: boolean; message: string }> {

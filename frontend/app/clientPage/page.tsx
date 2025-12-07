@@ -1,13 +1,13 @@
-import CaseSearchSection from '@/frontend/components/CaseSearchSection';
-import { DashboardCard } from '@/frontend/components/DashboardCard';
-import { DashboardCardInfo } from '@/frontend/components/DashboardCardInfo';
-import { DashBoardSection } from '@/frontend/components/DashBoardSection';
-import { DynamicSection } from '@/frontend/components/DynamicSection';
-import { DynamicSections } from '@/frontend/components/DynamicSections';
-import { HeroSection } from '@/frontend/components/HeroSection';
-import { UserDataProvider } from '@/frontend/contexts/UserDataProvider';
-import { getTokenFromCookies } from '@/frontend/lib/getTokenFromCookies';
-import { fetchUserByToken } from '@/frontend/services/fetchUserByToken';
+import CaseSearchSection from '@/components/CaseSearchSection';
+import { DashboardCard } from '@/components/DashboardCard';
+import { DashboardCardInfo } from '@/components/DashboardCardInfo';
+import { DashBoardSection } from '@/components/DashBoardSection';
+import { DynamicSection } from '@/components/DynamicSection';
+import { DynamicSections } from '@/components/DynamicSections';
+import { HeroSection } from '@/components/HeroSection';
+import { UserDataProvider } from '@/contexts/UserDataProvider';
+import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
+import { fetchUserByToken } from '@/services/fetchUserByToken';
 import { redirect } from 'next/navigation';
 
 export default async function ClientPage() {

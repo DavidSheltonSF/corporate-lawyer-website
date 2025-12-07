@@ -1,5 +1,5 @@
-import { CaseProps, CaseStatusEnum } from '@/frontend/types/CaseProps';
-import { WithId } from '@/frontend/types/WithId';
+import { CaseProps, CaseStatusEnum } from '@/types/CaseProps';
+import { WithId } from '@/types/WithId';
 
 export const fakeCases: WithId<CaseProps>[] = [
   {

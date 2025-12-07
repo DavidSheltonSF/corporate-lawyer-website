@@ -1,4 +1,4 @@
-import { servicesDetails } from '@/frontend/data/servicesDetails';
+import { servicesDetails } from '@/data/servicesDetails';
 
 interface Props {
   serviceAreaId: string;

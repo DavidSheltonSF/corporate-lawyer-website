@@ -1,5 +1,5 @@
-import { CaseProps } from '@/frontend/types/CaseProps';
-import { WithId } from '@/frontend/types/WithId';
+import { CaseProps } from '@/types/CaseProps';
+import { WithId } from '@/types/WithId';
 import { normalizeString } from './normalizeString';
 
 export function filterCasesByProcessNumber(

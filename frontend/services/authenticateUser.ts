@@ -1,4 +1,4 @@
-import { API_URL } from '@/frontend/config/api';
+import { API_URL } from '@/config/api';
 
 export async function authenticateUser(formData: FormData): Promise<string | null> {
   const email = formData.get('email');

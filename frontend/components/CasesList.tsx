@@ -1,9 +1,9 @@
 'use client';
 import { CaseCard } from './CaseCard';
-import { WithId } from '@/frontend/types/WithId';
+import { WithId } from '@/types/WithId';
 import { Activity } from 'react';
 import { CaseCardSkeleton } from './CaseCardSkeleton';
-import { CaseWithLawyersProps } from '@/frontend/types/CaseWithLawyersProps';
+import { CaseWithLawyersProps } from '@/types/CaseWithLawyersProps';
 
 interface Props {
   cases: WithId<CaseWithLawyersProps>[];

@@ -2,8 +2,8 @@
 
 import { ReactNode } from 'react';
 import { UserDataContext } from './UserDataContext';
-import { UserProps } from '@/frontend/types/UserProps';
-import { WithId } from '@/frontend/types/WithId';
+import { UserProps } from '@/types/UserProps';
+import { WithId } from '@/types/WithId';
 
 interface Props {
   userData: WithId<UserProps>;

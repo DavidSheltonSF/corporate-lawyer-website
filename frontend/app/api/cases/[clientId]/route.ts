@@ -1,10 +1,10 @@
-import { paginate } from '@/frontend/helpers/paginate';
+import { paginate } from '@/helpers/paginate';
 import { fakeCases } from '../../fakeDatabase/cases';
-import { filterCasesByTitle } from '@/frontend/lib/filterCasesByTitle';
-import { filterCasesByProcessNumber } from '@/frontend/lib/filterCasesByProcessNumber';
-import { HttpResponse } from '@/frontend/types/HttpResponse';
-import { getQueryParam } from '@/frontend/helpers/getQueryParam';
-import { getCaseLawyers } from '@/frontend/app/api/helpers/getCaseLawyers';
+import { filterCasesByTitle } from '@/lib/filterCasesByTitle';
+import { filterCasesByProcessNumber } from '@/lib/filterCasesByProcessNumber';
+import { HttpResponse } from '@/types/HttpResponse';
+import { getQueryParam } from '@/helpers/getQueryParam';
+import { getCaseLawyers } from '@/app/api/helpers/getCaseLawyers';
 
 export async function GET(req: Request, context: { params: Promise<{ clientId: string }> }) {
   const { clientId } = await context.params;

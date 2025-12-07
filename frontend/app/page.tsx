@@ -4,14 +4,14 @@ import { ServiceCard } from '../components/ServiceCard';
 import { DraggableCarousel } from '../components/DraggableCarousel';
 import { ProfessionalCard } from '../components/ProfessionalCard';
 import { HeroSection } from '../components/HeroSection';
-import { professionalsInfo } from '@/frontend/data/professionalsInfo';
-import { servicesDetails } from '@/frontend/data/servicesDetails';
+import { professionalsInfo } from '@/data/professionalsInfo';
+import { servicesDetails } from '@/data/servicesDetails';
 import { ServiceDetailsModal } from '../components/ServiceDetailsModal';
 import { ModalWindow } from '../components/ModalWindow';
 import { ModalContext } from '../contexts/ModalContext';
 import { Carousel } from '../components/Carousel';
-import { DynamicSections } from '@/frontend/components/DynamicSections';
-import { DynamicSection } from '@/frontend/components/DynamicSection';
+import { DynamicSections } from '@/components/DynamicSections';
+import { DynamicSection } from '@/components/DynamicSection';
 
 export default function Home() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
