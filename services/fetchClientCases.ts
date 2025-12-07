@@ -10,10 +10,10 @@ export async function fetchClientCases(
     processNumber?: string;
     status?: string;
   }
-): Promise<any> {
+): Promise<CasesPaginationProps> {
   try {
     const { page, limit, processNumber, title, status } = queryParams;
-    let baseRoute = `${API_URL}/api/cases/`; 
+    let baseRoute = `${API_URL}/api/cases/`;
 
     let queryString = `${clientId}?page=${page}&limit=${limit || ''}&processNumber=${
       processNumber || ''
