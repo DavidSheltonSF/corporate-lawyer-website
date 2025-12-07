@@ -1,12 +1,12 @@
 'use client';
 
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import { CaseQueryTypeEnum } from './CaseQueryTypeEnum';
+import { CaseSearchEnum } from './CaseSearchEnum';
 
 interface Props {
-  listItems: CaseQueryTypeEnum[];
+  listItems: CaseSearchEnum[];
   selectedItem: string;
-  setSelectedItem: Dispatch<SetStateAction<CaseQueryTypeEnum>>;
+  setSelectedItem: Dispatch<SetStateAction<CaseSearchEnum>>;
 }
 export function DropDownButton({ listItems, selectedItem, setSelectedItem }: Props) {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +28,7 @@ export function DropDownButton({ listItems, selectedItem, setSelectedItem }: Pro
     setIsOpen(!isOpen);
   }
 
-  function selectItem(item: CaseQueryTypeEnum) {
+  function selectItem(item: CaseSearchEnum) {
     setSelectedItem(item);
     setIsOpen(false);
   }

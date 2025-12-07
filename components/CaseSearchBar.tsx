@@ -1,16 +1,16 @@
 import { ChangeEvent, Dispatch, SetStateAction, useContext, useState } from 'react';
 import { DropDownButton } from './DropdownButton';
-import { CaseQueryTypeEnum } from './CaseQueryTypeEnum';
+import { CaseSearchEnum } from './CaseSearchEnum';
 import { UserDataContext } from '@/contexts/UserDataContext';
 
 interface Props {
   handleClick: any;
   setQuery: Dispatch<SetStateAction<string>>;
-  queryType: CaseQueryTypeEnum;
-  setQueryType: Dispatch<SetStateAction<CaseQueryTypeEnum>>;
+  searchType: CaseSearchEnum;
+  setSearchType: Dispatch<SetStateAction<CaseSearchEnum>>;
 }
 
-export function CaseSearchBar({ handleClick, setQuery, queryType, setQueryType }: Props) {
+export function CaseSearchBar({ handleClick, setQuery, searchType, setSearchType }: Props) {
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const searchBar = e.target;
     setQuery(searchBar.value);
@@ -21,8 +21,8 @@ export function CaseSearchBar({ handleClick, setQuery, queryType, setQueryType }
 
   const listItems =
     userData?.role === 'client'
-      ? [CaseQueryTypeEnum.num_processo, CaseQueryTypeEnum.titulo]
-      : Object.values(CaseQueryTypeEnum);
+      ? [CaseSearchEnum.num_processo, CaseSearchEnum.titulo]
+      : Object.values(CaseSearchEnum);
 
   return (
     <div className="flex gap-[16px] bg-color-white w-[520px] h-[48px] rounded-full p-[2px]">
@@ -37,8 +37,8 @@ export function CaseSearchBar({ handleClick, setQuery, queryType, setQueryType }
       </div>
       <div className="flex gap-[2px]">
         <DropDownButton
-          selectedItem={queryType}
-          setSelectedItem={setQueryType}
+          selectedItem={searchType}
+          setSelectedItem={setSearchType}
           listItems={listItems}
         />
         <button

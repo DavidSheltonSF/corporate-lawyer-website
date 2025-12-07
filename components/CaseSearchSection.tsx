@@ -3,15 +3,16 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { CaseSearchBar } from './CaseSearchBar';
 import { CasesList } from './CasesList';
 import { UserDataContext } from '@/contexts/UserDataContext';
-import { CaseQueryTypeEnum } from './CaseQueryTypeEnum';
+
 import { fetchClientCases } from '@/services/fetchClientCases';
 import { CaseProps } from '@/types/CaseProps';
 import { WithId } from '@/types/WIthId';
 import { Pagination } from './Pagination';
+import { CaseSearchEnum } from './CaseSearchEnum';
 
 export default function CaseSearchSection() {
   const [query, setQuery] = useState('');
-  const [queryType, setQueryType] = useState<CaseQueryTypeEnum>(CaseQueryTypeEnum.num_processo);
+  const [searchType, setSearchType] = useState<CaseSearchEnum>(CaseSearchEnum.num_processo);
   const [pageIndex, setPageIndex] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const [cases, setCases] = useState<WithId<CaseProps>[]>([]);
@@ -23,8 +24,8 @@ export default function CaseSearchSection() {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     let casesPagination = null;
 
-    switch (queryType) {
-      case CaseQueryTypeEnum.num_processo:
+    switch (searchType) {
+      case CaseSearchEnum.num_processo:
         casesPagination = await fetchClientCases(userData.id, {
           page,
           limit: 4,
@@ -32,7 +33,7 @@ export default function CaseSearchSection() {
         });
         break;
 
-      case CaseQueryTypeEnum.titulo:
+      case CaseSearchEnum.titulo:
         casesPagination = await fetchClientCases(userData.id, {
           page,
           limit: 4,
@@ -69,8 +70,8 @@ export default function CaseSearchSection() {
             loadCases(1);
           }}
           setQuery={setQuery}
-          queryType={queryType}
-          setQueryType={setQueryType}
+          searchType={searchType}
+          setSearchType={setSearchType}
         />
       </div>
       <CasesList loading={casesLoading} cases={cases} />
