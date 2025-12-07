@@ -1,7 +1,7 @@
 import { IconCircle } from './IconCircle';
 import { ServiceModalProps } from '../types/ServiceModalProps';
 import { TooltipContainer } from './TooltipContainer';
-import { WithId } from '@/types/WIthId';
+import { WithId } from '@/types/WithId';
 
 interface Props {
   serviceDetails: WithId<ServiceModalProps>;

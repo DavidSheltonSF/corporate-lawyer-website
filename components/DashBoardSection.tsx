@@ -1,6 +1,6 @@
 import { DashboardCard } from './DashboardCard';
 import { DashboardCardInfo } from './DashboardCardInfo';
-import { WithId } from '@/types/WIthId';
+import { WithId } from '@/types/WithId';
 import { UserProps } from '@/types/UserProps';
 import { fetchClientCases } from '@/services/fetchClientCases';
 import { CaseStatusEnum } from '@/types/CaseProps';

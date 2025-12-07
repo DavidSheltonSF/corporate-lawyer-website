@@ -1,5 +1,5 @@
 import { UserProps } from '@/types/UserProps';
-import { WithId } from '@/types/WIthId';
+import { WithId } from '@/types/WithId';
 
 export const fakeUserDatabase: WithId<UserProps>[] = [
   {

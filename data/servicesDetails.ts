@@ -1,5 +1,5 @@
 import { ServiceModalProps } from '@/types/ServiceModalProps';
-import { WithId } from '@/types/WIthId';
+import { WithId } from '@/types/WithId';
 
 export const servicesDetails: Record<string, WithId<ServiceModalProps>> = {
   familia: {

@@ -1,5 +1,5 @@
 import { UserProps } from '@/types/UserProps';
-import { WithId } from '@/types/WIthId';
+import { WithId } from '@/types/WithId';
 import { createContext, Dispatch, SetStateAction } from 'react';
 
 export type UserDataContextType = {
@@ -7,4 +7,3 @@ export type UserDataContextType = {
 };
 
 export const UserDataContext = createContext<UserDataContextType | undefined>(undefined);
-

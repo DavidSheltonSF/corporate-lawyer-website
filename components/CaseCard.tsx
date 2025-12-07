@@ -3,7 +3,7 @@ import { formatStringList } from '@/lib/formatStringList';
 import { fetchLawyers } from '@/services/fetchLawyers';
 import { CaseProps } from '@/types/CaseProps';
 import { UserProps } from '@/types/UserProps';
-import { WithId } from '@/types/WIthId';
+import { WithId } from '@/types/WithId';
 import { useContext, useEffect, useState } from 'react';
 import { CaseStatusEnum } from '@/types/CaseProps';
 import { reduceString } from '@/lib/reduceString';

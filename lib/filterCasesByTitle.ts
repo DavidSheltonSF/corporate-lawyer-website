@@ -1,5 +1,5 @@
 import { CaseProps } from '@/types/CaseProps';
-import { WithId } from '@/types/WIthId';
+import { WithId } from '@/types/WithId';
 import { normalizeString } from './normalizeString';
 
 export function filterCasesByTitle(cases: WithId<CaseProps>[], title: string): WithId<CaseProps>[] {

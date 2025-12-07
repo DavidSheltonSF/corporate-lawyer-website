@@ -1,4 +1,4 @@
-import { WithId } from '@/types/WIthId';
+import { WithId } from '@/types/WithId';
 import { UserProps } from '@/types/UserProps';
 import { fetchUserById } from './fetchUserById';
 

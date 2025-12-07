@@ -6,7 +6,7 @@ import { UserDataContext } from '@/contexts/UserDataContext';
 
 import { fetchClientCases } from '@/services/fetchClientCases';
 import { CaseProps } from '@/types/CaseProps';
-import { WithId } from '@/types/WIthId';
+import { WithId } from '@/types/WithId';
 import { Pagination } from './Pagination';
 import { CaseSearchEnum } from '../types/CaseSearchEnum';
 

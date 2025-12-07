@@ -1,5 +1,5 @@
-import { CaseProps } from "./CaseProps";
-import { WithId } from "./WIthId";
+import { CaseProps } from './CaseProps';
+import { WithId } from './WithId';
 
 export interface CasesPaginationProps {
   cases: WithId<CaseProps>[];
