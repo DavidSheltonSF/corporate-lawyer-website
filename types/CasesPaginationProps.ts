@@ -1,8 +1,8 @@
-import { CaseProps } from './CaseProps';
+import { CaseWithLawyersProps } from './CaseWithLawyersProps';
 import { WithId } from './WithId';
 
 export interface CasesPaginationProps {
-  cases: WithId<CaseProps>[];
+  cases: WithId<CaseWithLawyersProps>[];
   page: number;
   limit: number;
   total: number;
