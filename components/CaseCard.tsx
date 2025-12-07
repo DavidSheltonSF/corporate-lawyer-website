@@ -1,25 +1,25 @@
 import { UserDataContext } from '@/contexts/UserDataContext';
 import { formatStringList } from '@/lib/formatStringList';
-import { fetchLawyers } from '@/services/fetchLawyers';
 import { CaseProps } from '@/types/CaseProps';
-import { UserProps } from '@/types/UserProps';
-import { WithId } from '@/types/WithId';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { CaseStatusEnum } from '@/types/CaseProps';
 import { reduceString } from '@/lib/reduceString';
 import { TooltipContainer } from './TooltipContainer';
+import { LawyerBasicInfoProps } from '@/types/LawyerBasicInfoProps';
+import { WithId } from '@/types/WithId';
+
 interface Props {
-  caseData: CaseProps;
+  caseData: CaseProps & {
+    lawyers: WithId<LawyerBasicInfoProps>[];
+  };
 }
 
 export function CaseCard({ caseData }: Props) {
-  const [lawyers, setLawyers] = useState<WithId<UserProps>[]>([]);
-
   const context = useContext(UserDataContext);
 
   const userData = context?.userData;
 
-  const { lawyerIds, title, processNumber, status } = caseData;
+  const { title, processNumber, status } = caseData;
 
   let statusColor = '';
 
@@ -43,17 +43,9 @@ export function CaseCard({ caseData }: Props) {
       break;
   }
 
-  const renderLawyers = lawyers?.map((lawyer) => {
+  const renderLawyers = caseData.lawyers?.map((lawyer) => {
     return `${lawyer.firstName} ${lawyer.lastName}`;
   });
-
-  useEffect(() => {
-    async function loadLawyerData() {
-      const data = await fetchLawyers(lawyerIds);
-      setLawyers(data);
-    }
-    loadLawyerData();
-  }, []);
 
   return (
     <TooltipContainer

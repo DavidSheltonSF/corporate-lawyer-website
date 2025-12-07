@@ -1,10 +1,8 @@
 import { fakeUserDatabase } from '@/app/api/fakeDatabase/users';
-import { lawyerBasicInfoProps } from '@/types/lawyerBasicInfoProps';
+import { LawyerBasicInfoProps } from '@/types/LawyerBasicInfoProps';
 import { WithId } from '@/types/WithId';
 
-export function getCaseLawyers(
-  lawyersIds: string[]
-): WithId<lawyerBasicInfoProps>[] | null {
+export function getCaseLawyers(lawyersIds: string[]): WithId<LawyerBasicInfoProps>[] | null {
   let lawyers: any[] = [];
 
   lawyersIds.forEach((id) => {
