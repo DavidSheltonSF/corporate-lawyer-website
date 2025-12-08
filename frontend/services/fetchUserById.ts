@@ -1,10 +1,15 @@
 import { API_URL } from '@/config/api';
-import { InvalidAPIResponse } from '@/errors/InvalidAPIResponse';
+import { InvalidAPIResponseError } from '@/errors/InvalidAPIResponseError';
+import { MissingRequiredArgumentsError } from '@/errors/MissingRequiredArgumentsError';
 import { UserProps } from '@/types/UserProps';
 import { WithId } from '@/types/WithId';
 
 export async function fetchUserById(id: string): Promise<WithId<UserProps>> {
   try {
+    if (!id) {
+      throw new MissingRequiredArgumentsError('fetchUserById', ['id']);
+    }
+
     const response = await fetch(`${API_URL}/api/users/${id}`);
 
     if (!response.ok) {
@@ -13,7 +18,7 @@ export async function fetchUserById(id: string): Promise<WithId<UserProps>> {
     const json = await response.json();
 
     if (!json?.data) {
-      throw new InvalidAPIResponse('Missing data', json);
+      throw new InvalidAPIResponseError('Missing data', json);
     }
     return json.data;
   } catch (error) {
