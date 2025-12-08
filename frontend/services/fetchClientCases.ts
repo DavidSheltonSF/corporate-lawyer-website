@@ -13,9 +13,10 @@ export async function fetchClientCases(
 ): Promise<CasesPaginationProps> {
   try {
     const { page, limit, processNumber, title, status } = queryParams;
-    let baseRoute = `${API_URL}/api/cases/`;
 
-    let queryString = `${clientId}?page=${page}&limit=${limit || ''}&processNumber=${
+    let baseRoute = `${API_URL}/cases/${clientId}`;
+
+    let queryString = `?page=${page}&limit=${limit || ''}&processNumber=${
       processNumber || ''
     }&title=${title || ''}&status=${status || ''}`;
 
