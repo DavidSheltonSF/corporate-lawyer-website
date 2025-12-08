@@ -1,13 +1,13 @@
 import { API_URL } from '@/config/api';
 import { InvalidAPIResponseError } from '@/errors/InvalidAPIResponseError';
-import { MissingRequiredArgumentsError } from '@/errors/MissingRequiredArgumentsError';
+import { MissingRequiredArgumentError } from '@/errors/MissingRequiredArgumentError';
 import { UserProps } from '@/types/UserProps';
 import { WithId } from '@/types/WithId';
 
 export async function fetchUserById(id: string): Promise<WithId<UserProps>> {
   try {
     if (!id) {
-      throw new MissingRequiredArgumentsError('fetchUserById', ['id']);
+      throw new MissingRequiredArgumentError('fetchUserById', 'id');
     }
 
     const response = await fetch(`${API_URL}/api/users/${id}`);
