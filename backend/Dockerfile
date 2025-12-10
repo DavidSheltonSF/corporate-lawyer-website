@@ -12,6 +12,8 @@ RUN npm install
 # Copy the rest of backend code
 COPY . .
 
+RUN npm run build
+
 # API PORT
 EXPOSE 3080
 
