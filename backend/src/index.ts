@@ -6,12 +6,20 @@ import { filterCasesByTitle } from './helpers/filterCasesByTitle';
 import { filterCasesByProcessNumber } from './helpers/filterCasesByProcessNumber';
 import { getCaseLawyers } from './helpers/getCaseLawyers';
 import { paginate } from './helpers/paginate';
+import dotenv from 'dotenv'
+dotenv.config()
 
 const app = express();
 
 app.use(express.json());
 
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FRONTEND,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  })
+);
 
 const port = process.env.PORT;
 
