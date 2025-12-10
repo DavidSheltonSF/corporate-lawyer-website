@@ -38,6 +38,10 @@ Users can send a message to the team through a contact form with first name, las
 
 ### Client Page (in progress)
 
+Client Login:
+email: raimundo@email.com
+password: raimundo123
+
 This page has currently two dynamic sections on a single screen, very similar to the Home page.
 
 **Dashboard / general:** Resume of important informations like the quantity of open cases, next hearing and next consultation.
