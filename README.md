@@ -1,46 +1,56 @@
-# Lawyer firm Corporate Website (in progress)
+# Corporate Law Firm Website (in progress)
 
-This website was made to be easy to use and intuitive. Here people can see information about the firm.
+Built to share the services provided by the lawyers, their specializations, and contact information. It is being built to allow clients to manage their cases directly on the website.
 
- [Click here to access the website](https://corporate-lawyer-website.onrender.com/)
+You can access the website by clicking the link below.
 
+**NOTE:** The website is hosted on a free service, so it may take up to 40 seconds to start.
 
-## Technologies:
+[Click here to access the website](https://corporate-lawyer-website.onrender.com/)
+
+## Technologies
+
 ### Front-end
 - Next.js
 - Tailwind CSS
 - Prettier (code formatting)
 - TypeScript
 
+### Back-end
+- Node.js
+- Express.js
 
 ## Pages
 
-### Início
+### Home
 
-This page has three dynamic sections in one place and the user can switch it easly
+This page has three dynamic sections on a single screen, and users can switch between them easily.
 
-**Sobre nós (about us):**: Short information about the firm and the way they work.
+**About us:** Short information about the firm and how it works.
 
-**Serviços (services):** Specialized areas and services provided.
+**Services:** Specialized areas and services provided.
 
-**Equipe (team):** More information about the lawyers and contact
+**Team:** Information about the lawyers and contact details.
 
 ### Contact
 
-Here users can send a message to the team through a contact form with first and last name, email and the message subject.
+Users can send a message to the team through a contact form with first name, last name, email, and message subject.
 
+### Client Page (in progress)
 
-## Soon
+This page has currently two dynamic sections on a single screen, very similar to the Home page.
 
-### Blog
-### Página do Cliente (Client Page)
+**Dashboard / general:** Resume of important informations like the quantity of open cases, next hearing and next consultation.
 
+**Cases:** A search page where clients or lawyers can search and filter their related cases
 
-## Runnig the project
+## Coming Soon
 
-First, run the development server:
+- Blog
+
+## Running the project
+
+With Docker:
 
 ```bash
-npm run dev
-```
-
+docker compose up
