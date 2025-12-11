@@ -4,11 +4,19 @@ import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { CaseSearchEnum } from '../types/CaseSearchEnum';
 
 interface Props {
-  listItems: CaseSearchEnum[];
-  selectedItem: string;
-  setSelectedItem: Dispatch<SetStateAction<CaseSearchEnum>>;
+  listItems: any[];
+  defaultValue?: string;
+  darkTheme?: boolean;
+  selectedItem: string | null;
+  setSelectedItem: Dispatch<SetStateAction<any>>;
 }
-export function DropDownButton({ listItems, selectedItem, setSelectedItem }: Props) {
+export function DropDownButton({
+  listItems,
+  defaultValue,
+  darkTheme,
+  selectedItem,
+  setSelectedItem,
+}: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -36,7 +44,11 @@ export function DropDownButton({ listItems, selectedItem, setSelectedItem }: Pro
   const renderItems = listItems.map((item, index) => (
     <li key={index}>
       <button
-        className="text-start w-full bg-color-primary bg-inherit hover:brightness-120 cursor-pointer px-[16px] py-[4px]"
+        className={`text-start w-full bg-inherit cursor-pointer px-[16px] py-[4px] ${
+          darkTheme
+            ? 'text-color-white bg-color-primary hover:brightness-120'
+            : 'text-color-black bg-color-white hover:brightness-80'
+        }`}
         onClick={() => {
           selectItem(item);
         }}
@@ -47,19 +59,34 @@ export function DropDownButton({ listItems, selectedItem, setSelectedItem }: Pro
   ));
 
   return (
-    <div ref={menuRef} className="relative h-full">
+    <div
+      ref={menuRef}
+      className={`relative h-full`}
+      style={{
+        borderRadius: 'inherit',
+      }}
+    >
       <button
-        className="flex justify-between items-center bg-color-primary h-full px-[16px] w-[152px] text-nowrap font-bold rounded-l-md cursor-pointer"
+        className={`flex justify-between items-center size-full px-[16px] text-nowrap font-bold cursor-pointer   ${
+          darkTheme ? 'text-color-white bg-color-primary' : 'text-color-black bg-color-white'
+        }`}
         onClick={toggleDropDown}
+        style={{
+          borderRadius: 'inherit',
+        }}
       >
-        <span>{selectedItem}</span>
+        <span className="flex-1 text-start">{selectedItem || defaultValue}</span>
         <span>
-          <img src="icons/arrow-drop-down-white.svg" alt="" />
+          <img
+            className={`${!darkTheme ? 'invert' : ''}`}
+            src="icons/arrow-drop-down-white.svg"
+            alt=""
+          />
         </span>
       </button>
       <div
-        className={`absolute top-[102%] bg-color-primary rounded-lg overflow-hidden ${
-          isOpen ? 'h-fit' : 'h-0'
+        className={`absolute top-[102%] rounded-lg overflow-hidden ${isOpen ? 'h-fit' : 'h-0'}  ${
+          darkTheme ? 'text-color-white bg-color-primary' : 'text-color-black bg-color-white'
         }`}
       >
         <ul className="py-[8px] h-full w-full">{renderItems}</ul>
