@@ -8,10 +8,14 @@ import { WithId } from '@/types/WithId';
 import { Pagination } from './Pagination';
 import { CaseSearchEnum } from '../types/CaseSearchEnum';
 import { CaseWithLawyersProps } from '@/types/CaseWithLawyersProps';
+import { CaseStatusEnum } from '@/types/CaseProps';
+import { DropDownButton } from './DropdownButton';
+import { reduceString } from '@/lib/reduceString';
 
 export default function CaseSearchSection() {
   const [query, setQuery] = useState('');
   const [searchType, setSearchType] = useState<CaseSearchEnum>(CaseSearchEnum.num_processo);
+  const [statusFilder, setStatusFilter] = useState<CaseStatusEnum | null>(null);
   const [pageIndex, setPageIndex] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const [cases, setCases] = useState<WithId<CaseWithLawyersProps>[]>([]);
@@ -29,6 +33,7 @@ export default function CaseSearchSection() {
           page,
           limit: 4,
           processNumber: query,
+          status: statusFilder || '',
         });
         break;
 
@@ -37,6 +42,7 @@ export default function CaseSearchSection() {
           page,
           limit: 4,
           title: query,
+          status: statusFilder || '',
         });
         break;
       default:
@@ -63,7 +69,7 @@ export default function CaseSearchSection() {
 
   return (
     <section className="relative">
-      <div className="flex flex-col">
+      <div className="flex gap-[40px]">
         <CaseSearchBar
           handleClick={() => {
             loadCases(1);
@@ -72,6 +78,14 @@ export default function CaseSearchSection() {
           searchType={searchType}
           setSearchType={setSearchType}
         />
+        <div className="h-[48px] rounded-full w-[180px] z-80">
+          <DropDownButton
+            selectedItem={reduceString(statusFilder || '', 10)}
+            defaultValue="Status"
+            setSelectedItem={setStatusFilter}
+            listItems={Object.values(CaseStatusEnum)}
+          />
+        </div>
       </div>
       <CasesList loading={casesLoading} cases={cases} />
       <Pagination pageIndex={pageIndex} reloadByPageIndex={loadCases} totalPage={totalPage} />
