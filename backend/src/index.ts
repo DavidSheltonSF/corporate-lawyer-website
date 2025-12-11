@@ -23,7 +23,7 @@ app.use(
 
 const port = process.env.API_PORT;
 
-app.get('/', (req: Request, res: Response) => {
+app.get('/backend', (req: Request, res: Response) => {
   res.status(200).send({
     message: 'Everything is working',
   });
