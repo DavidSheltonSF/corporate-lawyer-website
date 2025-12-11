@@ -24,7 +24,6 @@ export default function CaseSearchSection() {
   async function loadCases(page: number) {
     setCasesLoading(true);
     setPageIndex(page);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
     let casesPagination = null;
 
     switch (searchType) {
