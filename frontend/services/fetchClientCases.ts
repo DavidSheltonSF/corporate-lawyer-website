@@ -1,3 +1,4 @@
+import { API_URL } from '@/config/api';
 import { MissingRequiredArgumentError } from '@/errors/MissingRequiredArgumentError';
 import { CasesPaginationProps } from '@/types/CasesPaginationProps';
 
@@ -22,7 +23,7 @@ export async function fetchClientCases(
 
     const { page, limit, processNumber, title, status } = queryParams;
 
-    let baseRoute = `/api/cases/${clientId}`;
+    let baseRoute = `${API_URL}/cases/${clientId}`;
 
     let queryString = `?page=${page}&limit=${limit || ''}&processNumber=${
       processNumber || ''
