@@ -21,7 +21,7 @@ app.use(
   })
 );
 
-const port = process.env.API_PORT;
+const port = 3080;
 
 app.get('/backend', (req: Request, res: Response) => {
   res.status(200).send({
@@ -132,6 +132,6 @@ app.get('/cases/:clientId', (req: Request, res: Response) => {
   return res.status(200).send(response);
 });
 
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
   console.log(`Server is running on port ${port}`);
 });
