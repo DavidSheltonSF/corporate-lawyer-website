@@ -21,8 +21,6 @@ export default async function ClientPage() {
     redirect('/clientPageLogin');
   }
 
-  await new Promise((resolve) => setTimeout(resolve, 15000));
-
   return (
     <div className="bg-color-black">
       <HeroSection
