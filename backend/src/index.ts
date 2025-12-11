@@ -21,7 +21,7 @@ app.use(
   })
 );
 
-const port = process.env.PORT;
+const port = process.env.API_PORT;
 
 app.get('/', (req: Request, res: Response) => {
   res.status(200).send({
