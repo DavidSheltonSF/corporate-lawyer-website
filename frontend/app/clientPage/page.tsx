@@ -1,6 +1,4 @@
 import CaseSearchSection from '@/components/CaseSearchSection';
-import { DashboardCard } from '@/components/DashboardCard';
-import { DashboardCardInfo } from '@/components/DashboardCardInfo';
 import { DashBoardSection } from '@/components/DashBoardSection';
 import { DynamicSection } from '@/components/DynamicSection';
 import { DynamicSections } from '@/components/DynamicSections';
