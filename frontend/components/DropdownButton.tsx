@@ -85,9 +85,9 @@ export function DropDownButton({
         </span>
       </button>
       <div
-        className={`absolute top-[102%] rounded-lg overflow-hidden ${isOpen ? 'h-fit' : 'h-0'}  ${
-          darkTheme ? 'text-color-white bg-color-primary' : 'text-color-black bg-color-white'
-        }`}
+        className={`absolute border-black top-[102%] w-full rounded-lg overflow-hidden ${
+          isOpen ? 'h-fit border' : 'h-0'
+        }  ${darkTheme ? 'text-color-white bg-color-primary' : 'text-color-black bg-color-white'}`}
       >
         <ul className="py-[8px] h-full w-full">{renderItems}</ul>
       </div>
