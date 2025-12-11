@@ -36,11 +36,14 @@ export function CaseSearchBar({ handleClick, setQuery, searchType, setSearchType
         />
       </div>
       <div className="flex gap-[2px]">
-        <DropDownButton
-          selectedItem={searchType}
-          setSelectedItem={setSearchType}
-          listItems={listItems}
-        />
+        <div className="rounded-l-md h-full w-[148px]">
+          <DropDownButton
+            selectedItem={searchType}
+            darkTheme={true}
+            setSelectedItem={setSearchType}
+            listItems={listItems}
+          />
+        </div>
         <button
           className="flex rounded-r-full items-center justify-center bg-color-primary h-full w-[72px] cursor-pointer hover:brightness-120 "
           onClick={handleClick}
