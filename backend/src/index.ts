@@ -23,13 +23,13 @@ app.use(
 
 const port = 3080;
 
-app.get('/backend', (req: Request, res: Response) => {
+app.get('/api', (req: Request, res: Response) => {
   res.status(200).send({
     message: 'Everything is working',
   });
 });
 
-app.get('/me', (req: Request, res: Response) => {
+app.get('/api/me', (req: Request, res: Response) => {
   const token = req.headers.authorization;
 
   if (!token) {
@@ -48,7 +48,7 @@ app.get('/me', (req: Request, res: Response) => {
   });
 });
 
-app.post('/auth', (req: Request, res: Response) => {
+app.post('/api/auth', (req: Request, res: Response) => {
   try {
     const body = req.body;
 
@@ -79,7 +79,7 @@ app.post('/auth', (req: Request, res: Response) => {
   }
 });
 
-app.get('/cases/:clientId', (req: Request, res: Response) => {
+app.get('/api/cases/:clientId', (req: Request, res: Response) => {
   const { clientId } = req.params;
   const { status, title, processNumber } = req.query;
 
