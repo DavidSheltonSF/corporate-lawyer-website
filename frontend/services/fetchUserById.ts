@@ -1,4 +1,3 @@
-import { API_URL } from '@/config/api';
 import { InvalidAPIResponseError } from '@/errors/InvalidAPIResponseError';
 import { MissingRequiredArgumentError } from '@/errors/MissingRequiredArgumentError';
 import { UserProps } from '@/types/UserProps';
@@ -10,7 +9,7 @@ export async function fetchUserById(id: string): Promise<WithId<UserProps>> {
       throw new MissingRequiredArgumentError('fetchUserById', 'id');
     }
 
-    const response = await fetch(`${API_URL}/api/users/${id}`);
+    const response = await fetch(`/api/users/${id}`);
 
     if (!response.ok) {
       throw new Error(await response.text().catch(() => 'Unknown Error'));
