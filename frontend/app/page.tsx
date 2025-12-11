@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import { ServiceCard } from '../components/ServiceCard';
-import { DraggableCarousel } from '../components/DraggableCarousel';
 import { ProfessionalCard } from '../components/ProfessionalCard';
 import { HeroSection } from '../components/HeroSection';
 import { professionalsInfo } from '@/data/professionalsInfo';
