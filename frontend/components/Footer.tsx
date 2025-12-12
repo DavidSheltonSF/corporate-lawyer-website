@@ -5,7 +5,7 @@ export function Footer() {
         <div className="flex justify-center items-center h-[65%]">
           <img
             className="size-[240px]"
-            src="website-logo.webp"
+            src="/website-logo.webp"
             alt="Medeiros e Santiago"
             loading="lazy"
           />
@@ -14,7 +14,7 @@ export function Footer() {
           <a href="#">
             <img
               className="size-[40px]"
-              src="icons/instagram.svg"
+              src="/icons/instagram.svg"
               alt="Vá para nossa página do Instagram"
               loading="lazy"
             />
@@ -22,7 +22,7 @@ export function Footer() {
           <a href="#">
             <img
               className="size-[40px]"
-              src="icons/facebook.png"
+              src="/icons/facebook.png"
               alt="Vá para nossa página do Facebook"
               loading="lazy"
             />
