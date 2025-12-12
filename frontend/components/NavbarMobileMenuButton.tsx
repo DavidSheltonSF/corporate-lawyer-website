@@ -11,7 +11,7 @@ export function NavbarMobileMenuButton({ menuIsOpen, setMenuIsOpen }: Props) {
   }
   return (
     <button className="min-md:hidden" onClick={toggleMenu}>
-      <img className="size-[48px]" src={`icons/${menuIsOpen ? 'close' : 'menu'}.svg`} alt="" />
+      <img className="size-[48px]" src={`/icons/${menuIsOpen ? 'close' : 'menu'}.svg`} alt="" />
     </button>
   );
 }
