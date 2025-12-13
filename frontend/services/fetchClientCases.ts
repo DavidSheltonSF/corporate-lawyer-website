@@ -23,7 +23,7 @@ export async function fetchClientCases(
 
     const { page, limit, processNumber, title, status } = queryParams;
 
-    let baseRoute = `${API_URL}/cases/${clientId}`;
+    let baseRoute = `${API_URL}/client/${clientId}/cases`;
 
     let queryString = `?page=${page}&limit=${limit || ''}&processNumber=${
       processNumber || ''
