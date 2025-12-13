@@ -132,6 +132,23 @@ app.get('/api/client/:id/cases', (req: Request, res: Response) => {
   return res.status(200).send(response);
 });
 
+
+app.get('/api/cases/:id', (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const foundCase = fakeCases.find((cas) => cas.id === id);
+
+  if (!foundCase) {
+    return res.status(404).send({
+      message: 'Case not found',
+    });
+  }
+
+  return res.status(200).send({
+    data: foundCase,
+  });
+});
+
 app.listen(port, '0.0.0.0', () => {
   console.log(`Server is running on port ${port}`);
 });
