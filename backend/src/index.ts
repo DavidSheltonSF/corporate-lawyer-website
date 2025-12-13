@@ -6,8 +6,8 @@ import { filterCasesByTitle } from './helpers/filterCasesByTitle';
 import { filterCasesByProcessNumber } from './helpers/filterCasesByProcessNumber';
 import { getCaseLawyers } from './helpers/getCaseLawyers';
 import { paginate } from './helpers/paginate';
-import dotenv from 'dotenv'
-dotenv.config()
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 
@@ -79,8 +79,8 @@ app.post('/api/auth', (req: Request, res: Response) => {
   }
 });
 
-app.get('/api/cases/:clientId', (req: Request, res: Response) => {
-  const { clientId } = req.params;
+app.get('/api/client/:id/cases', (req: Request, res: Response) => {
+  const { id } = req.params;
   const { status, title, processNumber } = req.query;
 
   const page = req.query.page || 1;
@@ -95,7 +95,7 @@ app.get('/api/cases/:clientId', (req: Request, res: Response) => {
 
   let casesByQuery = null;
 
-  const casesByClientId = fakeCases.filter((cas) => cas.clientId === clientId);
+  const casesByClientId = fakeCases.filter((cas) => cas.clientId === id);
   casesByQuery = casesByClientId.slice();
 
   if (status) {
@@ -132,6 +132,6 @@ app.get('/api/cases/:clientId', (req: Request, res: Response) => {
   return res.status(200).send(response);
 });
 
-app.listen(port, "0.0.0.0", () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`Server is running on port ${port}`);
 });
