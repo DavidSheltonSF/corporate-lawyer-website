@@ -14,8 +14,8 @@ export interface CaseProps {
   processNumber: string;
   title: string;
   description?: string;
-  tribunal?: string;
-  vara?: string;
+  tribunal: string;
+  vara: string;
   documents?: CaseDocumentProps[];
   hearings?: HearingProps[];
   status: CaseStatusEnum;
