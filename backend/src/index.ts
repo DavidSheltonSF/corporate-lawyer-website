@@ -7,6 +7,9 @@ import { filterCasesByProcessNumber } from './helpers/filterCasesByProcessNumber
 import { getCaseLawyers } from './helpers/getCaseLawyers';
 import { paginate } from './helpers/paginate';
 import dotenv from 'dotenv';
+import { getCaseClient } from './helpers/getCaseClient';
+import { Case } from './types/Case';
+import { CaseWithRelations } from './types/CaseWithRelations';
 dotenv.config();
 
 const app = express();
@@ -132,20 +135,36 @@ app.get('/api/client/:id/cases', (req: Request, res: Response) => {
   return res.status(200).send(response);
 });
 
-
 app.get('/api/cases/:id', (req: Request, res: Response) => {
   const { id } = req.params;
+  const { include } = req.query;
 
-  const foundCase = fakeCases.find((cas) => cas.id === id);
+  const includeList = String(include).split(',');
+
+  const foundCase: Case | CaseWithRelations | undefined = fakeCases.find((cas) => cas.id === id);
 
   if (!foundCase) {
     return res.status(404).send({
-      message: 'Case not found',
+      message: 'Case not found'
     });
   }
 
+  let dataResp: any = foundCase
+
+  if (includeList.includes('lawyers')) {
+    const lawyers = getCaseLawyers(foundCase.lawyerIds);
+    dataResp = { ...dataResp, lawyers };
+  }
+
+  if (includeList.includes('client')) {
+    const client = getCaseClient(foundCase.clientId);
+    dataResp = {
+      ...dataResp,
+      client: { id: client?.id, firstName: client?.firstName, lastName: client?.lastName },
+    };
+  }
   return res.status(200).send({
-    data: foundCase,
+    data: dataResp,
   });
 });
 
