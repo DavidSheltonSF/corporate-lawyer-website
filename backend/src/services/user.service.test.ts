@@ -117,4 +117,34 @@ describe('Test UserService', () => {
 
     expect(foundUser).toMatchObject(userWithoutPassword);
   });
+
+  test('should find a user by email', async () => {
+    await UserModel.deleteMany({});
+    const { userService } = makeSut();
+
+    const user1 = {
+      firstName: 'José',
+      lastName: 'Faria',
+      cpf: '18778848777',
+      email: 'jod55@email.com',
+      password: 'nfksnfasfddsfd',
+      role: UserRole.client,
+    };
+    const user2 = {
+      firstName: 'Maria',
+      lastName: 'José',
+      cpf: '11178848777',
+      email: 'mari@email.com',
+      password: 'sdgfad6fds',
+      role: UserRole.client,
+    };
+
+    const createdUser = await UserModel.create(user1);
+
+    const foundUser = await userService.findByEmail(createdUser.email);
+
+    const {password, ...userWithoutPassword} = user1;
+    
+    expect(foundUser).toMatchObject(userWithoutPassword)
+  });
 });

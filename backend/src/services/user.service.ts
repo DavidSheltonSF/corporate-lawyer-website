@@ -40,4 +40,14 @@ export class UserService {
 
     return foundUser;
   }
+
+  async findByEmail(email: string): Promise<Omit<User, 'password'>> {
+    const foundUser = await UserModel.findOne({ email }, { password: 0 }).lean();
+
+    if (!foundUser) {
+      throw Error('User not found');
+    }
+
+    return foundUser;
+  }
 }
