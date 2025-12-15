@@ -11,6 +11,9 @@ jest.setTimeout(999999);
 describe('Test UserService', () => {
   beforeAll(async () => {
     await DatabaseConnector.connect();
+  });
+
+  beforeEach(async () => {
     await UserModel.deleteMany({});
   });
 
@@ -46,7 +49,6 @@ describe('Test UserService', () => {
   });
 
   test('should find all users', async () => {
-    await UserModel.deleteMany({});
     const { userService } = makeSut();
 
     const users = [
@@ -87,7 +89,6 @@ describe('Test UserService', () => {
   });
 
   test('should find a user by id', async () => {
-    await UserModel.deleteMany({});
     const { userService } = makeSut();
 
     const user1 = {
@@ -118,7 +119,6 @@ describe('Test UserService', () => {
   });
 
   test('should find a user by email', async () => {
-    await UserModel.deleteMany({});
     const { userService } = makeSut();
 
     const user1 = {
