@@ -1,15 +1,9 @@
 import { Schema, model, Document } from 'mongoose';
+import { User } from '../types/User';
 
-export interface User extends Document {
-  firstName: string;
-  lastName: string;
-  email: string;
-  cpf: string;
-  password: string;
-  role: 'lawyer' | 'client' | 'admin';
-}
+interface IUserModel extends User, Document {}
 
-const UserSchema = new Schema<User>(
+const UserSchema = new Schema<IUserModel>(
   {
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
