@@ -30,4 +30,14 @@ export class UserService {
       }
     ).lean();
   }
+
+  async findById(id: string): Promise<Omit<User, 'password'>> {
+    const foundUser = await UserModel.findById(id, { password: 0 }).lean();
+
+    if (!foundUser) {
+      throw Error('User not found');
+    }
+
+    return foundUser;
+  }
 }
