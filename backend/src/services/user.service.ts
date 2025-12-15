@@ -20,4 +20,10 @@ export class UserService {
       role: createdUser.role,
     };
   }
+
+  async findAll(): Promise<Omit<User, 'password'>[]> {
+    return await UserModel.find({}, {
+      password: 0
+    }).lean()
+  }
 }
