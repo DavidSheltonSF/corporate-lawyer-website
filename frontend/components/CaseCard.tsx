@@ -62,7 +62,7 @@ export function CaseCard({ caseData }: Props) {
       }}
     >
       <article className="flex flex-col fade-in-animation  bg-color-primary w-[640px] h-[256px] rounded-xl overflow-hidden">
-        <Link href={`clientPage/Case/${id}`}>
+        <Link href={`clientPage/Case/${id}`} scroll={false}>
           <header className="flex items-center pl-[24px] h-[56px]">
             <h1 className="h-fit font-bold text-3xl">{reduceString(title, 35)}</h1>
           </header>
