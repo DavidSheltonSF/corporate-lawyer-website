@@ -1,6 +1,5 @@
 import { DatabaseConnector } from '../config/database';
 import { UserModel } from '../models/user.model';
-import { User } from '../types/User';
 import { UserRole } from '../types/UserRole';
 import { UserService } from './user.service';
 import { config } from 'dotenv';
@@ -143,8 +142,8 @@ describe('Test UserService', () => {
 
     const foundUser = await userService.findByEmail(createdUser.email);
 
-    const {password, ...userWithoutPassword} = user1;
-    
-    expect(foundUser).toMatchObject(userWithoutPassword)
+    const { password, ...userWithoutPassword } = user1;
+
+    expect(foundUser).toMatchObject(userWithoutPassword);
   });
 });
