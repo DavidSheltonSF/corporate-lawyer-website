@@ -1,16 +1,15 @@
-'use client'
-import { useRouter } from "next/navigation";
+'use client';
+import { useRouter } from 'next/navigation';
 
-export function PrimaryModalWindow({children}: {children: React.ReactNode}) {
+export function PrimaryModalWindow({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
 
-  const router = useRouter()
-
-  function closeModal(){
-    router.back()
+  function closeModal() {
+    router.back();
   }
 
   return (
-    <div className="flex pt-[80px] absolute z-99999 left-1/2 translate-x-[-50%] top-[160px] bg-color-primary w-[960px] h-[80vh] rounded-xl overflow-hidden">
+    <div className="flex pt-[80px] fixed z-99999 left-1/2 translate-x-[-50%] top-[80px] bg-color-primary w-[960px] h-[80vh] rounded-xl overflow-hidden">
       <div className="bg-color-white size-full">{children}</div>
 
       <button
