@@ -1,6 +1,7 @@
 import { DatabaseConnector } from '../config/database';
 import { UserModel } from './user.model';
 import { config } from 'dotenv';
+import bcrypt from 'bcrypt';
 
 config();
 
@@ -31,8 +32,7 @@ describe('Testing UserModel', () => {
     expect(result.lastName).toBe(newUser.lastName);
     expect(result.cpf).toBe(newUser.cpf);
     expect(result.email).toBe(newUser.email);
-    expect(result.password).toBe(newUser.password);
+    expect(await bcrypt.compare(newUser.password, result.password)).toBeTruthy();
     expect(result.role).toBe(newUser.role);
   });
-
 });

@@ -20,4 +20,11 @@ const UserSchema = new Schema<IUserModel>(
   { timestamps: true }
 );
 
+UserSchema.pre('save', async function () {
+  if (this.isModified('password')) {
+    const salt = 10;
+    this.password = await bcrypt.hash(this.password, salt);
+  }
+});
+
 export const UserModel = model<User>('User', UserSchema);
