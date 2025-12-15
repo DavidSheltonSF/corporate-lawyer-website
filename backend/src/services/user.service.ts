@@ -3,27 +3,31 @@ import { User } from '../types/User';
 
 export class UserService {
   async create(data: User): Promise<Omit<User, 'password'>> {
-    const { email } = data;
+    try {
+      const createdUser = await UserModel.create(data);
 
-    const userExists = await UserModel.findOne({ email });
-    if (userExists) {
-      throw Error('User already exists');
+      return {
+        firstName: createdUser.firstName,
+        lastName: createdUser.lastName,
+        cpf: createdUser.cpf,
+        email: createdUser.email,
+        role: createdUser.role,
+      };
+    } catch (error: any) {
+      if (error.code === 11000) {
+        throw Error('User already exists');
+      }
+
+      throw error;
     }
-
-    const createdUser = await UserModel.create(data);
-
-    return {
-      firstName: createdUser.firstName,
-      lastName: createdUser.lastName,
-      cpf: createdUser.cpf,
-      email: createdUser.email,
-      role: createdUser.role,
-    };
   }
 
   async findAll(): Promise<Omit<User, 'password'>[]> {
-    return await UserModel.find({}, {
-      password: 0
-    }).lean()
+    return await UserModel.find(
+      {},
+      {
+        password: 0,
+      }
+    ).lean();
   }
 }
