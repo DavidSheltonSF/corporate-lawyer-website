@@ -7,10 +7,10 @@ export interface Case {
   processNumber: string;
   title: string;
   description?: string;
-  tribunal?: string;
-  vara?: string;
+  court?: string; //tribunal
+  courtDivision?: string; //vara
   documentIds?: Types.ObjectId[];
-  hearingIds: Types.ObjectId[];
+  hearingIds?: Types.ObjectId[];
   status: CaseStatusEnum;
   createdAt?: Date | undefined;
   updatedAt?: Date | undefined;
