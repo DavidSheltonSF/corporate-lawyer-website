@@ -5,15 +5,15 @@ interface ICase extends Case, Document {}
 
 const CaseSchema = new Schema<ICase>(
   {
-    clientId: { type: Types.ObjectId, ref: 'Users', index: true, required: true  },
+    clientId: { type: Types.ObjectId, ref: 'Users', index: true, required: true },
     lawyerIds: { type: [Types.ObjectId], ref: 'Users', index: true, required: true },
     processNumber: { type: String, required: true, unique: true },
     title: { type: String, required: true },
     description: { type: String, required: true },
-    tribunal: { type: String, required: true },
-    vara: { type: String, required: true },
-    documentIds: { type: [String], required: true },
-    hearingIds: { type: [String], required: true },
+    court: { type: String, required: true },
+    courtDivision: { type: String, required: true },
+    documentIds: { type: [String], ref: 'CaseDocuments', index: true, required: true },
+    hearingIds: { type: [String], ref: 'Hearings', index: true, required: true },
     status: { type: String, enum: ['aberto', 'em_andamento', 'esperando_documentos', 'encerrado'] },
   },
   { timestamps: true }
