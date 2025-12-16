@@ -2,10 +2,10 @@ import { CaseDocumentProps } from './CaseDocumentProps';
 import { HearingProps } from './HearingProps';
 
 export enum CaseStatusEnum {
-  em_andamento = 'Em andamento',
-  esperando_documentos = 'Esperando Documentos',
-  aberto = 'Aberto',
-  encerrado = 'Encerrado',
+  em_andamento = 'em_andamento',
+  esperando_documentos = 'esperando_documentos',
+  aberto = 'aberto',
+  encerrado = 'encerrado',
 }
 
 export interface CaseProps {
