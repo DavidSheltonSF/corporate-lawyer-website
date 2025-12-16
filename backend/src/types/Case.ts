@@ -1,6 +1,4 @@
-import { CaseDocument } from './CaseDocument';
 import { CaseStatusEnum } from './CaseStatusEnum';
-import { Hearing } from './Hearing';
 
 export interface Case{
   clientId: string;
@@ -10,8 +8,8 @@ export interface Case{
   description?: string;
   tribunal?: string;
   vara?: string;
-  documents?: CaseDocument[];
-  hearings?: Hearing[];
+  documentIds?: string[];
+  hearingIds: string[];
   status: CaseStatusEnum;
   createdAt?: Date | undefined;
   updatedAt?: Date | undefined;
