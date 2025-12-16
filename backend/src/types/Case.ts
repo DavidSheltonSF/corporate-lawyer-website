@@ -13,6 +13,6 @@ export interface Case{
   documents?: CaseDocument[];
   hearings?: Hearing[];
   status: CaseStatusEnum;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date | undefined;
+  updatedAt?: Date | undefined;
 }
