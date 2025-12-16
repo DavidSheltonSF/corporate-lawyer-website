@@ -1,4 +1,4 @@
-import { UserRole } from "./UserRole";
+import { UserRole } from './UserRole';
 
 export interface User {
   firstName: string;
@@ -7,4 +7,6 @@ export interface User {
   cpf: string;
   password: string;
   role: UserRole;
+  createdAt?: Date | undefined;
+  updatedAt?: Date | undefined;
 }
