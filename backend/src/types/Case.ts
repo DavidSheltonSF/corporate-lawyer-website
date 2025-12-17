@@ -2,15 +2,15 @@ import { Types } from 'mongoose';
 import { CaseStatusEnum } from './CaseStatusEnum';
 
 export interface Case {
-  clientId: Types.ObjectId;
-  lawyerIds: Types.ObjectId[];
+  client: Types.ObjectId;
+  lawyers: Types.ObjectId[];
   processNumber: string;
   title: string;
   description?: string;
   court?: string; //tribunal
   courtDivision?: string; //vara
-  documentIds?: Types.ObjectId[];
-  hearingIds?: Types.ObjectId[];
+  documents?: Types.ObjectId[];
+  hearings?: Types.ObjectId[];
   status: CaseStatusEnum;
   createdAt?: Date | undefined;
   updatedAt?: Date | undefined;
