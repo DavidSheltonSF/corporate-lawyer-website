@@ -1,10 +1,6 @@
+import { Types } from 'mongoose';
+import { CaseStatusEnum } from './CaseStatusEnum';
 import { Case } from './Case';
-import { UserBasicInfo } from './UserBasicInfo';
-import { WithId } from './WithId';
 
-export type CaseResponse = WithId<
-  Omit<Case, "clientId" | "lawyerIds"> & {
-    lawyers?: WithId<UserBasicInfo>[];
-    client?: WithId<UserBasicInfo>;
-  }
->;
+export type CaseResponse = Omit<Case, 'hearings' | 'documents' | 'createdAt' | 'updatedAt'>
+
