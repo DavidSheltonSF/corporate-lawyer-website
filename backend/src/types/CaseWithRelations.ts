@@ -1,8 +1,8 @@
+import { ObjectId } from 'mongoose';
 import { Case } from './Case';
 import { User } from './User';
-import { WithId } from './WithId';
 
 export type CaseWithRelations = Case & {
-  client?: WithId<Pick<User, 'firstName' | 'lastName'>>;
-  lawyers?: WithId<Pick<User, 'firstName' | 'lastName'>>[];
+  client?: { _id: ObjectId } & Pick<User, 'firstName' | 'lastName'>;
+  lawyers?: { _id: ObjectId } & Pick<User, 'firstName' | 'lastName'>[];
 };
