@@ -12,9 +12,9 @@ const CaseSchema = new Schema<ICase>(
     description: { type: String, required: true },
     court: { type: String, required: true },
     courtDivision: { type: String, required: true },
-    documents: [{ type: Types.ObjectId, ref: 'CaseDocuments', index: true, required: true }],
-    hearings: [{ type: Types.ObjectId, ref: 'Hearings', index: true, required: true }],
-    status: { type: String, enum: ['aberto', 'em_andamento', 'esperando_documentos', 'encerrado'] },
+    documents: [{ type: Types.ObjectId, ref: 'CaseDocuments', index: true}],
+    hearings: [{ type: Types.ObjectId, ref: 'Hearings', index: true }],
+    status: { type: String, enum: ['aberto', 'em_andamento', 'esperando_documentos', 'encerrado'], required: true},
   },
   { timestamps: true }
 );
