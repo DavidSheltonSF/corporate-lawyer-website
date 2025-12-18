@@ -6,9 +6,9 @@ export interface Case {
   lawyers: Types.ObjectId[];
   processNumber: string;
   title: string;
-  description?: string;
-  court?: string; //tribunal
-  courtDivision?: string; //vara
+  description: string;
+  court: string; //tribunal
+  courtDivision: string; //vara
   documents?: Types.ObjectId[];
   hearings?: Types.ObjectId[];
   status: CaseStatusEnum;
