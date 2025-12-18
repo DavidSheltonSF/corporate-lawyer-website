@@ -1,4 +1,3 @@
-import { Timestamps } from './Timestamps';
 import { User } from './User';
 import { WithId } from './WithId';
 
