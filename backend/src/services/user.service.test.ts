@@ -139,6 +139,7 @@ describe('Test UserService', () => {
     };
 
     const createdUser = await UserModel.create(user1);
+    await UserModel.create(user2);
 
     const foundUser = await userService.findByEmail(createdUser.email);
 
