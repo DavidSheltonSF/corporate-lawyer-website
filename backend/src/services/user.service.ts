@@ -27,7 +27,7 @@ export class UserService {
   }
 
   async findAll(): Promise<UserResponse[]> {
-    const users = await UserModel.find({});
+    const users = await UserModel.find({}).lean();
 
     return users.map((user) => {
       return {
