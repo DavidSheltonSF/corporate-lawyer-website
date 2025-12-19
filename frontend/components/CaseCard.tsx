@@ -2,7 +2,7 @@ import { UserDataContext } from '@/contexts/UserDataContext';
 import { formatStringList } from '@/lib/formatStringList';
 import { CaseProps } from '@/types/CaseProps';
 import { useContext } from 'react';
-import { CaseStatusEnum } from '@/types/CaseProps';
+import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { reduceString } from '@/lib/reduceString';
 import { TooltipContainer } from './TooltipContainer';
 import { LawyerBasicInfoProps } from '@/types/LawyerBasicInfoProps';

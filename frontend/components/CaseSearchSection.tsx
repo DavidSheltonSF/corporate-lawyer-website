@@ -8,7 +8,7 @@ import { WithId } from '@/types/WithId';
 import { Pagination } from './Pagination';
 import { CaseSearchEnum } from '../types/CaseSearchEnum';
 import { CaseWithLawyersProps } from '@/types/CaseWithLawyersProps';
-import { CaseStatusEnum } from '@/types/CaseProps';
+import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { DropDownButton } from './DropdownButton';
 import { reduceString } from '@/lib/reduceString';
 
