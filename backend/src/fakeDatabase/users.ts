@@ -1,32 +1,34 @@
+import { Types } from "mongoose";
 import { User } from "../types/User";
+import { UserRole } from "../types/UserRole";
 import { WithId } from "../types/WithId";
 
-export const fakeUserDatabase: WithId<User>[] = [
+export const fakeUserDatabase: Array<{ _id: Types.ObjectId } & User> = [
   {
-    id: 'flavia1',
+    _id: Types.ObjectId.createFromTime(15258484),
     firstName: 'Flávia',
     lastName: 'Santiago',
     email: 'flavia@email.com',
     cpf: '11144744474',
     password: 'flavia123',
-    role: 'lawyer',
+    role: UserRole.lawyer,
   },
   {
-    id: 'carla1',
+    _id: Types.ObjectId.createFromTime(5845131942),
     firstName: 'Carla',
     lastName: 'Medeiros',
     email: 'carla@email.com',
     cpf: '11148814474',
     password: 'carla123',
-    role: 'lawyer',
+    role: UserRole.lawyer,
   },
   {
-    id: 'raimundo1',
+    _id: Types.ObjectId.createFromTime(3115151),
     firstName: 'Raimundo',
     lastName: 'Teixeira',
     email: 'raimundo@email.com',
     cpf: '18884744474',
     password: 'raimundo123',
-    role: 'client',
+    role: UserRole.client,
   },
 ];
