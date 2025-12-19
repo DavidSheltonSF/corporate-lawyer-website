@@ -38,8 +38,8 @@ export async function fetchClientCases(
     const responseJson = await response.json();
 
     return responseJson.data;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
-    throw new Error('Something went wrong');
+    throw new Error(error);
   }
 }
