@@ -42,7 +42,10 @@ export class CaseService {
       .limit(limit)
       .skip((page - 1) * limit)
       .lean();
-    return foundCases.map((cas) => {
+
+    const totalCases = await CaseModel.countDocuments();
+
+    const mappedCases = foundCases.map((cas) => {
       return {
         id: cas._id.toString(),
         client: cas.client,
@@ -57,6 +60,12 @@ export class CaseService {
         updatedAt: cas.updatedAt,
       };
     });
+
+    return {
+      cases: mappedCases,
+      total: totalCases,
+      totalPages: Math.ceil(totalCases / Number(limit)),
+    };
   }
 
   async findById(id: string): Promise<CaseResponse | null> {
