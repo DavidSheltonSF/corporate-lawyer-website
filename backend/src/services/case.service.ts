@@ -43,7 +43,7 @@ export class CaseService {
       .skip((page - 1) * limit)
       .lean();
 
-    const totalCases = await CaseModel.countDocuments();
+    const totalCases = await CaseModel.countDocuments(filter);
 
     const mappedCases = foundCases.map((cas) => {
       return {
