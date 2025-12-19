@@ -1,5 +1,6 @@
 import { CaseModel } from '../models/case.model';
 import { Case } from '../types/Case';
+import { CaseListResponse } from '../types/CaseListResponse';
 import { CaseQuery } from '../types/CaseQuery';
 import { CaseResponse } from '../types/CaseResponse';
 
@@ -9,6 +10,7 @@ export class CaseService {
       const createdCase = await CaseModel.create(data);
 
       return {
+        id: createdCase._id.toString(),
         client: createdCase.client,
         lawyers: createdCase.lawyers,
         processNumber: createdCase.processNumber,
@@ -28,11 +30,10 @@ export class CaseService {
     }
   }
 
-  async findAll(query: CaseQuery = {}): Promise<CaseResponse[]> {
+  async findAll(query: CaseQuery = {}): Promise<CaseListResponse> {
     const { title, processNumber, status, limit = 10, page = 1 } = query;
 
     const filter: any = {};
-
     if (title) filter.title = title;
     if (processNumber) filter.processNumber = processNumber;
     if (status) filter.status = status;
@@ -43,6 +44,7 @@ export class CaseService {
       .lean();
     return foundCases.map((cas) => {
       return {
+        id: cas._id.toString(),
         client: cas.client,
         lawyers: cas.lawyers,
         title: cas.title,
@@ -66,6 +68,7 @@ export class CaseService {
       }
 
       return {
+        id: foundCase._id.toString(),
         client: foundCase.client,
         lawyers: foundCase.lawyers,
         title: foundCase.title,
@@ -82,12 +85,13 @@ export class CaseService {
     }
   }
 
-  async findByClientId(id: string): Promise<CaseResponse[]> {
+  async findByClientId(id: string): Promise<CaseListResponse> {
     try {
       const foundCases = await CaseModel.find({ client: id });
 
       return foundCases.map((cas) => {
         return {
+          id: cas._id.toString(),
           client: cas.client,
           lawyers: cas.lawyers,
           title: cas.title,
