@@ -1,5 +1,6 @@
 import { CaseModel } from '../models/case.model';
 import { Case } from '../types/Case';
+import { CaseQuery } from '../types/CaseQuery';
 import { CaseResponse } from '../types/CaseResponse';
 
 export class CaseService {
@@ -27,9 +28,19 @@ export class CaseService {
     }
   }
 
-  async findAll(): Promise<CaseResponse[]> {
-    const foundCases = await CaseModel.find({}).lean();
+  async findAll(query: CaseQuery = {}): Promise<CaseResponse[]> {
+    const { title, processNumber, status, limit = 10, page = 1 } = query;
 
+    const filter: any = {};
+
+    if (title) filter.title = title;
+    if (processNumber) filter.processNumber = processNumber;
+    if (status) filter.status = status;
+
+    const foundCases = await CaseModel.find(filter)
+      .limit(limit)
+      .skip((page - 1) * limit)
+      .lean();
     return foundCases.map((cas) => {
       return {
         client: cas.client,
