@@ -93,28 +93,4 @@ export class CaseService {
       throw error;
     }
   }
-
-  async findByClientId(id: string): Promise<CaseListResponse> {
-    try {
-      const foundCases = await CaseModel.find({ client: id });
-
-      return foundCases.map((cas) => {
-        return {
-          id: cas._id.toString(),
-          client: cas.client,
-          lawyers: cas.lawyers,
-          title: cas.title,
-          processNumber: cas.processNumber,
-          court: cas.court,
-          courtDivision: cas.courtDivision,
-          description: cas.description,
-          status: cas.status,
-          createdAt: cas.createdAt,
-          updatedAt: cas.updatedAt,
-        };
-      });
-    } catch (error) {
-      throw error;
-    }
-  }
 }
