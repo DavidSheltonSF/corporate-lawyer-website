@@ -1,6 +1,5 @@
-import { Types } from 'mongoose';
-import { CaseStatusEnum } from './CaseStatusEnum';
 import { Case } from './Case';
+import { WithId } from './WithId';
 
-export type CaseResponse = Omit<Case, 'hearings' | 'documents'>
+export type CaseResponse = WithId<Case>;
 
