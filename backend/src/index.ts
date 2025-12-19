@@ -1,15 +1,12 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import { fakeUserDatabase } from './fakeDatabase/users';
-import { fakeCases } from './fakeDatabase/cases';
-import { filterCasesByTitle } from './helpers/filterCasesByTitle';
-import { filterCasesByProcessNumber } from './helpers/filterCasesByProcessNumber';
-import { getCaseLawyers } from './helpers/getCaseLawyers';
-import { paginate } from './helpers/paginate';
 import dotenv from 'dotenv';
-import { getCaseClient } from './helpers/getCaseClient';
-import { Case } from './types/Case';
-import { CaseWithRelations } from './types/CaseWithRelations';
+import { cleanDatabase } from './config/cleanDatabase';
+import { populateDatabase } from './config/populateDatabase';
+import { DatabaseConnector } from './config/database';
+import { CaseService } from './services/case.service';
+import { UserService } from './services/user.service';
+import { AuthService } from './services/auth.service';
 dotenv.config();
 
 const app = express();
@@ -26,148 +23,176 @@ app.use(
 
 const port = 3080;
 
-app.get('/api', (req: Request, res: Response) => {
-  res.status(200).send({
-    message: 'Everything is working',
-  });
-});
+(async () => {
+  await DatabaseConnector.connect();
+  await cleanDatabase();
+  await populateDatabase();
 
-app.get('/api/me', (req: Request, res: Response) => {
-  const token = req.headers.authorization;
+  const userService = new UserService();
+  const caseService = new CaseService();
+  const authService = new AuthService();
 
-  if (!token) {
-    return res.send(400).send({
-      status: 401,
-      message: 'Token missing',
+  app.get('/api', (req: Request, res: Response) => {
+    res.status(200).send({
+      message: 'Everything is working',
     });
-  }
-
-  const email = token.split('-')[0];
-
-  const user = fakeUserDatabase.find((user) => user.email === email);
-
-  return res.status(200).json({
-    user,
   });
-});
 
-app.post('/api/auth', (req: Request, res: Response) => {
-  try {
-    const body = req.body;
+  app.get('/api/me', async (req: Request, res: Response) => {
+    const token = req.headers.authorization;
 
-    if (!body) {
+    if (!token) {
+      return res.send(400).send({
+        status: 401,
+        message: 'Token missing',
+      });
+    }
+
+    const email = token.split('-')[0];
+
+    if (!email) {
+      return res.send(400).send({
+        status: 401,
+        message: 'Token provided is invalid',
+      });
+    }
+
+    const user = await userService.findByEmail(email);
+
+    return res.status(200).json({
+      user,
+    });
+  });
+
+  app.post('/api/auth', async (req: Request, res: Response) => {
+    try {
+      const body = req.body;
+
+      if (!body) {
+        return res.status(400).send({
+          code: 'BAD_REQUEST',
+          message: 'Body request is missing',
+        });
+      }
+
+      const { email, password } = body;
+
+      if (!email) {
+        return res.status(400).send({
+          code: 'BAD_REQUEST',
+          message: 'Missing email in the body request',
+        });
+      }
+
+      if (!password) {
+        return res.status(400).send({
+          code: 'BAD_REQUEST',
+          message: 'Missing password in the body request',
+        });
+      }
+
+      const auth = await authService.authenticate(email, password);
+
+      return res.status(200).send(auth);
+    } catch (error: any) {
+      console.log(error);
+
+      // Check if it is Unauthorized error
+      if (error.statusCode === 401) {
+        return res.status(error.statusCode).send({
+          code: error.code,
+          message: error.message,
+        });
+      }
+
+      return res.status(500).send({
+        message: 'Something went wron in the server side',
+      });
+    }
+  });
+
+  app.get('/api/client/:id/cases', async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { status, title, processNumber } = req.query;
+
+    const page = req.query.page || 1;
+    const limit = req.query.limit || 4;
+
+    if (!id) {
       return res.status(400).send({
-        message: 'Body request is missing',
+        status: 400,
+        message: 'Missing id param',
       });
     }
 
-    const { email, password } = body;
-    const user = fakeUserDatabase.find((user) => user.email === email);
-
-    if (!user || user.password !== password) {
-      return res.status(401).send({
-        message: 'Invalid email or password',
+    if (title && processNumber) {
+      return res.status(400).send({
+        status: 400,
+        message: "You must send ONLY 'title' OR 'processNumber', not both.",
       });
     }
 
-    const fakeToken = email + '-token';
-    return res.status(200).send({
-      token: fakeToken,
+    const caseService = new CaseService();
+
+    const casesPaginated = await caseService.findAll({
+      title: title ? String(title) : undefined,
+      processNumber: processNumber ? String(processNumber) : undefined,
+      status: status ? String(status) : undefined,
+      limit: limit ? Number(limit) : undefined,
+      page: page ? Number(page) : undefined,
+      client: id ? String(id) : undefined,
     });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({
-      message: 'Something went wron in the server side',
-    });
-  }
-});
 
-app.get('/api/client/:id/cases', (req: Request, res: Response) => {
-  const { id } = req.params;
-  const { status, title, processNumber } = req.query;
-
-  const page = req.query.page || 1;
-  const limit = req.query.limit || 4;
-
-  if (title && processNumber) {
-    return res.status(400).send({
-      status: 400,
-      message: "You must send ONLY 'title' OR 'processNumber', not both.",
-    });
-  }
-
-  let casesByQuery = null;
-
-  const casesByClientId = fakeCases.filter((cas) => cas.clientId === id);
-  casesByQuery = casesByClientId.slice();
-
-  if (status) {
-    casesByQuery = casesByQuery.filter((cas) => cas.status === status);
-  }
-
-  if (title) {
-    casesByQuery = filterCasesByTitle(casesByQuery, `${title}`);
-  }
-
-  if (processNumber) {
-    casesByQuery = filterCasesByProcessNumber(casesByQuery, `${processNumber}`);
-  }
-
-  let cases = casesByQuery || casesByClientId;
-  cases = cases.map((cas) => {
-    const lawyers = getCaseLawyers(cas.lawyerIds);
-
-    return { ...cas, lawyers };
-  });
-
-  const pagination = {
-    cases: paginate(cases, Number(page), Number(limit)),
-    page,
-    limit,
-    total: cases.length,
-    totalPages: Math.ceil(cases.length / Number(limit)),
-  };
-
-  const response: any = {
-    status: 200,
-    data: pagination,
-  };
-  return res.status(200).send(response);
-});
-
-app.get('/api/cases/:id', (req: Request, res: Response) => {
-  const { id } = req.params;
-  const { include } = req.query;
-
-  const includeList = String(include).split(',');
-
-  const foundCase: Case | CaseWithRelations | undefined = fakeCases.find((cas) => cas.id === id);
-
-  if (!foundCase) {
-    return res.status(404).send({
-      message: 'Case not found'
-    });
-  }
-
-  let dataResp: any = foundCase
-
-  if (includeList.includes('lawyers')) {
-    const lawyers = getCaseLawyers(foundCase.lawyerIds);
-    dataResp = { ...dataResp, lawyers };
-  }
-
-  if (includeList.includes('client')) {
-    const client = getCaseClient(foundCase.clientId);
-    dataResp = {
-      ...dataResp,
-      client: { id: client?.id, firstName: client?.firstName, lastName: client?.lastName },
+    const pagination = {
+      ...casesPaginated,
+      page,
+      limit,
     };
-  }
-  return res.status(200).send({
-    data: dataResp,
-  });
-});
 
-app.listen(port, '0.0.0.0', () => {
-  console.log(`Server is running on port ${port}`);
-});
+    const response: any = {
+      status: 200,
+      data: pagination,
+    };
+    return res.status(200).send(response);
+  });
+
+  app.get('/api/cases/:id', (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const { include } = req.query;
+
+      const includeList = String(include).split(',');
+
+      if (!id) {
+        return res.status(400).send({
+          code: 'BAD_REQUEST',
+          message: 'Missing id param',
+        });
+      }
+
+      const foundCase = caseService.findById(id);
+
+      return res.status(200).send({
+        data: foundCase,
+      });
+    } catch (error: any) {
+      console.log(error);
+
+      // Check if it is NotFound error
+      if (error.statusCode === 404) {
+        return res.status(error.statusCode).send({
+          code: error.code,
+          message: error.message,
+        });
+      }
+
+      return res.status(500).send({
+        message: 'Something went wron in the server side',
+      });
+    }
+  });
+
+  app.listen(port, '0.0.0.0', () => {
+    console.log(`Server is running on port ${port}`);
+  });
+})();
