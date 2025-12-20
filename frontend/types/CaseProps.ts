@@ -8,8 +8,8 @@ export interface CaseProps {
   processNumber: string;
   title: string;
   description?: string;
-  tribunal: string;
-  vara: string;
+  court: string;
+  courtDivision: string;
   documents?: CaseDocumentProps[];
   hearings?: HearingProps[];
   status: CaseStatusEnum;
