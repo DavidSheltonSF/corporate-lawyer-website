@@ -8,7 +8,7 @@ export async function fetchCaseById(
   populateFields?: string[]
 ): Promise<WithId<CaseWithRelations>> {
   const response = await fetch(
-    `${API_URL}/cases/507f1f77bcf86cd799439011
+    `${API_URL}/cases/${id}
 ?populate=${populateFields ? populateFields?.join(',') : ''}`
   );
 
