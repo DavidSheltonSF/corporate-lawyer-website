@@ -6,13 +6,16 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
   const { id } = await params;
 
   const caseData = await fetchCaseById(id, ['client', 'lawyers']);
+
   const { processNumber, title, status, lawyers, client, court, courtDivision, description } =
     caseData;
+
   const lawyersNames: string[] = [];
   lawyers?.forEach((lawyer) => {
     if (!lawyer.firstName || !lawyer.lastName) return;
     lawyersNames.push(`${lawyer.firstName} ${lawyer.lastName}`);
   });
+
   return (
     <div className="h-full w-full">
       <header className="flex items-center h-[56px] bg-color-primary border-t border-white/50 pl-[24px]">
