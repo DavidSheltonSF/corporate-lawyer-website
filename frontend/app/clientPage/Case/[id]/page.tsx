@@ -5,10 +5,12 @@ import { fetchCaseById } from '@/services/fetchCaseById';
 export default async function CasePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
-  const caseData = await fetchCaseById(id, ['lawyers', 'client']);
-  const { processNumber, title, status, lawyers, client, court, courtDivision, description} = caseData;
+  const caseData = await fetchCaseById(id, ['client', 'lawyers']);
+  const { processNumber, title, status, lawyers, client, court, courtDivision, description } =
+    caseData;
   const lawyersNames: string[] = [];
   lawyers?.forEach((lawyer) => {
+    if (!lawyer.firstName || !lawyer.lastName) return;
     lawyersNames.push(`${lawyer.firstName} ${lawyer.lastName}`);
   });
   return (
@@ -23,7 +25,7 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
             field="cliente:"
             value={`${client?.firstName || ''} ${client?.lastName || ''}`}
           />
-          <FieldValue field="advogados:" value={formatStringList(lawyersNames)} />
+          <FieldValue field="advogados:" value={formatStringList(lawyersNames) || ''} />
           <FieldValue field="status:" value={status || ''} />
           <FieldValue field="Tribunal:" value={court || ''} />
           <FieldValue field="Vara:" value={courtDivision || ''} />
