@@ -25,8 +25,8 @@ const port = 3080;
 
 (async () => {
   await DatabaseConnector.connect();
-  await cleanDatabase();
-  await populateDatabase();
+  // await cleanDatabase();
+  // await populateDatabase();
 
   const userService = new UserService();
   const caseService = new CaseService();
