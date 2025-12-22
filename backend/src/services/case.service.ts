@@ -68,9 +68,15 @@ export class CaseService {
     };
   }
 
-  async findById(id: string): Promise<CaseResponse | null> {
+  async findById(id: string, include: string[] = []): Promise<CaseResponse | null> {
     try {
-      const foundCase = await CaseModel.findById(id);
+      const query = CaseModel.findById(id)
+
+      if(include.length > 0) {
+        query.populate(include.join(' '), 'firstName lastName');
+      }
+
+      const foundCase = await query
 
       if (!foundCase) {
         throw Error('Case not found');
