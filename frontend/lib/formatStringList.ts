@@ -1,4 +1,8 @@
-export function formatStringList(list: string[]): string {
+export function formatStringList(list: string[]): string | null {
+  if (list.length === 0 || list.join('').trim().length === 0) {
+    return null;
+  }
+
   let formatedString = '';
   let separator = '';
 
@@ -11,6 +15,5 @@ export function formatStringList(list: string[]): string {
 
     separator = ', ';
   }
-
   return formatedString;
 }
