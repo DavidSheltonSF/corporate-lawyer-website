@@ -4,10 +4,10 @@ import { WithId } from '@/types/WithId';
 
 export async function fetchCaseById(
   id: string,
-  include?: string[]
+  populateFields?: string[]
 ): Promise<WithId<CaseWithRelations>> {
   const response = await fetch(
-    `${API_URL}/cases/${id}?include=${include ? include?.join(',') : ''}`
+    `${API_URL}/cases/${id}?populate=${populateFields ? populateFields?.join(',') : ''}`
   );
 
   if (!response.ok) {
