@@ -68,12 +68,12 @@ export class CaseService {
     };
   }
 
-  async findById(id: string, include: string[] = []): Promise<CaseResponse | null> {
+  async findById(id: string, populateFields: string[] = []): Promise<CaseResponse | null> {
     try {
       const query = CaseModel.findById(id)
 
-      if (include.length > 0 && include.join(' ').trim()) {
-        query.populate(include.join(' '), 'firstName lastName');
+      if (populateFields.length > 0 && populateFields.join(' ').trim()) {
+        query.populate(populateFields.join(' '), 'firstName lastName');
       }
 
       const foundCase = await query

@@ -159,9 +159,9 @@ const port = 3080;
   app.get('/api/cases/:id', async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      const { include } = req.query;
+      const { populate } = req.query;
 
-      const includeList = String(include).split(',');
+      const populateFilds = String(populate).split(',');
 
       if (!id) {
         return res.status(400).send({
@@ -170,7 +170,7 @@ const port = 3080;
         });
       }
 
-      const foundCase = await caseService.findById(id, includeList);
+      const foundCase = await caseService.findById(id, populateFilds);
 
       return res.status(200).send({
         data: foundCase,
