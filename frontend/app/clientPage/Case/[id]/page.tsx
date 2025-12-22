@@ -17,11 +17,11 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
   });
 
   return (
-    <div className="h-full w-full">
+    <div className="flex flex-col h-full w-full">
       <header className="flex items-center h-[56px] bg-color-primary border-t border-white/50 pl-[24px]">
         <h1 className=" text-color-white text-4xl">{title}</h1>
       </header>
-      <main className="text-xl">
+      <main className="flex-1 text-xl">
         <div className="flex flex-col gap-[8px] pl-[24px] py-[24px]">
           <FieldValue field="nº:" value={processNumber || ''} />
           <FieldValue
