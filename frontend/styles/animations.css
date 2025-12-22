@@ -40,6 +40,9 @@
   animation: fade-out 500ms ease both;
 }
 
+.fade-out-animation-fast {
+  animation: fade-out 200ms ease both;
+}
 
 .bounce-x-animation {
   animation: bounce-x 800ms ease infinite;
