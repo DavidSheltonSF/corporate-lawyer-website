@@ -156,7 +156,7 @@ const port = 3080;
     return res.status(200).send(response);
   });
 
-  app.get('/api/cases/:id', (req: Request, res: Response) => {
+  app.get('/api/cases/:id', async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
       const { include } = req.query;
@@ -170,7 +170,7 @@ const port = 3080;
         });
       }
 
-      const foundCase = caseService.findById(id);
+      const foundCase = await caseService.findById(id, includeList);
 
       return res.status(200).send({
         data: foundCase,

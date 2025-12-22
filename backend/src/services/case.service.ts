@@ -72,7 +72,7 @@ export class CaseService {
     try {
       const query = CaseModel.findById(id)
 
-      if(include.length > 0) {
+      if (include.length > 0 && include.join(' ').trim()) {
         query.populate(include.join(' '), 'firstName lastName');
       }
 
