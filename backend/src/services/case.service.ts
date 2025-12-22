@@ -1,3 +1,4 @@
+import { NotFoundError } from '../errors/NotFoundError';
 import { CaseModel } from '../models/case.model';
 import { Case } from '../types/Case';
 import { CaseListResponse } from '../types/CaseListResponse';
@@ -79,7 +80,7 @@ export class CaseService {
       const foundCase = await query
 
       if (!foundCase) {
-        throw Error('Case not found');
+        throw new NotFoundError('Case not found');
       }
 
       return {
