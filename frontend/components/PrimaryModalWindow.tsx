@@ -1,10 +1,21 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export function PrimaryModalWindow({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const windowRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (windowRef.current && !windowRef.current.contains(e.target as Node)) {
+        closeModal();
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   function closeModal() {
     const modalWindow = document.querySelector('.modalWindow');
@@ -13,8 +24,11 @@ export function PrimaryModalWindow({ children }: { children: React.ReactNode }) 
   }
 
   return (
-    <div className="modalWindow fixed top-0 h-full w-full bg-black/20 fade-in-animation-fast">
-      <div className="flex pt-[80px] fixed z-99999 left-1/2 translate-x-[-50%] top-[80px] bg-color-primary w-[960px] h-[80vh] rounded-xl overflow-hidden">
+    <div className="fixed top-0 h-full w-full bg-black/20 fade-in-animation-fast">
+      <div
+        ref={windowRef}
+        className="modalWindow flex pt-[80px] fixed z-99999 left-1/2 translate-x-[-50%] top-[80px] bg-color-primary w-[960px] h-[80vh] rounded-xl overflow-hidden"
+      >
         <div className="bg-color-white size-full">{children}</div>
 
         <button
