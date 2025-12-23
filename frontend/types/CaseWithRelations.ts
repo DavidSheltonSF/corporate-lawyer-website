@@ -1,8 +1,8 @@
 import { Case } from './Case';
-import { UserProps } from './UserProps';
+import { User } from './User';
 import { WithId } from './WithId';
 
 export type CaseWithRelations = Case & {
-  client?: WithId<Pick<UserProps, 'firstName' | 'lastName'>>;
-  lawyers?: WithId<Pick<UserProps, 'firstName' | 'lastName'>>[];
+  client?: WithId<Pick<User, 'firstName' | 'lastName'>>;
+  lawyers?: WithId<Pick<User, 'firstName' | 'lastName'>>[];
 };

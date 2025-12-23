@@ -1,8 +1,8 @@
 import { API_URL } from '@/config/api';
-import { UserProps } from '@/types/UserProps';
+import { User } from '@/types/User';
 import { WithId } from '@/types/WithId';
 
-export async function fetchUserByToken(token: string): Promise<WithId<UserProps> | null> {
+export async function fetchUserByToken(token: string): Promise<WithId<User> | null> {
   const response = await fetch(`${API_URL}/me`, {
     headers: {
       Authorization: token,

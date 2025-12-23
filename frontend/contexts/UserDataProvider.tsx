@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react';
 import { UserDataContext } from './UserDataContext';
-import { UserProps } from '@/types/UserProps';
+import { UserProps } from '@/types/User';
 import { WithId } from '@/types/WithId';
 
 interface Props {

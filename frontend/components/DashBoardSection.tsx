@@ -1,12 +1,12 @@
 import { DashboardCard } from './DashboardCard';
 import { DashboardCardInfo } from './DashboardCardInfo';
 import { WithId } from '@/types/WithId';
-import { UserProps } from '@/types/UserProps';
+import { User } from '@/types/User';
 import { fetchClientCases } from '@/services/fetchClientCases';
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 
 interface Props {
-  userData: WithId<UserProps>;
+  userData: WithId<User>;
 }
 
 export async function DashBoardSection({ userData }: Props) {
