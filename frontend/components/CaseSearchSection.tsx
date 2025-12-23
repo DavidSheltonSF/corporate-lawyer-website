@@ -28,21 +28,29 @@ export default function CaseSearchSection() {
 
     switch (searchType) {
       case CaseSearchEnum.num_processo:
-        casesPagination = await fetchClientCases(userData.id, {
-          page,
-          limit: 4,
-          processNumber: query,
-          status: statusFilder || '',
-        });
+        casesPagination = await fetchClientCases(
+          userData.id,
+          {
+            page,
+            limit: 4,
+            processNumber: query,
+            status: statusFilder || '',
+          },
+          ['client', 'lawyers']
+        );
         break;
 
       case CaseSearchEnum.titulo:
-        casesPagination = await fetchClientCases(userData.id, {
-          page,
-          limit: 4,
-          title: query,
-          status: statusFilder || '',
-        });
+        casesPagination = await fetchClientCases(
+          userData.id,
+          {
+            page,
+            limit: 4,
+            title: query,
+            status: statusFilder || '',
+          },
+          ['client', 'lawyers']
+        );
         break;
       default:
         throw new Error("Query should be 'Nº Processo', 'Título' OR 'Cpf/Cnpj'");

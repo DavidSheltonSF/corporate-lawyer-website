@@ -10,7 +10,8 @@ export async function fetchClientCases(
     title?: string;
     processNumber?: string;
     status?: string;
-  }
+  },
+  populate: string[]
 ): Promise<CasesPagination> {
   try {
     if (!clientId) {
@@ -27,7 +28,7 @@ export async function fetchClientCases(
 
     const queryString = `?page=${page}&limit=${limit || ''}&processNumber=${
       processNumber || ''
-    }&title=${title || ''}&status=${status || ''}`;
+    }&title=${title || ''}&status=${status || ''}&populate=${populate || ''}`;
 
     const response = await fetch(`${baseRoute}/${queryString}`);
 
