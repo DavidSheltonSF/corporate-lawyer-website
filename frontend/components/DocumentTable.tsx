@@ -1,8 +1,8 @@
-import { CaseDocumentProps } from '@/types/CaseDocumentProps';
+import { CaseDocumentPopulated } from '@/types/CaseDocumentPopulated';
 import Link from 'next/link';
 
 interface Props {
-  documents: CaseDocumentProps[];
+  documents: CaseDocumentPopulated[];
 }
 
 export function DocumentTable({ documents }: Props) {
