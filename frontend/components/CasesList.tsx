@@ -3,10 +3,10 @@ import { CaseCard } from './CaseCard';
 import { WithId } from '@/types/WithId';
 import { Activity } from 'react';
 import { CaseCardSkeleton } from './CaseCardSkeleton';
-import { CaseWithLawyersProps } from '@/types/CaseWithLawyersProps';
+import { CaseWithLawyers } from '@/types/CaseWithLawyers';
 
 interface Props {
-  cases: WithId<CaseWithLawyersProps>[];
+  cases: WithId<CaseWithLawyers>[];
   loading: boolean;
 }
 

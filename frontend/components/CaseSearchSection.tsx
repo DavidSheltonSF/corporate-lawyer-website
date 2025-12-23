@@ -7,7 +7,7 @@ import { fetchClientCases } from '@/services/fetchClientCases';
 import { WithId } from '@/types/WithId';
 import { Pagination } from './Pagination';
 import { CaseSearchEnum } from '../types/CaseSearchEnum';
-import { CaseWithLawyersProps } from '@/types/CaseWithLawyersProps';
+import { CaseWithLawyers } from '@/types/CaseWithLawyers';
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { DropDownButton } from './DropdownButton';
 import { reduceString } from '@/lib/reduceString';
@@ -18,7 +18,7 @@ export default function CaseSearchSection() {
   const [statusFilder, setStatusFilter] = useState<CaseStatusEnum | null>(null);
   const [pageIndex, setPageIndex] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
-  const [cases, setCases] = useState<WithId<CaseWithLawyersProps>[]>([]);
+  const [cases, setCases] = useState<WithId<CaseWithLawyers>[]>([]);
   const [casesLoading, setCasesLoading] = useState(false);
 
   async function loadCases(page: number) {
