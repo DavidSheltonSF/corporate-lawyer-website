@@ -81,3 +81,19 @@ body {
 .no-scrollbar {
   scrollbar-width: none;
 }
+
+.table > div {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr;
+  grid-template-rows: 72px;
+  gap: 0 32px;
+  align-items: center;
+  word-break: break-all;
+  border-bottom: 1px solid rgba(94, 93, 93, 0.342);
+  height: 72px;
+}
+
+.table > .header {
+  font-weight: bold;
+}
+
