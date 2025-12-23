@@ -31,7 +31,7 @@ export class CaseService {
     }
   }
 
-  async findAll(query: CaseQuery = {}, populateFields: string[]): Promise<CaseListResponse> {
+  async findAll(query: CaseQuery = {}, populateFields?: string[]): Promise<CaseListResponse> {
     const { title, processNumber, status, limit = 10, page = 1 } = query;
 
     const filter: any = {};
@@ -39,13 +39,13 @@ export class CaseService {
     if (processNumber) filter.processNumber = processNumber;
     if (status) filter.status = status;
 
-    const queryFiltered =  CaseModel.find(filter)
+    const queryFiltered = CaseModel.find(filter)
       .limit(limit)
       .skip((page - 1) * limit)
       .lean();
 
-    if(populateFields.length > 0 && populateFields.join(' ').trim()){
-      queryFiltered.populate(populateFields.join(' '), 'firstName lastName')
+    if (populateFields && populateFields.length > 0 && populateFields.join(' ').trim()) {
+      queryFiltered.populate(populateFields.join(' '), 'firstName lastName');
     }
 
     const foundCases = await queryFiltered;
@@ -75,15 +75,15 @@ export class CaseService {
     };
   }
 
-  async findById(id: string, populateFields: string[] = []): Promise<CaseResponse | null> {
+  async findById(id: string, populateFields?: string[]): Promise<CaseResponse | null> {
     try {
-      const query = CaseModel.findById(id)
+      const query = CaseModel.findById(id);
 
-      if (populateFields.length > 0 && populateFields.join(' ').trim()) {
+      if (populateFields && populateFields.length > 0 && populateFields.join(' ').trim()) {
         query.populate(populateFields.join(' '), 'firstName lastName');
       }
 
-      const foundCase = await query
+      const foundCase = await query;
 
       if (!foundCase) {
         throw new NotFoundError('Case not found');
