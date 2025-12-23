@@ -2,7 +2,7 @@ import { CaseDocument } from './CaseDocument';
 import { CaseStatusEnum } from './CaseStatusEnum';
 import { HearingProps } from './HearingProps';
 
-export interface CaseProps {
+export interface Case {
   clientId: string;
   lawyerIds: string[];
   processNumber: string;

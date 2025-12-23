@@ -1,6 +1,6 @@
 import { UserDataContext } from '@/contexts/UserDataContext';
 import { formatStringList } from '@/lib/formatStringList';
-import { CaseProps } from '@/types/CaseProps';
+import { Case } from '@/types/Case';
 import { useContext } from 'react';
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { reduceString } from '@/lib/reduceString';
@@ -10,7 +10,7 @@ import { WithId } from '@/types/WithId';
 import Link from 'next/link';
 
 interface Props {
-  caseData: WithId<CaseProps> & {
+  caseData: WithId<Case> & {
     lawyers: WithId<LawyerBasicInfoProps>[];
   };
 }
