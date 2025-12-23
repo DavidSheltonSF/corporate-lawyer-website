@@ -31,7 +31,7 @@ export class CaseService {
     }
   }
 
-  async findAll(query: CaseQuery = {}): Promise<CaseListResponse> {
+  async findAll(query: CaseQuery = {}, populateFields: string[]): Promise<CaseListResponse> {
     const { title, processNumber, status, limit = 10, page = 1 } = query;
 
     const filter: any = {};
@@ -39,10 +39,16 @@ export class CaseService {
     if (processNumber) filter.processNumber = processNumber;
     if (status) filter.status = status;
 
-    const foundCases = await CaseModel.find(filter)
+    const queryFiltered =  CaseModel.find(filter)
       .limit(limit)
       .skip((page - 1) * limit)
       .lean();
+
+    if(populateFields.length > 0 && populateFields.join(' ').trim()){
+      queryFiltered.populate(populateFields.join(' '), 'firstName lastName')
+    }
+
+    const foundCases = await queryFiltered;
 
     const totalCases = await CaseModel.countDocuments(filter);
 

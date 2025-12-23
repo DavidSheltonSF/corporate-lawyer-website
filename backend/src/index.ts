@@ -113,7 +113,9 @@ const port = 3080;
 
   app.get('/api/client/:id/cases', async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { status, title, processNumber } = req.query;
+    const { status, title, processNumber, populate } = req.query;
+
+    const populateFields = String(populate).split(',')
 
     const page = req.query.page || 1;
     const limit = req.query.limit || 4;
@@ -141,7 +143,7 @@ const port = 3080;
       limit: limit ? Number(limit) : undefined,
       page: page ? Number(page) : undefined,
       client: id ? String(id) : undefined,
-    });
+    }, populateFields);
 
     const pagination = {
       ...casesPaginated,
