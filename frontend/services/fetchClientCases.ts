@@ -1,6 +1,6 @@
 import { API_URL } from '@/config/api';
 import { MissingRequiredArgumentError } from '@/errors/MissingRequiredArgumentError';
-import { CasesPaginationProps } from '@/types/CasesPaginationProps';
+import { CasesPagination } from '@/types/CasesPagination';
 
 export async function fetchClientCases(
   clientId: string,
@@ -11,13 +11,13 @@ export async function fetchClientCases(
     processNumber?: string;
     status?: string;
   }
-): Promise<CasesPaginationProps> {
+): Promise<CasesPagination> {
   try {
-    if(!clientId){
+    if (!clientId) {
       throw new MissingRequiredArgumentError(fetchClientCases.name, 'clientId');
     }
 
-    if(!queryParams){
+    if (!queryParams) {
       throw new MissingRequiredArgumentError(fetchClientCases.name, 'queryParams');
     }
 
