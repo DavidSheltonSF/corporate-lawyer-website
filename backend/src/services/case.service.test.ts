@@ -79,7 +79,8 @@ describe('Test CaseService', () => {
 
     await CaseModel.create(newCases);
 
-    const foundCases = await caseService.findAll();
+    const response = await caseService.findAll();
+    const foundCases = response.cases;
     const casesWithoutTimeStamps = foundCases.map((cas) => {
       const { createdAt, updatedAt, ...casWithoutTime } = cas;
       return casWithoutTime;
@@ -169,7 +170,8 @@ describe('Test CaseService', () => {
 
     await CaseModel.create(newCases);
 
-    const foundCases = await caseService.findByClientId(clientId.toString());
+    const response = await caseService.findAll({ client: clientId.toString() });
+    const foundCases = response.cases;
 
     const casesWithoutTimeStamps = foundCases.map((cas) => {
       const { createdAt, updatedAt, ...casWithoutTime } = cas;
