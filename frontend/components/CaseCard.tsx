@@ -5,13 +5,13 @@ import { useContext } from 'react';
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { reduceString } from '@/lib/reduceString';
 import { TooltipContainer } from './TooltipContainer';
-import { LawyerBasicInfoProps } from '@/types/LawyerBasicInfoProps';
 import { WithId } from '@/types/WithId';
 import Link from 'next/link';
+import { UserBasicInfo } from '@/types/UserBasicInfo';
 
 interface Props {
   caseData: WithId<Case> & {
-    lawyers: WithId<LawyerBasicInfoProps>[];
+    lawyers: WithId<UserBasicInfo>[];
   };
 }
 

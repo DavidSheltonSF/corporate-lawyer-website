@@ -1,7 +1,7 @@
 import { Case } from './Case';
-import { LawyerBasicInfoProps } from './LawyerBasicInfoProps';
+import { UserBasicInfo } from './UserBasicInfo';
 import { WithId } from './WithId';
 
 export type CaseWithLawyers = Case & {
-  lawyers: WithId<LawyerBasicInfoProps>[];
+  lawyers: WithId<UserBasicInfo>[];
 };
