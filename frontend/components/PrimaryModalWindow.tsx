@@ -27,7 +27,7 @@ export function PrimaryModalWindow({ children }: { children: React.ReactNode }) 
     <div className="fixed top-0 h-full w-full bg-black/20 fade-in-animation-fast">
       <div
         ref={windowRef}
-        className="modalWindow flex pt-[80px] fixed z-99999 left-1/2 translate-x-[-50%] top-[80px] bg-color-primary w-[960px] h-[80vh] rounded-xl overflow-hidden"
+        className="modalWindow flex pt-[80px] fixed z-99999 left-1/2 translate-x-[-50%] top-[80px] bg-color-primary w-[960px] h-[85vh] rounded-xl overflow-hidden"
       >
         <div className="bg-color-white size-full">{children}</div>
 
