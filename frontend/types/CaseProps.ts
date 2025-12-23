@@ -1,4 +1,4 @@
-import { CaseDocumentProps } from './CaseDocumentProps';
+import { CaseDocumentProps } from './CaseDocument';
 import { CaseStatusEnum } from './CaseStatusEnum';
 import { HearingProps } from './HearingProps';
 

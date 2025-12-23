@@ -1,4 +1,4 @@
-export interface CaseDocumentProps {
+export interface CaseDocument {
   name: string;
   url: string;
   uploadedAt: Date;
