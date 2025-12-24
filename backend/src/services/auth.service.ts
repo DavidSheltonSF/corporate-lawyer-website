@@ -2,6 +2,7 @@ import { UnauthorizedError } from '../errors/UnauthorizedError';
 import { UserModel } from '../models/user.model';
 import { UserResponse } from '../types/UserResponse';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 export class AuthService {
   async authenticate(
@@ -20,7 +21,8 @@ export class AuthService {
       throw new UnauthorizedError('Invalid password');
     }
 
-    const fakeToken = email + '-token';
+    const token = jwt.sign({ sub: user._id.toString(), email }, 'secret', { expiresIn: 60 });
+
     return {
       user: {
         id: user._id.toString(),
@@ -32,7 +34,7 @@ export class AuthService {
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
       },
-      token: fakeToken,
+      token,
     };
   }
 }
