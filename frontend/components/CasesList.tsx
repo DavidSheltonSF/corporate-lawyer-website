@@ -19,7 +19,7 @@ export function CasesList({ cases, loading }: Props) {
     return <CaseCardSkeleton key={index} />;
   });
   return (
-    <div className="flex flex-col gap-[32px] mt-[88px] h-[130vh] w-full">
+    <div className="flex flex-col gap-[32px] mt-[88px] w-full">
       <Activity mode={!loading && (!cases || cases.length === 0) ? 'visible' : 'hidden'}>
         <h1 className="text-3xl">Nenhum caso encontrado</h1>
       </Activity>
