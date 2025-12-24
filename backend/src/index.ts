@@ -8,6 +8,7 @@ import { CaseService } from './services/case.service';
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 import { requireAuth } from './middlewares/requireAuth';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 dotenv.config();
 
 const app = express();
@@ -49,15 +50,16 @@ const port = 3080;
       });
     }
 
-    const email = token.split('-')[0];
+    const payload = jwt.decode(token) as JwtPayload;
 
+    const email = payload.email;
     if (!email) {
       return res.send(400).send({
         status: 401,
         message: 'Token provided is invalid',
       });
     }
-
+    console.log(email);
     const user = await userService.findByEmail(email);
 
     return res.status(200).json({
