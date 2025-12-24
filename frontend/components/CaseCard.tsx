@@ -49,45 +49,57 @@ export function CaseCard({ caseData }: Props) {
   });
 
   return (
-    <TooltipContainer
-      label={title}
-      tooltipLabelProps={{
-        color: '#ffd000ff',
-        backgroundColor: '#000',
-        position: {
-          bottom: '105%',
-          left: '50%',
-          translateX: '-50%',
-        },
-      }}
-    >
-      <article className="flex flex-col fade-in-animation  bg-color-primary w-[640px] h-[256px] rounded-xl overflow-hidden">
-        <Link href={`clientPage/Case/${id}`} scroll={false}>
-          <header className="flex items-center pl-[24px] h-[56px]">
+    <article className="flex flex-col fade-in-animation  bg-color-primary w-full min-md:w-[80%] min-lg:w-[640px] h-max rounded-xl">
+      <Link
+        className="flex flex-col flex-1"
+        href={`clientPage/Case/${id}`}
+        scroll={false}
+        style={{
+          borderRadius: 'inherit',
+        }}
+      >
+        <header className="flex items-center pl-[24px] py-[16px]">
+          <TooltipContainer
+            label={title}
+            tooltipLabelProps={{
+              color: '#ffd000ff',
+              backgroundColor: '#000',
+              position: {
+                bottom: '115%',
+                left: '50%',
+                translateX: '-50%',
+              },
+            }}
+          >
             <h1 className="h-fit font-bold text-3xl">{reduceString(title, 35)}</h1>
-          </header>
-          <main className="flex flex-col gap-[16px] px-[24px] py-[16px] flex-1 bg-color-white text-color-black text-lg">
-            <span className="flex gap-[8px]">
-              <p className="font-bold">nº:</p>
-              <p>{processNumber}</p>
-            </span>
-            <span className="flex gap-[8px]">
-              <p className="font-bold">cliente:</p>
-              <p>
-                {userData?.firstName} {userData?.lastName}
-              </p>
-            </span>
-            <span className="flex gap-[8px]">
-              <p className="font-bold">advogados:</p>
-              <p>{formatStringList(renderLawyers)}</p>
-            </span>
-            <span className="flex gap-[8px]">
-              <p className="font-bold">status:</p>
-              <p className={`font-bold ${statusColor}`}>{status}</p>
-            </span>
-          </main>
-        </Link>
-      </article>
-    </TooltipContainer>
+          </TooltipContainer>
+        </header>
+        <main
+          className="flex flex-1 flex-col gap-[16px] px-[24px] py-[16px] bg-color-white text-color-black text-lg"
+          style={{
+            borderRadius: 'inherit',
+          }}
+        >
+          <span className="flex gap-[8px]">
+            <p className="font-bold">nº:</p>
+            <p>{processNumber}</p>
+          </span>
+          <span className="flex gap-[8px]">
+            <p className="font-bold">cliente:</p>
+            <p>
+              {userData?.firstName} {userData?.lastName}
+            </p>
+          </span>
+          <span className="flex gap-[8px]">
+            <p className="font-bold">advogados:</p>
+            <p>{formatStringList(renderLawyers)}</p>
+          </span>
+          <span className="flex gap-[8px]">
+            <p className="font-bold">status:</p>
+            <p className={`font-bold ${statusColor}`}>{status}</p>
+          </span>
+        </main>
+      </Link>
+    </article>
   );
 }
