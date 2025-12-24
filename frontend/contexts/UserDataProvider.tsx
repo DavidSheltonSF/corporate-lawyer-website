@@ -2,11 +2,11 @@
 
 import { ReactNode } from 'react';
 import { UserDataContext } from './UserDataContext';
-import { UserProps } from '@/types/User';
+import { User } from '@/types/User';
 import { WithId } from '@/types/WithId';
 
 interface Props {
-  userData: WithId<UserProps>;
+  userData: WithId<User>;
   children: ReactNode;
 }
 
