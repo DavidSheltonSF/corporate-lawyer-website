@@ -4,5 +4,5 @@ interface Props {
   children: ReactNode;
 }
 export function DynamicSection({ children }: Props) {
-  return <section>{children}</section>;
+  return <section className='size-full'>{children}</section>;
 }
