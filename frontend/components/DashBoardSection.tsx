@@ -28,7 +28,7 @@ export async function DashBoardSection({ userData }: Props) {
   ]);
 
   return (
-    <div className="flex gap-[40px]">
+    <div className="flex flex-wrap gap-[40px]">
       <DashboardCard title="Processos">
         <DashboardCardInfo name="Em andamento" value={inProgressCases?.total} />
         <DashboardCardInfo name="Encerrados" value={closedCases?.total} />
