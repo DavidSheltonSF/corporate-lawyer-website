@@ -1,8 +1,8 @@
-import { API_URL } from "@/config/api";
+import { API_URL } from '@/config/api';
 
 export async function authenticateUser(formData: FormData): Promise<string | null> {
-  const email = formData.get('email') || "raimundo@email.com";
-  const password = formData.get('password') || "raimundo123";
+  const email = formData.get('email');
+  const password = formData.get('password');
 
   const response = await fetch(`${API_URL}/auth`, {
     method: 'POST',
