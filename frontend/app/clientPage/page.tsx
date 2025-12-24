@@ -22,7 +22,7 @@ export default async function ClientPage() {
   }
 
   return (
-    <div className="bg-color-black">
+    <div className="bg-color-black min-h-[100vh]">
       <HeroSection
         background="var(--blue-gradient)"
         title={`Bem vindo(a) ${user?.role === 'lawyer' ? 'Dra' : ''} ${user?.firstName}`}
