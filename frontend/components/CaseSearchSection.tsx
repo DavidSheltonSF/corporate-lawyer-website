@@ -75,8 +75,8 @@ export default function CaseSearchSection() {
   const userData = context.userData;
 
   return (
-    <section className="relative">
-      <div className="flex gap-[40px]">
+    <section className="flex flex-col items-center relative size-full">
+      <div className="flex gap-[40px] size-full">
         <CaseSearchBar
           handleClick={() => {
             loadCases(1);
