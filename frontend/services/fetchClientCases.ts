@@ -11,7 +11,7 @@ export async function fetchClientCases(
     processNumber?: string;
     status?: string;
   },
-  populate: string[]
+  populate?: string[]
 ): Promise<CasesPagination> {
   try {
     if (!clientId) {
