@@ -1,5 +1,5 @@
 import CaseSearchSection from '@/components/CaseSearchSection';
-import { DashBoardSection } from '@/components/DashBoardSection';
+import { DashboardSection } from '@/components/DashboardSection';
 import { DynamicSection } from '@/components/DynamicSection';
 import { DynamicSections } from '@/components/DynamicSections';
 import { HeroSection } from '@/components/HeroSection';
@@ -33,7 +33,7 @@ export default async function ClientPage() {
         <main>
           <DynamicSections sectionsNames={['Geral', 'Processos']}>
             <DynamicSection>
-              <DashBoardSection userData={user} />
+              <DashboardSection userData={user} />
             </DynamicSection>
             <DynamicSection>
               <CaseSearchSection />

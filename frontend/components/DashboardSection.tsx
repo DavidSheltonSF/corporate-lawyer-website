@@ -9,7 +9,7 @@ interface Props {
   userData: WithId<User>;
 }
 
-export async function DashBoardSection({ userData }: Props) {
+export async function DashboardSection({ userData }: Props) {
   const inProgressCasesPromise = fetchClientCases(userData.id, {
     page: 1,
     limit: 4,
