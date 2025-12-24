@@ -6,7 +6,7 @@ interface Props {
 
 export function Pagination({ reloadByPageIndex, totalPage, pageIndex }: Props) {
   return (
-    <div className="flex justify-center border absolute bottom-[24px] left-[50%] translate-x-[-50%] w-[80%]">
+    <div className="flex justify-center border w-[80%] my-[40px]">
       <div className="flex gap-[16px]">
         {Array.from({ length: totalPage }).map((page, index) => {
           const currentPageIndex = index + 1;
