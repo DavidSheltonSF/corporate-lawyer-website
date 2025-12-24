@@ -7,6 +7,7 @@ import { DatabaseConnector } from './config/database';
 import { CaseService } from './services/case.service';
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
+import { requireAuth } from './middlewares/requireAuth';
 dotenv.config();
 
 const app = express();
@@ -38,7 +39,7 @@ const port = 3080;
     });
   });
 
-  app.get('/api/me', async (req: Request, res: Response) => {
+  app.get('/api/me', requireAuth, async (req: Request, res: Response) => {
     const token = req.headers.authorization;
 
     if (!token) {
@@ -115,7 +116,7 @@ const port = 3080;
     const { id } = req.params;
     const { status, title, processNumber, populate } = req.query;
 
-    const populateFields = String(populate).split(',')
+    const populateFields = String(populate).split(',');
 
     const page = req.query.page || 1;
     const limit = req.query.limit || 4;
@@ -136,14 +137,17 @@ const port = 3080;
 
     const caseService = new CaseService();
 
-    const casesPaginated = await caseService.findAll({
-      title: title ? String(title) : undefined,
-      processNumber: processNumber ? String(processNumber) : undefined,
-      status: status ? String(status) : undefined,
-      limit: limit ? Number(limit) : undefined,
-      page: page ? Number(page) : undefined,
-      client: id ? String(id) : undefined,
-    }, populateFields);
+    const casesPaginated = await caseService.findAll(
+      {
+        title: title ? String(title) : undefined,
+        processNumber: processNumber ? String(processNumber) : undefined,
+        status: status ? String(status) : undefined,
+        limit: limit ? Number(limit) : undefined,
+        page: page ? Number(page) : undefined,
+        client: id ? String(id) : undefined,
+      },
+      populateFields
+    );
 
     const pagination = {
       ...casesPaginated,
