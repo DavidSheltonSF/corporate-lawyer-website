@@ -5,10 +5,9 @@ import { CasesPagination } from '@/types/CasesPagination';
 export async function fetchClientCases(
   clientId: string,
   queryParams: {
+    query?: string;
     page: number;
     limit: number;
-    title?: string;
-    processNumber?: string;
     status?: string;
   },
   populate?: string[]
@@ -22,13 +21,14 @@ export async function fetchClientCases(
       throw new MissingRequiredArgumentError(fetchClientCases.name, 'queryParams');
     }
 
-    const { page, limit, processNumber, title, status } = queryParams;
+    const { page, limit, query, status } = queryParams;
 
     const baseRoute = `${API_URL}/client/${clientId}/cases`;
+    console.log(queryParams);
 
-    const queryString = `?page=${page}&limit=${limit || ''}&processNumber=${
-      processNumber || ''
-    }&title=${title || ''}&status=${status || ''}&populate=${populate || ''}`;
+    const queryString = `?page=${page}&limit=${limit || ''}&query=${query || ''}&status=${
+      status || ''
+    }&populate=${populate || ''}`;
 
     const response = await fetch(`${baseRoute}/${queryString}`);
 
