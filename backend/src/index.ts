@@ -125,7 +125,7 @@ const port = 3080;
 
   app.get('/api/client/:id/cases', async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { status, title, processNumber, populate } = req.query;
+    const { status, query, populate } = req.query;
 
     const populateFields = String(populate).split(',');
 
@@ -139,19 +139,11 @@ const port = 3080;
       });
     }
 
-    if (title && processNumber) {
-      return res.status(400).send({
-        status: 400,
-        message: "You must send ONLY 'title' OR 'processNumber', not both.",
-      });
-    }
-
     const caseService = new CaseService();
 
     const casesPaginated = await caseService.findAll(
       {
-        title: title ? String(title) : undefined,
-        processNumber: processNumber ? String(processNumber) : undefined,
+        query: query ? String(query) : undefined,
         status: status ? String(status) : undefined,
         limit: limit ? Number(limit) : undefined,
         page: page ? Number(page) : undefined,
