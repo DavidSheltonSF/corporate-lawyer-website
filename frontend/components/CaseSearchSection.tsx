@@ -6,7 +6,6 @@ import { UserDataContext } from '@/contexts/UserDataContext';
 import { fetchClientCases } from '@/services/fetchClientCases';
 import { WithId } from '@/types/WithId';
 import { Pagination } from './Pagination';
-import { CaseSearchEnum } from '../types/CaseSearchEnum';
 import { CaseWithLawyers } from '@/types/CaseWithLawyers';
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { DropDownButton } from './DropdownButton';
@@ -14,7 +13,6 @@ import { reduceString } from '@/lib/reduceString';
 
 export default function CaseSearchSection() {
   const [query, setQuery] = useState('');
-  const [searchType, setSearchType] = useState<CaseSearchEnum>(CaseSearchEnum.num_processo);
   const [statusFilder, setStatusFilter] = useState<CaseStatusEnum | null>(null);
   const [pageIndex, setPageIndex] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
@@ -24,37 +22,16 @@ export default function CaseSearchSection() {
   async function loadCases(page: number) {
     setCasesLoading(true);
     setPageIndex(page);
-    let casesPagination = null;
-
-    switch (searchType) {
-      case CaseSearchEnum.num_processo:
-        casesPagination = await fetchClientCases(
-          userData.id,
-          {
-            page,
-            limit: 4,
-            processNumber: query,
-            status: statusFilder || '',
-          },
-          ['client', 'lawyers']
-        );
-        break;
-
-      case CaseSearchEnum.titulo:
-        casesPagination = await fetchClientCases(
-          userData.id,
-          {
-            page,
-            limit: 4,
-            title: query,
-            status: statusFilder || '',
-          },
-          ['client', 'lawyers']
-        );
-        break;
-      default:
-        throw new Error("Query should be 'Nº Processo', 'Título' OR 'Cpf/Cnpj'");
-    }
+    const casesPagination = await fetchClientCases(
+      userData.id,
+      {
+        page,
+        limit: 4,
+        query,
+        status: statusFilder || '',
+      },
+      ['client', 'lawyers']
+    );
 
     const casesData = casesPagination.cases;
     setTotalPage(casesPagination.totalPages);
@@ -82,8 +59,6 @@ export default function CaseSearchSection() {
             loadCases(1);
           }}
           setQuery={setQuery}
-          searchType={searchType}
-          setSearchType={setSearchType}
         />
         <div className="h-[48px] rounded-full w-[180px] z-80">
           <DropDownButton
