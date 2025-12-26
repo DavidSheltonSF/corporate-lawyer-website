@@ -1,28 +1,15 @@
 import { ChangeEvent, Dispatch, SetStateAction, useContext, useState } from 'react';
-import { DropDownButton } from './DropdownButton';
-import { CaseSearchEnum } from '../types/CaseSearchEnum';
-import { UserDataContext } from '@/contexts/UserDataContext';
 
 interface Props {
   handleClick: any;
   setQuery: Dispatch<SetStateAction<string>>;
-  searchType: CaseSearchEnum;
-  setSearchType: Dispatch<SetStateAction<CaseSearchEnum>>;
 }
 
-export function CaseSearchBar({ handleClick, setQuery, searchType, setSearchType }: Props) {
+export function CaseSearchBar({ handleClick, setQuery }: Props) {
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const searchBar = e.target;
     setQuery(searchBar.value);
   }
-
-  const context = useContext(UserDataContext);
-  const userData = context?.userData;
-
-  const listItems =
-    userData?.role === 'client'
-      ? [CaseSearchEnum.num_processo, CaseSearchEnum.titulo]
-      : Object.values(CaseSearchEnum);
 
   return (
     <div className="flex gap-[16px] bg-color-white w-[520px] h-[48px] rounded-full p-[2px]">
@@ -36,14 +23,6 @@ export function CaseSearchBar({ handleClick, setQuery, searchType, setSearchType
         />
       </div>
       <div className="flex gap-[2px]">
-        <div className="rounded-l-md h-full w-[148px]">
-          <DropDownButton
-            selectedItem={searchType}
-            darkTheme={true}
-            setSelectedItem={setSearchType}
-            listItems={listItems}
-          />
-        </div>
         <button
           className="flex rounded-r-full items-center justify-center bg-color-primary h-full w-[72px] cursor-pointer hover:brightness-120 "
           onClick={handleClick}
