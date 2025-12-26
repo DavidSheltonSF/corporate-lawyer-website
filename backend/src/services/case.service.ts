@@ -31,18 +31,22 @@ export class CaseService {
     }
   }
 
-  async findAll(query: CaseQuery = {}, populateFields?: string[]): Promise<CaseListResponse> {
-    const { title, processNumber, status, limit = 10, page = 1 } = query;
+  async findAll(queryParams: CaseQuery = {}, populateFields?: string[]): Promise<CaseListResponse> {
+    const { query, status, limit = 10, page = 1 } = queryParams;
+    const regex = new RegExp(query || '', 'i');
 
-    const filter: any = {};
-    if (title) filter.title = title;
-    if (processNumber) filter.processNumber = processNumber;
-    if (status) filter.status = status;
-
+    const filter = {
+      $or: [{ title: regex }, { description: regex }, { processNumber: regex }],
+    };
     const queryFiltered = CaseModel.find(filter)
+      .find(filter)
       .limit(limit)
       .skip((page - 1) * limit)
       .lean();
+
+    if (status) {
+      queryFiltered.find({ status });
+    }
 
     if (populateFields && populateFields.length > 0 && populateFields.join(' ').trim()) {
       queryFiltered.populate(populateFields.join(' '), 'firstName lastName');
