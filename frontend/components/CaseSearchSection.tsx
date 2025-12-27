@@ -60,7 +60,7 @@ export default function CaseSearchSection() {
           }}
           setQuery={setQuery}
         />
-        <div className="h-[48px] rounded-full w-[180px] z-80">
+        <div className="h-[48px] rounded-full w-[180px]">
           <DropDownButton
             selectedItem={reduceString(statusFilder || '', 10)}
             defaultValue="Status"
