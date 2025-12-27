@@ -85,7 +85,7 @@ export function DropDownButton({
         </span>
       </button>
       <div
-        className={`absolute border-black top-[102%] w-full rounded-lg overflow-hidden ${
+        className={`absolute z-90 border-black top-[102%] w-full rounded-lg overflow-hidden ${
           isOpen ? 'h-fit border' : 'h-0'
         }  ${darkTheme ? 'text-color-white bg-color-primary' : 'text-color-black bg-color-white'}`}
       >
