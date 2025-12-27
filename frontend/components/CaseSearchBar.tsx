@@ -12,7 +12,7 @@ export function CaseSearchBar({ handleClick, setQuery }: Props) {
   }
 
   return (
-    <div className="flex gap-[16px] bg-color-white w-[520px] h-[48px] rounded-full p-[2px]">
+    <div className="flex gap-[16px] bg-color-white w-full min-md:w-[70%] min-lg:w-[520px] h-[48px] rounded-full p-[2px]">
       <div className="flex gap-[16px] flex-1 rounded-full overflow-hidden">
         <input
           name="caseSearchBar"
