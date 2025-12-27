@@ -53,7 +53,7 @@ export default function CaseSearchSection() {
 
   return (
     <section className="flex flex-col items-center relative size-full">
-      <div className="flex gap-[40px] size-full">
+      <div className="flex flex-col lg:flex-row gap-[40px] size-full">
         <CaseSearchBar
           handleClick={() => {
             loadCases(1);
