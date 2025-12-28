@@ -7,14 +7,20 @@ export function PrimaryModalWindow({ children }: { children: React.ReactNode }) 
   const windowRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    document.body.classList.add('overflow-hidden');
+
     function handleClickOutside(e: MouseEvent) {
       if (windowRef.current && !windowRef.current.contains(e.target as Node)) {
         closeModal();
       }
     }
+
     document.addEventListener('mousedown', handleClickOutside);
 
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.body.classList.remove('overflow-hidden');
+    };
   }, []);
 
   function closeModal() {
