@@ -52,7 +52,7 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
 
   return (
     <div className="flex flex-col h-full w-full">
-      <header className="flex items-center h-[56px] bg-color-primary border-t border-white/50 pl-[24px]">
+      <header className="flex items-center bg-color-primary border-t border-white/50 pl-[24px] py-[16px]">
         <h1 className=" text-color-white text-4xl">{title}</h1>
       </header>
       <main className="h-full text-xl">
