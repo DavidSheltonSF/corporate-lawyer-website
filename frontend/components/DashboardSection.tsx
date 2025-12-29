@@ -29,7 +29,7 @@ export async function DashboardSection({ userData }: Props) {
 
   return (
     <div className="flex flex-wrap gap-[40px]">
-      <DashboardCard title="Processos">
+      <DashboardCard title="Processos" sectionIndex={1}>
         <DashboardCardInfo name="Em andamento" value={inProgressCases?.total} />
         <DashboardCardInfo name="Encerrados" value={closedCases?.total} />
       </DashboardCard>
