@@ -1,8 +1,9 @@
-'use client'
-import { Children, ReactElement, ReactNode, useState } from 'react';
+'use client';
+import { Children, ReactElement, useState } from 'react';
 import { SubNavbar } from './SubNavbar';
 import { DynamicSectionWrapper } from './DynamicSectionWrapper';
 import { DynamicSection } from './DynamicSection';
+import { DynamicSectionProvider } from '@/contexts/DynamicSectionProvider';
 
 interface Props {
   sectionsNames: string[];
@@ -19,18 +20,20 @@ export function DynamicSections({ sectionsNames, children }: Props) {
         setSelectedSection={setSelectedSection}
       />
       <div className="flex justify-center items-center w-[80%] h-full">
-        {Children.map(children, (child, index) => {
-          return (
-            <DynamicSectionWrapper
-              key={index}
-              index={index}
-              title={sectionsNames[index]}
-              selectedSection={selectedSection}
-            >
-              {child}
-            </DynamicSectionWrapper>
-          );
-        })}
+        <DynamicSectionProvider setSelectedSection={setSelectedSection}>
+          {Children.map(children, (child, index) => {
+            return (
+              <DynamicSectionWrapper
+                key={index}
+                index={index}
+                title={sectionsNames[index]}
+                selectedSection={selectedSection}
+              >
+                {child}
+              </DynamicSectionWrapper>
+            );
+          })}
+        </DynamicSectionProvider>
       </div>
     </section>
   );
