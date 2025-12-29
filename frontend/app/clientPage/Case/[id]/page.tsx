@@ -53,6 +53,8 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
 
   return (
     <div className="flex flex-col h-full w-full bg-color-primary">
+      {/* This div below is necessary to push the content down from the absolute navbar when this page is open outside a modal */}
+      <div className='w-full h-[64px]'></div> 
       <div className='size-full bg-color-white'>
         <header className="flex items-center bg-color-primary border-t border-white/50 pl-[24px] py-[16px]">
           <h1 className=" text-color-white text-4xl">{title}</h1>
