@@ -39,7 +39,6 @@ export class CaseService {
       $or: [{ title: regex }, { description: regex }, { processNumber: regex }],
     };
     const queryFiltered = CaseModel.find(filter)
-      .find(filter)
       .limit(limit)
       .skip((page - 1) * limit)
       .lean();
