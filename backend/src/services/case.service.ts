@@ -53,7 +53,7 @@ export class CaseService {
 
     const foundCases = await queryFiltered;
 
-    const totalCases = await CaseModel.countDocuments(filter);
+    const totalCases = foundCases.length;
 
     const mappedCases = foundCases.map((cas) => {
       return {
