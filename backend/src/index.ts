@@ -63,7 +63,7 @@ const port = 3080;
     if (!email) {
       return res.send(400).send(unauthorized('Token provided is invalid'));
     }
-    console.log(email);
+    
     const user = await userService.findByEmail(email);
 
     return res.status(200).json(ok(user));
