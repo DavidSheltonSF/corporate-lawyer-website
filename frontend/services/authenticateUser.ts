@@ -10,7 +10,7 @@ export async function authenticateUser(formData: FormData): Promise<string | nul
     headers: { 'Content-Type': 'application/json' },
   });
 
-  if (response.status === 401) {
+  if (response.status === 401 || response.status === 400) {
     return null;
   }
 
