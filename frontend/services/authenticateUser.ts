@@ -1,6 +1,6 @@
 import { API_URL } from '@/config/api';
 
-export async function authenticateUser(formData: FormData): Promise<string | null> {
+export async function authenticateUser(formData: FormData): Promise<string> {
   const email = formData.get('email');
   const password = formData.get('password');
 
@@ -9,10 +9,6 @@ export async function authenticateUser(formData: FormData): Promise<string | nul
     body: JSON.stringify({ email, password }),
     headers: { 'Content-Type': 'application/json' },
   });
-
-  if (response.status === 401 || response.status === 400) {
-    return null;
-  }
 
   if (!response.ok) {
     const message = await response.text();
