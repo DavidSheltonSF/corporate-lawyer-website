@@ -4,11 +4,13 @@ import { login } from '@/actions/login';
 import { Form } from '@/components/Form';
 import { HeroSection } from '@/components/HeroSection';
 import { InputForm } from '@/components/InputForm';
+import { LoadingMessage } from '@/components/LoadingMessage';
 import { redirect } from 'next/navigation';
 import { Activity, useState } from 'react';
 
 export default function ClientPageLogin() {
   const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(formData: FormData) {
     try {
@@ -17,6 +19,7 @@ export default function ClientPageLogin() {
       console.log(error);
       setErrorMessage(error.message);
     } finally {
+      setLoading(false);
       if (errorMessage === '') {
         redirect('/clientPage');
       }
@@ -39,6 +42,10 @@ export default function ClientPageLogin() {
                 <p>{errorMessage}</p>
               </div>
             </Activity>
+            <div className="text-center font-bold">
+              <LoadingMessage message="Loading" loading={loading} />
+            </div>
+
             <InputForm
               id="input-email"
               name="email"
@@ -58,6 +65,7 @@ export default function ClientPageLogin() {
             <button
               type="submit"
               className="w-full bg-[var(--primary-color-light)] rounded-full font-bold h-[40px] hover:brightness-124 transition-all duration-[300ms] cursor-pointer"
+              onClick={() => setLoading(true)}
             >
               Entrar
             </button>
