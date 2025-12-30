@@ -41,7 +41,7 @@ export default function ClientPageLogin() {
               iconPath="/icons/email-primary-light.svg"
               label="Email"
               type="email"
-              required={false}
+              required={true}
             />
             <InputForm
               id="input-password"
@@ -49,7 +49,7 @@ export default function ClientPageLogin() {
               iconPath="/icons/lock-primary-light.svg"
               label="Password"
               type="password"
-              required={false}
+              required={true}
             />
             <button
               type="submit"
