@@ -1,5 +1,5 @@
 import { type Request, type Response } from 'express';
-import { ok, unauthorized } from '../helpers/http-helpers';
+import { badRequest, ok, serverError, unauthorized } from '../helpers/http-helpers';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { UserService } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
@@ -32,26 +32,17 @@ export class AuthController {
       const body = req.body;
 
       if (!body) {
-        return res.status(400).send({
-          code: 'BAD_REQUEST',
-          message: 'Body request is missing',
-        });
+        return res.status(400).send(badRequest('Body request is missing'));
       }
 
       const { email, password } = body;
 
       if (!email) {
-        return res.status(400).send({
-          code: 'BAD_REQUEST',
-          message: 'Missing email in the body request',
-        });
+        return res.status(400).send(badRequest('Missing email in the body request'));
       }
 
       if (!password) {
-        return res.status(400).send({
-          code: 'BAD_REQUEST',
-          message: 'Missing password in the body request',
-        });
+        return res.status(400).send(badRequest('Missing password in the body request'));
       }
 
       const auth = await this.authService.authenticate(email, password);
@@ -62,15 +53,10 @@ export class AuthController {
 
       // Check if it is Unauthorized error
       if (error.statusCode === 401) {
-        return res.status(error.statusCode).send({
-          code: error.code,
-          message: error.message,
-        });
+        return res.status(error.statusCode).send(unauthorized(error.message));
       }
 
-      return res.status(500).send({
-        message: 'Something went wron in the server side',
-      });
+      return res.status(500).send(serverError('Something went wron in the server side'));
     }
   };
 }
