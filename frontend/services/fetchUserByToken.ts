@@ -9,11 +9,11 @@ export async function fetchUserByToken(token: string): Promise<WithId<User> | nu
     },
   });
 
-  const data = await response.json();
+  const json = await response.json();
 
-  if (data.status > 300) {
+  if (json.status > 300) {
     return null;
   }
 
-  return data.user;
+  return json.data;
 }
