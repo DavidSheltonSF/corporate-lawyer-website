@@ -11,12 +11,16 @@ export default function ClientPageLogin() {
   const [errorMessage, setErrorMessage] = useState('');
 
   async function handleSubmit(formData: FormData) {
-    const result = await login(formData);
-    if (result.error) {
-      setErrorMessage(result.message);
-      return;
+    try {
+      await login(formData);
+    } catch (error: any) {
+      console.log(error);
+      setErrorMessage(error.message);
+    } finally {
+      if (errorMessage === '') {
+        redirect('/clientPage');
+      }
     }
-    redirect('/clientPage');
   }
 
   return (
