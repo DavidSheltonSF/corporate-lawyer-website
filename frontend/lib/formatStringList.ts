@@ -3,6 +3,10 @@ export function formatStringList(list: string[]): string | null {
     return null;
   }
 
+  if(list.length === 1 ){
+    return list[0]
+  }
+
   let formatedString = '';
   let separator = '';
 
