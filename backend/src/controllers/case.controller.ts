@@ -1,5 +1,6 @@
 import { type Request, type Response } from 'express';
 import { CaseService } from '../services/case.service';
+import { badRequest, notFound, ok, serverError } from '../helpers/http-helpers';
 
 export class CaseController {
   private caseService = new CaseService();
@@ -12,31 +13,21 @@ export class CaseController {
       const populateFilds = String(populate).split(',');
 
       if (!id) {
-        return res.status(400).send({
-          code: 'BAD_REQUEST',
-          message: 'Missing id param',
-        });
+        return res.status(400).send(badRequest('Missing id param'));
       }
 
       const foundCase = await this.caseService.findById(id, populateFilds);
 
-      return res.status(200).send({
-        data: foundCase,
-      });
+      return res.status(200).send(ok(foundCase));
     } catch (error: any) {
       console.log(error);
 
       // Check if it is NotFound error
       if (error.statusCode === 404) {
-        return res.status(error.statusCode).send({
-          code: error.code,
-          message: error.message,
-        });
+        return res.status(error.statusCode).send(notFound(error.message));
       }
 
-      return res.status(500).send({
-        message: 'Something went wron in the server side',
-      });
+      return res.status(500).send(serverError(error.message));
     }
   };
 
@@ -50,10 +41,7 @@ export class CaseController {
     const limit = req.query.limit || 4;
 
     if (!id) {
-      return res.status(400).send({
-        status: 400,
-        message: 'Missing id param',
-      });
+      return res.status(400).send(badRequest('Missing id param'));
     }
 
     const casesPaginated = await this.caseService.findAll(
@@ -73,10 +61,6 @@ export class CaseController {
       limit,
     };
 
-    const response: any = {
-      status: 200,
-      data: pagination,
-    };
-    return res.status(200).send(response);
+    return res.status(200).send(ok(pagination));
   };
 }
