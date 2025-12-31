@@ -28,6 +28,15 @@
   }
 }
 
+@keyframes load-up {
+  from {
+    background-position: 100% 100%;
+  }
+  to {
+     background-position: 100% 200%;
+  }
+}
+
 .fade-in-animation {
   animation: fade-in 800ms ease both;
 }
@@ -46,4 +55,8 @@
 
 .bounce-x-animation {
   animation: bounce-x 800ms ease infinite;
+}
+
+.load-up-animation {
+  animation: load-up 2000ms ease infinite
 }
