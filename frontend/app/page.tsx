@@ -35,7 +35,7 @@ export default function Home() {
               <div className="flex flex-col gap-[32px] lg:w-[70%] text-[1.5rem]">
                 <div className="flex flex-col gap-[16px]">
                   <h3 className="text-[1.7rem] text-color-secondary font-bold">
-                    Somos experiêntes
+                    Somos experientes
                   </h3>
                   <p>
                     Com mais de 5 anos prestando atendimento com empatia, ética e dedicação, somos
