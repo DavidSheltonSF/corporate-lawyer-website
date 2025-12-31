@@ -52,6 +52,11 @@ body {
   background-color: var(--secondary-color);
 }
 
+.bg-load-up-secondary{
+  background: linear-gradient(0deg, rgba(255, 255, 0, 0), var(--secondary-color), var(--secondary-color));
+  background-size: 100% 200%;
+}
+
 .text-color-white {
   color: var(--white-color);
 }
