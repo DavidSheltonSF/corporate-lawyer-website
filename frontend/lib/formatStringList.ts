@@ -1,23 +1,21 @@
-export function formatStringList(list: string[]): string | null {
-  if (list.length === 0 || list.join('').trim().length === 0) {
-    return null;
+export function formatStringList(list: string[]): string {
+  if (list.join('').trim().length === 0) {
+    return '';
   }
 
-  if(list.length === 1 ){
-    return list[0]
+  if (list.length === 1) {
+    return list[0];
   }
 
   let formatedString = '';
-  let separator = '';
 
   for (let i = 0; i < list.length; i++) {
-    if (i === list.length - 1) {
-      separator = ' e ';
+    if (i === list.length - 2) {
+      formatedString += `${list[i]} e ${list[i + 1]}`;
+      break;
     }
 
-    formatedString += separator + list[i];
-
-    separator = ', ';
+    formatedString += `${list[i]}, `;
   }
   return formatedString;
 }
