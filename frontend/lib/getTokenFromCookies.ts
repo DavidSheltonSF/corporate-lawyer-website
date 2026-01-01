@@ -2,13 +2,13 @@
 
 import { cookies } from 'next/headers';
 
-export async function getTokenFromCookies(): Promise<string | null> {
+export async function getTokenFromCookies(): Promise<string> {
   const cookieStore = await cookies();
   const auth = cookieStore.get('authentication');
   const token = auth?.value;
 
   if (!token) {
-    return null;
+    throw Error('Token from cookies was not found');
   }
 
   return token;
