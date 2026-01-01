@@ -28,7 +28,7 @@ export default async function Contact() {
               required={true}
             />
             <InputForm
-              id="input-first-name"
+              id="input-last-name"
               name="secondName"
               type="text"
               placeholder="Segundo"
