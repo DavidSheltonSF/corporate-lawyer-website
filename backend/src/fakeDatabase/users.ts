@@ -23,6 +23,15 @@ export const fakeUserDatabase: Array<{ _id: Types.ObjectId } & User> = [
     role: UserRole.lawyer,
   },
   {
+    _id: Types.ObjectId.createFromTime(5845444442),
+    firstName: 'Julia',
+    lastName: 'Sílva',
+    email: 'ju@email.com',
+    cpf: '117897874474',
+    password: 'ju123',
+    role: UserRole.client,
+  },
+  {
     _id: Types.ObjectId.createFromTime(3115151),
     firstName: 'Raimundo',
     lastName: 'Teixeira',
