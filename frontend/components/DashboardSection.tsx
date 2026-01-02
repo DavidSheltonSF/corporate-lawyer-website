@@ -1,38 +1,47 @@
+'use client';
 import { DashboardCard } from './DashboardCard';
 import { DashboardCardInfo } from './DashboardCardInfo';
 import { WithId } from '@/types/WithId';
 import { User } from '@/types/User';
 import { fetchClientCases } from '@/services/fetchClientCases';
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';
+import { useEffect, useState } from 'react';
+import { mockPromise } from '@/test/mockPromise';
+import { DashboardCardSkeleton } from './DashboardCardSkeleton';
+import { fetchClientCasesStats } from '@/services/fetchClientCasesStats';
 
 interface Props {
   userData: WithId<User>;
 }
 
-export async function DashboardSection({ userData }: Props) {
-  const inProgressCasesPromise = fetchClientCases(userData.id, {
-    page: 1,
-    limit: 4,
-    status: CaseStatusEnum.em_andamento,
-  });
+export function DashboardSection({ userData }: Props) {
+  const [casesCountLoading, setCasesCoundLoading] = useState(true);
+  const [inProgressCasesCount, setInProgressCasesCount] = useState(0);
+  const [closedCasesCount, setClosedCasesCount] = useState(0);
 
-  const closedCasesPromise = fetchClientCases(userData.id, {
-    page: 1,
-    limit: 4,
-    status: CaseStatusEnum.encerrado,
-  });
+  useEffect(() => {
+    async function fetchCases() {
+      const casesCount = await fetchClientCasesStats(userData.id);
+      console.log(casesCount)
 
-  const [inProgressCases, closedCases] = await Promise.all([
-    inProgressCasesPromise,
-    closedCasesPromise,
-  ]);
+      mockPromise(10);
+      setInProgressCasesCount(casesCount.inProgress);
+      setClosedCasesCount(casesCount.closed);
+      setCasesCoundLoading(false);
+    }
+    fetchCases();
+  }, []);
 
   return (
     <div className="flex flex-wrap gap-[40px]">
-      <DashboardCard title="Processos" sectionIndex={1}>
-        <DashboardCardInfo name="Em andamento" value={inProgressCases?.total} />
-        <DashboardCardInfo name="Encerrados" value={closedCases?.total} />
-      </DashboardCard>
+      {casesCountLoading ? (
+        <DashboardCardSkeleton title="Processos" />
+      ) : (
+        <DashboardCard title="Processos" sectionIndex={1}>
+          <DashboardCardInfo name="Em andamento" value={inProgressCasesCount} />
+          <DashboardCardInfo name="Encerrados" value={closedCasesCount} />
+        </DashboardCard>
+      )}
       <DashboardCard title="Atendimento">
         <DashboardCardInfo name="Data" value="2 de jan. de 2026" />
       </DashboardCard>
