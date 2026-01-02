@@ -6,7 +6,7 @@ import { fakeUserDatabase } from './users';
 export const fakeCases: { client: Types.ObjectId; lawyers: Types.ObjectId[] }[] &
   Omit<Case, 'client' | 'lawyers'>[] = [
   {
-    client: fakeUserDatabase[2]!._id,
+    client: fakeUserDatabase[3]!._id,
     lawyers: [fakeUserDatabase[0]!._id, fakeUserDatabase[1]!._id],
     processNumber: '01119418441616-44156',
     title: 'Ação de indenização por danos morais',
@@ -17,7 +17,7 @@ export const fakeCases: { client: Types.ObjectId; lawyers: Types.ObjectId[] }[] 
     status: CaseStatusEnum.em_andamento,
   },
   {
-    client: fakeUserDatabase[2]!._id,
+    client: fakeUserDatabase[3]!._id,
     lawyers: [fakeUserDatabase[0]!._id, fakeUserDatabase[1]!._id],
     processNumber: '55329184722017-11422',
     title: 'Ação de usucapião urbano',
@@ -28,7 +28,7 @@ export const fakeCases: { client: Types.ObjectId; lawyers: Types.ObjectId[] }[] 
     status: CaseStatusEnum.em_andamento,
   },
   {
-    client: fakeUserDatabase[2]!._id,
+    client: fakeUserDatabase[3]!._id,
     lawyers: [fakeUserDatabase[0]!._id],
     processNumber: '77193840255120-66821',
     title: 'Ação de cobrança por inadimplência contratual',
@@ -39,7 +39,7 @@ export const fakeCases: { client: Types.ObjectId; lawyers: Types.ObjectId[] }[] 
     status: CaseStatusEnum.encerrado,
   },
   {
-    client: fakeUserDatabase[2]!._id,
+    client: fakeUserDatabase[3]!._id,
     lawyers: [fakeUserDatabase[1]!._id],
     processNumber: '91283746501923-44177',
     title: 'Ação de danos materiais por acidente de trânsito',
@@ -50,7 +50,7 @@ export const fakeCases: { client: Types.ObjectId; lawyers: Types.ObjectId[] }[] 
     status: CaseStatusEnum.aberto,
   },
   {
-    client: fakeUserDatabase[2]!._id,
+    client: fakeUserDatabase[3]!._id,
     lawyers: [fakeUserDatabase[0]!._id, fakeUserDatabase[1]!._id],
     processNumber: '91283747777923-44177',
     title: 'Ação de danos morais',
@@ -58,5 +58,15 @@ export const fakeCases: { client: Types.ObjectId; lawyers: Types.ObjectId[] }[] 
     court: 'TJ-SP',
     courtDivision: '14ª Vara Cível',
     status: CaseStatusEnum.esperando_documentos,
+  },
+  {
+    client: fakeUserDatabase[2]!._id,
+    lawyers: [fakeUserDatabase[0]!._id],
+    processNumber: '91283777777923-44177',
+    title: 'Ação de danos à imagem',
+    description: 'O cliente busca ressarcimento pelos danos causados à sua imagem publica.',
+    court: 'TJ-SP',
+    courtDivision: '14ª Vara Cível',
+    status: CaseStatusEnum.em_andamento,
   },
 ];
