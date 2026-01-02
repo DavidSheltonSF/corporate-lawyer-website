@@ -1,9 +1,11 @@
 import { type Request, type Response } from 'express';
 import { CaseService } from '../services/case.service';
 import { badRequest, notFound, ok, serverError } from '../helpers/http-helpers';
+import { UserService } from '../services/user.service';
 
 export class CaseController {
   private caseService = new CaseService();
+  private userService = new UserService();
 
   findById = async (req: Request, res: Response) => {
     try {
@@ -62,5 +64,27 @@ export class CaseController {
     };
 
     return res.status(200).send(ok(pagination));
+  };
+
+  getStatsByClient = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      if (!id) {
+        return res.status(400).send(badRequest('Missing id param'));
+      }
+
+      const clientExists = await this.userService.findById(id);
+
+      if (!clientExists) {
+        return res.status(404).send(notFound('Client not found'));
+      }
+
+      const caseStats = await this.caseService.getStats(id);
+
+      return res.status(200).send(ok(caseStats));
+    } catch (error: any) {
+      console.log(error);
+      return res.status(500).send(serverError(error.message));
+    }
   };
 }
