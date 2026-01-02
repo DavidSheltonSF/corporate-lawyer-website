@@ -4,6 +4,7 @@ import { Case } from '../types/Case';
 import { CaseListResponse } from '../types/CaseListResponse';
 import { CaseQuery } from '../types/CaseQuery';
 import { CaseResponse } from '../types/CaseResponse';
+import { CaseStatusEnum } from '../types/CaseStatusEnum';
 
 export class CaseService {
   async create(data: Case): Promise<CaseResponse> {
@@ -108,5 +109,23 @@ export class CaseService {
     } catch (error) {
       throw error;
     }
+  }
+
+  async getStats(client?: string): Promise<{ inProgress: number; closed: number } | null> {
+    const baseFilter = client ? { client } : {};
+
+    const inProgress = await CaseModel.countDocuments({
+      ...baseFilter,
+      status: CaseStatusEnum.em_andamento,
+    });
+    const closed = await CaseModel.countDocuments({
+      ...baseFilter,
+      status: CaseStatusEnum.encerrado,
+    });
+
+    return {
+      inProgress,
+      closed,
+    };
   }
 }
