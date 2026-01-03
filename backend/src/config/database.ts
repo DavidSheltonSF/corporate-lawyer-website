@@ -14,6 +14,18 @@ export class DatabaseConnector {
     }
   }
 
+  static async connectFakeDatabase() {
+    try {
+      if (this.connected) return;
+      await mongoose.connect("mongodb+srv://davidAdmin:davidAdmin@cluster0.zhgudt8.mongodb.net/corporate_website?appName=Cluster0?database=test-database");
+      this.connected = true;
+      console.log('Database connected');
+    } catch (error) {
+      console.log('Database connection error ' + error);
+      process.exit(1);
+    }
+  }
+
   static async disconnect() {
     try {
       if (!this.connected) return;
