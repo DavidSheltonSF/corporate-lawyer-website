@@ -6,18 +6,18 @@ import { HeroSection } from '@/components/HeroSection';
 import { UserDataProvider } from '@/contexts/UserDataProvider';
 import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 import { fetchUserByToken } from '@/services/fetchUserByToken';
+import { User } from '@/types/User';
+import { WithId } from '@/types/WithId';
 import { redirect } from 'next/navigation';
 
 export default async function ClientPage() {
-  const token = await getTokenFromCookies();
-  if (!token) {
-    redirect('/clientPageLogin');
-  }
+  let user: WithId<User> | null = null;
 
-  const user = await fetchUserByToken(token);
-
-  if (!user) {
-    console.log('Something went wrong');
+  try {
+    const token = await getTokenFromCookies();
+    user = await fetchUserByToken(token);
+  } catch (error) {
+    console.log(error);
     redirect('/clientPageLogin');
   }
 
