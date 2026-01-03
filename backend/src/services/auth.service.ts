@@ -1,5 +1,5 @@
 import { UnauthorizedError } from '../errors/UnauthorizedError';
-import { UserModel } from '../models/user.model';
+import { UserModel } from '../infra/mongodb/models/user.model';
 import { UserResponse } from '../types/UserResponse';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';

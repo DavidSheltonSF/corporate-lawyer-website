@@ -1,5 +1,5 @@
 import { DatabaseConnector } from '../config/database';
-import { UserModel } from '../models/user.model';
+import { UserModel } from '../infra/mongodb/models/user.model';
 import { UserRole } from '../types/UserRole';
 import { UserService } from './user.service';
 import { config } from 'dotenv';

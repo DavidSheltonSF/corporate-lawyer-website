@@ -1,5 +1,5 @@
 import { NotFoundError } from '../errors/NotFoundError';
-import { CaseModel } from '../models/case.model';
+import { CaseModel } from '../infra/mongodb/models/case.model';
 import { Case } from '../types/Case';
 import { CaseListResponse } from '../types/CaseListResponse';
 import { CaseQuery } from '../types/CaseQuery';

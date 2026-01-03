@@ -1,5 +1,5 @@
 import { Schema, model, Document } from 'mongoose';
-import { User } from '../types/User';
+import { User } from '../../../types/User';
 import bcrypt from 'bcrypt';
 
 interface IUserModel extends User, Document {}

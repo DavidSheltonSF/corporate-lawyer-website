@@ -1,13 +1,13 @@
-import { DatabaseConnector } from '../config/database';
+import { DatabaseConnector } from '../../../config/database';
 import { CaseModel } from './case.model';
 import { config } from 'dotenv';
-import { Case } from '../types/Case';
+import { Case } from '../../../types/Case';
 import { Types } from 'mongoose';
-import { CaseStatusEnum } from '../types/CaseStatusEnum';
-import { User } from '../types/User';
-import { UserRole } from '../types/UserRole';
+import { CaseStatusEnum } from '../../../types/CaseStatusEnum';
+import { User } from '../../../types/User';
+import { UserRole } from '../../../types/UserRole';
 import { UserModel } from './user.model';
-import { CaseWithRelations } from '../types/CaseWithRelations';
+import { CaseWithRelations } from '../../../types/CaseWithRelations';
 
 config();
 
@@ -68,9 +68,9 @@ describe('Testing CaseModel', () => {
     newCase.client = createdClient._id;
     const createdCase = await CaseModel.create(newCase);
 
-    const caseWithPopulatedFields = await CaseModel.findOne({_id: createdCase._id})
-    .populate('client', 'firstName lastName')
-    .lean<CaseWithRelations | null>();
+    const caseWithPopulatedFields = await CaseModel.findOne({ _id: createdCase._id })
+      .populate('client', 'firstName lastName')
+      .lean<CaseWithRelations | null>();
 
     const client = caseWithPopulatedFields?.client;
 
@@ -78,7 +78,6 @@ describe('Testing CaseModel', () => {
     expect(client?.firstName).toBe(createdClient.firstName);
     expect(client?.lastName).toBe(createdClient.lastName);
   });
-
 
   test('should get the populated lawyers', async () => {
     const newLawyer1 = {
@@ -122,11 +121,11 @@ describe('Testing CaseModel', () => {
 
     const lawyers = caseWithPopulatedFields?.lawyers;
 
-    if(!lawyers){
-      throw Error('Lawyers were not found in the response')
+    if (!lawyers) {
+      throw Error('Lawyers were not found in the response');
     }
 
-    const [lawyer1, lawyer2] = lawyers
+    const [lawyer1, lawyer2] = lawyers;
 
     expect(lawyer1?._id.toString()).toBe(createdLawyer1._id.toString());
     expect(lawyer1?.firstName).toBe(newLawyer1.firstName);

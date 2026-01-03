@@ -1,5 +1,5 @@
 import { Schema, model, Document, Types } from 'mongoose';
-import { Case } from '../types/Case';
+import { Case } from '../../../types/Case';
 
 interface ICase extends Case, Document {}
 
@@ -12,9 +12,13 @@ const CaseSchema = new Schema<ICase>(
     description: { type: String, required: true },
     court: { type: String, required: true },
     courtDivision: { type: String, required: true },
-    documents: [{ type: Types.ObjectId, ref: 'CaseDocuments', index: true}],
+    documents: [{ type: Types.ObjectId, ref: 'CaseDocuments', index: true }],
     hearings: [{ type: Types.ObjectId, ref: 'Hearings', index: true }],
-    status: { type: String, enum: ['aberto', 'em_andamento', 'esperando_documentos', 'encerrado'], required: true},
+    status: {
+      type: String,
+      enum: ['aberto', 'em_andamento', 'esperando_documentos', 'encerrado'],
+      required: true,
+    },
   },
   { timestamps: true }
 );

@@ -1,4 +1,4 @@
-import { UserModel } from '../models/user.model';
+import { UserModel } from '../infra/mongodb/models/user.model';
 import { User } from '../types/User';
 import { UserResponse } from '../types/UserResponse';
 

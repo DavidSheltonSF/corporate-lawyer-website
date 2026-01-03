@@ -1,6 +1,6 @@
 import { Types } from 'mongoose';
 import { DatabaseConnector } from '../config/database';
-import { CaseModel } from '../models/case.model';
+import { CaseModel } from '../infra/mongodb/models/case.model';
 import { Case } from '../types/Case';
 import { CaseService } from './case.service';
 import { config } from 'dotenv';
