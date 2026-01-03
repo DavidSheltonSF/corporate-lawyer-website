@@ -2,7 +2,7 @@ import { UserRepository } from '../../../domain/repositories/UserRepository';
 import { User } from '../../../types/User';
 import { UserModel } from '../models/user.model';
 
-export class MongodbUserRepository {
+export class MongodbUserRepository implements UserRepository{
   async findById(id: string): Promise<User | null> {
     return await UserModel.findById(id).lean();
   }
