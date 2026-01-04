@@ -1,9 +1,9 @@
 import { config } from 'dotenv';
 import { UserModel } from '../models/user.model';
 import { MongodbUserRepository } from './MongodbUserRepository';
-import { UserRole } from '../../../types/UserRole';
+import { UserRole } from '../types/UserRole';
 import bcrypt from 'bcrypt';
-import { DatabaseConnector } from '../../../config/database';
+import { DatabaseConnector } from '../config/database';
 config();
 
 jest.setTimeout(999999);

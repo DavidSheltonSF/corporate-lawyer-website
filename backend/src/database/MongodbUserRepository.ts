@@ -1,6 +1,6 @@
-import { UserRepository } from '../../../repositories/UserRepository';
-import { User } from '../../../types/User';
-import { WithId } from '../../../types/WithId';
+import { UserRepository } from '../repositories/UserRepository';
+import { User } from '../types/User';
+import { WithId } from '../types/WithId';
 import { UserModel } from '../models/user.model';
 
 export class MongodbUserRepository implements UserRepository {
