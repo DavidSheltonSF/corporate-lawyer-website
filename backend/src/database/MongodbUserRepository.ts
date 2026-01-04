@@ -5,6 +5,16 @@ import { UserModel } from '../models/user.model';
 import { CreateUserDTO } from '../dtos/user/CreateUserDTO';
 
 export class MongodbUserRepository implements UserRepository {
+  async findAll(): Promise<WithId<User>[]> {
+    const users = await UserModel.find({}).lean();
+    return users.map((user) => {
+      return {
+        id: user._id.toString(),
+        ...user,
+      };
+    });
+  }
+
   async findById(id: string): Promise<WithId<User> | null> {
     const user = await UserModel.findById(id).lean();
 
