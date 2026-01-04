@@ -1,5 +1,5 @@
-import { User } from '../../types/User';
-import { WithId } from '../../types/WithId';
+import { User } from '../types/User';
+import { WithId } from '../types/WithId';
 
 export interface UserRepository {
   findById(id: string): Promise<WithId<User> | null>;
