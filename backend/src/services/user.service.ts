@@ -1,22 +1,45 @@
-import { UserModel } from '../infra/mongodb/models/user.model';
-import { User } from '../types/User';
-import { UserResponse } from '../types/UserResponse';
+import { CreateUserDTO } from '../dtos/user/CreateUserDTO';
+import { UserResponseDTO } from '../dtos/user/UserResponseDTO';
+import { UserRepository } from '../repositories/UserRepository';
+import { UserRole } from '../types/UserRole';
+import { WithId } from '../types/WithId';
 
 export class UserService {
-  async create(data: User): Promise<UserResponse> {
+  constructor(private userRepository: UserRepository) {}
+  async create(data: CreateUserDTO): Promise<WithId<UserResponseDTO>> {
     try {
-      const createdUser = await UserModel.create(data);
+      const { role } = data;
 
-      return {
-        id: createdUser._id.toString(),
-        firstName: createdUser.firstName,
-        lastName: createdUser.lastName,
-        cpf: createdUser.cpf,
-        email: createdUser.email,
-        role: createdUser.role,
-        createdAt: createdUser.createdAt,
-        updatedAt: createdUser.updatedAt,
-      };
+      let userRole: UserRole;
+      switch (role) {
+        case UserRole.admin:
+          userRole = UserRole.admin;
+          break;
+
+        case UserRole.client:
+          userRole = UserRole.client;
+          break;
+
+        case UserRole.lawyer:
+          userRole = UserRole.lawyer;
+          break;
+
+        default:
+          throw Error(`User role ${role} is invalid`);
+      }
+
+      const user = await this.userRepository.create({
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        cpf: data.cpf,
+        password: data.password,
+        role: userRole,
+      });
+
+      const { password, ...userWithoutPassword } = user;
+
+      return userWithoutPassword;
     } catch (error: any) {
       if (error.code === 11000) {
         throw Error('User already exists');
@@ -26,58 +49,33 @@ export class UserService {
     }
   }
 
-  async findAll(): Promise<UserResponse[]> {
-    const users = await UserModel.find({}).lean();
+  async findAll(): Promise<WithId<UserResponseDTO>[]> {
+    const users = await this.userRepository.findAll();
 
     return users.map((user) => {
-      return {
-        id: user._id.toString(),
-        firstName: user.firstName,
-        lastName: user.lastName,
-        cpf: user.cpf,
-        email: user.email,
-        role: user.role,
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt,
-      };
+      const { password, ...userWithoutPassword } = user;
+      return userWithoutPassword;
     });
   }
 
-  async findById(id: string): Promise<UserResponse> {
-    const foundUser = await UserModel.findById(id, { password: 0 }).lean();
+  async findById(id: string): Promise<WithId<UserResponseDTO>> {
+    const user = await this.userRepository.findById(id);
 
-    if (!foundUser) {
+    if (!user) {
       throw Error('User not found');
     }
 
-    return {
-      id: foundUser._id.toString(),
-      firstName: foundUser.firstName,
-      lastName: foundUser.lastName,
-      cpf: foundUser.cpf,
-      email: foundUser.email,
-      role: foundUser.role,
-      createdAt: foundUser.createdAt,
-      updatedAt: foundUser.updatedAt,
-    };
+    const { password, ...userWithoutPassword } = user;
+    return userWithoutPassword;
   }
 
-  async findByEmail(email: string): Promise<UserResponse> {
-    const foundUser = await UserModel.findOne({ email }, { password: 0 }).lean();
+  async findByEmail(email: string): Promise<WithId<UserResponseDTO>> {
+    const user = await this.userRepository.findByEmail(email);
 
-    if (!foundUser) {
+    if (!user) {
       throw Error('User not found');
     }
-
-    return {
-      id: foundUser._id.toString(),
-      firstName: foundUser.firstName,
-      lastName: foundUser.lastName,
-      cpf: foundUser.cpf,
-      email: foundUser.email,
-      role: foundUser.role,
-      createdAt: foundUser.createdAt,
-      updatedAt: foundUser.updatedAt,
-    };
+    const { password, ...userWithoutPassword } = user;
+    return userWithoutPassword;
   }
 }
