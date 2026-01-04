@@ -2,6 +2,7 @@ import { UserRepository } from '../repositories/UserRepository';
 import { User } from '../types/User';
 import { WithId } from '../types/WithId';
 import { UserModel } from '../models/user.model';
+import { CreateUserDTO } from '../dtos/user/CreateUserDTO';
 
 export class MongodbUserRepository implements UserRepository {
   async findById(id: string): Promise<WithId<User> | null> {
@@ -43,7 +44,7 @@ export class MongodbUserRepository implements UserRepository {
     };
   }
 
-  async create(data: User): Promise<WithId<User>> {
+  async create(data: CreateUserDTO): Promise<WithId<User>> {
     const user = await UserModel.create(data);
 
     return {
