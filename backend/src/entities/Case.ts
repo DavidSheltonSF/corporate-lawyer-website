@@ -1,8 +1,8 @@
 import { CaseStatusEnum } from '../types/CaseStatusEnum';
 
 export interface Case {
-  client: String;
-  lawyers: String[];
+  client: string;
+  lawyers: string[];
   processNumber: string;
   title: string;
   description: string;
