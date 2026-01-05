@@ -1,28 +1,45 @@
+import { CaseResponseDTO } from '../dtos/user/CaseResponseDTO';
+import { CreateCaseDTO } from '../dtos/user/CreateCaseDTO';
 import { NotFoundError } from '../errors/NotFoundError';
-import { CaseModel } from '../infra/mongodb/models/case.model';
-import { Case } from '../types/Case';
-import { CaseListResponse } from '../types/CaseListResponse';
+import { CaseRepository } from '../repositories/CaseRepository';
 import { CaseQuery } from '../types/CaseQuery';
-import { CaseResponse } from '../types/CaseResponse';
-import { CaseStatusEnum } from '../types/CaseStatusEnum';
+import { CaseStats } from '../types/CaseStats';
+import { WithId } from '../types/WithId';
 
 export class CaseService {
-  async create(data: Case): Promise<CaseResponse> {
+  constructor(private caseRepository: CaseRepository) {}
+  async create(data: CreateCaseDTO): Promise<WithId<CaseResponseDTO>> {
     try {
-      const createdCase = await CaseModel.create(data);
+      const newCase = await this.caseRepository.create(data);
+
+      const client = newCase.client.toString();
+      const lawyers = newCase.lawyers.map((lawyer) => lawyer.toString());
+
+      let documents;
+      let hearings;
+
+      if (data.documents) {
+        documents = data.documents.map((document) => document.toString());
+      }
+
+      if (data.hearings) {
+        hearings = data.hearings.map((hearing) => hearing.toString());
+      }
 
       return {
-        id: createdCase._id.toString(),
-        client: createdCase.client,
-        lawyers: createdCase.lawyers,
-        processNumber: createdCase.processNumber,
-        title: createdCase.title,
-        description: createdCase.description,
-        court: createdCase.court,
-        courtDivision: createdCase.courtDivision,
-        status: createdCase.status,
-        createdAt: createdCase.createdAt,
-        updatedAt: createdCase.updatedAt,
+        id: newCase.id,
+        client,
+        lawyers,
+        documents,
+        hearings,
+        processNumber: newCase.processNumber,
+        title: newCase.title,
+        description: newCase.description,
+        court: newCase.court,
+        courtDivision: newCase.courtDivision,
+        status: newCase.status,
+        createdAt: newCase.createdAt,
+        updatedAt: newCase.updatedAt,
       };
     } catch (error: any) {
       if (error.code === 11000) {
@@ -32,100 +49,43 @@ export class CaseService {
     }
   }
 
-  async findAll(queryParams: CaseQuery = {}, populateFields?: string[]): Promise<CaseListResponse> {
+  async findAll(
+    queryParams: CaseQuery = {},
+    populateFields?: string[]
+  ): Promise<{
+    cases: CaseResponseDTO[];
+    total: number;
+    totalPages: number;
+  }> {
     const { query, status, limit = 10, page = 1 } = queryParams;
     const regex = new RegExp(query || '', 'i');
 
-    const filter = {
-      $or: [{ title: regex }, { description: regex }, { processNumber: regex }],
-    };
-    const queryFiltered = CaseModel.find(filter)
-      .limit(limit)
-      .skip((page - 1) * limit)
-      .lean();
+    const cases = await this.caseRepository.findAll(queryParams, populateFields);
 
-    if (status) {
-      queryFiltered.find({ status });
-    }
-
-    if (populateFields && populateFields.length > 0 && populateFields.join(' ').trim()) {
-      queryFiltered.populate(populateFields.join(' '), 'firstName lastName');
-    }
-
-    const foundCases = await queryFiltered;
-
-    const totalCases = foundCases.length;
-
-    const mappedCases = foundCases.map((cas) => {
-      return {
-        id: cas._id.toString(),
-        client: cas.client,
-        lawyers: cas.lawyers,
-        title: cas.title,
-        processNumber: cas.processNumber,
-        court: cas.court,
-        courtDivision: cas.courtDivision,
-        description: cas.description,
-        status: cas.status,
-        createdAt: cas.createdAt,
-        updatedAt: cas.updatedAt,
-      };
-    });
+    const totalCases = cases.length;
 
     return {
-      cases: mappedCases,
+      cases,
       total: totalCases,
       totalPages: Math.ceil(totalCases / Number(limit)),
     };
   }
 
-  async findById(id: string, populateFields?: string[]): Promise<CaseResponse | null> {
+  async findById(id: string, populateFields?: string[]): Promise<CaseResponseDTO | null> {
     try {
-      const query = CaseModel.findById(id);
+      const cas = await this.caseRepository.findById(id);
 
-      if (populateFields && populateFields.length > 0 && populateFields.join(' ').trim()) {
-        query.populate(populateFields.join(' '), 'firstName lastName');
-      }
-
-      const foundCase = await query;
-
-      if (!foundCase) {
+      if (!cas) {
         throw new NotFoundError('Case not found');
       }
 
-      return {
-        id: foundCase._id.toString(),
-        client: foundCase.client,
-        lawyers: foundCase.lawyers,
-        title: foundCase.title,
-        processNumber: foundCase.processNumber,
-        court: foundCase.court,
-        courtDivision: foundCase.courtDivision,
-        description: foundCase.description,
-        status: foundCase.status,
-        createdAt: foundCase.createdAt,
-        updatedAt: foundCase.updatedAt,
-      };
+      return cas;
     } catch (error) {
       throw error;
     }
   }
 
-  async getStats(client?: string): Promise<{ inProgress: number; closed: number } | null> {
-    const baseFilter = client ? { client } : {};
-
-    const inProgress = await CaseModel.countDocuments({
-      ...baseFilter,
-      status: CaseStatusEnum.em_andamento,
-    });
-    const closed = await CaseModel.countDocuments({
-      ...baseFilter,
-      status: CaseStatusEnum.encerrado,
-    });
-
-    return {
-      inProgress,
-      closed,
-    };
+  async getStats(client?: string): Promise<CaseStats | null> {
+    return this.caseRepository.getStats(client);
   }
 }
