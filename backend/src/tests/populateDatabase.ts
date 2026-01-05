@@ -1,5 +1,5 @@
-import { fakeCases } from '../fakeDatabase/cases';
-import { fakeUserDatabase } from '../fakeDatabase/users';
+import { fakeCases } from './fakeDatabase/cases';
+import { fakeUserDatabase } from './fakeDatabase/users';
 import { CaseModel } from '../models/case.model';
 import { UserModel } from '../models/user.model';
 
