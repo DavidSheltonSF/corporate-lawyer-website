@@ -3,8 +3,9 @@ import { badRequest, ok, serverError, unauthorized } from '../helpers/http-helpe
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { IUserService } from '../services/IUserService';
 import { IAuthService } from '../services/IAuthService';
+import { IAuthController } from './IAuthController';
 
-export class AuthController {
+export class AuthController implements IAuthController {
   constructor(private authService: IAuthService, private userService: IUserService) {}
 
   getMe = async (req: Request, res: Response) => {

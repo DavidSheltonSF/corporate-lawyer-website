@@ -2,8 +2,9 @@ import { type Request, type Response } from 'express';
 import { badRequest, notFound, ok, serverError } from '../helpers/http-helpers';
 import { ICaseService } from '../services/ICaseService';
 import { IUserService } from '../services/IUserService';
+import { ICaseController } from './ICaseController';
 
-export class CaseController {
+export class CaseController implements ICaseController {
   constructor(private caseService: ICaseService, private userService: IUserService) {}
 
   findById = async (req: Request, res: Response) => {
