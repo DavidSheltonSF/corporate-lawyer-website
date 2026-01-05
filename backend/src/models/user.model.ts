@@ -1,9 +1,8 @@
 import { Schema, model, Document } from 'mongoose';
 import bcrypt from 'bcrypt';
-import { User } from '../types/User';
 import { UserRole } from '../types/UserRole';
 
-interface UserDocument extends User, Document {
+interface UserDocument extends Document {
   firstName: string;
   lastName: string;
   email: string;
