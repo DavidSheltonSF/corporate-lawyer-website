@@ -1,10 +1,20 @@
 import { Schema, model, Document } from 'mongoose';
 import bcrypt from 'bcrypt';
 import { User } from '../types/User';
+import { UserRole } from '../types/UserRole';
 
-interface IUserModel extends User, Document {}
+interface UserDocument extends User, Document {
+  firstName: string;
+  lastName: string;
+  email: string;
+  cpf: string;
+  password: string;
+  role: UserRole;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
-const UserSchema = new Schema<IUserModel>(
+const UserSchema = new Schema<UserDocument>(
   {
     firstName: { type: String, required: true, trim: true },
     lastName: { type: String, required: true, trim: true },
@@ -27,4 +37,4 @@ UserSchema.pre('save', async function () {
   }
 });
 
-export const UserModel = model<User>('Users', UserSchema);
+export const UserModel = model<UserDocument>('Users', UserSchema);
