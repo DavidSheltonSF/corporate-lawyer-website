@@ -6,8 +6,8 @@ export interface CaseResponseDTO {
   description: string;
   court: string; //tribunal
   courtDivision: string; //vara
-  documents?: string[];
-  hearings?: string[];
+  documents?: string[] | undefined;
+  hearings?: string[] | undefined;
   status: string;
   createdAt: Date;
   updatedAt: Date;
