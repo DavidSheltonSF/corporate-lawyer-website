@@ -2,7 +2,7 @@ import { Schema, model, Document } from 'mongoose';
 import bcrypt from 'bcrypt';
 import { UserRole } from '../types/UserRole';
 
-interface UserDocument extends Document {
+export interface UserDocument extends Document {
   firstName: string;
   lastName: string;
   email: string;
