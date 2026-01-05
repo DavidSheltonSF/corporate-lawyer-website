@@ -1,15 +1,17 @@
 import { UnauthorizedError } from '../errors/UnauthorizedError';
-import { UserModel } from '../infra/mongodb/models/user.model';
-import { UserResponse } from '../types/UserResponse';
+import { UserResponseDTO } from '../dtos/user/UserResponseDTO';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { WithId } from '../types/WithId';
+import { UserRepository } from '../repositories/UserRepository';
 
 export class AuthService {
+  constructor(private userRepository: UserRepository) {}
   async authenticate(
     email: string,
     password: string
-  ): Promise<{ user: UserResponse; token: string }> {
-    const user = await UserModel.findOne({ email });
+  ): Promise<{ user: WithId<UserResponseDTO>; token: string }> {
+    const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
       throw new UnauthorizedError('Invalid email');
@@ -21,11 +23,11 @@ export class AuthService {
       throw new UnauthorizedError('Invalid password');
     }
 
-    const token = jwt.sign({ sub: user._id.toString(), email }, 'secret', { expiresIn: 60 });
+    const token = jwt.sign({ sub: user.id, email }, 'secret', { expiresIn: 60 });
 
     return {
       user: {
-        id: user._id.toString(),
+        id: user.id,
         firstName: user.firstName,
         lastName: user.lastName,
         cpf: user.cpf,
