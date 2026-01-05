@@ -1,11 +1,10 @@
 import { type Request, type Response } from 'express';
-import { CaseService } from '../services/case.service';
 import { badRequest, notFound, ok, serverError } from '../helpers/http-helpers';
-import { UserService } from '../services/user.service';
+import { ICaseService } from '../services/ICaseService';
+import { IUserService } from '../services/IUserService';
 
 export class CaseController {
-  private caseService = new CaseService();
-  private userService = new UserService();
+  constructor(private caseService: ICaseService, private userService: IUserService) {}
 
   findById = async (req: Request, res: Response) => {
     try {
