@@ -1,5 +1,5 @@
 import { CreateUserDTO } from '../dtos/user/CreateUserDTO';
-import { User } from '../types/User';
+import { User } from '../entities/User';
 import { WithId } from '../types/WithId';
 
 export interface UserRepository {
