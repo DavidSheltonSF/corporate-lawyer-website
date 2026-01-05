@@ -1,5 +1,5 @@
 import { Schema, model, Document, Types } from 'mongoose';
-import { Case } from '../../../types/Case';
+import { Case } from '../types/Case';
 
 interface ICase extends Case, Document {}
 
