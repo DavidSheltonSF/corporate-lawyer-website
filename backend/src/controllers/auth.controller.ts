@@ -1,11 +1,11 @@
 import { type Request, type Response } from 'express';
 import { badRequest, ok, serverError, unauthorized } from '../helpers/http-helpers';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { UserService } from '../services/user.service';
-import { AuthService } from '../services/auth.service';
+import { IUserService } from '../services/IUserService';
+import { IAuthService } from '../services/IAuthService';
 
 export class AuthController {
-  constructor(private userService = new UserService(), private authService = new AuthService()) {}
+  constructor(private authService: IAuthService, private userService: IUserService) {}
 
   getMe = async (req: Request, res: Response) => {
     const token = req.headers.authorization;
@@ -28,7 +28,6 @@ export class AuthController {
 
   auth = async (req: Request, res: Response) => {
     try {
-      const authService = new AuthService();
       const body = req.body;
 
       if (!body) {
