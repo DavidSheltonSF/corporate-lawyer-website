@@ -2,7 +2,7 @@ import { Types } from 'mongoose';
 import { DatabaseConnector } from '../config/database';
 import { CaseModel } from '../infra/mongodb/models/case.model';
 import { Case } from '../types/Case';
-import { CaseService } from './case.service';
+import { CaseService } from './CaseService';
 import { config } from 'dotenv';
 import { CaseStatusEnum } from '../types/CaseStatusEnum';
 

@@ -2,8 +2,8 @@ import { CaseController } from '../controllers/CaseController';
 import { ICaseController } from '../controllers/ICaseController';
 import { MongodbCaseRepository } from '../database/MongodbCaseRepository';
 import { MongodbUserRepository } from '../database/MongodbUserRepository';
-import { CaseService } from '../services/case.service';
-import { UserService } from '../services/user.service';
+import { CaseService } from '../services/CaseService';
+import { UserService } from '../services/UserService';
 
 export function makeCaseController(): ICaseController {
   const caseRepository = new MongodbCaseRepository();

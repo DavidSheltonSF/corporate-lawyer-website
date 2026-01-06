@@ -1,7 +1,7 @@
 import { DatabaseConnector } from '../config/database';
 import { UserModel } from '../infra/mongodb/models/user.model';
 import { UserRole } from '../types/UserRole';
-import { UserService } from './user.service';
+import { UserService } from './UserService';
 import { config } from 'dotenv';
 
 config();
