@@ -8,9 +8,13 @@ import { CaseStatusEnum } from '../types/CaseStatusEnum';
 import { CaseQuery } from '../types/CaseQuery';
 import { Case } from '../entities/Case';
 import { caseDocumentToDomain } from '../mappers/caseDocumentToDomain';
+import { Page } from '../types/Page';
 
 export class MongodbCaseRepository implements CaseRepository {
-  async findAll(queryParams: CaseQuery = {}, populateFields?: string[]): Promise<WithId<Case>[]> {
+  async findAll(
+    queryParams: CaseQuery = {},
+    populateFields?: string[]
+  ): Promise<Page<WithId<Case>>> {
     const { query, status, limit = 10, page = 1 } = queryParams;
 
     const regex = new RegExp(query || '', 'i');
@@ -18,23 +22,36 @@ export class MongodbCaseRepository implements CaseRepository {
     const filter = { $or: [{ title: regex }, { description: regex }, { processNUmber: regex }] };
 
     const casesQuery = CaseModel.find(filter);
+    const casesTotalQuery = CaseModel.countDocuments(filter);
 
     if (status) {
       casesQuery.find({ status });
+      casesTotalQuery.countDocuments({ status });
     }
 
     if (populateFields) {
       casesQuery.populate(populateFields.join(' '), 'firstName lastName');
     }
 
-    const cases = await casesQuery
+    const casesPageQuery = casesQuery
       .limit(limit)
       .skip((page - 1) * limit)
       .lean();
 
-    return cases.map((cas) => {
+    const [cases, totalItems] = await Promise.all([casesPageQuery, casesTotalQuery]);
+
+    const mappedCases = cases.map((cas) => {
       return caseDocumentToDomain(cas);
     });
+
+    return {
+      data: mappedCases,
+      meta: {
+        totalItems,
+        totalPages: Math.ceil(totalItems / Number(limit)),
+        currentPage: page,
+      },
+    };
   }
 
   async findById(id: string): Promise<WithId<Case> | null> {
