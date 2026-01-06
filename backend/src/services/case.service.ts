@@ -1,6 +1,7 @@
 import { CaseResponseDTO } from '../dtos/user/CaseResponseDTO';
 import { CreateCaseDTO } from '../dtos/user/CreateCaseDTO';
 import { NotFoundError } from '../errors/NotFoundError';
+import { CaseModel } from '../models/case.model';
 import { CaseRepository } from '../repositories/CaseRepository';
 import { CaseQuery } from '../types/CaseQuery';
 import { CaseStats } from '../types/CaseStats';
@@ -57,17 +58,13 @@ export class CaseService {
     total: number;
     totalPages: number;
   }> {
-    const { query, status, limit = 10, page = 1 } = queryParams;
-    const regex = new RegExp(query || '', 'i');
-
-    const cases = await this.caseRepository.findAll(queryParams, populateFields);
-
-    const totalCases = cases.length;
+    const casesPage = await this.caseRepository.findAll(queryParams, populateFields);
+    const { totalItems, totalPages } = casesPage.meta;
 
     return {
-      cases,
-      total: totalCases,
-      totalPages: Math.ceil(totalCases / Number(limit)),
+      cases: casesPage.data,
+      total: totalItems,
+      totalPages,
     };
   }
 
