@@ -16,7 +16,7 @@
   );
 }
 
-input {
+input, textarea {
   outline: none;
 }
 
