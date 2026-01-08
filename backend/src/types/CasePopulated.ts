@@ -1,11 +1,11 @@
 import { Case } from '../entities/Case';
 import { CaseDocument } from '../entities/CaseDocument';
 import { Hearing } from '../entities/Hearing';
-import { UserBasicInfo } from './UserBasicInfo';
+import { UserName } from './UserName';
 
 export type CasePopulated = Omit<Case, 'client' | 'lawyers' | 'documents' | 'hearings'> & {
-  client: UserBasicInfo;
-  lawyers: UserBasicInfo[];
+  client: UserName;
+  lawyers: UserName[];
   documents?: CaseDocument[];
   hearings?: Hearing[];
 };

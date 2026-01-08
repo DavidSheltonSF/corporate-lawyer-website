@@ -1,10 +1,10 @@
-import { UserBasicInfo } from '../../types/UserBasicInfo';
+import { UserName } from '../../types/UserName';
 import { WithId } from '../../types/WithId';
 import { HearingDTO } from '../hearing/HearingDTO';
 
 export interface CaseCardDTO {
-  client: WithId<UserBasicInfo>;
-  lawyers: WithId<UserBasicInfo>[];
+  client: WithId<UserName>;
+  lawyers: WithId<UserName>[];
   processNumber: string;
   title: string;
   description: string;
