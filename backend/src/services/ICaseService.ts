@@ -1,7 +1,7 @@
 import { CaseCardDTO } from '../dtos/case/CaseCardDTO';
 import { CaseResponseDTO } from '../dtos/user/CaseResponseDTO';
 import { CreateCaseDTO } from '../dtos/user/CreateCaseDTO';
-import { CasePopulateFields } from '../types/CasePopulateFields';
+import { CasePopulateOptions } from '../types/CasePopulateOptions';
 import { CaseQuery } from '../types/CaseQuery';
 import { CaseStats } from '../types/CaseStats';
 import { WithId } from '../types/WithId';
@@ -18,7 +18,7 @@ export interface ICaseService {
   }>;
   findCaseCards(
     queryParams: CaseQuery,
-    casePopulateFields: CasePopulateFields
+    casePopulateOptions: CasePopulateOptions
   ): Promise<{
     cases: CaseCardDTO[];
     total: number;

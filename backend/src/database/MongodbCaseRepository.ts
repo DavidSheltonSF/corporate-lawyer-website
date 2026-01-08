@@ -9,9 +9,9 @@ import { CaseQuery } from '../types/CaseQuery';
 import { Case } from '../entities/Case';
 import { caseDocumentToDomain } from '../mappers/caseDocumentToDomain';
 import { Page } from '../types/Page';
-import { CasePopulateFields } from '../types/CasePopulateFields';
+import { CasePopulateOptions } from '../types/CasePopulateOptions';
 import { CaseCardDTO } from '../dtos/case/CaseCardDTO';
-import { caseMongoDocToCardDTO } from '../mappers/caseMongoDocToCardDTO';
+import { toCaseDocumentDTO } from '../mappers/toCaseCardDTO';
 
 export class MongodbCaseRepository implements CaseRepository {
   async findAll(
@@ -59,7 +59,7 @@ export class MongodbCaseRepository implements CaseRepository {
 
   async findCaseCards(
     queryParams: CaseQuery = {},
-    casePopulateFields: CasePopulateFields = {}
+    casePopulateFields: CasePopulateOptions = {}
   ): Promise<Page<WithId<CaseCardDTO>>> {
     const { query, status, limit = 10, page = 1 } = queryParams;
 
@@ -112,7 +112,7 @@ export class MongodbCaseRepository implements CaseRepository {
 
     const [cases, totalItems] = await Promise.all([casesPageQuery, casesTotalQuery]);
 
-    const mappedCases = cases.map(caseMongoDocToCardDTO);
+    const mappedCases = cases.map(toCaseDocumentDTO);
 
     return {
       data: mappedCases,

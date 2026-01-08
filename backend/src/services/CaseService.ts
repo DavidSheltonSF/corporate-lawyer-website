@@ -3,7 +3,7 @@ import { CaseResponseDTO } from '../dtos/user/CaseResponseDTO';
 import { CreateCaseDTO } from '../dtos/user/CreateCaseDTO';
 import { NotFoundError } from '../errors/NotFoundError';
 import { CaseRepository } from '../repositories/CaseRepository';
-import { CasePopulateFields } from '../types/CasePopulateFields';
+import { CasePopulateOptions } from '../types/CasePopulateOptions';
 import { CaseQuery } from '../types/CaseQuery';
 import { CaseStats } from '../types/CaseStats';
 import { WithId } from '../types/WithId';
@@ -72,13 +72,13 @@ export class CaseService implements ICaseService {
 
   async findCaseCards(
     queryParams: CaseQuery = {},
-    casePopulateFields: CasePopulateFields = {}
+    casePopulateOptions: CasePopulateOptions = {}
   ): Promise<{
     cases: CaseCardDTO[];
     total: number;
     totalPages: number;
   }> {
-    const casesPage = await this.caseRepository.findCaseCards(queryParams, casePopulateFields);
+    const casesPage = await this.caseRepository.findCaseCards(queryParams, casePopulateOptions);
     const { totalItems, totalPages } = casesPage.meta;
 
     return {
