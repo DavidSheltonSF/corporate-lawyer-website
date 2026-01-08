@@ -1,8 +1,10 @@
+import { CaseCardDTO } from '../dtos/case/CaseCardDTO';
 import { CaseResponseDTO } from '../dtos/user/CaseResponseDTO';
 import { CreateCaseDTO } from '../dtos/user/CreateCaseDTO';
 import { NotFoundError } from '../errors/NotFoundError';
 import { CaseModel } from '../models/case.model';
 import { CaseRepository } from '../repositories/CaseRepository';
+import { CasePopulateFields } from '../types/CasePopulateFields';
 import { CaseQuery } from '../types/CaseQuery';
 import { CaseStats } from '../types/CaseStats';
 import { WithId } from '../types/WithId';
@@ -59,6 +61,24 @@ export class CaseService {
     totalPages: number;
   }> {
     const casesPage = await this.caseRepository.findAll(queryParams, populateFields);
+    const { totalItems, totalPages } = casesPage.meta;
+
+    return {
+      cases: casesPage.data,
+      total: totalItems,
+      totalPages,
+    };
+  }
+
+  async findCaseCards(
+    queryParams: CaseQuery = {},
+    casePopulateFields: CasePopulateFields = {}
+  ): Promise<{
+    cases: CaseCardDTO[];
+    total: number;
+    totalPages: number;
+  }> {
+    const casesPage = await this.caseRepository.findCaseCards(queryParams, casePopulateFields);
     const { totalItems, totalPages } = casesPage.meta;
 
     return {
