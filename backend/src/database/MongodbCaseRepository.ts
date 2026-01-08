@@ -9,6 +9,9 @@ import { CaseQuery } from '../types/CaseQuery';
 import { Case } from '../entities/Case';
 import { caseDocumentToDomain } from '../mappers/caseDocumentToDomain';
 import { Page } from '../types/Page';
+import { CasePopulateFields } from '../types/CasePopulateFields';
+import { CaseCardDTO } from '../dtos/case/CaseCardDTO';
+import { caseMongoDocToCardDTO } from '../mappers/caseMongoDocToCardDTO';
 
 export class MongodbCaseRepository implements CaseRepository {
   async findAll(
@@ -43,6 +46,73 @@ export class MongodbCaseRepository implements CaseRepository {
     const mappedCases = cases.map((cas) => {
       return caseDocumentToDomain(cas);
     });
+
+    return {
+      data: mappedCases,
+      meta: {
+        totalItems,
+        totalPages: Math.ceil(totalItems / Number(limit)),
+        currentPage: page,
+      },
+    };
+  }
+
+  async findCaseCards(
+    queryParams: CaseQuery = {},
+    casePopulateFields: CasePopulateFields = {}
+  ): Promise<Page<WithId<CaseCardDTO>>> {
+    const { query, status, limit = 10, page = 1 } = queryParams;
+
+    const regex = new RegExp(query || '', 'i');
+
+    const filter = { $or: [{ title: regex }, { description: regex }, { processNUmber: regex }] };
+
+    const casesQuery = CaseModel.find(filter);
+    const casesTotalQuery = CaseModel.countDocuments(filter);
+
+    if (status) {
+      casesQuery.find({ status });
+      casesTotalQuery.countDocuments({ status });
+    }
+
+    const { client, lawyers, documents, hearings } = casePopulateFields;
+
+    if (client) {
+      casesQuery.populate({
+        path: 'client',
+        select: 'firstName lastName',
+      });
+    }
+
+    if (lawyers) {
+      casesQuery.populate({
+        path: 'lawyers',
+        select: 'firstName lastName',
+      });
+    }
+
+    if (documents) {
+      casesQuery.populate({
+        path: 'documents',
+        select: 'name url uploadedAt',
+      });
+    }
+
+    if (hearings) {
+      casesQuery.populate({
+        path: 'hearings',
+        select: 'date location description',
+      });
+    }
+
+    const casesPageQuery = casesQuery
+      .limit(limit)
+      .skip((page - 1) * limit)
+      .lean();
+
+    const [cases, totalItems] = await Promise.all([casesPageQuery, casesTotalQuery]);
+
+    const mappedCases = cases.map(caseMongoDocToCardDTO);
 
     return {
       data: mappedCases,
