@@ -9,7 +9,7 @@ jest.setTimeout(99999);
 
 describe('Testing UserModel', () => {
   beforeAll(async () => {
-    await DatabaseConnector.connect();
+    await DatabaseConnector.connectFakeDatabase();
     await UserModel.deleteMany({});
   });
 

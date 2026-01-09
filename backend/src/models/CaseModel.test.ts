@@ -12,7 +12,7 @@ jest.setTimeout(99999);
 
 describe('Testing CaseModel', () => {
   beforeAll(async () => {
-    await DatabaseConnector.connect();
+    await DatabaseConnector.connectFakeDatabase();
     await UserModel.deleteMany({});
     await CaseModel.deleteMany({});
   });
