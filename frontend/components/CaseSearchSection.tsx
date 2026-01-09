@@ -9,7 +9,6 @@ import { Pagination } from './Pagination';
 import { CaseWithLawyers } from '@/types/CaseWithLawyers';
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { DropDownButton } from './DropdownButton';
-import { reduceString } from '@/lib/reduceString';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 
 export default function CaseSearchSection() {
@@ -63,10 +62,11 @@ export default function CaseSearchSection() {
         />
         <div className="h-[48px] rounded-full w-[180px]">
           <DropDownButton
-            selectedItem={reduceString(statusFilder || '', 10)}
+            selectedItem={statusFilder}
             defaultValue="Status"
             setSelectedItem={setStatusFilter}
-            listItems={Object.values(CaseStatusEnum).map((status) => CaseStatusLabel[status])}
+            itemLabel={(status: CaseStatusEnum) => CaseStatusLabel[status]}
+            listItems={Object.values(CaseStatusEnum)}
           />
         </div>
       </div>
