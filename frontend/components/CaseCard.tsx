@@ -34,7 +34,7 @@ export function CaseCard({ caseData }: Props) {
       break;
 
     case CaseStatusEnum.esperando_documentos:
-      statusColor = 'text-yellow-00';
+      statusColor = 'text-yellow-500';
       break;
     case CaseStatusEnum.encerrado:
       statusColor = 'text-red-500';
