@@ -1,8 +1,8 @@
 import { Case } from '../entities/Case';
-import { CaseDocument } from '../models/case.model';
+import { CaseMongoDoc } from '../models/case.model';
 import { WithId } from '../types/WithId';
 
-export function caseDocumentToDomain(cas: CaseDocument): WithId<Case> {
+export function caseDocumentToDomain(cas: CaseMongoDoc): WithId<Case> {
   const client = cas.client.toString();
   const lawyers = cas.lawyers.map((lawyer) => lawyer.toString());
   let documents;
