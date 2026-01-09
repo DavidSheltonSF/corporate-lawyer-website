@@ -1,6 +1,6 @@
 import { CaseRepository } from '../repositories/CaseRepository';
 import { WithId } from '../types/WithId';
-import { CaseModel } from '../models/case.model';
+import { CaseModel } from '../models/CaseModel';
 import { CreateCaseDTO } from '../dtos/user/CreateCaseDTO';
 import { Types } from 'mongoose';
 import { CaseStats } from '../types/CaseStats';

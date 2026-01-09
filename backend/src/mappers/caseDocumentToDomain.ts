@@ -1,5 +1,5 @@
 import { Case } from '../entities/Case';
-import { CaseMongoDoc } from '../models/case.model';
+import { CaseMongoDoc } from '../models/CaseModel';
 import { WithId } from '../types/WithId';
 
 export function caseDocumentToDomain(cas: CaseMongoDoc): WithId<Case> {

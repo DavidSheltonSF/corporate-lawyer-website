@@ -1,5 +1,5 @@
 import { DatabaseConnector } from '../../../config/database';
-import { CaseModel } from './case.model';
+import { CaseModel } from './CaseModel';
 import { config } from 'dotenv';
 import { Case } from '../../../types/Case';
 import { Types } from 'mongoose';
