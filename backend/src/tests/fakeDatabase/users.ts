@@ -1,9 +1,7 @@
-import { Types } from "mongoose";
-import { User } from "../types/User";
-import { UserRole } from "../types/UserRole";
-import { WithId } from "../types/WithId";
+import { Types } from 'mongoose';
+import { UserRole } from '../../types/UserRole';
 
-export const fakeUserDatabase: Array<{ _id: Types.ObjectId } & User> = [
+export const fakeUserDatabase = [
   {
     _id: Types.ObjectId.createFromTime(15258484),
     firstName: 'Flávia',
