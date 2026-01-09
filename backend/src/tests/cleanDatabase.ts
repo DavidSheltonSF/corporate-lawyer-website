@@ -1,5 +1,5 @@
 import { CaseModel } from '../models/CaseModel';
-import { UserModel } from '../models/user.model';
+import { UserModel } from '../models/UserModel';
 
 export async function cleanDatabase() {
   await UserModel.deleteMany({});

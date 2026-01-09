@@ -6,7 +6,7 @@ import { Types } from 'mongoose';
 import { CaseStatusEnum } from '../../../types/CaseStatusEnum';
 import { User } from '../../../types/User';
 import { UserRole } from '../../../types/UserRole';
-import { UserModel } from './user.model';
+import { UserModel } from './UserModel';
 import { CaseWithRelations } from '../../../types/CaseWithRelations';
 
 config();

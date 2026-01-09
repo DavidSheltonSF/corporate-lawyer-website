@@ -1,5 +1,5 @@
 import { config } from 'dotenv';
-import { UserModel } from '../models/user.model';
+import { UserModel } from '../models/UserModel';
 import { MongodbUserRepository } from './MongodbUserRepository';
 import { UserRole } from '../types/UserRole';
 import bcrypt from 'bcrypt';

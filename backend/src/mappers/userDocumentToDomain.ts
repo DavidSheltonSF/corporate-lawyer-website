@@ -1,5 +1,5 @@
 import { User } from '../entities/User';
-import { UserDocument } from '../models/user.model';
+import { UserDocument } from '../models/UserModel';
 import { WithId } from '../types/WithId';
 
 export function userDocumentToDomain(user: UserDocument): WithId<User> {

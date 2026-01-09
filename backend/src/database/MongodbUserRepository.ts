@@ -1,6 +1,6 @@
 import { UserRepository } from '../repositories/UserRepository';
 import { WithId } from '../types/WithId';
-import { UserModel } from '../models/user.model';
+import { UserModel } from '../models/UserModel';
 import { CreateUserDTO } from '../dtos/user/CreateUserDTO';
 import { User } from '../entities/User';
 

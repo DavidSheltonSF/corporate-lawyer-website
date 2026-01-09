@@ -1,5 +1,5 @@
 import { DatabaseConnector } from '../../../config/database';
-import { UserModel } from './user.model';
+import { UserModel } from './UserModel';
 import { config } from 'dotenv';
 import bcrypt from 'bcrypt';
 
