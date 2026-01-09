@@ -2,12 +2,14 @@
 
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { CaseSearchEnum } from '../types/CaseSearchEnum';
+import { reduceString } from '@/lib/reduceString';
 
 interface Props {
   listItems: any[];
   defaultValue?: string;
   darkTheme?: boolean;
   selectedItem: string | null;
+  itemLabel: Function;
   setSelectedItem: Dispatch<SetStateAction<any>>;
 }
 export function DropDownButton({
@@ -15,6 +17,7 @@ export function DropDownButton({
   defaultValue,
   darkTheme,
   selectedItem,
+  itemLabel,
   setSelectedItem,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,7 +56,7 @@ export function DropDownButton({
           selectItem(item);
         }}
       >
-        {item}
+        {itemLabel(item)}
       </button>
     </li>
   ));
@@ -75,7 +78,9 @@ export function DropDownButton({
           borderRadius: 'inherit',
         }}
       >
-        <span className="flex-1 text-start">{selectedItem || defaultValue}</span>
+        <span className="flex-1 text-start">
+          {reduceString(itemLabel(selectedItem) || defaultValue, 10)}
+        </span>
         <span>
           <img
             className={`${!darkTheme ? 'invert' : ''}`}
