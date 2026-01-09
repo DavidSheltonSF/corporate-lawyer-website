@@ -8,6 +8,7 @@ import { TooltipContainer } from './TooltipContainer';
 import { WithId } from '@/types/WithId';
 import Link from 'next/link';
 import { UserBasicInfo } from '@/types/UserBasicInfo';
+import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 
 interface Props {
   caseData: WithId<Case> & {
@@ -96,7 +97,7 @@ export function CaseCard({ caseData }: Props) {
           </span>
           <span className="flex gap-[8px]">
             <p className="font-bold">status:</p>
-            <p className={`font-bold ${statusColor}`}>{status}</p>
+            <p className={`font-bold ${statusColor}`}>{CaseStatusLabel[status]}</p>
           </span>
         </main>
       </Link>
