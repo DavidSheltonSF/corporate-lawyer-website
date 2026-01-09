@@ -1,4 +1,4 @@
-import { DatabaseConnector } from '../../../config/database';
+import { DatabaseConnector } from '../config/database';
 import { UserModel } from './UserModel';
 import { config } from 'dotenv';
 import bcrypt from 'bcrypt';
