@@ -1,13 +1,10 @@
-import { DatabaseConnector } from '../../../config/database';
+import { DatabaseConnector } from '../config/database';
 import { CaseModel } from './CaseModel';
 import { config } from 'dotenv';
-import { Case } from '../../../types/Case';
 import { Types } from 'mongoose';
-import { CaseStatusEnum } from '../../../types/CaseStatusEnum';
-import { User } from '../../../types/User';
-import { UserRole } from '../../../types/UserRole';
+import { CaseStatusEnum } from '../types/CaseStatusEnum';
+import { UserRole } from '../types/UserRole';
 import { UserModel } from './UserModel';
-import { CaseWithRelations } from '../../../types/CaseWithRelations';
 
 config();
 
@@ -30,7 +27,7 @@ describe('Testing CaseModel', () => {
   });
 
   test('should create a new case', async () => {
-    const newCase: Case = {
+    const newCase = {
       client: Types.ObjectId.createFromTime(511),
       lawyers: [Types.ObjectId.createFromTime(55555)],
       processNumber: '261514514584615648',
@@ -44,7 +41,7 @@ describe('Testing CaseModel', () => {
   });
 
   test('should get the populated client', async () => {
-    const newCLient: User = {
+    const newCLient = {
       firstName: 'José',
       lastName: 'Vanio',
       email: 'jovral@email.com',
@@ -53,7 +50,7 @@ describe('Testing CaseModel', () => {
       password: 'nfisngfisfesag',
     };
 
-    const newCase: Case = {
+    const newCase = {
       client: Types.ObjectId.createFromTime(511),
       lawyers: [Types.ObjectId.createFromTime(55555)],
       processNumber: '261514514584615648',
@@ -68,9 +65,9 @@ describe('Testing CaseModel', () => {
     newCase.client = createdClient._id;
     const createdCase = await CaseModel.create(newCase);
 
-    const caseWithPopulatedFields = await CaseModel.findOne({ _id: createdCase._id })
+    const caseWithPopulatedFields = (await CaseModel.findOne({ _id: createdCase._id })
       .populate('client', 'firstName lastName')
-      .lean<CaseWithRelations | null>();
+      .lean()) as any;
 
     const client = caseWithPopulatedFields?.client;
 
@@ -98,7 +95,7 @@ describe('Testing CaseModel', () => {
       password: 'nfiee333sfesag',
     };
 
-    const newCase: Case = {
+    const newCase = {
       client: Types.ObjectId.createFromTime(511),
       lawyers: [Types.ObjectId.createFromTime(55555)],
       processNumber: '261514514584615648',
@@ -115,9 +112,9 @@ describe('Testing CaseModel', () => {
     newCase.lawyers = [createdLawyer1._id, createdLawyer2._id];
     const createdCase = await CaseModel.create(newCase);
 
-    const caseWithPopulatedFields = await CaseModel.findOne({ _id: createdCase._id })
+    const caseWithPopulatedFields = (await CaseModel.findOne({ _id: createdCase._id })
       .populate('lawyers', 'firstName lastName')
-      .lean<CaseWithRelations>();
+      .lean()) as any;
 
     const lawyers = caseWithPopulatedFields?.lawyers;
 
