@@ -1,10 +1,7 @@
-import { Types } from 'mongoose';
-import { Case } from '../types/Case';
-import { CaseStatusEnum } from '../types/CaseStatusEnum';
 import { fakeUserDatabase } from './users';
+import { CaseStatusEnum } from '../../types/CaseStatusEnum';
 
-export const fakeCases: { client: Types.ObjectId; lawyers: Types.ObjectId[] }[] &
-  Omit<Case, 'client' | 'lawyers'>[] = [
+export const fakeCases = [
   {
     client: fakeUserDatabase[3]!._id,
     lawyers: [fakeUserDatabase[0]!._id, fakeUserDatabase[1]!._id],
