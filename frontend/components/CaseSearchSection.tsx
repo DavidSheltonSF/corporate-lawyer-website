@@ -10,6 +10,7 @@ import { CaseWithLawyers } from '@/types/CaseWithLawyers';
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { DropDownButton } from './DropdownButton';
 import { reduceString } from '@/lib/reduceString';
+import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 
 export default function CaseSearchSection() {
   const [query, setQuery] = useState('');
@@ -65,7 +66,7 @@ export default function CaseSearchSection() {
             selectedItem={reduceString(statusFilder || '', 10)}
             defaultValue="Status"
             setSelectedItem={setStatusFilter}
-            listItems={Object.values(CaseStatusEnum)}
+            listItems={Object.values(CaseStatusEnum).map((status) => CaseStatusLabel[status])}
           />
         </div>
       </div>
