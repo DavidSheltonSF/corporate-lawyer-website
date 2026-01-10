@@ -31,7 +31,7 @@ const CaseSchema = new Schema<CaseMongoDocument>(
     hearings: [{ type: Types.ObjectId, ref: 'Hearings', index: true }],
     status: {
       type: String,
-      enum: ['aberto', 'em_andamento', 'esperando_documentos', 'encerrado'],
+      enum: Object.values(CaseStatusEnum),
       required: true,
     },
   },
