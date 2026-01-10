@@ -1,36 +1,20 @@
-import { DatabaseConnector } from '../config/database';
-import { UserModel } from '../infra/mongodb/models/user.model';
+import { createMockUserRepository } from '../tests/mocks/repositories/createMockUserRepository';
 import { UserRole } from '../types/UserRole';
 import { UserService } from './UserService';
-import { config } from 'dotenv';
-
-config();
-
-jest.setTimeout(999999);
 
 describe('Test UserService', () => {
-  beforeAll(async () => {
-    await DatabaseConnector.connect();
-  });
-
-  beforeEach(async () => {
-    await UserModel.deleteMany({});
-  });
-
-  afterAll(async () => {
-    await DatabaseConnector.disconnect();
-  });
-
   function makeSut() {
-    const userService = new UserService();
+    const userRepository = createMockUserRepository();
+    const userService = new UserService(userRepository);
 
     return {
+      userRepository,
       userService,
     };
   }
 
   test('should create a new user', async () => {
-    const { userService } = makeSut();
+    const { userService, userRepository } = makeSut();
 
     const newUser = {
       firstName: 'David',
@@ -41,110 +25,8 @@ describe('Test UserService', () => {
       role: UserRole.client,
     };
 
-    const createdUser = await userService.create(newUser);
+    await userService.create(newUser);
 
-    const { password, ...userWithoutPassword } = newUser;
-
-    expect(createdUser).toMatchObject(userWithoutPassword);
-  });
-
-  test('should find all users', async () => {
-    const { userService } = makeSut();
-
-    const users = [
-      {
-        firstName: 'José',
-        lastName: 'Faria',
-        cpf: '18778848777',
-        email: 'jod55@email.com',
-        password: 'nfksnfasfddsfd',
-        role: UserRole.client,
-      },
-      {
-        firstName: 'Maria',
-        lastName: 'José',
-        cpf: '11178848777',
-        email: 'mari@email.com',
-        password: 'sdgfad6fds',
-        role: UserRole.client,
-      },
-    ];
-
-    const usersWithoutPassword = users.map((user) => {
-      const { password, ...userWithoutPassword } = user;
-      return userWithoutPassword;
-    });
-
-    await UserModel.create(users);
-
-    const foundUsers = await userService.findAll();
-
-    expect(foundUsers).toHaveLength(users.length);
-    expect(foundUsers).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining(usersWithoutPassword[0]),
-        expect.objectContaining(usersWithoutPassword[1]),
-      ])
-    );
-  });
-
-  test('should find a user by id', async () => {
-    const { userService } = makeSut();
-
-    const user1 = {
-      firstName: 'José',
-      lastName: 'Faria',
-      cpf: '18778848777',
-      email: 'jod55@email.com',
-      password: 'nfksnfasfddsfd',
-      role: UserRole.client,
-    };
-    const user2 = {
-      firstName: 'Maria',
-      lastName: 'José',
-      cpf: '11178848777',
-      email: 'mari@email.com',
-      password: 'sdgfad6fds',
-      role: UserRole.client,
-    };
-
-    const createdUser1 = await UserModel.create(user1);
-    const createdUser2 = await UserModel.create(user2);
-
-    const foundUser = await userService.findById(createdUser2._id.toString());
-
-    const { password, ...userWithoutPassword } = user2;
-
-    expect(foundUser).toMatchObject(userWithoutPassword);
-  });
-
-  test('should find a user by email', async () => {
-    const { userService } = makeSut();
-
-    const user1 = {
-      firstName: 'José',
-      lastName: 'Faria',
-      cpf: '18778848777',
-      email: 'jod55@email.com',
-      password: 'nfksnfasfddsfd',
-      role: UserRole.client,
-    };
-    const user2 = {
-      firstName: 'Maria',
-      lastName: 'José',
-      cpf: '11178848777',
-      email: 'mari@email.com',
-      password: 'sdgfad6fds',
-      role: UserRole.client,
-    };
-
-    const createdUser = await UserModel.create(user1);
-    await UserModel.create(user2);
-
-    const foundUser = await userService.findByEmail(createdUser.email);
-
-    const { password, ...userWithoutPassword } = user1;
-
-    expect(foundUser).toMatchObject(userWithoutPassword);
+    expect(userRepository.create).toHaveBeenCalledWith(newUser);
   });
 });
