@@ -1,7 +1,7 @@
 import { Schema, model, Document, Types } from 'mongoose';
 import { CaseStatusEnum } from '../types/CaseStatusEnum';
 
-export interface CaseMongoDoc extends Document {
+export interface ICaseModel extends Document {
   client: Types.ObjectId;
   lawyers: Types.ObjectId[];
   processNumber: string;
@@ -12,9 +12,11 @@ export interface CaseMongoDoc extends Document {
   documents?: Types.ObjectId[] | undefined;
   hearings?: Types.ObjectId[] | undefined;
   status: CaseStatusEnum;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
+
+interface CaseMongoDoc extends ICaseModel, Document {}
 
 const CaseSchema = new Schema<CaseMongoDoc>(
   {
