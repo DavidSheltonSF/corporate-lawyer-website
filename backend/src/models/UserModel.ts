@@ -13,9 +13,9 @@ export interface IUserModel {
   updatedAt?: Date;
 }
 
-interface UserMongoDoc extends IUserModel, Document {}
+interface UserMongoDocument extends IUserModel, Document {}
 
-const UserSchema = new Schema<UserMongoDoc>(
+const UserSchema = new Schema<UserMongoDocument>(
   {
     firstName: { type: String, required: true, trim: true },
     lastName: { type: String, required: true, trim: true },
@@ -38,4 +38,4 @@ UserSchema.pre('save', async function () {
   }
 });
 
-export const UserModel = model<UserMongoDoc>('Users', UserSchema);
+export const UserModel = model<UserMongoDocument>('Users', UserSchema);
