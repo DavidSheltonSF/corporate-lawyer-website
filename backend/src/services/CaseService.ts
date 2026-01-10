@@ -41,8 +41,6 @@ export class CaseService implements ICaseService {
         court: newCase.court,
         courtDivision: newCase.courtDivision,
         status: newCase.status,
-        createdAt: newCase.createdAt,
-        updatedAt: newCase.updatedAt,
       };
     } catch (error: any) {
       if (error.code === 11000) {

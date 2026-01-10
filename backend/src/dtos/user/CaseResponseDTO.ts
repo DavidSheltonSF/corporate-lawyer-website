@@ -9,6 +9,4 @@ export interface CaseResponseDTO {
   documents?: string[] | undefined;
   hearings?: string[] | undefined;
   status: string;
-  createdAt: Date;
-  updatedAt: Date;
 }
