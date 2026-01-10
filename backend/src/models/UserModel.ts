@@ -2,18 +2,20 @@ import { Schema, model, Document } from 'mongoose';
 import bcrypt from 'bcrypt';
 import { UserRole } from '../types/UserRole';
 
-export interface UserDocument extends Document {
+export interface IUserModel {
   firstName: string;
   lastName: string;
   email: string;
   cpf: string;
   password: string;
   role: UserRole;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
-const UserSchema = new Schema<UserDocument>(
+export interface UserMongoDoc extends IUserModel, Document {}
+
+const UserSchema = new Schema<UserMongoDoc>(
   {
     firstName: { type: String, required: true, trim: true },
     lastName: { type: String, required: true, trim: true },
@@ -36,4 +38,4 @@ UserSchema.pre('save', async function () {
   }
 });
 
-export const UserModel = model<UserDocument>('Users', UserSchema);
+export const UserModel = model<UserMongoDoc>('Users', UserSchema);
