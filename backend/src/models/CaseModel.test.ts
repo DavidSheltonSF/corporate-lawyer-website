@@ -38,6 +38,9 @@ describe('Testing CaseModel', () => {
       status: CaseStatusEnum.em_andamento,
     };
     const result = await CaseModel.create(newCase);
+
+    // Check if the result contain  every value inside newCase
+    expect(result.toObject()).toMatchObject(newCase);
   });
 
   test('should get the populated client', async () => {
