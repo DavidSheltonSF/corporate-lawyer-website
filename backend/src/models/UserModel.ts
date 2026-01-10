@@ -24,7 +24,7 @@ const UserSchema = new Schema<UserMongoDocument>(
     password: { type: String, required: true },
     role: {
       type: String,
-      enum: ['lawyer', 'client', 'admin'],
+      enum: Object.values(UserRole),
       required: true,
     },
   },
