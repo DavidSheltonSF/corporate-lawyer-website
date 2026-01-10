@@ -65,7 +65,7 @@ export class MongodbCaseRepository implements CaseRepository {
 
     const regex = new RegExp(query || '', 'i');
 
-    const filter = { $or: [{ title: regex }, { description: regex }, { processNUmber: regex }] };
+    const filter = { $or: [{ title: regex }, { description: regex }, { processNufmber: regex }] };
 
     const casesQuery = CaseModel.find(filter);
     const casesTotalQuery = CaseModel.countDocuments(filter);
