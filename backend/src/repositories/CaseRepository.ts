@@ -8,7 +8,6 @@ import { Page } from '../types/Page';
 import { WithId } from '../types/WithId';
 
 export interface CaseRepository {
-  findAll(queryParams: CaseQuery, populateFields?: string[]): Promise<Page<WithId<Case>>>;
   findCaseCards(
     queryParams: CaseQuery,
     casePopulateOptions: CasePopulateOptions

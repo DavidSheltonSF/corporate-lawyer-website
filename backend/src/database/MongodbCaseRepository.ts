@@ -14,49 +14,6 @@ import { CaseCardDTO } from '../dtos/case/CaseCardDTO';
 import { toCaseDocumentDTO } from '../mappers/toCaseCardDTO';
 
 export class MongodbCaseRepository implements CaseRepository {
-  async findAll(
-    queryParams: CaseQuery = {},
-    populateFields?: string[]
-  ): Promise<Page<WithId<Case>>> {
-    const { query, status, limit = 10, page = 1 } = queryParams;
-
-    const regex = new RegExp(query || '', 'i');
-
-    const filter = { $or: [{ title: regex }, { description: regex }, { processNUmber: regex }] };
-
-    const casesQuery = CaseModel.find(filter);
-    const casesTotalQuery = CaseModel.countDocuments(filter);
-
-    if (status) {
-      casesQuery.find({ status });
-      casesTotalQuery.countDocuments({ status });
-    }
-
-    if (populateFields) {
-      casesQuery.populate(populateFields.join(' '), 'firstName lastName');
-    }
-
-    const casesPageQuery = casesQuery
-      .limit(limit)
-      .skip((page - 1) * limit)
-      .lean();
-
-    const [cases, totalItems] = await Promise.all([casesPageQuery, casesTotalQuery]);
-
-    const mappedCases = cases.map((cas) => {
-      return caseDocumentToDomain(cas);
-    });
-
-    return {
-      data: mappedCases,
-      meta: {
-        totalItems,
-        totalPages: Math.ceil(totalItems / Number(limit)),
-        currentPage: page,
-      },
-    };
-  }
-
   async findCaseCards(
     queryParams: CaseQuery = {},
     casePopulateFields: CasePopulateOptions = {}
