@@ -13,7 +13,7 @@ export interface IUserModel {
   updatedAt?: Date;
 }
 
-export interface UserMongoDoc extends IUserModel, Document {}
+interface UserMongoDoc extends IUserModel, Document {}
 
 const UserSchema = new Schema<UserMongoDoc>(
   {
