@@ -52,24 +52,6 @@ export class CaseService implements ICaseService {
     }
   }
 
-  async findAll(
-    queryParams: CaseQuery = {},
-    populateFields?: string[]
-  ): Promise<{
-    cases: CaseResponseDTO[];
-    total: number;
-    totalPages: number;
-  }> {
-    const casesPage = await this.caseRepository.findAll(queryParams, populateFields);
-    const { totalItems, totalPages } = casesPage.meta;
-
-    return {
-      cases: casesPage.data,
-      total: totalItems,
-      totalPages,
-    };
-  }
-
   async findCaseCards(
     queryParams: CaseQuery = {},
     casePopulateOptions: CasePopulateOptions = {}

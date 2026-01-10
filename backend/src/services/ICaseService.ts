@@ -8,14 +8,6 @@ import { WithId } from '../types/WithId';
 
 export interface ICaseService {
   create(data: CreateCaseDTO): Promise<WithId<CaseResponseDTO>>;
-  findAll(
-    queryParams: CaseQuery,
-    populateFields?: string[]
-  ): Promise<{
-    cases: CaseResponseDTO[];
-    total: number;
-    totalPages: number;
-  }>;
   findCaseCards(
     queryParams: CaseQuery,
     casePopulateOptions: CasePopulateOptions
