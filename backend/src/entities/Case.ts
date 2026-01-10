@@ -11,6 +11,6 @@ export interface Case {
   documents?: string[] | undefined;
   hearings?: string[] | undefined;
   status: CaseStatusEnum;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date | undefined;
+  updatedAt?: Date | undefined;
 }

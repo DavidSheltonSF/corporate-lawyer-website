@@ -7,6 +7,6 @@ export interface User {
   cpf: string;
   password: string;
   role: UserRole;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date | undefined;
+  updatedAt?: Date | undefined;
 }
