@@ -17,5 +17,5 @@ export async function authenticateUser(formData: FormData): Promise<string> {
 
   const json = await response.json();
 
-  return json.token;
+  return json.data.token;
 }
