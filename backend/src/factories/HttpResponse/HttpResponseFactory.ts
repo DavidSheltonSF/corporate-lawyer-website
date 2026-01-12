@@ -1,5 +1,5 @@
 import { HttpCode } from '../../types/HttpCode';
-import { HttpResponse } from '../../types/HttpResponse';
+import { HttpResponse } from './HttpResponse';
 import { HttpResponseParams } from './HttpResponseParams';
 
 export class HttpResponseFactory {
