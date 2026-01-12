@@ -1,7 +1,7 @@
 import { Application, Router } from 'express';
 import { requireAuth } from '../middlewares/requireAuth';
-import { makeAuthController } from '../factories/makeAuthController';
-import { makeCaseController } from '../factories/makeCaseController';
+import { makeAuthController } from '../factories/controllers/makeAuthController';
+import { makeCaseController } from '../factories/controllers/makeCaseController';
 
 export function configRouter(app: Application) {
   const authController = makeAuthController();
