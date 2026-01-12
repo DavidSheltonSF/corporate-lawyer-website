@@ -1,7 +1,7 @@
 import { type Request, type Response } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { IUserService } from '../services/IUserService';
-import { IAuthService } from '../services/IAuthService';
+import { IAuthService } from '../services/auth/IAuthService';
 import { IAuthController } from './IAuthController';
 import { HttpResponseFactory } from '../factories/HttpResponse/HttpResponseFactory';
 
@@ -69,7 +69,7 @@ export class AuthController implements IAuthController {
           .status(error.statusCode)
           .send(HttpResponseFactory.makeUnouthorized({ message: error.message }));
       }
-      
+
       return res.status(500).send(HttpResponseFactory.makeServerError({ message: error.message }));
     }
   };

@@ -1,9 +1,9 @@
-import { UnauthorizedError } from '../errors/UnauthorizedError';
-import { UserResponseDTO } from '../dtos/user/UserResponseDTO';
+import { UnauthorizedError } from '../../errors/UnauthorizedError';
+import { UserResponseDTO } from '../../dtos/user/UserResponseDTO';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { WithId } from '../types/WithId';
-import { UserRepository } from '../repositories/UserRepository';
+import { WithId } from '../../types/WithId';
+import { UserRepository } from '../../repositories/UserRepository';
 
 export class AuthService {
   constructor(private userRepository: UserRepository) {}

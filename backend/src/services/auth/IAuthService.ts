@@ -1,5 +1,5 @@
-import { UserResponseDTO } from '../dtos/user/UserResponseDTO';
-import { WithId } from '../types/WithId';
+import { UserResponseDTO } from '../../dtos/user/UserResponseDTO';
+import { WithId } from '../../types/WithId';
 
 export interface IAuthService {
   authenticate(
