@@ -1,5 +1,4 @@
 import { type Request, type Response } from 'express';
-import { badRequest, notFound, ok, serverError } from '../helpers/http-helpers';
 import { ICaseService } from '../services/ICaseService';
 import { IUserService } from '../services/IUserService';
 import { ICaseController } from './ICaseController';
@@ -77,7 +76,7 @@ export class CaseController implements ICaseController {
       limit,
     };
 
-    return res.status(200).send(ok(pagination));
+    return res.status(200).send(HttpResponseFactory.makeOk({ data: pagination }));
   };
 
   getStatsByClient = async (req: Request, res: Response) => {
