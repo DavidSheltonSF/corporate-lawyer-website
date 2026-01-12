@@ -69,8 +69,8 @@ export class AuthController implements IAuthController {
           .status(error.statusCode)
           .send(HttpResponseFactory.makeUnouthorized({ message: error.message }));
       }
-
-      return res.status(500).send(HttpResponseFactory.makeServerError(error.message));
+      
+      return res.status(500).send(HttpResponseFactory.makeServerError({ message: error.message }));
     }
   };
 }
