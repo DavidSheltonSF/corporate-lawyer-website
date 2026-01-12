@@ -1,5 +1,5 @@
-import { CaseController } from '../../controllers/CaseController';
-import { ICaseController } from '../../controllers/ICaseController';
+import { CaseController } from '../../controllers/case/CaseController';
+import { ICaseController } from '../../controllers/case/ICaseController';
 import { MongodbCaseRepository } from '../../database/MongodbCaseRepository';
 import { MongodbUserRepository } from '../../database/MongodbUserRepository';
 import { CaseService } from '../../services/case/CaseService';

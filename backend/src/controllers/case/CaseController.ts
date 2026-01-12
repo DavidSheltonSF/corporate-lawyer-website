@@ -1,9 +1,9 @@
 import { type Request, type Response } from 'express';
-import { ICaseService } from '../services/case/ICaseService';
-import { IUserService } from '../services/user/IUserService';
+import { ICaseService } from '../../services/case/ICaseService';
+import { IUserService } from '../../services/user/IUserService';
 import { ICaseController } from './ICaseController';
-import { CasePopulateOptions } from '../types/CasePopulateOptions';
-import { HttpResponseFactory } from '../factories/HttpResponse/HttpResponseFactory';
+import { CasePopulateOptions } from '../../types/CasePopulateOptions';
+import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
 
 export class CaseController implements ICaseController {
   constructor(private caseService: ICaseService, private userService: IUserService) {}
