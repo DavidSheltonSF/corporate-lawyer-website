@@ -1,6 +1,6 @@
 import { HttpCode } from '../../types/HttpCode';
 import { HttpResponse } from '../../types/HttpResponse';
-import { HttpResponseParams } from './HttpResponseParam';
+import { HttpResponseParams } from './HttpResponseParams';
 
 export class HttpResponseFactory {
   private static make(code: HttpCode, params: HttpResponseParams): HttpResponse {
