@@ -10,12 +10,11 @@ export async function authenticateUser(formData: FormData): Promise<string> {
     headers: { 'Content-Type': 'application/json' },
   });
 
-  if (!response.ok) {
-    const message = await response.text();
-    throw new Error(message);
-  }
-
   const json = await response.json();
+
+  if (!response.ok) {
+    throw new Error(json.message);
+  }
 
   return json.data.token;
 }
