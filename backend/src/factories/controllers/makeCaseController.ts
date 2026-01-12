@@ -3,7 +3,7 @@ import { ICaseController } from '../../controllers/ICaseController';
 import { MongodbCaseRepository } from '../../database/MongodbCaseRepository';
 import { MongodbUserRepository } from '../../database/MongodbUserRepository';
 import { CaseService } from '../../services/case/CaseService';
-import { UserService } from '../../services/UserService';
+import { UserService } from '../../services/user/UserService';
 
 export function makeCaseController(): ICaseController {
   const caseRepository = new MongodbCaseRepository();

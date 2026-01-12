@@ -1,8 +1,8 @@
-import { CreateUserDTO } from '../dtos/user/CreateUserDTO';
-import { UserResponseDTO } from '../dtos/user/UserResponseDTO';
-import { UserRepository } from '../repositories/UserRepository';
-import { UserRole } from '../types/UserRole';
-import { WithId } from '../types/WithId';
+import { CreateUserDTO } from '../../dtos/user/CreateUserDTO';
+import { UserResponseDTO } from '../../dtos/user/UserResponseDTO';
+import { UserRepository } from '../../repositories/UserRepository';
+import { UserRole } from '../../types/UserRole';
+import { WithId } from '../../types/WithId';
 
 export class UserService {
   constructor(private userRepository: UserRepository) {}
