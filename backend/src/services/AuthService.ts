@@ -33,8 +33,6 @@ export class AuthService {
         cpf: user.cpf,
         email: user.email,
         role: user.role,
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt,
       },
       token,
     };
