@@ -1,5 +1,5 @@
-import { createMockUserRepository } from '../tests/mocks/repositories/createMockUserRepository';
-import { UserRole } from '../types/UserRole';
+import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
+import { UserRole } from '../../types/UserRole';
 import { UserService } from './UserService';
 
 describe('Test UserService', () => {

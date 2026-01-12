@@ -2,7 +2,7 @@ import { AuthController } from '../../controllers/AuthController';
 import { IAuthController } from '../../controllers/IAuthController';
 import { MongodbUserRepository } from '../../database/MongodbUserRepository';
 import { AuthService } from '../../services/auth/AuthService';
-import { UserService } from '../../services/UserService';
+import { UserService } from '../../services/user/UserService';
 
 export function makeAuthController(): IAuthController {
   const userRepository = new MongodbUserRepository();

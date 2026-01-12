@@ -1,6 +1,6 @@
 import { type Request, type Response } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { IUserService } from '../services/IUserService';
+import { IUserService } from '../services/user/IUserService';
 import { IAuthService } from '../services/auth/IAuthService';
 import { IAuthController } from './IAuthController';
 import { HttpResponseFactory } from '../factories/HttpResponse/HttpResponseFactory';

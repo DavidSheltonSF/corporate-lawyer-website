@@ -1,6 +1,6 @@
-import { CreateUserDTO } from '../dtos/user/CreateUserDTO';
-import { UserResponseDTO } from '../dtos/user/UserResponseDTO';
-import { WithId } from '../types/WithId';
+import { CreateUserDTO } from '../../dtos/user/CreateUserDTO';
+import { UserResponseDTO } from '../../dtos/user/UserResponseDTO';
+import { WithId } from '../../types/WithId';
 
 export interface IUserService {
   create(data: CreateUserDTO): Promise<WithId<UserResponseDTO>>;
