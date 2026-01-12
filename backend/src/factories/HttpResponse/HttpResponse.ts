@@ -1,4 +1,4 @@
-import { HttpCode } from '../../types/HttpCode';
+import { HttpCode } from './HttpCode';
 
 export interface HttpResponse {
   data?: any;

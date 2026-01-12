@@ -1,4 +1,4 @@
-import { HttpCode } from '../../types/HttpCode';
+import { HttpCode } from './HttpCode';
 import { HttpResponse } from './HttpResponse';
 import { HttpResponseParams } from './HttpResponseParams';
 
