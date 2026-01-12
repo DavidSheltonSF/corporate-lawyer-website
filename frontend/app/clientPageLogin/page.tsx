@@ -13,14 +13,16 @@ export default function ClientPageLogin() {
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(formData: FormData) {
+    let authError = false;
     try {
       await login(formData);
     } catch (error: any) {
       console.log(error);
       setErrorMessage(error.message);
+      authError = true;
     } finally {
       setLoading(false);
-      if (errorMessage === '') {
+      if (!authError) {
         redirect('/clientPage');
       }
     }
