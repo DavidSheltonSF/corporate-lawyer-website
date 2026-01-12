@@ -1,5 +1,5 @@
 import { type Request, type Response } from 'express';
-import { ICaseService } from '../services/ICaseService';
+import { ICaseService } from '../services/case/ICaseService';
 import { IUserService } from '../services/IUserService';
 import { ICaseController } from './ICaseController';
 import { CasePopulateOptions } from '../types/CasePopulateOptions';

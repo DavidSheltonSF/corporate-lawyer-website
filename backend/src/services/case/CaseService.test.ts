@@ -1,6 +1,6 @@
 import { CaseService } from './CaseService';
-import { CaseStatusEnum } from '../types/CaseStatusEnum';
-import { createMockCaseRepository } from '../tests/mocks/repositories/createMockCaseRepository';
+import { CaseStatusEnum } from '../../types/CaseStatusEnum';
+import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
 
 describe('Test CaseService', () => {
   function makeSut() {
