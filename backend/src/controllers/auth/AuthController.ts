@@ -4,6 +4,7 @@ import { IUserService } from '../../services/user/IUserService';
 import { IAuthService } from '../../services/auth/IAuthService';
 import { IAuthController } from './IAuthController';
 import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
+import { getMissingFields } from '../../helpers/getMissingFields';
 
 export class AuthController implements IAuthController {
   constructor(private authService: IAuthService, private userService: IUserService) {}
@@ -39,23 +40,18 @@ export class AuthController implements IAuthController {
           .send(HttpResponseFactory.makeBadRequest({ message: 'Body request is missing' }));
       }
 
+      const missingFields = getMissingFields(body, ['email', 'password']);
+
+      if (missingFields.length > 0) {
+        return res.status(400).send(
+          HttpResponseFactory.makeBadRequest({
+            message: 'Missing required fields in request body',
+            data: missingFields,
+          })
+        );
+      }
+
       const { email, password } = body;
-
-      if (!email) {
-        return res
-          .status(400)
-          .send(
-            HttpResponseFactory.makeBadRequest({ message: 'Missing email in the body request' })
-          );
-      }
-
-      if (!password) {
-        return res
-          .status(400)
-          .send(
-            HttpResponseFactory.makeBadRequest({ message: 'Missing password in the body request' })
-          );
-      }
 
       const auth = await this.authService.authenticate(email, password);
 
