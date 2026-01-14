@@ -4,7 +4,6 @@ import { DynamicSection } from '@/components/DynamicSection';
 import { DynamicSections } from '@/components/DynamicSections';
 import { HeroSection } from '@/components/HeroSection';
 import { UserDataProvider } from '@/contexts/UserDataProvider';
-import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 import { fetchUserByToken } from '@/services/fetchUserByToken';
 import { User } from '@/types/User';
 import { WithId } from '@/types/WithId';
@@ -14,8 +13,8 @@ export default async function ClientPage() {
   let user: WithId<User> | null = null;
 
   try {
-    const token = await getTokenFromCookies();
-    user = await fetchUserByToken(token);
+    
+    user = await fetchUserByToken();
   } catch (error) {
     console.log(error);
     redirect('/clientPageLogin');
