@@ -39,7 +39,7 @@ export class CaseController implements ICaseController {
     }
   };
 
-  findByClientId = async (req: Request, res: Response) => {
+  findByClient = async (req: Request, res: Response) => {
     const token = req.headers.authorization;
 
     if (!token) {
