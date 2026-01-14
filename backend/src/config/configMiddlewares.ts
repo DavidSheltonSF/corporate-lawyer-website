@@ -1,11 +1,13 @@
 import { Application, json } from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 export function configMiddlewares(app: Application) {
   app.use(json());
+  app.use(cookieParser())
 
   const allowedOrigins = [process.env.FRONTEND, 'http://192.168.0.118:3001'];
   app.use(
