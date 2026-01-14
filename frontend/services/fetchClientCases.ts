@@ -1,9 +1,9 @@
 import { API_URL } from '@/config/api';
 import { MissingRequiredArgumentError } from '@/errors/MissingRequiredArgumentError';
+import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 import { CasesPagination } from '@/types/CasesPagination';
 
 export async function fetchClientCases(
-  clientId: string,
   queryParams: {
     query?: string;
     page: number;
@@ -13,24 +13,26 @@ export async function fetchClientCases(
   populate?: string[]
 ): Promise<CasesPagination> {
   try {
-    if (!clientId) {
-      throw new MissingRequiredArgumentError(fetchClientCases.name, 'clientId');
-    }
-
     if (!queryParams) {
       throw new MissingRequiredArgumentError(fetchClientCases.name, 'queryParams');
     }
 
     const { page, limit, query, status } = queryParams;
 
-    const baseRoute = `${API_URL}/client/${clientId}/cases`;
+    const baseRoute = `${API_URL}/client/cases`;
     console.log(queryParams);
 
     const queryString = `?page=${page}&limit=${limit || ''}&query=${query || ''}&status=${
       status || ''
     }&populate=${populate || ''}`;
 
-    const response = await fetch(`${baseRoute}/${queryString}`);
+    const token = await getTokenFromCookies();
+
+    const response = await fetch(`${baseRoute}/${queryString}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
 
     if (!response.ok) {
       throw Error(await response.text());

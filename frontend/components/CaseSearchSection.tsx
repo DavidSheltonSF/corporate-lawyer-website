@@ -23,7 +23,6 @@ export default function CaseSearchSection() {
     setCasesLoading(true);
     setPageIndex(page);
     const casesPagination = await fetchClientCases(
-      userData.id,
       {
         page,
         limit: 4,
@@ -48,8 +47,6 @@ export default function CaseSearchSection() {
   if (!context) {
     return <div>User data not found</div>;
   }
-
-  const userData = context.userData;
 
   return (
     <section className="flex flex-col items-center relative size-full">
