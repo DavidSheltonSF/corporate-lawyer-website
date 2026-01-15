@@ -3,8 +3,6 @@ import { DashboardCard } from './DashboardCard';
 import { DashboardCardInfo } from './DashboardCardInfo';
 import { WithId } from '@/types/WithId';
 import { User } from '@/types/User';
-import { fetchClientCases } from '@/services/fetchClientCases';
-import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { useEffect, useState } from 'react';
 import { mockPromise } from '@/test/mockPromise';
 import { DashboardCardSkeleton } from './DashboardCardSkeleton';
