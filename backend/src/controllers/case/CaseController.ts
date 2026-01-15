@@ -4,7 +4,7 @@ import { IUserService } from '../../services/user/IUserService';
 import { ICaseController } from './ICaseController';
 import { CasePopulateOptions } from '../../types/CasePopulateOptions';
 import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import { AuthenticatedUser } from '../../types/AuthenticatedUser';
 
 export class CaseController implements ICaseController {
   constructor(private caseService: ICaseService, private userService: IUserService) {}
@@ -40,20 +40,8 @@ export class CaseController implements ICaseController {
   };
 
   findByClient = async (req: Request, res: Response) => {
-    const token = req.headers.authorization;
-
-    if (!token) {
-      return res.send(400).send(HttpResponseFactory.makeUnouthorized({ message: 'Token missing' }));
-    }
-
-    const payload = jwt.decode(token) as JwtPayload;
-    const id = payload.sub;
-
-    if (!id) {
-      return res
-        .send(400)
-        .send(HttpResponseFactory.makeUnouthorized({ message: 'User id missing' }));
-    }
+    const authReq = req as Request & AuthenticatedUser;
+    const id = authReq.user.id;
 
     const { status, query, populate } = req.query;
 
