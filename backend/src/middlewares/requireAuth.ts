@@ -1,5 +1,7 @@
 import { type NextFunction, type Request, type Response } from 'express';
 import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
+import { AuthenticatedUser } from '../types/AuthenticatedUser';
+import { JwtPayload } from '../types/JwtPayload';
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
   try {
@@ -12,7 +14,14 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
       });
     }
 
-    const decode = jwt.verify(token, 'secret');
+    const decode = jwt.verify(token, 'secret') as JwtPayload;
+
+    const authReq = req as Request & AuthenticatedUser;
+
+    authReq.user = {
+      id: decode.sub,
+      email: decode.email,
+    };
 
     next();
   } catch (error: any) {
