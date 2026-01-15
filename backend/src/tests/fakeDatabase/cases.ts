@@ -59,11 +59,21 @@ export const fakeCases = [
   {
     client: fakeUserDatabase[2]!._id,
     lawyers: [fakeUserDatabase[0]!._id],
-    processNumber: '91283777777923-44177',
+    processNumber: '91244458777923-44177',
     title: 'Ação de danos à imagem',
     description: 'O cliente busca ressarcimento pelos danos causados à sua imagem publica.',
     court: 'TJ-SP',
     courtDivision: '14ª Vara Cível',
-    status: CaseStatusEnum.em_andamento,
+    status: CaseStatusEnum.encerrado,
+  },
+  {
+    client: fakeUserDatabase[2]!._id,
+    lawyers: [fakeUserDatabase[0]!._id],
+    processNumber: '91283585877923-44177',
+    title: 'Ação de pensão por morte',
+    description: 'O cliente busca pensão pela morte do marido',
+    court: 'TJ-SP',
+    courtDivision: '14ª Vara Cível',
+    status: CaseStatusEnum.encerrado,
   },
 ];
