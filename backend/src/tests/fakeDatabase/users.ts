@@ -3,7 +3,7 @@ import { UserRole } from '../../types/UserRole';
 
 export const fakeUserDatabase = [
   {
-    _id: Types.ObjectId.createFromTime(15258484),
+    _id: Types.ObjectId.createFromHexString('a3f9c1e70d4b8a2fff12ac90'),
     firstName: 'Flávia',
     lastName: 'Santiago',
     email: 'flavia@email.com',
@@ -12,7 +12,7 @@ export const fakeUserDatabase = [
     role: UserRole.lawyer,
   },
   {
-    _id: Types.ObjectId.createFromTime(5845131942),
+    _id: Types.ObjectId.createFromHexString('7e6d3b4a91c0deff1234abcd'),
     firstName: 'Carla',
     lastName: 'Medeiros',
     email: 'carla@email.com',
@@ -21,7 +21,7 @@ export const fakeUserDatabase = [
     role: UserRole.lawyer,
   },
   {
-    _id: Types.ObjectId.createFromTime(5845444442),
+    _id: Types.ObjectId.createFromHexString('0f1e2d3c4b5a69788796a5b4'),
     firstName: 'Julia',
     lastName: 'Sílva',
     email: 'ju@email.com',
@@ -30,7 +30,7 @@ export const fakeUserDatabase = [
     role: UserRole.client,
   },
   {
-    _id: Types.ObjectId.createFromTime(3115151),
+    _id: Types.ObjectId.createFromHexString('abcdef1234567890fedcba98'),
     firstName: 'Raimundo',
     lastName: 'Teixeira',
     email: 'raimundo@email.com',
