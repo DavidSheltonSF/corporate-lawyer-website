@@ -1,4 +1,4 @@
-export interface HttpResponseParams {
-  data?: any;
+export interface HttpResponseParams<T> {
+  data?: T;
   message?: string;
 }
