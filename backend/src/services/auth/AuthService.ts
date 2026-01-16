@@ -1,19 +1,15 @@
 import { UnauthorizedError } from '../../errors/UnauthorizedError';
-import { UserResponseDTO } from '../../dtos/user/UserResponseDTO';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { WithId } from '../../types/WithId';
 import { UserRepository } from '../../repositories/UserRepository';
 import dotenv from 'dotenv';
+import { AuthenticationResponse } from './AuthenticationResponse';
 
 dotenv.config();
 
 export class AuthService {
   constructor(private userRepository: UserRepository) {}
-  async authenticate(
-    email: string,
-    password: string
-  ): Promise<{ user: WithId<UserResponseDTO>; token: string }> {
+  async authenticate(email: string, password: string): Promise<AuthenticationResponse> {
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
@@ -35,14 +31,6 @@ export class AuthService {
     const token = jwt.sign({ sub: user.id, email }, API_SECRET, { expiresIn: 60 });
 
     return {
-      user: {
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        cpf: user.cpf,
-        email: user.email,
-        role: user.role,
-      },
       token,
     };
   }
