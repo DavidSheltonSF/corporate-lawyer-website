@@ -2,6 +2,9 @@ import { type NextFunction, type Request, type Response } from 'express';
 import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
 import { AuthenticatedUser } from '../types/AuthenticatedUser';
 import { JwtPayload } from '../types/JwtPayload';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
   try {
@@ -14,7 +17,13 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
       });
     }
 
-    const decode = jwt.verify(token, 'secret') as JwtPayload;
+    const API_SECRET = process.env.API_SECRET;
+
+    if (API_SECRET === undefined) {
+      throw Error('API Secret not found');
+    }
+
+    const decode = jwt.verify(token, API_SECRET) as JwtPayload;
 
     const authReq = req as Request & AuthenticatedUser;
 
