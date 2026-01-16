@@ -13,7 +13,6 @@ export default async function ClientPage() {
   let user: WithId<User> | null = null;
 
   try {
-    
     user = await fetchUserByToken();
   } catch (error) {
     console.log(error);
@@ -32,7 +31,7 @@ export default async function ClientPage() {
         <main>
           <DynamicSections sectionsNames={['Geral', 'Processos']}>
             <DynamicSection>
-              <DashboardSection userData={user} />
+              <DashboardSection />
             </DynamicSection>
             <DynamicSection>
               <CaseSearchSection />

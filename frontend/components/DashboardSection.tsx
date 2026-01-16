@@ -1,18 +1,12 @@
 'use client';
 import { DashboardCard } from './DashboardCard';
 import { DashboardCardInfo } from './DashboardCardInfo';
-import { WithId } from '@/types/WithId';
-import { User } from '@/types/User';
 import { useEffect, useState } from 'react';
 import { mockPromise } from '@/test/mockPromise';
 import { DashboardCardSkeleton } from './DashboardCardSkeleton';
 import { fetchClientCasesStats } from '@/services/fetchClientCasesStats';
 
-interface Props {
-  userData: WithId<User>;
-}
-
-export function DashboardSection({ userData }: Props) {
+export function DashboardSection() {
   const [casesCountLoading, setCasesCoundLoading] = useState(true);
   const [inProgressCasesCount, setInProgressCasesCount] = useState(0);
   const [closedCasesCount, setClosedCasesCount] = useState(0);
@@ -20,7 +14,7 @@ export function DashboardSection({ userData }: Props) {
   useEffect(() => {
     async function fetchCases() {
       const casesCount = await fetchClientCasesStats();
-      console.log(casesCount)
+      console.log(casesCount);
 
       mockPromise(10);
       setInProgressCasesCount(casesCount.inProgress);
