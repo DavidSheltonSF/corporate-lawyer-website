@@ -19,7 +19,7 @@ export function DashboardSection({ userData }: Props) {
 
   useEffect(() => {
     async function fetchCases() {
-      const casesCount = await fetchClientCasesStats(userData.id);
+      const casesCount = await fetchClientCasesStats();
       console.log(casesCount)
 
       mockPromise(10);
