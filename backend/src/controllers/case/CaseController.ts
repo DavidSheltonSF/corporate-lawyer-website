@@ -84,13 +84,8 @@ export class CaseController implements ICaseController {
 
   getStatsByClient = async (req: Request, res: Response) => {
     try {
-      const { id } = req.params;
-      if (!id) {
-        return res
-          .status(400)
-          .send(HttpResponseFactory.makeBadRequest({ message: 'Missing id param' }));
-      }
-
+      const authReq = req as Request & AuthenticatedUser;
+      const id = authReq.user.id;
       const clientExists = await this.userService.findById(id);
 
       if (!clientExists) {
