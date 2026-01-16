@@ -3,6 +3,7 @@ import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
 import { AuthenticatedUser } from '../types/AuthenticatedUser';
 import { JwtPayload } from '../types/JwtPayload';
 import dotenv from 'dotenv';
+import { HttpResponseFactory } from '../factories/HttpResponse/HttpResponseFactory';
 
 dotenv.config();
 
@@ -11,10 +12,9 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
     const token = req.headers.authorization;
 
     if (!token) {
-      return res.status(401).send({
-        code: 'UNAUTHORIZED',
-        message: 'Token missing',
-      });
+      return res
+        .status(401)
+        .send(HttpResponseFactory.makeUnouthorized({ message: 'Token missing' }));
     }
 
     const API_SECRET = process.env.API_SECRET;
@@ -35,23 +35,18 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
     next();
   } catch (error: any) {
     if (error instanceof TokenExpiredError) {
-      return res.status(401).send({
-        code: 'UNAUTHORIZED',
-        message: 'Token expired',
-      });
+      return res
+        .status(401)
+        .send(HttpResponseFactory.makeUnouthorized({ message: 'Token expired' }));
     }
 
     if (error instanceof JsonWebTokenError) {
-      return res.status(401).send({
-        code: 'UNAUTHORIZED',
-        message: 'Invalid token',
-      });
+      return res
+        .status(401)
+        .send(HttpResponseFactory.makeUnouthorized({ message: 'Invalid token' }));
     }
 
     console.log(error);
-    return res.status(500).send({
-      code: 'SERVER_ERROR',
-      message: error,
-    });
+    return res.status(500).send(HttpResponseFactory.makeServerError({ message: error }));
   }
 }
