@@ -5,6 +5,7 @@ import '@/styles/animations.css';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { WhatsAppButton } from '../components/WhatsAppButton';
+import { ModalsProvider } from '@/contexts/modals/ModalsProvider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -55,15 +56,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`flex flex-col ${geistSans.variable} ${geistMono.variable} antialiased relative min-h-screen bg-color-black`}
+        className={`flex flex-col ${geistSans.variable} ${geistMono.variable} antialiased relative min-h-screen bg-color-black relative`}
       >
-        {' '}
-        <header>
-          <Navbar />
-        </header>
-        <main className="flex-1">{children}</main>
-        <WhatsAppButton whatsAppNumber="#" />
-        <Footer />
+        <ModalsProvider>
+          <header>
+            <Navbar />
+          </header>
+          <main className="flex-1">{children}</main>
+          <WhatsAppButton whatsAppNumber="#" />
+          <Footer />
+        </ModalsProvider>
       </body>
     </html>
   );
