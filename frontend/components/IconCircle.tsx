@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ModalContext } from '../contexts/ModalContext';
+import { ServicesModalContext } from '../contexts/modals/ServicesModalContext';
 import { servicesDetails } from '@/data/servicesDetails';
 
 interface Props {
@@ -13,7 +13,7 @@ export function IconCircle(props: Props) {
   const serviceArea = servicesDetails[serviceAreaId];
   const { iconPath } = serviceArea;
 
-  const { setModalIsOpen, setServiceAreaId } = useContext<any | null>(ModalContext);
+  const { setIsOpen, setServiceAreaId } = useContext<any | null>(ServicesModalContext);
 
   function handleMouseOver(e: React.MouseEvent<HTMLElement>) {
     const iconImage = e.currentTarget.querySelector('.icon-image');
@@ -26,7 +26,7 @@ export function IconCircle(props: Props) {
   }
 
   function handleClick() {
-    setModalIsOpen(true);
+    setIsOpen(true);
     setServiceAreaId(serviceAreaId);
   }
 
