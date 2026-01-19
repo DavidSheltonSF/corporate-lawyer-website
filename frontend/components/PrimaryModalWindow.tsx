@@ -1,9 +1,12 @@
 'use client';
-import { useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 
-export function PrimaryModalWindow({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
+interface Props {
+  closeModal: Function;
+  children: React.ReactNode;
+}
+
+export function PrimaryModalWindow(props: Props) {
   const windowRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -23,22 +26,18 @@ export function PrimaryModalWindow({ children }: { children: React.ReactNode }) 
     };
   }, []);
 
-  function closeModal() {
-    const modalWindow = document.querySelector('.modalWindow');
-    modalWindow?.classList.add('fade-out-animation-fast');
-    setTimeout(() => router.back(), 200);
-  }
+  const { closeModal, children } = props;
 
   return (
-    <div className="fixed top-0 h-full w-full bg-black/20 fade-in-animation-fast">
+    <div className="h-full w-full bg-black/20 fade-in-animation-fast">
       <div
         ref={windowRef}
-        className="modalWindow flex flex-col fixed z-99999 left-1/2 translate-x-[-50%] top-[8px] min-lg:top-[80px] bg-color-primary w-[95%] min-lg:w-[960px] h-[85vh] rounded-xl overflow-hideden"
+        className="modalWindow flex flex-col relative  bg-color-primary size-full"
       >
         <div className="flex justify-end items-center h-[56px] pr-[8px]">
           <button
             className="size-[40px] cursor-pointer hover:bg-white/20 transition-[background-color] duration-300 rounded-lg"
-            onClick={closeModal}
+            onClick={() => closeModal()}
           >
             <img className="size-full" src="/icons/close.svg" alt="" />
           </button>
