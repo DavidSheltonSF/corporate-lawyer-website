@@ -5,9 +5,6 @@ import { ProfessionalCard } from '../components/ProfessionalCard';
 import { HeroSection } from '../components/HeroSection';
 import { professionalsInfo } from '@/data/professionalsInfo';
 import { servicesDetails } from '@/data/servicesDetails';
-import { ServiceDetailsModal } from '../components/ServiceDetailsModal';
-import { ModalWindow } from '../components/ModalWindow';
-import { ModalContext } from '../contexts/ModalContext';
 import { Carousel } from '../components/Carousel';
 import { DynamicSections } from '@/components/DynamicSections';
 import { DynamicSection } from '@/components/DynamicSection';
@@ -18,9 +15,7 @@ export default function Home() {
 
   return (
     <div className="bg-color-black">
-      <ModalWindow modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}>
-        <ServiceDetailsModal serviceAreaId={serviceAreaId} />
-      </ModalWindow>
+      
       <HeroSection
         title="ESCRITÓRIO DE ADVOCACIA MEDEIROS E SANTIAGO"
         additionalStyles="h-[50vh] min-lg:h-[70vh]"
@@ -29,7 +24,6 @@ export default function Home() {
       />
 
       <main>
-        <ModalContext value={{ modalIsOpen, setModalIsOpen, serviceAreaId, setServiceAreaId }}>
           <DynamicSections sectionsNames={['Sobre Nós', 'Serviços', 'Equipe']}>
             <DynamicSection>
               <div className="flex flex-col gap-[32px] lg:w-[70%] text-[1.5rem]">
@@ -80,7 +74,6 @@ export default function Home() {
               </div>
             </DynamicSection>
           </DynamicSections>
-        </ModalContext>
       </main>
     </div>
   );
