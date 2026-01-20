@@ -6,7 +6,7 @@ import { UploadModalContext } from '@/contexts/modals/UploadModalContext';
 import { ModalContextType } from '@/contexts/modals/ModalContextType';
 import { MissingContextError } from '@/errors/MissingContextError';
 
-export function UploadModalButton() {
+export function OpenUploadModalButton() {
   const context = useContext<ModalContextType | undefined>(UploadModalContext);
 
   if (!context) {
