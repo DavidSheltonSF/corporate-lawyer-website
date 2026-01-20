@@ -1,10 +1,11 @@
 import { DocumentTable } from '@/components/DocumentTable';
 import { FieldValue } from '@/components/FieldValue';
+import { OpenUploadModalButton } from '@/components/OpenUploadModalButton';
+import { UploadModal } from '@/components/UploadModal';
 import { formatStringList } from '@/lib/formatStringList';
 import { fetchCaseById } from '@/services/fetchCaseById';
 import { CaseDocumentPopulated } from '@/types/CaseDocumentPopulated';
 export default async function CasePage({ params }: { params: Promise<{ id: string }> }) {
-
   const { id } = await params;
 
   const caseData = await fetchCaseById(id, ['client', 'lawyers']);
@@ -53,9 +54,12 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
 
   return (
     <div className="flex flex-col h-full w-full bg-color-primary">
+      <div className="w-[50%] h-[50%]">
+        <UploadModal />
+      </div>
       {/* This div below is necessary to push the content down from the absolute navbar when this page is open outside a modal */}
-      <div className='w-full h-[64px]'></div> 
-      <div className='size-full bg-color-white'>
+      <div className="w-full h-[64px]"></div>
+      <div className="size-full bg-color-white">
         <header className="flex items-center bg-color-primary border-t border-white/50 pl-[24px] py-[16px]">
           <h1 className=" text-color-white text-4xl">{title}</h1>
         </header>
@@ -75,8 +79,11 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
             <h1 className="font-bold text-3xl">Resumo</h1>
             <p>{description || ''}</p>
           </div>
-          <div className="flex items-center h-[56px] bg-color-primary border-t pl-[24px]">
+          <div className="flex relative items-center h-[56px] bg-color-primary border-t pl-[24px]">
             <h1 className=" text-color-white text-3xl">Documentação</h1>
+            <div className="absolute top-1/2 translate-y-[-50%] right-[16px]">
+              <OpenUploadModalButton />
+            </div>
           </div>
           <div className="w-full h-[240px] pl-[24px] pb-[16px] overflow-y-scroll">
             <DocumentTable documents={fakeDocuments} />
