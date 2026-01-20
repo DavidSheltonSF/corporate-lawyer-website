@@ -1,7 +1,7 @@
 import { UserName } from '../../types/UserName';
 import { WithId } from '../../types/WithId';
 
-export interface CaseDocumentDTO {
+export interface CaseFileResponseDTO {
   name: string;
   url: string;
   uploadedBy: WithId<UserName>;
