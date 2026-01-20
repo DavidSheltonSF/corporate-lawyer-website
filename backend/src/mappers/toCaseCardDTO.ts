@@ -4,7 +4,7 @@ import { caseDocumentMongoDocToDTO } from './toCaseDocumentDTO';
 import { toHearingDTO } from './toHearingDTO';
 import { toUserName } from './toUserName';
 
-export function toCaseDocumentDTO(cas: any): WithId<CaseCardDTO> {
+export function toCaseCardDTO(cas: any): WithId<CaseCardDTO> {
   const client = toUserName(cas.client);
   const lawyers = cas.lawyers.map(toUserName);
 

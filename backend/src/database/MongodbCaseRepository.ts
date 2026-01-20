@@ -11,7 +11,7 @@ import { caseDocumentToDomain } from '../mappers/caseDocumentToDomain';
 import { Page } from '../types/Page';
 import { CasePopulateOptions } from '../types/CasePopulateOptions';
 import { CaseCardDTO } from '../dtos/case/CaseCardDTO';
-import { toCaseDocumentDTO } from '../mappers/toCaseCardDTO';
+import { toCaseCardDTO } from '../mappers/toCaseCardDTO';
 
 export class MongodbCaseRepository implements CaseRepository {
   async findCaseCards(
@@ -69,7 +69,7 @@ export class MongodbCaseRepository implements CaseRepository {
 
     const [cases, totalItems] = await Promise.all([casesPageQuery, casesTotalQuery]);
 
-    const mappedCases = cases.map(toCaseDocumentDTO);
+    const mappedCases = cases.map(toCaseCardDTO);
 
     return {
       data: mappedCases,
