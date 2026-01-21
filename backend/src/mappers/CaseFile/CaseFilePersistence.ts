@@ -5,5 +5,6 @@ export type CaseFilePersistence = {
   name: string;
   url: string;
   uploadedBy: UserIdentityPersistence;
-  uploadedAt: { toISOString(): string };
+  case: { toString(): string };
+  createdAt: { toISOString(): string };
 };
