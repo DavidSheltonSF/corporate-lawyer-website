@@ -1,5 +1,6 @@
 import { UserName } from '../../types/UserName';
 import { WithId } from '../../types/WithId';
+import { CaseFileDTO } from '../caseFile/CaseFileDTO';
 import { HearingDTO } from '../hearing/HearingDTO';
 
 export interface CaseCardDTO {
@@ -10,8 +11,8 @@ export interface CaseCardDTO {
   description: string;
   court: string; //tribunal
   courtDivision: string; //vara
-  documents?: CaseCardDTO[] | undefined;
-  hearings?: HearingDTO[] | undefined;
+  documents: CaseFileDTO[];
+  hearings: HearingDTO[];
   status: string;
   createdAt: string;
   updatedAt: string;
