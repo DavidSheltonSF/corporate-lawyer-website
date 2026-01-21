@@ -6,7 +6,5 @@ export interface CreateCaseDTO {
   description: string;
   court: string; //tribunal
   courtDivision: string; //vara
-  documents?: string[];
-  hearings?: string[];
   status: string;
 }
