@@ -4,6 +4,7 @@ import { MongodbUserRepository } from './MongodbUserRepository';
 import { UserRole } from '../types/UserRole';
 import bcrypt from 'bcrypt';
 import { DatabaseConnector } from '../config/database';
+import { Types } from 'mongoose';
 config();
 
 jest.setTimeout(999999);
@@ -102,5 +103,28 @@ describe('Test UserRepository', () => {
 
     expect(user).toMatchObject(newUserWithoutPassword);
     expect(passwordIsValid).toBeTruthy();
+  });
+
+  test('should return true if user exists, but false if user does not exist', async () => {
+    const { userRepository } = makeSut();
+
+    const newUser = {
+      firstName: 'José',
+      lastName: 'Sílva',
+      cpf: '18877748777',
+      email: 'jose@email.com',
+      password: 'jose123',
+      role: UserRole.client,
+    };
+
+    const newId = (await UserModel.create(newUser))._id;
+
+    const existingUser = await userRepository.exists(newId.toString());
+    const nonExistingUser = await userRepository.exists(
+      Types.ObjectId.createFromTime(89466141).toString()
+    );
+
+    expect(existingUser).toBeTruthy();
+    expect(nonExistingUser).toBeFalsy();
   });
 });

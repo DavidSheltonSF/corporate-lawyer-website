@@ -7,4 +7,5 @@ export interface UserRepository {
   findById(id: string): Promise<WithId<User> | null>;
   findByEmail(email: string): Promise<WithId<User> | null>;
   create(user: CreateUserDTO): Promise<WithId<User>>;
+  exists(id: string): Promise<boolean>;
 }
