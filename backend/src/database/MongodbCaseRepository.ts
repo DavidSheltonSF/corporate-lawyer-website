@@ -94,17 +94,6 @@ export class MongodbCaseRepository implements CaseRepository {
     const client = new Types.ObjectId(data.client);
     const lawyers = data.lawyers.map((lawyer) => new Types.ObjectId(lawyer));
 
-    let documents;
-    let hearings;
-
-    if (data.documents) {
-      documents = data.documents.map((document) => new Types.ObjectId(document));
-    }
-
-    if (data.hearings) {
-      hearings = data.hearings.map((hearing) => new Types.ObjectId(hearing));
-    }
-
     const cas = await CaseModel.create({
       client,
       lawyers,
@@ -113,8 +102,6 @@ export class MongodbCaseRepository implements CaseRepository {
       description: data.description,
       court: data.court,
       courtDivision: data.courtDivision,
-      documents,
-      hearings,
       status: data.status,
     });
 
