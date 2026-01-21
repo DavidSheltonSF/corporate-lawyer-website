@@ -3,6 +3,6 @@ import { CaseFile } from '../entities/CaseFile';
 import { WithId } from '../types/WithId';
 
 export interface CaseFileRepository {
-  findByCaseId(id: string): WithId<CaseFileDTO>[];
-  create(data: CaseFile): WithId<CaseFileDTO>;
+  findByCaseId(id: string): Promise<WithId<CaseFileDTO>[]>;
+  create(data: CaseFile): Promise<WithId<CaseFileDTO>>;
 }
