@@ -5,5 +5,6 @@ export interface CaseFileDTO {
   name: string;
   url: string;
   uploadedBy: WithId<UserIdentity>;
+  case: string;
   uploadedAt: string;
 }
