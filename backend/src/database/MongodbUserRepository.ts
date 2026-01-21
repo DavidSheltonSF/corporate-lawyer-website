@@ -72,6 +72,6 @@ export class MongodbUserRepository implements UserRepository {
 
   async exists(id: string): Promise<boolean> {
     const result = await UserModel.findById(id);
-    return result != undefined;
+    return result !== null;
   }
 }
