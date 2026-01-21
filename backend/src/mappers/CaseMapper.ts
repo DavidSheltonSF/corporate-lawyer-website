@@ -1,13 +1,13 @@
 import { CaseCardDTO } from '../dtos/case/CaseCardDTO';
 import { WithId } from '../types/WithId';
-import { CaseCardPersistence } from './Case/CasePersistence';
+import { CaseCardPersistencePopulated } from './Case/CasePersistencePopulated';
 import { CaseFileMapper } from './CaseFile/CaseFileMapper';
 import { HearingMapper } from './Hearing/HearingMapper';
 import { toUserIdentity } from './toUserIdentity';
 
 export class CaseMapper {
-  static toCardPresentation(caseCard: unknown): WithId<CaseCardDTO> {
-    const caseCardPersistence = caseCard as CaseCardPersistence;
+  static persistenceToPopulatedPresentation(caseCard: unknown): WithId<CaseCardDTO> {
+    const caseCardPersistence = caseCard as CaseCardPersistencePopulated;
     const client = toUserIdentity(caseCardPersistence.client);
     const lawyers = caseCardPersistence.lawyers.map(toUserIdentity);
     const documents = caseCardPersistence.documents.map(CaseFileMapper.persistenceToPresentation);
