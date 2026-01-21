@@ -15,6 +15,6 @@ export type CaseCardPersistencePopulated = {
   lawyers: UserIdentityPersistence[];
   documents: CaseFilePersistence[];
   hearings: HearingPersistence[];
-  createdAt: { toISOString(): string };
-  updatedAt: { toISOString(): string };
+  createdAt: Date;
+  updatedAt: Date;
 };

@@ -15,6 +15,6 @@ export type CaseCardPersistence = {
   lawyers: { toString(): string }[];
   documents: { toString(): string }[];
   hearings: { toString(): string }[];
-  createdAt: { toISOString(): string };
-  updatedAt: { toISOString(): string };
+  createdAt: Date;
+  updatedAt: Date;
 };
