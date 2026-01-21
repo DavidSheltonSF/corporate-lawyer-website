@@ -3,7 +3,7 @@ import { CaseFilePersistence } from '../CaseFile/CaseFilePersistence';
 import { HearingPersistence } from '../Hearing/HearingPersistence';
 import { UserIdentityPersistence } from '../User/UserIdentityPersistence';
 
-export type CaseCardPersistence = {
+export type CaseCardPersistencePopulated = {
   _id: { toString(): string };
   title: string;
   processNumber: string;
@@ -11,10 +11,10 @@ export type CaseCardPersistence = {
   courtDivision: string;
   status: CaseStatusEnum;
   description: string;
-  client: { toString(): string };
-  lawyers: { toString(): string }[];
-  documents: { toString(): string }[];
-  hearings: { toString(): string }[];
+  client: UserIdentityPersistence;
+  lawyers: UserIdentityPersistence[];
+  documents: CaseFilePersistence[];
+  hearings: HearingPersistence[];
   createdAt: { toISOString(): string };
   updatedAt: { toISOString(): string };
 };
