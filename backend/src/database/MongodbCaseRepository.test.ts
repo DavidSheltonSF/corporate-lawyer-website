@@ -5,6 +5,7 @@ import { CaseModel } from '../models/CaseModel';
 import { CaseStatusEnum } from '../types/CaseStatusEnum';
 import { UserRole } from '../types/UserRole';
 import { IUserModel, UserModel } from '../models/UserModel';
+import { Types } from 'mongoose';
 config();
 jest.setTimeout(999999);
 
@@ -22,16 +23,8 @@ describe('Test CaseRepository', () => {
     await DatabaseConnector.disconnect();
   });
 
-  function makeSut() {
+  async function makeSut() {
     const caseRepository = new MongodbCaseRepository();
-
-    return {
-      caseRepository,
-    };
-  }
-
-  test('Should find populated cases properly', async () => {
-    const { caseRepository } = makeSut();
 
     const newClient: IUserModel = {
       firstName: 'Flávia',
@@ -53,6 +46,16 @@ describe('Test CaseRepository', () => {
 
     const clientId = (await UserModel.create(newClient))._id;
     const lawyerId = (await UserModel.create(newLawyer))._id;
+
+    return {
+      caseRepository,
+      clientId,
+      lawyerId,
+    };
+  }
+
+  test('Should find populated cases properly', async () => {
+    const { caseRepository, clientId, lawyerId } = await makeSut();
 
     const newCase = {
       client: clientId,
@@ -79,5 +82,30 @@ describe('Test CaseRepository', () => {
     expect(case1?.court).toBe(newCase.court);
     expect(case1?.courtDivision).toBe(newCase.courtDivision);
     expect(case1?.status).toBe(newCase.status);
+  });
+
+  test('should return true if case exists, but false if case does not exist', async () => {
+    const { caseRepository, clientId, lawyerId } = await makeSut();
+
+    const newCase = {
+      client: clientId,
+      lawyers: [lawyerId],
+      processNumber: '354435235425623',
+      title: 'Case title',
+      description: 'Case description',
+      court: 'court', //tribunal
+      courtDivision: 'court division', //vara
+      status: CaseStatusEnum.aberto,
+    };
+
+    const newId = (await CaseModel.create(newCase))._id;
+
+    const existingCase = await caseRepository.exists(newId.toString());
+    const nonExistingCase = await caseRepository.exists(
+      Types.ObjectId.createFromTime(822211126141).toString()
+    );
+
+    expect(existingCase).toBeTruthy();
+    expect(nonExistingCase).toBeFalsy();
   });
 });

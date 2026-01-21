@@ -124,4 +124,10 @@ export class MongodbCaseRepository implements CaseRepository {
       closed,
     };
   }
+
+  async exists(id: string): Promise<boolean> {
+    const result = await CaseModel.findById(id);
+    console.log(result)
+    return result !== null;
+  }
 }

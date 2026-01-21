@@ -15,4 +15,5 @@ export interface CaseRepository {
   findById(id: string): Promise<WithId<Case> | null>;
   create(user: CreateCaseDTO): Promise<WithId<Case>>;
   getStats(client?: string): Promise<CaseStats | null>;
+  exists(id: string): Promise<boolean>
 }
