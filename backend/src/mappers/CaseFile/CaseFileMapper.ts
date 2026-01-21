@@ -3,21 +3,21 @@ import { WithId } from '../../types/WithId';
 import { CaseFilePersistence } from './CaseFilePersistence';
 
 export class CaseFileMapper {
-  static persistenceToPresentation<T extends CaseFilePersistence>(
-    caseFile: T
-  ): WithId<CaseFileDTO> {
+  static persistenceToPresentation(caseFile: unknown): WithId<CaseFileDTO> {
+    const caseFilePersistence = caseFile as CaseFilePersistence;
     const uploadedBy = {
-      id: caseFile.uploadedBy._id.toString(),
-      firstName: caseFile.uploadedBy.firstName,
-      lastName: caseFile.uploadedBy.lastName,
+      id: caseFilePersistence.uploadedBy._id.toString(),
+      firstName: caseFilePersistence.uploadedBy.firstName,
+      lastName: caseFilePersistence.uploadedBy.lastName,
     };
 
     return {
-      id: caseFile._id.toString(),
-      name: caseFile.name,
-      url: caseFile.url,
-      uploadedAt: caseFile.uploadedAt.toISOString(),
+      id: caseFilePersistence._id.toString(),
+      name: caseFilePersistence.name,
+      url: caseFilePersistence.url,
       uploadedBy: uploadedBy,
+      case: caseFilePersistence.case.toString(),
+      createdAt: caseFilePersistence.createdAt.toISOString(),
     };
   }
 }
