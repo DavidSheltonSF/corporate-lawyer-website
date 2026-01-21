@@ -7,11 +7,10 @@ import { CaseStats } from '../types/CaseStats';
 import { CaseStatusEnum } from '../types/CaseStatusEnum';
 import { CaseQuery } from '../types/CaseQuery';
 import { Case } from '../entities/Case';
-import { caseDocumentToDomain } from '../mappers/caseDocumentToDomain';
 import { Page } from '../types/Page';
 import { CasePopulateOptions } from '../types/CasePopulateOptions';
 import { CaseCardDTO } from '../dtos/case/CaseCardDTO';
-import { toCaseCardDTO } from '../mappers/toCaseCardDTO';
+import { CaseMapper } from '../mappers/CaseMapper';
 
 export class MongodbCaseRepository implements CaseRepository {
   async findCaseCards(
@@ -69,7 +68,7 @@ export class MongodbCaseRepository implements CaseRepository {
 
     const [cases, totalItems] = await Promise.all([casesPageQuery, casesTotalQuery]);
 
-    const mappedCases = cases.map(toCaseCardDTO);
+    const mappedCases = cases.map(CaseMapper.persistenceToPopulatedPresentation);
 
     return {
       data: mappedCases,
@@ -87,7 +86,7 @@ export class MongodbCaseRepository implements CaseRepository {
     if (!cas) {
       return null;
     }
-    return caseDocumentToDomain(cas);
+    return CaseMapper.persistenceToDomain(cas);
   }
 
   async create(data: CreateCaseDTO): Promise<WithId<Case>> {
@@ -105,7 +104,7 @@ export class MongodbCaseRepository implements CaseRepository {
       status: data.status,
     });
 
-    return caseDocumentToDomain(cas);
+    return CaseMapper.persistenceToDomain(cas);
   }
 
   async getStats(client?: string): Promise<CaseStats | null> {
