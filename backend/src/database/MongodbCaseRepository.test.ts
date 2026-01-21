@@ -39,7 +39,7 @@ describe('Test CaseRepository', () => {
       email: 'flavia@email.com',
       cpf: '11144744474',
       password: 'flavia123',
-      role: UserRole.lawyer,
+      role: UserRole.client,
     };
 
     const newLawyer = {
