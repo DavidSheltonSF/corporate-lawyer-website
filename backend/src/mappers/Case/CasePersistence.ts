@@ -14,7 +14,7 @@ export type CaseCardPersistence = {
   client: UserIdentityPersistence;
   lawyers: UserIdentityPersistence[];
   documents: CaseFilePersistence[];
-  hearings: HearingPersistence;
+  hearings: HearingPersistence[];
   createdAt: { toISOString(): string };
   updatedAt: { toISOString(): string };
 };
