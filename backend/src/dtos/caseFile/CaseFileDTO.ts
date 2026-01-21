@@ -6,5 +6,5 @@ export interface CaseFileDTO {
   url: string;
   uploadedBy: WithId<UserIdentity>;
   case: string;
-  uploadedAt: string;
+  createdAt: string;
 }
