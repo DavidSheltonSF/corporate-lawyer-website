@@ -6,7 +6,6 @@ export interface ICaseFileModel {
   size: number;
   mimeType: string;
   uploadedBy: Types.ObjectId;
-  case: Types.ObjectId;
   uploadedAt: Date;
 }
 
@@ -20,7 +19,6 @@ export const CaseFileSchema = new Schema<CaseFileMongoDocument>(
     size: { type: Number, required: true },
     mimeType: { type: String, required: true },
     uploadedBy: { type: Types.ObjectId, required: true, ref: 'Users' },
-    case: { type: Types.ObjectId, required: true, ref: 'Cases', index: true },
     uploadedAt: { type: Date, default: Date.now },
   },
   { _id: false }
