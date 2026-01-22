@@ -12,6 +12,7 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
     const token = req.headers.authorization;
 
     if (!token) {
+      console.log('Token missing');
       return res
         .status(401)
         .send(HttpResponseFactory.makeUnouthorized({ message: 'Token missing' }));
@@ -20,6 +21,7 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
     const API_SECRET = process.env.API_SECRET;
 
     if (API_SECRET === undefined) {
+      console.log('API Secret not found');
       throw Error('API Secret not found');
     }
 
@@ -34,6 +36,7 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
 
     next();
   } catch (error: any) {
+    console.log(error);
     if (error instanceof TokenExpiredError) {
       return res
         .status(401)
