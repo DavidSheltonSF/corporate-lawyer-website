@@ -1,5 +1,7 @@
 import { Schema, model, Document, Types } from 'mongoose';
 import { CaseStatusEnum } from '../types/CaseStatusEnum';
+import { CaseFileSchema, ICaseFileModel } from './CaseFileModel';
+import { WithMongoId } from '../database/types/WithMongoId';
 
 export interface ICaseModel {
   client: Types.ObjectId;
@@ -9,8 +11,8 @@ export interface ICaseModel {
   description: string;
   court: string; //tribunal
   courtDivision: string; //vara
-  documents?: Types.ObjectId[] | undefined;
-  hearings?: Types.ObjectId[] | undefined;
+  files: WithMongoId<ICaseFileModel>[];
+  hearings: Types.ObjectId[];
   status: CaseStatusEnum;
   createdAt?: Date;
   updatedAt?: Date;
@@ -27,7 +29,7 @@ const CaseSchema = new Schema<CaseMongoDocument>(
     description: { type: String, required: true },
     court: { type: String, required: true },
     courtDivision: { type: String, required: true },
-    documents: [{ type: Types.ObjectId, ref: 'CaseDocuments', index: true }],
+    files: { type: [CaseFileSchema], default: [] },
     hearings: [{ type: Types.ObjectId, ref: 'Hearings', index: true }],
     status: {
       type: String,
