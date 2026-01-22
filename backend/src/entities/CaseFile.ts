@@ -1,7 +1,8 @@
 export interface CaseFile {
   name: string;
   url: string;
+  size: number;
+  mimeType: string;
   uploadedBy: string;
-  case: string;
   uploadedAt?: Date | undefined;
 }
