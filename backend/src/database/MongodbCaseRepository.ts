@@ -79,17 +79,29 @@ export class MongodbCaseRepository implements CaseRepository {
   }
 
   async findById(id: string): Promise<WithId<CaseCardDTO> | null> {
-    const cas = await CaseModel.findById(id)
-      .populate({
-        path: 'files.uploadedBy',
-        select: 'firstName lastName',
-      })
-      .lean();
+    const query = CaseModel.findById(id);
 
-    if (!cas) {
+    query.populate({
+      path: 'files.uploadedBy',
+      select: 'firstName lastName',
+    });
+
+    query.populate({
+      path: 'client',
+      select: 'firstName lastName',
+    });
+
+    query.populate({
+      path: 'lawyers',
+      select: 'firstName lastName',
+    });
+
+    const foundQuery = await query.lean();
+
+    if (!foundQuery) {
       return null;
     }
-    return CaseMapper.persistenceToPopulatedPresentation(cas);
+    return CaseMapper.persistenceToPopulatedPresentation(foundQuery);
   }
 
   async create(data: CreateCaseDTO): Promise<WithId<Case>> {
