@@ -105,13 +105,19 @@ export class CaseController implements ICaseController {
 
   addFile = async (req: Request, res: Response) => {
     try {
-      const id = req.params.id
+      const authReq = req as Request & AuthenticatedUser;
+      const userId = authReq.user.id;
+      const caseId = req.params.id;
 
-
-      if (!id) {
+      if (!userId) {
         return res
           .status(400)
-          .json(HttpResponseFactory.makeBadRequest({ message: 'Missing id' }));
+          .json(HttpResponseFactory.makeBadRequest({ message: 'Missing userId' }));
+      }
+      if (!caseId) {
+        return res
+          .status(400)
+          .json(HttpResponseFactory.makeBadRequest({ message: 'Missing case' }));
       }
 
       const file = req.file;
@@ -122,16 +128,13 @@ export class CaseController implements ICaseController {
           .json(HttpResponseFactory.makeBadRequest({ message: 'Missing file' }));
       }
 
-
-      const response = await this.caseService.addFile(id, {
+      const response = await this.caseService.addFile(caseId, {
         name: file.originalname,
         url: 'www.fakeUrl/' + Number(new Date()).toString(),
         size: file.size,
         mimeType: file.mimetype,
-        uploadedBy: String(id),
+        uploadedBy: String(userId),
       });
-
-      console.log(response?.files[0]?.uploadedBy)
 
       return res.status(200).json(HttpResponseFactory.makeOk({ data: response }));
     } catch (error: any) {
