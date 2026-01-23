@@ -102,4 +102,40 @@ export class CaseController implements ICaseController {
       return res.status(500).send(HttpResponseFactory.makeServerError({ message: error.message }));
     }
   };
+
+  addFile = async (req: Request, res: Response) => {
+    try {
+      const id = req.params.id
+
+
+      if (!id) {
+        return res
+          .status(400)
+          .json(HttpResponseFactory.makeBadRequest({ message: 'Missing id' }));
+      }
+
+      const file = req.file;
+
+      if (!file) {
+        return res
+          .status(400)
+          .json(HttpResponseFactory.makeBadRequest({ message: 'Missing file' }));
+      }
+
+
+      const response = await this.caseService.addFile(id, {
+        name: file.originalname,
+        url: 'www.fakeUrl/' + Number(new Date()).toString(),
+        size: file.size,
+        mimeType: file.mimetype,
+        uploadedBy: String(id),
+      });
+
+      console.log(response?.files[0]?.uploadedBy)
+
+      return res.status(200).json(HttpResponseFactory.makeOk({ data: response }));
+    } catch (error: any) {
+      return res.status(500).json(HttpResponseFactory.makeServerError({ message: error }));
+    }
+  };
 }
