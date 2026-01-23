@@ -1,4 +1,6 @@
 import { CaseCardDTO } from '../../dtos/case/CaseCardDTO';
+import { CaseFileDTO } from '../../dtos/caseFile/CaseFileDTO';
+import { CreateCaseFileDTO } from '../../dtos/caseFile/CreateCaseFileDTO';
 import { CaseResponseDTO } from '../../dtos/user/CaseResponseDTO';
 import { CreateCaseDTO } from '../../dtos/user/CreateCaseDTO';
 import { CasePopulateOptions } from '../../types/CasePopulateOptions';
@@ -16,6 +18,7 @@ export interface ICaseService {
     total: number;
     totalPages: number;
   }>;
-  findById(id: string, populateFields?: string[]): Promise<CaseResponseDTO | null>;
+  findById(id: string, populateFields?: string[]): Promise<CaseCardDTO | null>;
   getStats(client?: string): Promise<CaseStats | null>;
+  addFile(id: string, file: CreateCaseFileDTO): Promise<WithId<CaseCardDTO> | null>;
 }

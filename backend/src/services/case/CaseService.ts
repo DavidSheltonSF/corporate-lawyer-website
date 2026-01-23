@@ -1,4 +1,5 @@
 import { CaseCardDTO } from '../../dtos/case/CaseCardDTO';
+import { CreateCaseFileDTO } from '../../dtos/caseFile/CreateCaseFileDTO';
 import { CaseResponseDTO } from '../../dtos/user/CaseResponseDTO';
 import { CreateCaseDTO } from '../../dtos/user/CreateCaseDTO';
 import { NotFoundError } from '../../errors/NotFoundError';
@@ -68,7 +69,7 @@ export class CaseService implements ICaseService {
     };
   }
 
-  async findById(id: string, populateFields?: string[]): Promise<CaseResponseDTO | null> {
+  async findById(id: string, populateFields?: string[]): Promise<CaseCardDTO | null> {
     try {
       const cas = await this.caseRepository.findById(id);
 
@@ -84,5 +85,15 @@ export class CaseService implements ICaseService {
 
   async getStats(client?: string): Promise<CaseStats | null> {
     return this.caseRepository.getStats(client);
+  }
+
+  async addFile(id: string, file: CreateCaseFileDTO): Promise<WithId<CaseCardDTO> | null> {
+    return await this.caseRepository.addFile(id, {
+      name: file.name,
+      url: file.url,
+      size: file.size,
+      mimeType: file.mimeType,
+      uploadedBy: file.uploadedBy,
+    });
   }
 }
