@@ -1,6 +1,8 @@
 export interface CaseDocument {
   name: string;
   url: string;
-  uploadedAt: Date;
+  size: string;
+  mimeType: string;
   uploadedBy: string;
+  uploadedAt: Date;
 }
