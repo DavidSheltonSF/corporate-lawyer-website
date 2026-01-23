@@ -13,7 +13,6 @@ interface CaseFileMongoDocument extends ICaseFileModel, Document {}
 
 export const CaseFileSchema = new Schema<CaseFileMongoDocument>(
   {
-    _id: { type: Schema.Types.ObjectId, default: () => new Types.ObjectId() },
     name: { type: String, required: true },
     url: { type: String, required: true },
     size: { type: Number, required: true },
@@ -21,7 +20,6 @@ export const CaseFileSchema = new Schema<CaseFileMongoDocument>(
     uploadedBy: { type: Types.ObjectId, required: true, ref: 'Users' },
     uploadedAt: { type: Date, default: Date.now },
   },
-  { _id: false }
 );
 
 export const CaseFileModel = model<CaseFileMongoDocument>('CaseFiles', CaseFileSchema);
