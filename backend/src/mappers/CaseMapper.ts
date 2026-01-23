@@ -12,7 +12,7 @@ export class CaseMapper {
     const caseCardPersistence = caseCard as CaseCardPersistencePopulated;
     const client = toUserIdentity(caseCardPersistence.client);
     const lawyers = caseCardPersistence.lawyers.map(toUserIdentity);
-    const documents = caseCardPersistence.documents.map(CaseFileMapper.persistenceToPresentation);
+    const files = caseCardPersistence.files.map(CaseFileMapper.persistenceToPresentation);
     const hearings = caseCardPersistence.hearings.map(HearingMapper.persistenceToPresentation);
 
     return {
@@ -25,7 +25,7 @@ export class CaseMapper {
       description: caseCardPersistence.description,
       client,
       lawyers,
-      documents,
+      files,
       hearings,
       createdAt: caseCardPersistence.createdAt.toISOString(),
       updatedAt: caseCardPersistence.updatedAt.toISOString(),
@@ -36,7 +36,7 @@ export class CaseMapper {
     const casePersistence = cas as CaseCardPersistence;
 
     const lawyers = casePersistence.lawyers.map((lawyer) => lawyer.toString());
-    const documents = casePersistence.documents.map((document) => document.toString());
+    const files = casePersistence.files.map((document) => document.toString());
     const hearings = casePersistence.hearings.map((hearing) => hearing.toString());
 
     return {
@@ -49,7 +49,7 @@ export class CaseMapper {
       description: casePersistence.description,
       client: casePersistence.client.toString(),
       lawyers,
-      documents,
+      files,
       hearings,
       createdAt: casePersistence.createdAt,
       updatedAt: casePersistence.updatedAt,
