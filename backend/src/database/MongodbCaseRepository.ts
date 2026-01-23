@@ -11,6 +11,7 @@ import { Page } from '../types/Page';
 import { CasePopulateOptions } from '../types/CasePopulateOptions';
 import { CaseCardDTO } from '../dtos/case/CaseCardDTO';
 import { CaseMapper } from '../mappers/CaseMapper';
+import { CaseFile } from '../entities/CaseFile';
 
 export class MongodbCaseRepository implements CaseRepository {
   async findCaseCards(
@@ -80,13 +81,13 @@ export class MongodbCaseRepository implements CaseRepository {
     };
   }
 
-  async findById(id: string): Promise<WithId<Case> | null> {
+  async findById(id: string): Promise<WithId<CaseCardDTO> | null> {
     const cas = await CaseModel.findById(id).lean();
 
     if (!cas) {
       return null;
     }
-    return CaseMapper.persistenceToDomain(cas);
+    return CaseMapper.persistenceToPopulatedPresentation(cas);
   }
 
   async create(data: CreateCaseDTO): Promise<WithId<Case>> {
@@ -125,9 +126,31 @@ export class MongodbCaseRepository implements CaseRepository {
     };
   }
 
+  async addFile(id: string, file: CaseFile): Promise<WithId<CaseCardDTO> | null> {
+    const updated = await CaseModel.findByIdAndUpdate(
+      {
+        _id: id,
+      },
+      {
+        $push: {
+          files: file,
+        },
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    ).lean();
+
+    if (updated === null) {
+      return null;
+    }
+
+    return CaseMapper.persistenceToPopulatedPresentation(updated);
+  }
+
   async exists(id: string): Promise<boolean> {
     const result = await CaseModel.findById(id);
-    console.log(result)
     return result !== null;
   }
 }
