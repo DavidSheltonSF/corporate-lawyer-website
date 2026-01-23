@@ -128,8 +128,10 @@ export class CaseController implements ICaseController {
           .json(HttpResponseFactory.makeBadRequest({ message: 'Missing file' }));
       }
 
+      const fixedName = Buffer.from(file.originalname, 'latin1').toString('utf8');
+
       const response = await this.caseService.addFile(caseId, {
-        name: file.originalname,
+        name: fixedName,
         url: 'www.fakeUrl/' + Number(new Date()).toString(),
         size: file.size,
         mimeType: file.mimetype,
