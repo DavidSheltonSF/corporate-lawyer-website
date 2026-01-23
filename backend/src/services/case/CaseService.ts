@@ -19,23 +19,12 @@ export class CaseService implements ICaseService {
       const client = newCase.client.toString();
       const lawyers = newCase.lawyers.map((lawyer) => lawyer.toString());
 
-      let documents;
-      let hearings;
-
-      if (data.documents) {
-        documents = data.documents.map((document) => document.toString());
-      }
-
-      if (data.hearings) {
-        hearings = data.hearings.map((hearing) => hearing.toString());
-      }
-
       return {
         id: newCase.id,
         client,
         lawyers,
-        documents,
-        hearings,
+        files: newCase.files,
+        hearings: newCase.hearings,
         processNumber: newCase.processNumber,
         title: newCase.title,
         description: newCase.description,
