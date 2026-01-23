@@ -3,10 +3,10 @@
 import { UploadModalContext } from '@/contexts/modals/UploadModalContext';
 import { useContext, useState } from 'react';
 import { PrimaryModalWindow } from './PrimaryModalWindow';
-import { fetchUploadCaseDocument } from '@/services/fetchUploadCaseDocument';
+import { fetchUploadCaseFile } from '@/services/fetchUploadCaseFile';
 import { UploadIcon } from './UploadIcon';
 
-export function UploadModal() {
+export function UploadModal({ caseId }: { caseId: string }) {
   const { isOpen, setIsOpen } = useContext<any>(UploadModalContext);
   const [loading, setLoading] = useState(false);
 
@@ -24,7 +24,7 @@ export function UploadModal() {
 
       await new Promise((resolve) => setTimeout(resolve, 5000));
 
-      await fetchUploadCaseDocument(formData);
+      await fetchUploadCaseFile(formData, caseId);
       setLoading(false);
     } catch (error) {
       setLoading(false);
