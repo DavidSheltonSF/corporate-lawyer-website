@@ -6,7 +6,7 @@ export interface CaseResponseDTO {
   description: string;
   court: string; //tribunal
   courtDivision: string; //vara
-  documents?: string[] | undefined;
+  files?: string[] | undefined;
   hearings?: string[] | undefined;
   status: string;
 }
