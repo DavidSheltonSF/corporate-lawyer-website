@@ -15,7 +15,7 @@ export const CaseFileSchema = new Schema<CaseFileMongoDocument>(
   {
     _id: { type: Schema.Types.ObjectId, default: () => new Types.ObjectId() },
     name: { type: String, required: true },
-    url: { type: String, required: true, unique: true },
+    url: { type: String, required: true },
     size: { type: Number, required: true },
     mimeType: { type: String, required: true },
     uploadedBy: { type: Types.ObjectId, required: true, ref: 'Users' },
