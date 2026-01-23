@@ -56,7 +56,7 @@ export class MongodbCaseRepository implements CaseRepository {
 
     casesQuery.populate({
       path: 'files.uploadedBy',
-      select: '_id firstName lastName',
+      select: 'firstName lastName',
     });
 
     const casesPageQuery = casesQuery
