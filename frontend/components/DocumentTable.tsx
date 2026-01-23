@@ -2,6 +2,7 @@ import { CaseDocumentPopulated } from '@/types/CaseDocumentPopulated';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from './Button';
+import { formatData } from '@/lib/formatData';
 
 interface Props {
   documents: CaseDocumentPopulated[];
@@ -20,7 +21,7 @@ export function DocumentTable({ documents }: Props) {
         return (
           <div key={index} className="row">
             <div className="overflow-wrap">{document.name}</div>
-            <div className="hidden min-md:block">{`${document.uploadedAt} - ${
+            <div className="hidden min-md:block">{`${formatData(document.uploadedAt)} - ${
               document.uploadedBy.firstName
             } ${document.uploadedBy.lastName}`}</div>
             <div className="flex justify-center items-center">
