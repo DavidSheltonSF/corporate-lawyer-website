@@ -14,10 +14,11 @@ export class CaseFileMapper {
     return {
       id: caseFilePersistence._id.toString(),
       name: caseFilePersistence.name,
+      size: caseFilePersistence.size,
+      mimeType: caseFilePersistence.mimeType,
       url: caseFilePersistence.url,
       uploadedBy: uploadedBy,
-      case: caseFilePersistence.case.toString(),
-      createdAt: caseFilePersistence.createdAt.toISOString(),
+      uploadedAt: caseFilePersistence.uploadedAt.toISOString(),
     };
   }
 }
