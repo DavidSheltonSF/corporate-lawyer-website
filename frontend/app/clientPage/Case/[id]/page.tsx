@@ -4,7 +4,7 @@ import { OpenUploadModalButton } from '@/components/OpenUploadModalButton';
 import { UploadModal } from '@/components/UploadModal';
 import { formatStringList } from '@/lib/formatStringList';
 import { fetchCaseById } from '@/services/fetchCaseById';
-import { CaseDocumentPopulated } from '@/types/CaseDocumentPopulated';
+
 export default async function CasePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
@@ -19,43 +19,10 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
     lawyersNames.push(`${lawyer.firstName} ${lawyer.lastName}`);
   });
 
-  const fakeDocuments: CaseDocumentPopulated[] = [
-    {
-      name: 'comprovante_banco_2025.pdf',
-      uploadedAt: new Date(),
-      uploadedBy: {
-        id: 'fdf45df1af',
-        firstName: 'Carla',
-        lastName: 'Santiago',
-      },
-      url: 'https://www.google.com',
-    },
-    {
-      name: 'comprovante_pagamento_2025.pdf',
-      uploadedAt: new Date(),
-      uploadedBy: {
-        id: 'fdf45df1af',
-        firstName: 'Carla',
-        lastName: 'Santiago',
-      },
-      url: 'https://www.google.com',
-    },
-    {
-      name: 'screnshot_2025.pdf',
-      uploadedAt: new Date(),
-      uploadedBy: {
-        id: 'fdf45df1af',
-        firstName: 'Carla',
-        lastName: 'Santiago',
-      },
-      url: 'https://www.google.com',
-    },
-  ];
-
   return (
     <div className="flex flex-col h-full w-full bg-color-primary">
       <div className="w-[50%] h-[50%]">
-        <UploadModal />
+        <UploadModal caseId={id} />
       </div>
       {/* This div below is necessary to push the content down from the absolute navbar when this page is open outside a modal */}
       <div className="w-full h-[64px]"></div>
@@ -86,7 +53,7 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
             </div>
           </div>
           <div className="w-full h-[240px] pl-[24px] pb-[16px] overflow-y-scroll">
-            <DocumentTable documents={fakeDocuments} />
+            <DocumentTable documents={caseData.files} />
           </div>
         </main>
       </div>
