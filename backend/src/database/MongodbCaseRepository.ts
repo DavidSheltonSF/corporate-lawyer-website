@@ -32,7 +32,7 @@ export class MongodbCaseRepository implements CaseRepository {
       casesTotalQuery.countDocuments({ status });
     }
 
-    const { client, lawyers, documents, hearings } = casePopulateFields;
+    const { client, lawyers, hearings } = casePopulateFields;
 
     if (client) {
       casesQuery.populate({
@@ -47,20 +47,17 @@ export class MongodbCaseRepository implements CaseRepository {
         select: 'firstName lastName',
       });
     }
-
-    if (documents) {
-      casesQuery.populate({
-        path: 'documents',
-        select: 'name url uploadedAt',
-      });
-    }
-
     if (hearings) {
       casesQuery.populate({
         path: 'hearings',
         select: 'date location description',
       });
     }
+
+    casesQuery.populate({
+      path: 'files.uploadedBy',
+      select: '_id firstName lastName',
+    });
 
     const casesPageQuery = casesQuery
       .limit(limit)
@@ -82,7 +79,12 @@ export class MongodbCaseRepository implements CaseRepository {
   }
 
   async findById(id: string): Promise<WithId<CaseCardDTO> | null> {
-    const cas = await CaseModel.findById(id).lean();
+    const cas = await CaseModel.findById(id)
+      .populate({
+        path: 'files.uploadedBy',
+        select: 'firstName lastName',
+      })
+      .lean();
 
     if (!cas) {
       return null;
