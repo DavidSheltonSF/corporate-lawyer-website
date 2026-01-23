@@ -13,7 +13,7 @@ export type CaseCardPersistencePopulated = {
   description: string;
   client: UserIdentityPersistence;
   lawyers: UserIdentityPersistence[];
-  documents: CaseFilePersistence[];
+  files: CaseFilePersistence[];
   hearings: HearingPersistence[];
   createdAt: Date;
   updatedAt: Date;

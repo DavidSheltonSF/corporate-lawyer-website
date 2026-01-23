@@ -13,7 +13,7 @@ export type CaseCardPersistence = {
   description: string;
   client: { toString(): string };
   lawyers: { toString(): string }[];
-  documents: { toString(): string }[];
+  files: { toString(): string }[];
   hearings: { toString(): string }[];
   createdAt: Date;
   updatedAt: Date;
