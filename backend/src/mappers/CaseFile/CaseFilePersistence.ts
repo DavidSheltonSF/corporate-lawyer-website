@@ -4,7 +4,9 @@ export type CaseFilePersistence = {
   _id: { toString(): string };
   name: string;
   url: string;
+  size: number;
+  mimeType: string;
   uploadedBy: UserIdentityPersistence;
   case: { toString(): string };
-  createdAt: { toISOString(): string };
+  uploadedAt: { toISOString(): string };
 };
