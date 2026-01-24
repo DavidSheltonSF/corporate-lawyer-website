@@ -8,10 +8,10 @@ import { servicesDetails } from '@/data/servicesDetails';
 import { Carousel } from '../components/Carousel';
 import { DynamicSections } from '@/components/DynamicSections';
 import { DynamicSection } from '@/components/DynamicSection';
-import { ModalWindow } from '@/components/ModalWindow';
+import { ModalWindow } from '@/components/modals/ModalWindow';
 import { ServicesModalContext } from '@/contexts/modals/ServicesModalContext';
 import { MissingContextError } from '@/errors/MissingContextError';
-import { ServiceDetailsModal } from '@/components/ServiceDetailsModal';
+import { ServiceDetailsModal } from '@/components/modals/ServiceDetailsModal';
 
 export default function Home() {
   const context = useContext(ServicesModalContext);

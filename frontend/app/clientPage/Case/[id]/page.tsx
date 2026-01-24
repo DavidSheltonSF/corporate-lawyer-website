@@ -1,7 +1,7 @@
 import { DocumentTable } from '@/components/DocumentTable';
 import { FieldValue } from '@/components/FieldValue';
 import { OpenUploadModalButton } from '@/components/OpenUploadModalButton';
-import { UploadModal } from '@/components/UploadModal';
+import { UploadModal } from '@/components/modals/UploadModal';
 import { formatStringList } from '@/lib/formatStringList';
 import { fetchCaseById } from '@/services/fetchCaseById';
 

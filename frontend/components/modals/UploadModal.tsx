@@ -4,7 +4,7 @@ import { UploadModalContext } from '@/contexts/modals/UploadModalContext';
 import { useContext, useState } from 'react';
 import { PrimaryModalWindow } from './PrimaryModalWindow';
 import { fetchUploadCaseFile } from '@/services/fetchUploadCaseFile';
-import { UploadIcon } from './UploadIcon';
+import { UploadIcon } from '../UploadIcon';
 
 export function UploadModal({ caseId }: { caseId: string }) {
   const { isOpen, setIsOpen } = useContext<any>(UploadModalContext);
