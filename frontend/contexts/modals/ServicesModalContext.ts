@@ -3,7 +3,7 @@ import { ModalContextType } from './ModalContextType';
 
 export const ServicesModalContext = createContext<
   | (ModalContextType & {
-      serviceAreaId: string | null;
+      serviceAreaId: string;
       setServiceAreaId: Dispatch<SetStateAction<string>> | null;
     })
   | undefined
