@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { UploadModalContext } from './UploadModalContext';
 import { ServicesModalContext } from './ServicesModalContext';
-import { ModalWindow } from '@/components/ModalWindow';
 import { ServiceDetailsModal } from '@/components/ServiceDetailsModal';
 
 interface Props {
@@ -17,7 +16,6 @@ export function ModalsProvider({ children }: Props) {
 
   return (
     <div>
-
       <ServicesModalContext.Provider
         value={{
           isOpen: servicesModalIsOpen,
