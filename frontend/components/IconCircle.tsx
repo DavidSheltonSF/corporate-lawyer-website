@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { ServicesModalContext } from '../contexts/modals/ServicesModalContext';
 import { servicesDetails } from '@/data/servicesDetails';
+import { MissingContextError } from '@/errors/MissingContextError';
 
 interface Props {
   serviceAreaId: string;
@@ -13,7 +14,13 @@ export function IconCircle(props: Props) {
   const serviceArea = servicesDetails[serviceAreaId];
   const { iconPath } = serviceArea;
 
-  const { setIsOpen, setServiceAreaId } = useContext<any | null>(ServicesModalContext);
+  const context = useContext(ServicesModalContext);
+
+  if (!context) {
+    throw new MissingContextError('ServicesModalContext');
+  }
+
+  const { setIsOpen, setServiceAreaId } = context;
 
   function handleMouseOver(e: React.MouseEvent<HTMLElement>) {
     const iconImage = e.currentTarget.querySelector('.icon-image');
