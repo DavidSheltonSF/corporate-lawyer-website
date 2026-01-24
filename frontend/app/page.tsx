@@ -8,7 +8,7 @@ import { servicesDetails } from '@/data/servicesDetails';
 import { Carousel } from '../components/Carousel';
 import { DynamicSections } from '@/components/DynamicSections';
 import { DynamicSection } from '@/components/DynamicSection';
-import { ModalWindow } from '@/components/modals/ModalWindow';
+import { SecondaryModalWindow } from '@/components/modals/SecondaryModalWindow';
 import { ServicesModalContext } from '@/contexts/modals/ServicesModalContext';
 import { MissingContextError } from '@/errors/MissingContextError';
 import { ServiceDetailsModal } from '@/components/modals/ServiceDetailsModal';
@@ -23,9 +23,9 @@ export default function Home() {
 
   return (
     <div className="bg-color-black">
-      <ModalWindow modalIsOpen={isOpen} setModalIsOpen={setIsOpen}>
+      <SecondaryModalWindow modalIsOpen={isOpen} setModalIsOpen={setIsOpen}>
         <ServiceDetailsModal serviceAreaId={serviceAreaId} />
-      </ModalWindow>
+      </SecondaryModalWindow>
 
       <HeroSection
         title="ESCRITÓRIO DE ADVOCACIA MEDEIROS E SANTIAGO"

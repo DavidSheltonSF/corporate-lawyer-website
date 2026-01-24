@@ -6,7 +6,7 @@ interface Props {
   setModalIsOpen: any;
 }
 
-export function ModalWindow({ modalIsOpen, setModalIsOpen, children }: Props) {
+export function SecondaryModalWindow({ modalIsOpen, setModalIsOpen, children }: Props) {
   useEffect(() => {
     const modalWindow: HTMLElement | null = document.querySelector('.modal-window');
 
