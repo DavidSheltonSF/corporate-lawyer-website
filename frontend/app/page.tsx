@@ -1,5 +1,4 @@
 'use client';
-import { useContext } from 'react';
 import { ServiceCard } from '../components/ServiceCard';
 import { ProfessionalCard } from '../components/ProfessionalCard';
 import { HeroSection } from '../components/HeroSection';
@@ -8,24 +7,12 @@ import { servicesDetails } from '@/data/servicesDetails';
 import { Carousel } from '../components/Carousel';
 import { DynamicSections } from '@/components/DynamicSections';
 import { DynamicSection } from '@/components/DynamicSection';
-import { SecondaryModalWindow } from '@/components/modals/SecondaryModalWindow';
-import { ServicesModalContext } from '@/contexts/modals/ServicesModalContext';
-import { MissingContextError } from '@/errors/MissingContextError';
-import { ServiceDetailsModal } from '@/components/modals/ServiceDetailsModal';
+import { LawAreaServicesModal } from '@/components/modals/LawAreaServicesModal';
 
 export default function Home() {
-  const context = useContext(ServicesModalContext);
-
-  if (!context) {
-    throw new MissingContextError('ServicesModalContext');
-  }
-  const { isOpen, setIsOpen, serviceAreaId } = context;
-
   return (
     <div className="bg-color-black">
-      <SecondaryModalWindow modalIsOpen={isOpen} setModalIsOpen={setIsOpen}>
-        <ServiceDetailsModal serviceAreaId={serviceAreaId} />
-      </SecondaryModalWindow>
+      <LawAreaServicesModal />
 
       <HeroSection
         title="ESCRITÓRIO DE ADVOCACIA MEDEIROS E SANTIAGO"
@@ -33,7 +20,6 @@ export default function Home() {
         background="url(/hero-image.webp)"
         textBackgroundColor="#00000059"
       />
-
       <main>
         <DynamicSections sectionsNames={['Sobre Nós', 'Serviços', 'Equipe']}>
           <DynamicSection>
