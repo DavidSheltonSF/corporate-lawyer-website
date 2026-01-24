@@ -17,9 +17,6 @@ export function ModalsProvider({ children }: Props) {
 
   return (
     <div>
-      <ModalWindow modalIsOpen={servicesModalIsOpen} setModalIsOpen={setServicesModalIsOpen}>
-        <ServiceDetailsModal serviceAreaId={serviceAreaId} />
-      </ModalWindow>
 
       <ServicesModalContext.Provider
         value={{
