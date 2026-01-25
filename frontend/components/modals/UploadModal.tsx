@@ -1,14 +1,26 @@
 'use client';
 import { UploadModalContext } from '@/contexts/modals/UploadModalContext';
-import { Dispatch, SetStateAction, useContext, useState } from 'react';
+import { Dispatch, SetStateAction, useContext, useEffect, useRef, useState } from 'react';
 import { PrimaryModalWindow } from './PrimaryModalWindow';
 import { fetchUploadCaseFile } from '@/services/fetchUploadCaseFile';
 import { UploadIcon } from '../UploadIcon';
 import { RequestState } from '@/types/RequestState';
 
-export function UploadModal({ caseId, setUpdateFiles }: { caseId: string; setUpdateFiles: Dispatch<SetStateAction<boolean>> }) {
+export function UploadModal({
+  caseId,
+  setUpdateFiles,
+}: {
+  caseId: string;
+  setUpdateFiles: Dispatch<SetStateAction<boolean>>;
+}) {
   const { isOpen, setIsOpen } = useContext<any>(UploadModalContext);
   const [uploadState, setUploadState] = useState<null | RequestState>(null);
+
+  function closeModal() {
+    if (uploadState?.status === 'loading') return;
+    setIsOpen(false);
+    setUploadState(null);
+  }
 
   async function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     try {
@@ -38,9 +50,7 @@ export function UploadModal({ caseId, setUpdateFiles }: { caseId: string; setUpd
       <div className="absolute z-99999999999 top-[15%] left-1/2 translate-x-[-50%] w-[400px] h-[300px] rounded-lg overflow-hidden shadow-[0px_0px__3px_black]">
         <PrimaryModalWindow
           closeModal={() => {
-            if (uploadState?.status === 'loading') return;
-            setIsOpen(false);
-            setUploadState(null);
+            closeModal();
           }}
         >
           <div className="size-full flex flex-col justify-center items-center">
