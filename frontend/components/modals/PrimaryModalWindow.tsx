@@ -1,38 +1,14 @@
 'use client';
-import { useEffect, useRef } from 'react';
-
 interface Props {
   closeModal: Function;
   children: React.ReactNode;
 }
 
 export function PrimaryModalWindow(props: Props) {
-  const windowRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    document.body.classList.add('overflow-hidden');
-
-    function handleClickOutside(e: MouseEvent) {
-      if (windowRef.current && !windowRef.current.contains(e.target as Node)) {
-        closeModal();
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.body.classList.remove('overflow-hidden');
-    };
-  }, []);
-
   const { closeModal, children } = props;
 
   return (
-    <div
-      ref={windowRef}
-      className="modalWindow flex flex-col relative  bg-color-primary size-full fade-in-animation-fast"
-    >
+    <div className="modalWindow flex flex-col relative  bg-color-primary size-full fade-in-animation-fast">
       <div className="flex justify-end items-center h-[56px] pr-[8px]">
         <button
           className="size-[40px] cursor-pointer hover:bg-white/20 transition-[background-color] duration-300 rounded-lg"
