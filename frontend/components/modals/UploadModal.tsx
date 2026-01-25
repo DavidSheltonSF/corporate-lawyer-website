@@ -1,12 +1,12 @@
 'use client';
 import { UploadModalContext } from '@/contexts/modals/UploadModalContext';
-import { useContext, useState } from 'react';
+import { Dispatch, SetStateAction, useContext, useState } from 'react';
 import { PrimaryModalWindow } from './PrimaryModalWindow';
 import { fetchUploadCaseFile } from '@/services/fetchUploadCaseFile';
 import { UploadIcon } from '../UploadIcon';
 import { RequestState } from '@/types/RequestState';
 
-export function UploadModal({ caseId }: { caseId: string }) {
+export function UploadModal({ caseId, setUpdateFiles }: { caseId: string; setUpdateFiles: Dispatch<SetStateAction<boolean>> }) {
   const { isOpen, setIsOpen } = useContext<any>(UploadModalContext);
   const [uploadState, setUploadState] = useState<null | RequestState>(null);
 
@@ -26,6 +26,7 @@ export function UploadModal({ caseId }: { caseId: string }) {
 
       await fetchUploadCaseFile(formData, caseId);
       setUploadState({ status: 'ok', message: 'Arquivo adicionado com sucesso!' });
+      setUpdateFiles(true);
     } catch (error) {
       setUploadState({ status: 'error', message: 'Arquivo não adicionado' });
       console.log(error);
