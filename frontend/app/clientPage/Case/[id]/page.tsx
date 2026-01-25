@@ -1,4 +1,4 @@
-import { DocumentTable } from '@/components/DocumentTable';
+import { CaseModalFiles } from '@/components/CaseModalFIles';
 import { FieldValue } from '@/components/FieldValue';
 import { OpenUploadModalButton } from '@/components/OpenUploadModalButton';
 import { UploadModal } from '@/components/modals/UploadModal';
@@ -21,9 +21,6 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
 
   return (
     <div className="flex flex-col h-full w-full bg-color-primary">
-      <div className="w-[50%] h-[50%]">
-        <UploadModal caseId={id} />
-      </div>
       {/* This div below is necessary to push the content down from the absolute navbar when this page is open outside a modal */}
       <div className="w-full h-[64px]"></div>
       <div className="size-full bg-color-white">
@@ -52,9 +49,7 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
               <OpenUploadModalButton />
             </div>
           </div>
-          <div className="w-full h-[240px] pl-[24px] pb-[16px] overflow-y-scroll">
-            <DocumentTable documents={caseData.files} />
-          </div>
+          <CaseModalFiles id={id} files={caseData.files} />
         </main>
       </div>
     </div>
