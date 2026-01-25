@@ -1,18 +1,18 @@
 'use client';
-
 import { UploadModalContext } from '@/contexts/modals/UploadModalContext';
 import { useContext, useState } from 'react';
 import { PrimaryModalWindow } from './PrimaryModalWindow';
 import { fetchUploadCaseFile } from '@/services/fetchUploadCaseFile';
 import { UploadIcon } from '../UploadIcon';
+import { RequestState } from '@/types/RequestState';
 
 export function UploadModal({ caseId }: { caseId: string }) {
   const { isOpen, setIsOpen } = useContext<any>(UploadModalContext);
-  const [loading, setLoading] = useState(false);
+  const [uploadState, setUploadState] = useState<null | RequestState>(null);
 
   async function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     try {
-      setLoading(true);
+      setUploadState({ status: 'loading' });
       const file = e.target.files?.[0];
       if (!file) return;
 
@@ -25,9 +25,9 @@ export function UploadModal({ caseId }: { caseId: string }) {
       await new Promise((resolve) => setTimeout(resolve, 5000));
 
       await fetchUploadCaseFile(formData, caseId);
-      setLoading(false);
+      setUploadState({ status: 'ok', message: 'Arquivo adicionado com sucesso!' });
     } catch (error) {
-      setLoading(false);
+      setUploadState({ status: 'error', message: 'Arquivo não adicionado' });
       console.log(error);
     }
   }
@@ -35,11 +35,26 @@ export function UploadModal({ caseId }: { caseId: string }) {
   return (
     isOpen && (
       <div className="absolute z-99999999999 top-[15%] left-1/2 translate-x-[-50%] w-[400px] h-[300px] rounded-lg overflow-hidden shadow-[0px_0px__3px_black]">
-        <PrimaryModalWindow closeModal={() => setIsOpen(false)}>
-          <div className="size-full flex justify-center items-center">
+        <PrimaryModalWindow
+          closeModal={() => {
+            if (uploadState?.status === 'loading') return;
+            setIsOpen(false);
+            setUploadState(null);
+          }}
+        >
+          <div className="size-full flex flex-col justify-center items-center">
+            {(uploadState?.status === 'ok' || uploadState?.status === 'error') && (
+              <p
+                className={`font-bold ${
+                  uploadState?.status === 'ok' ? 'text-green-500' : 'text-red-500'
+                }`}
+              >
+                {uploadState.message}
+              </p>
+            )}
             <div
               className={`flex flex-col items-center justify-around bg-gray-200 h-[80%] w-[90%] rounded-md p-[8px] border border-dashed ${
-                loading && 'animate-pulse border-blue-400 border-[2px]'
+                uploadState?.status === 'loading' && 'animate-pulse border-blue-400 border-[2px]'
               }`}
             >
               <h1 className="text-2xl ">Arraste e Largue o arquivo</h1>
