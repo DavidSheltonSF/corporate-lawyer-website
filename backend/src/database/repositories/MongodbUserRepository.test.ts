@@ -1,10 +1,10 @@
 import { config } from 'dotenv';
-import { UserModel } from '../models/UserModel';
+import { UserModel } from '../../models/UserModel';
 import { MongodbUserRepository } from './MongodbUserRepository';
-import { UserRole } from '../types/UserRole';
+import { UserRole } from '../../types/UserRole';
 import bcrypt from 'bcrypt';
 import { Types } from 'mongoose';
-import { MongodbTestConnector } from './MongodbTestConnector';
+import { MongodbTestConnector } from '../MongodbTestConnector';
 config();
 
 jest.setTimeout(999999);
