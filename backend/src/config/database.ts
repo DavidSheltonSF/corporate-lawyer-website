@@ -17,7 +17,7 @@ export class DatabaseConnector {
   static async connectFakeDatabase() {
     try {
       if (this.connected) return;
-      await mongoose.connect("mongodb+srv://davidAdmin:davidAdmin@cluster0.zhgudt8.mongodb.net/corporate_website?appName=Cluster0?database=test-database");
+      await mongoose.connect("mongodb+srv://davidAdmin:davidAdmin@cluster0.zhgudt8.mongodb.net/test_corporate_website?appName=Cluster0");
       this.connected = true;
       console.log('Database connected');
     } catch (error) {
