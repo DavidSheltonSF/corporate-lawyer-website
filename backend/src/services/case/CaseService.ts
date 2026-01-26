@@ -4,7 +4,6 @@ import { CaseResponseDTO } from '../../dtos/user/CaseResponseDTO';
 import { CreateCaseDTO } from '../../dtos/user/CreateCaseDTO';
 import { NotFoundError } from '../../errors/NotFoundError';
 import { CaseRepository } from '../../repositories/CaseRepository';
-import { CasePopulateOptions } from '../../types/CasePopulateOptions';
 import { CaseQuery } from '../../types/CaseQuery';
 import { CaseStats } from '../../types/CaseStats';
 import { WithId } from '../../types/WithId';
@@ -40,15 +39,12 @@ export class CaseService implements ICaseService {
     }
   }
 
-  async findCaseCards(
-    queryParams: CaseQuery = {},
-    casePopulateOptions: CasePopulateOptions = {}
-  ): Promise<{
+  async findCaseCards(queryParams: CaseQuery = {}): Promise<{
     cases: CaseCardDTO[];
     total: number;
     totalPages: number;
   }> {
-    const casesPage = await this.caseRepository.findCaseCards(queryParams, casePopulateOptions);
+    const casesPage = await this.caseRepository.findCaseCards(queryParams);
     const { totalItems, totalPages } = casesPage.meta;
 
     return {
@@ -58,7 +54,7 @@ export class CaseService implements ICaseService {
     };
   }
 
-  async findById(id: string, populateFields?: string[]): Promise<CaseCardDTO | null> {
+  async findById(id: string): Promise<CaseCardDTO | null> {
     try {
       const cas = await this.caseRepository.findById(id);
 
