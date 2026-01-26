@@ -5,18 +5,24 @@ export class MongodbTestConnector {
 
   private constructor(private connection: mongoose.Connection | null = null) {}
 
-  static async connectAndReturn(name: string) {
+  static async connect(name: string) {
     try {
-      if (this.instance) return this.instance;
+      if (this.instance) return;
       await mongoose.connect(
         `mongodb+srv://davidAdmin:davidAdmin@cluster0.zhgudt8.mongodb.net/${name}?appName=Cluster0`
       );
       console.log('Database connected');
-      return new MongodbTestConnector(mongoose.connection);
     } catch (error) {
       console.log('Database connection error ' + error);
       process.exit(1);
     }
+  }
+
+  static async connectAndReturn(name: string): Promise<MongodbTestConnector> {
+    if (this.instance) return this.instance;
+    await this.connect(name);
+    this.instance = new MongodbTestConnector(mongoose.connection);
+    return this.instance;
   }
 
   async deleteDatabase() {
