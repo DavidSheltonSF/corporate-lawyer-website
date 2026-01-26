@@ -1,17 +1,18 @@
 import { config } from 'dotenv';
-import { DatabaseConnector } from '../config/database';
 import { MongodbCaseRepository } from './MongodbCaseRepository';
 import { CaseModel } from '../models/CaseModel';
 import { CaseStatusEnum } from '../types/CaseStatusEnum';
 import { UserRole } from '../types/UserRole';
 import { IUserModel, UserModel } from '../models/UserModel';
 import { Types } from 'mongoose';
+import { MongodbTestConnector } from './MongodbTestConnector';
 config();
 jest.setTimeout(999999);
 
 describe('Test CaseRepository', () => {
+  let connection: MongodbTestConnector | null = null;
   beforeAll(async () => {
-    await DatabaseConnector.connectFakeDatabase();
+    connection = await MongodbTestConnector.connectAndReturn('case_repository_test');
   });
 
   beforeEach(async () => {
@@ -20,7 +21,8 @@ describe('Test CaseRepository', () => {
   });
 
   afterAll(async () => {
-    await DatabaseConnector.disconnect();
+    await connection?.deleteDatabase();
+    await connection?.disconnect();
   });
 
   async function makeSut() {

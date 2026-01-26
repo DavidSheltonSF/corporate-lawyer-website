@@ -3,15 +3,16 @@ import { UserModel } from '../models/UserModel';
 import { MongodbUserRepository } from './MongodbUserRepository';
 import { UserRole } from '../types/UserRole';
 import bcrypt from 'bcrypt';
-import { DatabaseConnector } from '../config/database';
 import { Types } from 'mongoose';
+import { MongodbTestConnector } from './MongodbTestConnector';
 config();
 
 jest.setTimeout(999999);
 
 describe('Test UserRepository', () => {
+  let connection: MongodbTestConnector | null = null
   beforeAll(async () => {
-    await DatabaseConnector.connectFakeDatabase();
+    connection = await MongodbTestConnector.connectAndReturn('user_repository_test');
   });
 
   beforeEach(async () => {
@@ -19,7 +20,8 @@ describe('Test UserRepository', () => {
   });
 
   afterAll(async () => {
-    await DatabaseConnector.disconnect();
+    await connection?.deleteDatabase()
+    await connection?.disconnect()
   });
 
   function makeSut() {
