@@ -1,7 +1,9 @@
 import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
-import { DatabaseConnector } from './config/database';
 import { configApp } from './config/configApp';
+import { MongodbConnector } from './database/MongodbConnector';
+import { cleanDatabase } from './tests/cleanDatabase';
+import { populateDatabase } from './tests/populateDatabase';
 
 dotenv.config();
 
@@ -12,7 +14,7 @@ configApp(app)
 const port = 3080;
 
 (async () => {
-  await DatabaseConnector.connect();
+  await MongodbConnector.connect();
   // await cleanDatabase();
   // await populateDatabase();
 
