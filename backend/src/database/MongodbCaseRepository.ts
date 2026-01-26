@@ -8,16 +8,12 @@ import { CaseStatusEnum } from '../types/CaseStatusEnum';
 import { CaseQuery } from '../types/CaseQuery';
 import { Case } from '../entities/Case';
 import { Page } from '../types/Page';
-import { CasePopulateOptions } from '../types/CasePopulateOptions';
 import { CaseCardDTO } from '../dtos/case/CaseCardDTO';
 import { CaseMapper } from '../mappers/CaseMapper';
 import { CaseFile } from '../entities/CaseFile';
 
 export class MongodbCaseRepository implements CaseRepository {
-  async findCaseCards(
-    queryParams: CaseQuery = {},
-    casePopulateFields: CasePopulateOptions = {}
-  ): Promise<Page<WithId<CaseCardDTO>>> {
+  async findCaseCards(queryParams: CaseQuery = {}): Promise<Page<WithId<CaseCardDTO>>> {
     const { query, status, limit = 10, page = 1 } = queryParams;
 
     const regex = new RegExp(query || '', 'i');
@@ -32,34 +28,15 @@ export class MongodbCaseRepository implements CaseRepository {
       casesTotalQuery.countDocuments({ status });
     }
 
-    const { client, lawyers, hearings } = casePopulateFields;
-
-    if (client) {
-      casesQuery.populate({
+    const casesPageQuery = casesQuery
+      .populate({
         path: 'client',
         select: 'firstName lastName',
-      });
-    }
-
-    if (lawyers) {
-      casesQuery.populate({
-        path: 'lawyers',
+      })
+      .populate({
+        path: 'client',
         select: 'firstName lastName',
-      });
-    }
-    if (hearings) {
-      casesQuery.populate({
-        path: 'hearings',
-        select: 'date location description',
-      });
-    }
-
-    casesQuery.populate({
-      path: 'files.uploadedBy',
-      select: 'firstName lastName',
-    });
-
-    const casesPageQuery = casesQuery
+      })
       .limit(limit)
       .skip((page - 1) * limit)
       .lean();
