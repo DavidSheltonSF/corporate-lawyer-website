@@ -1,6 +1,6 @@
 import { AuthController } from '../../controllers/auth/AuthController';
 import { IAuthController } from '../../controllers/auth/IAuthController';
-import { MongodbUserRepository } from '../../database/MongodbUserRepository';
+import { MongodbUserRepository } from '../../database/repositories/MongodbUserRepository';
 import { AuthService } from '../../services/auth/AuthService';
 import { UserService } from '../../services/user/UserService';
 
