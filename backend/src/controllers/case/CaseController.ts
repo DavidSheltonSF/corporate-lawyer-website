@@ -2,7 +2,6 @@ import { type Request, type Response } from 'express';
 import { ICaseService } from '../../services/case/ICaseService';
 import { IUserService } from '../../services/user/IUserService';
 import { ICaseController } from './ICaseController';
-import { CasePopulateOptions } from '../../types/CasePopulateOptions';
 import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
 import { AuthenticatedUser } from '../../types/AuthenticatedUser';
 
@@ -43,15 +42,7 @@ export class CaseController implements ICaseController {
     const authReq = req as Request & AuthenticatedUser;
     const id = authReq.user.id;
 
-    const { status, query, populate } = req.query;
-
-    const populateFields = String(populate).split(',');
-    const casePopulateFields: CasePopulateOptions = {};
-
-    casePopulateFields.client = populateFields.includes('client') ? true : false;
-    casePopulateFields.lawyers = populateFields.includes('lawyers') ? true : false;
-    casePopulateFields.documents = populateFields.includes('documents') ? true : false;
-    casePopulateFields.hearings = populateFields.includes('hearings') ? true : false;
+    const { status, query } = req.query;
 
     const page = req.query.page || 1;
     const limit = req.query.limit || 4;
@@ -62,16 +53,13 @@ export class CaseController implements ICaseController {
         .send(HttpResponseFactory.makeBadRequest({ message: 'Missing id param' }));
     }
 
-    const casesPaginated = await this.caseService.findCaseCards(
-      {
-        query: query ? String(query) : undefined,
-        status: status ? String(status) : undefined,
-        limit: limit ? Number(limit) : undefined,
-        page: page ? Number(page) : undefined,
-        client: id ? String(id) : undefined,
-      },
-      casePopulateFields
-    );
+    const casesPaginated = await this.caseService.findCaseCards({
+      query: query ? String(query) : undefined,
+      status: status ? String(status) : undefined,
+      limit: limit ? Number(limit) : undefined,
+      page: page ? Number(page) : undefined,
+      client: id ? String(id) : undefined,
+    });
 
     const pagination = {
       ...casesPaginated,
