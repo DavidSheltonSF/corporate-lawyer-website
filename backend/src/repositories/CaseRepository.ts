@@ -8,7 +8,7 @@ import { Page } from '../types/Page';
 import { WithId } from '../types/WithId';
 
 export interface CaseRepository {
-  findCaseCards(queryParams: CaseQuery): Promise<Page<WithId<CaseCardDTO>>>;
+  findCases(queryParams: CaseQuery): Promise<Page<WithId<CaseCardDTO>>>;
   findById(id: string): Promise<WithId<CaseCardDTO> | null>;
   create(user: CreateCaseDTO): Promise<WithId<Case>>;
   getStats(client?: string): Promise<CaseStats | null>;

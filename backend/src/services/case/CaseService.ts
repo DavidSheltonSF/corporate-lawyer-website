@@ -44,7 +44,7 @@ export class CaseService implements ICaseService {
     total: number;
     totalPages: number;
   }> {
-    const casesPage = await this.caseRepository.findCaseCards(queryParams);
+    const casesPage = await this.caseRepository.findCases(queryParams);
     const { totalItems, totalPages } = casesPage.meta;
 
     return {

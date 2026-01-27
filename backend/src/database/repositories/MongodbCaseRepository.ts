@@ -13,7 +13,7 @@ import { CaseMapper } from '../../mappers/CaseMapper';
 import { CaseFile } from '../../entities/CaseFile';
 
 export class MongodbCaseRepository implements CaseRepository {
-  async findCaseCards(queryParams: CaseQuery = {}): Promise<Page<WithId<CaseCardDTO>>> {
+  async findCases(queryParams: CaseQuery = {}): Promise<Page<WithId<CaseCardDTO>>> {
     const { query, status, limit = 10, page = 1 } = queryParams;
 
     const regex = new RegExp(query || '', 'i');
