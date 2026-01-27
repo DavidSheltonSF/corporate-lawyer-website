@@ -3,8 +3,8 @@ import { UploadModalContext } from '@/contexts/modals/UploadModalContext';
 import { Dispatch, SetStateAction, useContext, useEffect, useRef, useState } from 'react';
 import { PrimaryModalWindow } from './PrimaryModalWindow';
 import { fetchUploadCaseFile } from '@/services/fetchUploadCaseFile';
-import { UploadIcon } from '../UploadIcon';
 import { RequestState } from '@/types/RequestState';
+import { UploadCloudIcon } from '../UploadCloudIcon';
 
 export function UploadModal({
   caseId,
@@ -70,7 +70,7 @@ export function UploadModal({
             >
               <h1 className="text-2xl ">Arraste e Largue o arquivo</h1>
 
-              <UploadIcon width="56px" height="56px" color="#2c2c2c85" />
+              <UploadCloudIcon width="56px" height="56px" color="#2c2c2c85" />
 
               <label
                 className="py-[8px] px-[16px] bg-color-primary hover:brightness-130 text-color-white rounded-md cursor-pointer"
