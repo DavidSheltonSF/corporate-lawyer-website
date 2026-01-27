@@ -47,7 +47,7 @@ export function UploadModal({
 
   return (
     isOpen && (
-      <div className="absolute z-99999999999 top-[15%] left-1/2 translate-x-[-50%] w-[400px] h-[300px] rounded-lg overflow-hidden shadow-[0px_0px__3px_black]">
+      <div className="absolute z-99999999999 top-[15%] left-1/2 translate-x-[-50%] w-[350px] h-[300px] rounded-lg overflow-hidden shadow-[0px_0px__3px_black]">
         <PrimaryModalWindow
           closeModal={() => {
             closeModal();
