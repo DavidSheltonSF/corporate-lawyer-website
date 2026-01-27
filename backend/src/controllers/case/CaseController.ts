@@ -53,7 +53,7 @@ export class CaseController implements ICaseController {
         .send(HttpResponseFactory.makeBadRequest({ message: 'Missing id param' }));
     }
 
-    const casesPaginated = await this.caseService.findCaseCards({
+    const casesPaginated = await this.caseService.findCases({
       query: query ? String(query) : undefined,
       status: status ? String(status) : undefined,
       limit: limit ? Number(limit) : undefined,

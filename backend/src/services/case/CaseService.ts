@@ -39,7 +39,7 @@ export class CaseService implements ICaseService {
     }
   }
 
-  async findCaseCards(queryParams: CaseQuery = {}): Promise<{
+  async findCases(queryParams: CaseQuery = {}): Promise<{
     cases: CaseCardDTO[];
     total: number;
     totalPages: number;

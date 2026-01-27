@@ -8,7 +8,7 @@ import { WithId } from '../../types/WithId';
 
 export interface ICaseService {
   create(data: CreateCaseDTO): Promise<WithId<CaseResponseDTO>>;
-  findCaseCards(queryParams: CaseQuery): Promise<{
+  findCases(queryParams: CaseQuery): Promise<{
     cases: CaseCardDTO[];
     total: number;
     totalPages: number;
