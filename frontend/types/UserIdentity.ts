@@ -1,4 +1,4 @@
-export interface UserBasicInfo {
+export interface UserIdentity {
   firstName: string;
   lastName: string;
 }

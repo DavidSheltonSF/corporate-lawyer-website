@@ -1,7 +1,7 @@
 import { Case } from './Case';
-import { UserBasicInfo } from './UserBasicInfo';
+import { UserIdentity } from './UserIdentity';
 import { WithId } from './WithId';
 
 export type CaseWithLawyers = Case & {
-  lawyers: WithId<UserBasicInfo>[];
+  lawyers: WithId<UserIdentity>[];
 };
