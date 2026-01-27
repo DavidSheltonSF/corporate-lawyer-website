@@ -13,7 +13,7 @@ export function DocumentTable({ documents }: Props) {
     <div className="table w-[88%] h-fit">
       <div className="header">
         <div>Name</div>
-        <div className="hidden min-md:blok">Upload</div>
+        <div className="hidden min-md:block">Upload</div>
         <div></div>
       </div>
 
