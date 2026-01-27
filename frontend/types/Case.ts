@@ -1,4 +1,3 @@
-import { CaseDocument } from './CaseDocument';
 import { CaseDocumentPopulated } from './CaseDocumentPopulated';
 import { CaseStatusEnum } from './CaseStatusEnum';
 import { HearingProps } from './HearingProps';
