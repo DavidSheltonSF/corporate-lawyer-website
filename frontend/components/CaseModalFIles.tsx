@@ -1,6 +1,6 @@
 'use client';
 import { CaseDocumentPopulated } from '@/types/CaseDocumentPopulated';
-import { DocumentTable } from './DocumentTable';
+import { FilesTable } from './FilesTable';
 import { UploadModal } from './modals/UploadModal';
 import { useEffect, useState } from 'react';
 import { fetchCaseById } from '@/services/fetchCaseById';
@@ -25,7 +25,7 @@ export function CaseModalFiles({ id, files }: { id: string; files: CaseDocumentP
   return (
     <div className="w-full h-[240px] pl-[24px] pb-[16px] overflow-y-scroll">
       <UploadModal caseId={id} setUpdateFiles={setUpdateFiles} />
-      <DocumentTable documents={currentFiles} />
+      <FilesTable documents={currentFiles} />
     </div>
   );
 }

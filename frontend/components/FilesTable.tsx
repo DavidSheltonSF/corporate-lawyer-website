@@ -8,7 +8,7 @@ interface Props {
   documents: CaseDocumentPopulated[];
 }
 
-export function DocumentTable({ documents }: Props) {
+export function FilesTable({ documents }: Props) {
   return (
     <div className="table w-[88%] h-fit">
       <div className="header">
