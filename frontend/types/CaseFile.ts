@@ -1,4 +1,4 @@
-export interface CaseDocument {
+export interface CaseFile {
   name: string;
   url: string;
   size: string;
