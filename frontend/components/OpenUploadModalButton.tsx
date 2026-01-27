@@ -20,7 +20,12 @@ export function OpenUploadModalButton() {
 
   return (
     <div>
-      <Button onclick={handleClick}>Adicionar Documento</Button>
+      <Button paddingX="4px" onclick={handleClick}>
+        <span className="lg:hidden">
+          <img src="/icons/upload.svg" alt="" />
+        </span>
+        <span className="hidden lg:block">Adicionar Documento</span>
+      </Button>
     </div>
   );
 }
