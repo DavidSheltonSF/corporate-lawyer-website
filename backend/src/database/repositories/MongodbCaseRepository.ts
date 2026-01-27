@@ -34,7 +34,7 @@ export class MongodbCaseRepository implements CaseRepository {
         select: 'firstName lastName',
       })
       .populate({
-        path: 'client',
+        path: 'lawyers',
         select: 'firstName lastName',
       })
       .limit(limit)
