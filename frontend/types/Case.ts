@@ -1,4 +1,4 @@
-import { CaseDocumentPopulated } from './CaseDocumentPopulated';
+import { CaseFile } from './CaseFile';
 import { CaseStatusEnum } from './CaseStatusEnum';
 import { HearingProps } from './HearingProps';
 
@@ -10,7 +10,7 @@ export interface Case {
   description?: string;
   court: string;
   courtDivision: string;
-  files: CaseDocumentPopulated[];
+  files: CaseFile[];
   hearings: HearingProps[];
   status: CaseStatusEnum;
   createdAt: Date;

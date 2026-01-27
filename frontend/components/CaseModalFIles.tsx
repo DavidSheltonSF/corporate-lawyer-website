@@ -1,11 +1,11 @@
 'use client';
-import { CaseDocumentPopulated } from '@/types/CaseDocumentPopulated';
 import { FilesTable } from './FilesTable';
 import { UploadModal } from './modals/UploadModal';
 import { useEffect, useState } from 'react';
 import { fetchCaseById } from '@/services/fetchCaseById';
+import { CaseFile } from '@/types/CaseFile';
 
-export function CaseModalFiles({ id, files }: { id: string; files: CaseDocumentPopulated[] }) {
+export function CaseModalFiles({ id, files }: { id: string; files: CaseFile[] }) {
   const [currentFiles, setCurrentFiles] = useState(files);
   const [updateFiles, setUpdateFiles] = useState(false);
 
