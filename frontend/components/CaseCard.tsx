@@ -7,12 +7,12 @@ import { reduceString } from '@/lib/reduceString';
 import { TooltipContainer } from './TooltipContainer';
 import { WithId } from '@/types/WithId';
 import Link from 'next/link';
-import { UserBasicInfo } from '@/types/UserIdentity';
+import { UserIdentity } from '@/types/UserIdentity';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 
 interface Props {
   caseData: WithId<Case> & {
-    lawyers: WithId<UserBasicInfo>[];
+    lawyers: WithId<UserIdentity>[];
   };
 }
 
