@@ -37,6 +37,11 @@ export function UploadModal({
 
     window.addEventListener('dragover', handleGlobalDragOver);
     window.addEventListener('drop', handleGlobalDrop);
+
+    () => {
+      window.removeEventListener('dragover', handleGlobalDragOver);
+      window.removeEventListener('drop', handleGlobalDrop);
+    };
   });
 
   function closeModal() {
