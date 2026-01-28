@@ -77,10 +77,9 @@ export function UploadModal({
     if (fileItems.length > 0) {
       e.preventDefault();
       const dropArea = e.currentTarget;
-      dropArea.classList.add('border-[2px]', 'border-blue-400');
-
       if (fileItems.some((item) => item.type === 'application/pdf')) {
         e.dataTransfer.dropEffect === 'copy';
+        dropArea.classList.add('border-[2px]', 'border-blue-400');
       } else {
         e.dataTransfer.dropEffect === 'none';
       }
