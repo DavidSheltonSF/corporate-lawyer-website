@@ -18,11 +18,11 @@ export function UploadModal({
 
   useEffect(() => {
     const handleGlobalDragOver = (e: any) => {
-      const files = [...e.dataTransfer.items].filter((item) => item.kind === 'file');
+      const fileItems = [...e.dataTransfer.items].filter((item) => item.kind === 'file');
 
-      if (files.length > 0) {
-        const dropArea = document.querySelector('.dropArea');
+      if (fileItems.length > 0) {
         e.preventDefault();
+        const dropArea = document.querySelector('.dropArea');
 
         if (!dropArea?.contains(e.target)) {
           e.dataTransfer.dropEffect = 'none';
