@@ -94,12 +94,13 @@ export function UploadModal({
 
   async function handleDrop(e: React.DragEvent<HTMLLabelElement>) {
     try {
-      e.preventDefault();
       const fileItems = [...e.dataTransfer.items].map((item) => item.getAsFile());
+      const fileItem = fileItems[0];
+      if (!fileItem) return;
 
-      if (!fileItems[0]) return;
+      e.preventDefault();
 
-      if (fileItems[0].type !== 'application/pdf') {
+      if (fileItem.type !== 'application/pdf') {
         setUploadState({ status: 'error', message: 'Apenas PDF(s) são permitidos' });
         return;
       }
@@ -107,7 +108,7 @@ export function UploadModal({
       setUploadState({ status: 'loading' });
 
       const formData = new FormData();
-      formData.append('file', fileItems[0]);
+      formData.append('file', fileItem);
 
       await fetchUploadCaseFile(formData, caseId);
 
@@ -121,13 +122,13 @@ export function UploadModal({
 
   return (
     isOpen && (
-      <div className="absolute z-99999999999 top-[15%] left-1/2 translate-x-[-50%] w-[350px] h-[300px] rounded-lg overflow-hidden shadow-[0px_0px__3px_black]">
+      <div className="absolute z-99999999999 top-[15%] left-1/2 translate-x-[-50%] w-[360px] h-[360px] rounded-lg overflow-hidden shadow-[0px_0px__3px_black]">
         <PrimaryModalWindow
           closeModal={() => {
             closeModal();
           }}
         >
-          <div className="size-full flex flex-col justify-center items-center">
+          <div className="size-full flex flex-col text-center items-center justify-around p-[4px]">
             {(uploadState?.status === 'ok' || uploadState?.status === 'error') && (
               <p
                 className={`font-bold ${
@@ -139,14 +140,14 @@ export function UploadModal({
             )}
             <label
               htmlFor="input-file"
-              className={`dropArea flex flex-col items-center justify-around bg-gray-200 h-[80%] w-[90%] rounded-md p-[8px] border border-dashed ${
+              className={`dropArea flex flex-col items-center justify-around bg-gray-200 h-[70%] w-[80%] rounded-md border border-dashed p-[4px] ${
                 uploadState?.status === 'loading' && 'animate-pulse border-blue-400 border-[2px]'
               }`}
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
             >
-              <h1 className="text-2xl ">Arraste e Largue o arquivo</h1>
+              <h1 className="text-2xl ">Arraste e Solte o arquivo</h1>
 
               <UploadCloudIcon width="56px" height="56px" color="#2c2c2c85" />
 
