@@ -77,7 +77,7 @@ export function UploadModal({
                 htmlFor="input-file"
               >
                 Escolher Arquivo
-                <input className="hidden" id="input-file" type="file" onChange={handleChange} />
+                <input className="hidden" id="input-file" type="file" onChange={handleChange} accept='application/pdf'/>
               </label>
             </div>
           </div>
