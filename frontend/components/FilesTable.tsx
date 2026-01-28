@@ -1,11 +1,11 @@
-import { CaseDocumentPopulated } from '@/types/CaseDocumentPopulated';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from './Button';
 import { formatData } from '@/lib/formatData';
+import { CaseFile } from '@/types/CaseFile';
 
 interface Props {
-  documents: CaseDocumentPopulated[];
+  documents: CaseFile[];
 }
 
 export function FilesTable({ documents }: Props) {
