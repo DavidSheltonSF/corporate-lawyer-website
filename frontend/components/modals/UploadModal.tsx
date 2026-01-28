@@ -99,6 +99,11 @@ export function UploadModal({
 
       if (!fileItems[0]) return;
 
+      if (fileItems[0].type !== 'application/pdf') {
+        setUploadState({ status: 'error', message: 'Apenas PDF(s) são permitidos' });
+        return;
+      }
+
       setUploadState({ status: 'loading' });
 
       const formData = new FormData();
