@@ -8,7 +8,7 @@ export function PrimaryModalWindow(props: Props) {
   const { closeModal, children } = props;
 
   return (
-    <div className="modalWindow flex flex-col relative  bg-color-primary size-full fade-in-animation-fast">
+    <div className="flex flex-col bg-color-primary size-full fade-in-animation-fast">
       <div className="flex justify-end items-center h-[56px] pr-[8px]">
         <button
           className="size-[40px] cursor-pointer hover:bg-white/20 transition-[background-color] duration-300 rounded-lg"
@@ -17,7 +17,7 @@ export function PrimaryModalWindow(props: Props) {
           <img className="size-full" src="/icons/close.svg" alt="" />
         </button>
       </div>
-      <div className="bg-color-white size-full overflow-auto">{children}</div>
+      <div className="bg-color-white size-full ">{children}</div>
     </div>
   );
 }
