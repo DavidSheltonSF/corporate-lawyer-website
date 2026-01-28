@@ -56,8 +56,6 @@ export function UploadModal({
       const file = e.target.files?.[0];
       if (!file) return;
 
-      console.log('File send to the api');
-
       const formData = new FormData();
 
       formData.append('file', file);
