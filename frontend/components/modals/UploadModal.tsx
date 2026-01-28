@@ -105,6 +105,11 @@ export function UploadModal({
         return;
       }
 
+      if (fileItem.size > 10 * 1000000) {
+        setUploadState({ status: 'error', message: 'Arquivos devem ter no máximo 10mb' });
+        return;
+      }
+
       setUploadState({ status: 'loading' });
 
       const formData = new FormData();
