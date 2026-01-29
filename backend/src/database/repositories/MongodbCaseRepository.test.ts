@@ -72,7 +72,7 @@ describe('Test CaseRepository', () => {
 
     await CaseModel.create(newCase);
 
-    const response = await caseRepository.findCaseCards();
+    const response = await caseRepository.findCases();
     const cases = response.data;
     const case1 = cases[0];
 
