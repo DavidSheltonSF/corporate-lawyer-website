@@ -127,16 +127,16 @@ export function UploadModal({
 
   return (
     isOpen && (
-      <div className="absolute z-99999999999 top-[15%] left-1/2 translate-x-[-50%] w-[360px] h-[360px] rounded-lg overflow-hidden shadow-[0px_0px__3px_black]">
+      <div className="absolute z-99999999999 top-[15%] left-1/2 translate-x-[-50%] w-[360px] h-[320px] rounded-lg overflow-hidden shadow-[0px_0px__3px_black]">
         <PrimaryModalWindow
           closeModal={() => {
             closeModal();
           }}
         >
-          <div className="size-full flex flex-col text-center items-center justify-around p-[4px]">
+          <div className="size-full flex flex-col text-center items-center justify-end p-[4px]">
             {(uploadState?.status === 'ok' || uploadState?.status === 'error') && (
               <p
-                className={`font-bold ${
+                className={`font-bold mb-[16px] fade-in-animation ${
                   uploadState?.status === 'ok' ? 'text-green-500' : 'text-red-500'
                 }`}
               >
@@ -145,27 +145,25 @@ export function UploadModal({
             )}
             <label
               htmlFor="input-file"
-              className={`dropArea flex flex-col items-center justify-around bg-gray-200 h-[70%] w-[80%] rounded-md border border-dashed p-[4px] ${
-                uploadState?.status === 'loading' && 'animate-pulse border-blue-400 border-[2px]'
+              className={`dropArea flex flex-col items-center justify-center gap-[6px] bg-gray-300 h-[70%] w-[85%] rounded-md p-[4px] mb-[24px] ${
+                uploadState?.status === 'loading' && 'animate-pulse border-[2px] border-blue-400'
               }`}
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
             >
-              <h1 className="text-2xl ">Arraste e Solte o arquivo</h1>
-
               <UploadCloudIcon width="56px" height="56px" color="#2c2c2c85" />
+              <h1 className="text-lg ">Solte Seu Arquivo Aqui</h1>
+              <h1 className="text-lg ">- ou -</h1>
+              <h1 className="text-lg ">Clique para fazer upload</h1>
 
-              <div className="py-[8px] px-[16px] bg-color-primary hover:brightness-130 text-color-white rounded-md cursor-pointer">
-                Escolher Arquivo
-                <input
-                  className="hidden"
-                  id="input-file"
-                  type="file"
-                  onChange={handleChange}
-                  accept="application/pdf"
-                />
-              </div>
+              <input
+                className="hidden"
+                id="input-file"
+                type="file"
+                onChange={handleChange}
+                accept="application/pdf"
+              />
             </label>
           </div>
         </PrimaryModalWindow>
