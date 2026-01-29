@@ -145,7 +145,7 @@ export function UploadModal({
             )}
             <label
               htmlFor="input-file"
-              className={`dropArea flex flex-col items-center justify-center gap-[6px] bg-gray-300 h-[70%] w-[85%] rounded-md p-[4px] mb-[24px] ${
+              className={`dropArea flex flex-col items-center justify-center gap-[6px] bg-gray-300 h-[70%] w-[85%] rounded-md p-[4px] mb-[24px] cursor-pointer ${
                 uploadState?.status === 'loading' && 'animate-pulse border-[2px] border-blue-400'
               }`}
               onDragOver={handleDragOver}
