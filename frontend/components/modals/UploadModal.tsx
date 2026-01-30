@@ -15,6 +15,7 @@ export function UploadModal({
 }) {
   const { isOpen, setIsOpen } = useContext<any>(UploadModalContext);
   const [uploadState, setUploadState] = useState<null | RequestState>(null);
+  const dropAreaRef = useRef(null);
 
   useEffect(() => {
     const handleGlobalDragOver = (e: any) => {
@@ -22,10 +23,10 @@ export function UploadModal({
 
       if (fileItems.length > 0) {
         e.preventDefault();
-        const dropArea = document.querySelector('.dropArea');
+        const dropArea = dropAreaRef.current as any;
 
         if (!dropArea?.contains(e.target)) {
-          e.dataTransfer.dropEffect = 'none';
+          e.dataTransfer.dropEffect = 'move';
         }
       }
     };
@@ -145,7 +146,8 @@ export function UploadModal({
             )}
             <label
               htmlFor="input-file"
-              className={`dropArea flex flex-col items-center justify-center gap-[6px] bg-gray-300 h-[70%] w-[85%] rounded-md p-[4px] mb-[24px] cursor-pointer ${
+              ref={dropAreaRef}
+              className={`flex flex-col items-center justify-center gap-[6px] bg-gray-300 h-[70%] w-[85%] rounded-md p-[4px] mb-[24px] cursor-pointer ${
                 uploadState?.status === 'loading' && 'animate-pulse border-[2px] border-blue-400'
               }`}
               onDragOver={handleDragOver}
