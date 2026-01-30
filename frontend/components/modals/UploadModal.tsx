@@ -1,6 +1,6 @@
 'use client';
 import { UploadModalContext } from '@/contexts/modals/UploadModalContext';
-import { Dispatch, SetStateAction, useContext, useEffect, useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useContext, useEffect, useRef, useState } from 'react';
 import { PrimaryModalWindow } from './PrimaryModalWindow';
 import { fetchUploadCaseFile } from '@/services/fetchUploadCaseFile';
 import { RequestState } from '@/types/RequestState';
@@ -15,7 +15,7 @@ export function UploadModal({
 }) {
   const { isOpen, setIsOpen } = useContext<any>(UploadModalContext);
   const [uploadState, setUploadState] = useState<null | RequestState>(null);
-  const dropAreaRef = useRef(null);
+  const dropAreaRef = useRef<HTMLLabelElement>(null);
 
   useEffect(() => {
     const handleGlobalDragOver = (e: any) => {
@@ -23,7 +23,7 @@ export function UploadModal({
 
       if (fileItems.length > 0) {
         e.preventDefault();
-        const dropArea = dropAreaRef.current as any;
+        const dropArea = dropAreaRef.current;
 
         if (!dropArea?.contains(e.target)) {
           e.dataTransfer.dropEffect = 'move';
