@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { fetchCaseById } from '@/services/fetchCaseById';
 import { CaseFile } from '@/types/CaseFile';
 
-export function CaseModalFiles({ id, files }: { id: string; files: CaseFile[] }) {
+export function CaseFilesSection({ id, files }: { id: string; files: CaseFile[] }) {
   const [currentFiles, setCurrentFiles] = useState(files);
   const [updateFiles, setUpdateFiles] = useState(false);
 

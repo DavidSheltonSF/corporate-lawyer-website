@@ -1,4 +1,4 @@
-import { CaseModalFiles } from '@/components/CaseModalFIles';
+import { CaseFilesSection } from '@/components/CaseFilesSection';
 import { FieldValue } from '@/components/FieldValue';
 import { OpenUploadModalButton } from '@/components/OpenUploadModalButton';
 import { formatStringList } from '@/lib/formatStringList';
@@ -48,7 +48,7 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
               <OpenUploadModalButton />
             </div>
           </div>
-          <CaseModalFiles id={id} files={caseData.files} />
+          <CaseFilesSection id={id} files={caseData.files} />
         </main>
       </div>
     </div>
