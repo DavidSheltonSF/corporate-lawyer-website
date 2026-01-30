@@ -1,10 +1,10 @@
 'use client';
 import { UploadModalContext } from '@/contexts/modals/UploadModalContext';
-import React, { Dispatch, SetStateAction, useContext, useEffect, useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useContext, useState } from 'react';
 import { PrimaryModalWindow } from './PrimaryModalWindow';
 import { fetchUploadCaseFile } from '@/services/fetchUploadCaseFile';
 import { RequestState } from '@/types/RequestState';
-import { UploadCloudIcon } from '../UploadCloudIcon';
+import { DropArea } from '../DropArea';
 
 export function UploadModal({
   caseId,
@@ -15,35 +15,6 @@ export function UploadModal({
 }) {
   const { isOpen, setIsOpen } = useContext<any>(UploadModalContext);
   const [uploadState, setUploadState] = useState<null | RequestState>(null);
-  const dropAreaRef = useRef<HTMLLabelElement>(null);
-
-  useEffect(() => {
-    const handleGlobalDragOver = (e: any) => {
-      const fileItems = [...e.dataTransfer.items].filter((item) => item.kind === 'file');
-
-      if (fileItems.length > 0) {
-        e.preventDefault();
-        const dropArea = dropAreaRef.current;
-
-        if (!dropArea?.contains(e.target)) {
-          e.dataTransfer.dropEffect = 'move';
-        }
-      }
-    };
-    const handleGlobalDrop = (e: any) => {
-      if ([...e.dataTransfer.items].some((item) => item.kind === 'file')) {
-        e.preventDefault();
-      }
-    };
-
-    window.addEventListener('dragover', handleGlobalDragOver);
-    window.addEventListener('drop', handleGlobalDrop);
-
-    () => {
-      window.removeEventListener('dragover', handleGlobalDragOver);
-      window.removeEventListener('drop', handleGlobalDrop);
-    };
-  });
 
   function closeModal() {
     if (uploadState?.status === 'loading') return;
@@ -70,27 +41,6 @@ export function UploadModal({
       setUploadState({ status: 'error', message: 'Arquivo não adicionado' });
       console.log(error);
     }
-  }
-
-  function handleDragOver(e: React.DragEvent) {
-    const fileItems = [...e.dataTransfer.items].filter((item) => item.kind === 'file');
-
-    if (fileItems.length > 0) {
-      e.preventDefault();
-      const dropArea = e.currentTarget;
-      if (fileItems.some((item) => item.type === 'application/pdf')) {
-        e.dataTransfer.dropEffect === 'copy';
-        dropArea.classList.add('border-[2px]', 'border-blue-400');
-      } else {
-        e.dataTransfer.dropEffect === 'none';
-      }
-    }
-  }
-
-  function handleDragLeave(e: React.DragEvent<HTMLLabelElement>) {
-    e.preventDefault();
-    const dropArea = e.currentTarget;
-    dropArea.classList.remove('border-[2px]', 'border-blue-400');
   }
 
   async function handleDrop(e: React.DragEvent<HTMLLabelElement>) {
@@ -144,29 +94,11 @@ export function UploadModal({
                 {uploadState.message}
               </p>
             )}
-            <label
-              htmlFor="input-file"
-              ref={dropAreaRef}
-              className={`flex flex-col items-center justify-center gap-[6px] bg-gray-300 h-[70%] w-[85%] rounded-md p-[4px] mb-[24px] cursor-pointer ${
-                uploadState?.status === 'loading' && 'animate-pulse border-[2px] border-blue-400'
-              }`}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-            >
-              <UploadCloudIcon width="56px" height="56px" color="#2c2c2c85" />
-              <h1 className="text-lg ">Solte Seu Arquivo Aqui</h1>
-              <h1 className="text-lg ">- ou -</h1>
-              <h1 className="text-lg ">Clique para fazer upload</h1>
-
-              <input
-                className="hidden"
-                id="input-file"
-                type="file"
-                onChange={handleChange}
-                accept="application/pdf"
-              />
-            </label>
+            <DropArea
+              uploadState={uploadState}
+              handleChange={handleChange}
+              handleDrop={handleDrop}
+            />
           </div>
         </PrimaryModalWindow>
       </div>
