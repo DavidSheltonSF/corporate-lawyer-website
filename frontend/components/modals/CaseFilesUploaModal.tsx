@@ -6,7 +6,7 @@ import { fetchUploadCaseFile } from '@/services/fetchUploadCaseFile';
 import { RequestState } from '@/types/RequestState';
 import { DropArea } from '../DropArea';
 
-export function UploadModal({
+export function CaseFilesUploadModal({
   caseId,
   setUpdateFiles,
 }: {
