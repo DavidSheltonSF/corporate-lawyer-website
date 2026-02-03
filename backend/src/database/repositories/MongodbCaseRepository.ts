@@ -73,12 +73,12 @@ export class MongodbCaseRepository implements CaseRepository {
       select: 'firstName lastName',
     });
 
-    const foundQuery = await query.lean();
+    const foundCase = await query.lean();
 
-    if (!foundQuery) {
+    if (!foundCase) {
       return null;
     }
-    return CaseMapper.persistenceToPopulatedPresentation(foundQuery);
+    return CaseMapper.persistenceToPopulatedPresentation(foundCase);
   }
 
   async create(data: CreateCaseDTO): Promise<WithId<Case>> {
