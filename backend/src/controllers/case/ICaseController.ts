@@ -4,5 +4,6 @@ export interface ICaseController {
   findById: (req: Request, res: Response) => Promise<Response>;
   findByClient: (req: Request, res: Response) => Promise<Response>;
   getStatsByClient: (req: Request, res: Response) => Promise<Response>;
-  addFile:(req: Request, res: Response) => Promise<Response>
+  addFile: (req: Request, res: Response) => Promise<Response>;
+  getFiles: (req: Request, res: Response) => Promise<Response>;
 }

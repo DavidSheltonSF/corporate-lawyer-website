@@ -131,4 +131,26 @@ export class CaseController implements ICaseController {
       return res.status(500).json(HttpResponseFactory.makeServerError({ message: error }));
     }
   };
+
+  getFiles = async (req: Request, res: Response) => {
+    const caseId = req.params;
+
+    if (!caseId) {
+      return res
+        .status(400)
+        .json(HttpResponseFactory.makeBadRequest({ message: 'Missing case id' }));
+    }
+
+    const caseFiles = await this.caseService.findFilesByCaseId(String(caseId));
+
+    if (!caseFiles) {
+      return res
+        .status(404)
+        .json(
+          HttpResponseFactory.makeNotFound({ message: `Case with id ${caseId} was not found` })
+        );
+    }
+
+    return res.status(200).json(HttpResponseFactory.makeOk({ data: caseFiles }));
+  };
 }
