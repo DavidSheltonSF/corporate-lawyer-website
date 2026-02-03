@@ -1,7 +1,9 @@
 import { CaseCardDTO } from '../../dtos/case/CaseCardDTO';
+import { CaseFileDTO } from '../../dtos/caseFile/CaseFileDTO';
 import { CreateCaseFileDTO } from '../../dtos/caseFile/CreateCaseFileDTO';
 import { CaseResponseDTO } from '../../dtos/user/CaseResponseDTO';
 import { CreateCaseDTO } from '../../dtos/user/CreateCaseDTO';
+import { CaseFile } from '../../entities/CaseFile';
 import { NotFoundError } from '../../errors/NotFoundError';
 import { CaseRepository } from '../../repositories/CaseRepository';
 import { CaseQuery } from '../../types/CaseQuery';
@@ -80,5 +82,17 @@ export class CaseService implements ICaseService {
       mimeType: file.mimeType,
       uploadedBy: file.uploadedBy,
     });
+  }
+
+  async findFilesByCaseId(id: string): Promise<WithId<CaseFileDTO>[] | null> {
+    const foundFile = await this.findById(id);
+
+    if (!foundFile) {
+      return null;
+    }
+
+    const files = foundFile.files;
+
+    return files;
   }
 }
