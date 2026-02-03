@@ -14,6 +14,7 @@ export function configRouter(app: Application) {
   router.get('/api/cases/:id', caseController.findById);
   router.get('/api/client/cases/stats', requireAuth, caseController.getStatsByClient);
   router.get('/api/client/cases', requireAuth, caseController.findByClient);
+  router.get('/api/client/cases/:id/caseFiles', requireAuth, caseController.findFilesByCaseId);
   router.post(
     '/api/client/cases/:id/caseFiles',
     requireAuth,
