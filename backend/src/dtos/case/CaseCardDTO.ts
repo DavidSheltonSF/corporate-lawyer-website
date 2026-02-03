@@ -11,8 +11,8 @@ export interface CaseCardDTO {
   description: string;
   court: string; //tribunal
   courtDivision: string; //vara
-  files: CaseFileDTO[];
-  hearings: HearingDTO[];
+  files: WithId<CaseFileDTO>[];
+  hearings: WithId<HearingDTO>[];
   status: string;
   createdAt: string;
   updatedAt: string;
