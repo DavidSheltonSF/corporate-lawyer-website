@@ -132,7 +132,7 @@ export class CaseController implements ICaseController {
     }
   };
 
-  getFiles = async (req: Request, res: Response) => {
+  findFilesByCaseId = async (req: Request, res: Response) => {
     const caseId = req.params;
 
     if (!caseId) {
