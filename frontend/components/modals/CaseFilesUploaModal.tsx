@@ -45,7 +45,7 @@ export function CaseFilesUploadModal({
 
   async function handleDrop(e: React.DragEvent<HTMLLabelElement>) {
     try {
-      const fileItems = [...e.dataTransfer.items].map((item) => item.getAsFile());
+      const fileItems = e.dataTransfer.files;
       const fileItem = fileItems[0];
       if (!fileItem) return;
 
