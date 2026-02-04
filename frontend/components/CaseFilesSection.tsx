@@ -2,8 +2,8 @@
 import { FilesTable } from './FilesTable';
 import { CaseFilesUploadModal } from './modals/CaseFilesUploaModal';
 import { useEffect, useState } from 'react';
-import { fetchCaseById } from '@/services/fetchCaseById';
 import { CaseFile } from '@/types/CaseFile';
+import { fetchCaseFiles } from '@/services/fetchCaseFiles';
 
 export function CaseFilesSection({ id, files }: { id: string; files: CaseFile[] }) {
   const [currentFiles, setCurrentFiles] = useState(files);
@@ -11,8 +11,8 @@ export function CaseFilesSection({ id, files }: { id: string; files: CaseFile[] 
 
   useEffect(() => {
     async function fetchCases() {
-      const caseData = await fetchCaseById(id);
-      setCurrentFiles(caseData.files);
+      const caseFiles = await fetchCaseFiles(id);
+      setCurrentFiles(caseFiles);
     }
 
     if (updateFiles) {
