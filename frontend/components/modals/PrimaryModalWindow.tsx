@@ -17,7 +17,7 @@ export function PrimaryModalWindow(props: Props) {
           <img className="size-full" src="/icons/close.svg" alt="" />
         </button>
       </div>
-      <div className="bg-color-white size-full ">{children}</div>
+      <div className="bg-color-white size-full overflow-y-auto">{children}</div>
     </div>
   );
 }
