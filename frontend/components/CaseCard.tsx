@@ -59,7 +59,7 @@ export function CaseCard({ caseData }: Props) {
           borderRadius: 'inherit',
         }}
       >
-        <header className="flex items-center pl-[24px] py-[16px]">
+        <header className="flex items-center justify-center min-md:justify-start w-full p-[16px] min-md:p-[24px]">
           <TooltipContainer
             label={title}
             tooltipLabelProps={{
@@ -72,7 +72,9 @@ export function CaseCard({ caseData }: Props) {
               },
             }}
           >
-            <h1 className="h-fit font-bold text-3xl">{reduceString(title, 35)}</h1>
+            <h1 className="h-fit font-bold text-center min-md:text-start text-xl min-md:text-3xl">
+              {reduceString(title, 35)}
+            </h1>
           </TooltipContainer>
         </header>
         <main
