@@ -5,7 +5,7 @@ import { CaseFile } from '@/types/CaseFile';
 export async function fetchCaseFiles(id: string): Promise<CaseFile[]> {
   const token = await getTokenFromCookies();
 
-  const response = await fetch(`${API_URL}/client/cases/:${id}/caseFiles`, {
+  const response = await fetch(`${API_URL}/client/cases/${id}/caseFiles`, {
     headers: {
       Authorization: token,
     },
