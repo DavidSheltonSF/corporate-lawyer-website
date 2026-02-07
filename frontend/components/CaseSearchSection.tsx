@@ -2,7 +2,6 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { CaseSearchBar } from './CaseSearchBar';
 import { CasesList } from './CasesList';
-import { UserDataContext } from '@/contexts/UserDataContext';
 import { fetchClientCases } from '@/services/fetchClientCases';
 import { WithId } from '@/types/WithId';
 import { Pagination } from './Pagination';
@@ -42,11 +41,6 @@ export default function CaseSearchSection() {
   useEffect(() => {
     loadCases(1);
   }, []);
-
-  const context = useContext(UserDataContext);
-  if (!context) {
-    return <div>User data not found</div>;
-  }
 
   return (
     <section className="flex flex-col items-center relative size-full">
