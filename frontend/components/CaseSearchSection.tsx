@@ -1,5 +1,5 @@
 'use client';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CaseSearchBar } from './CaseSearchBar';
 import { CasesList } from './CasesList';
 import { fetchClientCases } from '@/services/fetchClientCases';
