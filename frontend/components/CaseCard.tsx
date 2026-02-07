@@ -50,7 +50,7 @@ export function CaseCard({ caseData }: Props) {
   });
 
   return (
-    <article className="flex flex-col fade-in-animation  bg-color-primary w-full min-md:w-[80%] min-lg:w-[640px] h-max rounded-xl">
+    <article className="flex flex-col fade-in-animation  bg-color-primary w-full min-md:w-[80%] min-lg:w-[640px] min-h-[280px] h-max rounded-xl">
       <Link
         className="flex flex-col flex-1"
         href={`clientPage/Case/${id}`}

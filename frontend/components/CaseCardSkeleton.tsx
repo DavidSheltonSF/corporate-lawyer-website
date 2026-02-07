@@ -1,6 +1,6 @@
 export function CaseCardSkeleton() {
   return (
-    <article className="flex flex-col animate-pulse bg-color-primary w-full min-md:w-[80%] min-lg:w-[640px] h-max rounded-xl overflow-hidden">
+    <article className="flex flex-col animate-pulse bg-color-primary w-full min-md:w-[80%] min-lg:w-[640px] min-h-[280px] rounded-xl overflow-hidden">
       <header className="flex items-center pl-[24px] h-[56px]">
         <span className="bg-white/50 rounded-xl w-[75%] h-[24px] font-bold text-3xl "></span>
       </header>
