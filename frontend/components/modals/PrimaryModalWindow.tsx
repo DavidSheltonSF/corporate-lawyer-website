@@ -12,7 +12,9 @@ export function PrimaryModalWindow(props: Props) {
       <div className="flex justify-end items-center h-[56px] pr-[8px]">
         <button
           className="size-[40px] cursor-pointer hover:bg-white/20 transition-[background-color] duration-300 rounded-lg"
-          onClick={() => closeModal()}
+          onClick={() => {
+            closeModal();
+          }}
         >
           <img className="size-full" src="/icons/close.svg" alt="" />
         </button>
