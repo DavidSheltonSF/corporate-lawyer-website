@@ -42,8 +42,17 @@ export function CaseModal() {
       setCaseData(null);
     }
 
+    function resetStates() {
+      setCaseData(null);
+      setIsOpen(false);
+    }
+
     fetchCaseData();
     cleanCaseDataOnClose();
+
+    return () => {
+      resetStates;
+    };
   }, [isOpen]);
 
   function closeModal() {
@@ -101,7 +110,7 @@ export function CaseModal() {
                       <OpenUploadModalButton />
                     </div>
                   </div>
-                  <div className='flex w-full h-[240px]'>
+                  <div className="flex w-full h-[240px]">
                     <CaseFilesSection id={caseId || ''} files={caseData.files} />
                   </div>
                 </main>
