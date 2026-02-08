@@ -62,7 +62,7 @@ export function CaseModal() {
     isOpen && (
       <div
         ref={modalRef}
-        className="fixed z-99999999999 top-[4%] left-1/2 translate-x-[-50%] w-[880px] h-[872px] rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black"
+        className="fixed z-99999999999 top-[4%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[880px] h-[872px] rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black"
       >
         <PrimaryModalWindow
           closeModal={() => {

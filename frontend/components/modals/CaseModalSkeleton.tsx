@@ -5,8 +5,8 @@ export function CaseModalSkeleton() {
   return (
     <div className="flex flex-col h-full w-full">
       <div className="size-full bg-color-white">
-        <header className="flex items-center bg-color-primary min-h-[72px] border-t border-white/50 pl-[24px] py-[16px]">
-          <span className="w-160 h-[24px] bg-gray-200 animate-pulse"></span>
+        <header className="flex bg-color-primary min-h-[72px] border-t border-white/50 pl-[24px] py-[16px]">
+          <span className="w-90 min-md:w-160 h-[24px] bg-gray-200 animate-pulse"></span>
         </header>
         <main className="flex flex-col h-full text-xl">
           <div className="flex flex-col min-h-[30%] gap-[8px] pl-[24px] py-[24px]">
