@@ -9,6 +9,7 @@ import { CaseWithLawyers } from '@/types/CaseWithLawyers';
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { DropDownButton } from './DropdownButton';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
+import { CaseModal } from './modals/CaseModal';
 
 export default function CaseSearchSection() {
   const [query, setQuery] = useState('');
@@ -44,6 +45,7 @@ export default function CaseSearchSection() {
 
   return (
     <section className="flex flex-col items-center relative size-full">
+      <CaseModal/>
       <div className="flex flex-col lg:flex-row gap-[40px] size-full">
         <CaseSearchBar
           handleClick={() => {
