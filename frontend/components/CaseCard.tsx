@@ -10,6 +10,8 @@ import { UserIdentity } from '@/types/UserIdentity';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { MissingContextError } from '@/errors/MissingContextError';
 import { useCaseModalContext } from '@/hooks/useCaseModalContext';
+import { MissingContextError } from '@/errors/MissingContextError';
+import { useCaseModalContext } from '@/hooks/useCaseModalContext';
 
 interface Props {
   caseData: WithId<Case> & {
@@ -49,6 +51,14 @@ export function CaseCard({ caseData }: Props) {
   const lawyersNames = caseData.lawyers?.map((lawyer) => {
     return `${lawyer.firstName} ${lawyer.lastName}`;
   });
+
+  const caseModalContext = useCaseModalContext();
+
+  if (!caseModalContext) {
+    throw new MissingContextError('CaseModalContext');
+  }
+
+  const { setIsOpen, setCaseId } = caseModalContext;
 
   const caseModalContext = useCaseModalContext();
 
