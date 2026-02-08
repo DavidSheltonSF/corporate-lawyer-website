@@ -62,7 +62,7 @@ export function CaseModal() {
     isOpen && (
       <div
         ref={modalRef}
-        className="fixed z-99999999999 top-[10%] left-1/2 translate-x-[-50%] w-[880px] h-[800px] rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black"
+        className="fixed z-99999999999 top-[4%] left-1/2 translate-x-[-50%] w-[880px] h-[872px] rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black"
       >
         <PrimaryModalWindow
           closeModal={() => {
@@ -72,14 +72,13 @@ export function CaseModal() {
           {loading || !caseData ? (
             <CaseModalSkeleton />
           ) : (
-            <div className="flex flex-col h-full w-full bg-color-primary">
-              <div className="w-full h-[64px]"></div>
+            <div className="flex flex-col size-full">
               <div className="size-full bg-color-white">
-                <header className="flex items-center bg-color-primary border-t border-white/50 pl-[24px] py-[16px]">
+                <header className="flex items-center bg-color-primary min-h-[72px] border-t border-white/50 pl-[24px] py-[16px]">
                   <h1 className=" text-color-white text-4xl">{caseData?.title}</h1>
                 </header>
-                <main className="h-full text-xl">
-                  <div className="flex flex-col gap-[8px] pl-[24px] py-[24px]">
+                <main className="flex flex-col h-full text-xl">
+                  <div className="flex min-h-[30%] flex-col gap-[8px] pl-[24px] py-[24px]">
                     <FieldValue field="nº:" value={caseData?.processNumber || ''} />
                     <FieldValue
                       field="cliente:"
@@ -92,7 +91,7 @@ export function CaseModal() {
                     <FieldValue field="Tribunal:" value={caseData?.court || ''} />
                     <FieldValue field="Vara:" value={caseData?.courtDivision || ''} />
                   </div>
-                  <div className="flex flex-col gap-[8px] px-[24px] py-[24px] border-t border-black/30">
+                  <div className="flex flex-col min-h-[20%] gap-[8px] px-[24px] py-[24px] border-t border-black/30">
                     <h1 className="font-bold text-3xl">Resumo</h1>
                     <p>{caseData?.description || ''}</p>
                   </div>
