@@ -28,7 +28,6 @@ export function CaseModal() {
       if (!caseId) {
         return;
       }
-      await new Promise((resolve) => setTimeout(resolve, 2000));
       const caseFound = await fetchCaseById(caseId, ['client', 'lawyers']);
       setCaseData(caseFound);
       setLoading(false);
