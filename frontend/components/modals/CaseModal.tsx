@@ -101,7 +101,9 @@ export function CaseModal() {
                       <OpenUploadModalButton />
                     </div>
                   </div>
-                  <CaseFilesSection id={caseId || ''} files={caseData.files} />
+                  <div className='flex w-full h-[240px]'>
+                    <CaseFilesSection id={caseId || ''} files={caseData.files} />
+                  </div>
                 </main>
               </div>
             </div>
