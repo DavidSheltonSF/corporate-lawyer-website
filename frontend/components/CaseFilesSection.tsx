@@ -23,7 +23,7 @@ export function CaseFilesSection({ id, files }: { id: string; files: CaseFile[] 
   }, [updateFiles]);
 
   return (
-    <div className="w-full h-[240px] pl-[24px] pb-[16px] overflow-y-scroll">
+    <div className="w-full h-full pl-[24px] pb-[16px] overflow-y-scroll">
       <CaseFilesUploadModal caseId={id} setUpdateFiles={setUpdateFiles} />
       <FilesTable documents={currentFiles} />
     </div>
