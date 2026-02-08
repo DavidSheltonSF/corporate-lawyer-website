@@ -46,7 +46,7 @@ export function CaseCard({ caseData }: Props) {
       break;
   }
 
-  const renderLawyers = caseData.lawyers?.map((lawyer) => {
+  const lawyersNames = caseData.lawyers?.map((lawyer) => {
     return `${lawyer.firstName} ${lawyer.lastName}`;
   });
 
@@ -102,7 +102,7 @@ export function CaseCard({ caseData }: Props) {
         </span>
         <span className="flex gap-[8px]">
           <p className="font-bold">advogados:</p>
-          <p>{formatStringList(renderLawyers)}</p>
+          <p>{formatStringList(lawyersNames)}</p>
         </span>
         <span className="flex gap-[8px]">
           <p className="font-bold">status:</p>
