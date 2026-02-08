@@ -64,7 +64,7 @@ export function CaseCard({ caseData }: Props) {
         setCaseId(id);
         setIsOpen(true);
       }}
-      className="flex flex-col fade-in-animation  bg-color-primary w-full min-md:w-[80%] min-lg:w-[640px] min-h-[280px] h-max rounded-xl"
+      className="flex flex-col fade-in-animation  bg-color-primary w-full min-md:w-[80%] min-lg:w-[640px] min-h-[280px] h-max rounded-xl cursor-pointer"
     >
       <header className="flex items-center justify-center min-md:justify-start w-full p-[16px] min-md:p-[24px]">
         <TooltipContainer
