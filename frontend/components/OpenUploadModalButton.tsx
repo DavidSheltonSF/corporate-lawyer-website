@@ -6,7 +6,10 @@ import { UploadModalContext } from '@/contexts/modals/UploadModalContext';
 import { ModalContextType } from '@/contexts/modals/ModalContextType';
 import { MissingContextError } from '@/errors/MissingContextError';
 
-export function OpenUploadModalButton() {
+interface Props {
+  disabled?: boolean
+}
+export function OpenUploadModalButton({disabled}: Props) {
   const context = useContext<ModalContextType | undefined>(UploadModalContext);
 
   if (!context) {
@@ -20,7 +23,7 @@ export function OpenUploadModalButton() {
 
   return (
     <div>
-      <Button paddingX="4px" onclick={handleClick}>
+      <Button paddingX="4px" onclick={handleClick} disabled={disabled}>
         <span className="lg:hidden">
           <img src="/icons/upload.svg" alt="" />
         </span>

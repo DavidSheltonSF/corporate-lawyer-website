@@ -7,6 +7,7 @@ interface Props {
   paddingY?: string;
   children: React.ReactNode;
   onclick?: React.MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
 }
 
 export function Button(props: Props) {
@@ -17,9 +18,11 @@ export function Button(props: Props) {
     paddingX = '16px',
     paddingY = '4px',
     onclick,
+    disabled,
   } = props;
   return (
     <button
+      disabled={disabled}
       className="rounded-sm hover:brightness-120 cursor-pointer"
       style={{
         backgroundColor,
