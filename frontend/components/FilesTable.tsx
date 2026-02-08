@@ -3,12 +3,21 @@ import Link from 'next/link';
 import { Button } from './Button';
 import { formatData } from '@/lib/formatData';
 import { CaseFile } from '@/types/CaseFile';
+import { MissingContextError } from '@/errors/MissingContextError';
+import { useUserContext } from '@/hooks/useUserContext';
 
 interface Props {
   documents: CaseFile[];
 }
 
 export function FilesTable({ documents }: Props) {
+  const userContext = useUserContext()
+
+  if (!userContext) {
+    throw new MissingContextError('UserDataContext');
+  }
+
+  const userId = userContext.userData.id;
   return (
     <div className="table w-[88%] h-fit">
       <div className="header">
@@ -18,12 +27,16 @@ export function FilesTable({ documents }: Props) {
       </div>
 
       {documents.map((document, index) => {
+        const uploadedByMe = document.uploadedBy.id === userId;
+
         return (
           <div key={index} className="row">
             <div className="overflow-wrap">{document.name}</div>
             <div className="hidden min-md:block">{`${formatData(document.uploadedAt)} - ${
-              document.uploadedBy.firstName
-            } ${document.uploadedBy.lastName}`}</div>
+              uploadedByMe
+                ? 'Me'
+                : document.uploadedBy.firstName + ' ' + document.uploadedBy.lastName
+            }`}</div>
             <div className="flex justify-center items-center">
               <Link href={document.url} target="_blank">
                 <div className="hidden min-lg:block">
