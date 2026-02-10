@@ -1,8 +1,6 @@
-import CaseSearchSection from '@/components/CaseSearchSection';
-import { DashboardSection } from '@/components/DashboardSection';
-import { DynamicSection } from '@/components/DynamicSection';
-import { DynamicSections } from '@/components/DynamicSections';
 import { HeroSection } from '@/components/HeroSection';
+import { ClientView } from '@/components/views/ClientView';
+import { LawyerView } from '@/components/views/LawyerView';
 import { UserDataProvider } from '@/contexts/UserDataProvider';
 import { fetchUserByToken } from '@/services/fetchUserByToken';
 import { User } from '@/types/User';
@@ -26,18 +24,8 @@ export default async function ClientPage() {
         title={`Bem vindo(a) ${user?.role === 'lawyer' ? 'Dra' : ''} ${user?.firstName}`}
         additionalStyles="h-[280px]"
       />
-
       <UserDataProvider userData={user}>
-        <main>
-          <DynamicSections sectionsNames={['Geral', 'Processos']}>
-            <DynamicSection>
-              <DashboardSection />
-            </DynamicSection>
-            <DynamicSection>
-              <CaseSearchSection />
-            </DynamicSection>
-          </DynamicSections>
-        </main>
+        {user.role === 'lawyer' ? <LawyerView /> : <ClientView />}
       </UserDataProvider>
     </div>
   );
