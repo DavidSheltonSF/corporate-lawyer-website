@@ -3,20 +3,20 @@ import { config } from 'dotenv';
 
 config();
 
-export class PostgresConnector {
-  static instance: PostgresConnector | null = null;
+export class PostgreConnector {
+  static instance: PostgreConnector | null = null;
   private client: Client;
 
   private constructor(config: ClientConfig) {
     this.client = new Client(config);
   }
 
-  static getInstance(): PostgresConnector {
+  static getInstance(): PostgreConnector {
     if (this.instance) {
       return this.instance;
     }
 
-    this.instance = new PostgresConnector({
+    this.instance = new PostgreConnector({
       connectionString: process.env.PSQL_DATABASE_URL,
       host: process.env.PSQL_DATABASE_HOST,
       user: process.env.PSQL_DATABASE_USER,
@@ -42,5 +42,11 @@ export class PostgresConnector {
   async query(queryStream: any): Promise<QueryResult> {
     return await this.client.query(queryStream);
   }
-  resetTables() {}
+  async resetTables() {
+    await this.query(`
+      DROP TABLE IF EXISTS cases;
+      
+
+      `);
+  }
 }
