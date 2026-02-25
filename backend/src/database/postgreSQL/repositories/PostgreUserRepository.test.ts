@@ -38,7 +38,7 @@ describe(`Testing ${PostgreUserRepository.name}`, () => {
     const createdUser = await userRepository.create(userData);
 
     const result = await dbConnection.query(`SELECT * FROM users WHERE id = ${createdUser.id}`);
-    const row = result.rows[0]
+    const row = result.rows[0];
 
     expect(row.first_name).toBe(userData.firstName);
     expect(row.last_name).toBe(userData.lastName);
@@ -79,7 +79,7 @@ describe(`Testing ${PostgreUserRepository.name}`, () => {
     expect(result[0]!.password).toBe(userData.password);
   });
 
-  test('should find a user by id users', async () => {
+  test('should find a user by id', async () => {
     const { userRepository, userData } = mockup();
 
     const query = {
@@ -99,10 +99,40 @@ describe(`Testing ${PostgreUserRepository.name}`, () => {
     };
 
     const result = await dbConnection.query(query);
-    const row = result.rows[0]
+    const row = result.rows[0];
     const id = row.id;
 
     const foundUser = await userRepository.findById(id);
+
+    expect(foundUser.firstName).toBe(userData.firstName);
+    expect(foundUser.lastName).toBe(userData.lastName);
+    expect(foundUser.email).toBe(userData.email);
+    expect(foundUser.cpf).toBe(userData.cpf);
+    expect(foundUser.role).toBe(userData.role);
+    expect(foundUser.password).toBe(userData.password);
+  });
+
+  test('should find a user by email', async () => {
+    const { userRepository, userData } = mockup();
+
+    const query = {
+      text: `
+      INSERT INTO users(first_name, last_name, email, cpf, role, password)
+      VALUES ($1, $2, $3, $4, $5, $6)
+      RETURNING id;
+      `,
+      values: [
+        userData.firstName,
+        userData.lastName,
+        userData.email,
+        userData.cpf,
+        userData.role,
+        userData.password,
+      ],
+    };
+
+    await dbConnection.query(query);
+    const foundUser = await userRepository.findByEmail(userData.email);
 
     expect(foundUser.firstName).toBe(userData.firstName);
     expect(foundUser.lastName).toBe(userData.lastName);
