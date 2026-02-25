@@ -104,12 +104,12 @@ describe(`Testing ${PostgreUserRepository.name}`, () => {
 
     const foundUser = await userRepository.findById(id);
 
-    expect(foundUser.firstName).toBe(userData.firstName);
-    expect(foundUser.lastName).toBe(userData.lastName);
-    expect(foundUser.email).toBe(userData.email);
-    expect(foundUser.cpf).toBe(userData.cpf);
-    expect(foundUser.role).toBe(userData.role);
-    expect(foundUser.password).toBe(userData.password);
+    expect(foundUser?.firstName).toBe(userData.firstName);
+    expect(foundUser?.lastName).toBe(userData.lastName);
+    expect(foundUser?.email).toBe(userData.email);
+    expect(foundUser?.cpf).toBe(userData.cpf);
+    expect(foundUser?.role).toBe(userData.role);
+    expect(foundUser?.password).toBe(userData.password);
   });
 
   test('should find a user by email', async () => {
@@ -134,11 +134,11 @@ describe(`Testing ${PostgreUserRepository.name}`, () => {
     await dbConnection.query(query);
     const foundUser = await userRepository.findByEmail(userData.email);
 
-    expect(foundUser.firstName).toBe(userData.firstName);
-    expect(foundUser.lastName).toBe(userData.lastName);
-    expect(foundUser.email).toBe(userData.email);
-    expect(foundUser.cpf).toBe(userData.cpf);
-    expect(foundUser.role).toBe(userData.role);
-    expect(foundUser.password).toBe(userData.password);
+    expect(foundUser?.firstName).toBe(userData.firstName);
+    expect(foundUser?.lastName).toBe(userData.lastName);
+    expect(foundUser?.email).toBe(userData.email);
+    expect(foundUser?.cpf).toBe(userData.cpf);
+    expect(foundUser?.role).toBe(userData.role);
+    expect(foundUser?.password).toBe(userData.password);
   });
 });

@@ -52,9 +52,14 @@ export class PostgreUserRepository {
     return mappedRows;
   }
 
-  async findById(id: string): Promise<WithId<User>> {
+  async findById(id: string): Promise<WithId<User> | null> {
     const result = await dbConnection.query(`SELECT * FROM users WHERE id = ${id};`);
     const rows = result.rows;
+
+    if (rows.length === 0) {
+      return null;
+    }
+
     const user = rows[0];
 
     return {
@@ -68,11 +73,15 @@ export class PostgreUserRepository {
     };
   }
 
-  async findByEmail(email: string): Promise<WithId<User>> {
+  async findByEmail(email: string): Promise<WithId<User> | null> {
     const result = await dbConnection.query(`SELECT * FROM users WHERE email = '${email}';`);
     const rows = result.rows;
     const user = rows[0];
 
+    if (rows.length === 0) {
+      return null;
+    }
+
     return {
       id: user.id,
       firstName: user.first_name,
@@ -83,4 +92,9 @@ export class PostgreUserRepository {
       password: user.password,
     };
   }
+
+  // async exists(): Promise<boolean> {
+  //   const result = this.findById(id);
+  //   return result === null
+  // }
 }
