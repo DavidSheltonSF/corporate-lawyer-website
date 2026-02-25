@@ -93,8 +93,8 @@ export class PostgreUserRepository {
     };
   }
 
-  // async exists(): Promise<boolean> {
-  //   const result = this.findById(id);
-  //   return result === null
-  // }
+  async exists(id: string): Promise<boolean> {
+    const result = await this.findById(id);
+    return result !== null;
+  }
 }

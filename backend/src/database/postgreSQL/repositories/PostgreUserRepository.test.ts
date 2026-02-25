@@ -141,4 +141,33 @@ describe(`Testing ${PostgreUserRepository.name}`, () => {
     expect(foundUser?.role).toBe(userData.role);
     expect(foundUser?.password).toBe(userData.password);
   });
+
+  test('should return true if the user exists and false if the user does not exist', async () => {
+    const { userRepository, userData } = mockup();
+
+    const query = {
+      text: `
+      INSERT INTO users(first_name, last_name, email, cpf, role, password)
+      VALUES ($1, $2, $3, $4, $5, $6)
+      RETURNING id;
+      `,
+      values: [
+        userData.firstName,
+        userData.lastName,
+        userData.email,
+        userData.cpf,
+        userData.role,
+        userData.password,
+      ],
+    };
+
+    const result = await dbConnection.query(query);
+    const row = result.rows[0];
+    const id = row.id;
+    const checkExistingUser = await userRepository.exists(id);
+    const checkNonExistingUser = await userRepository.exists('55');
+
+    expect(checkExistingUser).toBeTruthy();
+    expect(checkNonExistingUser).toBeFalsy();
+  });
 });
