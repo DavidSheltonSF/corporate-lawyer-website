@@ -51,4 +51,20 @@ export class PostgreUserRepository {
 
     return mappedRows;
   }
+
+  async findById(id: string): Promise<WithId<User>> {
+    const result = await dbConnection.query(`SELECT * FROM users WHERE id = ${id};`);
+    const rows = result.rows;
+    const user = rows[0];
+
+    return {
+      id: user.id,
+      firstName: user.first_name,
+      lastName: user.last_name,
+      email: user.email,
+      cpf: user.cpf,
+      role: user.role,
+      password: user.password,
+    };
+  }
 }
