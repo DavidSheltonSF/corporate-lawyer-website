@@ -6,7 +6,7 @@ import { PostgreConnector } from '../PostgreConnector';
 
 const dbConnection = PostgreConnector.getInstance();
 
-export class PostgreUserRepository {
+export class PostgreUserRepository implements UserRepository {
   async create(data: CreateUserDTO): Promise<WithId<User>> {
     const { firstName, lastName, email, cpf, role, password } = data;
 
