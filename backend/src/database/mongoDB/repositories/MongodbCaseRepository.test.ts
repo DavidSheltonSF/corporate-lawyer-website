@@ -1,11 +1,11 @@
 import { config } from 'dotenv';
 import { MongodbCaseRepository } from './MongodbCaseRepository';
-import { CaseModel } from '../../models/CaseModel';
-import { CaseStatusEnum } from '../../types/CaseStatusEnum';
-import { UserRole } from '../../types/UserRole';
-import { IUserModel, UserModel } from '../../models/UserModel';
+import { CaseModel } from '../../../models/CaseModel';
+import { CaseStatusEnum } from '../../../types/CaseStatusEnum';
+import { UserRole } from '../../../types/UserRole';
 import { Types } from 'mongoose';
 import { MongodbTestConnector } from '../MongodbTestConnector';
+import { IUserModel, UserModel } from '../../../models/UserModel';
 config();
 jest.setTimeout(999999);
 

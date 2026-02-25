@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import { configApp } from './config/configApp';
-import { MongodbConnector } from './database/MongodbConnector';
+import { MongodbConnector } from './database/mongoDB/MongodbConnector';
 import { cleanDatabase } from './tests/cleanDatabase';
 import { populateDatabase } from './tests/populateDatabase';
 

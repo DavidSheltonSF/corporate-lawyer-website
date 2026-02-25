@@ -1,16 +1,16 @@
-import { CaseRepository } from '../../repositories/CaseRepository';
-import { WithId } from '../../types/WithId';
-import { CaseModel } from '../../models/CaseModel';
-import { CreateCaseDTO } from '../../dtos/user/CreateCaseDTO';
+import { CaseRepository } from '../../../repositories/CaseRepository';
+import { WithId } from '../../../types/WithId';
+import { CaseModel } from '../../../models/CaseModel';
+import { CreateCaseDTO } from '../../../dtos/user/CreateCaseDTO';
 import { Types } from 'mongoose';
-import { CaseStats } from '../../types/CaseStats';
-import { CaseStatusEnum } from '../../types/CaseStatusEnum';
-import { CaseQuery } from '../../types/CaseQuery';
-import { Case } from '../../entities/Case';
-import { Page } from '../../types/Page';
-import { CaseCardDTO } from '../../dtos/case/CaseCardDTO';
-import { CaseMapper } from '../../mappers/CaseMapper';
-import { CaseFile } from '../../entities/CaseFile';
+import { CaseStats } from '../../../types/CaseStats';
+import { CaseStatusEnum } from '../../../types/CaseStatusEnum';
+import { CaseQuery } from '../../../types/CaseQuery';
+import { Case } from '../../../entities/Case';
+import { Page } from '../../../types/Page';
+import { CaseCardDTO } from '../../../dtos/case/CaseCardDTO';
+import { CaseMapper } from '../../../mappers/CaseMapper';
+import { CaseFile } from '../../../entities/CaseFile';
 
 export class MongodbCaseRepository implements CaseRepository {
   async findCases(queryParams: CaseQuery = {}): Promise<Page<WithId<CaseCardDTO>>> {
