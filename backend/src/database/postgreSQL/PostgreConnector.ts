@@ -1,5 +1,6 @@
 import { Client, ClientConfig, QueryResult } from 'pg';
 import { config } from 'dotenv';
+import { TableNames } from './types/TableNames';
 
 config();
 
@@ -70,7 +71,7 @@ export class PostgreConnector {
 
   async createTableUsers() {
     await this.query(` 
-      CREATE TABLE users (
+      CREATE TABLE ${TableNames.users} (
         id SERIAL PRIMARY KEY,
         first_name TEXT NOT NULL,
         last_name TEXT NOT NULL,
@@ -85,7 +86,7 @@ export class PostgreConnector {
 
   async createTableLawsuits() {
     await this.query(`
-      CREATE TABLE lawsuits (
+      CREATE TABLE ${TableNames.lawsuits} (
         id SERIAL PRIMARY KEY,
         client_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         process_number TEXT UNIQUE NOT NULL,
@@ -98,15 +99,15 @@ export class PostgreConnector {
         updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
       );
 
-      CREATE INDEX idx_lawsuit s_client_id
-      ON lawsuit s(client_id);
+      CREATE INDEX idx_lawsuits_client_id
+      ON lawsuits(client_id);
     `);
   }
 
   async createTableLawsuitsLawyersRelation() {
     await this.query(`
-      CREATE TABLE lawsuits_lawyers_relation (
-        lawsuit_id INTEGER NOT NULL REFERENCES lawsuit s(id) ON DELETE CASCADE,
+      CREATE TABLE ${TableNames.lawsuits_lawyers_relation} (
+        lawsuit_id INTEGER NOT NULL REFERENCES lawsuits(id) ON DELETE CASCADE,
         lawyer_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         PRIMARY KEY (lawsuit_id, lawyer_id)
       );
@@ -118,15 +119,27 @@ export class PostgreConnector {
 
   async createTableLawsuitFiles() {
     await this.query(`
-      CREATE TABLE lawsuit s_files (
+      CREATE TABLE ${TableNames.lawsuit_files} (
         id SERIAL PRIMARY KEY,
         name TEXT NOT NULL,
         url TEXT NOT NULL,
         mime_type TEXT NOT NULL,
         uploaded_by INTEGER REFERENCES users(id) ON DELETE SET NULL,
-        lawsuit _id INTEGER NOT NULL REFERENCES lawsuit s(id) ON DELETE CASCADE,
-        UNIQUE(url, lawsuit _id)
+        lawsuit_id INTEGER NOT NULL REFERENCES lawsuits(id) ON DELETE CASCADE,
+        UNIQUE(url, lawsuit_id)
       );
     `);
+  }
+
+  async resetTables() {
+    await this.dropTableIfExists(TableNames.lawsuit_files);
+    await this.dropTableIfExists(TableNames.users);
+    await this.dropTableIfExists(TableNames.lawsuits_lawyers_relation);
+    await this.dropTableIfExists(TableNames.lawsuits);
+
+    await this.createTableUsers();
+    await this.createTableLawsuits();
+    await this.createTableLawsuitsLawyersRelation();
+    await this.createTableLawsuitFiles();
   }
 }
