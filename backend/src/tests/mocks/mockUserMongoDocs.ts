@@ -1,6 +1,6 @@
 import { Types } from 'mongoose';
 import { IUserModel } from '../../models/UserModel';
-import { WithMongoId } from '../../database/types/WithMongoId';
+import { WithMongoId } from '../../database/mongoDB/types/WithMongoId';
 import { UserRole } from '../../types/UserRole';
 
 export const mockUserMongoDocs: WithMongoId<IUserModel>[] = [
