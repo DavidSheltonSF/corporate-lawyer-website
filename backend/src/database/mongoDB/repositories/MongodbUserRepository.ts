@@ -70,8 +70,13 @@ export class MongodbUserRepository implements UserRepository {
     };
   }
 
-  async exists(id: string): Promise<boolean> {
+  async existsById(id: string): Promise<boolean> {
     const result = await UserModel.findById(id);
+    return result !== null;
+  }
+
+  async existsByEmail(email: string): Promise<boolean> {
+    const result = await UserModel.find({ email });
     return result !== null;
   }
 }
