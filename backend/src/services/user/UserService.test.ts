@@ -42,4 +42,11 @@ describe('Test UserService', () => {
     await userService.findById(id);
     expect(userRepository.findById).toHaveBeenCalledWith(id);
   });
+
+  test('should find user by email', async () => {
+    const { userService, userRepository } = makeSut();
+    const email = 'fake@email.com';
+    await userService.findByEmail(email);
+    expect(userRepository.findByEmail).toHaveBeenCalledWith(email);
+  });
 });
