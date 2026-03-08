@@ -1,3 +1,4 @@
+import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError';
 import { InvalidRoleError } from '../../errors/domain/InvalidRoleError';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
 import { UserRole } from '../../types/UserRole';
@@ -43,6 +44,23 @@ describe('Test UserService', () => {
       role: 'banana',
     };
     await expect(userService.create(newUser)).rejects.toThrow(InvalidRoleError);
+  });
+
+  test('should throw EntityAlreadyExistsError if the user already exists', async () => {
+    const newUser = {
+      firstName: 'David',
+      lastName: 'Faria',
+      cpf: '18877748777',
+      email: 'david@email.com',
+      password: 'david123',
+      role: 'admin',
+    };
+    const userRepository = createMockUserRepository()
+    
+    userRepository.existsByEmail = jest.fn().mockResolvedValue(true);
+    const userService = new UserService(userRepository)
+
+    await expect(userService.create(newUser)).rejects.toThrow(EntityAlreadyExistsError);
   });
 
   test('should find all users', async () => {
