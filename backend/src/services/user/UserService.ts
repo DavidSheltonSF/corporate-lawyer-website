@@ -5,8 +5,9 @@ import { InvalidRoleError } from '../../errors/domain/InvalidRoleError';
 import { UserRepository } from '../../repositories/UserRepository';
 import { UserRole } from '../../types/UserRole';
 import { WithId } from '../../types/WithId';
+import { IUserService } from './IUserService';
 
-export class UserService {
+export class UserService implements IUserService {
   constructor(private userRepository: UserRepository) {}
   async create(data: CreateUserDTO): Promise<WithId<UserResponseDTO>> {
     const { role } = data;
