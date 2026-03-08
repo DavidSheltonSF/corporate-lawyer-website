@@ -1,3 +1,4 @@
+import { InvalidRoleError } from '../../errors/domain/InvalidRoleError';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
 import { UserRole } from '../../types/UserRole';
 import { UserService } from './UserService';
@@ -28,6 +29,20 @@ describe('Test UserService', () => {
     await userService.create(newUser);
 
     expect(userRepository.create).toHaveBeenCalledWith(newUser);
+  });
+
+  test('should create a new user', async () => {
+    const { userService } = makeSut();
+
+    const newUser = {
+      firstName: 'David',
+      lastName: 'Faria',
+      cpf: '18877748777',
+      email: 'david@email.com',
+      password: 'david123',
+      role: 'banana',
+    };
+    await expect(userService.create(newUser)).rejects.toThrow(InvalidRoleError);
   });
 
   test('should find all users', async () => {
