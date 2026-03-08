@@ -1,18 +1,18 @@
-import { Request, Response, type RequestHandler } from 'express';
+import { Request, Response } from 'express';
 import { HttpRequest } from '../../controllers/types/HttpRequest';
 import { HttpResponse } from '../../controllers/types/HttpResponse';
 
 export function expressHttpAdapter<T>(
-  controllerHandler: (httpRequest: HttpRequest) => HttpResponse<T>
-): RequestHandler {
-  return (req: Request, res: Response) => {
+  controllerHandler: (httpRequest: HttpRequest) => Promise<HttpResponse<T>>
+) {
+  return async (req: Request, res: Response) => {
     const httpRequest: HttpRequest = {
       body: req.body,
       params: req.params,
       query: req.query,
     };
 
-    const result = controllerHandler(httpRequest);
+    const result = await controllerHandler(httpRequest);
     return res.status(result.status).json(result);
   };
 }
