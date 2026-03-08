@@ -35,4 +35,11 @@ describe('Test UserService', () => {
     await userService.findAll();
     expect(userRepository.findAll).toHaveBeenCalled();
   });
+
+  test('should find user by id', async () => {
+    const { userService, userRepository } = makeSut();
+    const id = 'testid--fnsianf';
+    await userService.findById(id);
+    expect(userRepository.findById).toHaveBeenCalledWith(id);
+  });
 });
