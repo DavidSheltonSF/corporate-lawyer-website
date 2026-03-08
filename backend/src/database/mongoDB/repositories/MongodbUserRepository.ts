@@ -76,7 +76,7 @@ export class MongodbUserRepository implements UserRepository {
   }
 
   async existsByEmail(email: string): Promise<boolean> {
-    const result = await UserModel.find({ email });
+    const result = await UserModel.findOne({ email });
     return result !== null;
   }
 }
