@@ -8,46 +8,38 @@ import { WithId } from '../../types/WithId';
 export class UserService {
   constructor(private userRepository: UserRepository) {}
   async create(data: CreateUserDTO): Promise<WithId<UserResponseDTO>> {
-    try {
-      const { role } = data;
+    const { role } = data;
 
-      let userRole: UserRole;
-      switch (role) {
-        case UserRole.admin:
-          userRole = UserRole.admin;
-          break;
+    let userRole: UserRole;
+    switch (role) {
+      case UserRole.admin:
+        userRole = UserRole.admin;
+        break;
 
-        case UserRole.client:
-          userRole = UserRole.client;
-          break;
+      case UserRole.client:
+        userRole = UserRole.client;
+        break;
 
-        case UserRole.lawyer:
-          userRole = UserRole.lawyer;
-          break;
+      case UserRole.lawyer:
+        userRole = UserRole.lawyer;
+        break;
 
-        default:
-          throw new InvalidRoleError(role);
-      }
-
-      const user = await this.userRepository.create({
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        cpf: data.cpf,
-        password: data.password,
-        role: userRole,
-      });
-
-      const { password, ...userWithoutPassword } = user;
-
-      return userWithoutPassword;
-    } catch (error: any) {
-      if (error.code === 11000) {
-        throw Error('User already exists');
-      }
-
-      throw error;
+      default:
+        throw new InvalidRoleError(role);
     }
+
+    const user = await this.userRepository.create({
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      cpf: data.cpf,
+      password: data.password,
+      role: userRole,
+    });
+
+    const { password, ...userWithoutPassword } = user;
+
+    return userWithoutPassword;
   }
 
   async findAll(): Promise<WithId<UserResponseDTO>[]> {
