@@ -121,12 +121,35 @@ describe('Test UserRepository', () => {
 
     const newId = (await UserModel.create(newUser))._id;
 
-    const existingUser = await userRepository.exists(newId.toString());
-    const nonExistingUser = await userRepository.exists(
+    const existingUser = await userRepository.existsById(newId.toString());
+    const nonExistingUser = await userRepository.existsById(
       Types.ObjectId.createFromTime(89466141).toString()
     );
 
     expect(existingUser).toBeTruthy();
     expect(nonExistingUser).toBeFalsy();
   });
+
+   test('should return true if user exists, but false if user does not exist, given the email', async () => {
+     const { userRepository } = makeSut();
+
+     const newUser = {
+       firstName: 'José',
+       lastName: 'Sílva',
+       cpf: '18877748777',
+       email: 'jose@email.com',
+       password: 'jose123',
+       role: UserRole.client,
+     };
+
+     await UserModel.create(newUser)
+
+     const existingUser = await userRepository.existsByEmail(newUser.email);
+     const nonExistingUser = await userRepository.existsByEmail(
+       'fakeiiuuu@email.com'
+     );
+
+     expect(existingUser).toBeTruthy();
+     expect(nonExistingUser).toBeFalsy();
+   });
 });
