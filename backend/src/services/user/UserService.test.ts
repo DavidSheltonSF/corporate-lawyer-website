@@ -31,7 +31,7 @@ describe('Test UserService', () => {
     expect(userRepository.create).toHaveBeenCalledWith(newUser);
   });
 
-  test('should create a new user', async () => {
+  test('should thow InvalidRoleError if the role provided is invalid', async () => {
     const { userService } = makeSut();
 
     const newUser = {
