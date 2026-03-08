@@ -4,7 +4,7 @@ import { createMockUserRepository } from '../../tests/mocks/repositories/createM
 import { UserRole } from '../../types/UserRole';
 import { UserService } from './UserService';
 
-describe('Test UserService', () => {
+describe(`Test ${UserService.name}`, () => {
   function makeSut() {
     const userRepository = createMockUserRepository();
     const userService = new UserService(userRepository);
@@ -83,7 +83,7 @@ describe('Test UserService', () => {
     expect(userRepository.findByEmail).toHaveBeenCalledWith(email);
   });
 
-   test('should call userRepository.exists with the given id', async () => {
+   test('should call userRepository.existsById with the given id', async () => {
      const { userService, userRepository } = makeSut();
      const id = 'testid-fdfa';
      await userService.existsById(id);
