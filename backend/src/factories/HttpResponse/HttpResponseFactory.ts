@@ -11,6 +11,14 @@ export class HttpResponseFactory {
     return this.make<T>(HttpCode.ok, params);
   }
 
+  static makeCreated<T>(params: HttpResponseParams<T>): HttpResponse<T> {
+    return this.make<T>(HttpCode.created, params);
+  }
+
+  static makeUnprocessableEntity<T>(params: HttpResponseParams<T>): HttpResponse<T> {
+    return this.make<T>(HttpCode.unprocessable_entity, params);
+  }
+
   static makeUnouthorized<T>(params: HttpResponseParams<T>): HttpResponse<T> {
     return this.make<T>(HttpCode.unouthorized, params);
   }
