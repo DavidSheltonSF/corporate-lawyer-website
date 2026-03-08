@@ -1,5 +1,6 @@
 import { CreateUserDTO } from '../../dtos/user/CreateUserDTO';
 import { UserResponseDTO } from '../../dtos/user/UserResponseDTO';
+import { InvalidRoleError } from '../../errors/domain/InvalidRoleError';
 import { UserRepository } from '../../repositories/UserRepository';
 import { UserRole } from '../../types/UserRole';
 import { WithId } from '../../types/WithId';
@@ -25,7 +26,7 @@ export class UserService {
           break;
 
         default:
-          throw Error(`User role ${role} is invalid`);
+          throw new InvalidRoleError(role);
       }
 
       const user = await this.userRepository.create({
