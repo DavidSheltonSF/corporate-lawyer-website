@@ -64,4 +64,11 @@ describe('Test UserService', () => {
     await userService.findByEmail(email);
     expect(userRepository.findByEmail).toHaveBeenCalledWith(email);
   });
+
+   test('should call userRepository.exists with the given id', async () => {
+     const { userService, userRepository } = makeSut();
+     const id = 'testid-fdfa';
+     await userService.exists(id);
+     expect(userRepository.exists).toHaveBeenCalledWith(id);
+   });
 });
