@@ -7,6 +7,7 @@ export const createMockUserRepository = (): UserRepository => {
     findAll: jest.fn().mockResolvedValue(mockUserMongoDocs),
     findByEmail: jest.fn().mockResolvedValue(mockUserMongoDocs[0]!),
     create: jest.fn().mockResolvedValue(mockUserMongoDocs[0]!),
-    exists: jest.fn().mockResolvedValue(true)
+    existsById: jest.fn().mockResolvedValue(true),
+    existsByEmail: jest.fn().mockResolvedValue(true),
   };
 };
