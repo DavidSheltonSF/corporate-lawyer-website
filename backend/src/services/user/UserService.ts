@@ -1,5 +1,6 @@
 import { CreateUserDTO } from '../../dtos/user/CreateUserDTO';
 import { UserResponseDTO } from '../../dtos/user/UserResponseDTO';
+import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError';
 import { InvalidRoleError } from '../../errors/domain/InvalidRoleError';
 import { UserRepository } from '../../repositories/UserRepository';
 import { UserRole } from '../../types/UserRole';
@@ -26,6 +27,12 @@ export class UserService {
 
       default:
         throw new InvalidRoleError(role);
+    }
+
+    const userExists = await this.userRepository.existsByEmail(data.email);
+
+    if (userExists) {
+      throw new EntityAlreadyExistsError(`User with email '${data.email}' already exists`);
     }
 
     const user = await this.userRepository.create({
@@ -79,5 +86,4 @@ export class UserService {
     }
     return false;
   }
-  
 }
