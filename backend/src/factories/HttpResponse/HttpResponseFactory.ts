@@ -1,37 +1,37 @@
-import { HttpCode } from './HttpCode';
-import { HttpResponse } from './HttpResponse';
+import { HttpResponse } from '../../controllers/types/HttpResponse';
+import { HttpStatusCode } from '../../controllers/types/HttpStatusCode';
 import { HttpResponseParams } from './HttpResponseParams';
 
 export class HttpResponseFactory {
-  private static make<T>(code: HttpCode, params: HttpResponseParams<T>): HttpResponse<T> {
-    return { code, ...params };
+  private static make<T>(status: HttpStatusCode, params: HttpResponseParams<T>): HttpResponse<T> {
+    return { status, ...params };
   }
 
   static makeOk<T>(params: HttpResponseParams<T>): HttpResponse<T> {
-    return this.make<T>(HttpCode.ok, params);
+    return this.make<T>(HttpStatusCode.ok, params);
   }
 
   static makeCreated<T>(params: HttpResponseParams<T>): HttpResponse<T> {
-    return this.make<T>(HttpCode.created, params);
+    return this.make<T>(HttpStatusCode.created, params);
   }
 
   static makeUnprocessableEntity<T>(params: HttpResponseParams<T>): HttpResponse<T> {
-    return this.make<T>(HttpCode.unprocessable_entity, params);
+    return this.make<T>(HttpStatusCode.unprocessable_entity, params);
   }
 
   static makeUnouthorized<T>(params: HttpResponseParams<T>): HttpResponse<T> {
-    return this.make<T>(HttpCode.unouthorized, params);
+    return this.make<T>(HttpStatusCode.unauthorized, params);
   }
 
   static makeBadRequest<T>(params: HttpResponseParams<T>): HttpResponse<T> {
-    return this.make<T>(HttpCode.bad_request, params);
+    return this.make<T>(HttpStatusCode.bad_request, params);
   }
 
   static makeNotFound<T>(params: HttpResponseParams<T>): HttpResponse<T> {
-    return this.make<T>(HttpCode.not_found, params);
+    return this.make<T>(HttpStatusCode.not_found, params);
   }
 
   static makeServerError<T>(params: HttpResponseParams<T>): HttpResponse<T> {
-    return this.make<T>(HttpCode.server_error, params);
+    return this.make<T>(HttpStatusCode.server_error, params);
   }
 }
