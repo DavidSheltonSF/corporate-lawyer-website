@@ -72,11 +72,12 @@ export class UserService {
     return userWithoutPassword;
   }
 
-  async exists(id: string): Promise<boolean> {
-    const userExists = await this.userRepository.exists(id);
+  async existsById(id: string): Promise<boolean> {
+    const userExists = await this.userRepository.existsById(id);
     if (userExists) {
       return true;
     }
     return false;
   }
+  
 }

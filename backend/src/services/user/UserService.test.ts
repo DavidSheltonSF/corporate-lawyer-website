@@ -68,7 +68,7 @@ describe('Test UserService', () => {
    test('should call userRepository.exists with the given id', async () => {
      const { userService, userRepository } = makeSut();
      const id = 'testid-fdfa';
-     await userService.exists(id);
-     expect(userRepository.exists).toHaveBeenCalledWith(id);
+     await userService.existsById(id);
+     expect(userRepository.existsById).toHaveBeenCalledWith(id);
    });
 });
