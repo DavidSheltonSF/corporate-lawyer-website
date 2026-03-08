@@ -29,4 +29,10 @@ describe('Test UserService', () => {
 
     expect(userRepository.create).toHaveBeenCalledWith(newUser);
   });
+
+  test('should find all users', async () => {
+    const { userService, userRepository } = makeSut();
+    await userService.findAll();
+    expect(userRepository.findAll).toHaveBeenCalled();
+  });
 });
