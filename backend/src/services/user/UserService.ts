@@ -1,5 +1,6 @@
 import { CreateUserDTO } from '../../dtos/user/CreateUserDTO';
 import { UserResponseDTO } from '../../dtos/user/UserResponseDTO';
+import { UserNotFoundError } from '../../errors/application/UserNotFoundError';
 import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError';
 import { InvalidRoleError } from '../../errors/domain/InvalidRoleError';
 import { UserRepository } from '../../repositories/UserRepository';
@@ -63,7 +64,7 @@ export class UserService implements IUserService {
     const user = await this.userRepository.findById(id);
 
     if (!user) {
-      throw Error('User not found');
+      throw new UserNotFoundError(`User with id '${id}' was not found`);
     }
 
     const { password, ...userWithoutPassword } = user;
@@ -74,7 +75,7 @@ export class UserService implements IUserService {
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
-      throw Error('User not found');
+      throw new UserNotFoundError(`User with email '${email}' was not found`);
     }
     const { password, ...userWithoutPassword } = user;
     return userWithoutPassword;
