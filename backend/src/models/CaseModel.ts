@@ -1,7 +1,7 @@
 import { Schema, model, Document, Types } from 'mongoose';
 import { CaseStatusEnum } from '../types/CaseStatusEnum';
 import { CaseFileSchema, ICaseFileModel } from './CaseFileModel';
-import { WithMongoId } from '../database/types/WithMongoId';
+import { WithMongoId } from '../database/mongoDB/types/WithMongoId';
 
 export interface ICaseModel {
   client: Types.ObjectId;
