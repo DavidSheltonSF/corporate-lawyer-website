@@ -11,6 +11,7 @@ import { Page } from '../../../types/Page';
 import { CaseCardDTO } from '../../../dtos/case/CaseCardDTO';
 import { CaseMapper } from '../../../mappers/CaseMapper';
 import { CaseFile } from '../../../entities/CaseFile';
+import { CaseNotFoundError } from '../../../errors/application/CaseNotFoundError';
 
 export class MongodbCaseRepository implements CaseRepository {
   async findCases(queryParams: CaseQuery = {}): Promise<Page<WithId<CaseCardDTO>>> {
@@ -135,7 +136,7 @@ export class MongodbCaseRepository implements CaseRepository {
     ).lean();
 
     if (updated === null) {
-      throw Error('Case not found');
+      throw new CaseNotFoundError(file.caseId);
     }
   }
 
