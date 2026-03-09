@@ -117,7 +117,8 @@ export class MongodbCaseRepository implements CaseRepository {
     };
   }
 
-  async addFile(id: string, file: CaseFile): Promise<WithId<CaseCardDTO> | null> {
+  async addFile(file: CaseFile): Promise<void> {
+    const id = file.caseId;
     const updated = await CaseModel.findByIdAndUpdate(
       {
         _id: id,
@@ -134,10 +135,8 @@ export class MongodbCaseRepository implements CaseRepository {
     ).lean();
 
     if (updated === null) {
-      return null;
+      throw Error('Case not found');
     }
-
-    return CaseMapper.persistenceToPopulatedPresentation(updated);
   }
 
   async exists(id: string): Promise<boolean> {

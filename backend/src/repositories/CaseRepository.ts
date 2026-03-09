@@ -12,6 +12,6 @@ export interface CaseRepository {
   findById(id: string): Promise<WithId<CaseCardDTO> | null>;
   create(user: CreateCaseDTO): Promise<WithId<Case>>;
   getStats(client?: string): Promise<CaseStats | null>;
-  addFile(id: string, file: CaseFile): Promise<WithId<CaseCardDTO> | null>;
+  addFile(file: CaseFile): Promise<void>;
   exists(id: string): Promise<boolean>;
 }
