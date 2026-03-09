@@ -53,7 +53,7 @@ export class CaseService implements ICaseService {
     };
   }
 
-  async findById(id: string): Promise<CaseCardDTO | null> {
+  async findById(id: string): Promise<CaseCardDTO> {
     try {
       const cas = await this.caseRepository.findById(id);
 
