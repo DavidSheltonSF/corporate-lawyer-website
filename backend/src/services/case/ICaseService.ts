@@ -14,5 +14,5 @@ export interface ICaseService {
   findById(id: string, populateFields?: string[]): Promise<CaseCardDTO>;
   getStats(client?: string): Promise<CaseStats | null>;
   addFile(id: string, file: CreateCaseFileDTO): Promise<void>;
-  findFilesByCaseId(id: string): Promise<WithId<CaseFileDTO>[] | null>;
+  findFilesByCaseId(id: string): Promise<WithId<CaseFileDTO>[]>;
 }

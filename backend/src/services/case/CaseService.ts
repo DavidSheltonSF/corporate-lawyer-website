@@ -82,15 +82,9 @@ export class CaseService implements ICaseService {
     });
   }
 
-  async findFilesByCaseId(id: string): Promise<WithId<CaseFileDTO>[] | null> {
+  async findFilesByCaseId(id: string): Promise<WithId<CaseFileDTO>[]> {
     const foundFile = await this.findById(id);
-
-    if (!foundFile) {
-      return null;
-    }
-
     const files = foundFile.files;
-
     return files;
   }
 }
