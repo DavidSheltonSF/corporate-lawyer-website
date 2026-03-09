@@ -8,6 +8,7 @@ import { NotFoundError } from '../../errors/NotFoundError';
 import { CaseRepository } from '../../repositories/CaseRepository';
 import { CaseQuery } from '../../types/CaseQuery';
 import { CaseStats } from '../../types/CaseStats';
+import { Pagination } from '../../types/Pagination';
 import { WithId } from '../../types/WithId';
 import { ICaseService } from './ICaseService';
 
@@ -41,16 +42,12 @@ export class CaseService implements ICaseService {
     }
   }
 
-  async findCases(queryParams: CaseQuery = {}): Promise<{
-    cases: CaseCardDTO[];
-    total: number;
-    totalPages: number;
-  }> {
+  async findCases(queryParams: CaseQuery = {}): Promise<Pagination<WithId<CaseCardDTO>>> {
     const casesPage = await this.caseRepository.findCases(queryParams);
     const { totalItems, totalPages } = casesPage.meta;
 
     return {
-      cases: casesPage.data,
+      items: casesPage.data,
       total: totalItems,
       totalPages,
     };
