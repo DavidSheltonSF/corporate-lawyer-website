@@ -6,6 +6,7 @@ import { UserRole } from '../../../types/UserRole';
 import { Types } from 'mongoose';
 import { MongodbTestConnector } from '../MongodbTestConnector';
 import { IUserModel, UserModel } from '../../../models/UserModel';
+import { CaseFile } from '../../../entities/CaseFile';
 config();
 jest.setTimeout(999999);
 
@@ -109,5 +110,43 @@ describe('Test CaseRepository', () => {
 
     expect(existingCase).toBeTruthy();
     expect(nonExistingCase).toBeFalsy();
+  });
+
+  test('should add a new file to a case', async () => {
+    const { caseRepository, clientId, lawyerId } = await makeSut();
+
+    const newCase = {
+      client: clientId,
+      lawyers: [lawyerId],
+      processNumber: '354435235425623',
+      title: 'Case title',
+      description: 'Case description',
+      court: 'court', //tribunal
+      courtDivision: 'court division', //vara
+      status: CaseStatusEnum.aberto,
+    };
+
+    const caseId = (await CaseModel.create(newCase))._id.toString();
+
+    const newFile: CaseFile = {
+      caseId,
+      mimeType: 'pdf',
+      name: 'Document',
+      size: 80,
+      uploadedBy: clientId.toString(),
+      url: 't4est-url',
+    };
+
+    let errorHasBeenThrown = false;
+
+    try {
+      await caseRepository.addFile(newFile);
+    } catch (error) {
+     errorHasBeenThrown = true
+    }
+
+    const result = await caseRepository.findById(caseId);
+    console.log(result)
+    expect(errorHasBeenThrown).toBeFalsy()
   });
 });
