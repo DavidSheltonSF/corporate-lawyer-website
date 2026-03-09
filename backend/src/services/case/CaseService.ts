@@ -3,8 +3,7 @@ import { CaseFileDTO } from '../../dtos/caseFile/CaseFileDTO';
 import { CreateCaseFileDTO } from '../../dtos/caseFile/CreateCaseFileDTO';
 import { CaseResponseDTO } from '../../dtos/user/CaseResponseDTO';
 import { CreateCaseDTO } from '../../dtos/user/CreateCaseDTO';
-import { CaseFile } from '../../entities/CaseFile';
-import { NotFoundError } from '../../errors/NotFoundError';
+import { CaseNotFoundError } from '../../errors/application/CaseNotFoundError';
 import { CaseRepository } from '../../repositories/CaseRepository';
 import { CaseQuery } from '../../types/CaseQuery';
 import { CaseStats } from '../../types/CaseStats';
@@ -58,7 +57,7 @@ export class CaseService implements ICaseService {
       const cas = await this.caseRepository.findById(id);
 
       if (!cas) {
-        throw new NotFoundError('Case not found');
+        throw new CaseNotFoundError(id);
       }
 
       return cas;
