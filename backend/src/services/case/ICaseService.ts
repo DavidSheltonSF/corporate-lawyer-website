@@ -11,7 +11,7 @@ import { WithId } from '../../types/WithId';
 export interface ICaseService {
   create(data: CreateCaseDTO): Promise<WithId<CaseResponseDTO>>;
   findCases(queryParams: CaseQuery): Promise<Pagination<WithId<CaseCardDTO>>>;
-  findById(id: string, populateFields?: string[]): Promise<CaseCardDTO>;
+  findById(id: string, populateFields?: string[]): Promise<WithId<CaseCardDTO>>;
   getStats(client?: string): Promise<CaseStats | null>;
   addFile(id: string, file: CreateCaseFileDTO): Promise<void>;
   findFilesByCaseId(id: string): Promise<WithId<CaseFileDTO>[]>;
