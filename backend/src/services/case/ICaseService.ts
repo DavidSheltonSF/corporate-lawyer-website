@@ -5,12 +5,12 @@ import { CaseResponseDTO } from '../../dtos/user/CaseResponseDTO';
 import { CreateCaseDTO } from '../../dtos/user/CreateCaseDTO';
 import { CaseQuery } from '../../types/CaseQuery';
 import { CaseStats } from '../../types/CaseStats';
-import { Pagination } from '../../types/Pagination';
+import { Page } from '../../types/Page';
 import { WithId } from '../../types/WithId';
 
 export interface ICaseService {
   create(data: CreateCaseDTO): Promise<WithId<CaseResponseDTO>>;
-  findCases(queryParams: CaseQuery): Promise<Pagination<WithId<CaseCardDTO>>>;
+  findCases(queryParams: CaseQuery): Promise<Page<WithId<CaseCardDTO>>>;
   findById(id: string): Promise<WithId<CaseCardDTO>>;
   getStats(client?: string): Promise<CaseStats | null>;
   addFile(id: string, file: CreateCaseFileDTO): Promise<void>;
