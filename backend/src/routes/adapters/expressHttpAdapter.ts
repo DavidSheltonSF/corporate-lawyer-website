@@ -11,6 +11,7 @@ export function expressHttpAdapter<T>(
     const httpRequest: HttpRequest = {
       body: authReq.body,
       params: authReq.params,
+      headers: authReq.headers,
       query: authReq.query,
       file: authReq.file,
       user: authReq.user,
