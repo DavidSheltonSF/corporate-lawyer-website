@@ -140,7 +140,7 @@ describe('Test CaseRepository', () => {
     let errorHasBeenThrown = false;
 
     try {
-      await caseRepository.addFile(newFile);
+      await caseRepository.addFile(caseId, newFile);
     } catch (error) {
      errorHasBeenThrown = true
     }

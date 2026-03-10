@@ -10,8 +10,8 @@ import { Case } from '../../../entities/Case';
 import { Page } from '../../../types/Page';
 import { CaseCardDTO } from '../../../dtos/case/CaseCardDTO';
 import { CaseMapper } from '../../../mappers/CaseMapper';
-import { CaseFile } from '../../../entities/CaseFile';
 import { CaseNotFoundError } from '../../../errors/application/CaseNotFoundError';
+import { CreateCaseFileDTO } from '../../../dtos/caseFile/CreateCaseFileDTO';
 
 export class MongodbCaseRepository implements CaseRepository {
   async findCases(queryParams: CaseQuery = {}): Promise<Page<WithId<CaseCardDTO>>> {
@@ -118,11 +118,10 @@ export class MongodbCaseRepository implements CaseRepository {
     };
   }
 
-  async addFile(file: CaseFile): Promise<void> {
-    const id = file.caseId;
+  async addFile(caseId: string, file: CreateCaseFileDTO): Promise<void> {
     const updated = await CaseModel.findByIdAndUpdate(
       {
-        _id: id,
+        _id: caseId,
       },
       {
         $push: {
@@ -136,7 +135,7 @@ export class MongodbCaseRepository implements CaseRepository {
     ).lean();
 
     if (updated === null) {
-      throw new CaseNotFoundError(file.caseId);
+      throw new CaseNotFoundError(caseId);
     }
   }
 
