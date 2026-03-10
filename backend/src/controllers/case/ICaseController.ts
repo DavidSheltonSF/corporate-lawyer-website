@@ -1,9 +1,16 @@
-import { type Request, type Response } from 'express';
+import {
+  AddFileResponse,
+  FindByClientResponse,
+  FindByIdResponse,
+  FindFilesByCaseId,
+  GetMyStatsResponse,
+} from './responses';
+import { HttpRequest } from '../types/HttpRequest';
 
 export interface ICaseController {
-  findById: (req: Request, res: Response) => Promise<Response>;
-  findByClient: (req: Request, res: Response) => Promise<Response>;
-  getStatsByClient: (req: Request, res: Response) => Promise<Response>;
-  addFile: (req: Request, res: Response) => Promise<Response>;
-  findFilesByCaseId: (req: Request, res: Response) => Promise<Response>;
+  findById: (httpRequest: HttpRequest) => Promise<FindByIdResponse>;
+  findMyCases: (httpRequest: HttpRequest) => Promise<FindByClientResponse>;
+  getMyStats: (httpRequest: HttpRequest) => Promise<GetMyStatsResponse>;
+  uploadMyFile: (httpRequest: HttpRequest) => Promise<AddFileResponse>;
+  findFilesByCaseId: (httpRequest: HttpRequest) => Promise<FindFilesByCaseId>;
 }

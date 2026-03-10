@@ -1,56 +1,44 @@
-import { type Request, type Response } from 'express';
 import { ICaseService } from '../../services/case/ICaseService';
 import { IUserService } from '../../services/user/IUserService';
 import { ICaseController } from './ICaseController';
 import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
-import { AuthenticatedUser } from '../../types/AuthenticatedUser';
+import { HttpRequest } from '../types/HttpRequest';
 
 export class CaseController implements ICaseController {
   constructor(private caseService: ICaseService, private userService: IUserService) {}
 
-  findById = async (req: Request, res: Response) => {
+  findById = async (httpRequest: HttpRequest) => {
     try {
-      const { id } = req.params;
-      const { populate } = req.query;
-
-      const populateFilds = String(populate).split(',');
-
+      const { id } = httpRequest.params;
       if (!id) {
-        return res
-          .status(400)
-          .send(HttpResponseFactory.makeBadRequest({ message: 'Missing id param' }));
+        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing id param' });
       }
 
-      const foundCase = await this.caseService.findById(id, populateFilds);
+      const foundCase = await this.caseService.findById(id);
 
-      return res.status(200).send(HttpResponseFactory.makeOk({ data: foundCase }));
+      return HttpResponseFactory.makeOk({ data: foundCase });
     } catch (error: any) {
       console.log(error);
 
       // Check if it is NotFound error
       if (error.statusCode === 404) {
-        return res
-          .status(error.statusCode)
-          .send(HttpResponseFactory.makeNotFound({ message: error.message }));
+        return HttpResponseFactory.makeNotFound<null>({ message: error.message });
       }
 
-      return res.status(500).send(HttpResponseFactory.makeServerError({ message: error.message }));
+      return HttpResponseFactory.makeServerError<null>({ message: error.message });
     }
   };
 
-  findByClient = async (req: Request, res: Response) => {
-    const authReq = req as Request & AuthenticatedUser;
-    const id = authReq.user.id;
+  findMyCases = async (httpRequest: HttpRequest) => {
+    const id = httpRequest.user?.id;
 
-    const { status, query } = req.query;
+    const { status, query } = httpRequest.query;
 
-    const page = req.query.page || 1;
-    const limit = req.query.limit || 4;
+    const page = httpRequest.query.page || 1;
+    const limit = httpRequest.query.limit || 4;
 
     if (!id) {
-      return res
-        .status(400)
-        .send(HttpResponseFactory.makeBadRequest({ message: 'Missing id param' }));
+      return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing id param' });
     }
 
     const casesPaginated = await this.caseService.findCases({
@@ -67,53 +55,50 @@ export class CaseController implements ICaseController {
       limit,
     };
 
-    return res.status(200).send(HttpResponseFactory.makeOk({ data: pagination }));
+    return HttpResponseFactory.makeOk({ data: pagination });
   };
 
-  getStatsByClient = async (req: Request, res: Response) => {
+  getMyStats = async (httpRequest: HttpRequest) => {
     try {
-      const authReq = req as Request & AuthenticatedUser;
-      const id = authReq.user.id;
+      const id = httpRequest.user?.id;
+
+      if (!id) {
+        throw Error(
+          'User credentials were not found. The user id should be attached in request.user.id by a middleware'
+        );
+      }
+
       const clientExists = await this.userService.findById(id);
 
       if (!clientExists) {
-        return res
-          .status(404)
-          .send(HttpResponseFactory.makeNotFound({ message: 'Client not found' }));
+        return HttpResponseFactory.makeNotFound<null>({ message: 'Client not found' });
       }
 
-      const caseStats = await this.caseService.getStats(id);
+      const caseStats = await this.caseService.getStatsByClientId(id);
 
-      return res.status(200).send(HttpResponseFactory.makeOk({ data: caseStats }));
+      return HttpResponseFactory.makeOk({ data: caseStats });
     } catch (error: any) {
       console.log(error);
-      return res.status(500).send(HttpResponseFactory.makeServerError({ message: error.message }));
+      return HttpResponseFactory.makeServerError<null>({ message: error.message });
     }
   };
 
-  addFile = async (req: Request, res: Response) => {
+  uploadMyFile = async (httpRequest: HttpRequest) => {
     try {
-      const authReq = req as Request & AuthenticatedUser;
-      const userId = authReq.user.id;
-      const caseId = req.params.id;
+      const userId = httpRequest.user?.id;
+      const caseId = httpRequest.params.id;
 
       if (!userId) {
-        return res
-          .status(400)
-          .json(HttpResponseFactory.makeBadRequest({ message: 'Missing userId' }));
+        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing userId' });
       }
       if (!caseId) {
-        return res
-          .status(400)
-          .json(HttpResponseFactory.makeBadRequest({ message: 'Missing case' }));
+        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing case' });
       }
 
-      const file = req.file;
+      const file = httpRequest.file;
 
       if (!file) {
-        return res
-          .status(400)
-          .json(HttpResponseFactory.makeBadRequest({ message: 'Missing file' }));
+        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing file' });
       }
 
       const fixedName = Buffer.from(file.originalname, 'latin1').toString('utf8');
@@ -126,31 +111,34 @@ export class CaseController implements ICaseController {
         uploadedBy: String(userId),
       });
 
-      return res.status(200).json(HttpResponseFactory.makeOk({ data: response }));
+      return HttpResponseFactory.makeOk({ data: response });
     } catch (error: any) {
-      return res.status(500).json(HttpResponseFactory.makeServerError({ message: error }));
+      console.log(error);
+      return HttpResponseFactory.makeServerError<null>({ message: error });
     }
   };
 
-  findFilesByCaseId = async (req: Request, res: Response) => {
-    const caseId = req.params.id;
+  findFilesByCaseId = async (httpRequest: HttpRequest) => {
+    try {
+      const caseId = httpRequest.params.id;
+      console.log(caseId)
 
-    if (!caseId) {
-      return res
-        .status(400)
-        .json(HttpResponseFactory.makeBadRequest({ message: 'Missing case id' }));
+      if (!caseId) {
+        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing case id' });
+      }
+
+      const caseFiles = await this.caseService.findFilesByCaseId(String(caseId));
+
+      if (!caseFiles) {
+        return HttpResponseFactory.makeNotFound<null>({
+          message: `Case with id ${caseId} was not found`,
+        });
+      }
+
+      return HttpResponseFactory.makeOk({ data: caseFiles });
+    } catch (error: any) {
+      console.log(error);
+      return HttpResponseFactory.makeServerError<null>({ message: error });
     }
-
-    const caseFiles = await this.caseService.findFilesByCaseId(String(caseId));
-
-    if (!caseFiles) {
-      return res
-        .status(404)
-        .json(
-          HttpResponseFactory.makeNotFound({ message: `Case with id ${caseId} was not found` })
-        );
-    }
-
-    return res.status(200).json(HttpResponseFactory.makeOk({ data: caseFiles }));
   };
 }
