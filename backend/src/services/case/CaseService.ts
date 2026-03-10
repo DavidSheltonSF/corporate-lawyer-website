@@ -63,8 +63,8 @@ export class CaseService implements ICaseService {
     }
   }
 
-  async getStats(client?: string): Promise<CaseStats | null> {
-    return this.caseRepository.getStats(client);
+  async getStatsByClientId(clientId: string): Promise<CaseStats | null> {
+    return this.caseRepository.getStatsByClientId(clientId);
   }
 
   async addFile(caseId: string, file: CreateCaseFileDTO): Promise<void> {
