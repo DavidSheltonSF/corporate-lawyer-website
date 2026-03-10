@@ -1,5 +1,5 @@
-import { AuthenticationResponse } from './AuthenticationResponse';
+import { AuthTokenResponse } from './AuthTokenResponse';
 
 export interface IAuthService {
-  authenticate(email: string, password: string): Promise<AuthenticationResponse>;
+  authenticate(email: string, password: string): Promise<AuthTokenResponse>;
 }

@@ -3,13 +3,13 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { UserRepository } from '../../repositories/UserRepository';
 import dotenv from 'dotenv';
-import { AuthenticationResponse } from './AuthenticationResponse';
+import { AuthTokenResponse } from './AuthTokenResponse';
 
 dotenv.config();
 
 export class AuthService {
   constructor(private userRepository: UserRepository) {}
-  async authenticate(email: string, password: string): Promise<AuthenticationResponse> {
+  async authenticate(email: string, password: string): Promise<AuthTokenResponse> {
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
