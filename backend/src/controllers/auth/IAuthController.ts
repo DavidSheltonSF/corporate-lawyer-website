@@ -1,6 +1,7 @@
-import { type Request, type Response } from 'express';
+import { HttpRequest } from '../types/HttpRequest';
+import { AuthResponse, GetMeResponse } from './responses';
 
 export interface IAuthController {
-  getMe: (req: Request, res: Response) => Promise<Response>;
-  auth: (req: Request, res: Response) => Promise<Response>;
+  getMe: (httpRequest: HttpRequest) => Promise<GetMeResponse>;
+  auth: (httpRequest: HttpRequest) => Promise<AuthResponse>;
 }
