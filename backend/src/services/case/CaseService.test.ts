@@ -28,8 +28,33 @@ describe('Test CaseService', () => {
     };
 
     const createdCase = await caseService.create(newCase);
-    console.log(createdCase);
-
     expect(caseRepository.create).toHaveBeenLastCalledWith(newCase);
+  });
+
+   test('should call caseRepository.findById with the provided id', async () => {
+     const { caseService, caseRepository } = makeSut();
+
+     const caseId = 'fakeid';
+
+     await caseService.findById(caseId);
+     expect(caseRepository.findById).toHaveBeenLastCalledWith(caseId);
+   });
+
+  test('should call caseRepository.getStatsByClientId with the provided id', async () => {
+    const { caseService, caseRepository } = makeSut();
+
+    const caseId = 'fakeid';
+
+    await caseService.getStatsByClientId(caseId);
+    expect(caseRepository.getStatsByClientId).toHaveBeenLastCalledWith(caseId);
+  });
+
+  test('should call caseRepository.findFilesByCaseId with the provided id', async () => {
+    const { caseService, caseRepository } = makeSut();
+
+    const caseId = 'fakeid';
+
+    await caseService.findFilesByCaseId(caseId);
+    expect(caseRepository.findFilesByCaseId).toHaveBeenLastCalledWith(caseId);
   });
 });
