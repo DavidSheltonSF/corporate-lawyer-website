@@ -12,6 +12,8 @@ import { CaseCardDTO } from '../../../dtos/case/CaseCardDTO';
 import { CaseMapper } from '../../../mappers/CaseMapper';
 import { CaseNotFoundError } from '../../../errors/application/CaseNotFoundError';
 import { CreateCaseFileDTO } from '../../../dtos/caseFile/CreateCaseFileDTO';
+import { CaseFileDTO } from '../../../dtos/caseFile/CaseFileDTO';
+import { CaseFileMapper } from '../../../mappers/CaseFile/CaseFileMapper';
 
 export class MongodbCaseRepository implements CaseRepository {
   async findCases(queryParams: CaseQuery = {}): Promise<Page<WithId<CaseCardDTO>>> {
@@ -137,6 +139,16 @@ export class MongodbCaseRepository implements CaseRepository {
     if (updated === null) {
       throw new CaseNotFoundError(caseId);
     }
+  }
+
+  async findFilesByCaseId(caseId: string): Promise<WithId<CaseFileDTO>[]> {
+    const foundCase = await CaseModel.findById(caseId).select('files').populate('files.uploadedBy').lean()
+    if(!foundCase) throw new CaseNotFoundError(caseId);
+
+    const caseFiles = foundCase.files;
+    console.log(caseFiles)
+
+    return caseFiles.map(CaseFileMapper.persistenceToPresentation);
   }
 
   async exists(id: string): Promise<boolean> {
