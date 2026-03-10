@@ -13,8 +13,8 @@ export interface CaseRepository {
   findCases(queryParams: CaseQuery): Promise<Page<WithId<CaseCardDTO>>>;
   findById(id: string): Promise<WithId<CaseCardDTO> | null>;
   create(user: CreateCaseDTO): Promise<WithId<Case>>;
-  getStats(client?: string): Promise<CaseStats | null>;
+  getStatsByClientId(clientId: string): Promise<CaseStats | null>;
   addFile(caseId: string, file: CreateCaseFileDTO): Promise<void>;
-  findFilesByCaseId(caseId: string): Promise<WithId<CaseFileDTO>[]>
+  findFilesByCaseId(caseId: string): Promise<WithId<CaseFileDTO>[]>;
   exists(id: string): Promise<boolean>;
 }

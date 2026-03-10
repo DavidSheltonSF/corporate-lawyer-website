@@ -102,15 +102,13 @@ export class MongodbCaseRepository implements CaseRepository {
     return CaseMapper.persistenceToDomain(cas);
   }
 
-  async getStats(client?: string): Promise<CaseStats | null> {
-    const baseFilter = client ? { client } : {};
-
+  async getStatsByClientId(clientId: string): Promise<CaseStats | null> {
     const inProgress = await CaseModel.countDocuments({
-      ...baseFilter,
+      clientId,
       status: CaseStatusEnum.em_andamento,
     });
     const closed = await CaseModel.countDocuments({
-      ...baseFilter,
+      clientId,
       status: CaseStatusEnum.encerrado,
     });
 
@@ -142,12 +140,13 @@ export class MongodbCaseRepository implements CaseRepository {
   }
 
   async findFilesByCaseId(caseId: string): Promise<WithId<CaseFileDTO>[]> {
-    const foundCase = await CaseModel.findById(caseId).select('files').populate('files.uploadedBy').lean()
-    if(!foundCase) throw new CaseNotFoundError(caseId);
+    const foundCase = await CaseModel.findById(caseId)
+      .select('files')
+      .populate('files.uploadedBy')
+      .lean();
+    if (!foundCase) throw new CaseNotFoundError(caseId);
 
     const caseFiles = foundCase.files;
-    console.log(caseFiles)
-
     return caseFiles.map(CaseFileMapper.persistenceToPresentation);
   }
 
