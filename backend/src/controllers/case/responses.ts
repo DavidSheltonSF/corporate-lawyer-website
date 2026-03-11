@@ -1,6 +1,6 @@
 import { CaseCardDTO } from '../../dtos/case/CaseCardDTO';
 import { CaseFileDTO } from '../../dtos/caseFile/CaseFileDTO';
-import { CaseResponseDTO } from '../../dtos/user/CaseResponseDTO';
+import { CaseResponseDTO } from '../../dtos/case/CaseResponseDTO';
 import { CasesStats } from '../../types/CasesStats';
 import { Page } from '../../types/Page';
 import { WithId } from '../../types/WithId';

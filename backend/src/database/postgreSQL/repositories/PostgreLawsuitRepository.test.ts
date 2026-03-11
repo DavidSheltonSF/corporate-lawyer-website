@@ -1,4 +1,4 @@
-import { CreateCaseDTO } from '../../../dtos/user/CreateCaseDTO';
+import { CreateCaseDTO } from '../../../dtos/case/CreateCaseDTO';
 import { CreateUserDTO } from '../../../dtos/user/CreateUserDTO';
 import { CaseStatusEnum } from '../../../types/CaseStatusEnum';
 import { LawsuitStatus } from '../../../types/LawsuitStatus';

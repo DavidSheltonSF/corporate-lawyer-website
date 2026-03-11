@@ -1,7 +1,7 @@
 import { CaseRepository } from '../../../repositories/CaseRepository';
 import { WithId } from '../../../types/WithId';
 import { CaseModel } from '../../../models/CaseModel';
-import { CreateCaseDTO } from '../../../dtos/user/CreateCaseDTO';
+import { CreateCaseDTO } from '../../../dtos/case/CreateCaseDTO';
 import { Types } from 'mongoose';
 import { CasesStats } from '../../../types/CasesStats';
 import { CaseStatusEnum } from '../../../types/CaseStatusEnum';

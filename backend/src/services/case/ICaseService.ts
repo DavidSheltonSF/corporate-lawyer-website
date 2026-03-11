@@ -1,8 +1,8 @@
 import { CaseCardDTO } from '../../dtos/case/CaseCardDTO';
 import { CaseFileDTO } from '../../dtos/caseFile/CaseFileDTO';
 import { CreateCaseFileDTO } from '../../dtos/caseFile/CreateCaseFileDTO';
-import { CaseResponseDTO } from '../../dtos/user/CaseResponseDTO';
-import { CreateCaseDTO } from '../../dtos/user/CreateCaseDTO';
+import { CaseResponseDTO } from '../../dtos/case/CaseResponseDTO';
+import { CreateCaseDTO } from '../../dtos/case/CreateCaseDTO';
 import { CaseQuery } from '../../types/CaseQuery';
 import { CasesStats } from '../../types/CasesStats';
 import { Page } from '../../types/Page';
