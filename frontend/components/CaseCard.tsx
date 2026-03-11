@@ -27,18 +27,12 @@ export function CaseCard({ caseData }: Props) {
   let statusColor = '';
 
   switch (status) {
-    case CaseStatusEnum.aberto:
+    case CaseStatusEnum.open:
       statusColor = 'text-green-400';
       break;
 
-    case CaseStatusEnum.em_andamento:
-      statusColor = 'text-green-600';
       break;
-
-    case CaseStatusEnum.esperando_documentos:
-      statusColor = 'text-yellow-500';
-      break;
-    case CaseStatusEnum.encerrado:
+    case CaseStatusEnum.closed:
       statusColor = 'text-red-500';
       break;
 

@@ -8,7 +8,7 @@ import { fetchClientCasesStats } from '@/services/fetchClientCasesStats';
 
 export function DashboardSection() {
   const [casesCountLoading, setCasesCoundLoading] = useState(true);
-  const [inProgressCasesCount, setInProgressCasesCount] = useState(0);
+  const [openCasesCount, setOpenCasesCount] = useState(0);
   const [closedCasesCount, setClosedCasesCount] = useState(0);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export function DashboardSection() {
       console.log(casesCount);
 
       mockPromise(10);
-      setInProgressCasesCount(casesCount.inProgress);
+      setOpenCasesCount(casesCount.open);
       setClosedCasesCount(casesCount.closed);
       setCasesCoundLoading(false);
     }
@@ -30,7 +30,7 @@ export function DashboardSection() {
         <DashboardCardSkeleton title="Processos" />
       ) : (
         <DashboardCard title="Processos" sectionIndex={1}>
-          <DashboardCardInfo name="Em andamento" value={inProgressCasesCount} />
+          <DashboardCardInfo name="Em andamento" value={openCasesCount} />
           <DashboardCardInfo name="Encerrados" value={closedCasesCount} />
         </DashboardCard>
       )}
