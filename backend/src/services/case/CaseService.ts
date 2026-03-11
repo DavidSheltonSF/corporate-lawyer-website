@@ -6,7 +6,7 @@ import { CreateCaseDTO } from '../../dtos/user/CreateCaseDTO';
 import { CaseNotFoundError } from '../../errors/application/CaseNotFoundError';
 import { CaseRepository } from '../../repositories/CaseRepository';
 import { CaseQuery } from '../../types/CaseQuery';
-import { CaseStats } from '../../types/CaseStats';
+import { CasesStats } from '../../types/CasesStats';
 import { Page } from '../../types/Page';
 import { WithId } from '../../types/WithId';
 import { ICaseService } from './ICaseService';
@@ -63,7 +63,7 @@ export class CaseService implements ICaseService {
     }
   }
 
-  async getStatsByClientId(clientId: string): Promise<CaseStats | null> {
+  async getStatsByClientId(clientId: string): Promise<CasesStats | null> {
     return this.caseRepository.getStatsByClientId(clientId);
   }
 

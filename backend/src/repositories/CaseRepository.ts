@@ -5,7 +5,7 @@ import { CreateCaseDTO } from '../dtos/user/CreateCaseDTO';
 import { Case } from '../entities/Case';
 import { CaseFile } from '../entities/CaseFile';
 import { CaseQuery } from '../types/CaseQuery';
-import { CaseStats } from '../types/CaseStats';
+import { CasesStats } from '../types/CasesStats';
 import { Page } from '../types/Page';
 import { WithId } from '../types/WithId';
 
@@ -13,7 +13,7 @@ export interface CaseRepository {
   findCases(queryParams: CaseQuery): Promise<Page<WithId<CaseCardDTO>>>;
   findById(id: string): Promise<WithId<CaseCardDTO> | null>;
   create(user: CreateCaseDTO): Promise<WithId<Case>>;
-  getStatsByClientId(clientId: string): Promise<CaseStats | null>;
+  getStatsByClientId(clientId: string): Promise<CasesStats | null>;
   addFile(caseId: string, file: CreateCaseFileDTO): Promise<void>;
   findFilesByCaseId(caseId: string): Promise<WithId<CaseFileDTO>[]>;
   exists(id: string): Promise<boolean>;

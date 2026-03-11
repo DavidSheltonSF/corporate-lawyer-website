@@ -3,7 +3,7 @@ import { WithId } from '../../../types/WithId';
 import { CaseModel } from '../../../models/CaseModel';
 import { CreateCaseDTO } from '../../../dtos/user/CreateCaseDTO';
 import { Types } from 'mongoose';
-import { CaseStats } from '../../../types/CaseStats';
+import { CasesStats } from '../../../types/CasesStats';
 import { CaseStatusEnum } from '../../../types/CaseStatusEnum';
 import { CaseQuery } from '../../../types/CaseQuery';
 import { Case } from '../../../entities/Case';
@@ -102,7 +102,7 @@ export class MongodbCaseRepository implements CaseRepository {
     return CaseMapper.persistenceToDomain(cas);
   }
 
-  async getStatsByClientId(clientId: string): Promise<CaseStats | null> {
+  async getStatsByClientId(clientId: string): Promise<CasesStats | null> {
     const open = await CaseModel.countDocuments({
       client: clientId,
       status: CaseStatusEnum.open,

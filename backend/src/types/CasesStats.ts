@@ -1,4 +1,4 @@
-export interface CaseStats {
+export interface CasesStats {
   open: number;
   closed: number;
 }
