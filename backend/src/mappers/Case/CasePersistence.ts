@@ -1,4 +1,4 @@
-import { CaseStatusEnum } from '../../types/CaseStatusEnum';
+import { CasesStatus } from '../../types/CasesStatus';
 
 export type CaseCardPersistence = {
   _id: { toString(): string };
@@ -6,7 +6,7 @@ export type CaseCardPersistence = {
   processNumber: string;
   court: string;
   courtDivision: string;
-  status: CaseStatusEnum;
+  status: CasesStatus;
   description: string;
   client: { toString(): string };
   lawyers: { toString(): string }[];

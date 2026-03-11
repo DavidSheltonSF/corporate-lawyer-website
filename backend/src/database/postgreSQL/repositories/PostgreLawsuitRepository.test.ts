@@ -1,6 +1,6 @@
 import { CreateCaseDTO } from '../../../dtos/case/CreateCaseDTO';
 import { CreateUserDTO } from '../../../dtos/user/CreateUserDTO';
-import { CaseStatusEnum } from '../../../types/CaseStatusEnum';
+import { CasesStatus } from '../../../types/CasesStatus';
 import { LawsuitStatus } from '../../../types/LawsuitStatus';
 import { UserRole } from '../../../types/UserRole';
 import { PostgreConnector } from '../PostgreConnector';

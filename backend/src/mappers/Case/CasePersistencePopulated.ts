@@ -1,4 +1,4 @@
-import { CaseStatusEnum } from '../../types/CaseStatusEnum';
+import { CasesStatus } from '../../types/CasesStatus';
 import { CaseFilePersistence } from '../CaseFile/CaseFilePersistence';
 import { HearingPersistence } from '../Hearing/HearingPersistence';
 import { UserIdentityPersistence } from '../User/UserIdentityPersistence';
@@ -9,7 +9,7 @@ export type CaseCardPersistencePopulated = {
   processNumber: string;
   court: string;
   courtDivision: string;
-  status: CaseStatusEnum;
+  status: CasesStatus;
   description: string;
   client: UserIdentityPersistence;
   lawyers: UserIdentityPersistence[];

@@ -1,4 +1,4 @@
-import { CaseStatusEnum } from '../types/CaseStatusEnum';
+import { CasesStatus } from '../types/CasesStatus';
 
 export interface Case {
   client: string;
@@ -10,7 +10,7 @@ export interface Case {
   courtDivision: string; //vara
   files?: string[] | undefined;
   hearings?: string[] | undefined;
-  status: CaseStatusEnum;
+  status: CasesStatus;
   createdAt?: Date | undefined;
   updatedAt?: Date | undefined;
 }

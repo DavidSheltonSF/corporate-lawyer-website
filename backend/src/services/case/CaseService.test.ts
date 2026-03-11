@@ -1,5 +1,5 @@
 import { CaseService } from './CaseService';
-import { CaseStatusEnum } from '../../types/CaseStatusEnum';
+import { CasesStatus } from '../../types/CasesStatus';
 import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
 
 describe('Test CaseService', () => {
@@ -24,21 +24,21 @@ describe('Test CaseService', () => {
       court: 'STJ',
       courtDivision: 'Vara Cívil',
       description: 'Case description',
-      status: CaseStatusEnum.open,
+      status: CasesStatus.open,
     };
 
     const createdCase = await caseService.create(newCase);
     expect(caseRepository.create).toHaveBeenLastCalledWith(newCase);
   });
 
-   test('should call caseRepository.findById with the provided id', async () => {
-     const { caseService, caseRepository } = makeSut();
+  test('should call caseRepository.findById with the provided id', async () => {
+    const { caseService, caseRepository } = makeSut();
 
-     const caseId = 'fakeid';
+    const caseId = 'fakeid';
 
-     await caseService.findById(caseId);
-     expect(caseRepository.findById).toHaveBeenLastCalledWith(caseId);
-   });
+    await caseService.findById(caseId);
+    expect(caseRepository.findById).toHaveBeenLastCalledWith(caseId);
+  });
 
   test('should call caseRepository.getStatsByClientId with the provided id', async () => {
     const { caseService, caseRepository } = makeSut();

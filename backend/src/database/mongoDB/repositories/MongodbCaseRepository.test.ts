@@ -1,7 +1,7 @@
 import { config } from 'dotenv';
 import { MongodbCaseRepository } from './MongodbCaseRepository';
 import { CaseModel } from '../../../models/CaseModel';
-import { CaseStatusEnum } from '../../../types/CaseStatusEnum';
+import { CasesStatus } from '../../../types/CasesStatus';
 import { UserRole } from '../../../types/UserRole';
 import { Types } from 'mongoose';
 import { MongodbTestConnector } from '../MongodbTestConnector';
@@ -70,7 +70,7 @@ describe('Test CaseRepository', () => {
       description: 'Case description',
       court: 'court', //tribunal
       courtDivision: 'court division', //vara
-      status: CaseStatusEnum.open,
+      status: CasesStatus.open,
     };
 
     await CaseModel.create(newCase);
@@ -100,7 +100,7 @@ describe('Test CaseRepository', () => {
       description: 'Case description',
       court: 'court', //tribunal
       courtDivision: 'court division', //vara
-      status: CaseStatusEnum.open,
+      status: CasesStatus.open,
     };
 
     const newId = (await CaseModel.create(newCase))._id;
@@ -125,7 +125,7 @@ describe('Test CaseRepository', () => {
       description: 'Case description',
       court: 'court', //tribunal
       courtDivision: 'court division', //vara
-      status: CaseStatusEnum.open,
+      status: CasesStatus.open,
     };
 
     const caseId = (await CaseModel.create(newCase))._id.toString();
@@ -162,7 +162,7 @@ describe('Test CaseRepository', () => {
       description: 'Case description',
       court: 'court', //tribunal
       courtDivision: 'court division', //vara
-      status: CaseStatusEnum.open,
+      status: CasesStatus.open,
     };
 
     const caseId = (await CaseModel.create(newCase))._id.toString();

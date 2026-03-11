@@ -1,5 +1,5 @@
 import { Types } from 'mongoose';
-import { CaseStatusEnum } from '../../types/CaseStatusEnum';
+import { CasesStatus } from '../../types/CasesStatus';
 
 export const mockCaseMongoDocs = [
   {
@@ -10,7 +10,7 @@ export const mockCaseMongoDocs = [
     description: 'Fake description',
     lawyers: [Types.ObjectId.createFromTime(488888)],
     processNumber: '2254787-55.5877.1.55.4787', //NNNNNNN-DD.AAAA.J.TR.OOOO,
-    status: CaseStatusEnum.open,
+    status: CasesStatus.open,
     title: 'Case Title',
   },
 ];

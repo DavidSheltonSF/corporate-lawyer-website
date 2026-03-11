@@ -4,7 +4,7 @@ import { CaseModel } from '../../../models/CaseModel';
 import { CreateCaseDTO } from '../../../dtos/case/CreateCaseDTO';
 import { Types } from 'mongoose';
 import { CasesStats } from '../../../types/CasesStats';
-import { CaseStatusEnum } from '../../../types/CaseStatusEnum';
+import { CasesStatus } from '../../../types/CasesStatus';
 import { CaseQuery } from '../../../types/CaseQuery';
 import { Case } from '../../../entities/Case';
 import { Page } from '../../../types/Page';
@@ -105,11 +105,11 @@ export class MongodbCaseRepository implements CaseRepository {
   async getStatsByClientId(clientId: string): Promise<CasesStats | null> {
     const open = await CaseModel.countDocuments({
       client: clientId,
-      status: CaseStatusEnum.open,
+      status: CasesStatus.open,
     });
     const closed = await CaseModel.countDocuments({
       client: clientId,
-      status: CaseStatusEnum.closed,
+      status: CasesStatus.closed,
     });
 
     return {
