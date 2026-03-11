@@ -21,7 +21,7 @@ export async function getMyCases(
 
     const { page, limit, query, status } = queryParams;
 
-    const baseRoute = `${API_URL}/client/cases`;
+    const baseRoute = `${API_URL}/my/cases`;
     console.log(queryParams);
 
     const queryString = `?page=${page}&limit=${limit || ''}&query=${query || ''}&status=${
