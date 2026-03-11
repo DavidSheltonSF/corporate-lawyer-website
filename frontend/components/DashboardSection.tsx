@@ -4,7 +4,7 @@ import { DashboardCardInfo } from './DashboardCardInfo';
 import { useEffect, useState } from 'react';
 import { mockPromise } from '@/test/mockPromise';
 import { DashboardCardSkeleton } from './DashboardCardSkeleton';
-import { fetchClientCasesStats } from '@/services/fetchClientCasesStats';
+import { fetchMyCasesStats } from '@/services/fetchMyCasesStats';
 
 export function DashboardSection() {
   const [casesCountLoading, setCasesCoundLoading] = useState(true);
@@ -13,7 +13,7 @@ export function DashboardSection() {
 
   useEffect(() => {
     async function fetchCases() {
-      const casesCount = await fetchClientCasesStats();
+      const casesCount = await fetchMyCasesStats();
       console.log(casesCount);
 
       mockPromise(10);
