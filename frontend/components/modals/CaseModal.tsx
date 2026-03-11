@@ -9,9 +9,11 @@ import { CaseFilesSection } from '../CaseFilesSection';
 import { useCaseModalContext } from '@/hooks/useCaseModalContext';
 import { CaseModalSkeleton } from './CaseModalSkeleton';
 import { formatStringList } from '@/lib/formatStringList';
+import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
+import { CaseWithRelations } from '@/types/CaseWithRelations';
 
 export function CaseModal() {
-  const [caseData, setCaseData] = useState<any | null>(null);
+  const [caseData, setCaseData] = useState<CaseWithRelations | null>(null);
   const [loading, setLoading] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -94,8 +96,8 @@ export function CaseModal() {
                     ${caseData.client.firstName} ${caseData.client.lastName}
                     `}
                   />
-                  <FieldValue field="advogados:" value={formatStringList(lawyersNames)} />
-                  <FieldValue field="status:" value={caseData.status} />
+                  <FieldValue field="advogados:" value={formatStringList(lawyersNames || [])} />
+                  <FieldValue field="status:" value={CaseStatusLabel[caseData.status]} />
                   <FieldValue field="tribunal:" value={caseData.court} />
                   <FieldValue field="vara:" value={caseData.courtDivision} />
                 </div>

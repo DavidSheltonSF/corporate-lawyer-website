@@ -10,9 +10,10 @@ import { UserIdentity } from '@/types/UserIdentity';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { MissingContextError } from '@/errors/MissingContextError';
 import { useCaseModalContext } from '@/hooks/useCaseModalContext';
+import { CaseWithRelations } from '@/types/CaseWithRelations';
 
 interface Props {
-  caseData: WithId<Case> & {
+  caseData: WithId<CaseWithRelations> & {
     lawyers: WithId<UserIdentity>[];
   };
 }
