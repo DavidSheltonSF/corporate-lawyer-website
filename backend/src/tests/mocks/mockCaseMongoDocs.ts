@@ -10,7 +10,7 @@ export const mockCaseMongoDocs = [
     description: 'Fake description',
     lawyers: [Types.ObjectId.createFromTime(488888)],
     processNumber: '2254787-55.5877.1.55.4787', //NNNNNNN-DD.AAAA.J.TR.OOOO,
-    status: CaseStatusEnum.aberto,
+    status: CaseStatusEnum.open,
     title: 'Case Title',
   },
 ];
