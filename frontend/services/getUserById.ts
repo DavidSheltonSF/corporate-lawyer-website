@@ -4,10 +4,10 @@ import { MissingRequiredArgumentError } from '@/errors/MissingRequiredArgumentEr
 import { User } from '@/types/User';
 import { WithId } from '@/types/WithId';
 
-export async function fetchUserById(id: string): Promise<WithId<User>> {
+export async function getUserById(id: string): Promise<WithId<User>> {
   try {
     if (!id) {
-      throw new MissingRequiredArgumentError('fetchUserById', 'id');
+      throw new MissingRequiredArgumentError('getUserById', 'id');
     }
 
     const response = await fetch(`${API_URL}/users/${id}`);
