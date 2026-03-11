@@ -24,7 +24,7 @@ describe('Test CaseService', () => {
       court: 'STJ',
       courtDivision: 'Vara Cívil',
       description: 'Case description',
-      status: CaseStatusEnum.em_andamento,
+      status: CaseStatusEnum.open,
     };
 
     const createdCase = await caseService.create(newCase);
