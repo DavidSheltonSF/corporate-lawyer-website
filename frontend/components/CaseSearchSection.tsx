@@ -32,8 +32,8 @@ export default function CaseSearchSection() {
       ['client', 'lawyers']
     );
 
-    const casesData = casesPagination.cases;
-    setTotalPage(casesPagination.totalPages);
+    const casesData = casesPagination.data;
+    setTotalPage(casesPagination.meta.totalPages);
 
     setCases(casesData);
     setCasesLoading(false);
