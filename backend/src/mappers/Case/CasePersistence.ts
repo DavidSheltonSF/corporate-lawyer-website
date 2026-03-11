@@ -1,7 +1,4 @@
 import { CaseStatusEnum } from '../../types/CaseStatusEnum';
-import { CaseFilePersistence } from '../CaseFile/CaseFilePersistence';
-import { HearingPersistence } from '../Hearing/HearingPersistence';
-import { UserIdentityPersistence } from '../User/UserIdentityPersistence';
 
 export type CaseCardPersistence = {
   _id: { toString(): string };
