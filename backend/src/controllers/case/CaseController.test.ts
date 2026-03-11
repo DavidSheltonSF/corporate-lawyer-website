@@ -1,9 +1,7 @@
-import { CreateCaseDTO } from '../../dtos/user/CreateCaseDTO';
 import { CaseService } from '../../services/case/CaseService';
 import { UserService } from '../../services/user/UserService';
 import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
-import { CaseStatusEnum } from '../../types/CaseStatusEnum';
 import { HttpRequest } from '../types/HttpRequest';
 import { HttpStatusCode } from '../types/HttpStatusCode';
 import { CaseController } from './CaseController';

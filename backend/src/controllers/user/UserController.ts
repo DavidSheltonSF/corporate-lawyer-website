@@ -1,4 +1,3 @@
-import { type Request, type Response } from 'express';
 import { IUserService } from '../../services/user/IUserService';
 import { IUserController } from './IUserController';
 import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
