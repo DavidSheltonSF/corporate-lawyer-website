@@ -3,7 +3,7 @@ import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 import { User } from '@/types/User';
 import { WithId } from '@/types/WithId';
 
-export async function fetchUserByToken(): Promise<WithId<User>> {
+export async function getMe(): Promise<WithId<User>> {
   const token = await getTokenFromCookies();
 
   const response = await fetch(`${API_URL}/me`, {
