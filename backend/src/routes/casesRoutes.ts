@@ -1,17 +1,22 @@
-import { Router } from "express";
-import { ICaseController } from "../controllers/case/ICaseController";
-import { requireAuth } from "../middlewares/requireAuth";
-import { upload } from "../middlewares/uploadFile";
+import { Router } from 'express';
+import { ICaseController } from '../controllers/case/ICaseController';
+import { requireAuth } from '../middlewares/requireAuth';
+import { upload } from '../middlewares/uploadFile';
+import { expressHttpAdapter } from './adapters/expressHttpAdapter';
 
-export function casesRoutes(router: Router, caseController: ICaseController){
-  router.get('/api/cases/:id', caseController.findById);
-  router.get('/api/client/cases/stats', requireAuth, caseController.getStatsByClient);
-  router.get('/api/client/cases', requireAuth, caseController.findByClient);
-  router.get('/api/client/cases/:id/caseFiles', requireAuth, caseController.findFilesByCaseId);
+export function casesRoutes(router: Router, caseController: ICaseController) {
+  router.get('/api/cases/:id', expressHttpAdapter(caseController.findById));
+  router.get('/api/my/cases/stats', requireAuth, expressHttpAdapter(caseController.getMyStats));
+  router.get('/api/my/cases', requireAuth, expressHttpAdapter(caseController.findMyCases));
+  router.get(
+    '/api/my/cases/:id/caseFiles',
+    requireAuth,
+    expressHttpAdapter(caseController.findFilesByCaseId)
+  );
   router.post(
-    '/api/client/cases/:id/caseFiles',
+    '/api/my/cases/:id/caseFiles',
     requireAuth,
     upload.single('file'),
-    caseController.addFile
+    expressHttpAdapter(caseController.uploadMyFile)
   );
 }
