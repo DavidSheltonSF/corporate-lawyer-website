@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { CaseSearchBar } from './CaseSearchBar';
 import { CasesList } from './CasesList';
-import { fetchClientCases } from '@/services/fetchClientCases';
+import { getMyCases } from '@/services/getMyCases';
 import { WithId } from '@/types/WithId';
 import { Pagination } from './Pagination';
 import { CaseWithLawyers } from '@/types/CaseWithLawyers';
@@ -22,7 +22,7 @@ export default function CaseSearchSection() {
   async function loadCases(page: number) {
     setCasesLoading(true);
     setPageIndex(page);
-    const casesPagination = await fetchClientCases(
+    const casesPagination = await getMyCases(
       {
         page,
         limit: 4,
@@ -45,7 +45,7 @@ export default function CaseSearchSection() {
 
   return (
     <section className="flex flex-col items-center relative size-full">
-      <CaseModal/>
+      <CaseModal />
       <div className="flex flex-col lg:flex-row gap-[40px] size-full">
         <CaseSearchBar
           handleClick={() => {

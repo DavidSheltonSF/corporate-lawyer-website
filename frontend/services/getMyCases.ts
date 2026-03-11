@@ -5,7 +5,7 @@ import { CaseWithLawyers } from '@/types/CaseWithLawyers';
 import { Page } from '@/types/Page';
 import { WithId } from '@/types/WithId';
 
-export async function fetchClientCases(
+export async function getMyCases(
   queryParams: {
     query?: string;
     page: number;
@@ -16,7 +16,7 @@ export async function fetchClientCases(
 ): Promise<Page<WithId<CaseWithLawyers>>> {
   try {
     if (!queryParams) {
-      throw new MissingRequiredArgumentError(fetchClientCases.name, 'queryParams');
+      throw new MissingRequiredArgumentError(getMyCases.name, 'queryParams');
     }
 
     const { page, limit, query, status } = queryParams;
