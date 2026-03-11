@@ -103,17 +103,17 @@ export class MongodbCaseRepository implements CaseRepository {
   }
 
   async getStatsByClientId(clientId: string): Promise<CaseStats | null> {
-    const inProgress = await CaseModel.countDocuments({
-      clientId,
-      status: CaseStatusEnum.em_andamento,
+    const open = await CaseModel.countDocuments({
+      client: clientId,
+      status: CaseStatusEnum.open,
     });
     const closed = await CaseModel.countDocuments({
-      clientId,
-      status: CaseStatusEnum.encerrado,
+      client: clientId,
+      status: CaseStatusEnum.closed,
     });
 
     return {
-      inProgress,
+      open,
       closed,
     };
   }
