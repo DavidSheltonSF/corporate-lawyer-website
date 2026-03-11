@@ -1,7 +1,6 @@
 import format from 'pg-format';
 import { CreateCaseDTO } from '../../../dtos/user/CreateCaseDTO';
 import { Case } from '../../../entities/Case';
-import { CaseRepository } from '../../../repositories/CaseRepository';
 import { WithId } from '../../../types/WithId';
 import { PostgreConnector } from '../PostgreConnector';
 import { TableNames } from '../types/TableNames';
