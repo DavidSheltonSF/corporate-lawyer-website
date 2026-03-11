@@ -3,7 +3,6 @@ import { CaseFileDTO } from '../dtos/caseFile/CaseFileDTO';
 import { CreateCaseFileDTO } from '../dtos/caseFile/CreateCaseFileDTO';
 import { CreateCaseDTO } from '../dtos/case/CreateCaseDTO';
 import { Case } from '../entities/Case';
-import { CaseFile } from '../entities/CaseFile';
 import { CaseQuery } from '../types/CaseQuery';
 import { CasesStats } from '../types/CasesStats';
 import { Page } from '../types/Page';
