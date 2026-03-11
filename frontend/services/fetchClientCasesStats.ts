@@ -2,7 +2,7 @@ import { API_URL } from '@/config/api';
 import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 import { CasesStats } from '@/types/CasesStats';
 
-export async function fetchClientCasesStats(): Promise<{ inProgress: number; closed: number }> {
+export async function fetchClientCasesStats(): Promise<CasesStats> {
   const token = await getTokenFromCookies();
 
   const response = await fetch(`${API_URL}/my/cases/stats`, {
