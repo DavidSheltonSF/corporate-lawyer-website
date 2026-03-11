@@ -4,7 +4,7 @@ import { HearingProps } from './HearingProps';
 
 export interface Case {
   clientId: string;
-  lawyerIds: string[];
+  lawyersIds: string[];
   processNumber: string;
   title: string;
   description?: string;
