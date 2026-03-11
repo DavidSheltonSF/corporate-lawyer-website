@@ -1,7 +1,7 @@
 import { ServerError } from '@/errors/ServerError';
 import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 
-export async function fetchUploadCaseFile(formData: FormData, id: string) {
+export async function uploadCaseFile(formData: FormData, id: string) {
   const token = await getTokenFromCookies();
   const response = await fetch(`/api/my/cases/${id}/caseFiles`, {
     headers: {

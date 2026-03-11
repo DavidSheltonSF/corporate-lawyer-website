@@ -2,7 +2,7 @@
 import { UploadModalContext } from '@/contexts/modals/UploadModalContext';
 import React, { Dispatch, SetStateAction, useContext, useState } from 'react';
 import { PrimaryModalWindow } from './PrimaryModalWindow';
-import { fetchUploadCaseFile } from '@/services/fetchUploadCaseFile';
+import { uploadCaseFile } from '@/services/uploadCaseFile';
 import { RequestState } from '@/types/RequestState';
 import { DropArea } from '../DropArea';
 
@@ -34,7 +34,7 @@ export function CaseFilesUploadModal({
 
       await new Promise((resolve) => setTimeout(resolve, 5000));
 
-      await fetchUploadCaseFile(formData, caseId);
+      await uploadCaseFile(formData, caseId);
       setUploadState({ status: 'ok', message: 'Arquivo adicionado com sucesso!' });
       setUpdateFiles(true);
     } catch (error) {
@@ -66,7 +66,7 @@ export function CaseFilesUploadModal({
       const formData = new FormData();
       formData.append('file', fileItem);
 
-      await fetchUploadCaseFile(formData, caseId);
+      await uploadCaseFile(formData, caseId);
 
       setUploadState({ status: 'ok', message: 'Arquivo adicionado com sucesso!' });
       setUpdateFiles(true);
