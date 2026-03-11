@@ -3,7 +3,7 @@ import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 
 export async function fetchUploadCaseFile(formData: FormData, id: string) {
   const token = await getTokenFromCookies();
-  const response = await fetch(`/api/client/cases/${id}/caseFiles`, {
+  const response = await fetch(`/api/my/cases/${id}/caseFiles`, {
     headers: {
       Authorization: token,
     },
