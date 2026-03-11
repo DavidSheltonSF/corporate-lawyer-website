@@ -2,7 +2,7 @@ import { API_URL } from '@/config/api';
 import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 import { CaseFile } from '@/types/CaseFile';
 
-export async function fetchCaseFiles(id: string): Promise<CaseFile[]> {
+export async function fetchMyCaseFilesByCaseId(id: string): Promise<CaseFile[]> {
   const token = await getTokenFromCookies();
 
   const response = await fetch(`${API_URL}/my/cases/${id}/caseFiles`, {
