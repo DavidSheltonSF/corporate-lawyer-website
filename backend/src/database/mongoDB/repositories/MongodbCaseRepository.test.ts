@@ -70,7 +70,7 @@ describe('Test CaseRepository', () => {
       description: 'Case description',
       court: 'court', //tribunal
       courtDivision: 'court division', //vara
-      status: CaseStatusEnum.aberto,
+      status: CaseStatusEnum.open,
     };
 
     await CaseModel.create(newCase);
@@ -100,7 +100,7 @@ describe('Test CaseRepository', () => {
       description: 'Case description',
       court: 'court', //tribunal
       courtDivision: 'court division', //vara
-      status: CaseStatusEnum.aberto,
+      status: CaseStatusEnum.open,
     };
 
     const newId = (await CaseModel.create(newCase))._id;
@@ -125,7 +125,7 @@ describe('Test CaseRepository', () => {
       description: 'Case description',
       court: 'court', //tribunal
       courtDivision: 'court division', //vara
-      status: CaseStatusEnum.aberto,
+      status: CaseStatusEnum.open,
     };
 
     const caseId = (await CaseModel.create(newCase))._id.toString();
@@ -162,7 +162,7 @@ describe('Test CaseRepository', () => {
       description: 'Case description',
       court: 'court', //tribunal
       courtDivision: 'court division', //vara
-      status: CaseStatusEnum.aberto,
+      status: CaseStatusEnum.open,
     };
 
     const caseId = (await CaseModel.create(newCase))._id.toString();
