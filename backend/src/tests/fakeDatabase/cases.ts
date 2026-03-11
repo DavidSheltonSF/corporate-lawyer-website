@@ -11,7 +11,7 @@ export const fakeCases = [
       'O cliente busca reparação por danos morais decorrentes de uma cobrança indevida realizada pela empresa X. O processo está em fase de instrução, aguardando audiência para oitiva de testemunhas.',
     court: 'STJ',
     courtDivision: '5ª Vara Cívil',
-    status: CaseStatusEnum.em_andamento,
+    status: CaseStatusEnum.open,
   },
   {
     client: fakeUserDatabase[3]!._id,
@@ -22,7 +22,7 @@ export const fakeCases = [
       'O cliente busca o reconhecimento de posse prolongada de um imóvel urbano utilizado há mais de 15 anos ininterruptos.',
     court: 'TJ-RJ',
     courtDivision: '7ª Vara de Registros Públicos',
-    status: CaseStatusEnum.em_andamento,
+    status: CaseStatusEnum.open,
   },
   {
     client: fakeUserDatabase[3]!._id,
@@ -33,7 +33,7 @@ export const fakeCases = [
       'A parte autora busca receber valores devidos referentes a um contrato de prestação de serviços não pago.',
     court: 'TJ-SP',
     courtDivision: '2ª Vara Cível',
-    status: CaseStatusEnum.encerrado,
+    status: CaseStatusEnum.closed,
   },
   {
     client: fakeUserDatabase[3]!._id,
@@ -44,7 +44,7 @@ export const fakeCases = [
       'O cliente busca ressarcimento pelos danos causados ao seu veículo após colisão envolvendo terceiro.',
     court: 'TJ-SP',
     courtDivision: '14ª Vara Cível',
-    status: CaseStatusEnum.aberto,
+    status: CaseStatusEnum.open,
   },
   {
     client: fakeUserDatabase[3]!._id,
@@ -54,7 +54,7 @@ export const fakeCases = [
     description: 'O cliente busca ressarcimento pelos danos morais.',
     court: 'TJ-SP',
     courtDivision: '14ª Vara Cível',
-    status: CaseStatusEnum.esperando_documentos,
+    status: CaseStatusEnum.closed,
   },
   {
     client: fakeUserDatabase[2]!._id,
@@ -64,7 +64,7 @@ export const fakeCases = [
     description: 'O cliente busca ressarcimento pelos danos causados à sua imagem publica.',
     court: 'TJ-SP',
     courtDivision: '14ª Vara Cível',
-    status: CaseStatusEnum.encerrado,
+    status: CaseStatusEnum.open,
   },
   {
     client: fakeUserDatabase[2]!._id,
@@ -74,6 +74,6 @@ export const fakeCases = [
     description: 'O cliente busca pensão pela morte do marido',
     court: 'TJ-SP',
     courtDivision: '14ª Vara Cível',
-    status: CaseStatusEnum.encerrado,
+    status: CaseStatusEnum.closed,
   },
 ];
