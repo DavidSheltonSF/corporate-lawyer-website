@@ -1,3 +1,4 @@
+import { InvalidPasswordError } from '../../errors/domain/InvalidPasswordError';
 import { UserService } from '../../services/user/UserService';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
 import { UserRole } from '../../types/UserRole';
@@ -25,7 +26,7 @@ describe(`Test ${UserController.name}`, () => {
       lastName: 'Faria',
       cpf: '18877748777',
       email: 'david@email.com',
-      password: 'david123',
+      password: 'Da##54848vvv',
       role: UserRole.client,
     };
 
