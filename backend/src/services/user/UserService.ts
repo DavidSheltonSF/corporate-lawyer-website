@@ -2,16 +2,20 @@ import { CreateUserDTO } from '../../dtos/user/CreateUserDTO';
 import { UserResponseDTO } from '../../dtos/user/UserResponseDTO';
 import { UserNotFoundError } from '../../errors/application/UserNotFoundError';
 import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError';
-import { InvalidRoleError } from '../../errors/domain/InvalidRoleError';
+import { InvalidRoleError } from '../../errors/domain/InvalidUserRoleError';
 import { UserRepository } from '../../repositories/UserRepository';
 import { UserRole } from '../../types/UserRole';
 import { WithId } from '../../types/WithId';
+import { validateUserName } from '../helpers/validateUserName';
 import { IUserService } from './IUserService';
 
 export class UserService implements IUserService {
   constructor(private userRepository: UserRepository) {}
   async create(data: CreateUserDTO): Promise<WithId<UserResponseDTO>> {
-    const { role } = data;
+    const { firstName, lastName, role } = data;
+
+    validateUserName(firstName);
+    validateUserName(lastName);
 
     let userRole: UserRole;
     switch (role) {
