@@ -1,4 +1,4 @@
-import { InvalidEmailError } from '../../errors/domain/InvalidEmailError.ts';
+import { InvalidEmailError } from '../../errors/domain/InvalidEmailError';
 
 export function validateEmail(email: string) {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
