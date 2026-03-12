@@ -11,7 +11,7 @@ describe(`Testing ${validateProcessNumber.name}`, () => {
     }
   }
 
-  test('should not throw error when user role is valid', () => {
+  test('should not throw error when user process number is valid', () => {
     const thrownError1 = getThrownError(() => validateProcessNumber('00012345620248260100'));
     const thrownError2 = getThrownError(() => validateProcessNumber('00888845620248260100'));
     const thrownError3 = getThrownError(() => validateProcessNumber('00012345620248267778'));
@@ -20,7 +20,7 @@ describe(`Testing ${validateProcessNumber.name}`, () => {
     expect(thrownError3).toBeNull();
   });
 
-  test('should throw InvalidRoleError if role provided is invalid', () => {
+  test('should throw InvalidProcessNumberError if process number provided is invalid', () => {
     const thrownError1 = getThrownError(() => validateProcessNumber('0001234562024826010'));
     const thrownError2 = getThrownError(() => validateProcessNumber('000123456202482601D0'));
     const thrownError3 = getThrownError(() => validateProcessNumber('000123456202482601055'));
