@@ -13,9 +13,7 @@ import { useCaseModalContext } from '@/hooks/useCaseModalContext';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
 
 interface Props {
-  caseData: WithId<CaseWithRelations> & {
-    lawyers: WithId<UserIdentity>[];
-  };
+  caseData: WithId<CaseWithRelations>;
 }
 
 export function CaseCard({ caseData }: Props) {

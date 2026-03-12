@@ -5,18 +5,18 @@ import { CasesList } from './CasesList';
 import { getMyCases } from '@/services/getMyCases';
 import { WithId } from '@/types/WithId';
 import { Pagination } from './Pagination';
-import { CaseWithLawyers } from '@/types/CaseWithLawyers';
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { DropDownButton } from './DropdownButton';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { CaseModal } from './modals/CaseModal';
+import { CaseWithRelations } from '@/types/CaseWithRelations';
 
 export default function CaseSearchSection() {
   const [query, setQuery] = useState('');
   const [statusFilder, setStatusFilter] = useState<CaseStatusEnum | null>(null);
   const [pageIndex, setPageIndex] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
-  const [cases, setCases] = useState<WithId<CaseWithLawyers>[]>([]);
+  const [cases, setCases] = useState<WithId<CaseWithRelations>[]>([]);
   const [casesLoading, setCasesLoading] = useState(false);
 
   async function loadCases(page: number) {

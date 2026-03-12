@@ -2,6 +2,7 @@ import { API_URL } from '@/config/api';
 import { MissingRequiredArgumentError } from '@/errors/MissingRequiredArgumentError';
 import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 import { CaseWithLawyers } from '@/types/CaseWithLawyers';
+import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { Page } from '@/types/Page';
 import { WithId } from '@/types/WithId';
 
@@ -13,7 +14,7 @@ export async function getMyCases(
     status?: string;
   },
   populate?: string[]
-): Promise<Page<WithId<CaseWithLawyers>>> {
+): Promise<Page<WithId<CaseWithRelations>>> {
   try {
     if (!queryParams) {
       throw new MissingRequiredArgumentError(getMyCases.name, 'queryParams');
