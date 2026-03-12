@@ -6,16 +6,15 @@ import { InvalidUserRoleError } from '../../errors/domain/InvalidUserRoleError';
 import { UserRepository } from '../../repositories/UserRepository';
 import { UserRole } from '../../types/UserRole';
 import { WithId } from '../../types/WithId';
-import { validateUserName } from '../validators/validateUserName';
+import { validateUser } from '../validators/validateUser';
 import { IUserService } from './IUserService';
 
 export class UserService implements IUserService {
   constructor(private userRepository: UserRepository) {}
   async create(data: CreateUserDTO): Promise<WithId<UserResponseDTO>> {
-    const { firstName, lastName, role } = data;
+    const { firstName, lastName, email, cpf, role } = data;
 
-    validateUserName(firstName);
-    validateUserName(lastName);
+    validateUser(data);
 
     let userRole: UserRole;
     switch (role) {
@@ -42,10 +41,10 @@ export class UserService implements IUserService {
     }
 
     const user = await this.userRepository.create({
-      firstName: data.firstName,
-      lastName: data.lastName,
-      email: data.email,
-      cpf: data.cpf,
+      firstName,
+      lastName,
+      email,
+      cpf,
       password: data.password,
       role: userRole,
     });
