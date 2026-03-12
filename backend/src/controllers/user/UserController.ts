@@ -2,7 +2,7 @@ import { IUserService } from '../../services/user/IUserService';
 import { IUserController } from './IUserController';
 import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
 import { InvalidNameError } from '../../errors/domain/InvalidNameError';
-import { InvalidRoleError } from '../../errors/domain/InvalidRoleError';
+import { InvalidUserRoleError } from '../../errors/domain/InvalidUserRoleError';
 import { HttpRequest } from '../types/HttpRequest';
 import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError';
 
@@ -33,7 +33,7 @@ export class UserController implements IUserController {
 
       if (
         error instanceof InvalidNameError ||
-        error instanceof InvalidRoleError ||
+        error instanceof InvalidUserRoleError ||
         error instanceof EntityAlreadyExistsError
       ) {
         return HttpResponseFactory.makeUnprocessableEntity<null>({

@@ -2,7 +2,7 @@ import { CreateUserDTO } from '../../dtos/user/CreateUserDTO';
 import { UserResponseDTO } from '../../dtos/user/UserResponseDTO';
 import { UserNotFoundError } from '../../errors/application/UserNotFoundError';
 import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError';
-import { InvalidRoleError } from '../../errors/domain/InvalidUserRoleError';
+import { InvalidUserRoleError } from '../../errors/domain/InvalidUserRoleError';
 import { UserRepository } from '../../repositories/UserRepository';
 import { UserRole } from '../../types/UserRole';
 import { WithId } from '../../types/WithId';
@@ -32,7 +32,7 @@ export class UserService implements IUserService {
         break;
 
       default:
-        throw new InvalidRoleError(role);
+        throw new InvalidUserRoleError(role);
     }
 
     const userExists = await this.userRepository.existsByEmail(data.email);

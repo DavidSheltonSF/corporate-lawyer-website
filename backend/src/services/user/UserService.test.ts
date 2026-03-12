@@ -1,6 +1,6 @@
 import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError';
 import { InvalidNameError } from '../../errors/domain/InvalidNameError';
-import { InvalidRoleError } from '../../errors/domain/InvalidUserRoleError';
+import { InvalidUserRoleError } from '../../errors/domain/InvalidUserRoleError';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
 import { UserRole } from '../../types/UserRole';
 import { UserService } from './UserService';
@@ -58,7 +58,7 @@ describe(`Test ${UserService.name}`, () => {
       password: 'david123',
       role: 'banana',
     };
-    await expect(userService.create(newUser)).rejects.toThrow(InvalidRoleError);
+    await expect(userService.create(newUser)).rejects.toThrow(InvalidUserRoleError);
   });
 
   test('should throw EntityAlreadyExistsError if the user already exists', async () => {
