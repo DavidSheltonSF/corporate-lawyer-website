@@ -1,5 +1,6 @@
 import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError';
-import { InvalidRoleError } from '../../errors/domain/InvalidRoleError';
+import { InvalidNameError } from '../../errors/domain/InvalidNameError';
+import { InvalidRoleError } from '../../errors/domain/InvalidUserRoleError';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
 import { UserRole } from '../../types/UserRole';
 import { UserService } from './UserService';
@@ -32,6 +33,20 @@ describe(`Test ${UserService.name}`, () => {
     expect(userRepository.create).toHaveBeenCalledWith(newUser);
   });
 
+  test('should thow InvalidNameError if firstName or lastName provided is invalid', async () => {
+    const { userService } = makeSut();
+
+    const newUser = {
+      firstName: 'David',
+      lastName: 'Faria4544',
+      cpf: '18877748777',
+      email: 'david@email.com',
+      password: 'david123',
+      role: UserRole.client,
+    };
+    await expect(userService.create(newUser)).rejects.toThrow(InvalidNameError);
+  });
+
   test('should thow InvalidRoleError if the role provided is invalid', async () => {
     const { userService } = makeSut();
 
@@ -55,10 +70,10 @@ describe(`Test ${UserService.name}`, () => {
       password: 'david123',
       role: 'admin',
     };
-    const userRepository = createMockUserRepository()
-    
+    const userRepository = createMockUserRepository();
+
     userRepository.existsByEmail = jest.fn().mockResolvedValue(true);
-    const userService = new UserService(userRepository)
+    const userService = new UserService(userRepository);
 
     await expect(userService.create(newUser)).rejects.toThrow(EntityAlreadyExistsError);
   });
@@ -83,10 +98,10 @@ describe(`Test ${UserService.name}`, () => {
     expect(userRepository.findByEmail).toHaveBeenCalledWith(email);
   });
 
-   test('should call userRepository.existsById with the given id', async () => {
-     const { userService, userRepository } = makeSut();
-     const id = 'testid-fdfa';
-     await userService.existsById(id);
-     expect(userRepository.existsById).toHaveBeenCalledWith(id);
-   });
+  test('should call userRepository.existsById with the given id', async () => {
+    const { userService, userRepository } = makeSut();
+    const id = 'testid-fdfa';
+    await userService.existsById(id);
+    expect(userRepository.existsById).toHaveBeenCalledWith(id);
+  });
 });
