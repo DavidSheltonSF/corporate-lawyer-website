@@ -6,7 +6,7 @@ import { InvalidUserRoleError } from '../../errors/domain/InvalidUserRoleError';
 import { UserRepository } from '../../repositories/UserRepository';
 import { UserRole } from '../../types/UserRole';
 import { WithId } from '../../types/WithId';
-import { validateUserName } from '../helpers/validateUserName';
+import { validateUserName } from '../validators/validateUserName';
 import { IUserService } from './IUserService';
 
 export class UserService implements IUserService {
