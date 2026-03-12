@@ -1,5 +1,6 @@
 import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError';
 import { InvalidNameError } from '../../errors/domain/InvalidNameError';
+import { InvalidPasswordError } from '../../errors/domain/InvalidPasswordError';
 import { InvalidUserRoleError } from '../../errors/domain/InvalidUserRoleError';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
 import { UserRole } from '../../types/UserRole';
@@ -24,7 +25,7 @@ describe(`Test ${UserService.name}`, () => {
       lastName: 'Faria',
       cpf: '18877748777',
       email: 'david@email.com',
-      password: 'david123',
+      password: 'Dudu555584#',
       role: UserRole.client,
     };
 
@@ -41,10 +42,24 @@ describe(`Test ${UserService.name}`, () => {
       lastName: 'Faria4544',
       cpf: '18877748777',
       email: 'david@email.com',
-      password: 'david123',
+      password: 'Dudu555584#',
       role: UserRole.client,
     };
     await expect(userService.create(newUser)).rejects.toThrow(InvalidNameError);
+  });
+
+  test('should thow InvalidPasswordError if password provided is invalid', async () => {
+    const { userService } = makeSut();
+
+    const newUser = {
+      firstName: 'David',
+      lastName: 'Faria',
+      cpf: '18877748777',
+      email: 'david@email.com',
+      password: 'weak',
+      role: UserRole.client,
+    };
+    await expect(userService.create(newUser)).rejects.toThrow(InvalidPasswordError);
   });
 
   test('should thow InvalidRoleError if the role provided is invalid', async () => {
@@ -55,7 +70,7 @@ describe(`Test ${UserService.name}`, () => {
       lastName: 'Faria',
       cpf: '18877748777',
       email: 'david@email.com',
-      password: 'david123',
+      password: 'Dudu555584#',
       role: 'banana',
     };
     await expect(userService.create(newUser)).rejects.toThrow(InvalidUserRoleError);
@@ -67,7 +82,7 @@ describe(`Test ${UserService.name}`, () => {
       lastName: 'Faria',
       cpf: '18877748777',
       email: 'david@email.com',
-      password: 'david123',
+      password: 'Dudu555584#',
       role: 'admin',
     };
     const userRepository = createMockUserRepository();
