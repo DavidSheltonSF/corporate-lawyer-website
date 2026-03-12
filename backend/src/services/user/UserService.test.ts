@@ -1,4 +1,5 @@
 import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError';
+import { InvalidEmailError } from '../../errors/domain/InvalidEmailError';
 import { InvalidNameError } from '../../errors/domain/InvalidNameError';
 import { InvalidPasswordError } from '../../errors/domain/InvalidPasswordError';
 import { InvalidUserRoleError } from '../../errors/domain/InvalidUserRoleError';
@@ -111,6 +112,12 @@ describe(`Test ${UserService.name}`, () => {
     const email = 'fake@email.com';
     await userService.findByEmail(email);
     expect(userRepository.findByEmail).toHaveBeenCalledWith(email);
+  });
+
+  test('should thrown InvalidEmailError when email provided is invalid', async () => {
+    const { userService } = makeSut();
+    const email = 'fakeemail.com';
+    await expect(userService.findByEmail(email)).rejects.toThrow(InvalidEmailError);
   });
 
   test('should call userRepository.existsById with the given id', async () => {
