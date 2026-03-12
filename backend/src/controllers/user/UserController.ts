@@ -1,10 +1,8 @@
 import { IUserService } from '../../services/user/IUserService';
 import { IUserController } from './IUserController';
 import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
-import { InvalidNameError } from '../../errors/domain/InvalidNameError';
-import { InvalidUserRoleError } from '../../errors/domain/InvalidUserRoleError';
 import { HttpRequest } from '../types/HttpRequest';
-import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError';
+import { DomainError } from '../../errors/domain/DomainError';
 
 export class UserController implements IUserController {
   constructor(private userService: IUserService) {}
@@ -31,11 +29,7 @@ export class UserController implements IUserController {
     } catch (error: unknown) {
       console.log(error);
 
-      if (
-        error instanceof InvalidNameError ||
-        error instanceof InvalidUserRoleError ||
-        error instanceof EntityAlreadyExistsError
-      ) {
+      if (error instanceof DomainError) {
         return HttpResponseFactory.makeUnprocessableEntity<null>({
           message: error.message,
         });
