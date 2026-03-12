@@ -6,6 +6,7 @@ import { InvalidUserRoleError } from '../../errors/domain/InvalidUserRoleError';
 import { UserRepository } from '../../repositories/UserRepository';
 import { UserRole } from '../../types/UserRole';
 import { WithId } from '../../types/WithId';
+import { validateEmail } from '../validators/validateEmail';
 import { validateUser } from '../validators/validateUser';
 import { IUserService } from './IUserService';
 
@@ -75,6 +76,7 @@ export class UserService implements IUserService {
   }
 
   async findByEmail(email: string): Promise<WithId<UserResponseDTO>> {
+    validateEmail(email);
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
