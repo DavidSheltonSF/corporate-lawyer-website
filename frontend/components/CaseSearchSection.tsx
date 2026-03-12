@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { CaseSearchBar } from './CaseSearchBar';
+import { SearchBar } from './SearchBar';
 import { CasesList } from './CasesList';
 import { getMyCases } from '@/services/getMyCases';
 import { WithId } from '@/types/WithId';
@@ -47,7 +47,7 @@ export default function CaseSearchSection() {
     <section className="flex flex-col items-center relative size-full">
       <CaseModal />
       <div className="flex flex-col lg:flex-row gap-[40px] size-full">
-        <CaseSearchBar
+        <SearchBar
           handleClick={() => {
             loadCases(1);
           }}

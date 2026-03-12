@@ -5,7 +5,7 @@ interface Props {
   setQuery: Dispatch<SetStateAction<string>>;
 }
 
-export function CaseSearchBar({ handleClick, setQuery }: Props) {
+export function SearchBar({ handleClick, setQuery }: Props) {
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const searchBar = e.target;
     setQuery(searchBar.value);
