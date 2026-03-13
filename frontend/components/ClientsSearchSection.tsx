@@ -4,8 +4,6 @@ import { SearchBar } from './SearchBar';
 import { WithId } from '@/types/WithId';
 import { Pagination } from './Pagination';
 import { CaseModal } from './modals/CaseModal';
-import { User } from '@/types/User';
-import { getFakeClients } from '@/services/getFakeClients';
 import { ClientsList } from './ClientsList';
 import { getClients } from '@/services/getClients';
 import { SafeUser } from '@/types/SafeUser';
