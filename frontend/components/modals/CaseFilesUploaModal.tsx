@@ -5,6 +5,7 @@ import { PrimaryModalWindow } from './PrimaryModalWindow';
 import { uploadCaseFile } from '@/services/uploadCaseFile';
 import { RequestState } from '@/types/RequestState';
 import { DropArea } from '../DropArea';
+import { RequestFeedback } from '../form/RequestFeedback';
 
 export function CaseFilesUploadModal({
   caseId,
@@ -86,13 +87,7 @@ export function CaseFilesUploadModal({
       >
         <div className="size-full flex flex-col text-center items-center justify-end p-[4px]">
           {(uploadState?.status === 'ok' || uploadState?.status === 'error') && (
-            <p
-              className={`font-bold mb-[16px] fade-in-animation ${
-                uploadState?.status === 'ok' ? 'text-green-500' : 'text-red-500'
-              }`}
-            >
-              {uploadState.message}
-            </p>
+            <RequestFeedback requestState={uploadState} />
           )}
           <DropArea uploadState={uploadState} handleChange={handleChange} handleDrop={handleDrop} />
         </div>
