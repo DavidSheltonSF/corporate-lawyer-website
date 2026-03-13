@@ -28,7 +28,7 @@ export function RequestFeedback({ requestState }: Props) {
 
   return (
     <span
-      className="text-[1.2rem] font-bold"
+      className="text-[1.2rem] font-bold text-center"
       style={{
         color,
       }}
