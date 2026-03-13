@@ -4,6 +4,8 @@ import { UserNotFoundError } from '../../errors/application/UserNotFoundError';
 import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError';
 import { InvalidUserRoleError } from '../../errors/domain/InvalidUserRoleError';
 import { UserRepository } from '../../repositories/UserRepository';
+import { Page } from '../../types/Page';
+import { UserQuery } from '../../types/UserQuery';
 import { UserRole } from '../../types/UserRole';
 import { WithId } from '../../types/WithId';
 import { validateEmail } from '../validators/validateEmail';
@@ -62,6 +64,19 @@ export class UserService implements IUserService {
       const { password, ...userWithoutPassword } = user;
       return userWithoutPassword;
     });
+  }
+
+  async findClients(userQuery: UserQuery): Promise<Page<WithId<UserResponseDTO>>> {
+    let page = await this.userRepository.findClients(userQuery);
+
+    const users = page.data;
+
+    const mappedUsers = users.map((user) => {
+      const { password, ...userWithoutPassword } = user;
+      return userWithoutPassword;
+    });
+
+    return { data: mappedUsers, meta: page.meta };
   }
 
   async findById(id: string): Promise<WithId<UserResponseDTO>> {
