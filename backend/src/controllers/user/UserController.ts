@@ -43,6 +43,12 @@ export class UserController implements IUserController {
     return HttpResponseFactory.makeOk({ data });
   };
 
+  findClients = async (httpRequest: HttpRequest) => {
+    const { query = '', limit = 4, page = 1 } = httpRequest.query;
+    const data = await this.userService.findClients({ query, limit, page });
+    return HttpResponseFactory.makeOk({ data });
+  };
+
   findById = async (httpRequest: HttpRequest) => {
     try {
       const { id } = httpRequest.params;
