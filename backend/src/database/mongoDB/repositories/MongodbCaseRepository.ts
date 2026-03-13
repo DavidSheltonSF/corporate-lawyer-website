@@ -129,7 +129,7 @@ export class MongodbCaseRepository implements CaseRepository {
         },
       },
       {
-        new: true,
+        returnDocument: 'after',
         runValidators: true,
       }
     ).lean();
