@@ -78,30 +78,25 @@ export function CaseFilesUploadModal({
 
   return (
     isOpen && (
-      <div className="absolute z-99999999999 top-[15%] left-1/2 translate-x-[-50%] w-[360px] h-[320px] rounded-lg overflow-hidden shadow-[0px_0px__3px_black]">
-        <PrimaryModalWindow
-          closeModal={() => {
-            closeModal();
-          }}
-        >
-          <div className="size-full flex flex-col text-center items-center justify-end p-[4px]">
-            {(uploadState?.status === 'ok' || uploadState?.status === 'error') && (
-              <p
-                className={`font-bold mb-[16px] fade-in-animation ${
-                  uploadState?.status === 'ok' ? 'text-green-500' : 'text-red-500'
-                }`}
-              >
-                {uploadState.message}
-              </p>
-            )}
-            <DropArea
-              uploadState={uploadState}
-              handleChange={handleChange}
-              handleDrop={handleDrop}
-            />
-          </div>
-        </PrimaryModalWindow>
-      </div>
+      <PrimaryModalWindow
+        additionalStyles="absolute z-99999999999 top-[15%] left-1/2 translate-x-[-50%] w-[360px] h-[320px] rounded-lg overflow-hidden shadow-[0px_0px__3px_black]"
+        closeModal={() => {
+          closeModal();
+        }}
+      >
+        <div className="size-full flex flex-col text-center items-center justify-end p-[4px]">
+          {(uploadState?.status === 'ok' || uploadState?.status === 'error') && (
+            <p
+              className={`font-bold mb-[16px] fade-in-animation ${
+                uploadState?.status === 'ok' ? 'text-green-500' : 'text-red-500'
+              }`}
+            >
+              {uploadState.message}
+            </p>
+          )}
+          <DropArea uploadState={uploadState} handleChange={handleChange} handleDrop={handleDrop} />
+        </div>
+      </PrimaryModalWindow>
     )
   );
 }
