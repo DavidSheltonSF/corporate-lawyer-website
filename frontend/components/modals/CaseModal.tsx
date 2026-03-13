@@ -10,6 +10,7 @@ import { CaseModalSkeleton } from './CaseModalSkeleton';
 import { formatStringList } from '@/lib/formatStringList';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
+import { OpenUploadModalButton } from '../OpenUploadModalButton';
 
 export function CaseModal() {
   const [caseData, setCaseData] = useState<CaseWithRelations | null>(null);
@@ -95,8 +96,11 @@ export function CaseModal() {
                 <p>{caseData.description}</p>
               </div>
               <div className="flex flex-col gap-[8px] border-b border-black/50">
-                <div className="w-full bg-color-primary p-[16px]">
+                <div className="relative w-full bg-color-primary p-[16px]">
                   <h1 className="text-2xl font-bold text-color-white">Arquivos</h1>
+                  <div className='absolute right-[16px] top-[50%] translate-y-[-50%]'>
+                    <OpenUploadModalButton />
+                  </div>
                 </div>
 
                 <div className="h-[224px] min-lg:h-[316px] overflow-auto">
