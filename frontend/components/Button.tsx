@@ -1,8 +1,10 @@
 'use client';
 
 interface Props {
+  type?: 'submit' | 'reset' | 'button';
   backgroundColor?: string;
   textColor?: string;
+  fontSize?: string;
   paddingX?: string;
   paddingY?: string;
   children: React.ReactNode;
@@ -12,8 +14,10 @@ interface Props {
 
 export function Button(props: Props) {
   const {
+    type,
     backgroundColor = 'var(--white-color)',
     textColor = 'var(--black-color)',
+    fontSize,
     children,
     paddingX = '16px',
     paddingY = '4px',
@@ -22,11 +26,13 @@ export function Button(props: Props) {
   } = props;
   return (
     <button
+      type={type}
       disabled={disabled}
       className="rounded-sm hover:brightness-120 cursor-pointer"
       style={{
         backgroundColor,
         color: textColor,
+        fontSize,
         paddingInline: paddingX,
         paddingBlock: paddingY,
       }}
