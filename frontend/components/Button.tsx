@@ -20,7 +20,7 @@ export function Button(props: Props) {
     fontSize,
     children,
     paddingX = '16px',
-    paddingY = '4px',
+    paddingY = '8px',
     onclick,
     disabled,
   } = props;
