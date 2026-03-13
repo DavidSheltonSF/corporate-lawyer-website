@@ -3,6 +3,10 @@ import { WithId } from '../../../types/WithId';
 import { UserModel } from '../../../models/UserModel';
 import { CreateUserDTO } from '../../../dtos/user/CreateUserDTO';
 import { User } from '../../../entities/User';
+import { UserQuery } from '../../../types/UserQuery';
+import { Page } from '../../../types/Page';
+import { UserRole } from '../../../types/UserRole';
+import { UserMapper } from '../../../mappers/UserMapper';
 
 export class MongodbUserRepository implements UserRepository {
   async findAll(): Promise<WithId<User>[]> {
@@ -13,6 +17,36 @@ export class MongodbUserRepository implements UserRepository {
         ...user,
       };
     });
+  }
+
+  async findClients(userQuery: UserQuery): Promise<Page<WithId<User>>> {
+    const { query, limit = 10, page = 1 } = userQuery;
+
+    const regex = new RegExp(query || '', 'i');
+
+    const filter = {
+      role: UserRole.client,
+      $or: [{ firstName: regex }, { lastName: regex }, { email: regex }, { cpf: regex }],
+    };
+
+    const clientsQuery = UserModel.find(filter);
+    const clientsTotalQuery = UserModel.countDocuments(filter)
+      .limit(limit)
+      .skip((page - 1) * limit)
+      .lean();
+
+    const [clients, totalItems] = await Promise.all([clientsQuery, clientsTotalQuery]);
+
+    const mappedUsers = clients.map(UserMapper.persistenceToDomain);
+
+    return {
+      data: mappedUsers,
+      meta: {
+        totalItems,
+        totalPages: Math.ceil(totalItems / limit),
+        currentPage: page,
+      },
+    };
   }
 
   async findById(id: string): Promise<WithId<User> | null> {
