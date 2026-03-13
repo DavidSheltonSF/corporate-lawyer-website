@@ -1,4 +1,4 @@
-export type RequestState =
-  | { status: 'loading' }
-  | { status: 'error'; message: string }
-  | { status: 'ok'; message: string };
+export interface RequestState  {
+  status: 'ok' | 'error' | 'loading',
+  message?: string
+}
