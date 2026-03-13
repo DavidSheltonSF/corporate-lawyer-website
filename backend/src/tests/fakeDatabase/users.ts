@@ -8,7 +8,7 @@ export const fakeUserDatabase = [
     lastName: 'Santiago',
     email: 'flavia@email.com',
     cpf: '11144744474',
-    password: 'flavia123',
+    password: 'Flavia@123',
     role: UserRole.lawyer,
   },
   {
@@ -17,7 +17,7 @@ export const fakeUserDatabase = [
     lastName: 'Medeiros',
     email: 'carla@email.com',
     cpf: '11148814474',
-    password: 'carla123',
+    password: 'Carla#456',
     role: UserRole.lawyer,
   },
   {
@@ -26,7 +26,7 @@ export const fakeUserDatabase = [
     lastName: 'Sílva',
     email: 'ju@email.com',
     cpf: '117897874474',
-    password: 'ju123',
+    password: 'Ju!78910',
     role: UserRole.client,
   },
   {
@@ -35,7 +35,7 @@ export const fakeUserDatabase = [
     lastName: 'Teixeira',
     email: 'raimundo@email.com',
     cpf: '18884744474',
-    password: 'raimundo123',
+    password: 'RaiMundo$1',
     role: UserRole.client,
   },
 ];
