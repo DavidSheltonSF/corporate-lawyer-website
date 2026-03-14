@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { UploadCloudIcon } from './UploadCloudIcon';
+import { UploadCloudIcon } from './icons/UploadCloudIcon';
 import { RequestState } from '@/types/RequestState';
 
 interface Props {
