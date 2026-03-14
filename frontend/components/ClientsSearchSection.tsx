@@ -42,7 +42,7 @@ export default function ClientSearchSection() {
   }, []);
 
   return (
-    <section className="flex flex-col items-center relative size-full">
+    <section className="flex flex-col items-center size-full">
       <RegisterUserModal isOpen={registerUserModalIsOpen} setIsOpen={setRegisterUserModalIsOpen} />
       <div className="flex flex-col lg:flex-row gap-[40px] size-full">
         <SearchBar
