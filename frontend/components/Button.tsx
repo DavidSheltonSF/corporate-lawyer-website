@@ -28,7 +28,7 @@ export function Button(props: Props) {
     <button
       type={type}
       disabled={disabled}
-      className="rounded-sm hover:brightness-120 cursor-pointer"
+      className="w-full rounded-sm hover:brightness-120 cursor-pointer"
       style={{
         backgroundColor,
         color: textColor,
