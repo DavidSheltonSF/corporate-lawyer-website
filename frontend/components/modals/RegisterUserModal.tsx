@@ -15,8 +15,8 @@ export function RegisterUserModal({ isOpen, setIsOpen }: Props) {
 
   async function registerClient(formData: FormData) {
     try {
-      const result = await createClient(formData);
-      setRequestState({ status: 'ok', message: 'Cliente registrado com sucesso' });
+      const data = await createClient(formData);
+      setRequestState({ status: 'ok', message: `Cliente registrado com sucesso. Senha: ${data.password}` });
     } catch (error: any) {
       console.log(error);
       setRequestState({ status: 'error', message: error.message });
