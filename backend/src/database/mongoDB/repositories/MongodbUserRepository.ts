@@ -29,11 +29,11 @@ export class MongodbUserRepository implements UserRepository {
       $or: [{ firstName: regex }, { lastName: regex }, { email: regex }, { cpf: regex }],
     };
 
-    const clientsQuery = UserModel.find(filter);
-    const clientsTotalQuery = UserModel.countDocuments(filter)
+    const clientsQuery = UserModel.find(filter)
       .limit(limit)
       .skip((page - 1) * limit)
       .lean();
+    const clientsTotalQuery = UserModel.countDocuments(filter);
 
     const [clients, totalItems] = await Promise.all([clientsQuery, clientsTotalQuery]);
 
