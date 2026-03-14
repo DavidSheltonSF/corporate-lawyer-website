@@ -7,7 +7,7 @@ interface Props {
 export function InputWithLabel({ id, name, label }: Props) {
   return (
     <div>
-      <label className="text-[1.3rem]" htmlFor="first-name-input">
+      <label className="text-[1.3rem]" htmlFor={id}>
         {label}
       </label>
       <input
