@@ -9,7 +9,6 @@ export async function createClient(formData: FormData): Promise<WithId<User>> {
   const lastName = formData.get('lastName');
   const email = formData.get('email');
   const cpf = formData.get('cpf');
-  alert(formData.get('firstName'));
 
   const token = await getTokenFromCookies();
   const response = await fetch(`${API_URL}/clients`, {
