@@ -27,7 +27,7 @@ export function RegisterUserModal({ isOpen, setIsOpen }: Props) {
     isOpen && (
       <PrimaryModalWindow
         additionalStyles={
-          'fixed z-99999999999 top-[2%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[880px] h-[70vh] min-lg:h-[70vh] rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
+          'fixed z-99999999999 top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[678px] h-[70vh] min-lg:h-[40vh] rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
         }
         closeModal={() => {
           setIsOpen(false);
@@ -37,19 +37,26 @@ export function RegisterUserModal({ isOpen, setIsOpen }: Props) {
           <div className="flex justify-center items-center h-[40px] w-full">
             <RequestFeedback requestState={requestState} />
           </div>
-          <form className="flex flex-col gap-[16px] w-full" action={registerClient}>
-            <InputWithLabel id="first-name-input" name="firstName" label="Nome" />
-            <InputWithLabel id="last-name-input" name="lastName" label="Sobrenome" />
-            <InputWithLabel id="email-input" name="email" label="Email" />
-            <InputWithLabel id="cpf-input" name="cpf" label="CPF" />
-            <Button
-              paddingY="8px"
-              backgroundColor="var(--primary-color)"
-              textColor="var(--white-color)"
-              fontSize="1.2rem"
-            >
-              Cadastrar Cliente
-            </Button>
+          <form className="flex flex-col gap-[16px] w-full h-full" action={registerClient}>
+            <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
+              <InputWithLabel id="first-name-input" name="firstName" label="Nome" />
+              <InputWithLabel id="last-name-input" name="lastName" label="Sobrenome" />
+            </div>
+            <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
+              <InputWithLabel id="email-input" name="email" label="Email" />
+              <InputWithLabel id="cpf-input" name="cpf" label="CPF" />
+            </div>
+
+            <div className='w-full min-lg:w-[200px] min-lg:ml-auto min:lg:mt-auto'>
+              <Button
+                paddingY="8px"
+                backgroundColor="var(--primary-color)"
+                textColor="var(--white-color)"
+                fontSize="1.2rem"
+              >
+                Cadastrar Cliente
+              </Button>
+            </div>
           </form>
         </div>
       </PrimaryModalWindow>
