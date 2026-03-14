@@ -7,6 +7,8 @@ import { CaseModal } from './modals/CaseModal';
 import { ClientsList } from './ClientsList';
 import { getClients } from '@/services/getClients';
 import { SafeUser } from '@/types/SafeUser';
+import { RegisterUserModal } from './modals/RegisterUserModal';
+import { Button } from './Button';
 
 export default function ClientSearchSection() {
   const [query, setQuery] = useState('');
@@ -14,6 +16,7 @@ export default function ClientSearchSection() {
   const [totalPage, setTotalPage] = useState(0);
   const [clients, setClients] = useState<WithId<SafeUser>[]>([]);
   const [casesLoading, setCasesLoading] = useState(false);
+  const [registerUserModalIsOpen, setRegisterUserModalIsOpen] = useState(false);
 
   async function loadClients(page: number) {
     setCasesLoading(true);
@@ -40,7 +43,7 @@ export default function ClientSearchSection() {
 
   return (
     <section className="flex flex-col items-center relative size-full">
-      <CaseModal />
+      <RegisterUserModal isOpen={registerUserModalIsOpen} setIsOpen={setRegisterUserModalIsOpen} />
       <div className="flex flex-col lg:flex-row gap-[40px] size-full">
         <SearchBar
           handleClick={() => {
@@ -48,7 +51,7 @@ export default function ClientSearchSection() {
           }}
           setQuery={setQuery}
         />
-        <div className="h-[48px] rounded-full w-[180px]"></div>
+        <Button fontSize='1.2rem' onclick={() => setRegisterUserModalIsOpen(true)}>Novo Cliente</Button>
       </div>
       <ClientsList loading={casesLoading} clients={clients} />
       <Pagination pageIndex={pageIndex} reloadByPageIndex={clients} totalPage={totalPage} />
