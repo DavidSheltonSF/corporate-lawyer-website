@@ -54,7 +54,7 @@ export default function ClientSearchSection() {
         <Button fontSize='1.2rem' onclick={() => setRegisterUserModalIsOpen(true)}>Novo Cliente</Button>
       </div>
       <ClientsList loading={casesLoading} clients={clients} />
-      <Pagination pageIndex={pageIndex} reloadByPageIndex={clients} totalPage={totalPage} />
+      <Pagination pageIndex={pageIndex} reloadByPageIndex={loadClients} totalPage={totalPage} />
     </section>
   );
 }
