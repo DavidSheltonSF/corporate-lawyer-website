@@ -1,8 +1,10 @@
 import { API_URL } from '@/config/api';
 import { ServerError } from '@/errors/ServerError';
 import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
+import { User } from '@/types/User';
+import { WithId } from '@/types/WithId';
 
-export async function createClient(formData: FormData) {
+export async function createClient(formData: FormData): Promise<WithId<User>> {
   const firstName = formData.get('firstName');
   const lastName = formData.get('lastName');
   const email = formData.get('email');
@@ -32,4 +34,8 @@ export async function createClient(formData: FormData) {
     const json = await response.json();
     throw Error(json.message);
   }
+
+  const json = await response.json();
+
+  return json.data;
 }
