@@ -1,41 +1,24 @@
-import { CreateUserDTO } from '../../dtos/user/CreateUserDTO';
+import { CreateClientDTO } from '../../dtos/user/CreateClientDTO';
+import { CreateClientResponseDTO } from '../../dtos/user/CreateClientResponseDTO';
 import { UserResponseDTO } from '../../dtos/user/UserResponseDTO';
 import { UserNotFoundError } from '../../errors/application/UserNotFoundError';
 import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError';
-import { InvalidUserRoleError } from '../../errors/domain/InvalidUserRoleError';
 import { UserRepository } from '../../repositories/UserRepository';
 import { Page } from '../../types/Page';
 import { UserQuery } from '../../types/UserQuery';
 import { UserRole } from '../../types/UserRole';
 import { WithId } from '../../types/WithId';
+import { generateTemporaryPassword } from '../helpers/generateTemporaryPassword';
 import { validateEmail } from '../validators/validateEmail';
-import { validateUser } from '../validators/validateUser';
+import { validateNewClient } from '../validators/validateNewClient';
 import { IUserService } from './IUserService';
 
 export class UserService implements IUserService {
   constructor(private userRepository: UserRepository) {}
-  async create(data: CreateUserDTO): Promise<WithId<UserResponseDTO>> {
-    const { firstName, lastName, email, cpf, role } = data;
+  async createClient(data: CreateClientDTO): Promise<WithId<CreateClientResponseDTO>> {
+    const { firstName, lastName, email, cpf } = data;
 
-    validateUser(data);
-
-    let userRole: UserRole;
-    switch (role) {
-      case UserRole.admin:
-        userRole = UserRole.admin;
-        break;
-
-      case UserRole.client:
-        userRole = UserRole.client;
-        break;
-
-      case UserRole.lawyer:
-        userRole = UserRole.lawyer;
-        break;
-
-      default:
-        throw new InvalidUserRoleError(role);
-    }
+    validateNewClient(data);
 
     const userExists = await this.userRepository.existsByEmail(data.email);
 
@@ -43,18 +26,18 @@ export class UserService implements IUserService {
       throw new EntityAlreadyExistsError(`User with email '${data.email}' already exists`);
     }
 
+    const tempPassword = generateTemporaryPassword(8);
+
     const user = await this.userRepository.create({
       firstName,
       lastName,
       email,
       cpf,
-      password: data.password,
-      role: userRole,
+      password: tempPassword,
+      role: UserRole.client,
     });
 
-    const { password, ...userWithoutPassword } = user;
-
-    return userWithoutPassword;
+    return { ...user, password: tempPassword };
   }
 
   async findAll(): Promise<WithId<UserResponseDTO>[]> {
