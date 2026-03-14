@@ -7,7 +7,7 @@ import { DomainError } from '../../errors/domain/DomainError';
 export class UserController implements IUserController {
   constructor(private userService: IUserService) {}
 
-  create = async (httpRequest: HttpRequest) => {
+  createClient = async (httpRequest: HttpRequest) => {
     try {
       const body = httpRequest.body;
       if (!body) {
@@ -16,13 +16,11 @@ export class UserController implements IUserController {
 
       const { firstName, lastName, email, cpf, password, role } = body;
 
-      const data = await this.userService.create({
+      const data = await this.userService.createClient({
         firstName,
         lastName,
         email,
         cpf,
-        password,
-        role,
       });
 
       return HttpResponseFactory.makeCreated({ data });
