@@ -23,10 +23,10 @@ export function ClientCardOptionsModal({ isOpen, setIsOpen }: Props) {
       >
         <div className="size-full flex flex-col text-center items-center justify-center gap-[8px] p-[8px]">
           <Button backgroundColor="var(--primary-color)" textColor="var(--white-color)">
-            Alterar Client
+            Alterar Dados
           </Button>
           <Button backgroundColor="var(--primary-color)" textColor="var(--white-color)">
-            Deletar Client
+            Deletar Cliente
           </Button>
         </div>
       </PrimaryModalWindow>
