@@ -5,6 +5,10 @@ interface Props {
 }
 
 export function Pagination({ reloadByPageIndex, totalPage, pageIndex }: Props) {
+  if (totalPage === 0) {
+    return null;
+  }
+
   return (
     <div className="flex justify-center border w-[80%] my-[40px]">
       <div className="flex gap-[16px]">
