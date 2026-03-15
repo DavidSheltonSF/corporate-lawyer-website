@@ -4,14 +4,14 @@ import { Button } from './Button';
 import { formatData } from '@/lib/formatData';
 import { CaseFile } from '@/types/CaseFile';
 import { MissingContextError } from '@/errors/MissingContextError';
-import { useUserContext } from '@/hooks/useUserContext';
+import { useAuthenticatedUserContext } from '@/hooks/useAuthenticatedUserContext';
 
 interface Props {
   documents: CaseFile[];
 }
 
 export function FilesTable({ documents }: Props) {
-  const userContext = useUserContext()
+  const userContext = useAuthenticatedUserContext();
 
   if (!userContext) {
     throw new MissingContextError('UserDataContext');
