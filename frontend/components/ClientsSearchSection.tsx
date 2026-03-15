@@ -9,32 +9,38 @@ import { getClients } from '@/services/getClients';
 import { SafeUser } from '@/types/SafeUser';
 import { RegisterUserModal } from './modals/RegisterUserModal';
 import { Button } from './Button';
+import { RequestState } from '@/types/RequestState';
 
 export default function ClientSearchSection() {
+  const [requestState, setRequestState] = useState<RequestState | null>(null);
   const [query, setQuery] = useState('');
   const [pageIndex, setPageIndex] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const [clients, setClients] = useState<WithId<SafeUser>[]>([]);
-  const [casesLoading, setCasesLoading] = useState(false);
   const [registerUserModalIsOpen, setRegisterUserModalIsOpen] = useState(false);
 
   async function loadClients(page: number) {
-    setCasesLoading(true);
-    setPageIndex(page);
-    const clientsPagination = await getClients(
-      {
-        page,
-        limit: 4,
-        query,
-      },
-      ['client', 'lawyers']
-    );
+    try {
+      setRequestState({ status: 'loading' });
+      setPageIndex(page);
+      const clientsPagination = await getClients(
+        {
+          page,
+          limit: 4,
+          query,
+        },
+        ['client', 'lawyers']
+      );
 
-    const casesData = clientsPagination.data;
-    setTotalPage(clientsPagination.meta.totalPages);
+      const casesData = clientsPagination.data;
+      setTotalPage(clientsPagination.meta.totalPages);
 
-    setClients(casesData);
-    setCasesLoading(false);
+      setClients(casesData);
+      setRequestState({ status: 'ok' });
+    } catch (error: any) {
+      console.log(error);
+      setRequestState({ status: 'error', message: error.message });
+    }
   }
 
   useEffect(() => {
@@ -51,13 +57,13 @@ export default function ClientSearchSection() {
           }}
           setQuery={setQuery}
         />
-        <div className='w-full min-lg:w-[200px]'>
+        <div className="w-full min-lg:w-[200px]">
           <Button fontSize="1.2rem" onclick={() => setRegisterUserModalIsOpen(true)}>
             Novo Cliente
           </Button>
         </div>
       </div>
-      <ClientsList loading={casesLoading} clients={clients} />
+      <ClientsList requestState={requestState} clients={clients} />
       <Pagination pageIndex={pageIndex} reloadByPageIndex={loadClients} totalPage={totalPage} />
     </section>
   );
