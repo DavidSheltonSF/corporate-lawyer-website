@@ -3,6 +3,7 @@ import { CreateClientResponseDTO } from '../../dtos/user/CreateClientResponseDTO
 import { UserResponseDTO } from '../../dtos/user/UserResponseDTO';
 import { UserNotFoundError } from '../../errors/application/UserNotFoundError';
 import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError';
+import { CaseRepository } from '../../repositories/CaseRepository';
 import { UserRepository } from '../../repositories/UserRepository';
 import { Page } from '../../types/Page';
 import { UserQuery } from '../../types/UserQuery';
@@ -14,7 +15,7 @@ import { validateNewClient } from '../validators/validateNewClient';
 import { IUserService } from './IUserService';
 
 export class UserService implements IUserService {
-  constructor(private userRepository: UserRepository) {}
+  constructor(private userRepository: UserRepository, private caseRepository: CaseRepository) {}
   async createClient(data: CreateClientDTO): Promise<WithId<CreateClientResponseDTO>> {
     const { firstName, lastName, email, cpf } = data;
 
@@ -85,6 +86,7 @@ export class UserService implements IUserService {
   }
 
   async deleteById(id: string): Promise<WithId<UserResponseDTO>> {
+    await this.caseRepository.deleteByUserId(id);
     const result = await this.userRepository.deleteById(id);
     if (!result) {
       throw new UserNotFoundError(`User with id '${id}' was not found`);
