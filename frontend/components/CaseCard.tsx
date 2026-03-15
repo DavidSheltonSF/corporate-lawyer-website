@@ -1,4 +1,4 @@
-import { UserDataContext } from '@/contexts/UserDataContext';
+import { AuthenticatedUserContext } from '@/contexts/AuthenticatedUserContext';
 import { formatStringList } from '@/lib/formatStringList';
 import { Case } from '@/types/Case';
 import { useContext } from 'react';
@@ -17,7 +17,7 @@ interface Props {
 }
 
 export function CaseCard({ caseData }: Props) {
-  const context = useContext(UserDataContext);
+  const context = useContext(AuthenticatedUserContext);
 
   const userData = context?.userData;
 

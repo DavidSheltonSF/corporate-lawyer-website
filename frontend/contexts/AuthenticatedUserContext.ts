@@ -2,8 +2,10 @@ import { User } from '@/types/User';
 import { WithId } from '@/types/WithId';
 import { createContext, Dispatch, SetStateAction } from 'react';
 
-export type UserDataContextType = {
+export type AuthenticatedUserContextType = {
   userData: WithId<User>;
 };
 
-export const UserDataContext = createContext<UserDataContextType | undefined>(undefined);
+export const AuthenticatedUserContext = createContext<AuthenticatedUserContextType | undefined>(
+  undefined
+);
