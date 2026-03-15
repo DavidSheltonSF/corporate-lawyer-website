@@ -23,6 +23,10 @@ export class HttpResponseFactory {
     return this.make<T>(HttpStatusCode.unauthorized, params);
   }
 
+  static makeForbidden<T>(params: HttpResponseParams<T>): HttpResponse<T> {
+    return this.make<T>(HttpStatusCode.forbidden, params);
+  }
+
   static makeBadRequest<T>(params: HttpResponseParams<T>): HttpResponse<T> {
     return this.make<T>(HttpStatusCode.bad_request, params);
   }
