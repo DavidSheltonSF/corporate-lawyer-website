@@ -83,12 +83,4 @@ export class UserService implements IUserService {
     const { password, ...userWithoutPassword } = user;
     return userWithoutPassword;
   }
-
-  async existsById(id: string): Promise<boolean> {
-    const userExists = await this.userRepository.existsById(id);
-    if (userExists) {
-      return true;
-    }
-    return false;
-  }
 }
