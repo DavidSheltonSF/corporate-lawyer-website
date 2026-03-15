@@ -14,22 +14,20 @@ import { RequestState } from '@/types/RequestState';
 export default function ClientSearchSection() {
   const [requestState, setRequestState] = useState<RequestState | null>(null);
   const [query, setQuery] = useState('');
-  const [pageIndex, setPageIndex] = useState(1);
+  const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const [clients, setClients] = useState<WithId<SafeUser>[]>([]);
   const [registerUserModalIsOpen, setRegisterUserModalIsOpen] = useState(false);
 
-  async function loadClients(page: number) {
+  async function loadClients() {
     try {
       setRequestState({ status: 'loading' });
-      setPageIndex(page);
       const clientsPagination = await getClients(
         {
           page,
           limit: 4,
           query,
         },
-        ['client', 'lawyers']
       );
 
       const casesData = clientsPagination.data;
@@ -44,8 +42,8 @@ export default function ClientSearchSection() {
   }
 
   useEffect(() => {
-    loadClients(1);
-  }, []);
+    loadClients();
+  }, [page]);
 
   return (
     <section className="flex flex-col items-center size-full">
@@ -53,7 +51,7 @@ export default function ClientSearchSection() {
       <div className="flex flex-col lg:flex-row gap-[40px] size-full">
         <SearchBar
           handleClick={() => {
-            loadClients(1);
+            loadClients();
           }}
           setQuery={setQuery}
         />
@@ -63,8 +61,8 @@ export default function ClientSearchSection() {
           </Button>
         </div>
       </div>
-      <ClientsList requestState={requestState} clients={clients} setClients={setClients}/>
-      <Pagination pageIndex={pageIndex} reloadByPageIndex={loadClients} totalPage={totalPage} />
+      <ClientsList requestState={requestState} clients={clients} setClients={setClients} />
+      <Pagination page={page} setPage={setPage} totalPage={totalPage} />
     </section>
   );
 }
