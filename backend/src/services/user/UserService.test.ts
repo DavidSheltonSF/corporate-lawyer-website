@@ -30,7 +30,7 @@ describe(`Test ${UserService.name}`, () => {
 
     await userService.createClient(newUser);
 
-    expect(userRepository.create).toHaveBeenCalled()
+    expect(userRepository.create).toHaveBeenCalled();
   });
 
   test('should thow InvalidNameError if firstName or lastName provided is invalid', async () => {
@@ -88,5 +88,12 @@ describe(`Test ${UserService.name}`, () => {
     const { userService } = makeSut();
     const email = 'fakeemail.com';
     await expect(userService.findByEmail(email)).rejects.toThrow(InvalidEmailError);
+  });
+
+  test('should call UserRepository.deleteById', async () => {
+    const { userService, userRepository } = makeSut();
+    const id = 'fakeIddfasfasd';
+    await userService.deleteById(id);
+    expect(userRepository.deleteById).toHaveBeenCalledWith(id);
   });
 });

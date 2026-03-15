@@ -83,4 +83,12 @@ export class UserService implements IUserService {
     const { password, ...userWithoutPassword } = user;
     return userWithoutPassword;
   }
+
+  async deleteById(id: string): Promise<WithId<UserResponseDTO>> {
+    const result = await this.userRepository.deleteById(id);
+    if (!result) {
+      throw new UserNotFoundError(`User with id '${id}' was not found`);
+    }
+    return result;
+  }
 }

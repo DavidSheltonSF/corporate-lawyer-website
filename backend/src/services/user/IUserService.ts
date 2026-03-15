@@ -10,4 +10,5 @@ export interface IUserService {
   findClients(userQuery: UserQuery): Promise<Page<WithId<UserResponseDTO>>>;
   findById(id: string): Promise<WithId<UserResponseDTO>>;
   findByEmail(email: string): Promise<WithId<UserResponseDTO>>;
+  deleteById(id: string): Promise<WithId<UserResponseDTO>>;
 }
