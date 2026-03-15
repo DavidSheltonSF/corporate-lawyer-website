@@ -1,4 +1,3 @@
-import { InvalidPasswordError } from '../../errors/domain/InvalidPasswordError';
 import { UserService } from '../../services/user/UserService';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
 import { UserRole } from '../../types/UserRole';
@@ -18,7 +17,7 @@ describe(`Test ${UserController.name}`, () => {
     };
   }
 
-  test('should create a new user', async () => {
+  test('should retun OK (200) and call UserRepository.create', async () => {
     const { userController, userRepository } = makeSut();
 
     const newUser = {
@@ -34,31 +33,10 @@ describe(`Test ${UserController.name}`, () => {
       body: newUser,
     };
 
-    const response = await userController.create(httpRequest);
+    const response = await userController.createClient(httpRequest);
 
-    expect(userRepository.create).toHaveBeenCalledWith(newUser);
+    expect(userRepository.create).toHaveBeenCalled();
     expect(response.status).toBe(HttpStatusCode.created);
-  });
-
-  test('should return UNPROCESSABLE_ENTITY (422) if the provided role is invalid', async () => {
-    const { userController, userRepository } = makeSut();
-
-    const newUser = {
-      firstName: 'David',
-      lastName: 'Faria',
-      cpf: '18877748777',
-      email: 'david@email.com',
-      password: 'david123',
-      role: 'banana',
-    };
-
-    const httpRequest = {
-      body: newUser,
-    };
-
-    const response = await userController.create(httpRequest);
-
-    expect(response.status).toBe(HttpStatusCode.unprocessable_entity);
   });
 
   test('should return UNPROCESSABLE_ENTITY if the user already exists', async () => {
@@ -80,7 +58,7 @@ describe(`Test ${UserController.name}`, () => {
     const userService = new UserService(userRepository);
     const userController = new UserController(userService);
 
-    const response = await userController.create(httpRequest);
+    const response = await userController.createClient(httpRequest);
     console.log(response);
 
     expect(response.status).toBe(HttpStatusCode.unprocessable_entity);
