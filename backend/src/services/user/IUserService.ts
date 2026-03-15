@@ -1,5 +1,4 @@
 import { CreateClientDTO } from '../../dtos/user/CreateClientDTO';
-import { CreateUserDTO } from '../../dtos/user/CreateUserDTO';
 import { UserResponseDTO } from '../../dtos/user/UserResponseDTO';
 import { Page } from '../../types/Page';
 import { UserQuery } from '../../types/UserQuery';
