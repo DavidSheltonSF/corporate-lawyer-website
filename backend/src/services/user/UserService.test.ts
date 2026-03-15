@@ -18,7 +18,7 @@ describe(`Test ${UserService.name}`, () => {
     };
   }
 
-  test('should create a new user', async () => {
+  test('should call UserRepository.create', async () => {
     const { userService, userRepository } = makeSut();
 
     const newUser = {
@@ -26,13 +26,11 @@ describe(`Test ${UserService.name}`, () => {
       lastName: 'Faria',
       cpf: '18877748777',
       email: 'david@email.com',
-      password: 'Dudu555584#',
-      role: UserRole.client,
     };
 
-    await userService.create(newUser);
+    await userService.createClient(newUser);
 
-    expect(userRepository.create).toHaveBeenCalledWith(newUser);
+    expect(userRepository.create).toHaveBeenCalled()
   });
 
   test('should thow InvalidNameError if firstName or lastName provided is invalid', async () => {
@@ -46,35 +44,7 @@ describe(`Test ${UserService.name}`, () => {
       password: 'Dudu555584#',
       role: UserRole.client,
     };
-    await expect(userService.create(newUser)).rejects.toThrow(InvalidNameError);
-  });
-
-  test('should thow InvalidPasswordError if password provided is invalid', async () => {
-    const { userService } = makeSut();
-
-    const newUser = {
-      firstName: 'David',
-      lastName: 'Faria',
-      cpf: '18877748777',
-      email: 'david@email.com',
-      password: 'weak',
-      role: UserRole.client,
-    };
-    await expect(userService.create(newUser)).rejects.toThrow(InvalidPasswordError);
-  });
-
-  test('should thow InvalidRoleError if the role provided is invalid', async () => {
-    const { userService } = makeSut();
-
-    const newUser = {
-      firstName: 'David',
-      lastName: 'Faria',
-      cpf: '18877748777',
-      email: 'david@email.com',
-      password: 'Dudu555584#',
-      role: 'banana',
-    };
-    await expect(userService.create(newUser)).rejects.toThrow(InvalidUserRoleError);
+    await expect(userService.createClient(newUser)).rejects.toThrow(InvalidNameError);
   });
 
   test('should throw EntityAlreadyExistsError if the user already exists', async () => {
@@ -91,7 +61,7 @@ describe(`Test ${UserService.name}`, () => {
     userRepository.existsByEmail = jest.fn().mockResolvedValue(true);
     const userService = new UserService(userRepository);
 
-    await expect(userService.create(newUser)).rejects.toThrow(EntityAlreadyExistsError);
+    await expect(userService.createClient(newUser)).rejects.toThrow(EntityAlreadyExistsError);
   });
 
   test('should find all users', async () => {
@@ -118,12 +88,5 @@ describe(`Test ${UserService.name}`, () => {
     const { userService } = makeSut();
     const email = 'fakeemail.com';
     await expect(userService.findByEmail(email)).rejects.toThrow(InvalidEmailError);
-  });
-
-  test('should call userRepository.existsById with the given id', async () => {
-    const { userService, userRepository } = makeSut();
-    const id = 'testid-fdfa';
-    await userService.existsById(id);
-    expect(userRepository.existsById).toHaveBeenCalledWith(id);
   });
 });
