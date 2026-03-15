@@ -10,6 +10,7 @@ export interface UserRepository {
   findById(id: string): Promise<WithId<User> | null>;
   findByEmail(email: string): Promise<WithId<User> | null>;
   create(user: CreateUserDTO): Promise<WithId<User>>;
+  deleteById(id: string): Promise<WithId<User>>;
   existsById(id: string): Promise<boolean>;
   existsByEmail(email: string): Promise<boolean>;
 }

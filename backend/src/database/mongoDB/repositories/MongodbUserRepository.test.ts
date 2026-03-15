@@ -10,7 +10,7 @@ config();
 jest.setTimeout(999999);
 
 describe('Test UserRepository', () => {
-  let connection: MongodbTestConnector | null = null
+  let connection: MongodbTestConnector | null = null;
   beforeAll(async () => {
     connection = await MongodbTestConnector.connectAndReturn('user_repository_test');
   });
@@ -20,8 +20,8 @@ describe('Test UserRepository', () => {
   });
 
   afterAll(async () => {
-    await connection?.deleteDatabase()
-    await connection?.disconnect()
+    await connection?.deleteDatabase();
+    await connection?.disconnect();
   });
 
   function makeSut() {
@@ -130,26 +130,49 @@ describe('Test UserRepository', () => {
     expect(nonExistingUser).toBeFalsy();
   });
 
-   test('should return true if user exists, but false if user does not exist, given the email', async () => {
-     const { userRepository } = makeSut();
+  test('should return true if user exists, but false if user does not exist, given the email', async () => {
+    const { userRepository } = makeSut();
 
-     const newUser = {
-       firstName: 'José',
-       lastName: 'Sílva',
-       cpf: '18877748777',
-       email: 'jose@email.com',
-       password: 'jose123',
-       role: UserRole.client,
-     };
+    const newUser = {
+      firstName: 'José',
+      lastName: 'Sílva',
+      cpf: '18877748777',
+      email: 'jose@email.com',
+      password: 'jose123',
+      role: UserRole.client,
+    };
 
-     await UserModel.create(newUser)
+    await UserModel.create(newUser);
 
-     const existingUser = await userRepository.existsByEmail(newUser.email);
-     const nonExistingUser = await userRepository.existsByEmail(
-       'fakeiiuuu@email.com'
-     );
+    const existingUser = await userRepository.existsByEmail(newUser.email);
+    const nonExistingUser = await userRepository.existsByEmail('fakeiiuuu@email.com');
 
-     expect(existingUser).toBeTruthy();
-     expect(nonExistingUser).toBeFalsy();
-   });
+    expect(existingUser).toBeTruthy();
+    expect(nonExistingUser).toBeFalsy();
+  });
+
+  test('should delete a user', async () => {
+    const { userRepository } = makeSut();
+
+    const newUser = {
+      firstName: 'José',
+      lastName: 'Sílva',
+      cpf: '18877748777',
+      email: 'jose@email.com',
+      password: 'jose123',
+      role: UserRole.client,
+    };
+    const userId = (await UserModel.create(newUser))._id;
+
+    const result = await userRepository.deleteById(userId.toString());
+    expect(result.firstName).toBe(newUser.firstName);
+    expect(result.lastName).toBe(newUser.lastName);
+    expect(result.cpf).toBe(newUser.cpf);
+    expect(result.email).toBe(newUser.email);
+    expect(result.role).toBe(newUser.role);
+
+    // Ensure user is actually deleted
+    const deletedUser = await UserModel.findById(userId);
+    expect(deletedUser).toBeNull();
+  });
 });

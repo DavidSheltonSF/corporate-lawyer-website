@@ -104,6 +104,11 @@ export class MongodbUserRepository implements UserRepository {
     };
   }
 
+  async deleteById(id: string): Promise<WithId<User>> {
+    const result = await UserModel.findOneAndDelete({ _id: id });
+    return UserMapper.persistenceToDomain(result);
+  }
+
   async existsById(id: string): Promise<boolean> {
     const result = await UserModel.findById(id);
     return result !== null;
