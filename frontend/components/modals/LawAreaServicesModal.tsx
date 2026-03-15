@@ -17,7 +17,7 @@ export function LawAreaServicesModal() {
   return (
     isOpen && (
       <div
-        className={`flex z-9999 fixed left-[50%] translate-x-[-50%] top-[10vh] w-[30rem] h-[25rem] rounded-xl border border-color-secondary overflow-hidden bg-green-200 fade-in-animation`}
+        className={`flex z-9999 fixed left-[50%] translate-x-[-50%] top-[10vh] w-[90%] min-md:w-[60%] min-lg:w-[496px] h-fit rounded-xl border border-color-secondary overflow-hidden bg-green-200 fade-in-animation`}
       >
         <SecondaryModalWindow closeModal={() => setIsOpen(false)}>
           <ServiceDetailsModal serviceAreaId={serviceAreaId}></ServiceDetailsModal>
