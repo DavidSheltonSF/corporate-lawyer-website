@@ -14,23 +14,19 @@ import { CaseWithRelations } from '@/types/CaseWithRelations';
 export default function CaseSearchSection() {
   const [query, setQuery] = useState('');
   const [statusFilder, setStatusFilter] = useState<CaseStatusEnum | null>(null);
-  const [pageIndex, setPageIndex] = useState(1);
+  const [page, setPage] = useState(2);
   const [totalPage, setTotalPage] = useState(0);
   const [cases, setCases] = useState<WithId<CaseWithRelations>[]>([]);
   const [casesLoading, setCasesLoading] = useState(false);
 
-  async function loadCases(page: number) {
+  async function loadCases() {
     setCasesLoading(true);
-    setPageIndex(page);
-    const casesPagination = await getMyCases(
-      {
-        page,
-        limit: 4,
-        query,
-        status: statusFilder || '',
-      },
-      ['client', 'lawyers']
-    );
+    const casesPagination = await getMyCases({
+      page,
+      limit: 4,
+      query,
+      status: statusFilder || '',
+    });
 
     const casesData = casesPagination.data;
     setTotalPage(casesPagination.meta.totalPages);
@@ -40,8 +36,8 @@ export default function CaseSearchSection() {
   }
 
   useEffect(() => {
-    loadCases(1);
-  }, []);
+    loadCases();
+  }, [page]);
 
   return (
     <section className="flex flex-col items-center relative size-full">
@@ -49,7 +45,7 @@ export default function CaseSearchSection() {
       <div className="flex flex-col lg:flex-row gap-[40px] size-full">
         <SearchBar
           handleClick={() => {
-            loadCases(1);
+            loadCases();
           }}
           setQuery={setQuery}
         />
@@ -64,7 +60,7 @@ export default function CaseSearchSection() {
         </div>
       </div>
       <CasesList loading={casesLoading} cases={cases} />
-      <Pagination pageIndex={pageIndex} reloadByPageIndex={loadCases} totalPage={totalPage} />
+      <Pagination page={page} setPage={setPage} totalPage={totalPage} />
     </section>
   );
 }
