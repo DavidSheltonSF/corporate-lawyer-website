@@ -1,19 +1,19 @@
 'use client';
 import { WithId } from '@/types/WithId';
-import { Activity, useState } from 'react';
+import { Activity, Dispatch, SetStateAction, useState } from 'react';
 import { CaseCardSkeleton } from './CaseCardSkeleton';
 import { ClientCard } from './ClientCard';
 import { SafeUser } from '@/types/SafeUser';
 import { ClientCardOptionsModal } from './modals/ClientCardOptionsModal';
 import { RequestState } from '@/types/RequestState';
-import { error } from 'console';
 
 interface Props {
   clients: WithId<SafeUser>[];
+  setClients: Dispatch<SetStateAction<WithId<SafeUser>[]>>;
   requestState: RequestState | null;
 }
 
-export function ClientsList({ clients, requestState }: Props) {
+export function ClientsList({ clients, requestState, setClients }: Props) {
   const [optionsModalIsOpen, setOptionsModalIsOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
@@ -25,6 +25,10 @@ export function ClientsList({ clients, requestState }: Props) {
   const closeOptionsModal = () => {
     setSelectedUserId(null);
     setOptionsModalIsOpen(false);
+  };
+
+  const removeClientFromList = (id: string) => {
+    setClients(clients.filter((client) => client.id !== id));
   };
 
   const renderCases = clients?.map((client, index) => {
@@ -55,6 +59,7 @@ export function ClientsList({ clients, requestState }: Props) {
         isOpen={optionsModalIsOpen}
         closeModal={closeOptionsModal}
         selectedUserId={selectedUserId}
+        removeClientFromList={removeClientFromList}
       />
       <Activity mode={!isLoading ? 'visible' : 'hidden'}>
         <h1 className="text-3xl">{message}</h1>
