@@ -6,12 +6,11 @@ import { Dispatch, SetStateAction } from 'react';
 
 interface Props {
   clientData: WithId<SafeUser>;
-  optionsModalIsOpen: boolean;
-  setOptionsModalIsOpen: Dispatch<SetStateAction<boolean>>;
+  openOptionsModal: Function;
 }
 
-export function ClientCard({ clientData, optionsModalIsOpen, setOptionsModalIsOpen }: Props) {
-  const { id, firstName, lastName, email, cpf, role } = clientData;
+export function ClientCard({ clientData, openOptionsModal }: Props) {
+  const { id, firstName, lastName, email, cpf } = clientData;
 
   // const userModalContext = useCaseModalContext();
 
@@ -33,7 +32,7 @@ export function ClientCard({ clientData, optionsModalIsOpen, setOptionsModalIsOp
         <h1 className="h-fit font-bold text-center min-md:text-start text-xl min-md:text-3xl">
           {`${firstName} ${lastName}`}
         </h1>
-        <button onClick={() => setOptionsModalIsOpen(true)}>
+        <button onClick={() => openOptionsModal(id)}>
           <VerticalMoreIcon color="var(--white-color)" height="32px" width="32px" />
         </button>
       </header>
