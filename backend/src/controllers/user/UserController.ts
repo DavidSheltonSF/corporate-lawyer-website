@@ -5,6 +5,7 @@ import { HttpRequest } from '../types/HttpRequest';
 import { DomainError } from '../../errors/domain/DomainError';
 import { DeleteByIdResponse } from './responses';
 import { UserNotFoundError } from '../../errors/application/UserNotFoundError';
+import { UserRole } from '../../types/UserRole';
 
 export class UserController implements IUserController {
   constructor(private userService: IUserService) {}
@@ -75,15 +76,29 @@ export class UserController implements IUserController {
   deleteById = async (httpRequest: HttpRequest) => {
     try {
       const { id } = httpRequest.params;
+      const authUser = httpRequest.user;
+
+      if (!authUser) {
+        return HttpResponseFactory.makeBadRequest<null>({
+          message: 'Missing authenticated user',
+        });
+      }
 
       if (!id) {
         return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing user id' });
       }
 
+      const authUserData = await this.userService.findById(authUser.id);
+
+      if (authUserData.role !== UserRole.lawyer) {
+        return HttpResponseFactory.makeForbidden<null>({
+          message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
+        });
+      }
+
       const result = await this.userService.deleteById(id);
 
       return HttpResponseFactory.makeOk({ data: result });
-
     } catch (error: any) {
       if (error instanceof UserNotFoundError) {
         return HttpResponseFactory.makeNotFound<null>({ message: error.message });
