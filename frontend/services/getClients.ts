@@ -5,15 +5,12 @@ import { Page } from '@/types/Page';
 import { SafeUser } from '@/types/SafeUser';
 import { WithId } from '@/types/WithId';
 
-export async function getClients(
-  queryParams: {
-    query?: string;
-    page: number;
-    limit: number;
-    status?: string;
-  },
-  populate?: string[]
-): Promise<Page<WithId<SafeUser>>> {
+export async function getClients(queryParams: {
+  query?: string;
+  page: number;
+  limit: number;
+  status?: string;
+}): Promise<Page<WithId<SafeUser>>> {
   try {
     if (!queryParams) {
       throw new MissingRequiredArgumentError(getClients.name, 'queryParams');
@@ -25,7 +22,7 @@ export async function getClients(
 
     const queryString = `?page=${page}&limit=${limit || ''}&query=${query || ''}&status=${
       status || ''
-    }&populate=${populate || ''}`;
+    }`;
 
     const token = await getTokenFromCookies();
 
