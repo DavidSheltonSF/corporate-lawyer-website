@@ -1,7 +1,5 @@
-import { AuthenticatedUserContext } from '@/contexts/AuthenticatedUserContext';
 import { formatStringList } from '@/lib/formatStringList';
 import { Case } from '@/types/Case';
-import { useContext } from 'react';
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { reduceString } from '@/lib/reduceString';
 import { TooltipContainer } from './TooltipContainer';
@@ -17,9 +15,7 @@ interface Props {
 }
 
 export function CaseCard({ caseData }: Props) {
-  const context = useContext(AuthenticatedUserContext);
-
-  const userData = context?.userData;
+  const clientData = caseData.client;
 
   const { id, title, processNumber, status } = caseData;
 
@@ -90,7 +86,7 @@ export function CaseCard({ caseData }: Props) {
         <span className="flex gap-[8px]">
           <p className="font-bold">cliente:</p>
           <p>
-            {userData?.firstName} {userData?.lastName}
+            {clientData?.firstName} {clientData?.lastName}
           </p>
         </span>
         <span className="flex gap-[8px]">
