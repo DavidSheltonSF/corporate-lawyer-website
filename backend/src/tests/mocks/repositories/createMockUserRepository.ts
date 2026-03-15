@@ -5,6 +5,7 @@ import { UserRole } from '../../../types/UserRole';
 
 export const createMockUserRepository = (): UserRepository => {
   return {
+    create: jest.fn().mockResolvedValue(mockUserMongoDocs[0]!),
     findById: jest.fn().mockResolvedValue(mockUserMongoDocs[0]!),
     findAll: jest.fn().mockResolvedValue(mockUserMongoDocs),
     findClients: jest.fn().mockResolvedValue([
@@ -19,7 +20,7 @@ export const createMockUserRepository = (): UserRepository => {
       },
     ]),
     findByEmail: jest.fn().mockResolvedValue(mockUserMongoDocs[0]!),
-    create: jest.fn().mockResolvedValue(mockUserMongoDocs[0]!),
+    deleteById: jest.fn().mockResolvedValue(mockUserMongoDocs[0]!),
     existsById: jest.fn().mockResolvedValue(true),
     existsByEmail: jest.fn().mockResolvedValue(false),
   };
