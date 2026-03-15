@@ -63,7 +63,7 @@ export const fakeUserDatabase = [
     email: 'lucas@email.com',
     cpf: '22233444455',
     password: 'Lucas@2024',
-    role: UserRole.lawyer,
+    role: UserRole.client,
   },
   {
     _id: Types.ObjectId.createFromHexString('234567890abcdef123456789'),
@@ -81,7 +81,7 @@ export const fakeUserDatabase = [
     email: 'pedro@email.com',
     cpf: '44455666677',
     password: 'Pedro!2024',
-    role: UserRole.lawyer,
+    role: UserRole.client,
   },
   {
     _id: Types.ObjectId.createFromHexString('4567890abcdef12345678901'),
@@ -99,7 +99,7 @@ export const fakeUserDatabase = [
     email: 'bruno@email.com',
     cpf: '66677888899',
     password: 'Bruno2024!',
-    role: UserRole.lawyer,
+    role: UserRole.client,
   },
   {
     _id: Types.ObjectId.createFromHexString('67890abcdef1234567890123'),
