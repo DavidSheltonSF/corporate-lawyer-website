@@ -5,13 +5,15 @@ import { CaseCardSkeleton } from './CaseCardSkeleton';
 import { ClientCard } from './ClientCard';
 import { SafeUser } from '@/types/SafeUser';
 import { ClientCardOptionsModal } from './modals/ClientCardOptionsModal';
+import { RequestState } from '@/types/RequestState';
+import { error } from 'console';
 
 interface Props {
   clients: WithId<SafeUser>[];
-  loading: boolean;
+  requestState: RequestState | null;
 }
 
-export function ClientsList({ clients, loading }: Props) {
+export function ClientsList({ clients, requestState }: Props) {
   const [optionsModalIsOpen, setOptionsModalIsOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
@@ -32,6 +34,21 @@ export function ClientsList({ clients, loading }: Props) {
   const renderCaseSkeletons = Array.from({ length: 4 }).map((page, index) => {
     return <CaseCardSkeleton key={index} />;
   });
+
+  let message = '';
+
+  const errorMessage = requestState?.status === 'error' ? requestState.message : null;
+  if (errorMessage) {
+    message = errorMessage;
+  }
+
+  const noClients = !clients || clients.length === 0;
+  if (noClients) {
+    message = 'Nenhum cliente encontrado';
+  }
+
+  const isLoading = requestState?.status === 'loading';
+
   return (
     <div className="flex flex-col gap-[32px] mt-[88px] w-full">
       <ClientCardOptionsModal
@@ -39,10 +56,10 @@ export function ClientsList({ clients, loading }: Props) {
         closeModal={closeOptionsModal}
         selectedUserId={selectedUserId}
       />
-      <Activity mode={!loading && (!clients || clients.length === 0) ? 'visible' : 'hidden'}>
-        <h1 className="text-3xl">Nenhum cliente encontrado</h1>
+      <Activity mode={!isLoading ? 'visible' : 'hidden'}>
+        <h1 className="text-3xl">{message}</h1>
       </Activity>
-      {loading ? renderCaseSkeletons : renderCases}
+      {isLoading ? renderCaseSkeletons : renderCases}
     </div>
   );
 }
