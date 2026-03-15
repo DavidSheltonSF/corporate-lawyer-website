@@ -24,7 +24,7 @@ export class MongodbUserRepository implements UserRepository {
       updatedAt: user.updatedAt,
     };
   }
-  
+
   async findAll(): Promise<WithId<User>[]> {
     const users = await UserModel.find({}).lean();
     return users.map((user) => {
@@ -104,8 +104,9 @@ export class MongodbUserRepository implements UserRepository {
     };
   }
 
-  async deleteById(id: string): Promise<WithId<User>> {
+  async deleteById(id: string): Promise<WithId<User> | null> {
     const result = await UserModel.findOneAndDelete({ _id: id });
+    if (!result) return null;
     return UserMapper.persistenceToDomain(result);
   }
 

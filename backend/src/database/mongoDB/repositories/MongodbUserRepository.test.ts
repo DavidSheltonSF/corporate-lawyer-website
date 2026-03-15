@@ -165,11 +165,11 @@ describe('Test UserRepository', () => {
     const userId = (await UserModel.create(newUser))._id;
 
     const result = await userRepository.deleteById(userId.toString());
-    expect(result.firstName).toBe(newUser.firstName);
-    expect(result.lastName).toBe(newUser.lastName);
-    expect(result.cpf).toBe(newUser.cpf);
-    expect(result.email).toBe(newUser.email);
-    expect(result.role).toBe(newUser.role);
+    expect(result?.firstName).toBe(newUser.firstName);
+    expect(result?.lastName).toBe(newUser.lastName);
+    expect(result?.cpf).toBe(newUser.cpf);
+    expect(result?.email).toBe(newUser.email);
+    expect(result?.role).toBe(newUser.role);
 
     // Ensure user is actually deleted
     const deletedUser = await UserModel.findById(userId);
