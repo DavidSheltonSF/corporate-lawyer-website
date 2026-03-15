@@ -1,18 +1,13 @@
 'use client';
-import { Dispatch, SetStateAction } from 'react';
 import { PrimaryModalWindow } from './PrimaryModalWindow';
 import { Button } from '../Button';
 
 interface Props {
   isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  closeModal: Function;
 }
 
-export function ClientCardOptionsModal({ isOpen, setIsOpen }: Props) {
-  function closeModal() {
-    setIsOpen(false);
-  }
-
+export function ClientCardOptionsModal({ isOpen, closeModal }: Props) {
   return (
     isOpen && (
       <PrimaryModalWindow
