@@ -13,7 +13,7 @@ export function FieldValue({ field, value, gap="8px" }: Props) {
       }}
     >
       <p className="font-bold">{field}</p>
-      <p>{value}</p>
+      <p className="break-all">{value}</p>
     </span>
   );
 }
