@@ -16,6 +16,45 @@ import { CaseFileDTO } from '../../../dtos/caseFile/CaseFileDTO';
 import { CaseFileMapper } from '../../../mappers/CaseFile/CaseFileMapper';
 
 export class MongodbCaseRepository implements CaseRepository {
+  async create(data: CreateCaseDTO): Promise<WithId<Case>> {
+    const client = new Types.ObjectId(data.client);
+    const lawyers = data.lawyers.map((lawyer) => new Types.ObjectId(lawyer));
+
+    const cas = await CaseModel.create({
+      client,
+      lawyers,
+      processNumber: data.processNumber,
+      title: data.title,
+      description: data.description,
+      court: data.court,
+      courtDivision: data.courtDivision,
+      status: data.status,
+    });
+
+    return CaseMapper.persistenceToDomain(cas);
+  }
+
+  async addFile(caseId: string, file: CreateCaseFileDTO): Promise<void> {
+    const updated = await CaseModel.findByIdAndUpdate(
+      {
+        _id: caseId,
+      },
+      {
+        $push: {
+          files: file,
+        },
+      },
+      {
+        returnDocument: 'after',
+        runValidators: true,
+      }
+    ).lean();
+
+    if (updated === null) {
+      throw new CaseNotFoundError(caseId);
+    }
+  }
+
   async findCases(queryParams: CaseQuery = {}): Promise<Page<WithId<CaseCardDTO>>> {
     const { query, status, limit = 10, page = 1 } = queryParams;
 
@@ -84,24 +123,6 @@ export class MongodbCaseRepository implements CaseRepository {
     return CaseMapper.persistenceToPopulatedPresentation(foundCase);
   }
 
-  async create(data: CreateCaseDTO): Promise<WithId<Case>> {
-    const client = new Types.ObjectId(data.client);
-    const lawyers = data.lawyers.map((lawyer) => new Types.ObjectId(lawyer));
-
-    const cas = await CaseModel.create({
-      client,
-      lawyers,
-      processNumber: data.processNumber,
-      title: data.title,
-      description: data.description,
-      court: data.court,
-      courtDivision: data.courtDivision,
-      status: data.status,
-    });
-
-    return CaseMapper.persistenceToDomain(cas);
-  }
-
   async getStatsByClientId(clientId: string): Promise<CasesStats | null> {
     const open = await CaseModel.countDocuments({
       client: clientId,
@@ -116,27 +137,6 @@ export class MongodbCaseRepository implements CaseRepository {
       open,
       closed,
     };
-  }
-
-  async addFile(caseId: string, file: CreateCaseFileDTO): Promise<void> {
-    const updated = await CaseModel.findByIdAndUpdate(
-      {
-        _id: caseId,
-      },
-      {
-        $push: {
-          files: file,
-        },
-      },
-      {
-        returnDocument: 'after',
-        runValidators: true,
-      }
-    ).lean();
-
-    if (updated === null) {
-      throw new CaseNotFoundError(caseId);
-    }
   }
 
   async findFilesByCaseId(caseId: string): Promise<WithId<CaseFileDTO>[]> {

@@ -9,6 +9,22 @@ import { UserRole } from '../../../types/UserRole';
 import { UserMapper } from '../../../mappers/UserMapper';
 
 export class MongodbUserRepository implements UserRepository {
+  async create(data: CreateUserDTO): Promise<WithId<User>> {
+    const user = await UserModel.create(data);
+
+    return {
+      id: user._id.toString(),
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      cpf: user.cpf,
+      password: user.password,
+      role: user.role,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    };
+  }
+  
   async findAll(): Promise<WithId<User>[]> {
     const users = await UserModel.find({}).lean();
     return users.map((user) => {
@@ -74,22 +90,6 @@ export class MongodbUserRepository implements UserRepository {
     if (!user) {
       return null;
     }
-
-    return {
-      id: user._id.toString(),
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      cpf: user.cpf,
-      password: user.password,
-      role: user.role,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
-    };
-  }
-
-  async create(data: CreateUserDTO): Promise<WithId<User>> {
-    const user = await UserModel.create(data);
 
     return {
       id: user._id.toString(),
