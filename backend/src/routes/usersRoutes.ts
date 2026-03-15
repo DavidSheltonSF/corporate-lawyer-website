@@ -1,10 +1,11 @@
 import { Router } from 'express';
 import { IUserController } from '../controllers/user/IUserController';
 import { expressHttpAdapter } from './adapters/expressHttpAdapter';
+import { requireAuth } from '../middlewares/requireAuth';
 
 export function usersRoutes(router: Router, userController: IUserController) {
   router.get('/api/users', expressHttpAdapter(userController.findAll));
   router.get('/api/clients', expressHttpAdapter(userController.findClients));
   router.get('/api/users/:id', expressHttpAdapter(userController.findById));
-  router.delete('/api/clients/:id', expressHttpAdapter(userController.deleteById));
+  router.delete('/api/clients/:id', requireAuth, expressHttpAdapter(userController.deleteById));
 }
