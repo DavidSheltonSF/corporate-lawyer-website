@@ -42,8 +42,8 @@ export function ClientsList({ clients, requestState }: Props) {
     message = errorMessage;
   }
 
-  const noClients = !clients || clients.length === 0;
-  if (noClients) {
+  const noClients = clients.length === 0;
+  if (!errorMessage && noClients) {
     message = 'Nenhum cliente encontrado';
   }
 
