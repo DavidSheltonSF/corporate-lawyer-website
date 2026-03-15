@@ -84,7 +84,6 @@ export class MongodbCaseRepository implements CaseRepository {
       .lean();
 
     const [cases, totalItems] = await Promise.all([casesPageQuery, casesTotalQuery]);
-
     const mappedCases = cases.map(CaseMapper.persistenceToPopulatedPresentation);
 
     return {
@@ -148,6 +147,13 @@ export class MongodbCaseRepository implements CaseRepository {
 
     const caseFiles = foundCase.files;
     return caseFiles.map(CaseFileMapper.persistenceToPresentation);
+  }
+
+  async deleteByUserId(id: string): Promise<{
+    acknowledged: boolean;
+    deletedCount: number;
+  }> {
+    return await CaseModel.deleteMany({ client: id });
   }
 
   async exists(id: string): Promise<boolean> {

@@ -16,4 +16,8 @@ export interface CaseRepository {
   getStatsByClientId(clientId: string): Promise<CasesStats | null>;
   findFilesByCaseId(caseId: string): Promise<WithId<CaseFileDTO>[]>;
   exists(id: string): Promise<boolean>;
+  deleteByUserId(id: string): Promise<{
+    acknowledged: boolean;
+    deletedCount: number;
+  }>;
 }
