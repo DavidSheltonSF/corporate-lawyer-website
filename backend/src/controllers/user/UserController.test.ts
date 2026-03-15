@@ -82,4 +82,16 @@ describe(`Test ${UserController.name}`, () => {
     expect(userRepository.findById).toHaveBeenCalledWith(httpRequest.params.id);
     expect(response.status).toBe(HttpStatusCode.ok);
   });
+
+  test('should delete a user by id', async () => {
+    const { userController, userRepository } = makeSut();
+
+    const httpRequest = {
+      params: { id: 'gfdgfdsgsdggg' },
+    };
+
+    const response = await userController.deleteById(httpRequest);
+    expect(userRepository.deleteById).toHaveBeenCalledWith(httpRequest.params.id);
+    expect(response.status).toBe(HttpStatusCode.ok);
+  });
 });

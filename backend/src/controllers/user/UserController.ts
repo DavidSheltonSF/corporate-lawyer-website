@@ -3,6 +3,8 @@ import { IUserController } from './IUserController';
 import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
 import { HttpRequest } from '../types/HttpRequest';
 import { DomainError } from '../../errors/domain/DomainError';
+import { DeleteByIdResponse } from './responses';
+import { UserNotFoundError } from '../../errors/application/UserNotFoundError';
 
 export class UserController implements IUserController {
   constructor(private userService: IUserService) {}
@@ -63,6 +65,27 @@ export class UserController implements IUserController {
 
       // Check if it is NotFound error
       if (error.statusCode === 404) {
+        return HttpResponseFactory.makeNotFound<null>({ message: error.message });
+      }
+
+      return HttpResponseFactory.makeServerError<null>({ message: error.message });
+    }
+  };
+
+  deleteById = async (httpRequest: HttpRequest) => {
+    try {
+      const { id } = httpRequest.params;
+
+      if (!id) {
+        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing user id' });
+      }
+
+      const result = await this.userService.deleteById(id);
+
+      return HttpResponseFactory.makeOk({ data: result });
+
+    } catch (error: any) {
+      if (error instanceof UserNotFoundError) {
         return HttpResponseFactory.makeNotFound<null>({ message: error.message });
       }
 
