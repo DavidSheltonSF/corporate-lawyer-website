@@ -63,7 +63,7 @@ export default function ClientSearchSection() {
           </Button>
         </div>
       </div>
-      <ClientsList requestState={requestState} clients={clients} />
+      <ClientsList requestState={requestState} clients={clients} setClients={setClients}/>
       <Pagination pageIndex={pageIndex} reloadByPageIndex={loadClients} totalPage={totalPage} />
     </section>
   );
