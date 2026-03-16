@@ -21,15 +21,15 @@ export function DeleteClientModal({ loadClients }: Props) {
     throw new MissingContextError(DeleteClientModalContext.name);
   }
 
-  const { isOpen, setIsOpen, selectedClientId } = deleteClientModalContext;
+  const { isOpen, setIsOpen, selectedClient } = deleteClientModalContext;
 
   async function onDeleteClick() {
     try {
       setRequestState({ status: 'loading' });
-      const result = await deleteClient(selectedClientId || '');
+      const result = await deleteClient(selectedClient?.id || '');
       setRequestState({
         status: 'ok',
-        message: `${result.firstName} ${result.lastName} was deleted successfully`,
+        message: `${result.firstName} ${result.lastName} foi deletado com sucessso`,
       });
       loadClients();
     } catch (error: any) {
@@ -38,7 +38,8 @@ export function DeleteClientModal({ loadClients }: Props) {
     }
   }
 
-  const confirmDeletionString = 'DELETAR CLIENTE';
+  const confirmDeletionString =
+    `DELETAR ${selectedClient?.firstName} ${selectedClient?.lastName}`.toUpperCase();
 
   return (
     isOpen && (
@@ -56,7 +57,12 @@ export function DeleteClientModal({ loadClients }: Props) {
             <p className="text-black text-lg text-red-600 font-bold">{confirmDeletionString}</p>
           </div>
           <div className="bg-blue-200 text-black w-full">
-            <input type="text" onChange={(e) => setConfrimInputText(e.target.value)} />
+            <input
+              className="w-full px-[8px] py-[4px]"
+              value={confirmInputText}
+              type="text"
+              onChange={(e) => setConfrimInputText(e.target.value.toUpperCase())}
+            />
           </div>
           <Button
             onclick={() => onDeleteClick()}
