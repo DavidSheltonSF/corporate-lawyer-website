@@ -1,4 +1,5 @@
 import { UserService } from '../../services/user/UserService';
+import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
 import { UserRole } from '../../types/UserRole';
 import { HttpStatusCode } from '../types/HttpStatusCode';
@@ -7,7 +8,9 @@ import { UserController } from './UserController';
 describe(`Test ${UserController.name}`, () => {
   function makeSut() {
     const userRepository = createMockUserRepository();
-    const userService = new UserService(userRepository);
+    const caseRepository = createMockCaseRepository();
+
+    const userService = new UserService(userRepository, caseRepository);
     const userController = new UserController(userService);
 
     return {
@@ -53,9 +56,10 @@ describe(`Test ${UserController.name}`, () => {
       body: newUser,
     };
     const userRepository = createMockUserRepository();
+    const caseRepository = createMockCaseRepository();
 
     userRepository.existsByEmail = jest.fn().mockResolvedValue(true);
-    const userService = new UserService(userRepository);
+    const userService = new UserService(userRepository, caseRepository);
     const userController = new UserController(userService);
 
     const response = await userController.createClient(httpRequest);
