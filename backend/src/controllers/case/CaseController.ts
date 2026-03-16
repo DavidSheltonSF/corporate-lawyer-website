@@ -3,6 +3,7 @@ import { IUserService } from '../../services/user/IUserService';
 import { ICaseController } from './ICaseController';
 import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
 import { HttpRequest } from '../types/HttpRequest';
+import { UserRole } from '../../types/UserRole';
 
 export class CaseController implements ICaseController {
   constructor(private caseService: ICaseService, private userService: IUserService) {}
@@ -67,7 +68,7 @@ export class CaseController implements ICaseController {
           'User credentials were not found. The user id should be attached in request.user.id by a middleware'
         );
       }
-
+      
       const clientExists = await this.userService.findById(id);
 
       if (!clientExists) {
@@ -75,6 +76,35 @@ export class CaseController implements ICaseController {
       }
 
       const caseStats = await this.caseService.getStatsByClientId(id);
+
+      return HttpResponseFactory.makeOk({ data: caseStats });
+    } catch (error: any) {
+      console.log(error);
+      return HttpResponseFactory.makeServerError<null>({ message: error.message });
+    }
+  };
+
+  getStats = async (httpRequest: HttpRequest) => {
+    try {
+      const authUser = httpRequest.user;
+
+      if (!authUser) {
+        return HttpResponseFactory.makeBadRequest<null>({
+          message: 'Missing authenticated user',
+        });
+      }
+
+      console.log(authUser)
+
+      // const authUserData = await this.userService.findById(authUser.id);
+
+      // if (authUserData.role !== UserRole.lawyer) {
+      //   return HttpResponseFactory.makeForbidden<null>({
+      //     message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
+      //   });
+      // }
+
+      const caseStats = await this.caseService.getStats();
 
       return HttpResponseFactory.makeOk({ data: caseStats });
     } catch (error: any) {
@@ -121,7 +151,7 @@ export class CaseController implements ICaseController {
   findFilesByCaseId = async (httpRequest: HttpRequest) => {
     try {
       const caseId = httpRequest.params.id;
-      console.log(caseId)
+      console.log(caseId);
 
       if (!caseId) {
         return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing case id' });
