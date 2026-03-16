@@ -2,14 +2,15 @@ import { WithId } from '@/types/WithId';
 import { FieldValue } from './FieldValue';
 import { SafeUser } from '@/types/SafeUser';
 import { VerticalMoreIcon } from './icons/VerticalMoreIcon';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useContext } from 'react';
+import { MissingContextError } from '@/errors/MissingContextError';
+import { ClientCardOptionsModalContext } from '@/contexts/modals/ClientCardOptionsModalContext';
 
 interface Props {
   clientData: WithId<SafeUser>;
-  openOptionsModal: Function;
 }
 
-export function ClientCard({ clientData, openOptionsModal }: Props) {
+export function ClientCard({ clientData }: Props) {
   const { id, firstName, lastName, email, cpf } = clientData;
 
   // const userModalContext = useCaseModalContext();
@@ -19,6 +20,13 @@ export function ClientCard({ clientData, openOptionsModal }: Props) {
   // }
 
   //const { setIsOpen, setCaseId } = userModalContext;
+
+  const clientCardOptionsModalContext = useContext(ClientCardOptionsModalContext);
+  if (!clientCardOptionsModalContext) {
+    throw new MissingContextError(ClientCardOptionsModalContext.name);
+  }
+
+  const { setIsOpen, setSelectedClientId } = clientCardOptionsModalContext;
 
   return (
     <article
@@ -32,7 +40,12 @@ export function ClientCard({ clientData, openOptionsModal }: Props) {
         <h1 className="h-fit font-bold text-center min-md:text-start text-xl min-md:text-3xl">
           {`${firstName} ${lastName}`}
         </h1>
-        <button onClick={() => openOptionsModal(id)}>
+        <button
+          onClick={() => {
+            setIsOpen(true);
+            setSelectedClientId(id);
+          }}
+        >
           <VerticalMoreIcon color="var(--white-color)" height="32px" width="32px" />
         </button>
       </header>
