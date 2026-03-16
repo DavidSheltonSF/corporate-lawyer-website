@@ -78,7 +78,7 @@ export const fakeCases = [
   },
   {
     client: fakeUserDatabase[4]!._id,
-    lawyers: [fakeUserDatabase[2]!._id],
+    lawyers: [fakeUserDatabase[0]!._id],
     processNumber: '12345678901234-56789',
     title: 'Ação de revisão contratual',
     description:
@@ -89,7 +89,7 @@ export const fakeCases = [
   },
   {
     client: fakeUserDatabase[5]!._id,
-    lawyers: [fakeUserDatabase[1]!._id, fakeUserDatabase[2]!._id],
+    lawyers: [fakeUserDatabase[1]!._id, fakeUserDatabase[0]!._id],
     processNumber: '98765432109876-54321',
     title: 'Ação de despejo por falta de pagamento',
     description:
@@ -121,7 +121,7 @@ export const fakeCases = [
   },
   {
     client: fakeUserDatabase[8]!._id,
-    lawyers: [fakeUserDatabase[2]!._id],
+    lawyers: [fakeUserDatabase[0]!._id],
     processNumber: '55667788990011-22334',
     title: 'Ação de alimentos',
     description: 'O cliente busca fixação de pensão alimentícia para o filho menor.',
