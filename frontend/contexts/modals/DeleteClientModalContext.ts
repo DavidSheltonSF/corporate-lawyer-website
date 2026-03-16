@@ -1,8 +1,12 @@
 import { createContext } from 'react';
 import { ModalContextType } from './ModalContextType';
+import { WithId } from '@/types/WithId';
+import { UserIdentity } from '@/types/UserIdentity';
 
 export type DeleteClientModalContext = ModalContextType & {
-  selectedClientId: string | null;
+  selectedClient: WithId<UserIdentity> | null;
 };
 
-export const DeleteClientModalContext = createContext<DeleteClientModalContext | undefined>(undefined);
+export const DeleteClientModalContext = createContext<DeleteClientModalContext | undefined>(
+  undefined
+);

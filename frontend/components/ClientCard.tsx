@@ -26,7 +26,7 @@ export function ClientCard({ clientData }: Props) {
     throw new MissingContextError(ClientCardOptionsModalContext.name);
   }
 
-  const { setIsOpen, setSelectedClientId } = clientCardOptionsModalContext;
+  const { setIsOpen, setSelectedClient } = clientCardOptionsModalContext;
 
   return (
     <article
@@ -43,7 +43,11 @@ export function ClientCard({ clientData }: Props) {
         <button
           onClick={() => {
             setIsOpen(true);
-            setSelectedClientId(id);
+            setSelectedClient({
+              id,
+              firstName,
+              lastName,
+            });
           }}
         >
           <VerticalMoreIcon color="var(--white-color)" height="32px" width="32px" />
