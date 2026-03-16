@@ -1,11 +1,11 @@
 import { ChangeEvent, Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 
 interface Props {
-  handleClick: any;
+  handleSearch: any;
   setQuery: Dispatch<SetStateAction<string>>;
 }
 
-export function SearchBar({ handleClick, setQuery }: Props) {
+export function SearchBar({ handleSearch, setQuery }: Props) {
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const searchBar = e.target;
     setQuery(searchBar.value);
@@ -14,7 +14,7 @@ export function SearchBar({ handleClick, setQuery }: Props) {
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 'Enter') {
-        handleClick();
+        handleSearch();
       }
     }
 
@@ -39,7 +39,7 @@ export function SearchBar({ handleClick, setQuery }: Props) {
       <div className="flex gap-[2px]">
         <button
           className="flex rounded-r-full items-center justify-center bg-color-primary h-full w-[72px] cursor-pointer hover:brightness-120 "
-          onClick={handleClick}
+          onClick={handleSearch}
         >
           <img className="size-[32px]" src="icons/search-white.svg" alt="" />
         </button>
