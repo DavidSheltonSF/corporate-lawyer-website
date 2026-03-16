@@ -48,7 +48,8 @@ export default function ClientSearchSection() {
       <RegisterUserModal isOpen={registerUserModalIsOpen} setIsOpen={setRegisterUserModalIsOpen} />
       <div className="flex flex-col lg:flex-row gap-[40px] size-full">
         <SearchBar
-          handleClick={() => {
+          handleSearch={() => {
+            if (query.trim() === '') return;
             loadClients();
           }}
           setQuery={setQuery}
