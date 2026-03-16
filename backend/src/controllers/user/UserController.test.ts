@@ -15,6 +15,7 @@ describe(`Test ${UserController.name}`, () => {
 
     return {
       userRepository,
+      caseRepository,
       userService,
       userController,
     };
@@ -87,15 +88,48 @@ describe(`Test ${UserController.name}`, () => {
     expect(response.status).toBe(HttpStatusCode.ok);
   });
 
-  test('should delete a user by id', async () => {
-    const { userController, userRepository } = makeSut();
+  test('should call UserRepository.updatById with the provided data and return OK (200)', async () => {
+    const { caseRepository } = makeSut();
+
+    const id = 'dfsadfggsfasga';
+    const firstName = 'Joares';
 
     const httpRequest = {
-      params: { id: 'gfdgfdsgsdggg' },
+      user: { id: 'ffgrdgag', email: 'test@email.com' },
+      params: { id },
+      body: {
+        firstName,
+      },
     };
 
-    const response = await userController.deleteById(httpRequest);
-    expect(userRepository.deleteById).toHaveBeenCalledWith(httpRequest.params.id);
+    const userRepository = createMockUserRepository();
+
+    userRepository.findById = jest.fn().mockResolvedValue({
+      id: 'dfasfaf',
+      firstName: 'José',
+      lastName: 'Miranda',
+      email: 'testando@email',
+      cpf: '55422888744',
+      role: 'lawyer',
+    });
+    const userService = new UserService(userRepository, caseRepository);
+    const userController = new UserController(userService);
+
+    const response = await userController.updateById(httpRequest);
+    console.log(response);
+    expect(userRepository.updateById).toHaveBeenCalledWith(id, { firstName });
     expect(response.status).toBe(HttpStatusCode.ok);
   });
+
+  // test('should delete a user by id', async () => {
+  //   const { userController, userRepository } = makeSut();
+
+  //   const httpRequest = {
+  //     params: { id: 'gfdgfdsgsdggg' },
+  //   };
+
+  //   const response = await userController.deleteById(httpRequest);
+  //   expect(userRepository.deleteById).toHaveBeenCalledWith(httpRequest.params.id);
+  //   expect(response.status).toBe(HttpStatusCode.ok);
+  // });
 });

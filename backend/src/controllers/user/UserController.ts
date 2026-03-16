@@ -6,6 +6,7 @@ import { DomainError } from '../../errors/domain/DomainError';
 import { DeleteByIdResponse } from './responses';
 import { UserNotFoundError } from '../../errors/application/UserNotFoundError';
 import { UserRole } from '../../types/UserRole';
+import { getMissingFields } from '../../helpers/getMissingFields';
 
 export class UserController implements IUserController {
   constructor(private userService: IUserService) {}
@@ -66,6 +67,46 @@ export class UserController implements IUserController {
 
       // Check if it is NotFound error
       if (error.statusCode === 404) {
+        return HttpResponseFactory.makeNotFound<null>({ message: error.message });
+      }
+
+      return HttpResponseFactory.makeServerError<null>({ message: error.message });
+    }
+  };
+
+  updateById = async (httpRequest: HttpRequest) => {
+    try {
+      const { id } = httpRequest.params;
+      const authUser = httpRequest.user;
+      const body = httpRequest.body;
+
+      if (!authUser) {
+        return HttpResponseFactory.makeBadRequest<null>({
+          message: 'Missing authenticated user',
+        });
+      }
+
+      if (!id) {
+        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing user id' });
+      }
+
+      if (!body) {
+        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing request body' });
+      }
+
+      const authUserData = await this.userService.findById(authUser.id);
+
+      if (authUserData.role !== UserRole.lawyer) {
+        return HttpResponseFactory.makeForbidden<null>({
+          message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
+        });
+      }
+
+      const result = await this.userService.updateById(id, body);
+
+      return HttpResponseFactory.makeOk({ data: result });
+    } catch (error: any) {
+      if (error instanceof UserNotFoundError) {
         return HttpResponseFactory.makeNotFound<null>({ message: error.message });
       }
 

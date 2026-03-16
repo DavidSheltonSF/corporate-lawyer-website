@@ -7,4 +7,5 @@ export type CreateResponse = HttpResponse<WithId<UserResponseDTO> | null>;
 export type FindAllResponse = HttpResponse<WithId<UserResponseDTO>[]>;
 export type FindClientsResponse = HttpResponse<Page<WithId<UserResponseDTO>>>;
 export type FindByIdResponse = HttpResponse<WithId<UserResponseDTO> | null>;
+export type UpdateByIdResponse = HttpResponse<WithId<UserResponseDTO> | null>;
 export type DeleteByIdResponse = HttpResponse<WithId<UserResponseDTO> | null>;
