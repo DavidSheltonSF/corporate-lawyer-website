@@ -13,6 +13,7 @@ export interface ICaseService {
   findCases(queryParams: CaseQuery): Promise<Page<WithId<CaseCardDTO>>>;
   findById(id: string): Promise<WithId<CaseCardDTO>>;
   getStatsByClientId(clientId: string): Promise<CasesStats | null>;
+  getStats(): Promise<CasesStats | null>;
   addFile(caseId: string, file: CreateCaseFileDTO): Promise<void>;
   findFilesByCaseId(id: string): Promise<WithId<CaseFileDTO>[]>;
 }

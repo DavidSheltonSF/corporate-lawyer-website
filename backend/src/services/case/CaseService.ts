@@ -67,6 +67,10 @@ export class CaseService implements ICaseService {
     return this.caseRepository.getStatsByClientId(clientId);
   }
 
+  getStats(): Promise<CasesStats> {
+    return this.caseRepository.getStats();
+  }
+
   async addFile(caseId: string, file: CreateCaseFileDTO): Promise<void> {
     await this.caseRepository.addFile(caseId, {
       name: file.name,
