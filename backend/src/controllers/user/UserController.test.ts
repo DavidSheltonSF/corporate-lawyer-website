@@ -89,7 +89,7 @@ describe(`Test ${UserController.name}`, () => {
   });
 
   test('should call UserRepository.updatById with the provided data and return OK (200)', async () => {
-    const { caseRepository } = makeSut();
+    const { userRepository, caseRepository } = makeSut();
 
     const id = 'dfsadfggsfasga';
     const firstName = 'Joares';
@@ -101,8 +101,6 @@ describe(`Test ${UserController.name}`, () => {
         firstName,
       },
     };
-
-    const userRepository = createMockUserRepository();
 
     userRepository.findById = jest.fn().mockResolvedValue({
       id: 'dfasfaf',
@@ -116,20 +114,30 @@ describe(`Test ${UserController.name}`, () => {
     const userController = new UserController(userService);
 
     const response = await userController.updateById(httpRequest);
-    console.log(response);
     expect(userRepository.updateById).toHaveBeenCalledWith(id, { firstName });
     expect(response.status).toBe(HttpStatusCode.ok);
   });
 
-  // test('should delete a user by id', async () => {
-  //   const { userController, userRepository } = makeSut();
+  test('should delete a user by id', async () => {
+    const { userRepository, caseRepository } = makeSut();
 
-  //   const httpRequest = {
-  //     params: { id: 'gfdgfdsgsdggg' },
-  //   };
+    const httpRequest = {
+      user: { id: 'ffgrdgag', email: 'test@email.com' },
+      params: { id: 'gfdgfdsgsdggg' },
+    };
 
-  //   const response = await userController.deleteById(httpRequest);
-  //   expect(userRepository.deleteById).toHaveBeenCalledWith(httpRequest.params.id);
-  //   expect(response.status).toBe(HttpStatusCode.ok);
-  // });
+    userRepository.findById = jest.fn().mockResolvedValue({
+      id: 'dfasfaf',
+      firstName: 'José',
+      lastName: 'Miranda',
+      email: 'testando@email',
+      cpf: '55422888744',
+      role: 'lawyer',
+    });
+    const userService = new UserService(userRepository, caseRepository);
+    const userController = new UserController(userService);
+    const response = await userController.deleteById(httpRequest);
+    expect(userRepository.deleteById).toHaveBeenCalledWith(httpRequest.params.id);
+    expect(response.status).toBe(HttpStatusCode.ok);
+  });
 });
