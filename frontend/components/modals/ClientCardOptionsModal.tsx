@@ -42,6 +42,7 @@ export function ClientCardOptionsModal({ isOpen, closeModal, selectedUserId, loa
       >
         <div className="size-full flex flex-col text-center items-center justify-center gap-[8px] p-[8px]">
           <div className="my-[24px]">
+            <p className='text-black text-lg'>O que quer fazer?</p>
             <RequestFeedback requestState={requestState} />
           </div>
           <Button backgroundColor="var(--primary-color)" textColor="var(--white-color)">
