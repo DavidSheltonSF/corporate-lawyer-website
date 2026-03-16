@@ -2,7 +2,7 @@
 import { PrimaryModalWindow } from './PrimaryModalWindow';
 import { Button } from '../Button';
 import { deleteClient } from '@/services/deleteClient';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../form/RequestFeedback';
 import { DeleteClientModalContext } from '@/contexts/modals/DeleteClientModalContext';
@@ -38,6 +38,13 @@ export function DeleteClientModal({ loadClients }: Props) {
     }
   }
 
+  useEffect(() => {
+    return () => {
+      setRequestState(null);
+      setConfrimInputText('');
+    };
+  }, []);
+
   const confirmDeletionString =
     `DELETAR ${selectedClient?.firstName} ${selectedClient?.lastName}`.toUpperCase();
 
@@ -46,6 +53,7 @@ export function DeleteClientModal({ loadClients }: Props) {
       <PrimaryModalWindow
         additionalStyles="fixed z-99999999999 top-[15%] left-1/2 translate-x-[-50%] w-[360px] h-fit rounded-lg overflow-hidden shadow-[0px_0px__3px_black]"
         closeModal={() => {
+          setConfrimInputText('');
           setRequestState(null);
           setIsOpen(false);
         }}
