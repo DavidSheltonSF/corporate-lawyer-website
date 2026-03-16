@@ -24,7 +24,7 @@ export function ClientCardOptionsModal({ isOpen, closeModal, selectedUserId, loa
         status: 'ok',
         message: `${result.firstName} ${result.lastName} was deleted successfully`,
       });
-      loadClients;
+      loadClients();
     } catch (error: any) {
       console.log(error);
       setRequestState({ status: 'error', message: error.message });
