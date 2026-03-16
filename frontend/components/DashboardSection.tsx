@@ -5,15 +5,41 @@ import { useEffect, useState } from 'react';
 import { mockPromise } from '@/test/mockPromise';
 import { DashboardCardSkeleton } from './DashboardCardSkeleton';
 import { fetchMyCasesStats } from '@/services/fetchMyCasesStats';
+import { useAuthenticatedUserContext } from '@/hooks/useAuthenticatedUserContext';
+import { MissingContextError } from '@/errors/MissingContextError';
+import { UserRole } from '@/types/UserRole';
+import { getCasesStats } from '@/services/getCasesStats';
 
 export function DashboardSection() {
   const [casesCountLoading, setCasesCoundLoading] = useState(true);
   const [openCasesCount, setOpenCasesCount] = useState(0);
   const [closedCasesCount, setClosedCasesCount] = useState(0);
 
+  const context = useAuthenticatedUserContext();
+  if (!context) {
+    throw new MissingContextError('AuthenticatedUserContext');
+  }
+
+  const authUserData = context.userData;
+
+  const userRole = authUserData.role;
+
   useEffect(() => {
     async function fetchCases() {
-      const casesCount = await fetchMyCasesStats();
+      let casesCount = { open: 0, closed: 0 };
+
+      switch (userRole) {
+        case UserRole.lawyer || UserRole.admin:
+          casesCount = await getCasesStats();
+          break;
+
+        case UserRole.client:
+          casesCount = await fetchMyCasesStats();
+          break;
+        default:
+          break;
+      }
+
       console.log(casesCount);
 
       mockPromise(10);
