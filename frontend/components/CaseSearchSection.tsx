@@ -14,7 +14,7 @@ import { CaseWithRelations } from '@/types/CaseWithRelations';
 export default function CaseSearchSection() {
   const [query, setQuery] = useState('');
   const [statusFilder, setStatusFilter] = useState<CaseStatusEnum | null>(null);
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const [cases, setCases] = useState<WithId<CaseWithRelations>[]>([]);
   const [casesLoading, setCasesLoading] = useState(false);
