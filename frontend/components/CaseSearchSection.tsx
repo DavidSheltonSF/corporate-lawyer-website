@@ -44,8 +44,7 @@ export default function CaseSearchSection() {
       <CaseModal />
       <div className="flex flex-col lg:flex-row gap-[40px] size-full">
         <SearchBar
-          handleSearch={() => {
-            if (query.trim() === '') return;
+          handleClick={() => {
             loadCases();
           }}
           setQuery={setQuery}
