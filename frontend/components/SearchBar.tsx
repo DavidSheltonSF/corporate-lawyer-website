@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, SetStateAction, useContext, useState } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 
 interface Props {
   handleClick: any;
@@ -10,6 +10,20 @@ export function SearchBar({ handleClick, setQuery }: Props) {
     const searchBar = e.target;
     setQuery(searchBar.value);
   }
+
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Enter') {
+        handleClick();
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   return (
     <div className="flex gap-[16px] bg-color-white w-full min-md:w-[70%] min-lg:w-[520px] h-[48px] rounded-full p-[2px]">
