@@ -3,6 +3,7 @@ import { InvalidEmailError } from '../../errors/domain/InvalidEmailError';
 import { InvalidNameError } from '../../errors/domain/InvalidNameError';
 import { InvalidPasswordError } from '../../errors/domain/InvalidPasswordError';
 import { InvalidUserRoleError } from '../../errors/domain/InvalidUserRoleError';
+import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
 import { UserRole } from '../../types/UserRole';
 import { UserService } from './UserService';
@@ -10,7 +11,8 @@ import { UserService } from './UserService';
 describe(`Test ${UserService.name}`, () => {
   function makeSut() {
     const userRepository = createMockUserRepository();
-    const userService = new UserService(userRepository);
+    const caseRepository = createMockCaseRepository();
+    const userService = new UserService(userRepository, caseRepository);
 
     return {
       userRepository,
@@ -57,9 +59,10 @@ describe(`Test ${UserService.name}`, () => {
       role: 'admin',
     };
     const userRepository = createMockUserRepository();
+    const caseRepository = createMockCaseRepository();
 
     userRepository.existsByEmail = jest.fn().mockResolvedValue(true);
-    const userService = new UserService(userRepository);
+    const userService = new UserService(userRepository, caseRepository);
 
     await expect(userService.createClient(newUser)).rejects.toThrow(EntityAlreadyExistsError);
   });
