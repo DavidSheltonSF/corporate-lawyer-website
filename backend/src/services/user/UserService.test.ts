@@ -91,6 +91,13 @@ describe(`Test ${UserService.name}`, () => {
     await expect(userService.findByEmail(email)).rejects.toThrow(InvalidEmailError);
   });
 
+  test('should call UserRepository.updateById', async () => {
+    const { userService, userRepository } = makeSut();
+    const id = 'fakeIddfasfasd';
+    await userService.updateById(id, { firstName: 'Test' });
+    expect(userRepository.updateById).toHaveBeenCalledWith(id, { firstName: 'Test' });
+  });
+
   test('should call UserRepository.deleteById', async () => {
     const { userService, userRepository } = makeSut();
     const id = 'fakeIddfasfasd';

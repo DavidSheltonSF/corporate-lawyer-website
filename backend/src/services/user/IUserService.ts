@@ -1,4 +1,5 @@
 import { CreateClientDTO } from '../../dtos/user/CreateClientDTO';
+import { UpdateUserDTO } from '../../dtos/user/UpdateUserDTO';
 import { UserResponseDTO } from '../../dtos/user/UserResponseDTO';
 import { Page } from '../../types/Page';
 import { UserQuery } from '../../types/UserQuery';
@@ -10,5 +11,6 @@ export interface IUserService {
   findClients(userQuery: UserQuery): Promise<Page<WithId<UserResponseDTO>>>;
   findById(id: string): Promise<WithId<UserResponseDTO>>;
   findByEmail(email: string): Promise<WithId<UserResponseDTO>>;
+  updateById(id: string, data: UpdateUserDTO): Promise<WithId<UserResponseDTO>>;
   deleteById(id: string): Promise<WithId<UserResponseDTO>>;
 }

@@ -1,5 +1,6 @@
 import { CreateClientDTO } from '../../dtos/user/CreateClientDTO';
 import { CreateClientResponseDTO } from '../../dtos/user/CreateClientResponseDTO';
+import { UpdateUserDTO } from '../../dtos/user/UpdateUserDTO';
 import { UserResponseDTO } from '../../dtos/user/UserResponseDTO';
 import { UserNotFoundError } from '../../errors/application/UserNotFoundError';
 import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError';
@@ -83,6 +84,14 @@ export class UserService implements IUserService {
     }
     const { password, ...userWithoutPassword } = user;
     return userWithoutPassword;
+  }
+
+  async updateById(id: string, data: UpdateUserDTO): Promise<WithId<UserResponseDTO>> {
+    const result = await this.userRepository.updateById(id, data);
+    if (!result) {
+      throw new UserNotFoundError(`User with id '${id}' was not found`);
+    }
+    return result;
   }
 
   async deleteById(id: string): Promise<WithId<UserResponseDTO>> {
