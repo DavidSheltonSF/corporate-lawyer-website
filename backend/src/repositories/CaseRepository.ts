@@ -14,6 +14,7 @@ export interface CaseRepository {
   findCases(queryParams: CaseQuery): Promise<Page<WithId<CaseCardDTO>>>;
   findById(id: string): Promise<WithId<CaseCardDTO> | null>;
   getStatsByClientId(clientId: string): Promise<CasesStats | null>;
+  getStats(): Promise<CasesStats>;
   findFilesByCaseId(caseId: string): Promise<WithId<CaseFileDTO>[]>;
   exists(id: string): Promise<boolean>;
   deleteByUserId(id: string): Promise<{

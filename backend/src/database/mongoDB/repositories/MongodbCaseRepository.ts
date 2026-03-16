@@ -138,6 +138,20 @@ export class MongodbCaseRepository implements CaseRepository {
     };
   }
 
+  async getStats(): Promise<CasesStats> {
+    const open = await CaseModel.countDocuments({
+      status: CasesStatus.open,
+    });
+    const closed = await CaseModel.countDocuments({
+      status: CasesStatus.closed,
+    });
+
+    return {
+      open,
+      closed,
+    };
+  }
+
   async findFilesByCaseId(caseId: string): Promise<WithId<CaseFileDTO>[]> {
     const foundCase = await CaseModel.findById(caseId)
       .select('files')
