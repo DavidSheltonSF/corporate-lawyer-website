@@ -7,6 +7,7 @@ import { UserQuery } from '../../../types/UserQuery';
 import { Page } from '../../../types/Page';
 import { UserRole } from '../../../types/UserRole';
 import { UserMapper } from '../../../mappers/UserMapper';
+import { UpdateUserDTO } from '../../../dtos/user/UpdateUserDTO';
 
 export class MongodbUserRepository implements UserRepository {
   async create(data: CreateUserDTO): Promise<WithId<User>> {
@@ -106,6 +107,12 @@ export class MongodbUserRepository implements UserRepository {
 
   async deleteById(id: string): Promise<WithId<User> | null> {
     const result = await UserModel.findOneAndDelete({ _id: id });
+    if (!result) return null;
+    return UserMapper.persistenceToDomain(result);
+  }
+
+  async updateById(id: string, data: UpdateUserDTO): Promise<WithId<User> | null> {
+    const result = await UserModel.findOneAndUpdate({ _id: id }, data);
     if (!result) return null;
     return UserMapper.persistenceToDomain(result);
   }

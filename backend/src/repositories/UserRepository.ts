@@ -1,4 +1,5 @@
 import { CreateUserDTO } from '../dtos/user/CreateUserDTO';
+import { UpdateUserDTO } from '../dtos/user/UpdateUserDTO';
 import { User } from '../entities/User';
 import { Page } from '../types/Page';
 import { UserQuery } from '../types/UserQuery';
@@ -11,6 +12,7 @@ export interface UserRepository {
   findById(id: string): Promise<WithId<User> | null>;
   findByEmail(email: string): Promise<WithId<User> | null>;
   deleteById(id: string): Promise<WithId<User> | null>;
+  updateById(id: string, data: UpdateUserDTO): Promise<WithId<User> | null>;
   existsById(id: string): Promise<boolean>;
   existsByEmail(email: string): Promise<boolean>;
 }

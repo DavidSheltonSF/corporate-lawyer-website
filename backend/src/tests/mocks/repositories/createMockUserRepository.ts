@@ -21,6 +21,7 @@ export const createMockUserRepository = (): UserRepository => {
     ]),
     findByEmail: jest.fn().mockResolvedValue(mockUserMongoDocs[0]!),
     deleteById: jest.fn().mockResolvedValue(mockUserMongoDocs[0]!),
+    updateById: jest.fn().mockResolvedValue(mockUserMongoDocs[0]!),
     existsById: jest.fn().mockResolvedValue(true),
     existsByEmail: jest.fn().mockResolvedValue(false),
   };

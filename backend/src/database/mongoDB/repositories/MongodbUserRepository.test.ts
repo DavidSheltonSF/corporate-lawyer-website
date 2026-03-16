@@ -175,4 +175,33 @@ describe('Test UserRepository', () => {
     const deletedUser = await UserModel.findById(userId);
     expect(deletedUser).toBeNull();
   });
+
+  test('should update a user', async () => {
+    const { userRepository } = makeSut();
+
+    const newUser = {
+      firstName: 'José',
+      lastName: 'Sílva',
+      cpf: '18877748777',
+      email: 'jose@email.com',
+      password: 'jose123',
+      role: UserRole.client,
+    };
+    const userId = (await UserModel.create(newUser))._id;
+
+    const result = await userRepository.updateById(userId.toString(), { firstName: 'Updated' });
+    expect(result?.firstName).toBe(newUser.firstName);
+    expect(result?.lastName).toBe(newUser.lastName);
+    expect(result?.cpf).toBe(newUser.cpf);
+    expect(result?.email).toBe(newUser.email);
+    expect(result?.role).toBe(newUser.role);
+
+    // Ensure user is actually updated
+    const updatedUser = await UserModel.findById(userId);
+    expect(updatedUser?.firstName).toBe('Updated');
+    expect(updatedUser?.lastName).toBe(newUser.lastName);
+    expect(updatedUser?.cpf).toBe(newUser.cpf);
+    expect(updatedUser?.email).toBe(newUser.email);
+    expect(updatedUser?.role).toBe(newUser.role);
+  });
 });
