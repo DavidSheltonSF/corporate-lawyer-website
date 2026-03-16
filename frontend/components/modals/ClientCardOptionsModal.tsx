@@ -10,15 +10,10 @@ interface Props {
   isOpen: boolean;
   closeModal: Function;
   selectedUserId: string | null;
-  removeClientFromList: (id: string) => void;
+  loadClients: () => void;
 }
 
-export function ClientCardOptionsModal({
-  isOpen,
-  closeModal,
-  selectedUserId,
-  removeClientFromList,
-}: Props) {
+export function ClientCardOptionsModal({ isOpen, closeModal, selectedUserId, loadClients }: Props) {
   const [requestState, setRequestState] = useState<RequestState | null>(null);
 
   async function onDeleteClick() {
@@ -29,7 +24,7 @@ export function ClientCardOptionsModal({
         status: 'ok',
         message: `${result.firstName} ${result.lastName} was deleted successfully`,
       });
-      removeClientFromList(selectedUserId || '');
+      loadClients;
     } catch (error: any) {
       console.log(error);
       setRequestState({ status: 'error', message: error.message });

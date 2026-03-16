@@ -9,11 +9,11 @@ import { RequestState } from '@/types/RequestState';
 
 interface Props {
   clients: WithId<SafeUser>[];
-  setClients: Dispatch<SetStateAction<WithId<SafeUser>[]>>;
+  loadClients: () => void;
   requestState: RequestState | null;
 }
 
-export function ClientsList({ clients, requestState, setClients }: Props) {
+export function ClientsList({ clients, requestState, loadClients }: Props) {
   const [optionsModalIsOpen, setOptionsModalIsOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
@@ -25,10 +25,6 @@ export function ClientsList({ clients, requestState, setClients }: Props) {
   const closeOptionsModal = () => {
     setSelectedUserId(null);
     setOptionsModalIsOpen(false);
-  };
-
-  const removeClientFromList = (id: string) => {
-    setClients(clients.filter((client) => client.id !== id));
   };
 
   const renderCases = clients?.map((client, index) => {
@@ -59,7 +55,7 @@ export function ClientsList({ clients, requestState, setClients }: Props) {
         isOpen={optionsModalIsOpen}
         closeModal={closeOptionsModal}
         selectedUserId={selectedUserId}
-        removeClientFromList={removeClientFromList}
+        loadClients={loadClients}
       />
       <Activity mode={!isLoading ? 'visible' : 'hidden'}>
         <h1 className="text-3xl">{message}</h1>

@@ -22,13 +22,11 @@ export default function ClientSearchSection() {
   async function loadClients() {
     try {
       setRequestState({ status: 'loading' });
-      const clientsPagination = await getClients(
-        {
-          page,
-          limit: 4,
-          query,
-        },
-      );
+      const clientsPagination = await getClients({
+        page,
+        limit: 4,
+        query,
+      });
 
       const casesData = clientsPagination.data;
       setTotalPage(clientsPagination.meta.totalPages);
@@ -61,7 +59,7 @@ export default function ClientSearchSection() {
           </Button>
         </div>
       </div>
-      <ClientsList requestState={requestState} clients={clients} setClients={setClients} />
+      <ClientsList requestState={requestState} clients={clients} loadClients={loadClients} />
       <Pagination page={page} setPage={setPage} totalPage={totalPage} />
     </section>
   );
