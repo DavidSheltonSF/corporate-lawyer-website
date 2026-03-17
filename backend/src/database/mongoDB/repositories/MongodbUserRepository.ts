@@ -112,7 +112,8 @@ export class MongodbUserRepository implements UserRepository {
   }
 
   async updateById(id: string, data: UpdateUserDTO): Promise<WithId<User> | null> {
-    const result = await UserModel.findOneAndUpdate({ _id: id }, data);
+    const result = await UserModel.findOneAndUpdate({ _id: id }, data, { returnDocument: 'after' });
+    console.log(result);
     if (!result) return null;
     return UserMapper.persistenceToDomain(result);
   }
