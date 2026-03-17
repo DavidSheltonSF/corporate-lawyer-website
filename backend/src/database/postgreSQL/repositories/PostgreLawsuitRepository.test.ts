@@ -1,5 +1,5 @@
 import { CreateCaseDTO } from '../../../dtos/case/CreateCaseDTO';
-import { CreateUserDTO } from '../../../dtos/user/CreateUserDTO';
+import { CreateUserDTO } from '../../../dtos/user/UserDTO';
 import { CasesStatus } from '../../../types/CasesStatus';
 import { LawsuitStatus } from '../../../types/LawsuitStatus';
 import { UserRole } from '../../../types/UserRole';

@@ -1,11 +1,11 @@
-import { CreateUserDTO } from '../../dtos/user/CreateUserDTO';
+import { UserDTO } from '../../dtos/user/UserDTO';
 import { validateCPF } from './validateCPF';
 import { validateEmail } from './validateEmail';
 import { validatePassword } from './validatePassword';
 import { validateUserName } from './validateUserName';
 import { validateUserRole } from './validateUserRole';
 
-export function validateUser(data: CreateUserDTO) {
+export function validateUser(data: UserDTO) {
   const { firstName, lastName, email, cpf, password, role } = data;
   validateUserName(firstName);
   validateUserName(lastName);

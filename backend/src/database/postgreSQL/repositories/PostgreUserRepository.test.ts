@@ -1,4 +1,4 @@
-import { CreateUserDTO } from '../../../dtos/user/CreateUserDTO';
+import { CreateUserDTO } from '../../../dtos/user/UserDTO';
 import { UserRole } from '../../../types/UserRole';
 import { PostgreConnector } from '../PostgreConnector';
 import { PostgreUserRepository } from './PostgreUserRepository';

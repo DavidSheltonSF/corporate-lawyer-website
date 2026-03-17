@@ -1,4 +1,4 @@
-import { CreateUserDTO } from '../../dtos/user/CreateUserDTO';
+import { CreateUserDTO } from '../../dtos/user/UserDTO';
 import { InvalidEmailError } from '../../errors/domain/InvalidEmailError';
 import { InvalidNameError } from '../../errors/domain/InvalidNameError';
 import { InvalidCPFError } from '../../errors/domain/InvalidCPFError';

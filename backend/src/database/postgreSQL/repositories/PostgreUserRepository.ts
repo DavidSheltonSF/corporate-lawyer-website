@@ -1,4 +1,4 @@
-import { CreateUserDTO } from '../../../dtos/user/CreateUserDTO';
+import { CreateUserDTO } from '../../../dtos/user/UserDTO';
 import { User } from '../../../entities/User';
 import { UserRepository } from '../../../repositories/UserRepository';
 import { WithId } from '../../../types/WithId';
