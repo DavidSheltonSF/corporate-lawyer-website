@@ -45,6 +45,7 @@ export function UpdateClientModal({ loadClients }: Props) {
         status: 'ok',
         message: `Cliente atualizado com sucesso.`,
       });
+      setClientData(data);
       loadClients();
     } catch (error: any) {
       console.log(error);
