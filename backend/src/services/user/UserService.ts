@@ -88,7 +88,7 @@ export class UserService implements IUserService {
   }
 
   async updateById(id: string, data: UpdateUserDTO): Promise<WithId<UserResponseDTO>> {
-
+    validateUserPartial(data);
     const result = await this.userRepository.updateById(id, data);
     if (!result) {
       throw new UserNotFoundError(`User with id '${id}' was not found`);
