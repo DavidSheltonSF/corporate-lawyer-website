@@ -8,6 +8,7 @@ import { ClientCardOptionsModal } from './modals/ClientCardOptionsModal';
 import { RequestState } from '@/types/RequestState';
 import { DeleteClientModal } from './modals/DeleteClientModal';
 import { ClientCardModalsProvider } from '@/contexts/modals/ClientCardModalsProvider';
+import { UpdateClientModal } from './modals/UpdateClientModal';
 
 interface Props {
   clients: WithId<SafeUser>[];
@@ -43,6 +44,7 @@ export function ClientsList({ clients, requestState, loadClients }: Props) {
       <ClientCardModalsProvider>
         <ClientCardOptionsModal />
         <DeleteClientModal loadClients={loadClients} />
+        <UpdateClientModal loadClients={loadClients} />
         <Activity mode={!isLoading ? 'visible' : 'hidden'}>
           <h1 className="text-3xl">{message}</h1>
         </Activity>
