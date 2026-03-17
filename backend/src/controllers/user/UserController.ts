@@ -110,6 +110,10 @@ export class UserController implements IUserController {
         return HttpResponseFactory.makeNotFound<null>({ message: error.message });
       }
 
+      if (error instanceof DomainError) {
+        return HttpResponseFactory.makeUnprocessableEntity<null>({ message: error.message });
+      }
+
       return HttpResponseFactory.makeServerError<null>({ message: error.message });
     }
   };
