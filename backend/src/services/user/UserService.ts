@@ -12,7 +12,8 @@ import { UserRole } from '../../types/UserRole';
 import { WithId } from '../../types/WithId';
 import { generateTemporaryPassword } from '../helpers/generateTemporaryPassword';
 import { validateEmail } from '../validators/validateEmail';
-import { validateNewClient } from '../validators/validateNewClient';
+import { validateUser } from '../validators/validateUser';
+import { validateUserPartial } from '../validators/validateUserPartial';
 import { IUserService } from './IUserService';
 
 export class UserService implements IUserService {
@@ -20,7 +21,7 @@ export class UserService implements IUserService {
   async createClient(data: CreateClientDTO): Promise<WithId<CreateClientResponseDTO>> {
     const { firstName, lastName, email, cpf } = data;
 
-    validateNewClient(data);
+    validateUserPartial(data);
 
     const userExists = await this.userRepository.existsByEmail(data.email);
 
@@ -87,6 +88,7 @@ export class UserService implements IUserService {
   }
 
   async updateById(id: string, data: UpdateUserDTO): Promise<WithId<UserResponseDTO>> {
+
     const result = await this.userRepository.updateById(id, data);
     if (!result) {
       throw new UserNotFoundError(`User with id '${id}' was not found`);
