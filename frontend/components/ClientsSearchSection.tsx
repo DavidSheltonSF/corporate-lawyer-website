@@ -41,18 +41,13 @@ export default function ClientSearchSection() {
 
   useEffect(() => {
     loadClients();
-  }, [page]);
+  }, [page, query]);
 
   return (
     <section className="flex flex-col items-center size-full">
       <RegisterUserModal isOpen={registerUserModalIsOpen} setIsOpen={setRegisterUserModalIsOpen} />
       <div className="flex flex-col lg:flex-row gap-[40px] size-full">
-        <SearchBar
-          handleSearch={() => {
-            loadClients();
-          }}
-          setQuery={setQuery}
-        />
+        <SearchBar setQuery={setQuery} />
         <div className="w-full min-lg:w-[200px]">
           <Button fontSize="1.2rem" onclick={() => setRegisterUserModalIsOpen(true)}>
             Novo Cliente
