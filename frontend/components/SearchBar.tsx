@@ -1,29 +1,21 @@
-import { ChangeEvent, Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, KeyboardEvent, useEffect, useState } from 'react';
 
 interface Props {
-  handleSearch: any;
   setQuery: Dispatch<SetStateAction<string>>;
 }
 
-export function SearchBar({ handleSearch, setQuery }: Props) {
+export function SearchBar({ setQuery }: Props) {
+  const [text, setText] = useState('');
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const searchBar = e.target;
-    setQuery(searchBar.value);
+    setText(searchBar.value);
   }
 
-  useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Enter') {
-        handleSearch();
-      }
+  function handleKeyDown(e: KeyboardEvent) {
+    if (e.key === 'Enter') {
+      setQuery(text);
     }
-
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
+  }
 
   return (
     <div className="flex gap-[16px] bg-color-white w-full min-md:w-[70%] min-lg:w-[520px] h-[48px] rounded-full p-[2px]">
@@ -33,13 +25,15 @@ export function SearchBar({ handleSearch, setQuery }: Props) {
           className="w-full h-full placeholder:text-black/65 text-black pl-[14px]"
           type="text"
           placeholder="Pesquisar..."
+          value={text}
           onChange={handleChange}
+          onKeyDown={handleKeyDown}
         />
       </div>
       <div className="flex gap-[2px]">
         <button
           className="flex rounded-r-full items-center justify-center bg-color-primary h-full w-[72px] cursor-pointer hover:brightness-120 "
-          onClick={handleSearch}
+          onClick={() => setQuery(text)}
         >
           <img className="size-[32px]" src="icons/search-white.svg" alt="" />
         </button>
