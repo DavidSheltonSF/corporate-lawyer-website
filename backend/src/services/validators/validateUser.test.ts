@@ -1,4 +1,4 @@
-import { CreateUserDTO } from '../../dtos/user/UserDTO';
+import { UserDTO } from '../../dtos/user/UserDTO';
 import { InvalidEmailError } from '../../errors/domain/InvalidEmailError';
 import { InvalidNameError } from '../../errors/domain/InvalidNameError';
 import { InvalidCPFError } from '../../errors/domain/InvalidCPFError';
@@ -17,7 +17,7 @@ describe(`Testing ${validateUser.name}`, () => {
   }
 
   test('should not throw error when the data provided is completely valid', () => {
-    const validUserDTO: CreateUserDTO = {
+    const validUserDTO: UserDTO = {
       firstName: 'John',
       lastName: 'Doe',
       email: 'john@example.com',
@@ -30,7 +30,7 @@ describe(`Testing ${validateUser.name}`, () => {
   });
 
   test('should throw InvalidNameError if the firstName or lastName provided are invalid', () => {
-    const invalidFirstNameUserDTO: CreateUserDTO = {
+    const invalidFirstNameUserDTO: UserDTO = {
       firstName: 'John55',
       lastName: 'Doe',
       email: 'john@example.com',
@@ -38,7 +38,7 @@ describe(`Testing ${validateUser.name}`, () => {
       password: 'Jo#1558210',
       role: 'client',
     };
-    const invalidLastNameUserDTO: CreateUserDTO = {
+    const invalidLastNameUserDTO: UserDTO = {
       firstName: 'John',
       lastName: 'Doe#',
       email: 'john@example.com',
@@ -53,7 +53,7 @@ describe(`Testing ${validateUser.name}`, () => {
   });
 
   test('should throw InvalidEmailError when email is invalid', () => {
-    const validUserDTO: CreateUserDTO = {
+    const validUserDTO: UserDTO = {
       firstName: 'John',
       lastName: 'Doe',
       email: 'johnexample.com',
@@ -66,7 +66,7 @@ describe(`Testing ${validateUser.name}`, () => {
   });
 
   test('should throw InvalidCPFError when CPF is invalid', () => {
-    const invalidCPFUserDTO: CreateUserDTO = {
+    const invalidCPFUserDTO: UserDTO = {
       firstName: 'John',
       lastName: 'Doe',
       email: 'john@example.com',
@@ -79,7 +79,7 @@ describe(`Testing ${validateUser.name}`, () => {
   });
 
   test('should throw InvalidPasswordError when password is invalid', () => {
-    const invalidPasswordUserDTO: CreateUserDTO = {
+    const invalidPasswordUserDTO: UserDTO = {
       firstName: 'John',
       lastName: 'Doe',
       email: 'john@example.com',
@@ -92,7 +92,7 @@ describe(`Testing ${validateUser.name}`, () => {
   });
 
   test('should throw InvalidUserRoleError when role is invalid', () => {
-    const invalidRoleUserDTO: CreateUserDTO = {
+    const invalidRoleUserDTO: UserDTO = {
       firstName: 'John',
       lastName: 'Doe',
       email: 'john@example.com',
