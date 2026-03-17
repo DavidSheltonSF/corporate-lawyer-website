@@ -5,6 +5,7 @@ import { useContext } from 'react';
 import { DeleteClientModalContext } from '@/contexts/modals/DeleteClientModalContext';
 import { MissingContextError } from '@/errors/MissingContextError';
 import { ClientCardOptionsModalContext } from '@/contexts/modals/ClientCardOptionsModalContext';
+import { UpdateClientModalContext } from '@/contexts/modals/UpdateClientModalContext';
 
 export function ClientCardOptionsModal() {
   const clientCardOptionsModalContext = useContext(ClientCardOptionsModalContext);
@@ -17,9 +18,15 @@ export function ClientCardOptionsModal() {
     throw new MissingContextError(DeleteClientModalContext.name);
   }
 
+  const updateClientModalContext = useContext(UpdateClientModalContext);
+  if (!updateClientModalContext) {
+    throw new MissingContextError(UpdateClientModalContext.name);
+  }
+
   const setDeleteModalIsOpen = deleteClientModalContext.setIsOpen;
-  const { isOpen } = clientCardOptionsModalContext;
+  const setUpdateModalIsOpen = updateClientModalContext.setIsOpen;
   const setClientOptionsModalIsOpen = clientCardOptionsModalContext.setIsOpen;
+  const { isOpen } = clientCardOptionsModalContext;
 
   function closeModal() {
     setClientOptionsModalIsOpen(false);
@@ -27,6 +34,11 @@ export function ClientCardOptionsModal() {
 
   function openDeleteClientModal() {
     setDeleteModalIsOpen(true);
+    closeModal();
+  }
+
+  function openUpdateClientModal() {
+    setUpdateModalIsOpen(true);
     closeModal();
   }
 
@@ -42,7 +54,11 @@ export function ClientCardOptionsModal() {
           <div className="my-[24px]">
             <p className="text-black text-lg">O que quer fazer?</p>
           </div>
-          <Button backgroundColor="var(--primary-color)" textColor="var(--white-color)">
+          <Button
+            onclick={openUpdateClientModal}
+            backgroundColor="var(--primary-color)"
+            textColor="var(--white-color)"
+          >
             Alterar Dados
           </Button>
           <Button
