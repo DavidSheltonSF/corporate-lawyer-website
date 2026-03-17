@@ -93,7 +93,8 @@ export class UserService implements IUserService {
     if (!result) {
       throw new UserNotFoundError(`User with id '${id}' was not found`);
     }
-    return result;
+    const { password, ...userWithoutPassword } = result;
+    return userWithoutPassword;
   }
 
   async deleteById(id: string): Promise<WithId<UserResponseDTO>> {
@@ -102,6 +103,7 @@ export class UserService implements IUserService {
     if (!result) {
       throw new UserNotFoundError(`User with id '${id}' was not found`);
     }
-    return result;
+    const { password, ...userWithoutPassword } = result;
+    return userWithoutPassword;
   }
 }
