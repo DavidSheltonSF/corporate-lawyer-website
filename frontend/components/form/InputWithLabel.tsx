@@ -2,9 +2,10 @@ interface Props {
   id: string;
   name: string;
   label: string;
+  defaultValue?: string;
 }
 
-export function InputWithLabel({ id, name, label }: Props) {
+export function InputWithLabel({ id, name, label, defaultValue }: Props) {
   return (
     <div className="w-full">
       <label className="text-[1.3rem]" htmlFor={id}>
@@ -15,6 +16,7 @@ export function InputWithLabel({ id, name, label }: Props) {
         name={name}
         className="border h-[40px] w-full rounded-sm px-[8px]"
         type="text"
+        defaultValue={defaultValue}
       />
     </div>
   );
