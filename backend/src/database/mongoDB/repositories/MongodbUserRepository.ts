@@ -8,6 +8,8 @@ import { UserRole } from '../../../types/UserRole';
 import { UserMapper } from '../../../mappers/UserMapper';
 import { UpdateUserDTO } from '../../../dtos/user/UpdateUserDTO';
 import { UserDTO } from '../../../dtos/user/UserDTO';
+import { UserWithCases } from '../../../types/UserWithCases';
+import { CaseMapper } from '../../../mappers/CaseMapper';
 
 export class MongodbUserRepository implements UserRepository {
   async create(data: UserDTO): Promise<WithId<User>> {
@@ -80,6 +82,30 @@ export class MongodbUserRepository implements UserRepository {
       cpf: user.cpf,
       password: user.password,
       role: user.role,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    };
+  }
+
+  async findByIdWithCases(id: string): Promise<WithId<UserWithCases> | null> {
+    const user = await UserModel.findById(id).lean();
+    const cases = await UserModel.find({ client: id }).lean();
+
+    if (!user) {
+      return null;
+    }
+
+    const mappedCases = cases.map(CaseMapper.persistenceToDomain);
+
+    return {
+      id: user._id.toString(),
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      cpf: user.cpf,
+      password: user.password,
+      role: user.role,
+      cases: mappedCases,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     };
