@@ -77,14 +77,15 @@ export class UserController implements IUserController {
   findClientById = async (httpRequest: HttpRequest) => {
     try {
       const { id } = httpRequest.params;
-      const {include} = httpRequest.query;
+      const { include } = httpRequest.query;
 
       if (!id) {
         return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing id param' });
       }
 
-      const foundUser = await this.userService.findById(id, include);
-      console.log(foundUser)
+      const foundUser = await this.userService.findById(id, {
+        cases: include === 'cases',
+      });
 
       return HttpResponseFactory.makeOk({ data: foundUser });
     } catch (error: any) {
