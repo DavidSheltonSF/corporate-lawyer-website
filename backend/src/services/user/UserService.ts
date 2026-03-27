@@ -1,3 +1,4 @@
+import { literal } from 'pg-format';
 import { CreateClientDTO } from '../../dtos/user/CreateClientDTO';
 import { CreateClientResponseDTO } from '../../dtos/user/CreateClientResponseDTO';
 import { UpdateUserDTO } from '../../dtos/user/UpdateUserDTO';
@@ -15,6 +16,7 @@ import { validateEmail } from '../validators/validateEmail';
 import { validateUser } from '../validators/validateUser';
 import { validateUserPartial } from '../validators/validateUserPartial';
 import { IUserService } from './IUserService';
+import { UserIncludeOptions } from '../../types/UserincludeOptions';
 
 export class UserService implements IUserService {
   constructor(private userRepository: UserRepository, private caseRepository: CaseRepository) {}
@@ -65,8 +67,14 @@ export class UserService implements IUserService {
     return { data: mappedUsers, meta: page.meta };
   }
 
-  async findById(id: string): Promise<WithId<UserResponseDTO>> {
-    const user = await this.userRepository.findById(id);
+  async findById(id: string, include?: UserIncludeOptions): Promise<WithId<UserResponseDTO>> {
+    let user = null;
+
+    if (include?.cases) {
+      user = await this.userRepository.findByIdWithCases(id);
+    } else {
+      user = await this.userRepository.findById(id);
+    }
 
     if (!user) {
       throw new UserNotFoundError(`User with id '${id}' was not found`);
