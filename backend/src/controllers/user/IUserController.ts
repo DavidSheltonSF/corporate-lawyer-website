@@ -13,6 +13,7 @@ export interface IUserController {
   findAll: (httpRequest: HttpRequest) => Promise<FindAllResponse>;
   findClients: (httpRequest: HttpRequest) => Promise<FindClientsResponse>;
   findById: (httpRequest: HttpRequest) => Promise<FindByIdResponse>;
+  findClientById: (httpRequest: HttpRequest) => Promise<FindByIdResponse>;
   updateById: (httpRequest: HttpRequest) => Promise<UpdateByIdResponse>;
   deleteById: (httpRequest: HttpRequest) => Promise<DeleteByIdResponse>;
 }

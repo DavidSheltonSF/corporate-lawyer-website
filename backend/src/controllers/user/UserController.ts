@@ -74,6 +74,31 @@ export class UserController implements IUserController {
     }
   };
 
+  findClientById = async (httpRequest: HttpRequest) => {
+    try {
+      const { id } = httpRequest.params;
+      const {include} = httpRequest.query;
+
+      if (!id) {
+        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing id param' });
+      }
+
+      const foundUser = await this.userService.findById(id, include);
+      console.log(foundUser)
+
+      return HttpResponseFactory.makeOk({ data: foundUser });
+    } catch (error: any) {
+      console.log(error);
+
+      // Check if it is NotFound error
+      if (error.statusCode === 404) {
+        return HttpResponseFactory.makeNotFound<null>({ message: error.message });
+      }
+
+      return HttpResponseFactory.makeServerError<null>({ message: error.message });
+    }
+  };
+
   updateById = async (httpRequest: HttpRequest) => {
     try {
       const { id } = httpRequest.params;
