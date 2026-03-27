@@ -10,6 +10,7 @@ import { UpdateUserDTO } from '../../../dtos/user/UpdateUserDTO';
 import { UserDTO } from '../../../dtos/user/UserDTO';
 import { UserWithCases } from '../../../types/UserWithCases';
 import { CaseMapper } from '../../../mappers/CaseMapper';
+import { CaseModel } from '../../../models/CaseModel';
 
 export class MongodbUserRepository implements UserRepository {
   async create(data: UserDTO): Promise<WithId<User>> {
@@ -89,7 +90,7 @@ export class MongodbUserRepository implements UserRepository {
 
   async findByIdWithCases(id: string): Promise<WithId<UserWithCases> | null> {
     const user = await UserModel.findById(id).lean();
-    const cases = await UserModel.find({ client: id }).lean();
+    const cases = await CaseModel.find({ client: id }).lean();
 
     if (!user) {
       return null;
