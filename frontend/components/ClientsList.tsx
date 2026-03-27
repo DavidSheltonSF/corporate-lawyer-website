@@ -9,6 +9,7 @@ import { RequestState } from '@/types/RequestState';
 import { DeleteClientModal } from './modals/DeleteClientModal';
 import { ClientCardModalsProvider } from '@/contexts/modals/ClientCardModalsProvider';
 import { UpdateClientModal } from './modals/UpdateClientModal';
+import { ClientModal } from './modals/ClientModal';
 
 interface Props {
   clients: WithId<SafeUser>[];
@@ -17,8 +18,14 @@ interface Props {
 }
 
 export function ClientsList({ clients, requestState, loadClients }: Props) {
+  const [clientModalIsOpen, setClientModalIsOpen] = useState(false);
+  const [selectedClient, setSelectedClient] = useState<string | null>(null);
+
   const renderCases = clients?.map((client, index) => {
-    return <ClientCard key={index} clientData={client} />;
+    return <ClientCard openClientModal={(clientId: string) => {
+      setSelectedClient(clientId)
+      setClientModalIsOpen(true)
+    }} key={index} clientData={client} />;
   });
 
   const renderCaseSkeletons = Array.from({ length: 4 }).map((page, index) => {
@@ -41,6 +48,7 @@ export function ClientsList({ clients, requestState, loadClients }: Props) {
 
   return (
     <div className="flex flex-col gap-[32px] mt-[88px] w-full">
+      <ClientModal clientId={selectedClient} isOpen={clientModalIsOpen} setIsOpen={setClientModalIsOpen}/>
       <ClientCardModalsProvider>
         <ClientCardOptionsModal />
         <DeleteClientModal loadClients={loadClients} />
