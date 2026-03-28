@@ -1,5 +1,6 @@
 import {
   AddFileResponse,
+  CreateResponse,
   FindByClientResponse,
   FindByIdResponse,
   FindFilesByCaseId,
@@ -8,6 +9,7 @@ import {
 import { HttpRequest } from '../types/HttpRequest';
 
 export interface ICaseController {
+  create: (httpRequest: HttpRequest) => Promise<CreateResponse>;
   findById: (httpRequest: HttpRequest) => Promise<FindByIdResponse>;
   findMyCases: (httpRequest: HttpRequest) => Promise<FindByClientResponse>;
   getMyStats: (httpRequest: HttpRequest) => Promise<GetMyStatsResponse>;

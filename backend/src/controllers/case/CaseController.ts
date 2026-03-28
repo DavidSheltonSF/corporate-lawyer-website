@@ -4,9 +4,64 @@ import { ICaseController } from './ICaseController';
 import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
 import { HttpRequest } from '../types/HttpRequest';
 import { UserRole } from '../../types/UserRole';
+import { getMissingFields } from '../../helpers/getMissingFields';
 
 export class CaseController implements ICaseController {
   constructor(private caseService: ICaseService, private userService: IUserService) {}
+
+  create = async (httpRequest: HttpRequest) => {
+    try {
+      const { body } = httpRequest;
+      if (!body) {
+        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing request body' });
+      }
+
+      const authUser = httpRequest.user;
+
+      if (!authUser) {
+        return HttpResponseFactory.makeBadRequest<null>({
+          message: 'Missing authenticated user',
+        });
+      }
+
+      const authUserData = await this.userService.findById(authUser.id);
+
+      if (authUserData.role !== UserRole.lawyer) {
+        return HttpResponseFactory.makeForbidden<null>({
+          message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
+        });
+      }
+
+      const missingFields = getMissingFields(body, [
+        'title',
+        'processNumber',
+        'court',
+        'courtDivision',
+        'status',
+        'client',
+        'lawyers',
+      ]);
+
+      if (missingFields.length > 0) {
+        return HttpResponseFactory.makeBadRequest<null>({
+          message: `Missing required fields: ${missingFields.toString()}`,
+        });
+      }
+
+      const response = await this.caseService.create(body);
+
+      return HttpResponseFactory.makeOk({ data: response });
+    } catch (error: any) {
+      console.log(error);
+
+      // Check if it is NotFound error
+      if (error.statusCode === 404) {
+        return HttpResponseFactory.makeNotFound<null>({ message: error.message });
+      }
+
+      return HttpResponseFactory.makeServerError<null>({ message: error.message });
+    }
+  };
 
   findById = async (httpRequest: HttpRequest) => {
     try {
@@ -68,7 +123,7 @@ export class CaseController implements ICaseController {
           'User credentials were not found. The user id should be attached in request.user.id by a middleware'
         );
       }
-      
+
       const clientExists = await this.userService.findById(id);
 
       if (!clientExists) {
@@ -94,7 +149,7 @@ export class CaseController implements ICaseController {
         });
       }
 
-      console.log(authUser)
+      console.log(authUser);
 
       // const authUserData = await this.userService.findById(authUser.id);
 
