@@ -13,9 +13,10 @@ interface Props {
   clientId: string | null;
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  openRegisterCaseModal: Function;
 }
 
-export function ClientModal({ isOpen, setIsOpen, clientId }: Props) {
+export function ClientModal({ isOpen, setIsOpen, clientId, openRegisterCaseModal }: Props) {
   const [clientData, setClientData] = useState<(SafeUser & { cases: Case[] }) | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -93,7 +94,7 @@ export function ClientModal({ isOpen, setIsOpen, clientId }: Props) {
                 <div className="relative w-full bg-color-primary p-[16px]">
                   <h1 className="text-2xl font-bold text-color-white">Processos</h1>
                   <div className="absolute right-[16px] top-[50%] translate-y-[-50%]">
-                    <Button>Adicionar Processo</Button>
+                    <Button onclick={() => openRegisterCaseModal()}>Adicionar Processo</Button>
                   </div>
                 </div>
                 <div className="flex flex-col gap-[24px] p-[24px] h-[224px] min-lg:h-[316px] overflow-auto">
