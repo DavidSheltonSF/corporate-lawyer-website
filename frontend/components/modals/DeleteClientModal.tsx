@@ -1,7 +1,7 @@
 'use client';
 import { PrimaryModalWindow } from './PrimaryModalWindow';
 import { Button } from '../Button';
-import { deleteClient } from '@/services/deleteClient';
+import { deleteUser } from '@/services/deleteUser';
 import { useContext, useEffect, useState } from 'react';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../form/RequestFeedback';
@@ -26,7 +26,7 @@ export function DeleteClientModal({ loadClients }: Props) {
   async function onDeleteClick() {
     try {
       setRequestState({ status: 'loading' });
-      const result = await deleteClient(selectedClient?.id || '');
+      const result = await deleteUser(selectedClient?.id || '');
       setRequestState({
         status: 'ok',
         message: `${result.firstName} ${result.lastName} foi deletado com sucessso`,

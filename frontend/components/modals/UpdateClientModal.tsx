@@ -7,7 +7,7 @@ import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../form/RequestFeedback';
 import { UpdateClientModalContext } from '@/contexts/modals/UpdateClientModalContext';
 import { MissingContextError } from '@/errors/MissingContextError';
-import { updateClient } from '@/services/updateClient';
+import { updateUser } from '@/services/updateUser';
 import { getUserById } from '@/services/getUserById';
 import { SafeUser } from '@/types/SafeUser';
 
@@ -40,7 +40,7 @@ export function UpdateClientModal({ loadClients }: Props) {
 
   async function alterClient(formData: FormData) {
     try {
-      const data = await updateClient(selectedClientId || '', formData);
+      const data = await updateUser(selectedClientId || '', formData);
       setRequestState({
         status: 'ok',
         message: `Cliente atualizado com sucesso.`,

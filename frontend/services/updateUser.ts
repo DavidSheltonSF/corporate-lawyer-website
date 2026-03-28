@@ -4,14 +4,14 @@ import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 import { SafeUser } from '@/types/SafeUser';
 import { WithId } from '@/types/WithId';
 
-export async function updateClient(id: string, formData: FormData): Promise<WithId<SafeUser>> {
+export async function updateUser(id: string, formData: FormData): Promise<WithId<SafeUser>> {
   const firstName = formData.get('firstName');
   const lastName = formData.get('lastName');
   const email = formData.get('email');
   const cpf = formData.get('cpf');
 
   const token = await getTokenFromCookies();
-  const response = await fetch(`${API_URL}/clients/${id}`, {
+  const response = await fetch(`${API_URL}/users/${id}`, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: token,
