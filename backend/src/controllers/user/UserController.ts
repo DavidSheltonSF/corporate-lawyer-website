@@ -3,10 +3,8 @@ import { IUserController } from './IUserController';
 import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
 import { HttpRequest } from '../types/HttpRequest';
 import { DomainError } from '../../errors/domain/DomainError';
-import { DeleteByIdResponse } from './responses';
 import { UserNotFoundError } from '../../errors/application/UserNotFoundError';
 import { UserRole } from '../../types/UserRole';
-import { getMissingFields } from '../../helpers/getMissingFields';
 
 export class UserController implements IUserController {
   constructor(private userService: IUserService) {}
