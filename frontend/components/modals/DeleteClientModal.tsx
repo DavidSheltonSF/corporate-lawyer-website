@@ -2,26 +2,22 @@
 import { PrimaryModalWindow } from './PrimaryModalWindow';
 import { Button } from '../Button';
 import { deleteUser } from '@/services/deleteUser';
-import { useContext, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../form/RequestFeedback';
-import { DeleteClientModalContext } from '@/contexts/modals/DeleteClientModalContext';
-import { MissingContextError } from '@/errors/MissingContextError';
-import { InputWithLabel } from '../form/InputWithLabel';
+import { WithId } from '@/types/WithId';
+import { UserIdentity } from '@/types/UserIdentity';
 
 interface Props {
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  selectedClient: WithId<UserIdentity> | null;
   loadClients: Function;
 }
 
-export function DeleteClientModal({ loadClients }: Props) {
+export function DeleteClientModal({ loadClients, isOpen, setIsOpen, selectedClient }: Props) {
   const [requestState, setRequestState] = useState<RequestState | null>(null);
   const [confirmInputText, setConfrimInputText] = useState('');
-  const deleteClientModalContext = useContext(DeleteClientModalContext);
-  if (!deleteClientModalContext) {
-    throw new MissingContextError(DeleteClientModalContext.name);
-  }
-
-  const { isOpen, setIsOpen, selectedClient } = deleteClientModalContext;
 
   async function onDeleteClick() {
     try {
