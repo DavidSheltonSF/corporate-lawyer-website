@@ -4,6 +4,7 @@ import { WithId } from '@/types/WithId';
 import { Activity } from 'react';
 import { CaseCardSkeleton } from './CaseCardSkeleton';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
+import { CaseModal } from './modals/CaseModal';
 
 interface Props {
   cases: WithId<CaseWithRelations>[];
@@ -20,6 +21,7 @@ export function CasesList({ cases, loading }: Props) {
   });
   return (
     <div className="flex flex-col gap-[32px] mt-[88px] w-full">
+      <CaseModal />
       <Activity mode={!loading && (!cases || cases.length === 0) ? 'visible' : 'hidden'}>
         <h1 className="text-3xl">Nenhum caso encontrado</h1>
       </Activity>
