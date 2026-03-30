@@ -4,13 +4,14 @@ import { Activity, useState } from 'react';
 import { CaseCardSkeleton } from './CaseCardSkeleton';
 import { ClientCard } from './ClientCard';
 import { SafeUser } from '@/types/SafeUser';
-import { ClientCardOptionsModal } from './modals/ClientCardOptionsModal';
+import { CardOptionsModal } from './modals/CardOptionsModal';
 import { RequestState } from '@/types/RequestState';
 import { DeleteClientModal } from './modals/DeleteClientModal';
 import { ClientCardModalsProvider } from '@/contexts/modals/ClientCardModalsProvider';
 import { UpdateClientModal } from './modals/UpdateClientModal';
 import { ClientModal } from './modals/ClientModal';
 import { RegisterCaseModal } from './modals/RegisterCaseModal';
+import { UserIdentity } from '@/types/UserIdentity';
 
 interface Props {
   clients: WithId<SafeUser>[];
@@ -21,13 +22,18 @@ interface Props {
 export function ClientsList({ clients, requestState, loadClients }: Props) {
   const [clientModalIsOpen, setClientModalIsOpen] = useState(false);
   const [registerCaseModalIsOpen, setRegisterCaseModalIsOpen] = useState(false);
-  const [selectedClient, setSelectedClient] = useState<string | null>(null);
+  const [optionsModalIsOpen, setOptionsModalIsOpen] = useState(false);
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false);
+  const [selectedClient, setSelectedClient] = useState<WithId<UserIdentity> | null>(null);
 
   const renderCases = clients?.map((client, index) => {
     return (
       <ClientCard
-        openClientModal={(clientId: string) => {
-          setSelectedClient(clientId);
+        setOptionsModalIsOpen={setOptionsModalIsOpen}
+        setSelectedClient={setSelectedClient}
+        openClientModal={(client: WithId<UserIdentity>) => {
+          setSelectedClient(client);
           setClientModalIsOpen(true);
         }}
         key={index}
@@ -54,10 +60,17 @@ export function ClientsList({ clients, requestState, loadClients }: Props) {
 
   const isLoading = requestState?.status === 'loading';
 
+  function openDeleteModal() {
+    setDeleteModalIsOpen(true);
+  }
+  function openUpdateModal() {
+    setUpdateModalIsOpen(true);
+  }
+
   return (
     <div className="flex flex-col gap-[32px] mt-[88px] w-full">
       <ClientModal
-        clientId={selectedClient}
+        clientId={selectedClient?.id || ''}
         isOpen={clientModalIsOpen}
         setIsOpen={setClientModalIsOpen}
         openRegisterCaseModal={() => {
@@ -65,19 +78,33 @@ export function ClientsList({ clients, requestState, loadClients }: Props) {
         }}
       />
       <RegisterCaseModal
-        selectedClientId={selectedClient}
+        selectedClientId={selectedClient?.id || ''}
         isOpen={registerCaseModalIsOpen}
         setIsOpen={setRegisterCaseModalIsOpen}
       />
-      <ClientCardModalsProvider>
-        <ClientCardOptionsModal />
-        <DeleteClientModal loadClients={loadClients} />
-        <UpdateClientModal loadClients={loadClients} />
-        <Activity mode={!isLoading ? 'visible' : 'hidden'}>
-          <h1 className="text-3xl">{message}</h1>
-        </Activity>
-        {isLoading ? renderCaseSkeletons : renderCases}
-      </ClientCardModalsProvider>
+
+      <CardOptionsModal
+        isOpen={optionsModalIsOpen}
+        setIsOpen={setOptionsModalIsOpen}
+        openDeleteModal={openDeleteModal}
+        openUpdateModal={openUpdateModal}
+      />
+      <DeleteClientModal
+        isOpen={deleteModalIsOpen}
+        setIsOpen={setDeleteModalIsOpen}
+        selectedClient={selectedClient}
+        loadClients={loadClients}
+      />
+      <UpdateClientModal
+        isOpen={updateModalIsOpen}
+        setIsOpen={setUpdateModalIsOpen}
+        selectedClientId={selectedClient?.id || ''}
+        loadClients={loadClients}
+      />
+      <Activity mode={!isLoading ? 'visible' : 'hidden'}>
+        <h1 className="text-3xl">{message}</h1>
+      </Activity>
+      {isLoading ? renderCaseSkeletons : renderCases}
     </div>
   );
 }
