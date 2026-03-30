@@ -1,28 +1,24 @@
 'use client';
-import { useContext, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { PrimaryModalWindow } from './PrimaryModalWindow';
 import { InputWithLabel } from '../form/InputWithLabel';
 import { Button } from '../Button';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../form/RequestFeedback';
-import { UpdateClientModalContext } from '@/contexts/modals/UpdateClientModalContext';
-import { MissingContextError } from '@/errors/MissingContextError';
 import { updateUser } from '@/services/updateUser';
 import { getUserById } from '@/services/getUserById';
 import { SafeUser } from '@/types/SafeUser';
 
 interface Props {
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  selectedClientId: string;
   loadClients: Function;
 }
 
-export function UpdateClientModal({ loadClients }: Props) {
+export function UpdateClientModal({ loadClients, isOpen, setIsOpen, selectedClientId }: Props) {
   const [clientData, setClientData] = useState<SafeUser | null>(null);
   const [requestState, setRequestState] = useState<RequestState | null>(null);
-  const updateClientModalContext = useContext(UpdateClientModalContext);
-  if (!updateClientModalContext) {
-    throw new MissingContextError(UpdateClientModalContext.name);
-  }
-  const { isOpen, setIsOpen, selectedClientId } = updateClientModalContext;
 
   async function getUser() {
     try {
