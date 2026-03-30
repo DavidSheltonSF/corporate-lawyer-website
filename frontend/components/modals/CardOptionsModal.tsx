@@ -10,12 +10,7 @@ interface Props {
   openUpdateModal: Function;
 }
 
-export function ClientCardOptionsModal({
-  openDeleteModal,
-  openUpdateModal,
-  isOpen,
-  setIsOpen,
-}: Props) {
+export function CardOptionsModal({ openDeleteModal, openUpdateModal, isOpen, setIsOpen }: Props) {
   function closeModal() {
     setIsOpen(false);
   }
