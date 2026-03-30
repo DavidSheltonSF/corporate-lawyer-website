@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { UploadModalContext } from './UploadModalContext';
 import { ServicesModalContext } from './ServicesModalContext';
-import { ServiceDetailsModal } from '@/components/modals/ServiceDetailsModal';
 
 interface Props {
   children: React.ReactNode;
