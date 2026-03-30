@@ -1,45 +1,23 @@
 'use client';
 import { PrimaryModalWindow } from './PrimaryModalWindow';
 import { Button } from '../Button';
-import { useContext } from 'react';
-import { DeleteClientModalContext } from '@/contexts/modals/DeleteClientModalContext';
-import { MissingContextError } from '@/errors/MissingContextError';
-import { ClientCardOptionsModalContext } from '@/contexts/modals/ClientCardOptionsModalContext';
-import { UpdateClientModalContext } from '@/contexts/modals/UpdateClientModalContext';
+import { Dispatch, SetStateAction } from 'react';
 
-export function ClientCardOptionsModal() {
-  const clientCardOptionsModalContext = useContext(ClientCardOptionsModalContext);
-  if (!clientCardOptionsModalContext) {
-    throw new MissingContextError(ClientCardOptionsModalContext.name);
-  }
+interface Props {
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  openDeleteModal: Function;
+  openUpdateModal: Function;
+}
 
-  const deleteClientModalContext = useContext(DeleteClientModalContext);
-  if (!deleteClientModalContext) {
-    throw new MissingContextError(DeleteClientModalContext.name);
-  }
-
-  const updateClientModalContext = useContext(UpdateClientModalContext);
-  if (!updateClientModalContext) {
-    throw new MissingContextError(UpdateClientModalContext.name);
-  }
-
-  const setDeleteModalIsOpen = deleteClientModalContext.setIsOpen;
-  const setUpdateModalIsOpen = updateClientModalContext.setIsOpen;
-  const setClientOptionsModalIsOpen = clientCardOptionsModalContext.setIsOpen;
-  const { isOpen } = clientCardOptionsModalContext;
-
+export function ClientCardOptionsModal({
+  openDeleteModal,
+  openUpdateModal,
+  isOpen,
+  setIsOpen,
+}: Props) {
   function closeModal() {
-    setClientOptionsModalIsOpen(false);
-  }
-
-  function openDeleteClientModal() {
-    setDeleteModalIsOpen(true);
-    closeModal();
-  }
-
-  function openUpdateClientModal() {
-    setUpdateModalIsOpen(true);
-    closeModal();
+    setIsOpen(false);
   }
 
   return (
@@ -55,14 +33,20 @@ export function ClientCardOptionsModal() {
             <p className="text-black text-lg">O que quer fazer?</p>
           </div>
           <Button
-            onclick={openUpdateClientModal}
+            onclick={() => {
+              openUpdateModal();
+              closeModal();
+            }}
             backgroundColor="var(--primary-color)"
             textColor="var(--white-color)"
           >
             Alterar Dados
           </Button>
           <Button
-            onclick={openDeleteClientModal}
+            onclick={() => {
+              openDeleteModal();
+              closeModal();
+            }}
             backgroundColor="var(--primary-color)"
             textColor="var(--white-color)"
           >
