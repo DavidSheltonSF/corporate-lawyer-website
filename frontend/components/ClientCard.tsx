@@ -8,15 +8,15 @@ import { UserIdentity } from '@/types/UserIdentity';
 interface Props {
   clientData: WithId<SafeUser>;
   openClientModal: (client: WithId<UserIdentity>) => void;
+  openOptionsModal: Function;
   setSelectedClient: Dispatch<SetStateAction<WithId<UserIdentity> | null>>;
-  setOptionsModalIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 export function ClientCard({
   clientData,
   openClientModal,
+  openOptionsModal,
   setSelectedClient,
-  setOptionsModalIsOpen,
 }: Props) {
   const { id, firstName, lastName, email, cpf } = clientData;
 
@@ -29,7 +29,7 @@ export function ClientCard({
         <button
           className="cursor-pointer"
           onClick={() => {
-            setOptionsModalIsOpen(true);
+            openOptionsModal();
             setSelectedClient({
               id,
               firstName,

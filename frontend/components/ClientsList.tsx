@@ -29,8 +29,10 @@ export function ClientsList({ clients, requestState, loadClients }: Props) {
   const renderCases = clients?.map((client, index) => {
     return (
       <ClientCard
-        setOptionsModalIsOpen={setOptionsModalIsOpen}
         setSelectedClient={setSelectedClient}
+        openOptionsModal={() => {
+          setOptionsModalIsOpen(true);
+        }}
         openClientModal={(client: WithId<UserIdentity>) => {
           setSelectedClient(client);
           setClientModalIsOpen(true);
