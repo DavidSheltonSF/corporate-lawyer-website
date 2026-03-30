@@ -1,35 +1,31 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { PrimaryModalWindow } from './PrimaryModalWindow';
-import { MissingContextError } from '@/errors/MissingContextError';
 import { fetchCaseById } from '@/services/fetchCaseById';
 import { FieldValue } from '../FieldValue';
 import { CaseFilesSection } from '../CaseFilesSection';
-import { useCaseModalContext } from '@/hooks/useCaseModalContext';
 import { CaseModalSkeleton } from './CaseModalSkeleton';
 import { formatStringList } from '@/lib/formatStringList';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { OpenUploadModalButton } from '../OpenUploadModalButton';
 
-export function CaseModal() {
+interface Props {
+  selectedCaseId: string | null;
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+export function CaseModal({ selectedCaseId, isOpen, setIsOpen }: Props) {
   const [caseData, setCaseData] = useState<CaseWithRelations | null>(null);
   const [loading, setLoading] = useState(false);
-
-  const caseModalContext = useCaseModalContext();
-
-  if (!caseModalContext) {
-    throw new MissingContextError('CaseModalContext');
-  }
-
-  const { isOpen, setIsOpen, caseId } = caseModalContext;
 
   useEffect(() => {
     async function fetchCaseData() {
       try {
-        if (!isOpen || !caseId) return;
+        if (!isOpen || !selectedCaseId) return;
         setLoading(true);
-        const caseFound = await fetchCaseById(caseId, ['client', 'lawyers']);
+        const caseFound = await fetchCaseById(selectedCaseId, ['client', 'lawyers']);
         setCaseData(caseFound);
         setLoading(false);
       } catch (error) {
@@ -98,13 +94,13 @@ export function CaseModal() {
               <div className="flex flex-col gap-[8px] border-b border-black/50">
                 <div className="relative w-full bg-color-primary p-[16px]">
                   <h1 className="text-2xl font-bold text-color-white">Arquivos</h1>
-                  <div className='absolute right-[16px] top-[50%] translate-y-[-50%]'>
+                  <div className="absolute right-[16px] top-[50%] translate-y-[-50%]">
                     <OpenUploadModalButton />
                   </div>
                 </div>
 
                 <div className="h-[224px] min-lg:h-[316px] overflow-auto">
-                  <CaseFilesSection id={caseId || ''} files={caseData.files} />
+                  <CaseFilesSection id={selectedCaseId || ''} files={caseData.files} />
                 </div>
               </div>
             </main>
