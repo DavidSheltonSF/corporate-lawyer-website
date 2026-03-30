@@ -2,24 +2,23 @@ import { WithId } from '@/types/WithId';
 import { FieldValue } from './FieldValue';
 import { SafeUser } from '@/types/SafeUser';
 import { VerticalMoreIcon } from './icons/VerticalMoreIcon';
-import { useContext } from 'react';
-import { MissingContextError } from '@/errors/MissingContextError';
-import { ClientCardOptionsModalContext } from '@/contexts/modals/ClientCardOptionsModalContext';
+import { Dispatch, SetStateAction } from 'react';
+import { UserIdentity } from '@/types/UserIdentity';
 
 interface Props {
   clientData: WithId<SafeUser>;
-  openClientModal: (clientId: string) => void;
+  openClientModal: (client: WithId<UserIdentity>) => void;
+  setSelectedClient: Dispatch<SetStateAction<WithId<UserIdentity> | null>>;
+  setOptionsModalIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export function ClientCard({ clientData, openClientModal }: Props) {
+export function ClientCard({
+  clientData,
+  openClientModal,
+  setSelectedClient,
+  setOptionsModalIsOpen,
+}: Props) {
   const { id, firstName, lastName, email, cpf } = clientData;
-
-  const clientCardOptionsModalContext = useContext(ClientCardOptionsModalContext);
-  if (!clientCardOptionsModalContext) {
-    throw new MissingContextError(ClientCardOptionsModalContext.name);
-  }
-
-  const { setIsOpen, setSelectedClient } = clientCardOptionsModalContext;
 
   return (
     <article className="flex flex-col fade-in-animation  bg-color-primary w-full min-md:w-[80%] min-lg:w-[640px] min-h-[280px] h-max rounded-xl">
@@ -30,7 +29,7 @@ export function ClientCard({ clientData, openClientModal }: Props) {
         <button
           className="cursor-pointer"
           onClick={() => {
-            setIsOpen(true);
+            setOptionsModalIsOpen(true);
             setSelectedClient({
               id,
               firstName,
@@ -43,7 +42,11 @@ export function ClientCard({ clientData, openClientModal }: Props) {
       </header>
       <main
         onClick={() => {
-          openClientModal(id);
+          openClientModal({
+            id,
+            firstName,
+            lastName,
+          });
         }}
         className="flex flex-1 flex-col gap-[16px] px-[24px] py-[16px] bg-color-white text-color-black text-lg cursor-pointer"
         style={{
