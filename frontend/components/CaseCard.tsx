@@ -1,20 +1,19 @@
 import { formatStringList } from '@/lib/formatStringList';
-import { Case } from '@/types/Case';
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { reduceString } from '@/lib/reduceString';
 import { TooltipContainer } from './TooltipContainer';
 import { WithId } from '@/types/WithId';
-import { UserIdentity } from '@/types/UserIdentity';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
-import { MissingContextError } from '@/errors/MissingContextError';
-import { useCaseModalContext } from '@/hooks/useCaseModalContext';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
+import { Dispatch, SetStateAction } from 'react';
 
 interface Props {
+  setSelectedCaseId: Dispatch<SetStateAction<string | null>>;
+  openCaseModal: Function;
   caseData: WithId<CaseWithRelations>;
 }
 
-export function CaseCard({ caseData }: Props) {
+export function CaseCard({ caseData, setSelectedCaseId, openCaseModal }: Props) {
   const clientData = caseData.client;
 
   const { id, title, processNumber, status } = caseData;
@@ -39,19 +38,11 @@ export function CaseCard({ caseData }: Props) {
     return `${lawyer.firstName} ${lawyer.lastName}`;
   });
 
-  const caseModalContext = useCaseModalContext();
-
-  if (!caseModalContext) {
-    throw new MissingContextError('CaseModalContext');
-  }
-
-  const { setIsOpen, setCaseId } = caseModalContext;
-
   return (
     <article
       onClick={() => {
-        setCaseId(id);
-        setIsOpen(true);
+        setSelectedCaseId(id);
+        openCaseModal();
       }}
       className="flex flex-col fade-in-animation  bg-color-primary w-full min-md:w-[80%] min-lg:w-[640px] min-h-[280px] h-max rounded-xl cursor-pointer"
     >
