@@ -7,7 +7,6 @@ import { SafeUser } from '@/types/SafeUser';
 import { CardOptionsModal } from './modals/CardOptionsModal';
 import { RequestState } from '@/types/RequestState';
 import { DeleteClientModal } from './modals/DeleteClientModal';
-import { ClientCardModalsProvider } from '@/contexts/modals/ClientCardModalsProvider';
 import { UpdateClientModal } from './modals/UpdateClientModal';
 import { ClientModal } from './modals/ClientModal';
 import { RegisterCaseModal } from './modals/RegisterCaseModal';
