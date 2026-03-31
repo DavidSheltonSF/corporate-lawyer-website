@@ -149,8 +149,6 @@ export class CaseController implements ICaseController {
         });
       }
 
-      console.log(authUser);
-
       // const authUserData = await this.userService.findById(authUser.id);
 
       // if (authUserData.role !== UserRole.lawyer) {
