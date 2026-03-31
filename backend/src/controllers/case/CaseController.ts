@@ -149,13 +149,13 @@ export class CaseController implements ICaseController {
         });
       }
 
-      // const authUserData = await this.userService.findById(authUser.id);
+      const authUserData = await this.userService.findById(authUser.id);
 
-      // if (authUserData.role !== UserRole.lawyer) {
-      //   return HttpResponseFactory.makeForbidden<null>({
-      //     message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
-      //   });
-      // }
+      if (authUserData.role !== UserRole.lawyer) {
+        return HttpResponseFactory.makeForbidden<null>({
+          message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
+        });
+      }
 
       const caseStats = await this.caseService.getStats();
 
