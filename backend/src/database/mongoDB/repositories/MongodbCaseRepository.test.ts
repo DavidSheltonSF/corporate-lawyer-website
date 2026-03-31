@@ -59,6 +59,35 @@ describe('Test CaseRepository', () => {
     };
   }
 
+  test('should update a case data', async () => {
+    const { caseRepository, clientId, lawyerId } = await makeSut();
+    const newCase = {
+      client: clientId,
+      lawyers: [lawyerId],
+      processNumber: '354435235425623',
+      title: 'Case title',
+      description: 'Case description',
+      court: 'court', //tribunal
+      courtDivision: 'court division', //vara
+      status: CasesStatus.open,
+    };
+
+    const caseId = (await CaseModel.create(newCase))._id;
+
+    const updatedData = { title: 'Updated-title', processNumber: '2155585885558-updated' };
+    await caseRepository.updateById(caseId.toString(), updatedData);
+
+    const updatedCase = await CaseModel.findById(caseId);
+
+    expect(updatedCase?.title).toBe(updatedData.title);
+    expect(updatedCase?.processNumber).toBe(updatedData.processNumber);
+    expect(updatedCase?.client.toString()).toBe(newCase.client.toString());
+    expect(updatedCase?.description).toBe(newCase.description);
+    expect(updatedCase?.court).toBe(newCase.court);
+    expect(updatedCase?.courtDivision).toBe(newCase.courtDivision);
+    expect(updatedCase?.status).toBe(newCase.status);
+  });
+
   test('Should find populated cases properly', async () => {
     const { caseRepository, clientId, lawyerId } = await makeSut();
 

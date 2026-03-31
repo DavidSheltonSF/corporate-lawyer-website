@@ -14,6 +14,7 @@ import { CaseNotFoundError } from '../../../errors/application/CaseNotFoundError
 import { CreateCaseFileDTO } from '../../../dtos/caseFile/CreateCaseFileDTO';
 import { CaseFileDTO } from '../../../dtos/caseFile/CaseFileDTO';
 import { CaseFileMapper } from '../../../mappers/CaseFile/CaseFileMapper';
+import { UpdateCaseDTO } from '../../../dtos/case/UpdateCaseDTO';
 
 export class MongodbCaseRepository implements CaseRepository {
   async create(data: CreateCaseDTO): Promise<WithId<Case>> {
@@ -31,6 +32,11 @@ export class MongodbCaseRepository implements CaseRepository {
       status: data.status,
     });
 
+    return CaseMapper.persistenceToDomain(cas);
+  }
+
+  async updateById(id: string, data: UpdateCaseDTO): Promise<WithId<Case>> {
+    const cas = await CaseModel.findByIdAndUpdate(id, data, {returnDocument: 'after' });
     return CaseMapper.persistenceToDomain(cas);
   }
 
