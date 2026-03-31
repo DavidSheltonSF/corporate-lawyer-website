@@ -31,6 +31,25 @@ describe('Test CaseService', () => {
     expect(caseRepository.create).toHaveBeenLastCalledWith(newCase);
   });
 
+  test('should call caseRepository.updateById with the provided id and data', async () => {
+    const { caseService, caseRepository } = makeSut();
+
+    const caseId = 'fsdakfnitngnfaggfgg';
+    const updateData = {
+      client: 'xfafdsfafsfasfffff',
+      lawyers: ['hhtshhhhhthtfsj'],
+      processNumber: '261514514584615648',
+      title: 'Process Title',
+      court: 'STJ',
+      courtDivision: 'Vara Cívil',
+      description: 'Case description',
+      status: CasesStatus.open,
+    };
+
+    await caseService.updateById(caseId, updateData);
+    expect(caseRepository.updateById).toHaveBeenLastCalledWith(caseId, updateData);
+  });
+
   test('should call caseRepository.findById with the provided id', async () => {
     const { caseService, caseRepository } = makeSut();
 

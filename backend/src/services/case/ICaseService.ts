@@ -10,6 +10,7 @@ import { WithId } from '../../types/WithId';
 
 export interface ICaseService {
   create(data: CreateCaseDTO): Promise<WithId<CaseResponseDTO>>;
+  updateById(id: string, data: CreateCaseDTO): Promise<WithId<CaseResponseDTO>>;
   findCases(queryParams: CaseQuery): Promise<Page<WithId<CaseCardDTO>>>;
   findById(id: string): Promise<WithId<CaseCardDTO>>;
   getStatsByClientId(clientId: string): Promise<CasesStats | null>;

@@ -10,12 +10,41 @@ import { CasesStats } from '../../types/CasesStats';
 import { Page } from '../../types/Page';
 import { WithId } from '../../types/WithId';
 import { ICaseService } from './ICaseService';
+import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO';
 
 export class CaseService implements ICaseService {
   constructor(private caseRepository: CaseRepository) {}
   async create(data: CreateCaseDTO): Promise<WithId<CaseResponseDTO>> {
     try {
       const newCase = await this.caseRepository.create(data);
+
+      const client = newCase.client.toString();
+      const lawyers = newCase.lawyers.map((lawyer) => lawyer.toString());
+
+      return {
+        id: newCase.id,
+        client,
+        lawyers,
+        files: newCase.files,
+        hearings: newCase.hearings,
+        processNumber: newCase.processNumber,
+        title: newCase.title,
+        description: newCase.description,
+        court: newCase.court,
+        courtDivision: newCase.courtDivision,
+        status: newCase.status,
+      };
+    } catch (error: any) {
+      if (error.code === 11000) {
+        throw Error(`A case with processNumber ${data.processNumber} already exists`);
+      }
+      throw error;
+    }
+  }
+
+  async updateById(id: string, data: UpdateCaseDTO): Promise<WithId<CaseResponseDTO>> {
+    try {
+      const newCase = await this.caseRepository.updateById(id, data);
 
       const client = newCase.client.toString();
       const lawyers = newCase.lawyers.map((lawyer) => lawyer.toString());
