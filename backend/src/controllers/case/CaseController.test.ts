@@ -26,7 +26,7 @@ describe(`Test ${CaseController.name}`, () => {
     };
   }
 
-  test('should create a new case', async () => {
+  test('should call CaseRepository.create and return 201', async () => {
     const { caseController, caseRepository, userRepository } = makeSut();
 
     const newCase: CreateCaseDTO = {
