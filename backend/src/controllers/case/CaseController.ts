@@ -63,6 +63,49 @@ export class CaseController implements ICaseController {
     }
   };
 
+  updateById = async (httpRequest: HttpRequest) => {
+    try {
+      const { id } = httpRequest.params;
+      if (!id) {
+        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing case id' });
+      }
+
+      const { body } = httpRequest;
+      if (!body) {
+        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing request body' });
+      }
+
+      const authUser = httpRequest.user;
+
+      if (!authUser) {
+        return HttpResponseFactory.makeBadRequest<null>({
+          message: 'Missing authenticated user',
+        });
+      }
+
+      const authUserData = await this.userService.findById(authUser.id);
+
+      if (authUserData.role !== UserRole.lawyer) {
+        return HttpResponseFactory.makeForbidden<null>({
+          message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
+        });
+      }
+
+      const response = await this.caseService.updateById(id, body);
+
+      return HttpResponseFactory.makeOk({ data: response });
+    } catch (error: any) {
+      console.log(error);
+
+      // Check if it is NotFound error
+      if (error.statusCode === 404) {
+        return HttpResponseFactory.makeNotFound<null>({ message: error.message });
+      }
+
+      return HttpResponseFactory.makeServerError<null>({ message: error.message });
+    }
+  };
+
   findById = async (httpRequest: HttpRequest) => {
     try {
       const { id } = httpRequest.params;

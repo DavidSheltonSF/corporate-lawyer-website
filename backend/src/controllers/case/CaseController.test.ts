@@ -1,4 +1,5 @@
 import { CreateCaseDTO } from '../../dtos/case/CreateCaseDTO';
+import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO';
 import { CaseService } from '../../services/case/CaseService';
 import { UserService } from '../../services/user/UserService';
 import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
@@ -57,6 +58,35 @@ describe(`Test ${CaseController.name}`, () => {
 
     expect(caseRepository.create).toHaveBeenCalledWith(newCase);
     expect(response.status).toBe(HttpStatusCode.created);
+  });
+
+  test('should call CaseRepository.updateById and return 200', async () => {
+    const { caseController, caseRepository, userRepository } = makeSut();
+
+    const updatedData: UpdateCaseDTO = {
+      title: 'Case Title',
+      client: 'fakeid',
+      court: 'fakecourt',
+    };
+
+    const httpRequest = {
+      user: { id: 'dskfsadf', email: 'user@email.com' },
+      params: { id: 'fdsfafdfaffa' },
+      body: updatedData,
+    };
+    userRepository.findById = jest.fn().mockResolvedValue({
+      _id: 'dfsdfsa',
+      firstName: 'José',
+      lastName: 'Almeida',
+      email: 'jo@email.com',
+      cpf: '15588787855',
+      password: 'jose123',
+      role: UserRole.lawyer,
+    });
+    const response = await caseController.updateById(httpRequest);
+
+    expect(caseRepository.updateById).toHaveBeenCalledWith(httpRequest.params.id, httpRequest.body);
+    expect(response.status).toBe(HttpStatusCode.ok);
   });
 
   test('should call caseRepository.findById with the provided id and return OK (200)', async () => {
