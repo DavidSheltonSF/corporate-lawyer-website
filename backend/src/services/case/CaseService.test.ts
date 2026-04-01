@@ -36,8 +36,6 @@ describe('Test CaseService', () => {
 
     const caseId = 'fsdakfnitngnfaggfgg';
     const updateData = {
-      client: 'xfafdsfafsfasfffff',
-      lawyers: ['hhtshhhhhthtfsj'],
       processNumber: '261514514584615648',
       title: 'Process Title',
       court: 'STJ',

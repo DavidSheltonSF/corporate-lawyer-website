@@ -1,3 +1,3 @@
 import { CreateCaseDTO } from './CreateCaseDTO';
 
-export type UpdateCaseDTO = Partial<CreateCaseDTO>;
+export type UpdateCaseDTO = Partial<Omit<CreateCaseDTO, 'client' | 'lawyers'>>;

@@ -62,8 +62,6 @@ describe('Test CaseRepository', () => {
   test('should update a case data', async () => {
     const { caseRepository, clientId, lawyerId } = await makeSut();
     const newCase = {
-      client: clientId,
-      lawyers: [lawyerId],
       processNumber: '354435235425623',
       title: 'Case title',
       description: 'Case description',
@@ -81,7 +79,6 @@ describe('Test CaseRepository', () => {
 
     expect(updatedCase?.title).toBe(updatedData.title);
     expect(updatedCase?.processNumber).toBe(updatedData.processNumber);
-    expect(updatedCase?.client.toString()).toBe(newCase.client.toString());
     expect(updatedCase?.description).toBe(newCase.description);
     expect(updatedCase?.court).toBe(newCase.court);
     expect(updatedCase?.courtDivision).toBe(newCase.courtDivision);

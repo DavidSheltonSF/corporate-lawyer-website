@@ -65,7 +65,6 @@ describe(`Test ${CaseController.name}`, () => {
 
     const updatedData: UpdateCaseDTO = {
       title: 'Case Title',
-      client: 'fakeid',
       court: 'fakecourt',
     };
 
