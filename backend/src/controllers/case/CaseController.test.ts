@@ -1,7 +1,10 @@
+import { CreateCaseDTO } from '../../dtos/case/CreateCaseDTO';
 import { CaseService } from '../../services/case/CaseService';
 import { UserService } from '../../services/user/UserService';
 import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
+import { CasesStatus } from '../../types/CasesStatus';
+import { UserRole } from '../../types/UserRole';
 import { HttpRequest } from '../types/HttpRequest';
 import { HttpStatusCode } from '../types/HttpStatusCode';
 import { CaseController } from './CaseController';
@@ -10,40 +13,51 @@ describe(`Test ${CaseController.name}`, () => {
   function makeSut() {
     const caseRepository = createMockCaseRepository();
     const userRepository = createMockUserRepository();
-    const userService = new UserService(userRepository);
+    const userService = new UserService(userRepository, caseRepository);
     const caseService = new CaseService(caseRepository);
     const caseController = new CaseController(caseService, userService);
 
     return {
       caseRepository,
+      userRepository,
       caseService,
       caseController,
     };
   }
 
-  // test('should create a new case', async () => {
-  //   const { caseController, caseRepository } = makeSut();
+  test('should create a new case', async () => {
+    const { caseController, caseRepository, userRepository } = makeSut();
 
-  //   const newCase: CreateCaseDTO = {
-  //     title: 'Case Title',
-  //     client: 'fakeid',
-  //     court: 'fakecourt',
-  //     courtDivision: 'fakecourtdivision',
-  //     description: 'description bla bla',
-  //     lawyers: ['fakeidiii'],
-  //     processNumber: '21454651554',
-  //     status: CaseStatusEnum.aberto,
-  //   };
+    const newCase: CreateCaseDTO = {
+      title: 'Case Title',
+      client: 'fakeid',
+      court: 'fakecourt',
+      courtDivision: 'fakecourtdivision',
+      description: 'description bla bla',
+      lawyers: ['fakeidiii'],
+      processNumber: '21454651554',
+      status: CasesStatus.open,
+    };
 
-  //   const httpRequest = {
-  //     body: newCase,
-  //   };
+    const httpRequest = {
+      user: { id: 'dskfsadf', email: 'user@email.com' },
+      body: newCase,
+    };
+    userRepository.findById = jest.fn().mockResolvedValue({
+      _id: 'dfsdfsa',
+      firstName: 'José',
+      lastName: 'Almeida',
+      email: 'jo@email.com',
+      cpf: '15588787855',
+      password: 'jose123',
+      role: UserRole.lawyer,
+    });
+    const response = await caseController.create(httpRequest);
+    console.log(response);
 
-  //   const response = await caseController.create(httpRequest);
-
-  //   expect(caseRepository.create).toHaveBeenCalledWith(newCase);
-  //   expect(response.status).toBe(HttpStatusCode.created);
-  // });
+    expect(caseRepository.create).toHaveBeenCalledWith(newCase);
+    expect(response.status).toBe(HttpStatusCode.created);
+  });
 
   test('should call caseRepository.findById with the provided id and return OK (200)', async () => {
     const { caseController, caseRepository } = makeSut();
