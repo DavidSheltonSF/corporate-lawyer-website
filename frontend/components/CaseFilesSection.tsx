@@ -3,7 +3,7 @@ import { FilesTable } from './FilesTable';
 import { CaseFilesUploadModal } from './modals/CaseFilesUploaModal';
 import { useEffect, useState } from 'react';
 import { CaseFile } from '@/types/CaseFile';
-import { fetchMyCaseFilesByCaseId } from '@/services/fetchMyCaseFilesByCaseId';
+import { fetchMyCaseFilesByCaseId } from '@/services/cases/fetchMyCaseFilesByCaseId';
 
 export function CaseFilesSection({ id, files }: { id: string; files: CaseFile[] }) {
   const [currentFiles, setCurrentFiles] = useState(files);

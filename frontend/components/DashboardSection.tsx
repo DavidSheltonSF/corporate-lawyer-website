@@ -4,11 +4,11 @@ import { DashboardCardInfo } from './DashboardCardInfo';
 import { useEffect, useState } from 'react';
 import { mockPromise } from '@/test/mockPromise';
 import { DashboardCardSkeleton } from './DashboardCardSkeleton';
-import { fetchMyCasesStats } from '@/services/fetchMyCasesStats';
+import { fetchMyCasesStats } from '@/services/cases/fetchMyCasesStats';
 import { useAuthenticatedUserContext } from '@/hooks/useAuthenticatedUserContext';
 import { MissingContextError } from '@/errors/MissingContextError';
 import { UserRole } from '@/types/UserRole';
-import { getCasesStats } from '@/services/getCasesStats';
+import { getCasesStats } from '@/services/cases/getCasesStats';
 
 export function DashboardSection() {
   const [casesCountLoading, setCasesCoundLoading] = useState(true);

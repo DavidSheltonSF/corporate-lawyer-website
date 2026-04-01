@@ -7,7 +7,7 @@ import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../form/RequestFeedback';
 import { useAuthenticatedUserContext } from '@/hooks/useAuthenticatedUserContext';
 import { MissingContextError } from '@/errors/MissingContextError';
-import { createCase } from '@/services/createCase';
+import { createCase } from '@/services/cases/createCase';
 interface Props {
   selectedClientId: string | null;
   isOpen: boolean;

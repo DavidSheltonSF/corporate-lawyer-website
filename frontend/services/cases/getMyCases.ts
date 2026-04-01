@@ -4,7 +4,7 @@ import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { Page } from '@/types/Page';
 import { WithId } from '@/types/WithId';
-import { apiFetch } from './apiFetch';
+import { apiFetch } from '../apiFetch';
 
 export async function getMyCases(
   queryParams: {

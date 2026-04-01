@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { SearchBar } from './SearchBar';
 import { CasesList } from './CasesList';
-import { getMyCases } from '@/services/getMyCases';
+import { getMyCases } from '@/services/cases/getMyCases';
 import { WithId } from '@/types/WithId';
 import { Pagination } from './Pagination';
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';

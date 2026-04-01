@@ -1,7 +1,7 @@
 'use client';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { PrimaryModalWindow } from './PrimaryModalWindow';
-import { fetchCaseById } from '@/services/fetchCaseById';
+import { fetchCaseById } from '@/services/cases/fetchCaseById';
 import { FieldValue } from '../FieldValue';
 import { CaseFilesSection } from '../CaseFilesSection';
 import { CaseModalSkeleton } from './CaseModalSkeleton';

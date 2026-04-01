@@ -2,7 +2,7 @@
 import { UploadModalContext } from '@/contexts/modals/UploadModalContext';
 import React, { Dispatch, SetStateAction, useContext, useState } from 'react';
 import { PrimaryModalWindow } from './PrimaryModalWindow';
-import { uploadCaseFile } from '@/services/uploadCaseFile';
+import { uploadCaseFile } from '@/services/cases/uploadCaseFile';
 import { RequestState } from '@/types/RequestState';
 import { DropArea } from '../DropArea';
 import { RequestFeedback } from '../form/RequestFeedback';
