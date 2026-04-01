@@ -53,7 +53,7 @@ export default function CaseSearchSection() {
           />
         </div>
       </div>
-      <CasesList loading={casesLoading} cases={cases} />
+      <CasesList loadCases={loadCases} loading={casesLoading} cases={cases} />
       <Pagination page={page} setPage={setPage} totalPage={totalPage} />
     </section>
   );
