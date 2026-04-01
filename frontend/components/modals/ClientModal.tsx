@@ -5,7 +5,7 @@ import { FieldValue } from '../FieldValue';
 import { CaseModalSkeleton } from './CaseModalSkeleton';
 import { SafeUser } from '@/types/SafeUser';
 import { Button } from '../Button';
-import { getClientWithCases } from '@/services/getClientWithCases';
+import { getClientWithCases } from '@/services/users/getClientWithCases';
 import { Case } from '@/types/Case';
 import { reduceString } from '@/lib/reduceString';
 

@@ -5,8 +5,8 @@ import { InputWithLabel } from '../form/InputWithLabel';
 import { Button } from '../Button';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../form/RequestFeedback';
-import { updateUser } from '@/services/updateUser';
-import { getUserById } from '@/services/getUserById';
+import { updateUser } from '@/services/users/updateUser';
+import { getUserById } from '@/services/users/getUserById';
 import { SafeUser } from '@/types/SafeUser';
 
 interface Props {

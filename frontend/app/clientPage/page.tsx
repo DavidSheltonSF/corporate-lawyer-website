@@ -2,7 +2,7 @@ import { HeroSection } from '@/components/HeroSection';
 import { ClientView } from '@/components/views/ClientView';
 import { LawyerView } from '@/components/views/LawyerView';
 import { AuthenticatedUserProvider } from '@/contexts/AuthenticatedUserProvider';
-import { getMe } from '@/services/getMe';
+import { getMe } from '@/services/users/getMe';
 import { User } from '@/types/User';
 import { WithId } from '@/types/WithId';
 import { redirect } from 'next/navigation';

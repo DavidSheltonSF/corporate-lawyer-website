@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { PrimaryModalWindow } from './PrimaryModalWindow';
 import { InputWithLabel } from '../form/InputWithLabel';
 import { Button } from '../Button';
-import { createClient } from '@/services/createClient';
+import { createClient } from '@/services/users/createClient';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../form/RequestFeedback';
 interface Props {
@@ -16,7 +16,10 @@ export function RegisterUserModal({ isOpen, setIsOpen }: Props) {
   async function registerClient(formData: FormData) {
     try {
       const data = await createClient(formData);
-      setRequestState({ status: 'ok', message: `Cliente registrado com sucesso. Senha: ${data.password}` });
+      setRequestState({
+        status: 'ok',
+        message: `Cliente registrado com sucesso. Senha: ${data.password}`,
+      });
     } catch (error: any) {
       console.log(error);
       setRequestState({ status: 'error', message: error.message });
@@ -47,7 +50,7 @@ export function RegisterUserModal({ isOpen, setIsOpen }: Props) {
               <InputWithLabel id="cpf-input" name="cpf" label="CPF" />
             </div>
 
-            <div className='w-full min-lg:w-[200px] min-lg:ml-auto min:lg:mt-auto'>
+            <div className="w-full min-lg:w-[200px] min-lg:ml-auto min:lg:mt-auto">
               <Button
                 paddingY="8px"
                 backgroundColor="var(--primary-color)"

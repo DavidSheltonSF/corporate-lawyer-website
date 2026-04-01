@@ -5,7 +5,7 @@ import { InputWithLabel } from '../form/InputWithLabel';
 import { Button } from '../Button';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../form/RequestFeedback';
-import { updateUser } from '@/services/updateUser';
+import { updateUser } from '@/services/users/updateUser';
 import { SafeUser } from '@/types/SafeUser';
 import { getCaseById } from '@/services/getCaseById';
 import { WithId } from '@/types/WithId';

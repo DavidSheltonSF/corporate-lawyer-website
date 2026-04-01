@@ -1,5 +1,5 @@
 'use server';
-import { authenticateUser } from '@/services/authenticateUser';
+import { authenticateUser } from '@/services/users/authenticateUser';
 import { cookies } from 'next/headers';
 
 export async function login(formData: FormData): Promise<void> {
