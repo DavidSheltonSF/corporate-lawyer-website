@@ -50,7 +50,7 @@ export class CaseController implements ICaseController {
 
       const response = await this.caseService.create(body);
 
-      return HttpResponseFactory.makeOk({ data: response });
+      return HttpResponseFactory.makeCreated({ data: response });
     } catch (error: any) {
       console.log(error);
 
