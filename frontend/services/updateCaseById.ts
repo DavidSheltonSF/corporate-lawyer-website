@@ -3,6 +3,7 @@ import { ServerError } from '@/errors/ServerError';
 import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 import { Case } from '@/types/Case';
 import { WithId } from '@/types/WithId';
+import { mapLabelToCaseStatus } from '@/mapper/mapLabelToCaseStatus';
 
 export async function updateCaseById(id: string, formData: FormData): Promise<WithId<Case>> {
   const title = formData.get('title');
@@ -11,6 +12,7 @@ export async function updateCaseById(id: string, formData: FormData): Promise<Wi
   const court = formData.get('court');
   const courtDivision = formData.get('courtDivision');
   const status = formData.get('status');
+  const mappedStatus = mapLabelToCaseStatus(status?.toString() || '');
 
   const token = await getTokenFromCookies();
   const response = await fetch(`${API_URL}/cases/${id}`, {
@@ -25,7 +27,7 @@ export async function updateCaseById(id: string, formData: FormData): Promise<Wi
       processNumber,
       court,
       courtDivision,
-      status,
+      status: mappedStatus,
     }),
   });
 
