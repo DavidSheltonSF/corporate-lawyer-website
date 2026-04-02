@@ -1,22 +1,10 @@
 import { API_URL } from '@/config/api';
-import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 import { Case } from '@/types/Case';
 import { SafeUser } from '@/types/SafeUser';
+import { apiFetch } from '../apiFetch';
 
 export async function getClientWithCases(id: string): Promise<SafeUser & { cases: Case[] }> {
-  const token = await getTokenFromCookies();
-
-  const response = await fetch(`${API_URL}/clients/${id}?include=cases`, {
-    headers: {
-      Authorization: token,
-    },
-  });
-
-  if (!response.ok) {
-    throw Error(await response.text());
-  }
-
+  const response = await apiFetch(`${API_URL}/clients/${id}?include=cases`);
   const json = await response.json();
-
   return json.data;
 }
