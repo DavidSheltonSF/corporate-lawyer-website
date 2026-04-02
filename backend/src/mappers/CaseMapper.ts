@@ -1,4 +1,5 @@
 import { CaseCardDTO } from '../dtos/case/CaseCardDTO';
+import { CaseResponseDTO } from '../dtos/case/CaseResponseDTO';
 import { Case } from '../entities/Case';
 import { WithId } from '../types/WithId';
 import { CaseCardPersistence } from './Case/CasePersistence';
@@ -29,6 +30,28 @@ export class CaseMapper {
       hearings,
       createdAt: caseCardPersistence.createdAt.toISOString(),
       updatedAt: caseCardPersistence.updatedAt.toISOString(),
+    };
+  }
+
+  static persistenceToPresentation(cas: unknown): WithId<CaseResponseDTO> {
+    const casePersistence = cas as CaseCardPersistence;
+
+    const lawyers = casePersistence.lawyers.map((lawyer) => lawyer.toString());
+    const files = casePersistence.files.map((document) => document.toString());
+    const hearings = casePersistence.hearings.map((hearing) => hearing.toString());
+
+    return {
+      id: casePersistence._id.toString(),
+      title: casePersistence.title,
+      processNumber: casePersistence.processNumber,
+      court: casePersistence.court,
+      courtDivision: casePersistence.courtDivision,
+      status: casePersistence.status,
+      description: casePersistence.description,
+      client: casePersistence.client.toString(),
+      lawyers,
+      files,
+      hearings,
     };
   }
 
