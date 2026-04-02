@@ -45,7 +45,7 @@ export function CardOptionsModal({ openDeleteModal, openUpdateModal, isOpen, set
             backgroundColor="var(--primary-color)"
             textColor="var(--white-color)"
           >
-            Deletar Cliente
+            Excluir
           </Button>
         </div>
       </PrimaryModalWindow>
