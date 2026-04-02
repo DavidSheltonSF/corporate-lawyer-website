@@ -4,7 +4,7 @@ import { DashboardCardInfo } from './DashboardCardInfo';
 import { useEffect, useState } from 'react';
 import { mockPromise } from '@/test/mockPromise';
 import { DashboardCardSkeleton } from './DashboardCardSkeleton';
-import { fetchMyCasesStats } from '@/services/cases/fetchMyCasesStats';
+import { getMyCasesStats } from '@/services/cases/getMyCasesStats';
 import { useAuthenticatedUserContext } from '@/hooks/useAuthenticatedUserContext';
 import { MissingContextError } from '@/errors/MissingContextError';
 import { UserRole } from '@/types/UserRole';
@@ -34,7 +34,7 @@ export function DashboardSection() {
           break;
 
         case UserRole.client:
-          casesCount = await fetchMyCasesStats();
+          casesCount = await getMyCasesStats();
           break;
         default:
           break;
