@@ -3,7 +3,7 @@ import { HttpStatusCode } from '../../controllers/types/HttpStatusCode';
 import { HttpResponseParams } from './HttpResponseParams';
 
 export class HttpResponseFactory {
-  private static make<T>(status: HttpStatusCode, params: HttpResponseParams<T>): HttpResponse<T> {
+  private static make<T>(status: HttpStatusCode, params?: HttpResponseParams<T>): HttpResponse<T> {
     return { status, ...params };
   }
 
