@@ -3,7 +3,7 @@ import { handleLogout } from '@/lib/handleLogout';
 
 interface RequestInit {
   headers?: {
-    'Content-type'?: string;
+    'Content-Type'?: string;
     Authorization?: string;
   };
   method?: 'PUT' | 'POST' | 'GET' | 'DELETE';
