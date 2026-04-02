@@ -6,6 +6,7 @@ import { HttpRequest } from '../types/HttpRequest';
 import { UserRole } from '../../types/UserRole';
 import { getMissingFields } from '../../helpers/getMissingFields';
 import { DeleteByIdResponse } from './responses';
+import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
 
 export class CaseController implements ICaseController {
   constructor(private caseService: ICaseService, private userService: IUserService) {}
@@ -18,15 +19,11 @@ export class CaseController implements ICaseController {
       }
 
       const authUser = httpRequest.user;
-
       if (!authUser) {
-        return HttpResponseFactory.makeBadRequest<null>({
-          message: 'Missing authenticated user',
-        });
+        throw new MissingAuthenticatedUserError();
       }
 
       const authUserData = await this.userService.findById(authUser.id);
-
       if (authUserData.role !== UserRole.lawyer) {
         return HttpResponseFactory.makeForbidden<null>({
           message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
@@ -77,15 +74,11 @@ export class CaseController implements ICaseController {
       }
 
       const authUser = httpRequest.user;
-
       if (!authUser) {
-        return HttpResponseFactory.makeBadRequest<null>({
-          message: 'Missing authenticated user',
-        });
+        throw new MissingAuthenticatedUserError();
       }
 
       const authUserData = await this.userService.findById(authUser.id);
-
       if (authUserData.role !== UserRole.lawyer) {
         return HttpResponseFactory.makeForbidden<null>({
           message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
@@ -188,13 +181,10 @@ export class CaseController implements ICaseController {
       const authUser = httpRequest.user;
 
       if (!authUser) {
-        return HttpResponseFactory.makeBadRequest<null>({
-          message: 'Missing authenticated user',
-        });
+        throw new MissingAuthenticatedUserError();
       }
 
       const authUserData = await this.userService.findById(authUser.id);
-
       if (authUserData.role !== UserRole.lawyer) {
         return HttpResponseFactory.makeForbidden<null>({
           message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
@@ -248,7 +238,6 @@ export class CaseController implements ICaseController {
   findFilesByCaseId = async (httpRequest: HttpRequest) => {
     try {
       const caseId = httpRequest.params.id;
-
       if (!caseId) {
         return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing case id' });
       }
@@ -277,7 +266,7 @@ export class CaseController implements ICaseController {
 
       const authUser = httpRequest.user;
       if (!authUser) {
-        return HttpResponseFactory.makeUnouthorized<null>({ message: 'User is not authenticated' });
+        throw new MissingAuthenticatedUserError();
       }
 
       const authUserData = await this.userService.findById(authUser.id);
