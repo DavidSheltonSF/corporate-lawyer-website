@@ -12,10 +12,10 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
     const token = req.headers.authorization;
 
     if (!token) {
-      console.log('Token missing');
+      console.log('Missing session token');
       return res
         .status(401)
-        .send(HttpResponseFactory.makeUnouthorized({ message: 'Token missing' }));
+        .send(HttpResponseFactory.makeUnouthorized({ message: 'Missing session token' }));
     }
 
     const API_SECRET = process.env.API_SECRET;
