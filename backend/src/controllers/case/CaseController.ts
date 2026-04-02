@@ -248,7 +248,6 @@ export class CaseController implements ICaseController {
   findFilesByCaseId = async (httpRequest: HttpRequest) => {
     try {
       const caseId = httpRequest.params.id;
-      console.log(caseId);
 
       if (!caseId) {
         return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing case id' });
