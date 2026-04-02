@@ -1,10 +1,10 @@
 import { API_URL } from '@/config/api';
 import { InvalidAPIResponseError } from '@/errors/InvalidAPIResponseError';
 import { MissingRequiredArgumentError } from '@/errors/MissingRequiredArgumentError';
-import { Case } from '@/types/Case';
+import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { WithId } from '@/types/WithId';
 
-export async function getCaseById(id: string): Promise<WithId<Case>> {
+export async function getCaseById(id: string): Promise<WithId<CaseWithRelations>> {
   if (!id) {
     throw new MissingRequiredArgumentError(getCaseById.name, 'id');
   }
