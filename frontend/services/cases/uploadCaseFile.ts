@@ -1,21 +1,13 @@
-import { ServerError } from '@/errors/ServerError';
 import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
+import { apiFetch } from '../apiFetch';
 
 export async function uploadCaseFile(formData: FormData, id: string) {
   const token = await getTokenFromCookies();
-  const response = await fetch(`/api/my/cases/${id}/caseFiles`, {
+  await apiFetch(`/api/my/cases/${id}/caseFiles`, {
     headers: {
       Authorization: token,
     },
     method: 'POST',
     body: formData,
   });
-
-  if (response.status === 500) {
-    throw new ServerError();
-  }
-
-  if (!response.ok) {
-    throw Error(await response.text());
-  }
 }
