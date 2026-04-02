@@ -1,8 +1,7 @@
 import { API_URL } from '@/config/api';
-import { ServerError } from '@/errors/ServerError';
-import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 import { SafeUser } from '@/types/SafeUser';
 import { WithId } from '@/types/WithId';
+import { apiFetch } from '../apiFetch';
 
 export async function updateUser(id: string, formData: FormData): Promise<WithId<SafeUser>> {
   const firstName = formData.get('firstName');
@@ -10,11 +9,9 @@ export async function updateUser(id: string, formData: FormData): Promise<WithId
   const email = formData.get('email');
   const cpf = formData.get('cpf');
 
-  const token = await getTokenFromCookies();
-  const response = await fetch(`${API_URL}/users/${id}`, {
+  const response = await apiFetch(`${API_URL}/users/${id}`, {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: token,
     },
     method: 'PUT',
     body: JSON.stringify({
@@ -24,15 +21,6 @@ export async function updateUser(id: string, formData: FormData): Promise<WithId
       cpf,
     }),
   });
-
-  if (response.status === 500) {
-    throw new ServerError();
-  }
-
-  if (!response.ok) {
-    const json = await response.json();
-    throw Error(json.message);
-  }
 
   const json = await response.json();
 
