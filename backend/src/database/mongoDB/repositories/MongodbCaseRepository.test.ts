@@ -230,4 +230,27 @@ describe('Test CaseRepository', () => {
     expect(result[0]?.size).toBe(newFile.size);
     expect(result[0]?.uploadedBy.id).toBe(newFile.uploadedBy);
   });
+
+  test('should delete a case from the database', async () => {
+    const {caseRepository, clientId, lawyerId} = await makeSut();
+
+    const newCase = {
+      client: clientId,
+      lawyers: [lawyerId],
+      processNumber: '354435235425623',
+      title: 'Case title',
+      description: 'Case description',
+      court: 'court', //tribunal
+      courtDivision: 'court division', //vara
+      status: CasesStatus.open,
+    };
+
+    const caseId = (await CaseModel.create(newCase))._id.toString();
+
+    await caseRepository.deleteById(caseId);
+
+    const findCaseResult = await CaseModel.findById(caseId);
+    
+    expect(findCaseResult).toBeNull()
+  });
 });

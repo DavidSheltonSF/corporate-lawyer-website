@@ -15,6 +15,7 @@ import { CreateCaseFileDTO } from '../../../dtos/caseFile/CreateCaseFileDTO';
 import { CaseFileDTO } from '../../../dtos/caseFile/CaseFileDTO';
 import { CaseFileMapper } from '../../../mappers/CaseFile/CaseFileMapper';
 import { UpdateCaseDTO } from '../../../dtos/case/UpdateCaseDTO';
+import { CaseResponseDTO } from '../../../dtos/case/CaseResponseDTO';
 
 export class MongodbCaseRepository implements CaseRepository {
   async create(data: CreateCaseDTO): Promise<WithId<Case>> {
@@ -36,7 +37,7 @@ export class MongodbCaseRepository implements CaseRepository {
   }
 
   async updateById(id: string, data: UpdateCaseDTO): Promise<WithId<Case>> {
-    const cas = await CaseModel.findByIdAndUpdate(id, data, {returnDocument: 'after' });
+    const cas = await CaseModel.findByIdAndUpdate(id, data, { returnDocument: 'after' });
     return CaseMapper.persistenceToDomain(cas);
   }
 
@@ -167,6 +168,11 @@ export class MongodbCaseRepository implements CaseRepository {
 
     const caseFiles = foundCase.files;
     return caseFiles.map(CaseFileMapper.persistenceToPresentation);
+  }
+
+  async deleteById(id: string): Promise<WithId<CaseResponseDTO>> {
+    const result = await CaseModel.findByIdAndDelete(id, { returnDocument: 'after' });
+    return CaseMapper.persistenceToPresentation(result);
   }
 
   async deleteByUserId(id: string): Promise<{

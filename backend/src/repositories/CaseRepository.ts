@@ -8,6 +8,7 @@ import { CasesStats } from '../types/CasesStats';
 import { Page } from '../types/Page';
 import { WithId } from '../types/WithId';
 import { UpdateCaseDTO } from '../dtos/case/UpdateCaseDTO';
+import { CaseResponseDTO } from '../dtos/case/CaseResponseDTO';
 
 export interface CaseRepository {
   create(user: CreateCaseDTO): Promise<WithId<Case>>;
@@ -19,6 +20,7 @@ export interface CaseRepository {
   getStats(): Promise<CasesStats>;
   findFilesByCaseId(caseId: string): Promise<WithId<CaseFileDTO>[]>;
   exists(id: string): Promise<boolean>;
+  deleteById(id: string): Promise<WithId<CaseResponseDTO>>;
   deleteByUserId(id: string): Promise<{
     acknowledged: boolean;
     deletedCount: number;

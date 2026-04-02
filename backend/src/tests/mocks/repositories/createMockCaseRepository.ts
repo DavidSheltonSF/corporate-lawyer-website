@@ -9,6 +9,7 @@ export const createMockCaseRepository = (): CaseRepository => {
     updateById: jest.fn().mockResolvedValue(mockCaseMongoDocs[0]!),
     getStats: jest.fn().mockResolvedValue({ inProgress: 2, closed: 3 }),
     getStatsByClientId: jest.fn().mockResolvedValue({ inProgress: 2, closed: 3 }),
+    deleteById: jest.fn().mockResolvedValue(mockCaseMongoDocs[0]!),
     deleteByUserId: jest.fn().mockResolvedValue({
       acknowledged: true,
       deletedCount: 3,
