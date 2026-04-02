@@ -5,12 +5,25 @@ import { HttpRequest } from '../types/HttpRequest';
 import { DomainError } from '../../errors/domain/DomainError';
 import { UserNotFoundError } from '../../errors/application/UserNotFoundError';
 import { UserRole } from '../../types/UserRole';
+import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
 
 export class UserController implements IUserController {
   constructor(private userService: IUserService) {}
 
   createClient = async (httpRequest: HttpRequest) => {
     try {
+      const authUser = httpRequest.user;
+      if (!authUser) {
+        throw new MissingAuthenticatedUserError();
+      }
+
+      const authUserData = await this.userService.findById(authUser.id);
+      if (authUserData.role !== UserRole.lawyer) {
+        return HttpResponseFactory.makeForbidden<null>({
+          message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
+        });
+      }
+
       const body = httpRequest.body;
       if (!body) {
         return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing request body' });
@@ -44,6 +57,18 @@ export class UserController implements IUserController {
   };
 
   findClients = async (httpRequest: HttpRequest) => {
+    const authUser = httpRequest.user;
+    if (!authUser) {
+      throw new MissingAuthenticatedUserError();
+    }
+
+    const authUserData = await this.userService.findById(authUser.id);
+    if (authUserData.role !== UserRole.lawyer) {
+      return HttpResponseFactory.makeForbidden<null>({
+        message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
+      });
+    }
+
     const { query = '', limit = 4, page = 1 } = httpRequest.query;
     const data = await this.userService.findClients({ query, limit, page });
     return HttpResponseFactory.makeOk({ data });
@@ -74,6 +99,18 @@ export class UserController implements IUserController {
 
   findClientById = async (httpRequest: HttpRequest) => {
     try {
+      const authUser = httpRequest.user;
+      if (!authUser) {
+        throw new MissingAuthenticatedUserError();
+      }
+
+      const authUserData = await this.userService.findById(authUser.id);
+      if (authUserData.role !== UserRole.lawyer) {
+        return HttpResponseFactory.makeForbidden<null>({
+          message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
+        });
+      }
+
       const { id } = httpRequest.params;
       const { include } = httpRequest.query;
 
@@ -100,30 +137,26 @@ export class UserController implements IUserController {
 
   updateById = async (httpRequest: HttpRequest) => {
     try {
-      const { id } = httpRequest.params;
       const authUser = httpRequest.user;
-      const body = httpRequest.body;
-
       if (!authUser) {
-        return HttpResponseFactory.makeBadRequest<null>({
-          message: 'Missing authenticated user',
-        });
-      }
-
-      if (!id) {
-        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing user id' });
-      }
-
-      if (!body) {
-        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing request body' });
+        throw new MissingAuthenticatedUserError();
       }
 
       const authUserData = await this.userService.findById(authUser.id);
-
       if (authUserData.role !== UserRole.lawyer) {
         return HttpResponseFactory.makeForbidden<null>({
           message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
         });
+      }
+
+      const { id } = httpRequest.params;
+      if (!id) {
+        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing user id' });
+      }
+
+      const body = httpRequest.body;
+      if (!body) {
+        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing request body' });
       }
 
       const result = await this.userService.updateById(id, body);
@@ -144,25 +177,21 @@ export class UserController implements IUserController {
 
   deleteById = async (httpRequest: HttpRequest) => {
     try {
-      const { id } = httpRequest.params;
       const authUser = httpRequest.user;
-
       if (!authUser) {
-        return HttpResponseFactory.makeBadRequest<null>({
-          message: 'Missing authenticated user',
-        });
-      }
-
-      if (!id) {
-        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing user id' });
+        throw new MissingAuthenticatedUserError();
       }
 
       const authUserData = await this.userService.findById(authUser.id);
-
       if (authUserData.role !== UserRole.lawyer) {
         return HttpResponseFactory.makeForbidden<null>({
           message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
         });
+      }
+
+      const { id } = httpRequest.params;
+      if (!id) {
+        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing user id' });
       }
 
       const result = await this.userService.deleteById(id);
