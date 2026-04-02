@@ -1,8 +1,7 @@
 import { API_URL } from '@/config/api';
-import { ServerError } from '@/errors/ServerError';
-import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 import { Case } from '@/types/Case';
 import { WithId } from '@/types/WithId';
+import { apiFetch } from '../apiFetch';
 
 export async function createCase(
   clientId: string,
@@ -16,22 +15,9 @@ export async function createCase(
   const courtDivision = formData.get('courtDivision');
   const status = formData.get('status');
 
-  console.log({
-    client: clientId,
-    lawyers: [lawyerId],
-    title,
-    description,
-    processNumber,
-    court,
-    courtDivision,
-    status,
-  });
-
-  const token = await getTokenFromCookies();
-  const response = await fetch(`${API_URL}/cases`, {
+  const response = await apiFetch(`${API_URL}/cases`, {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: token,
     },
     method: 'POST',
     body: JSON.stringify({
@@ -45,15 +31,6 @@ export async function createCase(
       status,
     }),
   });
-
-  if (response.status === 500) {
-    throw new ServerError();
-  }
-
-  if (!response.ok) {
-    const json = await response.json();
-    throw Error(json.message);
-  }
 
   const json = await response.json();
 
