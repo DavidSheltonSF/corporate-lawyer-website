@@ -5,7 +5,6 @@ import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFa
 import { HttpRequest } from '../types/HttpRequest';
 import { UserRole } from '../../types/UserRole';
 import { getMissingFields } from '../../helpers/getMissingFields';
-import { DeleteByIdResponse } from './responses';
 import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
 
 export class CaseController implements ICaseController {
