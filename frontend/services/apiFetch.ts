@@ -11,13 +11,13 @@ interface RequestInit {
   method?: 'PUT' | 'POST' | 'GET' | 'DELETE';
 }
 
-export async function apiFetch(url: string, options: RequestInit): Promise<Response> {
+export async function apiFetch(url: string, options?: RequestInit): Promise<Response> {
   const token = await getTokenFromCookies();
 
   const response = await fetch(url, {
     ...options,
     headers: {
-      ...(options.headers || {}),
+      ...(options?.headers || {}),
       Authorization: token,
     },
   });
