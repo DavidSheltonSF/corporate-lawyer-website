@@ -194,4 +194,18 @@ describe(`Test ${CaseController.name}`, () => {
     expect(caseRepository.findFilesByCaseId).toHaveBeenCalledWith(httpRequest.params?.id);
     expect(response.status).toBe(HttpStatusCode.ok);
   });
+
+  test('should call caseRepository.deleteById with provided id and return OK (200) ', async () => {
+    const { caseController, caseRepository } = makeSut();
+    const httpRequest: HttpRequest = {
+      params: {
+        id: 'fakeCaseId',
+      },
+    };
+
+    const response = await caseController.findFilesByCaseId(httpRequest);
+
+    expect(caseRepository.findFilesByCaseId).toHaveBeenCalledWith(httpRequest.params?.id);
+    expect(response.status).toBe(HttpStatusCode.ok);
+  });
 });

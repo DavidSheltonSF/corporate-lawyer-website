@@ -1,6 +1,7 @@
 import {
   AddFileResponse,
   CreateResponse,
+  DeleteByIdResponse,
   FindByClientResponse,
   FindByIdResponse,
   FindFilesByCaseId,
@@ -17,4 +18,5 @@ export interface ICaseController {
   getStats: (httpRequest: HttpRequest) => Promise<GetMyStatsResponse>;
   uploadMyFile: (httpRequest: HttpRequest) => Promise<AddFileResponse>;
   findFilesByCaseId: (httpRequest: HttpRequest) => Promise<FindFilesByCaseId>;
+  deleteById: (httpRequest: HttpRequest) => Promise<DeleteByIdResponse>
 }

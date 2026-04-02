@@ -5,6 +5,7 @@ import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFa
 import { HttpRequest } from '../types/HttpRequest';
 import { UserRole } from '../../types/UserRole';
 import { getMissingFields } from '../../helpers/getMissingFields';
+import { DeleteByIdResponse } from './responses';
 
 export class CaseController implements ICaseController {
   constructor(private caseService: ICaseService, private userService: IUserService) {}
@@ -265,6 +266,35 @@ export class CaseController implements ICaseController {
     } catch (error: any) {
       console.log(error);
       return HttpResponseFactory.makeServerError<null>({ message: error });
+    }
+  };
+
+  deleteById = async (httpRequest: HttpRequest) => {
+    try {
+      const { id } = httpRequest.params;
+      if (!id) {
+        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing case id' });
+      }
+
+      const authUser = httpRequest.user;
+      if (!authUser) {
+        return HttpResponseFactory.makeUnouthorized<null>({ message: 'User is not authenticated' });
+      }
+
+      const authUserData = await this.userService.findById(authUser.id);
+      if (authUserData.role !== UserRole.lawyer) {
+        return HttpResponseFactory.makeForbidden<null>({
+          message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
+        });
+      }
+
+      await this.caseService.deleteById(id);
+
+      return HttpResponseFactory.makeNoContent();
+    } catch (error: any) {
+      console.log(error);
+
+      return HttpResponseFactory.makeServerError<null>({ message: error.message });
     }
   };
 }
