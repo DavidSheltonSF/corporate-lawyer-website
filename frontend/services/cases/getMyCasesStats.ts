@@ -1,19 +1,16 @@
 import { API_URL } from '@/config/api';
 import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 import { CasesStats } from '@/types/CasesStats';
+import { apiFetch } from '../apiFetch';
 
 export async function getMyCasesStats(): Promise<CasesStats> {
   const token = await getTokenFromCookies();
 
-  const response = await fetch(`${API_URL}/my/cases/stats`, {
+  const response = await apiFetch(`${API_URL}/my/cases/stats`, {
     headers: {
       Authorization: token,
     },
   });
-
-  if (!response.ok) {
-    throw Error(await response.text());
-  }
 
   const json = await response.json();
 
