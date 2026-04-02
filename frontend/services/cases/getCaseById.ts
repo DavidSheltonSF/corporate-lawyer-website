@@ -3,17 +3,15 @@ import { InvalidAPIResponseError } from '@/errors/InvalidAPIResponseError';
 import { MissingRequiredArgumentError } from '@/errors/MissingRequiredArgumentError';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { WithId } from '@/types/WithId';
+import { apiFetch } from '../apiFetch';
 
 export async function getCaseById(id: string): Promise<WithId<CaseWithRelations>> {
   if (!id) {
     throw new MissingRequiredArgumentError(getCaseById.name, 'id');
   }
 
-  const response = await fetch(`${API_URL}/cases/${id}`);
+  const response = await apiFetch(`${API_URL}/cases/${id}`);
 
-  if (!response.ok) {
-    throw new Error(await response.text().catch(() => 'Unknown Error'));
-  }
   const json = await response.json();
 
   if (!json?.data) {
