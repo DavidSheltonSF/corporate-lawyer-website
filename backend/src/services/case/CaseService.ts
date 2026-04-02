@@ -113,4 +113,8 @@ export class CaseService implements ICaseService {
   async findFilesByCaseId(id: string): Promise<WithId<CaseFileDTO>[]> {
     return await this.caseRepository.findFilesByCaseId(id);
   }
+
+  async deleteById(id: string): Promise<WithId<CaseResponseDTO>> {
+    return this.caseRepository.deleteById(id);
+  }
 }

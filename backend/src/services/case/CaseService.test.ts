@@ -74,4 +74,13 @@ describe('Test CaseService', () => {
     await caseService.findFilesByCaseId(caseId);
     expect(caseRepository.findFilesByCaseId).toHaveBeenLastCalledWith(caseId);
   });
+
+  test('should call caseRepository.deleteById with the provided id', async () => {
+    const { caseService, caseRepository } = makeSut();
+
+    const caseId = 'fakeid';
+
+    await caseService.deleteById(caseId);
+    expect(caseRepository.deleteById).toHaveBeenLastCalledWith(caseId);
+  });
 });
