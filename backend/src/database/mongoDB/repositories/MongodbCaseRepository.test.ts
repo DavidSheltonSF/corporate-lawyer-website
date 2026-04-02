@@ -62,6 +62,8 @@ describe('Test CaseRepository', () => {
   test('should update a case data', async () => {
     const { caseRepository, clientId, lawyerId } = await makeSut();
     const newCase = {
+      client: clientId,
+      lawyers: [lawyerId],
       processNumber: '354435235425623',
       title: 'Case title',
       description: 'Case description',
