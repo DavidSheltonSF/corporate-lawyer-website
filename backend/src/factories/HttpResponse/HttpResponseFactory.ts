@@ -15,6 +15,10 @@ export class HttpResponseFactory {
     return this.make<T>(HttpStatusCode.created, params);
   }
 
+  static makeNoContent(): HttpResponse<null> {
+    return this.make<null>(HttpStatusCode.no_content);
+  }
+
   static makeUnprocessableEntity<T>(params: HttpResponseParams<T>): HttpResponse<T> {
     return this.make<T>(HttpStatusCode.unprocessable_entity, params);
   }
