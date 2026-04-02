@@ -1,6 +1,5 @@
 import { API_URL } from '@/config/api';
 import { MissingRequiredArgumentError } from '@/errors/MissingRequiredArgumentError';
-import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { Page } from '@/types/Page';
 import { WithId } from '@/types/WithId';
@@ -27,13 +26,7 @@ export async function getMyCases(
     status || ''
   }&populate=${populate || ''}`;
 
-  const token = await getTokenFromCookies();
-
-  const response = await apiFetch(`${baseRoute}/${queryString}`, {
-    headers: {
-      Authorization: token,
-    },
-  });
+  const response = await apiFetch(`${baseRoute}/${queryString}`);
 
   const responseJson = await response.json();
 

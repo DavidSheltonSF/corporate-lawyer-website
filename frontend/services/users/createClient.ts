@@ -1,5 +1,4 @@
 import { API_URL } from '@/config/api';
-import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 import { User } from '@/types/User';
 import { WithId } from '@/types/WithId';
 import { apiFetch } from '../apiFetch';
@@ -10,11 +9,9 @@ export async function createClient(formData: FormData): Promise<WithId<User>> {
   const email = formData.get('email');
   const cpf = formData.get('cpf');
 
-  const token = await getTokenFromCookies();
   const response = await apiFetch(`${API_URL}/clients`, {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: token,
     },
     method: 'POST',
     body: JSON.stringify({
