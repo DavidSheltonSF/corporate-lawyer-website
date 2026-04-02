@@ -1,9 +1,9 @@
 import { API_URL } from '@/config/api';
-import { ServerError } from '@/errors/ServerError';
 import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 import { Case } from '@/types/Case';
 import { WithId } from '@/types/WithId';
 import { mapLabelToCaseStatus } from '@/mapper/mapLabelToCaseStatus';
+import { apiFetch } from '../apiFetch';
 
 export async function updateCaseById(id: string, formData: FormData): Promise<WithId<Case>> {
   const title = formData.get('title');
@@ -15,7 +15,7 @@ export async function updateCaseById(id: string, formData: FormData): Promise<Wi
   const mappedStatus = mapLabelToCaseStatus(status?.toString() || '');
 
   const token = await getTokenFromCookies();
-  const response = await fetch(`${API_URL}/cases/${id}`, {
+  const response = await apiFetch(`${API_URL}/cases/${id}`, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: token,
@@ -30,15 +30,6 @@ export async function updateCaseById(id: string, formData: FormData): Promise<Wi
       status: mappedStatus,
     }),
   });
-
-  if (response.status === 500) {
-    throw new ServerError();
-  }
-
-  if (!response.ok) {
-    const json = await response.json();
-    throw Error(json.message);
-  }
 
   const json = await response.json();
 
