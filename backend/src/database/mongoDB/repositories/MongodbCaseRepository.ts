@@ -170,8 +170,11 @@ export class MongodbCaseRepository implements CaseRepository {
     return caseFiles.map(CaseFileMapper.persistenceToPresentation);
   }
 
-  async deleteById(id: string): Promise<WithId<CaseResponseDTO>> {
+  async deleteById(id: string): Promise<WithId<CaseResponseDTO> | null> {
     const result = await CaseModel.findByIdAndDelete(id, { returnDocument: 'after' });
+    if (!result) {
+      return null;
+    }
     return CaseMapper.persistenceToPresentation(result);
   }
 

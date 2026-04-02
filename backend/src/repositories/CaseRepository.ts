@@ -20,7 +20,7 @@ export interface CaseRepository {
   getStats(): Promise<CasesStats>;
   findFilesByCaseId(caseId: string): Promise<WithId<CaseFileDTO>[]>;
   exists(id: string): Promise<boolean>;
-  deleteById(id: string): Promise<WithId<CaseResponseDTO>>;
+  deleteById(id: string): Promise<WithId<CaseResponseDTO> | null>;
   deleteByUserId(id: string): Promise<{
     acknowledged: boolean;
     deletedCount: number;
