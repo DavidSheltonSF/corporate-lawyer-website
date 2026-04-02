@@ -4,42 +4,42 @@ import { HttpResponseParams } from './HttpResponseParams';
 
 export class HttpResponseFactory {
   private static make<T>(status: HttpStatusCode, params?: HttpResponseParams<T>): HttpResponse<T> {
-    return { status, ...params };
+    return { status, ...(params ?? {}) };
   }
 
-  static makeOk<T>(params: HttpResponseParams<T>): HttpResponse<T> {
-    return this.make<T>(HttpStatusCode.ok, params);
+  static makeOk<T>(data: T): HttpResponse<T> {
+    return this.make<T>(HttpStatusCode.ok, { data });
   }
 
-  static makeCreated<T>(params: HttpResponseParams<T>): HttpResponse<T> {
-    return this.make<T>(HttpStatusCode.created, params);
+  static makeCreated<T>(data: T): HttpResponse<T> {
+    return this.make<T>(HttpStatusCode.created, { data });
   }
 
   static makeNoContent(): HttpResponse<null> {
     return this.make<null>(HttpStatusCode.no_content);
   }
 
-  static makeUnprocessableEntity<T>(params: HttpResponseParams<T>): HttpResponse<T> {
-    return this.make<T>(HttpStatusCode.unprocessable_entity, params);
+  static makeUnprocessableEntity(message: string): HttpResponse<null> {
+    return this.make<null>(HttpStatusCode.unprocessable_entity, { message });
   }
 
-  static makeUnouthorized<T>(params: HttpResponseParams<T>): HttpResponse<T> {
-    return this.make<T>(HttpStatusCode.unauthorized, params);
+  static makeUnauthorized(message: string): HttpResponse<null> {
+    return this.make<null>(HttpStatusCode.unauthorized, { message });
   }
 
-  static makeForbidden<T>(params: HttpResponseParams<T>): HttpResponse<T> {
-    return this.make<T>(HttpStatusCode.forbidden, params);
+  static makeForbidden(message: string): HttpResponse<null> {
+    return this.make<null>(HttpStatusCode.forbidden, { message });
   }
 
-  static makeBadRequest<T>(params: HttpResponseParams<T>): HttpResponse<T> {
-    return this.make<T>(HttpStatusCode.bad_request, params);
+  static makeBadRequest(message: string): HttpResponse<null> {
+    return this.make<null>(HttpStatusCode.bad_request, { message });
   }
 
-  static makeNotFound<T>(params: HttpResponseParams<T>): HttpResponse<T> {
-    return this.make<T>(HttpStatusCode.not_found, params);
+  static makeNotFound(message: string): HttpResponse<null> {
+    return this.make<null>(HttpStatusCode.not_found, { message });
   }
 
-  static makeServerError<T>(params: HttpResponseParams<T>): HttpResponse<T> {
-    return this.make<T>(HttpStatusCode.server_error, params);
+  static makeServerError(message: string): HttpResponse<null> {
+    return this.make<null>(HttpStatusCode.server_error, { message });
   }
 }
