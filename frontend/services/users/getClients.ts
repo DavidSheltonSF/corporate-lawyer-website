@@ -1,9 +1,9 @@
 import { API_URL } from '@/config/api';
 import { MissingRequiredArgumentError } from '@/errors/MissingRequiredArgumentError';
-import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 import { Page } from '@/types/Page';
 import { SafeUser } from '@/types/SafeUser';
 import { WithId } from '@/types/WithId';
+import { apiFetch } from '../apiFetch';
 
 export async function getClients(queryParams: {
   query?: string;
@@ -24,17 +24,7 @@ export async function getClients(queryParams: {
       status || ''
     }`;
 
-    const token = await getTokenFromCookies();
-
-    const response = await fetch(`${baseRoute}/${queryString}`, {
-      headers: {
-        Authorization: token,
-      },
-    });
-
-    if (!response.ok) {
-      throw Error(await response.text());
-    }
+    const response = await apiFetch(`${baseRoute}/${queryString}`);
 
     const responseJson = await response.json();
 
