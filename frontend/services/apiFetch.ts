@@ -6,6 +6,7 @@ interface RequestInit {
     'Content-Type'?: string;
     Authorization?: string;
   };
+  body?: any,
   method?: 'PUT' | 'POST' | 'GET' | 'DELETE';
 }
 
