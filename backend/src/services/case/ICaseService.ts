@@ -17,5 +17,5 @@ export interface ICaseService {
   getStats(): Promise<CasesStats | null>;
   addFile(caseId: string, file: CreateCaseFileDTO): Promise<void>;
   findFilesByCaseId(id: string): Promise<WithId<CaseFileDTO>[]>;
-  deleteById(id: string): Promise<WithId<CaseResponseDTO>>;
+  deleteById(id: string): Promise<void>;
 }
