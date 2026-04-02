@@ -1,7 +1,6 @@
 'use client';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { PrimaryModalWindow } from './PrimaryModalWindow';
-import { fetchCaseById } from '@/services/cases/fetchCaseById';
 import { FieldValue } from '../FieldValue';
 import { CaseFilesSection } from '../CaseFilesSection';
 import { CaseModalSkeleton } from './CaseModalSkeleton';
@@ -9,6 +8,7 @@ import { formatStringList } from '@/lib/formatStringList';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { OpenUploadModalButton } from '../OpenUploadModalButton';
+import { getCaseById } from '@/services/cases/getCaseById';
 
 interface Props {
   selectedCaseId: string | null;
@@ -25,7 +25,7 @@ export function CaseModal({ selectedCaseId, isOpen, setIsOpen }: Props) {
       try {
         if (!isOpen || !selectedCaseId) return;
         setLoading(true);
-        const caseFound = await fetchCaseById(selectedCaseId, ['client', 'lawyers']);
+        const caseFound = await getCaseById(selectedCaseId);
         setCaseData(caseFound);
         setLoading(false);
       } catch (error) {
