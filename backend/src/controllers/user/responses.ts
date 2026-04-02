@@ -6,7 +6,7 @@ import { HttpResponse } from '../types/HttpResponse';
 
 export type CreateResponse = HttpResponse<WithId<UserResponseDTO> | null>;
 export type FindAllResponse = HttpResponse<WithId<UserResponseDTO>[]>;
-export type FindClientsResponse = HttpResponse<Page<WithId<UserResponseDTO>>>;
+export type FindClientsResponse = HttpResponse<Page<WithId<UserResponseDTO>> | null>;
 export type FindByIdResponse = HttpResponse<WithId<UserResponseDTO> | null>;
 export type FindClientByIdResponse = HttpResponse<
   (WithId<UserResponseDTO> & { cases: CaseResponseDTO[] }) | null
