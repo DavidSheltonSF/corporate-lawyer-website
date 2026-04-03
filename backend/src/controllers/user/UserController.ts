@@ -19,17 +19,17 @@ export class UserController implements IUserController {
 
       const authUserData = await this.userService.findById(authUser.id);
       if (authUserData.role !== UserRole.lawyer) {
-        return HttpResponseFactory.makeForbidden<null>({
-          message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
-        });
+        return HttpResponseFactory.makeForbidden(
+          `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`
+        );
       }
 
       const body = httpRequest.body;
       if (!body) {
-        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing request body' });
+        return HttpResponseFactory.makeBadRequest('Missing request body');
       }
 
-      const { firstName, lastName, email, cpf, password, role } = body;
+      const { firstName, lastName, email, cpf } = body;
 
       const data = await this.userService.createClient({
         firstName,
@@ -38,22 +38,20 @@ export class UserController implements IUserController {
         cpf,
       });
 
-      return HttpResponseFactory.makeCreated({ data });
+      return HttpResponseFactory.makeCreated(data);
     } catch (error: unknown) {
       console.log(error);
 
       if (error instanceof DomainError) {
-        return HttpResponseFactory.makeUnprocessableEntity<null>({
-          message: error.message,
-        });
+        return HttpResponseFactory.makeUnprocessableEntity(error.message);
       }
-      return HttpResponseFactory.makeServerError<null>({ message: 'Internal server error' });
+      return HttpResponseFactory.makeServerError('Internal server error');
     }
   };
 
-  findAll = async (httpRequest: HttpRequest) => {
+  findAll = async () => {
     const data = await this.userService.findAll();
-    return HttpResponseFactory.makeOk({ data });
+    return HttpResponseFactory.makeOk(data);
   };
 
   findClients = async (httpRequest: HttpRequest) => {
@@ -64,14 +62,14 @@ export class UserController implements IUserController {
 
     const authUserData = await this.userService.findById(authUser.id);
     if (authUserData.role !== UserRole.lawyer) {
-      return HttpResponseFactory.makeForbidden<null>({
-        message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
-      });
+      return HttpResponseFactory.makeForbidden(
+        `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`
+      );
     }
 
     const { query = '', limit = 4, page = 1 } = httpRequest.query;
     const data = await this.userService.findClients({ query, limit, page });
-    return HttpResponseFactory.makeOk({ data });
+    return HttpResponseFactory.makeOk(data);
   };
 
   findById = async (httpRequest: HttpRequest) => {
@@ -79,21 +77,21 @@ export class UserController implements IUserController {
       const { id } = httpRequest.params;
 
       if (!id) {
-        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing id param' });
+        return HttpResponseFactory.makeBadRequest('Missing id param');
       }
 
       const foundUser = await this.userService.findById(id);
 
-      return HttpResponseFactory.makeOk({ data: foundUser });
+      return HttpResponseFactory.makeOk(foundUser);
     } catch (error: any) {
       console.log(error);
 
       // Check if it is NotFound error
       if (error.statusCode === 404) {
-        return HttpResponseFactory.makeNotFound<null>({ message: error.message });
+        return HttpResponseFactory.makeNotFound(error.message);
       }
 
-      return HttpResponseFactory.makeServerError<null>({ message: error.message });
+      return HttpResponseFactory.makeServerError(error.message);
     }
   };
 
@@ -106,32 +104,32 @@ export class UserController implements IUserController {
 
       const authUserData = await this.userService.findById(authUser.id);
       if (authUserData.role !== UserRole.lawyer) {
-        return HttpResponseFactory.makeForbidden<null>({
-          message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
-        });
+        return HttpResponseFactory.makeForbidden(
+          `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`
+        );
       }
 
       const { id } = httpRequest.params;
       const { include } = httpRequest.query;
 
       if (!id) {
-        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing id param' });
+        return HttpResponseFactory.makeBadRequest('Missing id param');
       }
 
       const foundUser = await this.userService.findById(id, {
         cases: include === 'cases',
       });
 
-      return HttpResponseFactory.makeOk({ data: foundUser });
+      return HttpResponseFactory.makeOk(foundUser);
     } catch (error: any) {
       console.log(error);
 
       // Check if it is NotFound error
       if (error.statusCode === 404) {
-        return HttpResponseFactory.makeNotFound<null>({ message: error.message });
+        return HttpResponseFactory.makeNotFound(error.message);
       }
 
-      return HttpResponseFactory.makeServerError<null>({ message: error.message });
+      return HttpResponseFactory.makeServerError(error.message);
     }
   };
 
@@ -144,34 +142,34 @@ export class UserController implements IUserController {
 
       const authUserData = await this.userService.findById(authUser.id);
       if (authUserData.role !== UserRole.lawyer) {
-        return HttpResponseFactory.makeForbidden<null>({
-          message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
-        });
+        return HttpResponseFactory.makeForbidden(
+          `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`
+        );
       }
 
       const { id } = httpRequest.params;
       if (!id) {
-        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing user id' });
+        return HttpResponseFactory.makeBadRequest('Missing user id');
       }
 
       const body = httpRequest.body;
       if (!body) {
-        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing request body' });
+        return HttpResponseFactory.makeBadRequest('Missing request body');
       }
 
       const result = await this.userService.updateById(id, body);
 
-      return HttpResponseFactory.makeOk({ data: result });
+      return HttpResponseFactory.makeOk(result);
     } catch (error: any) {
       if (error instanceof UserNotFoundError) {
-        return HttpResponseFactory.makeNotFound<null>({ message: error.message });
+        return HttpResponseFactory.makeNotFound(error.message);
       }
 
       if (error instanceof DomainError) {
-        return HttpResponseFactory.makeUnprocessableEntity<null>({ message: error.message });
+        return HttpResponseFactory.makeUnprocessableEntity(error.message);
       }
 
-      return HttpResponseFactory.makeServerError<null>({ message: error.message });
+      return HttpResponseFactory.makeServerError(error.message);
     }
   };
 
@@ -184,25 +182,25 @@ export class UserController implements IUserController {
 
       const authUserData = await this.userService.findById(authUser.id);
       if (authUserData.role !== UserRole.lawyer) {
-        return HttpResponseFactory.makeForbidden<null>({
-          message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
-        });
+        return HttpResponseFactory.makeForbidden(
+          `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`
+        );
       }
 
       const { id } = httpRequest.params;
       if (!id) {
-        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing user id' });
+        return HttpResponseFactory.makeBadRequest('Missing user id');
       }
 
       const result = await this.userService.deleteById(id);
 
-      return HttpResponseFactory.makeOk({ data: result });
+      return HttpResponseFactory.makeOk(result);
     } catch (error: any) {
       if (error instanceof UserNotFoundError) {
-        return HttpResponseFactory.makeNotFound<null>({ message: error.message });
+        return HttpResponseFactory.makeNotFound(error.message);
       }
 
-      return HttpResponseFactory.makeServerError<null>({ message: error.message });
+      return HttpResponseFactory.makeServerError(error.message);
     }
   };
 }
