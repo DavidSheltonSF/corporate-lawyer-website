@@ -25,7 +25,7 @@ export class AuthController implements IAuthController {
 
     const user = await this.userService.findByEmail(email);
 
-    return HttpResponseFactory.makeOk({ data: user });
+    return HttpResponseFactory.makeOk( user );
   };
 
   auth = async (httpRequest: HttpRequest) => {
