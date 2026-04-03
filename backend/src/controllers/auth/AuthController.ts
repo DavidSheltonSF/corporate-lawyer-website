@@ -13,14 +13,14 @@ export class AuthController implements IAuthController {
     const token = httpRequest.headers.authorization;
 
     if (!token) {
-      return HttpResponseFactory.makeUnouthorized<null>({ message: 'Token missing' });
+      return HttpResponseFactory.makeUnauthorized('Token missing');
     }
 
     const payload = jwt.decode(token) as JwtPayload;
 
     const email = payload.email;
     if (!email) {
-      return HttpResponseFactory.makeUnouthorized<null>({ message: 'Token provided is invalid' });
+      return HttpResponseFactory.makeUnauthorized('Token provided is invalid');
     }
 
     const user = await this.userService.findByEmail(email);
@@ -33,15 +33,15 @@ export class AuthController implements IAuthController {
       const body = httpRequest.body;
 
       if (!body) {
-        return HttpResponseFactory.makeBadRequest<null>({ message: 'Body request is missing' });
+        return HttpResponseFactory.makeBadRequest('Body request is missing');
       }
 
       const missingFields = getMissingFields(body, ['email', 'password']);
 
       if (missingFields.length > 0) {
-        return HttpResponseFactory.makeBadRequest<null>({
-          message: `Missing required ${missingFields} fields in request body`,
-        });
+        return HttpResponseFactory.makeBadRequest(
+          `Missing required ${missingFields} fields in request body`
+        );
       }
 
       const { email, password } = body;
@@ -54,10 +54,10 @@ export class AuthController implements IAuthController {
 
       // Check if it is Unauthorized error
       if (error.statusCode === 401) {
-        return HttpResponseFactory.makeUnouthorized<null>({ message: error.message });
+        return HttpResponseFactory.makeUnauthorized(error.message);
       }
 
-      return HttpResponseFactory.makeServerError<null>({ message: error.message });
+      return HttpResponseFactory.makeServerError(error.message);
     }
   };
 }
