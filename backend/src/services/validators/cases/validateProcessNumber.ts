@@ -1,4 +1,4 @@
-import { InvalidProcessNumberError } from '../../errors/domain/InvalidProcessNumberError';
+import { InvalidProcessNumberError } from '../../../errors/domain/InvalidProcessNumberError';
 
 export function validateProcessNumber(processNumber: string) {
   const regex = /^\d{20}$/;
