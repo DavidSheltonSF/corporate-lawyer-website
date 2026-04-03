@@ -48,7 +48,7 @@ export class AuthController implements IAuthController {
 
       const auth = await this.authService.authenticate(email, password);
 
-      return HttpResponseFactory.makeOk({ data: auth });
+      return HttpResponseFactory.makeOk(auth);
     } catch (error: any) {
       console.log(error);
 
