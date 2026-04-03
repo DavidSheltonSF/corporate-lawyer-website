@@ -1,4 +1,4 @@
-import { InvalidProcessNumberError } from '../../errors/domain/InvalidProcessNumberError';
+import { InvalidProcessNumberError } from "../../../errors/domain/InvalidProcessNumberError";
 import { validateProcessNumber } from './validateProcessNumber';
 
 describe(`Testing ${validateProcessNumber.name}`, () => {
