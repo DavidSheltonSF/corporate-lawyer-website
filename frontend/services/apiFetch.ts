@@ -18,7 +18,7 @@ export async function apiFetch(url: string, options?: RequestInit): Promise<Resp
     ...options,
     headers: {
       ...(options?.headers || {}),
-      Authorization: token,
+      Authorization: token || '',
     },
   });
 
