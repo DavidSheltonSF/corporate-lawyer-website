@@ -13,9 +13,7 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
 
     if (!token) {
       console.log('Missing session token');
-      return res
-        .status(401)
-        .send(HttpResponseFactory.makeUnouthorized({ message: 'Missing session token' }));
+      return res.status(401).send(HttpResponseFactory.makeUnauthorized('Missing session token'));
     }
 
     const API_SECRET = process.env.API_SECRET;
@@ -38,18 +36,14 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
   } catch (error: any) {
     console.log(error);
     if (error instanceof TokenExpiredError) {
-      return res
-        .status(401)
-        .send(HttpResponseFactory.makeUnouthorized({ message: 'Token expired' }));
+      return res.status(401).send(HttpResponseFactory.makeUnauthorized('Token expired'));
     }
 
     if (error instanceof JsonWebTokenError) {
-      return res
-        .status(401)
-        .send(HttpResponseFactory.makeUnouthorized({ message: 'Invalid token' }));
+      return res.status(401).send(HttpResponseFactory.makeUnauthorized('Invalid token'));
     }
 
     console.log(error);
-    return res.status(500).send(HttpResponseFactory.makeServerError({ message: error }));
+    return res.status(500).send(HttpResponseFactory.makeServerError(error.message));
   }
 }
