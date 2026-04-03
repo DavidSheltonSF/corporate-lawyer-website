@@ -13,4 +13,4 @@ export type UpdateResponse = HttpResponse<WithId<CaseResponseDTO> | null>;
 export type GetMyStatsResponse = HttpResponse<CasesStats | null>;
 export type AddFileResponse = HttpResponse<void | null>;
 export type FindFilesByCaseId = HttpResponse<WithId<CaseFileDTO>[] | null>;
-export type DeleteByIdResponse = HttpResponse<null>;
+export type DeleteByIdResponse = HttpResponse<void>;
