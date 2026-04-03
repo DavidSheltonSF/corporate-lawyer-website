@@ -15,8 +15,8 @@ export class HttpResponseFactory {
     return this.make<T>(HttpStatusCode.created, { data });
   }
 
-  static makeNoContent(): HttpResponse<null> {
-    return this.make<null>(HttpStatusCode.no_content);
+  static makeNoContent(): HttpResponse<void> {
+    return { status: HttpStatusCode.no_content };
   }
 
   static makeUnprocessableEntity(message: string): HttpResponse<null> {
