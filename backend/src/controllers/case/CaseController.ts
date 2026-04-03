@@ -14,7 +14,7 @@ export class CaseController implements ICaseController {
     try {
       const { body } = httpRequest;
       if (!body) {
-        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing request body' });
+        return HttpResponseFactory.makeBadRequest('Missing request body');
       }
 
       const authUser = httpRequest.user;
@@ -24,9 +24,9 @@ export class CaseController implements ICaseController {
 
       const authUserData = await this.userService.findById(authUser.id);
       if (authUserData.role !== UserRole.lawyer) {
-        return HttpResponseFactory.makeForbidden<null>({
-          message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
-        });
+        return HttpResponseFactory.makeForbidden(
+          `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`
+        );
       }
 
       const missingFields = getMissingFields(body, [
@@ -40,23 +40,23 @@ export class CaseController implements ICaseController {
       ]);
 
       if (missingFields.length > 0) {
-        return HttpResponseFactory.makeBadRequest<null>({
-          message: `Missing required fields: ${missingFields.toString()}`,
-        });
+        return HttpResponseFactory.makeBadRequest(
+          `Missing required fields: ${missingFields.toString()}`
+        );
       }
 
       const response = await this.caseService.create(body);
 
-      return HttpResponseFactory.makeCreated({ data: response });
+      return HttpResponseFactory.makeCreated(response);
     } catch (error: any) {
       console.log(error);
 
       // Check if it is NotFound error
       if (error.statusCode === 404) {
-        return HttpResponseFactory.makeNotFound<null>({ message: error.message });
+        return HttpResponseFactory.makeNotFound(error.message);
       }
 
-      return HttpResponseFactory.makeServerError<null>({ message: error.message });
+      return HttpResponseFactory.makeServerError(error.message);
     }
   };
 
@@ -64,12 +64,12 @@ export class CaseController implements ICaseController {
     try {
       const { id } = httpRequest.params;
       if (!id) {
-        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing case id' });
+        return HttpResponseFactory.makeBadRequest('Missing case id');
       }
 
       const { body } = httpRequest;
       if (!body) {
-        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing request body' });
+        return HttpResponseFactory.makeBadRequest('Missing request body');
       }
 
       const authUser = httpRequest.user;
@@ -79,23 +79,23 @@ export class CaseController implements ICaseController {
 
       const authUserData = await this.userService.findById(authUser.id);
       if (authUserData.role !== UserRole.lawyer) {
-        return HttpResponseFactory.makeForbidden<null>({
-          message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
-        });
+        return HttpResponseFactory.makeForbidden(
+          `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`
+        );
       }
 
       const response = await this.caseService.updateById(id, body);
 
-      return HttpResponseFactory.makeOk({ data: response });
+      return HttpResponseFactory.makeOk(response);
     } catch (error: any) {
       console.log(error);
 
       // Check if it is NotFound error
       if (error.statusCode === 404) {
-        return HttpResponseFactory.makeNotFound<null>({ message: error.message });
+        return HttpResponseFactory.makeNotFound(error.message);
       }
 
-      return HttpResponseFactory.makeServerError<null>({ message: error.message });
+      return HttpResponseFactory.makeServerError(error.message);
     }
   };
 
@@ -103,21 +103,21 @@ export class CaseController implements ICaseController {
     try {
       const { id } = httpRequest.params;
       if (!id) {
-        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing id param' });
+        return HttpResponseFactory.makeBadRequest('Missing id param');
       }
 
       const foundCase = await this.caseService.findById(id);
 
-      return HttpResponseFactory.makeOk({ data: foundCase });
+      return HttpResponseFactory.makeOk(foundCase);
     } catch (error: any) {
       console.log(error);
 
       // Check if it is NotFound error
       if (error.statusCode === 404) {
-        return HttpResponseFactory.makeNotFound<null>({ message: error.message });
+        return HttpResponseFactory.makeNotFound(error.message);
       }
 
-      return HttpResponseFactory.makeServerError<null>({ message: error.message });
+      return HttpResponseFactory.makeServerError(error.message);
     }
   };
 
@@ -130,7 +130,7 @@ export class CaseController implements ICaseController {
     const limit = httpRequest.query.limit || 4;
 
     if (!id) {
-      return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing id param' });
+      return HttpResponseFactory.makeBadRequest('Missing id param');
     }
 
     const casesPaginated = await this.caseService.findCases({
@@ -147,7 +147,7 @@ export class CaseController implements ICaseController {
       limit,
     };
 
-    return HttpResponseFactory.makeOk({ data: pagination });
+    return HttpResponseFactory.makeOk(pagination);
   };
 
   getMyStats = async (httpRequest: HttpRequest) => {
@@ -163,15 +163,15 @@ export class CaseController implements ICaseController {
       const clientExists = await this.userService.findById(id);
 
       if (!clientExists) {
-        return HttpResponseFactory.makeNotFound<null>({ message: 'Client not found' });
+        return HttpResponseFactory.makeNotFound('Client not found');
       }
 
       const caseStats = await this.caseService.getStatsByClientId(id);
 
-      return HttpResponseFactory.makeOk({ data: caseStats });
+      return HttpResponseFactory.makeOk(caseStats);
     } catch (error: any) {
       console.log(error);
-      return HttpResponseFactory.makeServerError<null>({ message: error.message });
+      return HttpResponseFactory.makeServerError(error.message);
     }
   };
 
@@ -185,17 +185,17 @@ export class CaseController implements ICaseController {
 
       const authUserData = await this.userService.findById(authUser.id);
       if (authUserData.role !== UserRole.lawyer) {
-        return HttpResponseFactory.makeForbidden<null>({
-          message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
-        });
+        return HttpResponseFactory.makeForbidden(
+          `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`
+        );
       }
 
       const caseStats = await this.caseService.getStats();
 
-      return HttpResponseFactory.makeOk({ data: caseStats });
+      return HttpResponseFactory.makeOk(caseStats);
     } catch (error: any) {
       console.log(error);
-      return HttpResponseFactory.makeServerError<null>({ message: error.message });
+      return HttpResponseFactory.makeServerError(error.message);
     }
   };
 
@@ -205,16 +205,16 @@ export class CaseController implements ICaseController {
       const caseId = httpRequest.params.id;
 
       if (!userId) {
-        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing userId' });
+        return HttpResponseFactory.makeBadRequest('Missing userId');
       }
       if (!caseId) {
-        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing case' });
+        return HttpResponseFactory.makeBadRequest('Missing case');
       }
 
       const file = httpRequest.file;
 
       if (!file) {
-        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing file' });
+        return HttpResponseFactory.makeBadRequest('Missing file');
       }
 
       const fixedName = Buffer.from(file.originalname, 'latin1').toString('utf8');
@@ -227,10 +227,10 @@ export class CaseController implements ICaseController {
         uploadedBy: String(userId),
       });
 
-      return HttpResponseFactory.makeOk({ data: response });
+      return HttpResponseFactory.makeOk(response);
     } catch (error: any) {
       console.log(error);
-      return HttpResponseFactory.makeServerError<null>({ message: error });
+      return HttpResponseFactory.makeServerError(error.message);
     }
   };
 
@@ -238,21 +238,19 @@ export class CaseController implements ICaseController {
     try {
       const caseId = httpRequest.params.id;
       if (!caseId) {
-        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing case id' });
+        return HttpResponseFactory.makeBadRequest('Missing case id');
       }
 
       const caseFiles = await this.caseService.findFilesByCaseId(String(caseId));
 
       if (!caseFiles) {
-        return HttpResponseFactory.makeNotFound<null>({
-          message: `Case with id ${caseId} was not found`,
-        });
+        return HttpResponseFactory.makeNotFound(`Case with id ${caseId} was not found`);
       }
 
-      return HttpResponseFactory.makeOk({ data: caseFiles });
+      return HttpResponseFactory.makeOk(caseFiles);
     } catch (error: any) {
       console.log(error);
-      return HttpResponseFactory.makeServerError<null>({ message: error });
+      return HttpResponseFactory.makeServerError(error.message);
     }
   };
 
@@ -260,7 +258,7 @@ export class CaseController implements ICaseController {
     try {
       const { id } = httpRequest.params;
       if (!id) {
-        return HttpResponseFactory.makeBadRequest<null>({ message: 'Missing case id' });
+        return HttpResponseFactory.makeBadRequest('Missing case id');
       }
 
       const authUser = httpRequest.user;
@@ -270,9 +268,9 @@ export class CaseController implements ICaseController {
 
       const authUserData = await this.userService.findById(authUser.id);
       if (authUserData.role !== UserRole.lawyer) {
-        return HttpResponseFactory.makeForbidden<null>({
-          message: `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`,
-        });
+        return HttpResponseFactory.makeForbidden(
+          `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`
+        );
       }
 
       await this.caseService.deleteById(id);
@@ -281,7 +279,7 @@ export class CaseController implements ICaseController {
     } catch (error: any) {
       console.log(error);
 
-      return HttpResponseFactory.makeServerError<null>({ message: error.message });
+      return HttpResponseFactory.makeServerError(error.message);
     }
   };
 }
