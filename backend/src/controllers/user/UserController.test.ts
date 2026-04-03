@@ -71,7 +71,10 @@ describe(`Test ${UserController.name}`, () => {
 
   test('should find all users', async () => {
     const { userController, userRepository } = makeSut();
-    const response = await userController.findAll({});
+    const httpRequest = {
+      params: { id: 'gfdgfdsgsdggg' },
+    };
+    const response = await userController.findAll(httpRequest);
     expect(userRepository.findAll).toHaveBeenCalled();
     expect(response.status).toBe(HttpStatusCode.ok);
   });
