@@ -12,6 +12,7 @@ import { WithId } from '../../types/WithId';
 import { ICaseService } from './ICaseService';
 import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO';
 import { validateCase } from '../validators/cases/validateCase';
+import { DuplicateUniqueFieldError } from '../../errors/domain/DuplicateUniqueFieldError';
 
 export class CaseService implements ICaseService {
   constructor(private caseRepository: CaseRepository) {}
@@ -38,7 +39,8 @@ export class CaseService implements ICaseService {
       };
     } catch (error: any) {
       if (error.code === 11000) {
-        throw Error(`A case with processNumber ${data.processNumber} already exists`);
+        console.log(error); 
+        throw new DuplicateUniqueFieldError(error.keyValue);
       }
       throw error;
     }
