@@ -16,6 +16,7 @@ import { CaseFileDTO } from '../../../dtos/caseFile/CaseFileDTO';
 import { CaseFileMapper } from '../../../mappers/CaseFile/CaseFileMapper';
 import { UpdateCaseDTO } from '../../../dtos/case/UpdateCaseDTO';
 import { CaseResponseDTO } from '../../../dtos/case/CaseResponseDTO';
+import { CaseRelations } from '../../../types/CaseRelations';
 
 export class MongodbCaseRepository implements CaseRepository {
   async create(data: CreateCaseDTO): Promise<WithId<Case>> {
@@ -103,7 +104,18 @@ export class MongodbCaseRepository implements CaseRepository {
     };
   }
 
-  async findById(id: string): Promise<WithId<CaseCardDTO> | null> {
+  async findById(id: string): Promise<WithId<CaseResponseDTO> | null> {
+    const query = CaseModel.findById(id);
+
+    const foundCase = await query.lean();
+
+    if (!foundCase) {
+      return null;
+    }
+    return CaseMapper.persistenceToPresentation(foundCase);
+  }
+
+  async findPopulatedById(id: string): Promise<WithId<CaseCardDTO> | null> {
     const query = CaseModel.findById(id);
 
     query.populate({
@@ -172,7 +184,7 @@ export class MongodbCaseRepository implements CaseRepository {
 
   async deleteById(id: string): Promise<boolean> {
     const result = await CaseModel.findByIdAndDelete(id);
-    return result !== null
+    return result !== null;
   }
 
   async deleteByUserId(id: string): Promise<{
