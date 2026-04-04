@@ -16,7 +16,6 @@ import { CaseFileDTO } from '../../../dtos/caseFile/CaseFileDTO';
 import { CaseFileMapper } from '../../../mappers/CaseFile/CaseFileMapper';
 import { UpdateCaseDTO } from '../../../dtos/case/UpdateCaseDTO';
 import { CaseResponseDTO } from '../../../dtos/case/CaseResponseDTO';
-import { CaseRelations } from '../../../types/CaseRelations';
 
 export class MongodbCaseRepository implements CaseRepository {
   async create(data: CreateCaseDTO): Promise<WithId<Case>> {
