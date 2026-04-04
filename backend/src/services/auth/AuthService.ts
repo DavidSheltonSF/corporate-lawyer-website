@@ -28,7 +28,7 @@ export class AuthService {
       throw Error('API secret not found');
     }
 
-    const token = jwt.sign({ sub: user.id, email }, API_SECRET, { expiresIn: '1m' });
+    const token = jwt.sign({ sub: user.id, email }, API_SECRET, { expiresIn: '1h' });
 
     return {
       token,
