@@ -6,6 +6,7 @@ import { HttpRequest } from '../types/HttpRequest';
 import { UserRole } from '../../types/UserRole';
 import { getMissingFields } from '../../helpers/getMissingFields';
 import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
+import { DomainError } from '../../errors/domain/DomainError';
 
 export class CaseController implements ICaseController {
   constructor(private caseService: ICaseService, private userService: IUserService) {}
@@ -50,6 +51,10 @@ export class CaseController implements ICaseController {
       return HttpResponseFactory.makeCreated(response);
     } catch (error: any) {
       console.log(error);
+
+      if (error instanceof DomainError) {
+        return HttpResponseFactory.makeUnprocessableEntity(error.message);
+      }
 
       // Check if it is NotFound error
       if (error.statusCode === 404) {
