@@ -111,7 +111,9 @@ export class CaseController implements ICaseController {
         return HttpResponseFactory.makeBadRequest('Missing id param');
       }
 
-      const foundCase = await this.caseService.findById(id);
+      const { populate } = httpRequest.query;
+
+      const foundCase = await this.caseService.findById(id, Boolean(populate));
 
       return HttpResponseFactory.makeOk(foundCase);
     } catch (error: any) {
