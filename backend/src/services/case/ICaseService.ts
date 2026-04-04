@@ -12,7 +12,7 @@ export interface ICaseService {
   create(data: CreateCaseDTO): Promise<WithId<CaseResponseDTO>>;
   updateById(id: string, data: CreateCaseDTO): Promise<WithId<CaseResponseDTO>>;
   findCases(queryParams: CaseQuery): Promise<Page<WithId<CaseCardDTO>>>;
-  findById(id: string): Promise<WithId<CaseCardDTO>>;
+  findById(id: string, populate?: boolean): Promise<WithId<CaseResponseDTO | CaseCardDTO>>;
   getStatsByClientId(clientId: string): Promise<CasesStats | null>;
   getStats(): Promise<CasesStats | null>;
   addFile(caseId: string, file: CreateCaseFileDTO): Promise<void>;

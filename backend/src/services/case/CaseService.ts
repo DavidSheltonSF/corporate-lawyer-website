@@ -39,7 +39,7 @@ export class CaseService implements ICaseService {
       };
     } catch (error: any) {
       if (error.code === 11000) {
-        console.log(error); 
+        console.log(error);
         throw new DuplicateUniqueFieldError(error.keyValue);
       }
       throw error;
@@ -82,9 +82,13 @@ export class CaseService implements ICaseService {
     };
   }
 
-  async findById(id: string): Promise<WithId<CaseCardDTO>> {
+  async findById(id: string, populate?: boolean): Promise<WithId<CaseResponseDTO | CaseCardDTO>> {
     try {
-      const cas = await this.caseRepository.findById(id);
+      const findPromise = populate
+        ? this.caseRepository.findById(id)
+        : this.caseRepository.findPopulatedById(id);
+
+      const cas = await findPromise;
 
       if (!cas) {
         throw new CaseNotFoundError(id);
