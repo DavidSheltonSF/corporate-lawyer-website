@@ -19,15 +19,15 @@ describe('Test CaseService', () => {
     const newCase = {
       client: 'xfafdsfafsfasfffff',
       lawyers: ['hhtshhhhhthtfsj'],
-      processNumber: '261514514584615648',
-      title: 'Process Title',
+      processNumber: '2158748-55.5558.5.87.8858',
+      title: 'Ação de Usucapião Urbano',
       court: 'STJ',
       courtDivision: 'Vara Cívil',
       description: 'Case description',
       status: CasesStatus.open,
     };
 
-    const createdCase = await caseService.create(newCase);
+    await caseService.create(newCase);
     expect(caseRepository.create).toHaveBeenLastCalledWith(newCase);
   });
 
@@ -36,8 +36,8 @@ describe('Test CaseService', () => {
 
     const caseId = 'fsdakfnitngnfaggfgg';
     const updateData = {
-      processNumber: '261514514584615648',
-      title: 'Process Title',
+      processNumber: '2158748-55.5558.5.87.8858',
+      title: 'Ação de Usucapião Urbano',
       court: 'STJ',
       courtDivision: 'Vara Cívil',
       description: 'Case description',

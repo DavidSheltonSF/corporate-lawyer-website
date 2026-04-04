@@ -11,11 +11,13 @@ import { Page } from '../../types/Page';
 import { WithId } from '../../types/WithId';
 import { ICaseService } from './ICaseService';
 import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO';
+import { validateCase } from '../validators/cases/validateCase';
 
 export class CaseService implements ICaseService {
   constructor(private caseRepository: CaseRepository) {}
   async create(data: CreateCaseDTO): Promise<WithId<CaseResponseDTO>> {
     try {
+      validateCase(data);
       const newCase = await this.caseRepository.create(data);
 
       const client = newCase.client.toString();
