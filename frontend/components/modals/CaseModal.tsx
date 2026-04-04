@@ -8,7 +8,8 @@ import { formatStringList } from '@/lib/formatStringList';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { OpenUploadModalButton } from '../OpenUploadModalButton';
-import { getCaseById } from '@/services/cases/getCaseById';
+import { getCasePopulatedById } from '@/services/cases/getCasePopulatedById';
+import { WithId } from '@/types/WithId';
 
 interface Props {
   selectedCaseId: string | null;
@@ -17,7 +18,7 @@ interface Props {
 }
 
 export function CaseModal({ selectedCaseId, isOpen, setIsOpen }: Props) {
-  const [caseData, setCaseData] = useState<CaseWithRelations | null>(null);
+  const [caseData, setCaseData] = useState<WithId<CaseWithRelations> | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -25,7 +26,7 @@ export function CaseModal({ selectedCaseId, isOpen, setIsOpen }: Props) {
       try {
         if (!isOpen || !selectedCaseId) return;
         setLoading(true);
-        const caseFound = await getCaseById(selectedCaseId);
+        const caseFound = await getCasePopulatedById(selectedCaseId);
         setCaseData(caseFound);
         setLoading(false);
       } catch (error) {
