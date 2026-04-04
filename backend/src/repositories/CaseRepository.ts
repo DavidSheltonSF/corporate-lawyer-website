@@ -9,7 +9,6 @@ import { Page } from '../types/Page';
 import { WithId } from '../types/WithId';
 import { UpdateCaseDTO } from '../dtos/case/UpdateCaseDTO';
 import { CaseResponseDTO } from '../dtos/case/CaseResponseDTO';
-import { CaseRelations } from '../types/CaseRelations';
 
 export interface CaseRepository {
   create(user: CreateCaseDTO): Promise<WithId<Case>>;
