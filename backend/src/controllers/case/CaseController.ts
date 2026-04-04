@@ -112,8 +112,9 @@ export class CaseController implements ICaseController {
       }
 
       const { populate } = httpRequest.query;
+      const populateCase = populate === 'true'
 
-      const foundCase = await this.caseService.findById(id, Boolean(populate));
+      const foundCase = await this.caseService.findById(id, populateCase);
 
       return HttpResponseFactory.makeOk(foundCase);
     } catch (error: any) {
