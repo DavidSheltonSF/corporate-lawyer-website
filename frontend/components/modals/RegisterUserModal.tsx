@@ -37,8 +37,8 @@ export function RegisterUserModal({ isOpen, setIsOpen }: Props) {
         }}
       >
         <div className="flex flex-col size-full bg-color-white items-center p-[16px]">
-          <div className='flex w-full justify-center items-center text-center font-bold'>
-            <h1 className='text-2xl'>Cadastrar novo cliente</h1>
+          <div className="flex w-full justify-center items-center text-center font-bold">
+            <h1 className="text-2xl">Cadastrar novo cliente</h1>
           </div>
           <div className="flex justify-center items-center h-[40px] w-full">
             <RequestFeedback requestState={requestState} />
@@ -52,10 +52,9 @@ export function RegisterUserModal({ isOpen, setIsOpen }: Props) {
               <InputWithLabel id="email-input" name="email" label="Email" />
               <InputWithLabel id="cpf-input" name="cpf" label="CPF" />
             </div>
-
-            <div className="w-full min-lg:w-[200px] min-lg:ml-auto min:lg:mt-auto">
+            <div className="flex justify-end w-full bg-black min-md:w-[200px]  min-md:ml-auto">
               <Button
-              width='100%'
+                width="100%"
                 backgroundColor="var(--primary-color)"
                 textColor="var(--white-color)"
                 fontSize="1.2rem"
