@@ -5,8 +5,6 @@ interface Props {
   backgroundColor?: string;
   textColor?: string;
   fontSize?: string;
-  paddingX?: string;
-  paddingY?: string;
   width?: string;
   height?: string;
   children: React.ReactNode;
@@ -19,12 +17,10 @@ export function Button(props: Props) {
     type,
     backgroundColor = 'var(--white-color)',
     textColor = 'var(--black-color)',
-    fontSize,
+    fontSize = '1.2rem',
     children,
-    paddingX = '16px',
-    paddingY = '8px',
     width = '128px',
-    height = '64px',
+    height = '56px',
     onclick,
     disabled,
   } = props;
@@ -37,8 +33,6 @@ export function Button(props: Props) {
         backgroundColor,
         color: textColor,
         fontSize,
-        paddingInline: paddingX,
-        paddingBlock: paddingY,
         height,
         width,
       }}
