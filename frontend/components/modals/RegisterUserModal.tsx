@@ -30,13 +30,16 @@ export function RegisterUserModal({ isOpen, setIsOpen }: Props) {
     isOpen && (
       <PrimaryModalWindow
         additionalStyles={
-          'fixed z-99999999999 top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[678px] h-fit rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
+          'fixed z-99999999999 top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-md:w-[678px] h-fit rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
         }
         closeModal={() => {
           setIsOpen(false);
         }}
       >
         <div className="flex flex-col size-full bg-color-white items-center p-[16px]">
+          <div className='flex w-full justify-center items-center text-center font-bold'>
+            <h1 className='text-2xl'>Cadastrar novo cliente</h1>
+          </div>
           <div className="flex justify-center items-center h-[40px] w-full">
             <RequestFeedback requestState={requestState} />
           </div>
@@ -52,12 +55,12 @@ export function RegisterUserModal({ isOpen, setIsOpen }: Props) {
 
             <div className="w-full min-lg:w-[200px] min-lg:ml-auto min:lg:mt-auto">
               <Button
-                paddingY="8px"
+              width='100%'
                 backgroundColor="var(--primary-color)"
                 textColor="var(--white-color)"
                 fontSize="1.2rem"
               >
-                Cadastrar Cliente
+                Salvar
               </Button>
             </div>
           </form>
