@@ -7,9 +7,9 @@ import { ModalContextType } from '@/contexts/modals/ModalContextType';
 import { MissingContextError } from '@/errors/MissingContextError';
 
 interface Props {
-  disabled?: boolean
+  disabled?: boolean;
 }
-export function OpenUploadModalButton({disabled}: Props) {
+export function OpenUploadModalButton({ disabled }: Props) {
   const context = useContext<ModalContextType | undefined>(UploadModalContext);
 
   if (!context) {
@@ -22,12 +22,12 @@ export function OpenUploadModalButton({disabled}: Props) {
   }
 
   return (
-    <div>
-      <Button paddingX="4px" onclick={handleClick} disabled={disabled}>
-        <span className="lg:hidden">
+    <div className="size-[48px] min-md:h-[48px] min-md:w-[200px]">
+      <Button height="100%" width="100%" onclick={handleClick} disabled={disabled}>
+        <span className="flex justify-center items-center size-full md:hidden">
           <img src="/icons/upload.svg" alt="" />
         </span>
-        <span className="hidden lg:block">Adicionar Documento</span>
+        <span className="hidden md:block">Adicionar Documento</span>
       </Button>
     </div>
   );
