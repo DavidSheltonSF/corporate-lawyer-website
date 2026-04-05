@@ -18,7 +18,7 @@ export function CardOptionsModal({ openDeleteModal, openUpdateModal, isOpen, set
   return (
     isOpen && (
       <PrimaryModalWindow
-        additionalStyles="fixed z-99999999999 top-[15%] left-1/2 translate-x-[-50%] w-[360px] h-fit rounded-lg overflow-hidden shadow-[0px_0px__3px_black]"
+        additionalStyles="fixed z-99999999999 top-[15%] left-1/2 translate-x-[-50%] w-[90%] min-md:w-[400px] h-fit rounded-lg overflow-hidden shadow-[0px_0px__3px_black]"
         closeModal={() => {
           closeModal();
         }}
@@ -27,26 +27,28 @@ export function CardOptionsModal({ openDeleteModal, openUpdateModal, isOpen, set
           <div className="my-[24px]">
             <p className="text-black text-lg">O que quer fazer?</p>
           </div>
-          <Button
-            onclick={() => {
-              openUpdateModal();
-              closeModal();
-            }}
-            backgroundColor="var(--primary-color)"
-            textColor="var(--white-color)"
-          >
-            Alterar Dados
-          </Button>
-          <Button
-            onclick={() => {
-              openDeleteModal();
-              closeModal();
-            }}
-            backgroundColor="var(--primary-color)"
-            textColor="var(--white-color)"
-          >
-            Excluir
-          </Button>
+          <div className="flex w-full justify-around">
+            <Button
+              onclick={() => {
+                openUpdateModal();
+                closeModal();
+              }}
+              backgroundColor="var(--primary-color)"
+              textColor="var(--white-color)"
+            >
+              Alterar
+            </Button>
+            <Button
+              onclick={() => {
+                openDeleteModal();
+                closeModal();
+              }}
+              backgroundColor="var(--primary-color)"
+              textColor="var(--white-color)"
+            >
+              Excluir
+            </Button>
+          </div>
         </div>
       </PrimaryModalWindow>
     )
