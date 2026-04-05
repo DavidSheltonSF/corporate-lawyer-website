@@ -9,7 +9,7 @@ type ErrorResponse = {
 };
 
 type EmptyResponse = {
-  status: Number;
+  status: number;
 };
 
 export type HttpResponse<T> = SuccessResponse<T> | ErrorResponse | EmptyResponse;
