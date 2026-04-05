@@ -65,9 +65,9 @@ export function RegisterCaseModal({ isOpen, setIsOpen, selectedClientId }: Props
               <InputWithLabel id="description-input" name="description" label="Descrição" />
             </div>
 
-            <div className="w-full min-lg:w-[200px] min-lg:ml-auto min:lg:mt-auto">
+            <div className="flex justify-end w-full bg-black min-md:w-[200px]  min-md:ml-auto">
               <Button
-                paddingY="8px"
+                width="100%"
                 backgroundColor="var(--primary-color)"
                 textColor="var(--white-color)"
                 fontSize="1.2rem"
