@@ -3,5 +3,4 @@ export interface CaseQuery {
   page?: number | undefined;
   query?: string | undefined;
   status?: string | undefined;
-  client?: string | undefined;
 }
