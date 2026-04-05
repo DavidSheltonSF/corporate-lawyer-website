@@ -7,6 +7,8 @@ interface Props {
   fontSize?: string;
   paddingX?: string;
   paddingY?: string;
+  width?: string;
+  height?: string;
   children: React.ReactNode;
   onclick?: React.MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
@@ -21,6 +23,8 @@ export function Button(props: Props) {
     children,
     paddingX = '16px',
     paddingY = '8px',
+    width = '128px',
+    height = '64px',
     onclick,
     disabled,
   } = props;
@@ -35,6 +39,8 @@ export function Button(props: Props) {
         fontSize,
         paddingInline: paddingX,
         paddingBlock: paddingY,
+        height,
+        width,
       }}
       onClick={onclick}
     >
