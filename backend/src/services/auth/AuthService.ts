@@ -13,13 +13,13 @@ export class AuthService {
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
-      throw new UnauthorizedError('Invalid email');
+      return { message: 'Invalid email', token: null };
     }
 
     const passwordIsValid = await bcrypt.compare(password, user.password);
 
     if (passwordIsValid !== true) {
-      throw new UnauthorizedError('Invalid password');
+      return { message: 'Invalid password', token: null };
     }
 
     const API_SECRET = process.env.API_SECRET;
@@ -32,6 +32,7 @@ export class AuthService {
 
     return {
       token,
+      message: null
     };
   }
 }
