@@ -10,7 +10,6 @@ import { Case } from '../../../entities/Case';
 import { Page } from '../../../types/Page';
 import { CaseCardDTO } from '../../../dtos/case/CaseCardDTO';
 import { CaseMapper } from '../../../mappers/CaseMapper';
-import { CaseNotFoundError } from '../../../errors/application/CaseNotFoundError';
 import { CreateCaseFileDTO } from '../../../dtos/caseFile/CreateCaseFileDTO';
 import { CaseFileDTO } from '../../../dtos/caseFile/CaseFileDTO';
 import { CaseFileMapper } from '../../../mappers/CaseFile/CaseFileMapper';
@@ -36,12 +35,13 @@ export class MongodbCaseRepository implements CaseRepository {
     return CaseMapper.persistenceToDomain(cas);
   }
 
-  async updateById(id: string, data: UpdateCaseDTO): Promise<WithId<Case>> {
+  async updateById(id: string, data: UpdateCaseDTO): Promise<WithId<Case> | null> {
     const cas = await CaseModel.findByIdAndUpdate(id, data, { returnDocument: 'after' });
+    if (!cas) return null;
     return CaseMapper.persistenceToDomain(cas);
   }
 
-  async addFile(caseId: string, file: CreateCaseFileDTO): Promise<void> {
+  async addFile(caseId: string, file: CreateCaseFileDTO): Promise<boolean> {
     const updated = await CaseModel.findByIdAndUpdate(
       {
         _id: caseId,
@@ -57,9 +57,7 @@ export class MongodbCaseRepository implements CaseRepository {
       }
     ).lean();
 
-    if (updated === null) {
-      throw new CaseNotFoundError(caseId);
-    }
+    return updated !== null;
   }
 
   async findAll(queryParams: CaseQuery = {}): Promise<Page<WithId<CaseCardDTO>>> {
@@ -223,12 +221,12 @@ export class MongodbCaseRepository implements CaseRepository {
     };
   }
 
-  async findFilesByCaseId(caseId: string): Promise<WithId<CaseFileDTO>[]> {
+  async findFilesByCaseId(caseId: string): Promise<WithId<CaseFileDTO>[] | null> {
     const foundCase = await CaseModel.findById(caseId)
       .select('files')
       .populate('files.uploadedBy')
       .lean();
-    if (!foundCase) throw new CaseNotFoundError(caseId);
+    if (!foundCase) return null;
 
     const caseFiles = foundCase.files;
     return caseFiles.map(CaseFileMapper.persistenceToPresentation);
