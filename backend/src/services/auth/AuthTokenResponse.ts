@@ -1,3 +1,4 @@
 export interface AuthTokenResponse {
-  token: string
+  token: string | null;
+  message: string | null;
 }
