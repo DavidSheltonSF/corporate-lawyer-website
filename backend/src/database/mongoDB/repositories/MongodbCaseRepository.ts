@@ -62,12 +62,14 @@ export class MongodbCaseRepository implements CaseRepository {
     }
   }
 
-  async findCases(queryParams: CaseQuery = {}): Promise<Page<WithId<CaseCardDTO>>> {
+  async findAll(queryParams: CaseQuery = {}): Promise<Page<WithId<CaseCardDTO>>> {
     const { query, status, limit = 10, page = 1 } = queryParams;
 
     const regex = new RegExp(query || '', 'i');
 
-    const filter = { $or: [{ title: regex }, { description: regex }, { processNumber: regex }] };
+    const filter = {
+      $or: [{ title: regex }, { description: regex }, { processNumber: regex }],
+    };
 
     const casesQuery = CaseModel.find(filter);
     const casesTotalQuery = CaseModel.countDocuments(filter);
