@@ -9,6 +9,7 @@ export function casesRoutes(router: Router, caseController: ICaseController) {
   router.put('/api/cases/:id', requireAuth, expressHttpAdapter(caseController.updateById));
   router.get('/api/my/cases/stats', requireAuth, expressHttpAdapter(caseController.getMyStats));
   router.get('/api/cases/stats', requireAuth, expressHttpAdapter(caseController.getStats));
+  router.get('/api/cases', requireAuth, expressHttpAdapter(caseController.findAll));
   router.get('/api/cases/:id', expressHttpAdapter(caseController.findById));
   router.get('/api/my/cases', requireAuth, expressHttpAdapter(caseController.findMyCases));
   router.get(
