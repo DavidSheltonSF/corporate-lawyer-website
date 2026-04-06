@@ -4,7 +4,9 @@ import { mockCaseMongoDocs } from '../mockCaseMongoDocs';
 export const createMockCaseRepository = (): CaseRepository => {
   return {
     findById: jest.fn().mockResolvedValue(mockCaseMongoDocs[0]!),
-    findCases: jest.fn().mockResolvedValue(mockCaseMongoDocs),
+    findAll: jest.fn().mockResolvedValue(mockCaseMongoDocs),
+    findPopulatedByClientId: jest.fn().mockResolvedValue(mockCaseMongoDocs),
+    findPopulatedById: jest.fn().mockResolvedValue(mockCaseMongoDocs),
     create: jest.fn().mockResolvedValue(mockCaseMongoDocs[0]!),
     updateById: jest.fn().mockResolvedValue(mockCaseMongoDocs[0]!),
     getStats: jest.fn().mockResolvedValue({ inProgress: 2, closed: 3 }),

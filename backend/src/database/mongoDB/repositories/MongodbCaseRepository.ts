@@ -105,6 +105,57 @@ export class MongodbCaseRepository implements CaseRepository {
     };
   }
 
+  async findPopulatedByClientId(
+    id: string,
+    queryParams: CaseQuery
+  ): Promise<Page<WithId<CaseCardDTO>>> {
+    const { query, status, limit = 10, page = 1 } = queryParams;
+
+    const regex = new RegExp(query || '', 'i');
+
+    const filter = {
+      $and: [
+        { client: id },
+        {
+          $or: [{ title: regex }, { description: regex }, { processNumber: regex }],
+        },
+      ],
+    };
+
+    const casesQuery = CaseModel.find(filter);
+    const casesTotalQuery = CaseModel.countDocuments(filter);
+
+    if (status) {
+      casesQuery.find({ status });
+      casesTotalQuery.countDocuments({ status });
+    }
+
+    const casesPageQuery = casesQuery
+      .populate({
+        path: 'client',
+        select: 'firstName lastName',
+      })
+      .populate({
+        path: 'lawyers',
+        select: 'firstName lastName',
+      })
+      .limit(limit)
+      .skip((page - 1) * limit)
+      .lean();
+
+    const [cases, totalItems] = await Promise.all([casesPageQuery, casesTotalQuery]);
+    const mappedCases = cases.map(CaseMapper.persistenceToPopulatedPresentation);
+
+    return {
+      data: mappedCases,
+      meta: {
+        totalItems,
+        totalPages: Math.ceil(totalItems / Number(limit)),
+        currentPage: page,
+      },
+    };
+  }
+
   async findById(id: string): Promise<WithId<CaseResponseDTO> | null> {
     const query = CaseModel.findById(id);
 
