@@ -1,9 +1,7 @@
-import { literal } from 'pg-format';
 import { CreateClientDTO } from '../../dtos/user/CreateClientDTO';
 import { CreateClientResponseDTO } from '../../dtos/user/CreateClientResponseDTO';
 import { UpdateUserDTO } from '../../dtos/user/UpdateUserDTO';
 import { UserResponseDTO } from '../../dtos/user/UserResponseDTO';
-import { UserNotFoundError } from '../../errors/application/UserNotFoundError';
 import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError';
 import { CaseRepository } from '../../repositories/CaseRepository';
 import { UserRepository } from '../../repositories/UserRepository';
@@ -13,7 +11,6 @@ import { UserRole } from '../../types/UserRole';
 import { WithId } from '../../types/WithId';
 import { generateTemporaryPassword } from '../helpers/generateTemporaryPassword';
 import { validateEmail } from '../validators/validateEmail';
-import { validateUser } from '../validators/validateUser';
 import { validateUserPartial } from '../validators/validateUserPartial';
 import { IUserService } from './IUserService';
 import { UserIncludeOptions } from '../../types/UserincludeOptions';
