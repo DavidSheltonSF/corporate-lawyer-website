@@ -6,6 +6,7 @@ import { DomainError } from '../../errors/domain/DomainError';
 import { UserNotFoundError } from '../../errors/application/UserNotFoundError';
 import { UserRole } from '../../types/UserRole';
 import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
+import { NotFoundError } from '../../errors/presentation/NotFoundError';
 
 export class UserController implements IUserController {
   constructor(private userService: IUserService) {}
@@ -17,9 +18,15 @@ export class UserController implements IUserController {
     }
 
     const authUserData = await this.userService.findById(authUser.id);
+
+    if (!authUserData) {
+      return HttpResponseFactory.makeForbidden(
+        `Could not execute operation. User with id '${authUser.id} was not found`
+      );
+    }
     if (authUserData.role !== UserRole.lawyer) {
       return HttpResponseFactory.makeForbidden(
-        `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`
+        `Could not execute operation. User with id '${authUserData.id} is not a lawyer`
       );
     }
 
@@ -52,9 +59,15 @@ export class UserController implements IUserController {
     }
 
     const authUserData = await this.userService.findById(authUser.id);
+    if (!authUserData) {
+      return HttpResponseFactory.makeForbidden(
+        `Could not execute operation. User with id ${authUser.id} was not found`
+      );
+    }
+
     if (authUserData.role !== UserRole.lawyer) {
       return HttpResponseFactory.makeForbidden(
-        `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`
+        `Could not execute operation. User with id ${authUser.id} is not a lawyer'`
       );
     }
 
@@ -82,9 +95,15 @@ export class UserController implements IUserController {
     }
 
     const authUserData = await this.userService.findById(authUser.id);
+    if (!authUserData) {
+      return HttpResponseFactory.makeForbidden(
+        `Could not execute operation. User with id ${authUser.id} was not found`
+      );
+    }
+
     if (authUserData.role !== UserRole.lawyer) {
       return HttpResponseFactory.makeForbidden(
-        `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`
+        `Could not execute operation. User with id ${authUser.id} is not a lawyer'`
       );
     }
 
@@ -109,9 +128,15 @@ export class UserController implements IUserController {
     }
 
     const authUserData = await this.userService.findById(authUser.id);
+    if (!authUserData) {
+      return HttpResponseFactory.makeForbidden(
+        `Could not execute operation. User with id ${authUser.id} was not found`
+      );
+    }
+
     if (authUserData.role !== UserRole.lawyer) {
       return HttpResponseFactory.makeForbidden(
-        `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`
+        `Could not execute operation. User with id ${authUser.id} is not a lawyer'`
       );
     }
 
@@ -137,9 +162,15 @@ export class UserController implements IUserController {
     }
 
     const authUserData = await this.userService.findById(authUser.id);
+    if (!authUserData) {
+      return HttpResponseFactory.makeForbidden(
+        `Could not execute operation. User with id ${authUser.id} was not found`
+      );
+    }
+
     if (authUserData.role !== UserRole.lawyer) {
       return HttpResponseFactory.makeForbidden(
-        `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`
+        `Could not execute operation. User with id ${authUser.id} is not a lawyer'`
       );
     }
 
@@ -149,6 +180,7 @@ export class UserController implements IUserController {
     }
 
     const result = await this.userService.deleteById(id);
+ 
 
     return HttpResponseFactory.makeOk(result);
   };
