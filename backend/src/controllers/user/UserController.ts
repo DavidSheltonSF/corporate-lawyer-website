@@ -2,8 +2,6 @@ import { IUserService } from '../../services/user/IUserService';
 import { IUserController } from './IUserController';
 import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
 import { HttpRequest } from '../types/HttpRequest';
-import { DomainError } from '../../errors/domain/DomainError';
-import { UserNotFoundError } from '../../errors/application/UserNotFoundError';
 import { UserRole } from '../../types/UserRole';
 import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
 import { NotFoundError } from '../../errors/presentation/NotFoundError';
