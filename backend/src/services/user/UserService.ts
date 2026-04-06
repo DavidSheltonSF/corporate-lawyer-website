@@ -67,7 +67,10 @@ export class UserService implements IUserService {
     return { data: mappedUsers, meta: page.meta };
   }
 
-  async findById(id: string, include?: UserIncludeOptions): Promise<WithId<UserResponseDTO>> {
+  async findById(
+    id: string,
+    include?: UserIncludeOptions
+  ): Promise<WithId<UserResponseDTO> | null> {
     let user = null;
 
     if (include?.cases) {
@@ -77,39 +80,39 @@ export class UserService implements IUserService {
     }
 
     if (!user) {
-      throw new UserNotFoundError(`User with id '${id}' was not found`);
+      return null;
     }
 
     const { password, ...userWithoutPassword } = user;
     return userWithoutPassword;
   }
 
-  async findByEmail(email: string): Promise<WithId<UserResponseDTO>> {
+  async findByEmail(email: string): Promise<WithId<UserResponseDTO> | null> {
     validateEmail(email);
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
-      throw new UserNotFoundError(`User with email '${email}' was not found`);
+      return null;
     }
     const { password, ...userWithoutPassword } = user;
     return userWithoutPassword;
   }
 
-  async updateById(id: string, data: UpdateUserDTO): Promise<WithId<UserResponseDTO>> {
+  async updateById(id: string, data: UpdateUserDTO): Promise<WithId<UserResponseDTO> | null> {
     validateUserPartial(data);
     const result = await this.userRepository.updateById(id, data);
     if (!result) {
-      throw new UserNotFoundError(`User with id '${id}' was not found`);
+      return null;
     }
     const { password, ...userWithoutPassword } = result;
     return userWithoutPassword;
   }
 
-  async deleteById(id: string): Promise<WithId<UserResponseDTO>> {
+  async deleteById(id: string): Promise<WithId<UserResponseDTO> | null> {
     await this.caseRepository.deleteByUserId(id);
     const result = await this.userRepository.deleteById(id);
     if (!result) {
-      throw new UserNotFoundError(`User with id '${id}' was not found`);
+      return null;
     }
     const { password, ...userWithoutPassword } = result;
     return userWithoutPassword;
