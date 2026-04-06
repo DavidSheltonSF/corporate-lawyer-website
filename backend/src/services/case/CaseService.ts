@@ -3,7 +3,6 @@ import { CaseFileDTO } from '../../dtos/caseFile/CaseFileDTO';
 import { CreateCaseFileDTO } from '../../dtos/caseFile/CreateCaseFileDTO';
 import { CaseResponseDTO } from '../../dtos/case/CaseResponseDTO';
 import { CreateCaseDTO } from '../../dtos/case/CreateCaseDTO';
-import { CaseNotFoundError } from '../../errors/application/CaseNotFoundError';
 import { CaseRepository } from '../../repositories/CaseRepository';
 import { CaseQuery } from '../../types/CaseQuery';
 import { CasesStats } from '../../types/CasesStats';
@@ -46,29 +45,31 @@ export class CaseService implements ICaseService {
     }
   }
 
-  async updateById(id: string, data: UpdateCaseDTO): Promise<WithId<CaseResponseDTO>> {
+  async updateById(id: string, data: UpdateCaseDTO): Promise<WithId<CaseResponseDTO> | null> {
     try {
-      const newCase = await this.caseRepository.updateById(id, data);
+      const updatedCase = await this.caseRepository.updateById(id, data);
 
-      const client = newCase.client.toString();
-      const lawyers = newCase.lawyers.map((lawyer) => lawyer.toString());
+      if (!updatedCase) return null;
+
+      const client = updatedCase.client.toString();
+      const lawyers = updatedCase.lawyers.map((lawyer) => lawyer.toString());
 
       return {
-        id: newCase.id,
+        id: updatedCase.id,
         client,
         lawyers,
-        files: newCase.files,
-        hearings: newCase.hearings,
-        processNumber: newCase.processNumber,
-        title: newCase.title,
-        description: newCase.description,
-        court: newCase.court,
-        courtDivision: newCase.courtDivision,
-        status: newCase.status,
+        files: updatedCase.files,
+        hearings: updatedCase.hearings,
+        processNumber: updatedCase.processNumber,
+        title: updatedCase.title,
+        description: updatedCase.description,
+        court: updatedCase.court,
+        courtDivision: updatedCase.courtDivision,
+        status: updatedCase.status,
       };
     } catch (error: any) {
       if (error.code === 11000) {
-        throw Error(`A case with processNumber ${data.processNumber} already exists`);
+        throw new DuplicateUniqueFieldError(error.keyValue);
       }
       throw error;
     }
@@ -89,19 +90,16 @@ export class CaseService implements ICaseService {
     return await this.caseRepository.findPopulatedByClientId(id, queryParams);
   }
 
-  async findById(id: string, populate?: boolean): Promise<WithId<CaseResponseDTO | CaseCardDTO>> {
+  async findById(
+    id: string,
+    populate?: boolean
+  ): Promise<WithId<CaseResponseDTO | CaseCardDTO> | null> {
     try {
       const findPromise = populate
         ? this.caseRepository.findPopulatedById(id)
         : this.caseRepository.findById(id);
 
-      const cas = await findPromise;
-
-      if (!cas) {
-        throw new CaseNotFoundError(id);
-      }
-
-      return cas;
+      return await findPromise;
     } catch (error) {
       throw error;
     }
@@ -125,14 +123,11 @@ export class CaseService implements ICaseService {
     });
   }
 
-  async findFilesByCaseId(id: string): Promise<WithId<CaseFileDTO>[]> {
+  async findFilesByCaseId(id: string): Promise<WithId<CaseFileDTO>[] | null> {
     return await this.caseRepository.findFilesByCaseId(id);
   }
 
-  async deleteById(id: string): Promise<void> {
-    const deleted = await this.caseRepository.deleteById(id);
-    if (!deleted) {
-      throw new CaseNotFoundError(id);
-    }
+  async deleteById(id: string): Promise<boolean> {
+    return await this.caseRepository.deleteById(id);
   }
 }

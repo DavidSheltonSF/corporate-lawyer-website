@@ -10,13 +10,13 @@ import { WithId } from '../../types/WithId';
 
 export interface ICaseService {
   create(data: CreateCaseDTO): Promise<WithId<CaseResponseDTO>>;
-  updateById(id: string, data: CreateCaseDTO): Promise<WithId<CaseResponseDTO>>;
+  updateById(id: string, data: CreateCaseDTO): Promise<WithId<CaseResponseDTO> | null>;
   findAll(queryParams?: CaseQuery): Promise<Page<WithId<CaseCardDTO>>>;
-  findPopulatedByClientId(id: string, queryParams?: CaseQuery): Promise<Page<WithId<CaseCardDTO>>>
-  findById(id: string, populate?: boolean): Promise<WithId<CaseResponseDTO | CaseCardDTO>>;
+  findPopulatedByClientId(id: string, queryParams?: CaseQuery): Promise<Page<WithId<CaseCardDTO>>>;
+  findById(id: string, populate?: boolean): Promise<WithId<CaseResponseDTO | CaseCardDTO> | null>;
   getStatsByClientId(clientId: string): Promise<CasesStats | null>;
   getStats(): Promise<CasesStats | null>;
   addFile(caseId: string, file: CreateCaseFileDTO): Promise<void>;
-  findFilesByCaseId(id: string): Promise<WithId<CaseFileDTO>[]>;
-  deleteById(id: string): Promise<void>;
+  findFilesByCaseId(id: string): Promise<WithId<CaseFileDTO>[] | null>;
+  deleteById(id: string): Promise<boolean>;
 }
