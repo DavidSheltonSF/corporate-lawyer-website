@@ -10,6 +10,10 @@ import { DropDownButton } from './DropdownButton';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { CaseModal } from './modals/CaseModal';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
+import { useAuthenticatedUserContext } from '@/hooks/useAuthenticatedUserContext';
+import { MissingContextError } from '@/errors/MissingContextError';
+import { UserRole } from '@/types/UserRole';
+import { getCases } from '@/services/cases/getCases';
 
 export default function CaseSearchSection() {
   const [query, setQuery] = useState('');
@@ -19,19 +23,44 @@ export default function CaseSearchSection() {
   const [cases, setCases] = useState<WithId<CaseWithRelations>[]>([]);
   const [casesLoading, setCasesLoading] = useState(false);
 
+  const authUserContext = useAuthenticatedUserContext();
+  if (!authUserContext) {
+    throw new MissingContextError('AuthenticatedUserContext');
+  }
+
+  const { userData } = authUserContext;
+
   async function loadCases() {
     setCasesLoading(true);
-    const casesPagination = await getMyCases({
-      page,
-      limit: 4,
-      query,
-      status: statusFilder || '',
-    });
+    let casesPage = null;
 
-    const casesData = casesPagination.data;
-    setTotalPage(casesPagination.meta.totalPages);
+    switch (userData.role) {
+      case UserRole.lawyer:
+        casesPage = await getCases({
+          page,
+          limit: 4,
+          query,
+          status: statusFilder || '',
+        });
+        break;
 
-    setCases(casesData);
+      case UserRole.client:
+        casesPage = await getMyCases({
+          page,
+          limit: 4,
+          query,
+          status: statusFilder || '',
+        });
+        break;
+
+      default:
+        break;
+    }
+
+    const casesData = casesPage?.data;
+    setTotalPage(casesPage?.meta.totalPages || 0);
+
+    setCases(casesData || []);
     setCasesLoading(false);
   }
 
