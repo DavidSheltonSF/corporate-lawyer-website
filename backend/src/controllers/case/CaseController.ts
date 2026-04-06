@@ -7,6 +7,7 @@ import { UserRole } from '../../types/UserRole';
 import { getMissingFields } from '../../helpers/getMissingFields';
 import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
 import { DomainError } from '../../errors/domain/DomainError';
+import { NotFoundError } from '../../errors/presentation/NotFoundError';
 
 export class CaseController implements ICaseController {
   constructor(private caseService: ICaseService, private userService: IUserService) {}
@@ -101,9 +102,12 @@ export class CaseController implements ICaseController {
         return HttpResponseFactory.makeBadRequest('Missing request body');
       }
 
-      const response = await this.caseService.updateById(id, body);
+      const updatedCase = await this.caseService.updateById(id, body);
+      if (!updatedCase) {
+        throw new NotFoundError(`Case with id '${id} not found`);
+      }
 
-      return HttpResponseFactory.makeOk(response);
+      return HttpResponseFactory.makeOk(updatedCase);
     } catch (error: any) {
       console.log(error);
 
@@ -127,6 +131,9 @@ export class CaseController implements ICaseController {
       const populateCase = populate === 'true';
 
       const foundCase = await this.caseService.findById(id, populateCase);
+      if (!foundCase) {
+        throw new NotFoundError(`Case with id '${id} not found`);
+      }
 
       return HttpResponseFactory.makeOk(foundCase);
     } catch (error: any) {
@@ -304,13 +311,13 @@ export class CaseController implements ICaseController {
         return HttpResponseFactory.makeBadRequest('Missing case id');
       }
 
-      const caseFiles = await this.caseService.findFilesByCaseId(String(caseId));
+      const foundCaseFiles = await this.caseService.findFilesByCaseId(String(caseId));
 
-      if (!caseFiles) {
-        return HttpResponseFactory.makeNotFound(`Case with id ${caseId} was not found`);
+      if (!foundCaseFiles) {
+        throw new NotFoundError(`Case with id '${caseId} not found`);
       }
 
-      return HttpResponseFactory.makeOk(caseFiles);
+      return HttpResponseFactory.makeOk(foundCaseFiles);
     } catch (error: any) {
       console.log(error);
       return HttpResponseFactory.makeServerError(error.message);
@@ -341,7 +348,10 @@ export class CaseController implements ICaseController {
       if (!id) {
         return HttpResponseFactory.makeBadRequest('Missing case id');
       }
-      await this.caseService.deleteById(id);
+      const deleted = await this.caseService.deleteById(id);
+      if (!deleted) {
+        throw new NotFoundError(`Case with id '${id} not found`);
+      }
 
       return HttpResponseFactory.makeNoContent();
     } catch (error: any) {
