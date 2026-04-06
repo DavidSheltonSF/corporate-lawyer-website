@@ -25,7 +25,7 @@ export class AuthController implements IAuthController {
 
     const user = await this.userService.findByEmail(email);
 
-    return HttpResponseFactory.makeOk( user );
+    return HttpResponseFactory.makeOk(user);
   };
 
   auth = async (httpRequest: HttpRequest) => {
@@ -46,9 +46,13 @@ export class AuthController implements IAuthController {
 
       const { email, password } = body;
 
-      const auth = await this.authService.authenticate(email, password);
+      const response = await this.authService.authenticate(email, password);
 
-      return HttpResponseFactory.makeOk(auth);
+      if (response.message) {
+        return HttpResponseFactory.makeUnauthorized(response.message);
+      }
+
+      return HttpResponseFactory.makeOk(response.token);
     } catch (error: any) {
       console.log(error);
 
