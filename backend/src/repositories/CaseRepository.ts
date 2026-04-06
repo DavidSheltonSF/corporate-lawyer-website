@@ -14,9 +14,9 @@ export interface CaseRepository {
   create(user: CreateCaseDTO): Promise<WithId<Case>>;
   updateById(id: string, user: UpdateCaseDTO): Promise<WithId<Case>>;
   addFile(caseId: string, file: CreateCaseFileDTO): Promise<void>;
-  findAll(queryParams: CaseQuery): Promise<Page<WithId<CaseCardDTO>>>;
+  findAll(queryParams?: CaseQuery): Promise<Page<WithId<CaseCardDTO>>>;
   findById(id: string): Promise<WithId<CaseResponseDTO> | null>;
-  findPopulatedByClientId(id: string, queryParams: CaseQuery): Promise<Page<WithId<CaseCardDTO>>>;
+  findPopulatedByClientId(id: string, queryParams?: CaseQuery): Promise<Page<WithId<CaseCardDTO>>>;
   findPopulatedById(id: string): Promise<WithId<CaseCardDTO> | null>;
   getStatsByClientId(clientId: string): Promise<CasesStats | null>;
   getStats(): Promise<CasesStats>;
