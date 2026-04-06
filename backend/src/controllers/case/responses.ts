@@ -6,6 +6,7 @@ import { Page } from '../../types/Page';
 import { WithId } from '../../types/WithId';
 import { HttpResponse } from '../types/HttpResponse';
 
+export type FindAllResponse = HttpResponse<Page<WithId<CaseCardDTO>> | null>;
 export type FindByClientResponse = HttpResponse<Page<WithId<CaseCardDTO>> | null>;
 export type FindByIdResponse = HttpResponse<WithId<CaseResponseDTO | CaseCardDTO> | null>;
 export type CreateResponse = HttpResponse<WithId<CaseResponseDTO> | null>;

@@ -112,7 +112,7 @@ export class CaseController implements ICaseController {
       }
 
       const { populate } = httpRequest.query;
-      const populateCase = populate === 'true'
+      const populateCase = populate === 'true';
 
       const foundCase = await this.caseService.findById(id, populateCase);
 
@@ -146,7 +146,39 @@ export class CaseController implements ICaseController {
       status: status ? String(status) : undefined,
       limit: limit ? Number(limit) : undefined,
       page: page ? Number(page) : undefined,
-      client: id ? String(id) : undefined,
+    });
+
+    const pagination = {
+      ...casesPaginated,
+      page,
+      limit,
+    };
+
+    return HttpResponseFactory.makeOk(pagination);
+  };
+
+  findAll = async (httpRequest: HttpRequest) => {
+    const { status, query } = httpRequest.query;
+    const page = httpRequest.query.page || 1;
+    const limit = httpRequest.query.limit || 4;
+
+    const authUser = httpRequest.user;
+    if (!authUser) {
+      throw new MissingAuthenticatedUserError();
+    }
+
+    const authUserData = await this.userService.findById(authUser.id);
+    if (authUserData.role !== UserRole.lawyer) {
+      return HttpResponseFactory.makeForbidden(
+        `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`
+      );
+    }
+
+    const casesPaginated = await this.caseService.findAll({
+      query: query ? String(query) : undefined,
+      status: status ? String(status) : undefined,
+      limit: limit ? Number(limit) : undefined,
+      page: page ? Number(page) : undefined,
     });
 
     const pagination = {
