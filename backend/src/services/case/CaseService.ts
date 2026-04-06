@@ -74,8 +74,8 @@ export class CaseService implements ICaseService {
     }
   }
 
-  async findCases(queryParams: CaseQuery = {}): Promise<Page<WithId<CaseCardDTO>>> {
-    const casesPage = await this.caseRepository.findCases(queryParams);
+  async findAll(queryParams?: CaseQuery = {}): Promise<Page<WithId<CaseCardDTO>>> {
+    const casesPage = await this.caseRepository.findAll(queryParams);
     return {
       data: casesPage.data,
       meta: casesPage.meta,
