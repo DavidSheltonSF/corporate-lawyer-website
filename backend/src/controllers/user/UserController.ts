@@ -11,42 +11,33 @@ export class UserController implements IUserController {
   constructor(private userService: IUserService) {}
 
   createClient = async (httpRequest: HttpRequest) => {
-    try {
-      const authUser = httpRequest.user;
-      if (!authUser) {
-        throw new MissingAuthenticatedUserError();
-      }
-
-      const authUserData = await this.userService.findById(authUser.id);
-      if (authUserData.role !== UserRole.lawyer) {
-        return HttpResponseFactory.makeForbidden(
-          `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`
-        );
-      }
-
-      const body = httpRequest.body;
-      if (!body) {
-        return HttpResponseFactory.makeBadRequest('Missing request body');
-      }
-
-      const { firstName, lastName, email, cpf } = body;
-
-      const data = await this.userService.createClient({
-        firstName,
-        lastName,
-        email,
-        cpf,
-      });
-
-      return HttpResponseFactory.makeCreated(data);
-    } catch (error: unknown) {
-      console.log(error);
-
-      if (error instanceof DomainError) {
-        return HttpResponseFactory.makeUnprocessableEntity(error.message);
-      }
-      return HttpResponseFactory.makeServerError('Internal server error');
+    const authUser = httpRequest.user;
+    if (!authUser) {
+      throw new MissingAuthenticatedUserError();
     }
+
+    const authUserData = await this.userService.findById(authUser.id);
+    if (authUserData.role !== UserRole.lawyer) {
+      return HttpResponseFactory.makeForbidden(
+        `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`
+      );
+    }
+
+    const body = httpRequest.body;
+    if (!body) {
+      return HttpResponseFactory.makeBadRequest('Missing request body');
+    }
+
+    const { firstName, lastName, email, cpf } = body;
+
+    const data = await this.userService.createClient({
+      firstName,
+      lastName,
+      email,
+      cpf,
+    });
+
+    return HttpResponseFactory.makeCreated(data);
   };
 
   findAll = async (httpRequest: HttpRequest) => {
@@ -73,134 +64,92 @@ export class UserController implements IUserController {
   };
 
   findById = async (httpRequest: HttpRequest) => {
-    try {
-      const { id } = httpRequest.params;
+    const { id } = httpRequest.params;
 
-      if (!id) {
-        return HttpResponseFactory.makeBadRequest('Missing id param');
-      }
-
-      const foundUser = await this.userService.findById(id);
-
-      return HttpResponseFactory.makeOk(foundUser);
-    } catch (error: any) {
-      console.log(error);
-
-      // Check if it is NotFound error
-      if (error.statusCode === 404) {
-        return HttpResponseFactory.makeNotFound(error.message);
-      }
-
-      return HttpResponseFactory.makeServerError(error.message);
+    if (!id) {
+      return HttpResponseFactory.makeBadRequest('Missing id param');
     }
+
+    const foundUser = await this.userService.findById(id);
+
+    return HttpResponseFactory.makeOk(foundUser);
   };
 
   findClientById = async (httpRequest: HttpRequest) => {
-    try {
-      const authUser = httpRequest.user;
-      if (!authUser) {
-        throw new MissingAuthenticatedUserError();
-      }
-
-      const authUserData = await this.userService.findById(authUser.id);
-      if (authUserData.role !== UserRole.lawyer) {
-        return HttpResponseFactory.makeForbidden(
-          `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`
-        );
-      }
-
-      const { id } = httpRequest.params;
-      const { include } = httpRequest.query;
-
-      if (!id) {
-        return HttpResponseFactory.makeBadRequest('Missing id param');
-      }
-
-      const foundUser = await this.userService.findById(id, {
-        cases: include === 'cases',
-      });
-
-      return HttpResponseFactory.makeOk(foundUser);
-    } catch (error: any) {
-      console.log(error);
-
-      // Check if it is NotFound error
-      if (error.statusCode === 404) {
-        return HttpResponseFactory.makeNotFound(error.message);
-      }
-
-      return HttpResponseFactory.makeServerError(error.message);
+    const authUser = httpRequest.user;
+    if (!authUser) {
+      throw new MissingAuthenticatedUserError();
     }
+
+    const authUserData = await this.userService.findById(authUser.id);
+    if (authUserData.role !== UserRole.lawyer) {
+      return HttpResponseFactory.makeForbidden(
+        `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`
+      );
+    }
+
+    const { id } = httpRequest.params;
+    const { include } = httpRequest.query;
+
+    if (!id) {
+      return HttpResponseFactory.makeBadRequest('Missing id param');
+    }
+
+    const foundUser = await this.userService.findById(id, {
+      cases: include === 'cases',
+    });
+
+    return HttpResponseFactory.makeOk(foundUser);
   };
 
   updateById = async (httpRequest: HttpRequest) => {
-    try {
-      const authUser = httpRequest.user;
-      if (!authUser) {
-        throw new MissingAuthenticatedUserError();
-      }
-
-      const authUserData = await this.userService.findById(authUser.id);
-      if (authUserData.role !== UserRole.lawyer) {
-        return HttpResponseFactory.makeForbidden(
-          `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`
-        );
-      }
-
-      const { id } = httpRequest.params;
-      if (!id) {
-        return HttpResponseFactory.makeBadRequest('Missing user id');
-      }
-
-      const body = httpRequest.body;
-      if (!body) {
-        return HttpResponseFactory.makeBadRequest('Missing request body');
-      }
-
-      const result = await this.userService.updateById(id, body);
-
-      return HttpResponseFactory.makeOk(result);
-    } catch (error: any) {
-      if (error instanceof UserNotFoundError) {
-        return HttpResponseFactory.makeNotFound(error.message);
-      }
-
-      if (error instanceof DomainError) {
-        return HttpResponseFactory.makeUnprocessableEntity(error.message);
-      }
-
-      return HttpResponseFactory.makeServerError(error.message);
+    const authUser = httpRequest.user;
+    if (!authUser) {
+      throw new MissingAuthenticatedUserError();
     }
+
+    const authUserData = await this.userService.findById(authUser.id);
+    if (authUserData.role !== UserRole.lawyer) {
+      return HttpResponseFactory.makeForbidden(
+        `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`
+      );
+    }
+
+    const { id } = httpRequest.params;
+    if (!id) {
+      return HttpResponseFactory.makeBadRequest('Missing user id');
+    }
+
+    const body = httpRequest.body;
+    if (!body) {
+      return HttpResponseFactory.makeBadRequest('Missing request body');
+    }
+
+    const result = await this.userService.updateById(id, body);
+
+    return HttpResponseFactory.makeOk(result);
   };
 
   deleteById = async (httpRequest: HttpRequest) => {
-    try {
-      const authUser = httpRequest.user;
-      if (!authUser) {
-        throw new MissingAuthenticatedUserError();
-      }
-
-      const authUserData = await this.userService.findById(authUser.id);
-      if (authUserData.role !== UserRole.lawyer) {
-        return HttpResponseFactory.makeForbidden(
-          `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`
-        );
-      }
-
-      const { id } = httpRequest.params;
-      if (!id) {
-        return HttpResponseFactory.makeBadRequest('Missing user id');
-      }
-
-      const result = await this.userService.deleteById(id);
-
-      return HttpResponseFactory.makeOk(result);
-    } catch (error: any) {
-      if (error instanceof UserNotFoundError) {
-        return HttpResponseFactory.makeNotFound(error.message);
-      }
-
-      return HttpResponseFactory.makeServerError(error.message);
+    const authUser = httpRequest.user;
+    if (!authUser) {
+      throw new MissingAuthenticatedUserError();
     }
+
+    const authUserData = await this.userService.findById(authUser.id);
+    if (authUserData.role !== UserRole.lawyer) {
+      return HttpResponseFactory.makeForbidden(
+        `Could not execute operation. User with id '${authUserData.id} is not a lawyer'`
+      );
+    }
+
+    const { id } = httpRequest.params;
+    if (!id) {
+      return HttpResponseFactory.makeBadRequest('Missing user id');
+    }
+
+    const result = await this.userService.deleteById(id);
+
+    return HttpResponseFactory.makeOk(result);
   };
 }
