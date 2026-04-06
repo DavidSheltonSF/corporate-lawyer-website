@@ -85,6 +85,10 @@ export class UserController implements IUserController {
 
     const foundUser = await this.userService.findById(id);
 
+    if (!foundUser) {
+      throw new NotFoundError(`User with id '${id}' not found`);
+    }
+
     return HttpResponseFactory.makeOk(foundUser);
   };
 
@@ -152,6 +156,10 @@ export class UserController implements IUserController {
 
     const result = await this.userService.updateById(id, body);
 
+    if (!result) {
+      throw new NotFoundError(`User with id '${id}' not found`);
+    }
+
     return HttpResponseFactory.makeOk(result);
   };
 
@@ -180,7 +188,9 @@ export class UserController implements IUserController {
     }
 
     const result = await this.userService.deleteById(id);
- 
+    if (!result) {
+      throw new NotFoundError(`User with id '${id}' not found`);
+    }
 
     return HttpResponseFactory.makeOk(result);
   };
