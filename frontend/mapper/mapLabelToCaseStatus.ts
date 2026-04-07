@@ -5,7 +5,7 @@ export function mapLabelToCaseStatus(label: string): CaseStatusEnum {
     case 'aberto':
       return CaseStatusEnum.open;
 
-    case 'encerrado':
+    case 'arquivado':
       return CaseStatusEnum.closed;
 
     default:
