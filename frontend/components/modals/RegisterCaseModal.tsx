@@ -8,6 +8,9 @@ import { RequestFeedback } from '../form/RequestFeedback';
 import { useAuthenticatedUserContext } from '@/hooks/useAuthenticatedUserContext';
 import { MissingContextError } from '@/errors/MissingContextError';
 import { createCase } from '@/services/cases/createCase';
+import { CaseStatusEnum } from '@/types/CaseStatusEnum';
+import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
+import { DropdownInputWithLabel } from '../form/DropdownInputWithLabel';
 interface Props {
   selectedClientId: string | null;
   isOpen: boolean;
@@ -49,7 +52,7 @@ export function RegisterCaseModal({ isOpen, setIsOpen, selectedClientId }: Props
           </div>
           <form className="flex flex-col gap-[16px] w-full h-full" action={registerCase}>
             <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
-              <InputWithLabel id="title-input" name="title" label="Titulo" />
+              <InputWithLabel id="title-input" name="title" label="Título" />
               <InputWithLabel
                 id="process-number-input"
                 name="processNumber"
@@ -59,10 +62,16 @@ export function RegisterCaseModal({ isOpen, setIsOpen, selectedClientId }: Props
             <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
               <InputWithLabel id="court-input" name="court" label="Tribunal" />
               <InputWithLabel id="court-division-input" name="courtDivision" label="Vara" />
-              <InputWithLabel id="status-input" name="status" label="Status" />
+              <DropdownInputWithLabel
+                id="status-input"
+                name="status"
+                label="Status"
+                items={Object.values(CaseStatusEnum)}
+                itemLabel={(item: CaseStatusEnum) => CaseStatusLabel[item]}
+              />
             </div>
             <div>
-              <InputWithLabel id="description-input" name="description" label="Descrição" />
+              <InputWithLabel id="description-input" name="description" label="Description" />
             </div>
 
             <div className="flex justify-end w-full bg-black min-md:w-[200px]  min-md:ml-auto">
@@ -72,7 +81,7 @@ export function RegisterCaseModal({ isOpen, setIsOpen, selectedClientId }: Props
                 textColor="var(--white-color)"
                 fontSize="1.2rem"
               >
-                Cadastrar Processo
+                Confirmar Alterações
               </Button>
             </div>
           </form>
