@@ -3,6 +3,15 @@ import { UserRole } from '../../types/UserRole';
 
 export const fakeUserDatabase = [
   {
+    _id: Types.ObjectId.createFromHexString('a3f9c1e7444444a2ff12ac90'),
+    firstName: 'Maria',
+    lastName: 'José',
+    email: 'maria@email.com',
+    cpf: '11144888876',
+    password: 'Maria@123',
+    role: UserRole.lawyer,
+  },
+  {
     _id: Types.ObjectId.createFromHexString('a3f9c1e70d4b8a2fff12ac90'),
     firstName: 'Flávia',
     lastName: 'Santiago',
@@ -27,6 +36,15 @@ export const fakeUserDatabase = [
     email: 'ju@email.com',
     cpf: '11112287774',
     password: 'Ju!78910',
+    role: UserRole.client,
+  },
+  {
+    _id: Types.ObjectId.createFromHexString('a3f9c782999b8a2fff12ac90'),
+    firstName: 'Luan',
+    lastName: 'Carlos',
+    email: 'luan@email.com',
+    cpf: '22548585555',
+    password: 'Luan@123',
     role: UserRole.client,
   },
   {
