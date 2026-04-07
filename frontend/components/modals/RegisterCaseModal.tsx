@@ -1,5 +1,5 @@
 'use client';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { PrimaryModalWindow } from './PrimaryModalWindow';
 import { InputWithLabel } from '../form/InputWithLabel';
 import { Button } from '../Button';
@@ -36,6 +36,12 @@ export function RegisterCaseModal({ isOpen, setIsOpen, selectedClientId }: Props
     }
   }
 
+  useEffect(() => {
+    return () => {
+      setRequestState(null);
+    };
+  }, [isOpen]);
+
   return (
     isOpen && (
       <PrimaryModalWindow
@@ -44,6 +50,7 @@ export function RegisterCaseModal({ isOpen, setIsOpen, selectedClientId }: Props
         }
         closeModal={() => {
           setIsOpen(false);
+          setRequestState(null);
         }}
       >
         <div className="flex flex-col size-full bg-color-white items-center p-[16px]">
