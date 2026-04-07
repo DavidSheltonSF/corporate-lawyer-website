@@ -117,6 +117,9 @@ export function UpdateCaseModal({ loadCases, isOpen, setIsOpen, selectedCaseId }
                 itemLabel={(item: CaseStatusEnum) => CaseStatusLabel[item]}
               />
             </div>
+            <div>
+              <InputWithLabel id="description-input" name="description" label="Description" />
+            </div>
 
             <div className="flex justify-end w-full bg-black min-md:w-[200px]  min-md:ml-auto">
               <Button
