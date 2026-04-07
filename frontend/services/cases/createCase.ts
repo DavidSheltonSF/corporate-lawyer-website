@@ -2,6 +2,7 @@ import { API_URL } from '@/config/api';
 import { Case } from '@/types/Case';
 import { WithId } from '@/types/WithId';
 import { apiFetch } from '../apiFetch';
+import { mapLabelToCaseStatus } from '@/mapper/mapLabelToCaseStatus';
 
 export async function createCase(
   clientId: string,
@@ -14,6 +15,7 @@ export async function createCase(
   const court = formData.get('court');
   const courtDivision = formData.get('courtDivision');
   const status = formData.get('status');
+  const mappedStatus = mapLabelToCaseStatus(status?.toString() || '');
 
   const response = await apiFetch(`${API_URL}/cases`, {
     headers: {
@@ -28,7 +30,7 @@ export async function createCase(
       processNumber,
       court,
       courtDivision,
-      status,
+      status: mappedStatus,
     }),
   });
 
