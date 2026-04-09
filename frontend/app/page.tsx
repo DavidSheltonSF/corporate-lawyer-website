@@ -21,7 +21,7 @@ export default function Home() {
         textBackgroundColor="#00000059"
       />
       <main>
-        <DynamicSections sectionsNames={['Sobre Nós', 'Serviços', 'Equipe']}>
+        <DynamicSections sectionsNames={['Sobre Nós', 'Serviços', 'Fale Conosco']}>
           <DynamicSection>
             <div className="flex flex-col gap-[32px] lg:w-[70%] text-[1.5rem]">
               <div className="flex flex-col gap-[16px]">
