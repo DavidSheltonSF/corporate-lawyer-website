@@ -38,7 +38,6 @@ export function Navbar() {
       </div>
       <NavbarList menuIsOpen={menuIsOpen}>
         <NavbarItem name="Início" link="/" />
-        <NavbarItem name="Contato" link="/contact" />
         <NavbarItem name="Página do Cliente" link="/clientPageLogin" />
       </NavbarList>
       <NavbarMobileMenuButton menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen} />
