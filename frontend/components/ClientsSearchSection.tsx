@@ -10,6 +10,8 @@ import { SafeUser } from '@/types/SafeUser';
 import { RegisterUserModal } from './modals/RegisterUserModal';
 import { Button } from './Button';
 import { RequestState } from '@/types/RequestState';
+import { UnauthorizedError } from '@/errors/UnauthorizedError';
+import { handleLogout } from '@/lib/handleLogout';
 
 export default function ClientSearchSection() {
   const [requestState, setRequestState] = useState<RequestState | null>(null);
@@ -36,6 +38,9 @@ export default function ClientSearchSection() {
     } catch (error: any) {
       console.log(error);
       setRequestState({ status: 'error', message: error.message });
+      if (error instanceof UnauthorizedError) {
+        handleLogout();
+      }
     }
   }
 
