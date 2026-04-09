@@ -1,6 +1,6 @@
 import { ServerError } from '@/errors/ServerError';
+import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
-import { handleLogout } from '@/lib/handleLogout';
 
 interface RequestInit {
   headers?: {
@@ -23,8 +23,8 @@ export async function apiFetch(url: string, options?: RequestInit): Promise<Resp
   });
 
   if (response.status === 401) {
-    handleLogout();
-    throw Error('Unouthorized');
+    const json = await response.json();
+    throw new UnauthorizedError(json.message);
   }
 
   if (response.status === 500) {
