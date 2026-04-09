@@ -6,6 +6,8 @@ import { Button } from '../Button';
 import { createClient } from '@/services/users/createClient';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../form/RequestFeedback';
+import { handleLogout } from '@/lib/handleLogout';
+import { UnauthorizedError } from '@/errors/UnauthorizedError';
 interface Props {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -23,6 +25,9 @@ export function RegisterUserModal({ isOpen, setIsOpen }: Props) {
     } catch (error: any) {
       console.log(error);
       setRequestState({ status: 'error', message: error.message });
+      if (error instanceof UnauthorizedError) {
+        handleLogout();
+      }
     }
   }
 

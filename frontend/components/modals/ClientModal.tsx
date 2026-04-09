@@ -8,6 +8,8 @@ import { Button } from '../Button';
 import { getClientWithCases } from '@/services/users/getClientWithCases';
 import { Case } from '@/types/Case';
 import { reduceString } from '@/lib/reduceString';
+import { handleLogout } from '@/lib/handleLogout';
+import { UnauthorizedError } from '@/errors/UnauthorizedError';
 
 interface Props {
   clientId: string | null;
@@ -30,7 +32,9 @@ export function ClientModal({ isOpen, setIsOpen, clientId, openRegisterCaseModal
         setLoading(false);
       } catch (error) {
         console.log(error);
-        setIsOpen(false);
+        if (error instanceof UnauthorizedError) {
+          handleLogout();
+        }
       }
     }
 

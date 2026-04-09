@@ -7,6 +7,8 @@ import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../form/RequestFeedback';
 import { WithId } from '@/types/WithId';
 import { UserIdentity } from '@/types/UserIdentity';
+import { UnauthorizedError } from '@/errors/UnauthorizedError';
+import { handleLogout } from '@/lib/handleLogout';
 
 interface Props {
   isOpen: boolean;
@@ -31,6 +33,9 @@ export function DeleteClientModal({ loadClients, isOpen, setIsOpen, selectedClie
     } catch (error: any) {
       console.log(error);
       setRequestState({ status: 'error', message: error.message });
+      if (error instanceof UnauthorizedError) {
+        handleLogout();
+      }
     }
   }
 

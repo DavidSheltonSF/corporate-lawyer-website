@@ -7,6 +7,8 @@ import { deleteCaseById } from '@/services/users/deleteCaseById';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../form/RequestFeedback';
 import { ConfirmModal } from './ConfirmModal';
+import { handleLogout } from '@/lib/handleLogout';
+import { UnauthorizedError } from '@/errors/UnauthorizedError';
 
 interface Props {
   selectedCaseId: string | null;
@@ -33,6 +35,9 @@ export function DeleteCaseModal({ selectedCaseId, isOpen, setIsOpen, loadCases }
     } catch (error: any) {
       setRequestState({ status: 'error', message: error.message });
       console.log(error);
+      if (error instanceof UnauthorizedError) {
+        handleLogout();
+      }
     }
   }
 

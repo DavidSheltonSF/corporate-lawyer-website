@@ -8,6 +8,8 @@ import { RequestFeedback } from '../form/RequestFeedback';
 import { updateUser } from '@/services/users/updateUser';
 import { getUserById } from '@/services/users/getUserById';
 import { SafeUser } from '@/types/SafeUser';
+import { handleLogout } from '@/lib/handleLogout';
+import { UnauthorizedError } from '@/errors/UnauthorizedError';
 
 interface Props {
   isOpen: boolean;
@@ -31,6 +33,9 @@ export function UpdateClientModal({ loadClients, isOpen, setIsOpen, selectedClie
     } catch (error: any) {
       console.log(error);
       setRequestState({ status: 'error', message: error.message });
+      if (error instanceof UnauthorizedError) {
+        handleLogout();
+      }
     }
   }
 
@@ -46,6 +51,9 @@ export function UpdateClientModal({ loadClients, isOpen, setIsOpen, selectedClie
     } catch (error: any) {
       console.log(error);
       setRequestState({ status: 'error', message: error.message });
+      if (error instanceof UnauthorizedError) {
+        handleLogout();
+      }
     }
   }
 

@@ -14,6 +14,8 @@ import { updateCaseById } from '@/services/cases/updateCaseById';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { DropdownInputWithLabel } from '../form/DropdownInputWithLabel';
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';
+import { UnauthorizedError } from '@/errors/UnauthorizedError';
+import { handleLogout } from '@/lib/handleLogout';
 
 interface Props {
   isOpen: boolean;
@@ -37,6 +39,9 @@ export function UpdateCaseModal({ loadCases, isOpen, setIsOpen, selectedCaseId }
     } catch (error: any) {
       console.log(error);
       setRequestState({ status: 'error', message: error.message });
+      if (error instanceof UnauthorizedError) {
+        handleLogout();
+      }
     }
   }
 
@@ -52,6 +57,9 @@ export function UpdateCaseModal({ loadCases, isOpen, setIsOpen, selectedCaseId }
     } catch (error: any) {
       console.log(error);
       setRequestState({ status: 'error', message: error.message });
+      if (error instanceof UnauthorizedError) {
+        handleLogout();
+      }
     }
   }
 

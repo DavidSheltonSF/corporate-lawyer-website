@@ -6,6 +6,8 @@ import { uploadCaseFile } from '@/services/cases/uploadCaseFile';
 import { RequestState } from '@/types/RequestState';
 import { DropArea } from '../DropArea';
 import { RequestFeedback } from '../form/RequestFeedback';
+import { handleLogout } from '@/lib/handleLogout';
+import { UnauthorizedError } from '@/errors/UnauthorizedError';
 
 export function CaseFilesUploadModal({
   caseId,
@@ -41,6 +43,9 @@ export function CaseFilesUploadModal({
     } catch (error) {
       setUploadState({ status: 'error', message: 'Arquivo não adicionado' });
       console.log(error);
+      if (error instanceof UnauthorizedError) {
+        handleLogout();
+      }
     }
   }
 

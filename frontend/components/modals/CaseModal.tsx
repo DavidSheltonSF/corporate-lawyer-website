@@ -10,6 +10,8 @@ import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { OpenUploadModalButton } from '../OpenUploadModalButton';
 import { getCasePopulatedById } from '@/services/cases/getCasePopulatedById';
 import { WithId } from '@/types/WithId';
+import { UnauthorizedError } from '@/errors/UnauthorizedError';
+import { handleLogout } from '@/lib/handleLogout';
 
 interface Props {
   selectedCaseId: string | null;
@@ -31,7 +33,9 @@ export function CaseModal({ selectedCaseId, isOpen, setIsOpen }: Props) {
         setLoading(false);
       } catch (error) {
         console.log(error);
-        setIsOpen(false);
+        if (error instanceof UnauthorizedError) {
+          handleLogout();
+        }
       }
     }
 

@@ -11,6 +11,8 @@ import { createCase } from '@/services/cases/createCase';
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { DropdownInputWithLabel } from '../form/DropdownInputWithLabel';
+import { UnauthorizedError } from '@/errors/UnauthorizedError';
+import { handleLogout } from '@/lib/handleLogout';
 interface Props {
   selectedClientId: string | null;
   isOpen: boolean;
@@ -33,6 +35,9 @@ export function RegisterCaseModal({ isOpen, setIsOpen, selectedClientId }: Props
     } catch (error: any) {
       console.log(error);
       setRequestState({ status: 'error', message: error.message });
+      if (error instanceof UnauthorizedError) {
+        handleLogout();
+      }
     }
   }
 
