@@ -11,26 +11,21 @@ export async function getClients(queryParams: {
   limit: number;
   status?: string;
 }): Promise<Page<WithId<SafeUser>>> {
-  try {
-    if (!queryParams) {
-      throw new MissingRequiredArgumentError(getClients.name, 'queryParams');
-    }
-
-    const { page, limit, query, status } = queryParams;
-
-    const baseRoute = `${API_URL}/clients`;
-
-    const queryString = `?page=${page}&limit=${limit || ''}&query=${query || ''}&status=${
-      status || ''
-    }`;
-
-    const response = await apiFetch(`${baseRoute}/${queryString}`);
-
-    const responseJson = await response.json();
-
-    return responseJson.data;
-  } catch (error: any) {
-    console.log(error);
-    throw new Error(error);
+  if (!queryParams) {
+    throw new MissingRequiredArgumentError(getClients.name, 'queryParams');
   }
+
+  const { page, limit, query, status } = queryParams;
+
+  const baseRoute = `${API_URL}/clients`;
+
+  const queryString = `?page=${page}&limit=${limit || ''}&query=${query || ''}&status=${
+    status || ''
+  }`;
+
+  const response = await apiFetch(`${baseRoute}/${queryString}`);
+
+  const responseJson = await response.json();
+
+  return responseJson.data;
 }
