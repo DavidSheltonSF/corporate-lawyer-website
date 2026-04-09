@@ -14,6 +14,8 @@ import { useAuthenticatedUserContext } from '@/hooks/useAuthenticatedUserContext
 import { MissingContextError } from '@/errors/MissingContextError';
 import { UserRole } from '@/types/UserRole';
 import { getCases } from '@/services/cases/getCases';
+import { UnauthorizedError } from '@/errors/UnauthorizedError';
+import { handleLogout } from '@/lib/handleLogout';
 
 export default function CaseSearchSection() {
   const [query, setQuery] = useState('');
@@ -31,37 +33,44 @@ export default function CaseSearchSection() {
   const { userData } = authUserContext;
 
   async function loadCases() {
-    setCasesLoading(true);
-    let casesPage = null;
+    try {
+      setCasesLoading(true);
+      let casesPage = null;
 
-    switch (userData.role) {
-      case UserRole.lawyer:
-        casesPage = await getCases({
-          page,
-          limit: 4,
-          query,
-          status: statusFilder || '',
-        });
-        break;
+      switch (userData.role) {
+        case UserRole.lawyer:
+          casesPage = await getCases({
+            page,
+            limit: 4,
+            query,
+            status: statusFilder || '',
+          });
+          break;
 
-      case UserRole.client:
-        casesPage = await getMyCases({
-          page,
-          limit: 4,
-          query,
-          status: statusFilder || '',
-        });
-        break;
+        case UserRole.client:
+          casesPage = await getMyCases({
+            page,
+            limit: 4,
+            query,
+            status: statusFilder || '',
+          });
+          break;
 
-      default:
-        break;
+        default:
+          break;
+      }
+
+      const casesData = casesPage?.data;
+      setTotalPage(casesPage?.meta.totalPages || 0);
+
+      setCases(casesData || []);
+      setCasesLoading(false);
+    } catch (error: any) {
+      console.log(error);
+      if (error instanceof UnauthorizedError) {
+        handleLogout();
+      }
     }
-
-    const casesData = casesPage?.data;
-    setTotalPage(casesPage?.meta.totalPages || 0);
-
-    setCases(casesData || []);
-    setCasesLoading(false);
   }
 
   useEffect(() => {
