@@ -53,8 +53,13 @@ export default function ClientSearchSection() {
       <RegisterUserModal isOpen={registerUserModalIsOpen} setIsOpen={setRegisterUserModalIsOpen} />
       <div className="flex flex-col lg:flex-row gap-[40px] size-full">
         <SearchBar setQuery={setQuery} />
-        <div className="w-full min-lg:w-[200px]">
-          <Button fontSize="1.2rem" onclick={() => setRegisterUserModalIsOpen(true)}>
+        <div className="w-full min-lg:min-w-[200px]">
+          <Button
+            fontSize="1.2rem"
+            paddingX="16px"
+            width="auto"
+            onclick={() => setRegisterUserModalIsOpen(true)}
+          >
             Novo Cliente
           </Button>
         </div>
