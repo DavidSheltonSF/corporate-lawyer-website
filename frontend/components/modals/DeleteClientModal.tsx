@@ -81,7 +81,7 @@ export function DeleteClientModal({ loadClients, isOpen, setIsOpen, selectedClie
             textColor="var(--white-color)"
             disabled={confirmInputText !== confirmDeletionString}
           >
-            Confrimar
+            Confirmar
           </Button>
         </div>
       </PrimaryModalWindow>
