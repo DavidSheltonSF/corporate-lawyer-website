@@ -7,6 +7,8 @@ interface Props {
   fontSize?: string;
   width?: string;
   height?: string;
+  paddingX?: string;
+  paddingY?: string;
   children: React.ReactNode;
   onclick?: React.MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
@@ -21,6 +23,8 @@ export function Button(props: Props) {
     children,
     width = '128px',
     height = '56px',
+    paddingX = 'auto',
+    paddingY = 'auto',
     onclick,
     disabled,
   } = props;
@@ -28,13 +32,15 @@ export function Button(props: Props) {
     <button
       type={type}
       disabled={disabled}
-      className={`w-full rounded-sm ${!disabled && 'cursor-pointer hover:brightness-120 '}`}
+      className={`w-full rounded-sm ${!disabled && 'cursor-pointer hover:brightness-120 px-[8px]'}`}
       style={{
         backgroundColor,
         color: textColor,
         fontSize,
         height,
         width,
+        paddingInline: paddingX,
+        paddingBlock: paddingY,
       }}
       onClick={onclick}
     >
