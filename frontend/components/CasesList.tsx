@@ -8,6 +8,7 @@ import { CaseModal } from './modals/CaseModal';
 import { CardOptionsModal } from './modals/CardOptionsModal';
 import { UpdateCaseModal } from './modals/UpdateCaseModal';
 import { DeleteCaseModal } from './modals/DeleteCaseModal';
+import { CaseFilesUploadModal } from './modals/CaseFilesUploaModal';
 
 interface Props {
   cases: WithId<CaseWithRelations>[];
@@ -21,6 +22,7 @@ export function CasesList({ cases, loading, loadCases }: Props) {
   const [optionsModalIsOpen, setOptionsModalIsOpen] = useState(false);
   const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const [uploadModalIsOpen, setUploadModalIsOpen] = useState(false);
   const renderCases = cases?.map((cas, index) => {
     return (
       <CaseCard
@@ -49,7 +51,17 @@ export function CasesList({ cases, loading, loadCases }: Props) {
 
   return (
     <div className="flex flex-col gap-[32px] mt-[88px] w-full">
+      <CaseFilesUploadModal
+        isOpen={uploadModalIsOpen}
+        close={() => {
+          setUploadModalIsOpen(false);
+        }}
+        caseId={selectedCaseId || ''}
+      />
       <CaseModal
+        openUploadModal={() => {
+          setUploadModalIsOpen(true);
+        }}
         selectedCaseId={selectedCaseId}
         isOpen={caseModalIsOpen}
         setIsOpen={setCaseModalIsOpen}
@@ -72,6 +84,7 @@ export function CasesList({ cases, loading, loadCases }: Props) {
         openUpdateModal={openUpdateModal}
         openDeleteModal={openDeleteModal}
       />
+
       <Activity mode={!loading && (!cases || cases.length === 0) ? 'visible' : 'hidden'}>
         <h1 className="text-3xl">Nenhum caso encontrado</h1>
       </Activity>
