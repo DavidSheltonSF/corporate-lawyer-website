@@ -17,9 +17,10 @@ interface Props {
   selectedCaseId: string | null;
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  openUploadModal: Function;
 }
 
-export function CaseModal({ selectedCaseId, isOpen, setIsOpen }: Props) {
+export function CaseModal({ selectedCaseId, isOpen, setIsOpen, openUploadModal }: Props) {
   const [caseData, setCaseData] = useState<WithId<CaseWithRelations> | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -100,7 +101,7 @@ export function CaseModal({ selectedCaseId, isOpen, setIsOpen }: Props) {
                 <div className="relative w-full bg-color-primary p-[16px]">
                   <h1 className="text-2xl font-bold text-color-white">Arquivos</h1>
                   <div className="absolute right-[16px] top-[50%] translate-y-[-50%]">
-                    <OpenUploadModalButton />
+                    <OpenUploadModalButton handleClick={() => openUploadModal()} />
                   </div>
                 </div>
 
