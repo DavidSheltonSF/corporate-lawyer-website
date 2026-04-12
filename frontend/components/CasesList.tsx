@@ -55,12 +55,14 @@ export function CasesList({ cases, loading, loadCases }: Props) {
         isOpen={uploadModalIsOpen}
         close={() => {
           setUploadModalIsOpen(false);
+          setCaseModalIsOpen(true);
         }}
         caseId={selectedCaseId || ''}
       />
       <CaseModal
         openUploadModal={() => {
           setUploadModalIsOpen(true);
+          setCaseModalIsOpen(false);
         }}
         selectedCaseId={selectedCaseId}
         isOpen={caseModalIsOpen}
