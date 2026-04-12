@@ -83,7 +83,7 @@ export function CaseFilesUploadModal({
   return (
     isOpen && (
       <PrimaryModalWindow
-        additionalStyles="absolute z-99999999999 top-[15%] left-1/2 translate-x-[-50%] w-[360px] h-[320px] rounded-lg overflow-hidden shadow-[0px_0px__3px_black]"
+        additionalStyles="fixed top-[25%] left-1/2 translate-x-[-50%] w-[360px] h-[320px] rounded-lg overflow-hidden shadow-[0px_0px__3px_black]"
         closeModal={() => {
           closeModal();
         }}
