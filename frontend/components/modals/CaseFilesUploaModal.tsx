@@ -1,6 +1,5 @@
 'use client';
-import { UploadModalContext } from '@/contexts/modals/UploadModalContext';
-import React, { Dispatch, SetStateAction, useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { PrimaryModalWindow } from './PrimaryModalWindow';
 import { uploadCaseFile } from '@/services/cases/uploadCaseFile';
 import { RequestState } from '@/types/RequestState';
@@ -22,7 +21,7 @@ export function CaseFilesUploadModal({
 
   function closeModal() {
     if (uploadState?.status === 'loading') return;
-    close()
+    close();
     setUploadState(null);
   }
 
