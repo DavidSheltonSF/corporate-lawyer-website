@@ -8,7 +8,7 @@ import { CaseModal } from './modals/CaseModal';
 import { CardOptionsModal } from './modals/CardOptionsModal';
 import { UpdateCaseModal } from './modals/UpdateCaseModal';
 import { DeleteCaseModal } from './modals/DeleteCaseModal';
-import { CaseFilesUploadModal } from './modals/CaseFilesUploaModal';
+import { CaseFilesUploadModal } from './modals/CaseFilesUploadModal';
 
 interface Props {
   cases: WithId<CaseWithRelations>[];
