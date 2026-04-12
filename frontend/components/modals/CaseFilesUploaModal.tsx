@@ -11,17 +11,18 @@ import { UnauthorizedError } from '@/errors/UnauthorizedError';
 
 export function CaseFilesUploadModal({
   caseId,
-  setUpdateFiles,
+  isOpen,
+  close,
 }: {
   caseId: string;
-  setUpdateFiles: Dispatch<SetStateAction<boolean>>;
+  isOpen: boolean;
+  close: Function;
 }) {
-  const { isOpen, setIsOpen } = useContext<any>(UploadModalContext);
   const [uploadState, setUploadState] = useState<null | RequestState>(null);
 
   function closeModal() {
     if (uploadState?.status === 'loading') return;
-    setIsOpen(false);
+    close()
     setUploadState(null);
   }
 
@@ -39,7 +40,6 @@ export function CaseFilesUploadModal({
 
       await uploadCaseFile(formData, caseId);
       setUploadState({ status: 'ok', message: 'Arquivo adicionado com sucesso!' });
-      setUpdateFiles(true);
     } catch (error) {
       setUploadState({ status: 'error', message: 'Arquivo não adicionado' });
       console.log(error);
@@ -75,7 +75,6 @@ export function CaseFilesUploadModal({
       await uploadCaseFile(formData, caseId);
 
       setUploadState({ status: 'ok', message: 'Arquivo adicionado com sucesso!' });
-      setUpdateFiles(true);
     } catch (error) {
       console.log(error);
       setUploadState({ status: 'error', message: 'Arquivo não adicionado' });
