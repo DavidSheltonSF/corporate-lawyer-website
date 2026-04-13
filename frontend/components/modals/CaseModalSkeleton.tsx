@@ -1,6 +1,3 @@
-'use client';
-import { OpenUploadModalButton } from '../OpenUploadModalButton';
-
 export function CaseModalSkeleton() {
   return (
     <div className="flex flex-col h-full w-full">
@@ -23,9 +20,6 @@ export function CaseModalSkeleton() {
           </div>
           <div className="flex relative items-center h-[56px] bg-color-primary border-t pl-[24px]">
             <h1 className=" text-color-white text-3xl">Documentação</h1>
-            <div className="absolute top-1/2 translate-y-[-50%] right-[16px]">
-              <OpenUploadModalButton disabled />
-            </div>
           </div>
         </main>
       </div>
