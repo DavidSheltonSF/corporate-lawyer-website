@@ -28,12 +28,12 @@ export function SubNavbarItem(props: Props) {
   const isSelected = index === selected;
   return (
     <li
-      className="flex relative cursor-pointer justify-center items-center h-full"
+      className="flex shrink-0 relative cursor-pointer justify-center items-center h-full"
       onClick={handleClick}
       onMouseOver={handleMouseEnter}
       onMouseOut={handleMouseOut}
     >
-      <span className="text-color-white text-[1.5rem]">{name}</span>
+      <span className="text-nowrap text-color-white text-[1.5rem]">{name}</span>
       <span
         className={`absolute bottom-0 bg-color-secondary h-[2px] transition-all ${
           isOver || isSelected ? 'left-0 w-full' : 'right-0 w-0'
