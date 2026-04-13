@@ -12,8 +12,8 @@ export function SubNavbar(props: Props) {
   const { itemsNames, selectedSection, setSelectedSection } = props;
 
   return (
-    <nav className="flex items-center justify-center w-full h-[56px] bg-color-primary">
-      <ul className="flex items-center justify-center gap-[24px] h-[90%]">
+    <nav className="w-full h-[56px] bg-color-primary">
+      <ul className="flex items-center gap-[24px] size-full px-[16px] bg-black overflow-x-scroll">
         {itemsNames
           ? itemsNames.map((itemName, index) => {
               return (
