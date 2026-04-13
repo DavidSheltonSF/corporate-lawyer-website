@@ -45,8 +45,11 @@ export function FilesTable({ documents }: Props) {
                   </Button>
                 </div>
                 <div className="min-lg:hidden">
-                  <Button backgroundColor="var(--primary-color)">
-                    <Image src="/icons/download.svg" width={32} height={32} alt=""></Image>
+                  <Button backgroundColor="var(--primary-color)" width="56px" height="56px">
+                    <span className="flex size-full justify-center items-center">
+                      {' '}
+                      <Image src="/icons/download.svg" width={32} height={32} alt=""></Image>
+                    </span>
                   </Button>
                 </div>
               </Link>
