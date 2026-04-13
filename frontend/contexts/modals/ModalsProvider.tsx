@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { UploadModalContext } from './UploadModalContext';
 import { ServicesModalContext } from './ServicesModalContext';
 
 interface Props {
@@ -9,7 +8,6 @@ interface Props {
 }
 
 export function ModalsProvider({ children }: Props) {
-  const [uploadModalIsOpen, setUploadModalIsOpen] = useState(false);
   const [servicesModalIsOpen, setServicesModalIsOpen] = useState(false);
   const [serviceAreaId, setServiceAreaId] = useState('');
 
@@ -23,11 +21,7 @@ export function ModalsProvider({ children }: Props) {
           setServiceAreaId,
         }}
       >
-        <UploadModalContext.Provider
-          value={{ isOpen: uploadModalIsOpen, setIsOpen: setUploadModalIsOpen }}
-        >
-          {children}
-        </UploadModalContext.Provider>
+        {children}
       </ServicesModalContext.Provider>
     </div>
   );
