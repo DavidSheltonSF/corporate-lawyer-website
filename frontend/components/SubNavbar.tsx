@@ -13,7 +13,7 @@ export function SubNavbar(props: Props) {
 
   return (
     <nav className="w-full h-[56px] bg-color-primary">
-      <ul className="flex items-center gap-[24px] size-full px-[16px] bg-black overflow-x-scroll">
+      <ul className="flex items-center gap-[24px] size-full px-[16px] bg-primary-color overflow-x-scroll min-md:overflow-x-auto min-md:justify-center">
         {itemsNames
           ? itemsNames.map((itemName, index) => {
               return (
