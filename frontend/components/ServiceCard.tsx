@@ -29,8 +29,8 @@ export function ServiceCard({ serviceDetails }: Props) {
         </TooltipContainer>
       </header>
       <main className="flex flex-col items-center text-center gap-[16px]">
-        <h1 className="text-3xl lfont-bold mt-[16px]">{title}</h1>
-        <p className="w-[92%] lg:w-auto text-xl">{description}</p>
+        <h1 className="text-3xl font-bold mt-[16px]">{title}</h1>
+        <p className="w-[92%] lg:w-auto ">{description}</p>
       </main>
     </article>
   );
