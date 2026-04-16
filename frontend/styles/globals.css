@@ -1,5 +1,16 @@
 @import 'tailwindcss';
 
+/* 
+
+Font sizes (tailwind)
+
+text-4xl
+text-3xl
+text-2xl
+text-lg
+
+*/
+
 :root {
   --white-color: #f9fafb;
   --black-color: #2c2c2c;
@@ -18,7 +29,8 @@
   );
 }
 
-input, textarea {
+input,
+textarea {
   outline: none;
 }
 
@@ -54,8 +66,13 @@ body {
   background-color: var(--secondary-color);
 }
 
-.bg-load-up-secondary{
-  background: linear-gradient(0deg, rgba(255, 255, 0, 0), var(--secondary-color), var(--secondary-color));
+.bg-load-up-secondary {
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 0, 0),
+    var(--secondary-color),
+    var(--secondary-color)
+  );
   background-size: 100% 200%;
 }
 
@@ -106,14 +123,13 @@ body {
 
 @media (min-width: 768px) {
   .table > div {
-  display: grid;
-  grid-template-columns: 2fr 2fr 1fr;
-  grid-template-rows: 72px;
-  gap: 0 32px;
-  align-items: center;
-  word-break: break-all;
-  border-bottom: 1px solid rgba(94, 93, 93, 0.342);
-  height: 72px;
-}
-
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr;
+    grid-template-rows: 72px;
+    gap: 0 32px;
+    align-items: center;
+    word-break: break-all;
+    border-bottom: 1px solid rgba(94, 93, 93, 0.342);
+    height: 72px;
+  }
 }
