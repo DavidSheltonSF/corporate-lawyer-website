@@ -27,9 +27,9 @@ export function HeroSection({
     >
       <div className="w-full  mb-[40px]" style={{ backgroundColor: textBackgroundColor }}>
         <div className="flex flex-col gap-[16px] justify-end px-[24px] lg:pl-[160px] h-fit text-color-white">
-          <h1 className="text-3xl lg:text-5xl font-bold lg:w-[50%]">{title}</h1>
+          <h1 className="font-bold lg:w-[50%]">{title}</h1>
           <Activity mode={description !== undefined ? 'visible' : 'hidden'}>
-            <p className="lg:text-[1.5rem] lg:w-[50%]">{description}</p>
+            <h2 className="lg:w-[50%]">{description}</h2>
           </Activity>
         </div>
       </div>
