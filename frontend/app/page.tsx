@@ -23,9 +23,9 @@ export default function Home() {
       <main>
         <DynamicSections sectionsNames={['Sobre Nós', 'Serviços', 'Fale Conosco']}>
           <DynamicSection>
-            <div className="flex flex-col gap-[32px] lg:w-[70%] text-2xl">
+            <div className="flex flex-col gap-[32px] lg:w-[70%]">
               <div className="flex flex-col gap-[16px]">
-                <h3 className="text-3xl text-color-secondary font-bold">Somos experientes</h3>
+                <h2 className="text-color-secondary font-bold">Somos experientes</h2>
                 <p>
                   Com mais de 5 anos prestando atendimento com empatia, ética e dedicação, somos um
                   escritório de advocacia comprometido em oferecer soluções jurídicas eficazes e
@@ -33,7 +33,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex flex-col gap-[16px]">
-                <h3 className="text-3xl text-color-secondary font-bold">Diversificados</h3>
+                <h2 className="text-color-secondary font-bold">Diversificados</h2>
                 <p>
                   Atuamos em diversas áreas do Direito, com destaque para Direito de Família,
                   Previdenciário, Trabalhista e Civil, sempre buscando garantir os melhores
@@ -41,9 +41,9 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex flex-col gap-[16px]">
-                <h3 className="text-3xl text-color-secondary font-bold">
+                <h2 className="text-color-secondary font-bold">
                   Também somos adaptáveis
-                </h3>
+                </h2>
                 <p>
                   Além disso, somos um escritório moderno e adaptável, que utiliza tecnologias
                   inovadoras para agilizar atendimentos, acompanhar processos e oferecer suporte
