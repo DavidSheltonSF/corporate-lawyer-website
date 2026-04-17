@@ -29,7 +29,7 @@ export function Footer() {
           </a>
         </div>
         <div className="flex justify-center items-center gap-[24px] h-[20%] font-bold text-[var(--white-color)]">
-          <a href="#">privacidade</a>
+          <a href="#">Privacidade</a>
           <a href="#">Contate-nos</a>
         </div>
       </div>
