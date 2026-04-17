@@ -31,9 +31,9 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
           label={specialization}
           tooltipLabelProps={{
             position: {
-              bottom: "120%",
-              left: "50%",
-              translateX: "-50%"
+              bottom: '120%',
+              left: '50%',
+              translateX: '-50%',
             },
             backgroundColor: '#000',
             fontSize: '16px',
@@ -59,11 +59,11 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
           />
         </div>
         <div className="flex lg:w-[70%] flex-col gap-[8px] px-[16px] pb-[16px]">
-          <h3 className="text-2xl lg:mt-[24px] font-bold text-color-secondary">{title}</h3>
-          <p className="w-full text-base">{description}</p>
+          <h3 className=" lg:mt-[24px] font-bold text-color-secondary">{title}</h3>
+          <p className="w-full">{description}</p>
         </div>
       </main>
-      <footer className="flex h-fit border-t border-[var(--secondary-color)] md:text-xl">
+      <footer className="flex h-fit border-t border-[var(--secondary-color)]">
         <div className="hidden md:flex flex-col gap-[16px] border-r border-[var(--secondary-color)] w-[50%] pl-[16px] py-[8px]">
           <h4 className="font-bold">Especialidades</h4>
           <span className="flex items-center gap-[16px]">{renderSpecializations()}</span>
