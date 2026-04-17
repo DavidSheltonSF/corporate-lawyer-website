@@ -20,7 +20,7 @@ export function SubNavbar(props: Props) {
                 <SubNavbarItem
                   key={`subnav-item${index}`}
                   index={index}
-                  name={itemName}
+                  label={itemName}
                   selected={selectedSection}
                   setSelected={setSelectedSection}
                 />

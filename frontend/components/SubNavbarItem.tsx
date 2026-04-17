@@ -4,13 +4,13 @@ import { useState } from 'react';
 
 interface Props {
   index: number;
-  name: string;
+  label: string;
   selected?: number;
   setSelected?: any;
 }
 
 export function SubNavbarItem(props: Props) {
-  const { index, name, selected, setSelected } = props;
+  const { index, label, selected, setSelected } = props;
   const [isOver, setOver] = useState(false);
 
   function handleClick() {
@@ -33,7 +33,7 @@ export function SubNavbarItem(props: Props) {
       onMouseOver={handleMouseEnter}
       onMouseOut={handleMouseOut}
     >
-      <span className="text-nowrap text-color-white large-text ">{name}</span>
+      <span className="text-nowrap text-color-white large-text ">{label}</span>
       <span
         className={`absolute bottom-0 bg-color-secondary h-[2px] transition-all ${
           isOver || isSelected ? 'left-0 w-full' : 'right-0 w-0'
