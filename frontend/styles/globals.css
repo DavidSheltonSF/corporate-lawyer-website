@@ -50,6 +50,10 @@ h3 {
   font-size: var(--font-md);
 }
 
+.large-text {
+  font-size: var(--font-lg);
+}
+
 .small-text {
   font-size: var(--font-xs);
 }
