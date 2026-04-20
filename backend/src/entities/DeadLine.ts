@@ -1,4 +1,5 @@
-import { DeadlineType } from "../types/DeadLineType";
+import { DeadlinePriority } from '../types/DeadLinePriority';
+import { DeadlineType } from '../types/DeadLineType';
 
 export interface DeadLine {
   processId: string;
@@ -6,6 +7,7 @@ export interface DeadLine {
   type: DeadlineType;
   startDate: Date;
   dueDate: Date;
-  status: string;
+  status: DeadlineStatus;
+  priority: DeadlinePriority;
   alerts: number[];
 }
