@@ -25,7 +25,7 @@ export function DashboardCard({ title, sectionIndex, children }: Props) {
       }`}
       onClick={() => sectionIndex !== undefined && setSelectedSection(sectionIndex)}
     >
-      <h1 className="ml-[24px] font-bold text-[1.5rem]">{title}</h1>
+      <h2 className="ml-[24px] font-bold text-[1.5rem]">{title}</h2>
       <div className="flex flex-col gap-[16px] bg-color-primary h-[90%] px-[24px] py-[8px]">
         {children}
       </div>
