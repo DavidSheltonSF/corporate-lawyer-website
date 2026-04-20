@@ -75,9 +75,9 @@ export function DropArea({ uploadState, handleChange, handleDrop }: Props) {
       onDrop={handleDrop}
     >
       <UploadCloudIcon width="56px" height="56px" color="#2c2c2c85" />
-      <h1 className="text-lg ">Solte Seu Arquivo Aqui</h1>
-      <h1 className="text-lg ">- ou -</h1>
-      <h1 className="text-lg ">Clique para fazer upload</h1>
+      <h3 className="text-lg ">Solte Seu Arquivo Aqui</h3>
+      <h3 className="text-lg ">- ou -</h3>
+      <h3 className="text-lg ">Clique para fazer upload</h3>
 
       <input
         className="hidden"
