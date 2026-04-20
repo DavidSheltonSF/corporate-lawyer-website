@@ -62,7 +62,7 @@ export function ClientModal({ isOpen, setIsOpen, clientId, openRegisterCaseModal
         key={index}
         className="flex flex-col gap-[8px] w-full border-[1px] p-[8px] rounded-[8px]"
       >
-        <h1 className="font-bold ">{reduceString(cas.title, 24)}</h1>
+        <h2 className="font-bold ">{reduceString(cas.title, 24)}</h2>
         <div className="flex flex-col">{reduceString(cas.description || '', 70)}</div>
       </div>
     );
