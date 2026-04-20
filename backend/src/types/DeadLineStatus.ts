@@ -1,0 +1,1 @@
+type DeadlineStatus = 'PENDENTE' | 'EM_ANDAMENTO' | 'CONCLUIDO' | 'VENCIDO' | 'CANCELADO';
