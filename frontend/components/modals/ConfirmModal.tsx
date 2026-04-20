@@ -18,18 +18,18 @@ export function ConfirmModal({ isOpen, setIsOpen, onConfirm, requestState, text 
     isOpen && (
       <PrimaryModalWindow
         additionalStyles={
-          'fixed z-99999999999 top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[400px] h-[224px] rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
+          'fixed z-99999999999 top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[400px] h-[240px] rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
         }
         closeModal={() => {
           setIsOpen(false);
         }}
       >
-        <div className="flex flex-col size-full justify-center items-around">
+        <div className="flex flex-col size-full justify-between items-center p-[24px]">
           <div className="flex w-full h-[80px] justify-center items-center">
-            {requestState === null ? <h2 className="text-center text-lg">{text}</h2> : ''}
+            {requestState === null ? <h3 className="text-center text-lg">{text}</h3> : ''}
             <RequestFeedback requestState={requestState} />
           </div>
-          <div className="flex h-fit bg-color-white justify-around items-end size-full  p-[16px] ">
+          <div className="flex h-fit justify-between items-end size-full ">
             <Button
               width="144px"
               height="56px"
