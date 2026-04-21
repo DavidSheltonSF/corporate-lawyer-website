@@ -1,7 +1,7 @@
 import { DeadlinePriority } from '../types/DeadLinePriority';
 import { DeadlineType } from '../types/DeadLineType';
 
-export interface DeadLine {
+export interface Deadline {
   processId: string;
   clientId: string;
   type: DeadlineType;

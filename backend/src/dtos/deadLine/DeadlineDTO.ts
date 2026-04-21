@@ -1,4 +1,4 @@
-export interface DeadLineDTO {
+export interface DeadlineDTO {
   processId: string;
   clientId: string;
   type: string;
