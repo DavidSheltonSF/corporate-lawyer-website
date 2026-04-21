@@ -6,5 +6,4 @@ export interface DeadLineDTO {
   dueDate: Date;
   status: string;
   priority: string;
-  alerts: number[];
 }
