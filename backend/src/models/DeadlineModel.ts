@@ -4,7 +4,7 @@ import { DeadlinePriority } from '../types/DeadLinePriority';
 import { DeadlineStatus } from '../types/DeadLineStatus';
 
 export interface IDeadlineModel {
-  processId: Types.ObjectId;
+  caseId: Types.ObjectId;
   clientId: Types.ObjectId;
   type: DeadlineType;
   startDate: Date;
@@ -16,7 +16,7 @@ export interface IDeadlineModel {
 interface DeadlineMongoDocument extends IDeadlineModel, Document {}
 
 const DeadlineSchema = new Schema<DeadlineMongoDocument>({
-  processId: { type: Types.ObjectId, ref: 'Cases', index: true, required: true },
+  caseId: { type: Types.ObjectId, ref: 'Cases', index: true, required: true },
   clientId: { type: Types.ObjectId, ref: 'Users', index: true, required: true },
   type: {
     type: String,
