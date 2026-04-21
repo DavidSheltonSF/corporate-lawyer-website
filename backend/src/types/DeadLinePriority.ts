@@ -1,4 +1,5 @@
-export type DeadlinePriority =
-  | 'BAIXA'
-  | 'MEDIA'
-  | 'ALTA'
+export enum DeadlinePriority {
+  BAIXA = 'BAIXA',
+  MEDIA = 'MEDIA',
+  ALTA = 'ALTA',
+}
