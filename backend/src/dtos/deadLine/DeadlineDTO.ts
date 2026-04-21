@@ -1,5 +1,5 @@
 export interface DeadlineDTO {
-  processId: string;
+  caseId: string;
   clientId: string;
   type: string;
   startDate: string;
