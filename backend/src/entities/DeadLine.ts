@@ -9,5 +9,4 @@ export interface DeadLine {
   dueDate: Date;
   status: DeadlineStatus;
   priority: DeadlinePriority;
-  alerts: number[];
 }
