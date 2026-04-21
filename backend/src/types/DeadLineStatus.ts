@@ -1,1 +1,7 @@
-type DeadlineStatus = 'PENDENTE' | 'EM_ANDAMENTO' | 'CONCLUIDO' | 'VENCIDO' | 'CANCELADO';
+export enum DeadlineStatus {
+  PENDENTE = 'PENDENTE',
+  EM_ANDAMENTO = 'EM_ANDAMENTO',
+  CONCLUIDO = 'CONCLUIDO',
+  VENCIDO = 'VENCIDO',
+  CANCELADO = 'CANCELADO',
+}
