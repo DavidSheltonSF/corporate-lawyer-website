@@ -5,10 +5,10 @@ import { WithId } from '../../types/WithId';
 
 export class DeadlineMapper {
   static persistenceToDomain(data: WithMongoId<any>): WithId<Deadline> {
-    const { _id, processId, clientId, priority, type, status, startDate, dueDate } = data;
+    const { _id, caseId, clientId, priority, type, status, startDate, dueDate } = data;
     return {
       id: _id.toString(),
-      processId,
+      caseId,
       clientId,
       startDate,
       dueDate,
@@ -19,10 +19,10 @@ export class DeadlineMapper {
   }
 
   static persistenceToPresentation(data: WithMongoId<any>): WithId<DeadlineDTO> {
-    const { _id, processId, clientId, priority, type, status, startDate, dueDate } = data;
+    const { _id, caseId, clientId, priority, type, status, startDate, dueDate } = data;
     return {
       id: _id.toString(),
-      processId,
+      caseId,
       clientId,
       startDate: startDate.toString(),
       dueDate: dueDate.toString(),
