@@ -1,8 +1,9 @@
-export type DeadlineType =
-  | 'CONTESTACAO'
-  | 'REPLICA'
-  | 'RECURSO'
-  | 'MANIFESTACAO'
-  | 'PAGAMENTO'
-  | 'AUDIENCIA'
-  | 'OUTRO';
+export enum DeadlineType {
+  CONTESTACAO = 'CONTESTACAO',
+  REPLICA = 'REPLICA',
+  RECURSO = 'RECURSO',
+  MANIFESTACAO = 'MANIFESTACAO',
+  PAGAMENTO = 'PAGAMENTO',
+  AUDIENCIA = 'AUDIENCIA',
+  OUTRO = 'OUTRO',
+}
