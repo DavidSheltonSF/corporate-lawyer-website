@@ -12,9 +12,9 @@ export class MongodbDeadlineRepository implements DeadlineRepository {
     return DeadlineMapper.persistenceToPresentation(deadline);
   }
 
-  async findAll(): Promise<WithId<Deadline>[]> {
+  async findAll(): Promise<WithId<DeadlineDTO>[]> {
     const deadlines = await DeadlineModel.find({}).lean();
-    return deadlines.map(DeadlineMapper.persistenceToDomain);
+    return deadlines.map(DeadlineMapper.persistenceToPresentation);
   }
 
   async findById(id: string): Promise<WithId<Deadline> | null> {
