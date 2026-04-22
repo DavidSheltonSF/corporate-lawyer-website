@@ -2,8 +2,8 @@ import { InvalidCaseStatusError } from '../../../errors/domain/InvalidCaseStatus
 import { CasesStatus } from '../../../types/CasesStatus';
 
 export function validateCaseStatus(status: string) {
-  const validStatus = Object.values(CasesStatus) as string[];
-  if (!validStatus.includes(status)) {
+  const validStatuses = Object.values(CasesStatus) as string[];
+  if (!validStatuses.includes(status)) {
     throw new InvalidCaseStatusError(status);
   }
 }
