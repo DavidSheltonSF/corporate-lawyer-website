@@ -1,4 +1,4 @@
-import { DeadLineRepository } from '../../../repositories/DeadLineRepository';
+import { DeadLineRepository } from '../../../repositories/DeadlineRepository';
 import { WithId } from '../../../types/WithId';
 import { DeadlineModel } from '../../../models/DeadlineModel';
 import { Deadline } from '../../../entities/Deadline';

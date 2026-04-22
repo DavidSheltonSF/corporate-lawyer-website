@@ -3,7 +3,7 @@ import { DeadlineDTO } from '../dtos/deadLine/DeadlineDTO';
 import { UpdateDeadlineDTO } from '../dtos/deadLine/UpdateDeadlineDTO';
 import { Deadline } from '../entities/Deadline';
 
-export interface DeadLineRepository {
+export interface DeadlineRepository {
   create(data: DeadlineDTO): Promise<WithId<DeadlineDTO>>;
   findAll(): Promise<WithId<Deadline>[]>;
   findById(id: string): Promise<WithId<Deadline> | null>;
