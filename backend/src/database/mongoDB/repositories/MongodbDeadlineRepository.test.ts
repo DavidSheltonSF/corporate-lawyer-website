@@ -1,10 +1,8 @@
 import { config } from 'dotenv';
 import { DeadlineModel } from '../../../models/DeadlineModel';
 import { MongodbDeadlineRepository } from './MongodbDeadlineRepository';
-import bcrypt from 'bcrypt';
 import { Types } from 'mongoose';
 import { MongodbTestConnector } from '../MongodbTestConnector';
-import { DeadlineDTO } from '../../../dtos/deadLine/DeadlineDTO';
 import { DeadlineType } from '../../../types/DeadLineType';
 import { DeadlineStatus } from '../../../types/DeadLineStatus';
 import { DeadlinePriority } from '../../../types/DeadLinePriority';
