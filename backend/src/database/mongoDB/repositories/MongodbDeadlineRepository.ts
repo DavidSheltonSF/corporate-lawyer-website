@@ -1,7 +1,6 @@
 import { DeadlineRepository } from '../../../repositories/DeadlineRepository';
 import { WithId } from '../../../types/WithId';
 import { DeadlineModel } from '../../../models/DeadlineModel';
-import { Deadline } from '../../../entities/Deadline';
 import { DeadlineDTO } from '../../../dtos/deadLine/DeadlineDTO';
 import { DeadlineMapper } from '../../../mappers/Deadline/DeadlineMapper';
 import { UpdateDeadlineDTO } from '../../../dtos/deadLine/UpdateDeadlineDTO';
@@ -17,32 +16,35 @@ export class MongodbDeadlineRepository implements DeadlineRepository {
     return deadlines.map(DeadlineMapper.persistenceToPresentation);
   }
 
-  async findById(id: string): Promise<WithId<Deadline> | null> {
+  async findById(id: string): Promise<WithId<DeadlineDTO> | null> {
     const deadline = await DeadlineModel.findById(id).lean();
 
     if (!deadline) {
       return null;
     }
-    return DeadlineMapper.persistenceToDomain(deadline);
+    return DeadlineMapper.persistenceToPresentation(deadline);
   }
 
-  async findByCaseId(id: string): Promise<WithId<Deadline>[]> {
+  async findByCaseId(id: string): Promise<WithId<DeadlineDTO>[]> {
     const deadlines = await DeadlineModel.find({ caseId: id }).lean();
-    return deadlines.map(DeadlineMapper.persistenceToDomain);
+    return deadlines.map(DeadlineMapper.persistenceToPresentation);
   }
 
-  async deleteById(id: string): Promise<WithId<Deadline> | null> {
+  async deleteById(id: string): Promise<WithId<DeadlineDTO> | null> {
     const result = await DeadlineModel.findOneAndDelete({ _id: id });
     if (!result) return null;
-    return DeadlineMapper.persistenceToDomain(result);
+    return DeadlineMapper.persistenceToPresentation(result);
   }
 
-  async updateById(id: string, data: Partial<UpdateDeadlineDTO>): Promise<WithId<Deadline> | null> {
+  async updateById(
+    id: string,
+    data: Partial<UpdateDeadlineDTO>
+  ): Promise<WithId<DeadlineDTO> | null> {
     const result = await DeadlineModel.findOneAndUpdate({ _id: id }, data, {
       returnDocument: 'after',
     });
     if (!result) return null;
-    return DeadlineMapper.persistenceToDomain(result);
+    return DeadlineMapper.persistenceToPresentation(result);
   }
 
   async existsById(id: string): Promise<boolean> {
