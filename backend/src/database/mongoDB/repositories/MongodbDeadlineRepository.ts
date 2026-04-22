@@ -1,4 +1,4 @@
-import { DeadLineRepository } from '../../../repositories/DeadlineRepository';
+import { DeadlineRepository } from '../../../repositories/DeadlineRepository';
 import { WithId } from '../../../types/WithId';
 import { DeadlineModel } from '../../../models/DeadlineModel';
 import { Deadline } from '../../../entities/Deadline';
@@ -6,7 +6,7 @@ import { DeadlineDTO } from '../../../dtos/deadLine/DeadlineDTO';
 import { DeadlineMapper } from '../../../mappers/Deadline/DeadlineMapper';
 import { UpdateDeadlineDTO } from '../../../dtos/deadLine/UpdateDeadlineDTO';
 
-export class MongodbDeadlineRepository implements DeadLineRepository {
+export class MongodbDeadlineRepository implements DeadlineRepository {
   async create(data: DeadlineDTO): Promise<WithId<DeadlineDTO>> {
     const deadline = await DeadlineModel.create(data);
     return DeadlineMapper.persistenceToPresentation(deadline);
