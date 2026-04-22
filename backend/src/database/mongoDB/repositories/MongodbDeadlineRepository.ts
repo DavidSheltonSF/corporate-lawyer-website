@@ -7,9 +7,9 @@ import { DeadlineMapper } from '../../../mappers/Deadline/DeadlineMapper';
 import { UpdateDeadlineDTO } from '../../../dtos/deadLine/UpdateDeadlineDTO';
 
 export class MongodbDeadlineRepository implements DeadLineRepository {
-  async create(data: DeadlineDTO): Promise<WithId<Deadline>> {
+  async create(data: DeadlineDTO): Promise<WithId<DeadlineDTO>> {
     const deadline = await DeadlineModel.create(data);
-    return DeadlineMapper.persistenceToDomain(deadline);
+    return DeadlineMapper.persistenceToPresentation(deadline);
   }
 
   async findAll(): Promise<WithId<Deadline>[]> {
