@@ -22,8 +22,8 @@ export class DeadlineMapper {
     const { _id, caseId, clientId, priority, type, status, startDate, dueDate } = data;
     return {
       id: _id.toString(),
-      caseId,
-      clientId,
+      caseId: caseId.toString(),
+      clientId: clientId.toString(),
       startDate: startDate.toString(),
       dueDate: dueDate.toString(),
       type,
