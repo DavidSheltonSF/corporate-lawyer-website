@@ -36,11 +36,14 @@ export class MongodbDeadlineRepository implements DeadlineRepository {
     return DeadlineMapper.persistenceToPresentation(result);
   }
 
-  async updateById(
-    id: string,
-    data: Partial<UpdateDeadlineDTO>
-  ): Promise<WithId<DeadlineDTO> | null> {
-    const result = await DeadlineModel.findOneAndUpdate({ _id: id }, data, {
+  async updateById(id: string, data: UpdateDeadlineDTO): Promise<WithId<DeadlineDTO> | null> {
+    const updatedData = {
+      startDate: data.dateRange?.startDate,
+      dueDate: data.dateRange?.dueDate,
+      ...data,
+    };
+
+    const result = await DeadlineModel.findOneAndUpdate({ _id: id }, updatedData, {
       returnDocument: 'after',
     });
     if (!result) return null;

@@ -8,6 +8,6 @@ export interface DeadlineRepository {
   findById(id: string): Promise<WithId<DeadlineDTO> | null>;
   findByCaseId(id: string): Promise<WithId<DeadlineDTO>[]>;
   deleteById(id: string): Promise<WithId<DeadlineDTO> | null>;
-  updateById(id: string, data: Partial<UpdateDeadlineDTO>): Promise<WithId<DeadlineDTO> | null>;
+  updateById(id: string, data: UpdateDeadlineDTO): Promise<WithId<DeadlineDTO> | null>;
   existsById(id: string): Promise<boolean>;
 }
