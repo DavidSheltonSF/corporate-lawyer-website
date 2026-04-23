@@ -58,20 +58,20 @@ describe('Test DeadlineRepository', () => {
     const { deadlineRepository } = makeSut();
     const newDeadlines = [
       {
-        caseId: Types.ObjectId.createFromTime(848484),
-        clientId: Types.ObjectId.createFromTime(8484),
+        caseId: Types.ObjectId.createFromTime(848484).toString(),
+        clientId: Types.ObjectId.createFromTime(8484).toString(),
         type: DeadlineType.PAGAMENTO,
-        startDate: new Date('2050-02-02'),
-        dueDate: new Date('2050-03-02'),
+        startDate: new Date('2050-02-02').toString(),
+        dueDate: new Date('2050-03-02').toString(),
         status: DeadlineStatus.EM_ANDAMENTO,
         priority: DeadlinePriority.ALTA,
       },
       {
-        caseId: Types.ObjectId.createFromTime(8484),
-        clientId: Types.ObjectId.createFromTime(847774),
+        caseId: Types.ObjectId.createFromTime(8484).toString(),
+        clientId: Types.ObjectId.createFromTime(847774).toString(),
         type: DeadlineType.CONTESTACAO,
-        startDate: new Date('2050-02-02'),
-        dueDate: new Date('2050-03-02'),
+        startDate: new Date('2050-02-02').toString(),
+        dueDate: new Date('2050-03-02').toString(),
         status: DeadlineStatus.CONCLUIDO,
         priority: DeadlinePriority.ALTA,
       },
@@ -92,8 +92,8 @@ describe('Test DeadlineRepository', () => {
       caseId: Types.ObjectId.createFromTime(848484).toString(),
       clientId: Types.ObjectId.createFromTime(8484).toString(),
       type: DeadlineType.PAGAMENTO,
-      startDate: new Date('2050-02-02'),
-      dueDate: new Date('2050-03-02'),
+      startDate: new Date('2050-02-02').toString(),
+      dueDate: new Date('2050-03-02').toString(),
       status: DeadlineStatus.EM_ANDAMENTO,
       priority: DeadlinePriority.ALTA,
     };
@@ -105,32 +105,29 @@ describe('Test DeadlineRepository', () => {
     if (!deadline) {
       throw Error('Deadline not found');
     }
-    expect(deadline.caseId.toString()).toBe(newDeadline.caseId.toString());
-    expect(deadline.clientId.toString()).toBe(newDeadline.clientId.toString());
-    expect(deadline.type).toBe(newDeadline.type);
-    expect(deadline.status).toBe(newDeadline.status);
-    expect(deadline.priority).toBe(newDeadline.priority);
+    expect(deadline).toEqual(expect.objectContaining(newDeadline));
+
   });
 
   test('should find deadlines by case id', async () => {
     const { deadlineRepository } = makeSut();
 
     const newDeadline = {
-      caseId: Types.ObjectId.createFromTime(848484),
-      clientId: Types.ObjectId.createFromTime(8484),
+      caseId: Types.ObjectId.createFromTime(848484).toString(),
+      clientId: Types.ObjectId.createFromTime(8484).toString(),
       type: DeadlineType.PAGAMENTO,
-      startDate: new Date('2050-02-02'),
-      dueDate: new Date('2050-03-02'),
+      startDate: new Date('2050-02-02').toString(),
+      dueDate: new Date('2050-03-02').toString(),
       status: DeadlineStatus.EM_ANDAMENTO,
       priority: DeadlinePriority.ALTA,
     };
 
     const otherCaseDeadline = {
-      caseId: Types.ObjectId.createFromTime(8484884613614),
-      clientId: Types.ObjectId.createFromTime(8484),
+      caseId: Types.ObjectId.createFromTime(8484884613614).toString(),
+      clientId: Types.ObjectId.createFromTime(8484).toString(),
       type: DeadlineType.PAGAMENTO,
-      startDate: new Date('2050-02-02'),
-      dueDate: new Date('2050-03-02'),
+      startDate: new Date('2050-02-02').toString(),
+      dueDate: new Date('2050-03-02').toString(),
       status: DeadlineStatus.EM_ANDAMENTO,
       priority: DeadlinePriority.ALTA,
     };
@@ -148,11 +145,11 @@ describe('Test DeadlineRepository', () => {
     const { deadlineRepository } = makeSut();
 
     const newDeadline = {
-      caseId: Types.ObjectId.createFromTime(848484),
-      clientId: Types.ObjectId.createFromTime(8484),
+      caseId: Types.ObjectId.createFromTime(848484).toString(),
+      clientId: Types.ObjectId.createFromTime(8484).toString(),
       type: DeadlineType.PAGAMENTO,
-      startDate: new Date('2050-02-02'),
-      dueDate: new Date('2050-03-02'),
+      startDate: new Date('2050-02-02').toString(),
+      dueDate: new Date('2050-03-02').toString(),
       status: DeadlineStatus.EM_ANDAMENTO,
       priority: DeadlinePriority.ALTA,
     };
@@ -172,11 +169,11 @@ describe('Test DeadlineRepository', () => {
     const { deadlineRepository } = makeSut();
 
     const newDeadline = {
-      caseId: Types.ObjectId.createFromTime(848484),
-      clientId: Types.ObjectId.createFromTime(8484),
+      caseId: Types.ObjectId.createFromTime(848484).toString(),
+      clientId: Types.ObjectId.createFromTime(8484).toString(),
       type: DeadlineType.PAGAMENTO,
-      startDate: new Date('2050-02-02'),
-      dueDate: new Date('2050-03-02'),
+      startDate: new Date('2050-02-02').toString(),
+      dueDate: new Date('2050-03-02').toString(),
       status: DeadlineStatus.EM_ANDAMENTO,
       priority: DeadlinePriority.ALTA,
     };
@@ -203,8 +200,8 @@ describe('Test DeadlineRepository', () => {
       caseId: Types.ObjectId.createFromTime(848484).toString(),
       clientId: Types.ObjectId.createFromTime(8484).toString(),
       type: DeadlineType.PAGAMENTO,
-      startDate: new Date('2050-02-02'),
-      dueDate: new Date('2050-03-02'),
+      startDate: new Date('2050-02-02').toString(),
+      dueDate: new Date('2050-03-02').toString(),
       status: DeadlineStatus.EM_ANDAMENTO,
       priority: DeadlinePriority.ALTA,
     };
