@@ -5,6 +5,7 @@ import { DeadlineRepository } from '../../repositories/DeadlineRepository';
 import { WithId } from '../../types/WithId';
 import { getDeadlineStatus } from '../helpers/getDeadlineStatus';
 import { validateDeadline } from '../validators/deadlines/validateDeadline';
+import { validateDeadlinePartial } from '../validators/deadlines/validateDeadlinePartial';
 import { IDeadlineService } from './IDeadlineService';
 
 export class DeadlineService implements Partial<IDeadlineService> {
@@ -34,10 +35,8 @@ export class DeadlineService implements Partial<IDeadlineService> {
     return await this.deadlineRepository.findByCaseId(id);
   }
 
-  async updateById(
-    id: string,
-    data: Partial<UpdateDeadlineDTO>
-  ): Promise<WithId<DeadlineDTO> | null> {
+  async updateById(id: string, data: UpdateDeadlineDTO): Promise<WithId<DeadlineDTO> | null> {
+    validateDeadlinePartial(data);
     return await this.deadlineRepository.updateById(id, data);
   }
 
