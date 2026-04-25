@@ -15,7 +15,7 @@ describe(`Test ${CaseController.name}`, () => {
     const caseRepository = createMockCaseRepository();
     const userRepository = createMockUserRepository();
     userRepository.findById = jest.fn().mockResolvedValue({
-      _id: 'dfsdfsa',
+      id: 'fakeid',
       firstName: 'José',
       lastName: 'Almeida',
       email: 'jo@email.com',
@@ -136,9 +136,10 @@ describe(`Test ${CaseController.name}`, () => {
   });
 
   test('should call caseRepository.getStatsByClientId with provided data and return OK (200) ', async () => {
-    const { caseController, caseRepository, httpRequest } = makeSut();
+    const { caseController, caseRepository, httpRequest, userRepository } = makeSut();
 
     const response = await caseController.getMyStats(httpRequest);
+    console.log(response);
 
     expect(caseRepository.getStatsByClientId).toHaveBeenCalledWith(httpRequest.user?.id);
     expect(response.status).toBe(HttpStatusCode.ok);
