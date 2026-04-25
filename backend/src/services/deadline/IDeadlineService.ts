@@ -9,5 +9,4 @@ export interface IDeadlineService {
   findByCaseId(id: string): Promise<WithId<DeadlineDTO>[] | null>;
   updateById(id: string, data: UpdateDeadlineDTO): Promise<WithId<DeadlineDTO> | null>;
   deleteById(id: string): Promise<WithId<DeadlineDTO> | null>;
-  existsById(id: string): Promise<boolean>;
 }
