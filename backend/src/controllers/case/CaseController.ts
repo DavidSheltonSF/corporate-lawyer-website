@@ -9,28 +9,13 @@ import { MissingAuthenticatedUserError } from '../../errors/presentation/Missing
 import { NotFoundError } from '../../errors/presentation/NotFoundError';
 import { ForbiddenError } from '../../errors/presentation/ForbiddenError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
+import { requireAutheticatedLawyer } from '../helpers/requireAutheticatedLawyer';
 
 export class CaseController implements ICaseController {
   constructor(private caseService: ICaseService, private userService: IUserService) {}
 
   create = async (httpRequest: HttpRequest) => {
-    const authUser = httpRequest.user;
-    if (!authUser) {
-      throw new MissingAuthenticatedUserError();
-    }
-
-    const authUserData = await this.userService.findById(authUser.id);
-    if (!authUserData) {
-      throw new ForbiddenError(
-        `Could not execute operation. User with id '${authUser.id}' was not found`
-      );
-    }
-
-    if (authUserData.role !== UserRole.lawyer) {
-      throw new ForbiddenError(
-        `Could not execute operation. User with id '${authUser.id}' is not a lawyer'`
-      );
-    }
+    await requireAutheticatedLawyer(httpRequest, this.userService);
 
     const { body } = httpRequest;
     if (!body) {
@@ -57,23 +42,7 @@ export class CaseController implements ICaseController {
   };
 
   updateById = async (httpRequest: HttpRequest) => {
-    const authUser = httpRequest.user;
-    if (!authUser) {
-      throw new MissingAuthenticatedUserError();
-    }
-
-    const authUserData = await this.userService.findById(authUser.id);
-    if (!authUserData) {
-      throw new ForbiddenError(
-        `Could not execute operation. User with id '${authUser.id}' was not found`
-      );
-    }
-
-    if (authUserData.role !== UserRole.lawyer) {
-      throw new ForbiddenError(
-        `Could not execute operation. User with id ${authUser.id} is not a lawyer`
-      );
-    }
+    await requireAutheticatedLawyer(httpRequest, this.userService);
 
     const { id } = httpRequest.params;
     if (!id) {
@@ -139,23 +108,7 @@ export class CaseController implements ICaseController {
   };
 
   findAll = async (httpRequest: HttpRequest) => {
-    const authUser = httpRequest.user;
-    if (!authUser) {
-      throw new MissingAuthenticatedUserError();
-    }
-
-    const authUserData = await this.userService.findById(authUser.id);
-    if (!authUserData) {
-      throw new ForbiddenError(
-        `Could not execute operation. User with id '${authUser.id}' was not found`
-      );
-    }
-
-    if (authUserData.role !== UserRole.lawyer) {
-      throw new ForbiddenError(
-        `Could not execute operation. User with id ${authUser.id} is not a lawyer'`
-      );
-    }
+    await requireAutheticatedLawyer(httpRequest, this.userService);
 
     const { status, query } = httpRequest.query;
     const page = httpRequest.query.page || 1;
@@ -198,32 +151,9 @@ export class CaseController implements ICaseController {
   };
 
   getStats = async (httpRequest: HttpRequest) => {
-    try {
-      const authUser = httpRequest.user;
-      if (!authUser) {
-        throw new MissingAuthenticatedUserError();
-      }
-
-      const authUserData = await this.userService.findById(authUser.id);
-      if (!authUserData) {
-        throw new ForbiddenError(
-          `Could not execute operation. User with id '${authUser.id}' was not found`
-        );
-      }
-
-      if (authUserData.role !== UserRole.lawyer) {
-        throw new ForbiddenError(
-          `Could not execute operation. User with id '${authUser.id}' is not a lawyer`
-        );
-      }
-
-      const caseStats = await this.caseService.getStats();
-
-      return HttpResponseFactory.makeOk(caseStats);
-    } catch (error: any) {
-      console.log(error);
-      return HttpResponseFactory.makeServerError(error.message);
-    }
+    await requireAutheticatedLawyer(httpRequest, this.userService);
+    const caseStats = await this.caseService.getStats();
+    return HttpResponseFactory.makeOk(caseStats);
   };
 
   uploadMyFile = async (httpRequest: HttpRequest) => {
@@ -272,23 +202,8 @@ export class CaseController implements ICaseController {
   };
 
   deleteById = async (httpRequest: HttpRequest) => {
-    const authUser = httpRequest.user;
-    if (!authUser) {
-      throw new MissingAuthenticatedUserError();
-    }
+    await requireAutheticatedLawyer(httpRequest, this.userService);
 
-    const authUserData = await this.userService.findById(authUser.id);
-    if (!authUserData) {
-      throw new ForbiddenError(
-        `Could not execute operation. User with id '${authUser.id}' was not found`
-      );
-    }
-
-    if (authUserData.role !== UserRole.lawyer) {
-      throw new ForbiddenError(
-        `Could not execute operation. User with id ${authUser.id} is not a lawyer`
-      );
-    }
     const { id } = httpRequest.params;
     if (!id) {
       throw new BadRequestError('Missing case id');
