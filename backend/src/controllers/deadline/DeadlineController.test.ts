@@ -44,7 +44,7 @@ describe(`Test ${DeadlineController.name}`, () => {
 
     const newDeadline = {
       caseId: Types.ObjectId.createFromTime(848484).toString(),
-      clientId: Types.ObjectId.createFromTime(8484).toString(),
+      lawyerId: Types.ObjectId.createFromTime(8484).toString(),
       type: DeadlineType.PAGAMENTO,
       startDate: '2050-02-02',
       dueDate: '2050-03-02',

@@ -1,6 +1,6 @@
 export interface DeadlineDTO {
   caseId: string;
-  clientId: string;
+  lawyerId: string;
   type: string;
   startDate: string;
   dueDate: string;

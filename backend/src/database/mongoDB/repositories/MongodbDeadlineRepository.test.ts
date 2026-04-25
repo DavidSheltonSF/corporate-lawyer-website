@@ -38,7 +38,7 @@ describe('Test DeadlineRepository', () => {
 
     const deadlineDTO = {
       caseId: Types.ObjectId.createFromTime(848484).toString(),
-      clientId: Types.ObjectId.createFromTime(8484).toString(),
+      lawyerId: Types.ObjectId.createFromTime(8484).toString(),
       type: DeadlineType.PAGAMENTO,
       startDate: '2050-02-02',
       dueDate: '2050-03-02',
@@ -48,7 +48,7 @@ describe('Test DeadlineRepository', () => {
 
     const deadline = await deadlineRepository.create(deadlineDTO);
     expect(deadline.caseId.toString()).toBe(deadlineDTO.caseId.toString());
-    expect(deadline.clientId.toString()).toBe(deadlineDTO.clientId.toString());
+    expect(deadline.lawyerId.toString()).toBe(deadlineDTO.lawyerId.toString());
     expect(deadline.type).toBe(deadlineDTO.type);
     expect(deadline.status).toBe(deadlineDTO.status);
     expect(deadline.priority).toBe(deadlineDTO.priority);
@@ -59,7 +59,7 @@ describe('Test DeadlineRepository', () => {
     const newDeadlines = [
       {
         caseId: Types.ObjectId.createFromTime(848484).toString(),
-        clientId: Types.ObjectId.createFromTime(8484).toString(),
+        lawyerId: Types.ObjectId.createFromTime(8484).toString(),
         type: DeadlineType.PAGAMENTO,
         startDate: new Date('2050-02-02').toString(),
         dueDate: new Date('2050-03-02').toString(),
@@ -68,7 +68,7 @@ describe('Test DeadlineRepository', () => {
       },
       {
         caseId: Types.ObjectId.createFromTime(8484).toString(),
-        clientId: Types.ObjectId.createFromTime(847774).toString(),
+        lawyerId: Types.ObjectId.createFromTime(847774).toString(),
         type: DeadlineType.CONTESTACAO,
         startDate: new Date('2050-02-02').toString(),
         dueDate: new Date('2050-03-02').toString(),
@@ -90,7 +90,7 @@ describe('Test DeadlineRepository', () => {
 
     const newDeadline = {
       caseId: Types.ObjectId.createFromTime(848484).toString(),
-      clientId: Types.ObjectId.createFromTime(8484).toString(),
+      lawyerId: Types.ObjectId.createFromTime(8484).toString(),
       type: DeadlineType.PAGAMENTO,
       startDate: new Date('2050-02-02').toString(),
       dueDate: new Date('2050-03-02').toString(),
@@ -114,7 +114,7 @@ describe('Test DeadlineRepository', () => {
 
     const newDeadline = {
       caseId: Types.ObjectId.createFromTime(848484).toString(),
-      clientId: Types.ObjectId.createFromTime(8484).toString(),
+      lawyerId: Types.ObjectId.createFromTime(8484).toString(),
       type: DeadlineType.PAGAMENTO,
       startDate: new Date('2050-02-02').toString(),
       dueDate: new Date('2050-03-02').toString(),
@@ -124,7 +124,7 @@ describe('Test DeadlineRepository', () => {
 
     const otherCaseDeadline = {
       caseId: Types.ObjectId.createFromTime(8484884613614).toString(),
-      clientId: Types.ObjectId.createFromTime(8484).toString(),
+      lawyerId: Types.ObjectId.createFromTime(8484).toString(),
       type: DeadlineType.PAGAMENTO,
       startDate: new Date('2050-02-02').toString(),
       dueDate: new Date('2050-03-02').toString(),
@@ -146,7 +146,7 @@ describe('Test DeadlineRepository', () => {
 
     const newDeadline = {
       caseId: Types.ObjectId.createFromTime(848484).toString(),
-      clientId: Types.ObjectId.createFromTime(8484).toString(),
+      lawyerId: Types.ObjectId.createFromTime(8484).toString(),
       type: DeadlineType.PAGAMENTO,
       startDate: new Date('2050-02-02').toString(),
       dueDate: new Date('2050-03-02').toString(),
@@ -170,7 +170,7 @@ describe('Test DeadlineRepository', () => {
 
     const newDeadline = {
       caseId: Types.ObjectId.createFromTime(848484).toString(),
-      clientId: Types.ObjectId.createFromTime(8484).toString(),
+      lawyerId: Types.ObjectId.createFromTime(8484).toString(),
       type: DeadlineType.PAGAMENTO,
       startDate: new Date('2050-02-02').toString(),
       dueDate: new Date('2050-03-02').toString(),
@@ -198,7 +198,7 @@ describe('Test DeadlineRepository', () => {
 
     const newDeadline = {
       caseId: Types.ObjectId.createFromTime(848484).toString(),
-      clientId: Types.ObjectId.createFromTime(8484).toString(),
+      lawyerId: Types.ObjectId.createFromTime(8484).toString(),
       type: DeadlineType.PAGAMENTO,
       startDate: new Date('2050-02-02').toString(),
       dueDate: new Date('2050-03-02').toString(),
