@@ -1,28 +1,52 @@
+import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError';
 import { UserService } from '../../services/user/UserService';
 import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
 import { UserRole } from '../../types/UserRole';
+import { HttpRequest } from '../types/HttpRequest';
 import { HttpStatusCode } from '../types/HttpStatusCode';
 import { UserController } from './UserController';
 
 describe(`Test ${UserController.name}`, () => {
   function makeSut() {
-    const userRepository = createMockUserRepository();
     const caseRepository = createMockCaseRepository();
+    const userRepository = createMockUserRepository();
+    userRepository.findById = jest.fn().mockResolvedValue({
+      id: 'dfasfaf',
+      firstName: 'José',
+      lastName: 'Miranda',
+      email: 'testando@email',
+      cpf: '55422888744',
+      role: 'lawyer',
+    });
 
     const userService = new UserService(userRepository, caseRepository);
     const userController = new UserController(userService);
+
+    const httpRequest: HttpRequest = {
+      params: {
+        id: 'fakeId',
+      },
+      query: {},
+      body: {},
+      headers: {},
+      user: {
+        id: 'fakeid',
+        email: 'fake@email.com',
+      },
+    };
 
     return {
       userRepository,
       caseRepository,
       userService,
       userController,
+      httpRequest,
     };
   }
 
   test('should retun OK (200) and call UserRepository.create', async () => {
-    const { userController, userRepository } = makeSut();
+    const { userController, userRepository, httpRequest } = makeSut();
 
     const newUser = {
       firstName: 'David',
@@ -33,9 +57,7 @@ describe(`Test ${UserController.name}`, () => {
       role: UserRole.client,
     };
 
-    const httpRequest = {
-      body: newUser,
-    };
+    httpRequest.body = newUser;
 
     const response = await userController.createClient(httpRequest);
 
@@ -43,7 +65,9 @@ describe(`Test ${UserController.name}`, () => {
     expect(response.status).toBe(HttpStatusCode.created);
   });
 
-  test('should return UNPROCESSABLE_ENTITY if the user already exists', async () => {
+  test('should throw EntityAlredyExistsError if the user already exists', async () => {
+    const { httpRequest, userRepository, userController } = makeSut();
+
     const newUser = {
       firstName: 'David',
       lastName: 'Faria',
@@ -53,38 +77,28 @@ describe(`Test ${UserController.name}`, () => {
       role: UserRole.admin,
     };
 
-    const httpRequest = {
-      body: newUser,
-    };
-    const userRepository = createMockUserRepository();
-    const caseRepository = createMockCaseRepository();
+    httpRequest.body = newUser;
 
     userRepository.existsByEmail = jest.fn().mockResolvedValue(true);
-    const userService = new UserService(userRepository, caseRepository);
-    const userController = new UserController(userService);
-
-    const response = await userController.createClient(httpRequest);
-    console.log(response);
-
-    expect(response.status).toBe(HttpStatusCode.unprocessable_entity);
+    await expect(userController.createClient(httpRequest)).rejects.toThrow(
+      EntityAlreadyExistsError
+    );
   });
 
   test('should find all users', async () => {
-    const { userController, userRepository } = makeSut();
-    const httpRequest = {
-      params: { id: 'gfdgfdsgsdggg' },
-    };
+    const { userController, userRepository, httpRequest } = makeSut();
+
+    httpRequest.params = { id: 'gfdgfdsgsdggg' };
+
     const response = await userController.findAll(httpRequest);
     expect(userRepository.findAll).toHaveBeenCalled();
     expect(response.status).toBe(HttpStatusCode.ok);
   });
 
   test('should find a user by id', async () => {
-    const { userController, userRepository } = makeSut();
+    const { userController, userRepository, httpRequest } = makeSut();
 
-    const httpRequest = {
-      params: { id: 'gfdgfdsgsdggg' },
-    };
+    httpRequest.params = { id: 'gfdgfdsgsdggg' };
 
     const response = await userController.findById(httpRequest);
     expect(userRepository.findById).toHaveBeenCalledWith(httpRequest.params.id);
@@ -92,42 +106,26 @@ describe(`Test ${UserController.name}`, () => {
   });
 
   test('should call UserRepository.updatById with the provided data and return OK (200)', async () => {
-    const { userRepository, caseRepository } = makeSut();
+    const { userController, userRepository, httpRequest } = makeSut();
 
-    const id = 'dfsadfggsfasga';
-    const firstName = 'Joares';
-
-    const httpRequest = {
-      user: { id: 'ffgrdgag', email: 'test@email.com' },
-      params: { id },
-      body: {
-        firstName,
-      },
+    httpRequest.params = { id: 'gfdgfdsgsdggg' };
+    httpRequest.body = {
+      firstName: 'Joares',
     };
 
-    userRepository.findById = jest.fn().mockResolvedValue({
-      id: 'dfasfaf',
-      firstName: 'José',
-      lastName: 'Miranda',
-      email: 'testando@email',
-      cpf: '55422888744',
-      role: 'lawyer',
-    });
-    const userService = new UserService(userRepository, caseRepository);
-    const userController = new UserController(userService);
+    const id = httpRequest.params.id;
+    const data = httpRequest.body;
+    httpRequest.params.firstName;
 
     const response = await userController.updateById(httpRequest);
-    expect(userRepository.updateById).toHaveBeenCalledWith(id, { firstName });
+    expect(userRepository.updateById).toHaveBeenCalledWith(id, data);
     expect(response.status).toBe(HttpStatusCode.ok);
   });
 
   test('should delete a user by id', async () => {
-    const { userRepository, caseRepository } = makeSut();
+    const { userRepository, caseRepository, httpRequest } = makeSut();
 
-    const httpRequest = {
-      user: { id: 'ffgrdgag', email: 'test@email.com' },
-      params: { id: 'gfdgfdsgsdggg' },
-    };
+    httpRequest.params = { id: 'gfdgfdsgsdggg' };
 
     userRepository.findById = jest.fn().mockResolvedValue({
       id: 'dfasfaf',
