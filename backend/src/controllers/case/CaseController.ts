@@ -3,7 +3,6 @@ import { IUserService } from '../../services/user/IUserService';
 import { ICaseController } from './ICaseController';
 import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
 import { HttpRequest } from '../types/HttpRequest';
-import { UserRole } from '../../types/UserRole';
 import { getMissingFields } from '../../helpers/getMissingFields';
 import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
 import { NotFoundError } from '../../errors/presentation/NotFoundError';
@@ -144,8 +143,6 @@ export class CaseController implements ICaseController {
     }
 
     const caseStats = await this.caseService.getStatsByClientId(authUserData.id);
-    console.log(authUserData.id);
-    console.log(caseStats);
 
     return HttpResponseFactory.makeOk(caseStats);
   };
