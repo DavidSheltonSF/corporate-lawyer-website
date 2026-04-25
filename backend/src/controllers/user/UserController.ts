@@ -5,6 +5,8 @@ import { HttpRequest } from '../types/HttpRequest';
 import { UserRole } from '../../types/UserRole';
 import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
 import { NotFoundError } from '../../errors/presentation/NotFoundError';
+import { ForbiddenError } from '../../errors/presentation/ForbiddenError';
+import { BadRequestError } from '../../errors/presentation/BadRequestError';
 
 export class UserController implements IUserController {
   constructor(private userService: IUserService) {}
@@ -18,19 +20,19 @@ export class UserController implements IUserController {
     const authUserData = await this.userService.findById(authUser.id);
 
     if (!authUserData) {
-      return HttpResponseFactory.makeForbidden(
-        `Could not execute operation. User with id '${authUser.id} was not found`
+      throw new ForbiddenError(
+        `Could not execute operation. User with id '${authUser.id}' was not found`
       );
     }
     if (authUserData.role !== UserRole.lawyer) {
-      return HttpResponseFactory.makeForbidden(
-        `Could not execute operation. User with id '${authUserData.id} is not a lawyer`
+      throw new ForbiddenError(
+        `Could not execute operation. User with id '${authUserData.id}' is not a lawyer`
       );
     }
 
     const body = httpRequest.body;
     if (!body) {
-      return HttpResponseFactory.makeBadRequest('Missing request body');
+      throw new BadRequestError('Missing request body');
     }
 
     const { firstName, lastName, email, cpf } = body;
@@ -58,14 +60,14 @@ export class UserController implements IUserController {
 
     const authUserData = await this.userService.findById(authUser.id);
     if (!authUserData) {
-      return HttpResponseFactory.makeForbidden(
+      throw new ForbiddenError(
         `Could not execute operation. User with id ${authUser.id} was not found`
       );
     }
 
     if (authUserData.role !== UserRole.lawyer) {
-      return HttpResponseFactory.makeForbidden(
-        `Could not execute operation. User with id ${authUser.id} is not a lawyer'`
+      throw new ForbiddenError(
+        `Could not execute operation. User with id ${authUser.id} is not a lawyer`
       );
     }
 
@@ -78,7 +80,7 @@ export class UserController implements IUserController {
     const { id } = httpRequest.params;
 
     if (!id) {
-      return HttpResponseFactory.makeBadRequest('Missing id param');
+      throw new BadRequestError('Missing id param');
     }
 
     const foundUser = await this.userService.findById(id);
@@ -98,14 +100,14 @@ export class UserController implements IUserController {
 
     const authUserData = await this.userService.findById(authUser.id);
     if (!authUserData) {
-      return HttpResponseFactory.makeForbidden(
+      throw new ForbiddenError(
         `Could not execute operation. User with id ${authUser.id} was not found`
       );
     }
 
     if (authUserData.role !== UserRole.lawyer) {
-      return HttpResponseFactory.makeForbidden(
-        `Could not execute operation. User with id ${authUser.id} is not a lawyer'`
+      throw new ForbiddenError(
+        `Could not execute operation. User with id ${authUser.id} is not a lawyer`
       );
     }
 
@@ -113,7 +115,7 @@ export class UserController implements IUserController {
     const { include } = httpRequest.query;
 
     if (!id) {
-      return HttpResponseFactory.makeBadRequest('Missing id param');
+      throw new BadRequestError('Missing id param');
     }
 
     const foundUser = await this.userService.findById(id, {
@@ -131,25 +133,25 @@ export class UserController implements IUserController {
 
     const authUserData = await this.userService.findById(authUser.id);
     if (!authUserData) {
-      return HttpResponseFactory.makeForbidden(
+      throw new ForbiddenError(
         `Could not execute operation. User with id ${authUser.id} was not found`
       );
     }
 
     if (authUserData.role !== UserRole.lawyer) {
-      return HttpResponseFactory.makeForbidden(
-        `Could not execute operation. User with id ${authUser.id} is not a lawyer'`
+      throw new ForbiddenError(
+        `Could not execute operation. User with id ${authUser.id} is not a lawyer`
       );
     }
 
     const { id } = httpRequest.params;
     if (!id) {
-      return HttpResponseFactory.makeBadRequest('Missing user id');
+      throw new BadRequestError('Missing user id');
     }
 
     const body = httpRequest.body;
     if (!body) {
-      return HttpResponseFactory.makeBadRequest('Missing request body');
+      throw new BadRequestError('Missing request body');
     }
 
     const result = await this.userService.updateById(id, body);
@@ -169,20 +171,20 @@ export class UserController implements IUserController {
 
     const authUserData = await this.userService.findById(authUser.id);
     if (!authUserData) {
-      return HttpResponseFactory.makeForbidden(
+      throw new ForbiddenError(
         `Could not execute operation. User with id ${authUser.id} was not found`
       );
     }
 
     if (authUserData.role !== UserRole.lawyer) {
-      return HttpResponseFactory.makeForbidden(
-        `Could not execute operation. User with id ${authUser.id} is not a lawyer'`
+      throw new ForbiddenError(
+        `Could not execute operation. User with id ${authUser.id} is not a lawyer`
       );
     }
 
     const { id } = httpRequest.params;
     if (!id) {
-      return HttpResponseFactory.makeBadRequest('Missing user id');
+      throw new BadRequestError('Missing user id');
     }
 
     const result = await this.userService.deleteById(id);
