@@ -3,12 +3,12 @@ import { IUserService } from '../../services/user/IUserService';
 import { ICaseController } from './ICaseController';
 import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
 import { HttpRequest } from '../types/HttpRequest';
-import { getMissingFields } from '../../helpers/getMissingFields';
 import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
 import { NotFoundError } from '../../errors/presentation/NotFoundError';
 import { ForbiddenError } from '../../errors/presentation/ForbiddenError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { requireAutheticatedLawyer } from '../helpers/requireAutheticatedLawyer';
+import { checkMissingFields } from '../../helpers/checkMissingFields';
 
 export class CaseController implements ICaseController {
   constructor(private caseService: ICaseService, private userService: IUserService) {}
@@ -21,7 +21,7 @@ export class CaseController implements ICaseController {
       throw new BadRequestError('Missing request body');
     }
 
-    const missingFields = getMissingFields(body, [
+    checkMissingFields(body, [
       'title',
       'processNumber',
       'court',
@@ -30,10 +30,6 @@ export class CaseController implements ICaseController {
       'client',
       'lawyers',
     ]);
-
-    if (missingFields.length > 0) {
-      throw new BadRequestError(`Missing required fields: ${missingFields.toString()}`);
-    }
 
     const response = await this.caseService.create(body);
 
