@@ -1,4 +1,5 @@
 import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError';
+import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { UserService } from '../../services/user/UserService';
 import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
@@ -63,6 +64,20 @@ describe(`Test ${UserController.name}`, () => {
 
     expect(userRepository.create).toHaveBeenCalled();
     expect(response.status).toBe(HttpStatusCode.created);
+  });
+
+  test('should throw BadRequestError if there is any missing required field', async () => {
+    const { userController, httpRequest } = makeSut();
+
+    // Missing email
+    const newUser = {
+      firstName: 'David',
+      lastName: 'Faria',
+      cpf: '18877748777',
+    };
+    httpRequest.body = newUser;
+
+    await expect(userController.createClient(httpRequest)).rejects.toThrow(BadRequestError);
   });
 
   test('should throw EntityAlredyExistsError if the user already exists', async () => {

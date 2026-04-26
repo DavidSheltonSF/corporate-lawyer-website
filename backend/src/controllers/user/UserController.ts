@@ -7,6 +7,7 @@ import { MissingAuthenticatedUserError } from '../../errors/presentation/Missing
 import { NotFoundError } from '../../errors/presentation/NotFoundError';
 import { ForbiddenError } from '../../errors/presentation/ForbiddenError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
+import { checkMissingFields } from '../../helpers/checkMissingFields';
 
 export class UserController implements IUserController {
   constructor(private userService: IUserService) {}
@@ -34,6 +35,8 @@ export class UserController implements IUserController {
     if (!body) {
       throw new BadRequestError('Missing request body');
     }
+
+    checkMissingFields(body, ['firstName', 'lastName', 'email', 'cpf']);
 
     const { firstName, lastName, email, cpf } = body;
 
