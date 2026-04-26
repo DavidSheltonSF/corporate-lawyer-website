@@ -25,11 +25,6 @@ const DeadlineSchema = new Schema<DeadlineMongoDocument>({
   },
   startDate: { type: Date, required: true },
   dueDate: { type: Date, required: true },
-  status: {
-    type: String,
-    enum: Object.values(DeadlineStatus),
-    required: true,
-  },
   priority: {
     type: String,
     enum: Object.values(DeadlinePriority),
