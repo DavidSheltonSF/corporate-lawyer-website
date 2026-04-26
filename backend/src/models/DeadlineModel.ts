@@ -34,6 +34,24 @@ const DeadlineSchema = new Schema<DeadlineMongoDocument>(
       enum: Object.values(DeadlinePriority),
       required: true,
     },
-  });
+  },
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
+);
+
+DeadlineSchema.virtual('status').get(function (this: DeadlineMongoDocument) {
+  const today = new Date();
+  if (today < this.startDate) {
+    return DeadlineStatus.PENDENTE;
+  }
+
+  if (today > this.dueDate) {
+    return DeadlineStatus.VENCIDO;
+  }
+
+  return DeadlineStatus.EM_ANDAMENTO;
+});
 
 export const DeadlineModel = model<DeadlineMongoDocument>('Deadlines', DeadlineSchema);
