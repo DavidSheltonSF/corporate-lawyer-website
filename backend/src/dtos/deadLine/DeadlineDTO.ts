@@ -4,6 +4,5 @@ export interface DeadlineDTO {
   type: string;
   startDate: string;
   dueDate: string;
-  status?: string;
   priority: string;
 }
