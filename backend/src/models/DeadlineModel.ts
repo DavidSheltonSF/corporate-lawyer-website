@@ -7,9 +7,10 @@ export interface IDeadlineModel {
   caseId: Types.ObjectId;
   lawyerId: Types.ObjectId;
   type: DeadlineType;
+  intimationDate: Date;
   startDate: Date;
   dueDate: Date;
-  status: DeadlineStatus;
+  days: number;
   priority: DeadlinePriority;
 }
 
@@ -23,8 +24,8 @@ const DeadlineSchema = new Schema<DeadlineMongoDocument>({
     enum: Object.values(DeadlineType),
     required: true,
   },
-  startDate: { type: Date, required: true },
-  dueDate: { type: Date, required: true },
+  intimationDate: { type: Date, required: true },
+  days: { type: Number, required: true },
   priority: {
     type: String,
     enum: Object.values(DeadlinePriority),
