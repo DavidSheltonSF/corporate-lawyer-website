@@ -1,3 +1,5 @@
+import { CaseLocalizationDTO } from './CaseLocalizationDTO';
+
 export interface CaseResponseDTO {
   client: string;
   lawyers: string[];
@@ -9,4 +11,5 @@ export interface CaseResponseDTO {
   files?: string[] | undefined;
   hearings?: string[] | undefined;
   status: string;
+  localization: CaseLocalizationDTO;
 }
