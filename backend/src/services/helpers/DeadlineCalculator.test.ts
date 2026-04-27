@@ -1,3 +1,5 @@
+import { BrazilianState } from '../../types/BrazilianState';
+import { City } from '../../types/City';
 import { createDate } from '../../utils/createDate';
 import { BrazilHolidaysProvider } from '../BrazilHolidaysProvider';
 import { DeadlineCalculator } from './DeadlineCalculator';
@@ -16,5 +18,34 @@ describe(`Testing ${DeadlineCalculator.name}`, () => {
     const date2 = deadlineCalculator.isWeekend(mondayDate);
     expect(date1).toBeTruthy();
     expect(date2).toBeFalsy();
+  });
+
+  test('should return true if date is a holiday and false if it is not', () => {
+    const { deadlineCalculator } = makeSut();
+
+    const holiday1 = deadlineCalculator.isHoliday(
+      createDate(2026, 1, 1),
+      BrazilianState.RIO_DE_JANEIRO,
+      City.BELFORD_ROXO
+    );
+    const holiday2 = deadlineCalculator.isHoliday(
+      createDate(2026, 2, 16),
+      BrazilianState.RIO_DE_JANEIRO,
+      City.BELFORD_ROXO
+    );
+    const notHoliday1 = deadlineCalculator.isHoliday(
+      createDate(2026, 4, 26),
+      BrazilianState.RIO_DE_JANEIRO,
+      City.BELFORD_ROXO
+    );
+    const notHoliday2 = deadlineCalculator.isHoliday(
+      createDate(2026, 4, 27),
+      BrazilianState.RIO_DE_JANEIRO,
+      City.BELFORD_ROXO
+    );
+    expect(holiday1).toBeTruthy();
+    expect(holiday2).toBeTruthy();
+    expect(notHoliday1).toBeFalsy();
+    expect(notHoliday2).toBeFalsy();
   });
 });
