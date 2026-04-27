@@ -4,6 +4,8 @@ import { createMockCaseRepository } from '../../tests/mocks/repositories/createM
 import { InvalidProcessNumberError } from '../../errors/domain/InvalidProcessNumberError';
 import { InvalidCaseTitleError } from '../../errors/domain/InvalidCaseTitleError';
 import { InvalidCaseStatusError } from '../../errors/domain/InvalidCaseStatusError';
+import { BrazilianState } from '../../types/BrazilianState';
+import { City } from '../../types/City';
 
 describe('Test CaseService', () => {
   function makeSut() {
@@ -28,6 +30,10 @@ describe('Test CaseService', () => {
       courtDivision: 'Vara Cívil',
       description: 'Case description',
       status: CasesStatus.open,
+      localization: {
+        state: BrazilianState.RIO_DE_JANEIRO,
+        city: City.RIO_DE_JANEIRO,
+      },
     };
 
     await caseService.create(newCase);
@@ -46,6 +52,10 @@ describe('Test CaseService', () => {
       courtDivision: 'Vara Cívil',
       description: 'Case description',
       status: CasesStatus.open,
+      localization: {
+        state: BrazilianState.RIO_DE_JANEIRO,
+        city: City.RIO_DE_JANEIRO,
+      },
     };
 
     await expect(caseService.create(newCase)).rejects.toThrow(InvalidProcessNumberError);
@@ -64,27 +74,12 @@ describe('Test CaseService', () => {
       courtDivision: 'Vara Cívil',
       description: 'Case description',
       status: CasesStatus.open,
+      localization: {
+        state: BrazilianState.RIO_DE_JANEIRO,
+        city: City.RIO_DE_JANEIRO,
+      },
     };
-
     await expect(caseService.create(newCase)).rejects.toThrow(InvalidCaseTitleError);
-    expect(caseRepository.create).toHaveBeenCalledTimes(0);
-  });
-
-  test('should throw InvalidProcessNumberError if the process number provided is invalid', async () => {
-    const { caseService, caseRepository } = makeSut();
-
-    const newCase = {
-      client: 'xfafdsfafsfasfffff',
-      lawyers: ['hhtshhhhhthtfsj'],
-      processNumber: '2158748',
-      title: 'Ação de Usucapião Urbano',
-      court: 'STJ',
-      courtDivision: 'Vara Cívil',
-      description: 'Case description',
-      status: CasesStatus.open,
-    };
-
-    await expect(caseService.create(newCase)).rejects.toThrow(InvalidProcessNumberError);
     expect(caseRepository.create).toHaveBeenCalledTimes(0);
   });
 
@@ -100,6 +95,10 @@ describe('Test CaseService', () => {
       courtDivision: 'Vara Cívil',
       description: 'Case description',
       status: 'banana',
+      localization: {
+        state: BrazilianState.RIO_DE_JANEIRO,
+        city: City.RIO_DE_JANEIRO,
+      },
     };
 
     await expect(caseService.create(newCase)).rejects.toThrow(InvalidCaseStatusError);
