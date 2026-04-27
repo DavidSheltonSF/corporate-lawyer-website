@@ -6,7 +6,6 @@ import { Types } from 'mongoose';
 import { CasesStats } from '../../../types/CasesStats';
 import { CasesStatus } from '../../../types/CasesStatus';
 import { CaseQuery } from '../../../types/CaseQuery';
-import { Case } from '../../../entities/Case';
 import { Page } from '../../../types/Page';
 import { CaseCardDTO } from '../../../dtos/case/CaseCardDTO';
 import { CaseMapper } from '../../../mappers/CaseMapper';
@@ -17,7 +16,7 @@ import { UpdateCaseDTO } from '../../../dtos/case/UpdateCaseDTO';
 import { CaseResponseDTO } from '../../../dtos/case/CaseResponseDTO';
 
 export class MongodbCaseRepository implements CaseRepository {
-  async create(data: CreateCaseDTO): Promise<WithId<Case>> {
+  async create(data: CreateCaseDTO): Promise<WithId<CaseResponseDTO>> {
     const client = new Types.ObjectId(data.client);
     const lawyers = data.lawyers.map((lawyer) => new Types.ObjectId(lawyer));
 
@@ -30,15 +29,16 @@ export class MongodbCaseRepository implements CaseRepository {
       court: data.court,
       courtDivision: data.courtDivision,
       status: data.status,
+      localization: data.localization,
     });
 
-    return CaseMapper.persistenceToDomain(cas);
+    return CaseMapper.persistenceToPresentation(cas);
   }
 
-  async updateById(id: string, data: UpdateCaseDTO): Promise<WithId<Case> | null> {
+  async updateById(id: string, data: UpdateCaseDTO): Promise<WithId<CaseResponseDTO> | null> {
     const cas = await CaseModel.findByIdAndUpdate(id, data, { returnDocument: 'after' });
     if (!cas) return null;
-    return CaseMapper.persistenceToDomain(cas);
+    return CaseMapper.persistenceToPresentation(cas);
   }
 
   async addFile(caseId: string, file: CreateCaseFileDTO): Promise<boolean> {
