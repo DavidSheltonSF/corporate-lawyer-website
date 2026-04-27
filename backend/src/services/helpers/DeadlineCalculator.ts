@@ -34,4 +34,19 @@ export class DeadlineCalculator {
     }
     return currentDate;
   }
+
+  getDueDate(date: Date, days: number): Date {
+    let current = new Date(date);
+
+    let i = 0;
+    while (i < days) {
+      current.setDate(current.getDate() + 1);
+      if (!this.isBusinessDay(current)) {
+        continue;
+      }
+      i++;
+    }
+
+    return current;
+  }
 }

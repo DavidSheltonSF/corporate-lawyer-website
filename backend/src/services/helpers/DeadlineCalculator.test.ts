@@ -71,4 +71,11 @@ describe(`Testing ${DeadlineCalculator.name}`, () => {
     expect(result1.toISOString()).toBe(createDate(2026, 4, 27).toISOString());
     expect(result2.toISOString()).toBe(createDate(2026, 5, 4).toISOString());
   });
+
+  test('should return the deadline duedate skiping weekends and holidays', () => {
+    const { deadlineCalculator } = makeSut();
+    const date = createDate(2026, 4, 30);
+    const result = deadlineCalculator.getDueDate(date, 5);
+    expect(result.toISOString()).toBe(createDate(2026, 5, 8).toISOString());
+  });
 });
