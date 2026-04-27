@@ -2,7 +2,7 @@ import { Schema, model, Document, Types } from 'mongoose';
 import { CasesStatus } from '../types/CasesStatus';
 import { CaseFileSchema, ICaseFileModel } from './CaseFileModel';
 import { WithMongoId } from '../database/mongoDB/types/WithMongoId';
-import { CaseLocalization } from '../types/CaseLocalization';
+import { CaseLocalization } from '../types/CaseLocalizationl';
 
 export interface ICaseModel {
   client: Types.ObjectId;
@@ -39,9 +39,8 @@ const CaseSchema = new Schema<CaseMongoDocument>(
       required: true,
     },
     localization: {
+      type: { state: { type: String, required: true }, city: { type: String, required: true } },
       required: true,
-      state: { type: String, required: true },
-      city: { type: String, required: true },
     },
   },
   { timestamps: true }
