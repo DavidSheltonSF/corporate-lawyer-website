@@ -23,30 +23,35 @@ describe(`Testing ${DeadlineCalculator.name}`, () => {
   test('should return true if date is a holiday and false if it is not', () => {
     const { deadlineCalculator } = makeSut();
 
-    const holiday1 = deadlineCalculator.isHoliday(
-      createDate(2026, 1, 1),
+    const holiday1 = createDate(2026, 1, 1);
+    const holiday2 = createDate(2026, 2, 16);
+    const notHoliday1 = createDate(2026, 4, 26);
+    const notHoliday2 = createDate(2026, 4, 27);
+
+    const result1 = deadlineCalculator.isHoliday(
+      holiday1,
       BrazilianState.RIO_DE_JANEIRO,
       City.BELFORD_ROXO
     );
-    const holiday2 = deadlineCalculator.isHoliday(
-      createDate(2026, 2, 16),
+    const result2 = deadlineCalculator.isHoliday(
+      holiday2,
       BrazilianState.RIO_DE_JANEIRO,
       City.BELFORD_ROXO
     );
-    const notHoliday1 = deadlineCalculator.isHoliday(
-      createDate(2026, 4, 26),
+    const result3 = deadlineCalculator.isHoliday(
+      notHoliday1,
       BrazilianState.RIO_DE_JANEIRO,
       City.BELFORD_ROXO
     );
-    const notHoliday2 = deadlineCalculator.isHoliday(
-      createDate(2026, 4, 27),
+    const result4 = deadlineCalculator.isHoliday(
+      notHoliday2,
       BrazilianState.RIO_DE_JANEIRO,
       City.BELFORD_ROXO
     );
-    expect(holiday1).toBeTruthy();
-    expect(holiday2).toBeTruthy();
-    expect(notHoliday1).toBeFalsy();
-    expect(notHoliday2).toBeFalsy();
+    expect(result1).toBeTruthy();
+    expect(result2).toBeTruthy();
+    expect(result3).toBeFalsy();
+    expect(result4).toBeFalsy();
   });
 
   test('should return true if date is a isBusinessDay and false if it is not', () => {
