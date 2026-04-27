@@ -8,7 +8,7 @@ import { NotFoundError } from '../../errors/presentation/NotFoundError';
 import { ForbiddenError } from '../../errors/presentation/ForbiddenError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { requireAutheticatedLawyer } from '../helpers/requireAutheticatedLawyer';
-import { checkMissingFields } from '../../helpers/checkMissingFields';
+import { checkMissingFields } from '../../utils/checkMissingFields';
 
 export class CaseController implements ICaseController {
   constructor(private caseService: ICaseService, private userService: IUserService) {}

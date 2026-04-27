@@ -3,7 +3,7 @@ import { IUserService } from '../../services/user/IUserService';
 import { IAuthService } from '../../services/auth/IAuthService';
 import { IAuthController } from './IAuthController';
 import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
-import { getMissingFields } from '../../helpers/getMissingFields';
+import { getMissingFields } from '../../utils/getMissingFields';
 import { HttpRequest } from '../types/HttpRequest';
 import { UnauthorizedError } from '../../errors/presentation/UnauthorizedError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';

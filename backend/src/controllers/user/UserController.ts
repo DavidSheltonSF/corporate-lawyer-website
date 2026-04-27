@@ -7,7 +7,7 @@ import { MissingAuthenticatedUserError } from '../../errors/presentation/Missing
 import { NotFoundError } from '../../errors/presentation/NotFoundError';
 import { ForbiddenError } from '../../errors/presentation/ForbiddenError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
-import { checkMissingFields } from '../../helpers/checkMissingFields';
+import { checkMissingFields } from '../../utils/checkMissingFields';
 
 export class UserController implements IUserController {
   constructor(private userService: IUserService) {}
