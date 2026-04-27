@@ -18,24 +18,7 @@ export class CaseService implements ICaseService {
   async create(data: CreateCaseDTO): Promise<WithId<CaseResponseDTO>> {
     try {
       validateCase(data);
-      const newCase = await this.caseRepository.create(data);
-
-      const client = newCase.client.toString();
-      const lawyers = newCase.lawyers.map((lawyer) => lawyer.toString());
-
-      return {
-        id: newCase.id,
-        client,
-        lawyers,
-        files: newCase.files,
-        hearings: newCase.hearings,
-        processNumber: newCase.processNumber,
-        title: newCase.title,
-        description: newCase.description,
-        court: newCase.court,
-        courtDivision: newCase.courtDivision,
-        status: newCase.status,
-      };
+      return await this.caseRepository.create(data);
     } catch (error: any) {
       if (error.code === 11000) {
         console.log(error);
@@ -47,26 +30,7 @@ export class CaseService implements ICaseService {
 
   async updateById(id: string, data: UpdateCaseDTO): Promise<WithId<CaseResponseDTO> | null> {
     try {
-      const updatedCase = await this.caseRepository.updateById(id, data);
-
-      if (!updatedCase) return null;
-
-      const client = updatedCase.client.toString();
-      const lawyers = updatedCase.lawyers.map((lawyer) => lawyer.toString());
-
-      return {
-        id: updatedCase.id,
-        client,
-        lawyers,
-        files: updatedCase.files,
-        hearings: updatedCase.hearings,
-        processNumber: updatedCase.processNumber,
-        title: updatedCase.title,
-        description: updatedCase.description,
-        court: updatedCase.court,
-        courtDivision: updatedCase.courtDivision,
-        status: updatedCase.status,
-      };
+      return await this.caseRepository.updateById(id, data);
     } catch (error: any) {
       if (error.code === 11000) {
         throw new DuplicateUniqueFieldError(error.keyValue);
