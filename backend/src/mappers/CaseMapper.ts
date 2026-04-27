@@ -9,49 +9,51 @@ import { HearingMapper } from './Hearing/HearingMapper';
 import { toUserIdentity } from './toUserIdentity';
 
 export class CaseMapper {
-  static persistenceToPopulatedPresentation(caseCard: unknown): WithId<CaseCardDTO> {
-    const caseCardPersistence = caseCard as CaseCardPersistencePopulated;
-    const client = toUserIdentity(caseCardPersistence.client);
-    const lawyers = caseCardPersistence.lawyers.map(toUserIdentity);
-    const files = caseCardPersistence.files.map(CaseFileMapper.persistenceToPresentation);
-    const hearings = caseCardPersistence.hearings.map(HearingMapper.persistenceToPresentation);
+  static persistenceToPopulatedPresentation(cas: any): WithId<CaseCardDTO> {
+    const { title, processNumber, court, courtDivision, status, description, localization } = cas;
+    const client = toUserIdentity(cas.client);
+    const lawyers = cas.lawyers.map(toUserIdentity);
+    const files = cas.files.map(CaseFileMapper.persistenceToPresentation);
+    const hearings = cas.hearings.map(HearingMapper.persistenceToPresentation);
 
     return {
-      id: caseCardPersistence._id.toString(),
-      title: caseCardPersistence.title,
-      processNumber: caseCardPersistence.processNumber,
-      court: caseCardPersistence.court,
-      courtDivision: caseCardPersistence.courtDivision,
-      status: caseCardPersistence.status,
-      description: caseCardPersistence.description,
+      id: cas._id.toString(),
+      title,
+      processNumber,
+      court,
+      courtDivision,
+      status,
+      description,
       client,
       lawyers,
       files,
       hearings,
-      createdAt: caseCardPersistence.createdAt.toISOString(),
-      updatedAt: caseCardPersistence.updatedAt.toISOString(),
+      localization,
+      createdAt: cas.createdAt.toISOString(),
+      updatedAt: cas.updatedAt.toISOString(),
     };
   }
 
-  static persistenceToPresentation(cas: unknown): WithId<CaseResponseDTO> {
-    const casePersistence = cas as CaseCardPersistence;
+  static persistenceToPresentation(cas: any): WithId<CaseResponseDTO> {
+    const { title, processNumber, court, courtDivision, status, description, localization } = cas;
 
-    const lawyers = casePersistence.lawyers.map((lawyer) => lawyer.toString());
-    const files = casePersistence.files.map((document) => document.toString());
-    const hearings = casePersistence.hearings.map((hearing) => hearing.toString());
+    const lawyers = cas.lawyers.map((lawyer: any) => lawyer.toString());
+    const files = cas.files.map((document: any) => document.toString());
+    const hearings = cas.hearings.map((hearing: any) => hearing.toString());
 
     return {
-      id: casePersistence._id.toString(),
-      title: casePersistence.title,
-      processNumber: casePersistence.processNumber,
-      court: casePersistence.court,
-      courtDivision: casePersistence.courtDivision,
-      status: casePersistence.status,
-      description: casePersistence.description,
-      client: casePersistence.client.toString(),
+      id: cas._id.toString(),
+      title,
+      processNumber,
+      court,
+      courtDivision,
+      status,
+      description,
+      client: cas.client.toString(),
       lawyers,
       files,
       hearings,
+      localization,
     };
   }
 
