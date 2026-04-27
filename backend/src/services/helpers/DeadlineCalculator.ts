@@ -16,4 +16,8 @@ export class DeadlineCalculator {
     const holidays = this.holidaysProvider.getLocalHolidays(state, city);
     return holidays.includes(formatted);
   }
+
+  isBusinessDay(date: Date, state: BrazilianState, city: City): boolean {
+    return !this.isWeekend(date) && !this.isHoliday(date, state, city);
+  }
 }
