@@ -41,10 +41,9 @@ export class DeadlineCalculator {
     let i = 0;
     while (i < days) {
       current.setDate(current.getDate() + 1);
-      if (!this.isBusinessDay(current)) {
-        continue;
+      if (this.isBusinessDay(current)) {
+        i++;
       }
-      i++;
     }
 
     return current;
