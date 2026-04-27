@@ -9,6 +9,8 @@ import { IUserModel, UserModel } from '../../../models/UserModel';
 import { CaseFile } from '../../../entities/CaseFile';
 import { WithId } from '../../../types/WithId';
 import { CaseFileDTO } from '../../../dtos/caseFile/CaseFileDTO';
+import { BrazilianState } from '../../../types/BrazilianState';
+import { City } from '../../../types/City';
 config();
 jest.setTimeout(999999);
 
@@ -59,6 +61,35 @@ describe('Test CaseRepository', () => {
     };
   }
 
+  test('should create a new case data', async () => {
+    const { caseRepository, clientId, lawyerId } = await makeSut();
+    const newCase = {
+      client: clientId.toString(),
+      lawyers: [lawyerId.toString()],
+      processNumber: '354435235425623',
+      title: 'Case title',
+      description: 'Case description',
+      court: 'court', //tribunal
+      courtDivision: 'court division', //vara
+      status: CasesStatus.open,
+      localization: {
+        state: BrazilianState.RIO_DE_JANEIRO,
+        city: City.DUQUE_DE_CAXIAS,
+      },
+    };
+
+    const result = await caseRepository.create(newCase);
+
+    const createdCase = await CaseModel.findById(result.id);
+
+    expect(createdCase?.title).toBe(newCase.title);
+    expect(createdCase?.processNumber).toBe(newCase.processNumber);
+    expect(createdCase?.description).toBe(newCase.description);
+    expect(createdCase?.court).toBe(newCase.court);
+    expect(createdCase?.courtDivision).toBe(newCase.courtDivision);
+    expect(createdCase?.status).toBe(newCase.status);
+  });
+
   test('should update a case data', async () => {
     const { caseRepository, clientId, lawyerId } = await makeSut();
     const newCase = {
@@ -70,6 +101,10 @@ describe('Test CaseRepository', () => {
       court: 'court', //tribunal
       courtDivision: 'court division', //vara
       status: CasesStatus.open,
+      localization: {
+        state: BrazilianState.RIO_DE_JANEIRO,
+        city: City.DUQUE_DE_CAXIAS,
+      },
     };
 
     const caseId = (await CaseModel.create(newCase))._id;
@@ -99,6 +134,10 @@ describe('Test CaseRepository', () => {
       court: 'court', //tribunal
       courtDivision: 'court division', //vara
       status: CasesStatus.open,
+      localization: {
+        state: BrazilianState.RIO_DE_JANEIRO,
+        city: City.DUQUE_DE_CAXIAS,
+      },
     };
 
     await CaseModel.create(newCase);
@@ -129,6 +168,10 @@ describe('Test CaseRepository', () => {
       court: 'court', //tribunal
       courtDivision: 'court division', //vara
       status: CasesStatus.open,
+      localization: {
+        state: BrazilianState.RIO_DE_JANEIRO,
+        city: City.DUQUE_DE_CAXIAS,
+      },
     };
 
     const newId = (await CaseModel.create(newCase))._id;
@@ -154,6 +197,10 @@ describe('Test CaseRepository', () => {
       court: 'court', //tribunal
       courtDivision: 'court division', //vara
       status: CasesStatus.open,
+      localization: {
+        state: BrazilianState.RIO_DE_JANEIRO,
+        city: City.DUQUE_DE_CAXIAS,
+      },
     };
 
     const caseId = (await CaseModel.create(newCase))._id.toString();
@@ -191,6 +238,10 @@ describe('Test CaseRepository', () => {
       court: 'court', //tribunal
       courtDivision: 'court division', //vara
       status: CasesStatus.open,
+      localization: {
+        state: BrazilianState.RIO_DE_JANEIRO,
+        city: City.DUQUE_DE_CAXIAS,
+      },
     };
 
     const caseId = (await CaseModel.create(newCase))._id.toString();
@@ -205,7 +256,6 @@ describe('Test CaseRepository', () => {
     };
 
     let errorHasBeenThrown = false;
-    let result: WithId<CaseFileDTO>[] = [];
     await CaseModel.findByIdAndUpdate(
       {
         _id: caseId,
@@ -221,20 +271,23 @@ describe('Test CaseRepository', () => {
       }
     );
 
-    try {
-      result = await caseRepository.findFilesByCaseId(caseId);
-    } catch (error) {
-      errorHasBeenThrown = true;
+    const files = await caseRepository.findFilesByCaseId(caseId);
+
+    if (!files) {
+      throw Error('Missing case files');
     }
+
+    const file = files[0];
+
     expect(errorHasBeenThrown).toBeFalsy();
-    expect(result[0]?.name).toBe(newFile.name);
-    expect(result[0]?.mimeType).toBe(newFile.mimeType);
-    expect(result[0]?.size).toBe(newFile.size);
-    expect(result[0]?.uploadedBy.id).toBe(newFile.uploadedBy);
+    expect(file?.name).toBe(newFile.name);
+    expect(file?.mimeType).toBe(newFile.mimeType);
+    expect(file?.size).toBe(newFile.size);
+    expect(file?.uploadedBy.id).toBe(newFile.uploadedBy);
   });
 
   test('should delete a case from the database', async () => {
-    const {caseRepository, clientId, lawyerId} = await makeSut();
+    const { caseRepository, clientId, lawyerId } = await makeSut();
 
     const newCase = {
       client: clientId,
@@ -245,6 +298,10 @@ describe('Test CaseRepository', () => {
       court: 'court', //tribunal
       courtDivision: 'court division', //vara
       status: CasesStatus.open,
+      localization: {
+        state: BrazilianState.RIO_DE_JANEIRO,
+        city: City.DUQUE_DE_CAXIAS,
+      },
     };
 
     const caseId = (await CaseModel.create(newCase))._id.toString();
@@ -252,7 +309,7 @@ describe('Test CaseRepository', () => {
     await caseRepository.deleteById(caseId);
 
     const findCaseResult = await CaseModel.findById(caseId);
-    
-    expect(findCaseResult).toBeNull()
+
+    expect(findCaseResult).toBeNull();
   });
 });
