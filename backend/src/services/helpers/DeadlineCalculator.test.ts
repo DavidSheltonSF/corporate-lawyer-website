@@ -7,7 +7,10 @@ import { DeadlineCalculator } from './DeadlineCalculator';
 describe(`Testing ${DeadlineCalculator.name}`, () => {
   function makeSut() {
     const brazilHolidaysProvider = new BrazilHolidaysProvider();
-    const deadlineCalculator = new DeadlineCalculator(brazilHolidaysProvider);
+    const deadlineCalculator = new DeadlineCalculator(brazilHolidaysProvider, {
+      state: BrazilianState.RIO_DE_JANEIRO,
+      city: City.BELFORD_ROXO,
+    });
     return { deadlineCalculator };
   }
   test('should return true if date is weekend and false if it is not', () => {
@@ -28,26 +31,10 @@ describe(`Testing ${DeadlineCalculator.name}`, () => {
     const notHoliday1 = createDate(2026, 4, 26);
     const notHoliday2 = createDate(2026, 4, 27);
 
-    const result1 = deadlineCalculator.isHoliday(
-      holiday1,
-      BrazilianState.RIO_DE_JANEIRO,
-      City.BELFORD_ROXO
-    );
-    const result2 = deadlineCalculator.isHoliday(
-      holiday2,
-      BrazilianState.RIO_DE_JANEIRO,
-      City.BELFORD_ROXO
-    );
-    const result3 = deadlineCalculator.isHoliday(
-      notHoliday1,
-      BrazilianState.RIO_DE_JANEIRO,
-      City.BELFORD_ROXO
-    );
-    const result4 = deadlineCalculator.isHoliday(
-      notHoliday2,
-      BrazilianState.RIO_DE_JANEIRO,
-      City.BELFORD_ROXO
-    );
+    const result1 = deadlineCalculator.isHoliday(holiday1);
+    const result2 = deadlineCalculator.isHoliday(holiday2);
+    const result3 = deadlineCalculator.isHoliday(notHoliday1);
+    const result4 = deadlineCalculator.isHoliday(notHoliday2);
     expect(result1).toBeTruthy();
     expect(result2).toBeTruthy();
     expect(result3).toBeFalsy();
@@ -62,26 +49,10 @@ describe(`Testing ${DeadlineCalculator.name}`, () => {
     const businessDay1 = createDate(2026, 4, 27);
     const businessDay2 = createDate(2026, 4, 28);
 
-    const result1 = deadlineCalculator.isBusinessDay(
-      weekend,
-      BrazilianState.RIO_DE_JANEIRO,
-      City.BELFORD_ROXO
-    );
-    const result2 = deadlineCalculator.isBusinessDay(
-      holiday,
-      BrazilianState.RIO_DE_JANEIRO,
-      City.BELFORD_ROXO
-    );
-    const result3 = deadlineCalculator.isBusinessDay(
-      businessDay1,
-      BrazilianState.RIO_DE_JANEIRO,
-      City.BELFORD_ROXO
-    );
-    const result4 = deadlineCalculator.isBusinessDay(
-      businessDay2,
-      BrazilianState.RIO_DE_JANEIRO,
-      City.BELFORD_ROXO
-    );
+    const result1 = deadlineCalculator.isBusinessDay(weekend);
+    const result2 = deadlineCalculator.isBusinessDay(holiday);
+    const result3 = deadlineCalculator.isBusinessDay(businessDay1);
+    const result4 = deadlineCalculator.isBusinessDay(businessDay2);
     expect(result1).toBeFalsy();
     expect(result2).toBeFalsy();
     expect(result3).toBeTruthy();
@@ -93,17 +64,9 @@ describe(`Testing ${DeadlineCalculator.name}`, () => {
     const date1 = createDate(2026, 4, 26);
     const date2 = createDate(2026, 5, 1);
 
-    const result1 = deadlineCalculator.getNextBusinessDay(
-      date1,
-      BrazilianState.RIO_DE_JANEIRO,
-      City.BELFORD_ROXO
-    );
+    const result1 = deadlineCalculator.getNextBusinessDay(date1);
 
-    const result2 = deadlineCalculator.getNextBusinessDay(
-      date2,
-      BrazilianState.RIO_DE_JANEIRO,
-      City.BELFORD_ROXO
-    );
+    const result2 = deadlineCalculator.getNextBusinessDay(date2);
 
     expect(result1.toISOString()).toBe(createDate(2026, 4, 27).toISOString());
     expect(result2.toISOString()).toBe(createDate(2026, 5, 4).toISOString());
