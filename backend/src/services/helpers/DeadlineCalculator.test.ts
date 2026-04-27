@@ -87,4 +87,25 @@ describe(`Testing ${DeadlineCalculator.name}`, () => {
     expect(result3).toBeTruthy();
     expect(result4).toBeTruthy();
   });
+
+  test('should return the next business day', () => {
+    const { deadlineCalculator } = makeSut();
+    const date1 = createDate(2026, 4, 26);
+    const date2 = createDate(2026, 5, 1);
+
+    const result1 = deadlineCalculator.getNextBusinessDay(
+      date1,
+      BrazilianState.RIO_DE_JANEIRO,
+      City.BELFORD_ROXO
+    );
+
+    const result2 = deadlineCalculator.getNextBusinessDay(
+      date2,
+      BrazilianState.RIO_DE_JANEIRO,
+      City.BELFORD_ROXO
+    );
+
+    expect(result1.toISOString()).toBe(createDate(2026, 4, 27).toISOString());
+    expect(result2.toISOString()).toBe(createDate(2026, 5, 4).toISOString());
+  });
 });

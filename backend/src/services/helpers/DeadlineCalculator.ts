@@ -20,4 +20,14 @@ export class DeadlineCalculator {
   isBusinessDay(date: Date, state: BrazilianState, city: City): boolean {
     return !this.isWeekend(date) && !this.isHoliday(date, state, city);
   }
+
+  getNextBusinessDay(date: Date, state: BrazilianState, city: City): Date {
+    let currentDate = new Date(date);
+    currentDate.setDate(currentDate.getDate() + 1);
+
+    while (!this.isBusinessDay(currentDate, state, city)) {
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+    return currentDate;
+  }
 }
