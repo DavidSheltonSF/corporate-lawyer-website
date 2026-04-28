@@ -29,7 +29,7 @@ export class MongodbCaseRepository implements CaseRepository {
       court: data.court,
       courtDivision: data.courtDivision,
       status: data.status,
-      localization: data.localization,
+      location: data.location,
     });
 
     return CaseMapper.persistenceToPresentation(cas);

@@ -2,7 +2,7 @@ import { Schema, model, Document, Types } from 'mongoose';
 import { CasesStatus } from '../types/CasesStatus';
 import { CaseFileSchema, ICaseFileModel } from './CaseFileModel';
 import { WithMongoId } from '../database/mongoDB/types/WithMongoId';
-import { CaseLocalization } from '../types/CaseLocalization';
+import { CaseLocation } from '../types/CaseLocation';
 
 export interface ICaseModel {
   client: Types.ObjectId;
@@ -15,7 +15,7 @@ export interface ICaseModel {
   files: WithMongoId<ICaseFileModel>[];
   hearings: Types.ObjectId[];
   status: CasesStatus;
-  localization: CaseLocalization;
+  location: CaseLocation;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -38,7 +38,7 @@ const CaseSchema = new Schema<CaseMongoDocument>(
       enum: Object.values(CasesStatus),
       required: true,
     },
-    localization: {
+    location: {
       type: { state: { type: String, required: true }, city: { type: String, required: true } },
       required: true,
     },
