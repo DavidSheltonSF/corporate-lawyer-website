@@ -11,6 +11,8 @@ import { createMockUserRepository } from '../../tests/mocks/repositories/createM
 import { UserService } from '../../services/user/UserService';
 import { UserRole } from '../../types/UserRole';
 import { BrazilHolidaysProvider } from '../../services/BrazilHolidaysProvider';
+import { mockCreateDeadlineDTO } from '../../tests/mocks/deadline/mockCreateDeadlineDTO';
+import { mockUpateDeadlineDTO } from '../../tests/mocks/deadline/mockUpdateDeadlineDTO';
 
 describe(`Test ${DeadlineController.name}`, () => {
   function makeSut() {
@@ -48,15 +50,7 @@ describe(`Test ${DeadlineController.name}`, () => {
   test('should retun CREATED (201) and call DeadlineRepository.create', async () => {
     const { deadlineController, deadlineRepository } = makeSut();
 
-    const deadlineData = {
-      caseId: Types.ObjectId.createFromTime(848484).toString(),
-      lawyerId: Types.ObjectId.createFromTime(8484).toString(),
-      type: DeadlineType.PAGAMENTO,
-      intimationDate: '2050-02-02',
-      days: 5,
-      status: DeadlineStatus.EM_ANDAMENTO,
-      priority: DeadlinePriority.ALTA,
-    };
+    const deadlineData = mockCreateDeadlineDTO();
     const httpRequest = {
       user: {
         id: 'dsfdfa',
@@ -105,15 +99,7 @@ describe(`Test ${DeadlineController.name}`, () => {
 
     const deadlineId = 'dfsadfggsfasga';
 
-    const deadlineData = {
-      caseId: Types.ObjectId.createFromTime(848484).toString(),
-      lawyerId: Types.ObjectId.createFromTime(8484).toString(),
-      type: DeadlineType.PAGAMENTO,
-      intimationDate: '2050-02-02',
-      days: 5,
-      status: DeadlineStatus.EM_ANDAMENTO,
-      priority: DeadlinePriority.ALTA,
-    };
+    const deadlineData = mockUpateDeadlineDTO();
 
     const httpRequest = {
       user: {
