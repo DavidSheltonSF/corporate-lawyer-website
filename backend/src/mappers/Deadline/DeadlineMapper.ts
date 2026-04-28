@@ -1,5 +1,4 @@
 import { WithMongoId } from '../../database/mongoDB/types/WithMongoId';
-import { DeadlineDTO } from '../../dtos/deadLine/DeadlineDTO';
 import { DeadlineResponseDTO } from '../../dtos/deadLine/DeadlineResponseDTO';
 import { WithId } from '../../types/WithId';
 
