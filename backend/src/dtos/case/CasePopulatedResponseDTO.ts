@@ -4,7 +4,7 @@ import { CaseFileDTO } from '../caseFile/CaseFileDTO';
 import { HearingDTO } from '../hearing/HearingDTO';
 import { CaseLocationDTO } from './CaseLocationDTO';
 
-export interface CaseCardDTO {
+export interface CasePopulatedResponseDTO {
   client: WithId<UserName>;
   lawyers: WithId<UserName>[];
   processNumber: string;

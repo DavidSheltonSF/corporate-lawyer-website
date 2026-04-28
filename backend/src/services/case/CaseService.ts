@@ -1,4 +1,4 @@
-import { CaseCardDTO } from '../../dtos/case/CaseCardDTO';
+import { CasePopulatedResponseDTO } from '../../dtos/case/CasePopulatedResponseDTO';
 import { CaseFileDTO } from '../../dtos/caseFile/CaseFileDTO';
 import { CreateCaseFileDTO } from '../../dtos/caseFile/CreateCaseFileDTO';
 import { CaseResponseDTO } from '../../dtos/case/CaseResponseDTO';
@@ -39,7 +39,7 @@ export class CaseService implements ICaseService {
     }
   }
 
-  async findAll(queryParams?: CaseQuery): Promise<Page<WithId<CaseCardDTO>>> {
+  async findAll(queryParams?: CaseQuery): Promise<Page<WithId<CasePopulatedResponseDTO>>> {
     const casesPage = await this.caseRepository.findAll(queryParams);
     return {
       data: casesPage.data,
@@ -50,14 +50,14 @@ export class CaseService implements ICaseService {
   async findPopulatedByClientId(
     id: string,
     queryParams?: CaseQuery
-  ): Promise<Page<WithId<CaseCardDTO>>> {
+  ): Promise<Page<WithId<CasePopulatedResponseDTO>>> {
     return await this.caseRepository.findPopulatedByClientId(id, queryParams);
   }
 
   async findById(
     id: string,
     populate?: boolean
-  ): Promise<WithId<CaseResponseDTO | CaseCardDTO> | null> {
+  ): Promise<WithId<CaseResponseDTO | CasePopulatedResponseDTO> | null> {
     try {
       const findPromise = populate
         ? this.caseRepository.findPopulatedById(id)

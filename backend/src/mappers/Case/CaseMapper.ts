@@ -1,4 +1,4 @@
-import { CaseCardDTO } from '../../dtos/case/CaseCardDTO';
+import { CasePopulatedResponseDTO } from '../../dtos/case/CasePopulatedResponseDTO';
 import { CaseResponseDTO } from '../../dtos/case/CaseResponseDTO';
 import { Case } from '../../entities/Case';
 import { WithId } from '../../types/WithId';
@@ -7,7 +7,7 @@ import { HearingMapper } from '../Hearing/HearingMapper';
 import { toUserIdentity } from '../toUserIdentity';
 
 export class CaseMapper {
-  static persistenceToPopulatedPresentation(cas: any): WithId<CaseCardDTO> {
+  static persistenceToPopulatedPresentation(cas: any): WithId<CasePopulatedResponseDTO> {
     const { title, processNumber, court, courtDivision, status, description, location } = cas;
     const client = toUserIdentity(cas.client);
     const lawyers = cas.lawyers.map(toUserIdentity);
