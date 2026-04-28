@@ -8,7 +8,7 @@ import { CasesStatus } from '../../../types/CasesStatus';
 import { CaseQuery } from '../../../types/CaseQuery';
 import { Page } from '../../../types/Page';
 import { CaseCardDTO } from '../../../dtos/case/CaseCardDTO';
-import { CaseMapper } from '../../../mappers/CaseMapper';
+import { CaseMapper } from '../../../mappers/Case/CaseMapper';
 import { CreateCaseFileDTO } from '../../../dtos/caseFile/CreateCaseFileDTO';
 import { CaseFileDTO } from '../../../dtos/caseFile/CaseFileDTO';
 import { CaseFileMapper } from '../../../mappers/CaseFile/CaseFileMapper';
