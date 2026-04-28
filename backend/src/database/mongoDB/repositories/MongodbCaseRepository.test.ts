@@ -72,7 +72,7 @@ describe('Test CaseRepository', () => {
       court: 'court', //tribunal
       courtDivision: 'court division', //vara
       status: CasesStatus.open,
-      localization: {
+      location: {
         state: BrazilianState.RIO_DE_JANEIRO,
         city: City.DUQUE_DE_CAXIAS,
       },
@@ -101,7 +101,7 @@ describe('Test CaseRepository', () => {
       court: 'court', //tribunal
       courtDivision: 'court division', //vara
       status: CasesStatus.open,
-      localization: {
+      location: {
         state: BrazilianState.RIO_DE_JANEIRO,
         city: City.DUQUE_DE_CAXIAS,
       },
@@ -134,7 +134,7 @@ describe('Test CaseRepository', () => {
       court: 'court', //tribunal
       courtDivision: 'court division', //vara
       status: CasesStatus.open,
-      localization: {
+      location: {
         state: BrazilianState.RIO_DE_JANEIRO,
         city: City.DUQUE_DE_CAXIAS,
       },
@@ -168,7 +168,7 @@ describe('Test CaseRepository', () => {
       court: 'court', //tribunal
       courtDivision: 'court division', //vara
       status: CasesStatus.open,
-      localization: {
+      location: {
         state: BrazilianState.RIO_DE_JANEIRO,
         city: City.DUQUE_DE_CAXIAS,
       },
@@ -197,7 +197,7 @@ describe('Test CaseRepository', () => {
       court: 'court', //tribunal
       courtDivision: 'court division', //vara
       status: CasesStatus.open,
-      localization: {
+      location: {
         state: BrazilianState.RIO_DE_JANEIRO,
         city: City.DUQUE_DE_CAXIAS,
       },
@@ -238,7 +238,7 @@ describe('Test CaseRepository', () => {
       court: 'court', //tribunal
       courtDivision: 'court division', //vara
       status: CasesStatus.open,
-      localization: {
+      location: {
         state: BrazilianState.RIO_DE_JANEIRO,
         city: City.DUQUE_DE_CAXIAS,
       },
@@ -298,7 +298,7 @@ describe('Test CaseRepository', () => {
       court: 'court', //tribunal
       courtDivision: 'court division', //vara
       status: CasesStatus.open,
-      localization: {
+      location: {
         state: BrazilianState.RIO_DE_JANEIRO,
         city: City.DUQUE_DE_CAXIAS,
       },
