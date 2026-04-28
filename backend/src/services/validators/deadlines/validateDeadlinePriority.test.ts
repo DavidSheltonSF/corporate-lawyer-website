@@ -1,17 +1,9 @@
 import { InvalidDeadlinePriorityError } from '../../../errors/domain/InvalidDeadlinePriorityError';
+import { getThrownError } from '../../../tests/helpers/getThrownError';
 import { DeadlinePriority } from '../../../types/DeadLinePriority';
 import { validateDeadlinePriority } from './validateDeadlinePriority';
 
 describe(`Testing ${validateDeadlinePriority.name}`, () => {
-  function getThrownError(callBack: Function) {
-    try {
-      callBack();
-      return null;
-    } catch (error) {
-      return error;
-    }
-  }
-
   test('should not throw error when user CPF is valid', () => {
     const thrownError1 = getThrownError(() => validateDeadlinePriority(DeadlinePriority.ALTA));
     const thrownError2 = getThrownError(() => validateDeadlinePriority(DeadlinePriority.MEDIA));

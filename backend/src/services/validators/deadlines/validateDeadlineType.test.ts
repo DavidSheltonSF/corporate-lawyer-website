@@ -1,17 +1,9 @@
 import { InvalidDeadlineTypeError } from '../../../errors/domain/InvalidDeadlineTypeError';
+import { getThrownError } from '../../../tests/helpers/getThrownError';
 import { DeadlineType } from '../../../types/DeadLineType';
 import { validateDeadlineType } from './validateDeadlineType';
 
 describe(`Testing ${validateDeadlineType.name}`, () => {
-  function getThrownError(callBack: Function) {
-    try {
-      callBack();
-      return null;
-    } catch (error) {
-      return error;
-    }
-  }
-
   test('should not throw error when user CPF is valid', () => {
     const thrownError1 = getThrownError(() => validateDeadlineType(DeadlineType.PAGAMENTO));
     const thrownError2 = getThrownError(() => validateDeadlineType(DeadlineType.AUDIENCIA));
