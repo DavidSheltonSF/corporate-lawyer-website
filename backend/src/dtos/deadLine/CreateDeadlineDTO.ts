@@ -1,4 +1,4 @@
-export interface DeadlineDTO {
+export interface CreateDeadlineDTO {
   caseId: string;
   lawyerId: string;
   type: string;
