@@ -1,6 +1,6 @@
 export interface UpdateDeadlineDTO {
   type?: string;
-  dateRange?: { startDate: string; dueDate: string };
-  status?: string;
+  intimationDate?: string;
+  days?: string;
   priority?: string;
 }
