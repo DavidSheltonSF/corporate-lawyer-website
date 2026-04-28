@@ -1,9 +1,9 @@
 import { WithMongoId } from '../../database/mongoDB/types/WithMongoId';
-import { DeadlineResponseDTO } from '../../dtos/deadLine/DeadlineResponseDTO';
+import { DeadlineDTO } from '../../dtos/deadLine/DeadlineDTO';
 import { WithId } from '../../types/WithId';
 
 export class DeadlineMapper {
-  static persistenceToPresentation(data: WithMongoId<any>): WithId<DeadlineResponseDTO> {
+  static persistenceToPresentation(data: WithMongoId<any>): WithId<DeadlineDTO> {
     const {
       _id,
       caseId,
