@@ -18,7 +18,7 @@ export const mockCaseMongoDocs: WithMongoId<ICaseModel>[] = [
     title: 'Case Title',
     files: [],
     hearings: [],
-    localization: {
+    location: {
       state: BrazilianState.RIO_DE_JANEIRO,
       city: City.BELFORD_ROXO,
     },
