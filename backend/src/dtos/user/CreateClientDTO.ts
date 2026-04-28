@@ -1,3 +1,3 @@
-import { CreateUserDTO } from './UserDTO';
+import { UserDTO } from './UserDTO';
 
-export type CreateClientDTO = Omit<CreateUserDTO, 'password' | 'role'>;
+export type CreateClientDTO = Omit<UserDTO, 'password' | 'role'>;
