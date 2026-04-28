@@ -54,27 +54,4 @@ export class CaseMapper {
       location,
     };
   }
-
-  static persistenceToDomain(cas: unknown): WithId<Case> {
-
-    const lawyers = casePersistence.lawyers.map((lawyer) => lawyer.toString());
-    const files = casePersistence.files.map((document) => document.toString());
-    const hearings = casePersistence.hearings.map((hearing) => hearing.toString());
-
-    return {
-      id: casePersistence._id.toString(),
-      title: casePersistence.title,
-      processNumber: casePersistence.processNumber,
-      court: casePersistence.court,
-      courtDivision: casePersistence.courtDivision,
-      status: casePersistence.status,
-      description: casePersistence.description,
-      client: casePersistence.client.toString(),
-      lawyers,
-      files,
-      hearings,
-      createdAt: casePersistence.createdAt,
-      updatedAt: casePersistence.updatedAt,
-    };
-  }
 }
