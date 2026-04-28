@@ -30,7 +30,7 @@ describe('Test CaseService', () => {
       courtDivision: 'Vara Cívil',
       description: 'Case description',
       status: CasesStatus.open,
-      localization: {
+      location: {
         state: BrazilState.RIO_DE_JANEIRO,
         city: City.RIO_DE_JANEIRO,
       },
@@ -52,7 +52,7 @@ describe('Test CaseService', () => {
       courtDivision: 'Vara Cívil',
       description: 'Case description',
       status: CasesStatus.open,
-      localization: {
+      location: {
         state: BrazilState.RIO_DE_JANEIRO,
         city: City.RIO_DE_JANEIRO,
       },
@@ -74,7 +74,7 @@ describe('Test CaseService', () => {
       courtDivision: 'Vara Cívil',
       description: 'Case description',
       status: CasesStatus.open,
-      localization: {
+      location: {
         state: BrazilState.RIO_DE_JANEIRO,
         city: City.RIO_DE_JANEIRO,
       },
@@ -95,7 +95,7 @@ describe('Test CaseService', () => {
       courtDivision: 'Vara Cívil',
       description: 'Case description',
       status: 'banana',
-      localization: {
+      location: {
         state: BrazilState.RIO_DE_JANEIRO,
         city: City.RIO_DE_JANEIRO,
       },
