@@ -42,27 +42,27 @@ describe('Test DeadlineRepository', () => {
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
 
+    const startDate = tomorrow;
+    const dueDate = new Date(tomorrow.getDate() + 5);
     const deadlineDTO = {
       caseId: Types.ObjectId.createFromTime(823775684).toString(),
       lawyerId: Types.ObjectId.createFromTime(872576365).toString(),
       type: DeadlineType.PAGAMENTO,
       intimationDate: today.toISOString(),
       days: 5,
-      startDate: tomorrow.toISOString(),
-      dueDate: new Date(tomorrow.getDate() + 5).toISOString(),
+
       priority: DeadlinePriority.ALTA,
     };
 
-    const deadline = await deadlineRepository.create(deadlineDTO);
+    const deadline = await deadlineRepository.create(deadlineDTO, startDate, dueDate);
     const createdDeadline = await DeadlineModel.findById(deadline.id);
-
     expect(deadline).toEqual(expect.objectContaining(deadlineDTO));
     expect(createdDeadline?.caseId.toString()).toEqual(deadlineDTO.caseId);
     expect(createdDeadline?.lawyerId.toString()).toEqual(deadlineDTO.lawyerId);
     expect(createdDeadline?.intimationDate.toISOString()).toEqual(deadlineDTO.intimationDate);
     expect(createdDeadline?.days).toEqual(deadlineDTO.days);
-    expect(createdDeadline?.startDate.toISOString()).toEqual(deadlineDTO.startDate);
-    expect(createdDeadline?.dueDate.toISOString()).toEqual(deadlineDTO.dueDate);
+    expect(createdDeadline?.startDate.toISOString()).toEqual(startDate.toISOString());
+    expect(createdDeadline?.dueDate.toISOString()).toEqual(dueDate.toISOString());
     expect(createdDeadline?.type).toEqual(deadlineDTO.type);
     expect(createdDeadline?.priority).toEqual(deadlineDTO.priority);
   });
@@ -76,42 +76,55 @@ describe('Test DeadlineRepository', () => {
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
 
+    const pendingDeadlineStartDate = tomorrow;
+    const pendingDeadlineDueDate = new Date(tomorrow.getDate() + 5);
     const pendingDeadlineDTO = {
       caseId: Types.ObjectId.createFromTime(823775684).toString(),
       lawyerId: Types.ObjectId.createFromTime(872576365).toString(),
       type: DeadlineType.PAGAMENTO,
       intimationDate: today.toISOString(),
-      startDate: tomorrow.toISOString(),
-      dueDate: new Date(tomorrow.getDate() + 5).toISOString(),
+
       days: 5,
       priority: DeadlinePriority.ALTA,
     };
 
+    const openDeadlineStartDate = yesterday;
+    const openDeadlineDueDate = tomorrow;
     const openDeadlineDTO = {
       caseId: Types.ObjectId.createFromTime(877273333484).toString(),
       lawyerId: Types.ObjectId.createFromTime(555584).toString(),
       type: DeadlineType.PAGAMENTO,
       intimationDate: new Date(yesterday.getDate() - 1).toISOString(), // 1 days before yesterday
-      startDate: yesterday.toISOString(), //yesterday
-      dueDate: tomorrow.toISOString(), // tomorrow
       days: 2,
       priority: DeadlinePriority.ALTA,
     };
 
+    const expiredDeadlineStartDate = new Date('2026-04-01');
+    const expiredDeadlineDueDate = new Date('2026-04-9');
     const expiredDeadlineDTO = {
       caseId: Types.ObjectId.createFromTime(848484).toString(),
       lawyerId: Types.ObjectId.createFromTime(8484).toString(),
       type: DeadlineType.PAGAMENTO,
       intimationDate: new Date('2026-04-01').toISOString(),
-      startDate: new Date('2026-04-4').toISOString(),
-      dueDate: new Date('2026-04-9').toISOString(),
       days: 5,
       priority: DeadlinePriority.ALTA,
     };
 
-    const pendingDeadline = await deadlineRepository.create(pendingDeadlineDTO);
-    const openDeadline = await deadlineRepository.create(openDeadlineDTO);
-    const expiredDeadline = await deadlineRepository.create(expiredDeadlineDTO);
+    const pendingDeadline = await deadlineRepository.create(
+      pendingDeadlineDTO,
+      pendingDeadlineStartDate,
+      pendingDeadlineDueDate
+    );
+    const openDeadline = await deadlineRepository.create(
+      openDeadlineDTO,
+      openDeadlineStartDate,
+      openDeadlineDueDate
+    );
+    const expiredDeadline = await deadlineRepository.create(
+      expiredDeadlineDTO,
+      expiredDeadlineStartDate,
+      expiredDeadlineDueDate
+    );
 
     expect(pendingDeadline.status).toBe(DeadlineStatus.PENDENTE);
     expect(openDeadline.status).toBe(DeadlineStatus.EM_ANDAMENTO);

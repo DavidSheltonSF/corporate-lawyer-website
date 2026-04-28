@@ -7,8 +7,16 @@ import { UpdateDeadlineDTO } from '../../../dtos/deadLine/UpdateDeadlineDTO';
 import { DeadlineResponseDTO } from '../../../dtos/deadLine/DeadlineResponseDTO';
 
 export class MongodbDeadlineRepository implements DeadlineRepository {
-  async create(data: DeadlineDTO): Promise<WithId<DeadlineResponseDTO>> {
-    const deadline = await DeadlineModel.create(data);
+  async create(
+    data: DeadlineDTO,
+    startDate: Date,
+    dueDate: Date
+  ): Promise<WithId<DeadlineResponseDTO>> {
+    const deadline = await DeadlineModel.create({
+      ...data,
+      startDate,
+      dueDate,
+    });
     return DeadlineMapper.persistenceToPresentation(deadline);
   }
 

@@ -4,7 +4,7 @@ import { UpdateDeadlineDTO } from '../dtos/deadLine/UpdateDeadlineDTO';
 import { DeadlineResponseDTO } from '../dtos/deadLine/DeadlineResponseDTO';
 
 export interface DeadlineRepository {
-  create(data: DeadlineDTO): Promise<WithId<DeadlineResponseDTO>>;
+  create(data: DeadlineDTO, startDate: Date, dueDate: Date): Promise<WithId<DeadlineResponseDTO>>;
   findAll(): Promise<WithId<DeadlineResponseDTO>[]>;
   findById(id: string): Promise<WithId<DeadlineResponseDTO> | null>;
   findByCaseId(id: string): Promise<WithId<DeadlineResponseDTO>[]>;
