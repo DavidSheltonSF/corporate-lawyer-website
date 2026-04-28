@@ -5,28 +5,17 @@ import { User } from '../../../entities/User';
 import { UserQuery } from '../../../types/UserQuery';
 import { Page } from '../../../types/Page';
 import { UserRole } from '../../../types/UserRole';
-import { UserMapper } from '../../../mappers/UserMapper';
+import { UserMapper } from '../../../mappers/User/UserMapper';
 import { UpdateUserDTO } from '../../../dtos/user/UpdateUserDTO';
 import { UserDTO } from '../../../dtos/user/UserDTO';
 import { UserWithCases } from '../../../types/UserWithCases';
-import { CaseMapper } from '../../../mappers/CaseMapper';
+import { CaseMapper } from '../../../mappers/Case/CaseMapper';
 import { CaseModel } from '../../../models/CaseModel';
 
 export class MongodbUserRepository implements UserRepository {
-  async create(data: UserDTO): Promise<WithId<User>> {
+  async create(data: UserDTO): Promise<WithId<UserDTO>> {
     const user = await UserModel.create(data);
-
-    return {
-      id: user._id.toString(),
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      cpf: user.cpf,
-      password: user.password,
-      role: user.role,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
-    };
+    return UserMapper.persistenceToPresentation(user);
   }
 
   async findAll(): Promise<WithId<User>[]> {
@@ -39,7 +28,7 @@ export class MongodbUserRepository implements UserRepository {
     });
   }
 
-  async findClients(userQuery: UserQuery): Promise<Page<WithId<User>>> {
+  async findClients(userQuery: UserQuery): Promise<Page<WithId<UserDTO>>> {
     const { query, limit = 10, page = 1 } = userQuery;
 
     const regex = new RegExp(query || '', 'i');
@@ -57,7 +46,7 @@ export class MongodbUserRepository implements UserRepository {
 
     const [clients, totalItems] = await Promise.all([clientsQuery, clientsTotalQuery]);
 
-    const mappedUsers = clients.map(UserMapper.persistenceToDomain);
+    const mappedUsers = clients.map(UserMapper.persistenceToPresentation);
 
     return {
       data: mappedUsers,
@@ -69,23 +58,13 @@ export class MongodbUserRepository implements UserRepository {
     };
   }
 
-  async findById(id: string): Promise<WithId<User> | null> {
+  async findById(id: string): Promise<WithId<UserDTO> | null> {
     const user = await UserModel.findById(id).lean();
 
     if (!user) {
       return null;
     }
-    return {
-      id: user._id.toString(),
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      cpf: user.cpf,
-      password: user.password,
-      role: user.role,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
-    };
+    return UserMapper.persistenceToPresentation(user);
   }
 
   async findByIdWithCases(id: string): Promise<WithId<UserWithCases> | null> {
@@ -96,7 +75,7 @@ export class MongodbUserRepository implements UserRepository {
       return null;
     }
 
-    const mappedCases = cases.map(CaseMapper.persistenceToDomain);
+    const mappedCases = cases.map(CaseMapper.persistenceToPresentation);
 
     return {
       id: user._id.toString(),
@@ -112,37 +91,26 @@ export class MongodbUserRepository implements UserRepository {
     };
   }
 
-  async findByEmail(email: string): Promise<WithId<User> | null> {
+  async findByEmail(email: string): Promise<WithId<UserDTO> | null> {
     const user = await UserModel.findOne({ email }).lean();
 
     if (!user) {
       return null;
     }
 
-    return {
-      id: user._id.toString(),
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      cpf: user.cpf,
-      password: user.password,
-      role: user.role,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
-    };
+    return UserMapper.persistenceToPresentation(user);
   }
 
-  async deleteById(id: string): Promise<WithId<User> | null> {
+  async deleteById(id: string): Promise<WithId<UserDTO> | null> {
     const result = await UserModel.findOneAndDelete({ _id: id });
     if (!result) return null;
-    return UserMapper.persistenceToDomain(result);
+    return UserMapper.persistenceToPresentation(result);
   }
 
-  async updateById(id: string, data: UpdateUserDTO): Promise<WithId<User> | null> {
+  async updateById(id: string, data: UpdateUserDTO): Promise<WithId<UserDTO> | null> {
     const result = await UserModel.findOneAndUpdate({ _id: id }, data, { returnDocument: 'after' });
-    console.log(result);
     if (!result) return null;
-    return UserMapper.persistenceToDomain(result);
+    return UserMapper.persistenceToPresentation(result);
   }
 
   async existsById(id: string): Promise<boolean> {
