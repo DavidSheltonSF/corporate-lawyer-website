@@ -1,7 +1,7 @@
-import { BrazilianState } from './BrazilianState';
+import { BrazilState } from './BrazilState';
 import { City } from './City';
 
 export interface CaseLocation {
-  state: BrazilianState;
+  state: BrazilState;
   city: City;
 }
