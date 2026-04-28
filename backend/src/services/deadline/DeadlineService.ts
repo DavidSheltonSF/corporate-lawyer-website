@@ -22,7 +22,7 @@ export class DeadlineService implements Partial<IDeadlineService> {
     private readonly holidaysProvider: HolidaysProvider
   ) {}
 
-  async create(data: CreateDeadlineDTO): Promise<WithId<DeadlineResponseDTO>> {
+  async create(data: CreateDeadlineDTO): Promise<WithId<DeadlineDTO>> {
     validateDeadline(data);
 
     const { caseId, intimationDate, days } = data;
@@ -52,11 +52,11 @@ export class DeadlineService implements Partial<IDeadlineService> {
     return await this.deadlineRepository.findAll();
   }
 
-  async findById(id: string): Promise<WithId<DeadlineResponseDTO> | null> {
+  async findById(id: string): Promise<WithId<DeadlineDTO> | null> {
     return await this.deadlineRepository.findById(id);
   }
 
-  async findByCaseId(id: string): Promise<WithId<DeadlineResponseDTO>[] | null> {
+  async findByCaseId(id: string): Promise<WithId<DeadlineDTO>[] | null> {
     const caseExists = await this.caseRepository.exists(id);
     if (!caseExists) return null;
 
@@ -66,12 +66,12 @@ export class DeadlineService implements Partial<IDeadlineService> {
   async updateById(
     id: string,
     data: UpdateDeadlineDTO
-  ): Promise<WithId<DeadlineResponseDTO> | null> {
+  ): Promise<WithId<DeadlineDTO> | null> {
     validateDeadlinePartial(data);
     return await this.deadlineRepository.updateById(id, data);
   }
 
-  async deleteById(id: string): Promise<WithId<DeadlineResponseDTO> | null> {
+  async deleteById(id: string): Promise<WithId<DeadlineDTO> | null> {
     return await this.deadlineRepository.deleteById(id);
   }
 }
