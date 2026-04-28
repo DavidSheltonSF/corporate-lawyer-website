@@ -1,17 +1,17 @@
 import { DeadlineRepository } from '../../../repositories/DeadlineRepository';
 import { WithId } from '../../../types/WithId';
 import { DeadlineModel } from '../../../models/DeadlineModel';
-import { DeadlineDTO } from '../../../dtos/deadLine/DeadlineDTO';
 import { DeadlineMapper } from '../../../mappers/Deadline/DeadlineMapper';
 import { UpdateDeadlineDTO } from '../../../dtos/deadLine/UpdateDeadlineDTO';
-import { DeadlineResponseDTO } from '../../../dtos/deadLine/DeadlineResponseDTO';
+import { DeadlineDTO } from '../../../dtos/deadLine/DeadlineDTO';
+import { CreateDeadlineDTO } from '../../../dtos/deadLine/CreateDeadlineDTO';
 
 export class MongodbDeadlineRepository implements DeadlineRepository {
   async create(
-    data: DeadlineDTO,
+    data: CreateDeadlineDTO,
     startDate: Date,
     dueDate: Date
-  ): Promise<WithId<DeadlineResponseDTO>> {
+  ): Promise<WithId<DeadlineDTO>> {
     const deadline = await DeadlineModel.create({
       ...data,
       startDate,
@@ -20,12 +20,12 @@ export class MongodbDeadlineRepository implements DeadlineRepository {
     return DeadlineMapper.persistenceToPresentation(deadline);
   }
 
-  async findAll(): Promise<WithId<DeadlineResponseDTO>[]> {
+  async findAll(): Promise<WithId<DeadlineDTO>[]> {
     const deadlines = await DeadlineModel.find({});
     return deadlines.map(DeadlineMapper.persistenceToPresentation);
   }
 
-  async findById(id: string): Promise<WithId<DeadlineResponseDTO> | null> {
+  async findById(id: string): Promise<WithId<DeadlineDTO> | null> {
     const deadline = await DeadlineModel.findById(id);
 
     if (!deadline) {
@@ -34,21 +34,18 @@ export class MongodbDeadlineRepository implements DeadlineRepository {
     return DeadlineMapper.persistenceToPresentation(deadline);
   }
 
-  async findByCaseId(id: string): Promise<WithId<DeadlineResponseDTO>[]> {
+  async findByCaseId(id: string): Promise<WithId<DeadlineDTO>[]> {
     const deadlines = await DeadlineModel.find({ caseId: id });
     return deadlines.map(DeadlineMapper.persistenceToPresentation);
   }
 
-  async deleteById(id: string): Promise<WithId<DeadlineResponseDTO> | null> {
+  async deleteById(id: string): Promise<WithId<DeadlineDTO> | null> {
     const result = await DeadlineModel.findOneAndDelete({ _id: id });
     if (!result) return null;
     return DeadlineMapper.persistenceToPresentation(result);
   }
 
-  async updateById(
-    id: string,
-    data: UpdateDeadlineDTO
-  ): Promise<WithId<DeadlineResponseDTO> | null> {
+  async updateById(id: string, data: UpdateDeadlineDTO): Promise<WithId<DeadlineDTO> | null> {
     const result = await DeadlineModel.findOneAndUpdate({ _id: id }, data, {
       returnDocument: 'after',
     });
