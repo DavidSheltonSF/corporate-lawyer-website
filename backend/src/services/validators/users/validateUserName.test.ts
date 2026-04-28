@@ -1,4 +1,4 @@
-import { InvalidNameError } from '../../errors/domain/InvalidNameError';
+import { InvalidNameError } from '../../../errors/domain/InvalidNameError';
 import { validateUserName } from './validateUserName';
 
 describe(`Testing ${validateUserName.name}`, () => {

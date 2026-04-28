@@ -1,4 +1,4 @@
-import { InvalidUserRoleError } from '../../errors/domain/InvalidUserRoleError';
+import { InvalidUserRoleError } from '../../../errors/domain/InvalidUserRoleError';
 import { validateUserRole } from './validateUserRole';
 
 describe(`Testing ${validateUserRole.name}`, () => {

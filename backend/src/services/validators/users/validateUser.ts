@@ -1,4 +1,4 @@
-import { UserDTO } from '../../dtos/user/UserDTO';
+import { UserDTO } from '../../../dtos/user/UserDTO';
 import { validateCPF } from './validateCPF';
 import { validateEmail } from './validateEmail';
 import { validatePassword } from './validatePassword';

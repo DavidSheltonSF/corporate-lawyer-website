@@ -1,4 +1,4 @@
-import { InvalidCPFError } from '../../errors/domain/InvalidCPFError';
+import { InvalidCPFError } from '../../../errors/domain/InvalidCPFError';
 import { validateCPF } from './validateCPF';
 
 describe(`Testing ${validateCPF.name}`, () => {

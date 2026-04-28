@@ -1,9 +1,9 @@
-import { UserDTO } from '../../dtos/user/UserDTO';
-import { InvalidEmailError } from '../../errors/domain/InvalidEmailError';
-import { InvalidNameError } from '../../errors/domain/InvalidNameError';
-import { InvalidCPFError } from '../../errors/domain/InvalidCPFError';
-import { InvalidPasswordError } from '../../errors/domain/InvalidPasswordError';
-import { InvalidUserRoleError } from '../../errors/domain/InvalidUserRoleError';
+import { UserDTO } from '../../../dtos/user/UserDTO';
+import { InvalidEmailError } from '../../../errors/domain/InvalidEmailError';
+import { InvalidNameError } from '../../../errors/domain/InvalidNameError';
+import { InvalidCPFError } from '../../../errors/domain/InvalidCPFError';
+import { InvalidPasswordError } from '../../../errors/domain/InvalidPasswordError';
+import { InvalidUserRoleError } from '../../../errors/domain/InvalidUserRoleError';
 import { validateUser } from './validateUser';
 
 describe(`Testing ${validateUser.name}`, () => {

@@ -1,5 +1,5 @@
-import { InvalidUserRoleError } from '../../errors/domain/InvalidUserRoleError';
-import { UserRole } from '../../types/UserRole';
+import { InvalidUserRoleError } from '../../../errors/domain/InvalidUserRoleError';
+import { UserRole } from '../../../types/UserRole';
 
 export function validateUserRole(role: string) {
   let userRole: UserRole;

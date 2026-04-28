@@ -1,4 +1,4 @@
-import { InvalidPasswordError } from '../../errors/domain/InvalidPasswordError';
+import { InvalidPasswordError } from "../../../errors/domain/InvalidPasswordError";
 import { validatePassword } from './validatePassword';
 
 describe(`Testing ${validatePassword.name}`, () => {
