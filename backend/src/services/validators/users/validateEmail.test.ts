@@ -1,16 +1,8 @@
 import { InvalidEmailError } from '../../../errors/domain/InvalidEmailError';
+import { getThrownError } from '../../../tests/helpers/getThrownError';
 import { validateEmail } from './validateEmail';
 
 describe(`Testing ${validateEmail.name}`, () => {
-  function getThrownError(callBack: Function) {
-    try {
-      callBack();
-      return null;
-    } catch (error) {
-      return error;
-    }
-  }
-
   test('should not throw error when user email is valid', () => {
     const thrownError1 = getThrownError(() => validateEmail('fulano@email.com'));
     const thrownError2 = getThrownError(() => validateEmail('beltrano22@email.org'));

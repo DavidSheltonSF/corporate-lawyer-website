@@ -1,16 +1,8 @@
 import { InvalidNameError } from '../../../errors/domain/InvalidNameError';
+import { getThrownError } from '../../../tests/helpers/getThrownError';
 import { validateUserName } from './validateUserName';
 
 describe(`Testing ${validateUserName.name}`, () => {
-  function getThrownError(callBack: Function) {
-    try {
-      callBack();
-      return null;
-    } catch (error) {
-      return error;
-    }
-  }
-
   test('should not throw error when name is valid', () => {
     const thrownError = getThrownError(() => validateUserName('Gustavo'));
     expect(thrownError).toBeNull();

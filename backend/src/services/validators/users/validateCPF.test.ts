@@ -1,16 +1,8 @@
 import { InvalidCPFError } from '../../../errors/domain/InvalidCPFError';
+import { getThrownError } from '../../../tests/helpers/getThrownError';
 import { validateCPF } from './validateCPF';
 
 describe(`Testing ${validateCPF.name}`, () => {
-  function getThrownError(callBack: Function) {
-    try {
-      callBack();
-      return null;
-    } catch (error) {
-      return error;
-    }
-  }
-
   test('should not throw error when user CPF is valid', () => {
     const thrownError1 = getThrownError(() => validateCPF('158.555.555-88'));
     const thrownError2 = getThrownError(() => validateCPF('15855555588'));

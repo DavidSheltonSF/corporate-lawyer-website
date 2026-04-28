@@ -5,17 +5,9 @@ import { InvalidCPFError } from '../../../errors/domain/InvalidCPFError';
 import { InvalidPasswordError } from '../../../errors/domain/InvalidPasswordError';
 import { InvalidUserRoleError } from '../../../errors/domain/InvalidUserRoleError';
 import { validateUser } from './validateUser';
+import { getThrownError } from '../../../tests/helpers/getThrownError';
 
 describe(`Testing ${validateUser.name}`, () => {
-  function getThrownError(callBack: Function) {
-    try {
-      callBack();
-      return null;
-    } catch (error) {
-      return error;
-    }
-  }
-
   test('should not throw error when the data provided is completely valid', () => {
     const validUserDTO: UserDTO = {
       firstName: 'John',

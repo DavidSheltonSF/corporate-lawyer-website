@@ -1,16 +1,8 @@
 import { InvalidPasswordError } from "../../../errors/domain/InvalidPasswordError";
+import { getThrownError } from "../../../tests/helpers/getThrownError";
 import { validatePassword } from './validatePassword';
 
 describe(`Testing ${validatePassword.name}`, () => {
-  function getThrownError(callBack: Function) {
-    try {
-      callBack();
-      return null;
-    } catch (error) {
-      return error;
-    }
-  }
-
   test('should not throw error when password is valid', () => {
     const thrownError1 = getThrownError(() => validatePassword('Mauro#123'));
     const thrownError2 = getThrownError(() => validatePassword('Vigo@123'));
