@@ -1,5 +1,5 @@
 import { WithId } from './WithId';
-import { Case } from '../entities/Case';
 import { User } from '../entities/User';
+import { CaseResponseDTO } from '../dtos/case/CaseResponseDTO';
 
-export type UserWithCases = User & { cases: WithId<Case>[] };
+export type UserWithCases = User & { cases: WithId<CaseResponseDTO>[] };
