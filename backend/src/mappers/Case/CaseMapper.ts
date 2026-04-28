@@ -3,7 +3,6 @@ import { CaseResponseDTO } from '../dtos/case/CaseResponseDTO';
 import { Case } from '../entities/Case';
 import { WithId } from '../types/WithId';
 import { CaseCardPersistence } from './Case/CasePersistence';
-import { CaseCardPersistencePopulated } from './Case/CasePersistencePopulated';
 import { CaseFileMapper } from './CaseFile/CaseFileMapper';
 import { HearingMapper } from './Hearing/HearingMapper';
 import { toUserIdentity } from './toUserIdentity';
