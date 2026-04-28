@@ -2,7 +2,7 @@ import { UserName } from '../../types/UserName';
 import { WithId } from '../../types/WithId';
 import { CaseFileDTO } from '../caseFile/CaseFileDTO';
 import { HearingDTO } from '../hearing/HearingDTO';
-import { CaseLocalizationDTO } from './CaseLocalizationDTO';
+import { CaseLocationDTO } from './CaseLocationDTO';
 
 export interface CaseCardDTO {
   client: WithId<UserName>;
@@ -15,7 +15,7 @@ export interface CaseCardDTO {
   files: WithId<CaseFileDTO>[];
   hearings: WithId<HearingDTO>[];
   status: string;
-  localization: CaseLocalizationDTO;
+  location: CaseLocationDTO;
   createdAt: string;
   updatedAt: string;
 }

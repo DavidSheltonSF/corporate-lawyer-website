@@ -1,4 +1,4 @@
-import { CaseLocalizationDTO } from "./CaseLocalizationDTO";
+import { CaseLocationDTO } from "./CaseLocationDTO";
 
 export interface CreateCaseDTO {
   client: string;
@@ -9,5 +9,5 @@ export interface CreateCaseDTO {
   court: string; //tribunal
   courtDivision: string; //vara
   status: string;
-  localization: CaseLocalizationDTO;
+  location: CaseLocationDTO;
 }
