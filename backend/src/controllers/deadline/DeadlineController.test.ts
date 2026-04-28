@@ -10,6 +10,7 @@ import { DeadlinePriority } from '../../types/DeadLinePriority';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
 import { UserService } from '../../services/user/UserService';
 import { UserRole } from '../../types/UserRole';
+import { BrazilHolidaysProvider } from '../../services/BrazilHolidaysProvider';
 
 describe(`Test ${DeadlineController.name}`, () => {
   function makeSut() {
@@ -25,9 +26,14 @@ describe(`Test ${DeadlineController.name}`, () => {
       password: 'Carla#456',
       role: UserRole.lawyer,
     });
+    const holidaysProvider = new BrazilHolidaysProvider();
 
     const userService = new UserService(userRepository, caseRepository);
-    const deadlineService = new DeadlineService(deadlineRepository, caseRepository);
+    const deadlineService = new DeadlineService(
+      deadlineRepository,
+      caseRepository,
+      holidaysProvider
+    );
     const deadlineController = new DeadlineController(deadlineService, userService);
 
     return {
@@ -42,12 +48,12 @@ describe(`Test ${DeadlineController.name}`, () => {
   test('should retun CREATED (201) and call DeadlineRepository.create', async () => {
     const { deadlineController, deadlineRepository } = makeSut();
 
-    const newDeadline = {
+    const deadlineData = {
       caseId: Types.ObjectId.createFromTime(848484).toString(),
       lawyerId: Types.ObjectId.createFromTime(8484).toString(),
       type: DeadlineType.PAGAMENTO,
-      startDate: '2050-02-02',
-      dueDate: '2050-03-02',
+      intimationDate: '2050-02-02',
+      days: 5,
       status: DeadlineStatus.EM_ANDAMENTO,
       priority: DeadlinePriority.ALTA,
     };
@@ -56,7 +62,7 @@ describe(`Test ${DeadlineController.name}`, () => {
         id: 'dsfdfa',
         email: 'fake@email.com',
       },
-      body: newDeadline,
+      body: deadlineData,
     };
 
     const response = await deadlineController.create(httpRequest);
@@ -100,9 +106,11 @@ describe(`Test ${DeadlineController.name}`, () => {
     const deadlineId = 'dfsadfggsfasga';
 
     const deadlineData = {
+      caseId: Types.ObjectId.createFromTime(848484).toString(),
+      lawyerId: Types.ObjectId.createFromTime(8484).toString(),
       type: DeadlineType.PAGAMENTO,
-      startDate: '2050-02-02',
-      dueDate: '2050-03-02',
+      intimationDate: '2050-02-02',
+      days: 5,
       status: DeadlineStatus.EM_ANDAMENTO,
       priority: DeadlinePriority.ALTA,
     };

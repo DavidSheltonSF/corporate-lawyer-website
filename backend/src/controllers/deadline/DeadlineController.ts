@@ -21,16 +21,15 @@ export class DeadlineController implements Partial<IDeadlineController> {
       throw new BadRequestError('Missing request body');
     }
 
-    const { caseId, clientId, type, startDate, dueDate, status, priority } = body;
+    const { caseId, lawyerId, type, priority, intimationDate, days } = body;
 
     const response = await this.deadlineService.create({
       caseId,
-      clientId,
+      lawyerId,
       type,
-      startDate,
-      dueDate,
-      status,
       priority,
+      intimationDate,
+      days,
     });
 
     return HttpResponseFactory.makeCreated(response);
