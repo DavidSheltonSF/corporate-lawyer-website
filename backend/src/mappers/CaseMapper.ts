@@ -10,7 +10,7 @@ import { toUserIdentity } from './toUserIdentity';
 
 export class CaseMapper {
   static persistenceToPopulatedPresentation(cas: any): WithId<CaseCardDTO> {
-    const { title, processNumber, court, courtDivision, status, description, localization } = cas;
+    const { title, processNumber, court, courtDivision, status, description, location } = cas;
     const client = toUserIdentity(cas.client);
     const lawyers = cas.lawyers.map(toUserIdentity);
     const files = cas.files.map(CaseFileMapper.persistenceToPresentation);
@@ -28,14 +28,14 @@ export class CaseMapper {
       lawyers,
       files,
       hearings,
-      localization,
+      location,
       createdAt: cas.createdAt.toISOString(),
       updatedAt: cas.updatedAt.toISOString(),
     };
   }
 
   static persistenceToPresentation(cas: any): WithId<CaseResponseDTO> {
-    const { title, processNumber, court, courtDivision, status, description, localization } = cas;
+    const { title, processNumber, court, courtDivision, status, description, location } = cas;
 
     const lawyers = cas.lawyers.map((lawyer: any) => lawyer.toString());
     const files = cas.files.map((document: any) => document.toString());
@@ -53,7 +53,7 @@ export class CaseMapper {
       lawyers,
       files,
       hearings,
-      localization,
+      location,
     };
   }
 
