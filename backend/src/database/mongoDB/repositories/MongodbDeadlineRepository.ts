@@ -49,13 +49,7 @@ export class MongodbDeadlineRepository implements DeadlineRepository {
     id: string,
     data: UpdateDeadlineDTO
   ): Promise<WithId<DeadlineResponseDTO> | null> {
-    const updatedData = {
-      startDate: data.dateRange?.startDate,
-      dueDate: data.dateRange?.dueDate,
-      ...data,
-    };
-
-    const result = await DeadlineModel.findOneAndUpdate({ _id: id }, updatedData, {
+    const result = await DeadlineModel.findOneAndUpdate({ _id: id }, data, {
       returnDocument: 'after',
     });
     if (!result) return null;
