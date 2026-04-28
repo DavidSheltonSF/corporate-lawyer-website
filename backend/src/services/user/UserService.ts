@@ -10,8 +10,8 @@ import { UserQuery } from '../../types/UserQuery';
 import { UserRole } from '../../types/UserRole';
 import { WithId } from '../../types/WithId';
 import { generateTemporaryPassword } from '../helpers/generateTemporaryPassword';
-import { validateEmail } from '../validators/validateEmail';
-import { validateUserPartial } from '../validators/validateUserPartial';
+import { validateEmail } from '../validators/users/validateEmail';
+import { validateUserPartial } from '../validators/users/validateUserPartial';
 import { IUserService } from './IUserService';
 import { UserIncludeOptions } from '../../types/UserincludeOptions';
 
