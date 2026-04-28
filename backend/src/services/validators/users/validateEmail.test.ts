@@ -1,4 +1,4 @@
-import { InvalidEmailError } from '../../errors/domain/InvalidEmailError';
+import { InvalidEmailError } from '../../../errors/domain/InvalidEmailError';
 import { validateEmail } from './validateEmail';
 
 describe(`Testing ${validateEmail.name}`, () => {
