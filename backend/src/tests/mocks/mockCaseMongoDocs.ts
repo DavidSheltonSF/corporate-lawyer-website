@@ -2,7 +2,7 @@ import { Types } from 'mongoose';
 import { CasesStatus } from '../../types/CasesStatus';
 import { ICaseModel } from '../../models/CaseModel';
 import { City } from '../../types/City';
-import { BrazilianState } from '../../types/BrazilianState';
+import { BrazilState } from '../../types/BrazilState';
 import { WithMongoId } from '../../database/mongoDB/types/WithMongoId';
 
 export const mockCaseMongoDocs: WithMongoId<ICaseModel>[] = [
@@ -19,7 +19,7 @@ export const mockCaseMongoDocs: WithMongoId<ICaseModel>[] = [
     files: [],
     hearings: [],
     location: {
-      state: BrazilianState.RIO_DE_JANEIRO,
+      state: BrazilState.RIO_DE_JANEIRO,
       city: City.BELFORD_ROXO,
     },
   },

@@ -4,7 +4,7 @@ import { createMockCaseRepository } from '../../tests/mocks/repositories/createM
 import { InvalidProcessNumberError } from '../../errors/domain/InvalidProcessNumberError';
 import { InvalidCaseTitleError } from '../../errors/domain/InvalidCaseTitleError';
 import { InvalidCaseStatusError } from '../../errors/domain/InvalidCaseStatusError';
-import { BrazilianState } from '../../types/BrazilianState';
+import { BrazilState } from '../../types/BrazilState';
 import { City } from '../../types/City';
 
 describe('Test CaseService', () => {
@@ -31,7 +31,7 @@ describe('Test CaseService', () => {
       description: 'Case description',
       status: CasesStatus.open,
       localization: {
-        state: BrazilianState.RIO_DE_JANEIRO,
+        state: BrazilState.RIO_DE_JANEIRO,
         city: City.RIO_DE_JANEIRO,
       },
     };
@@ -53,7 +53,7 @@ describe('Test CaseService', () => {
       description: 'Case description',
       status: CasesStatus.open,
       localization: {
-        state: BrazilianState.RIO_DE_JANEIRO,
+        state: BrazilState.RIO_DE_JANEIRO,
         city: City.RIO_DE_JANEIRO,
       },
     };
@@ -75,7 +75,7 @@ describe('Test CaseService', () => {
       description: 'Case description',
       status: CasesStatus.open,
       localization: {
-        state: BrazilianState.RIO_DE_JANEIRO,
+        state: BrazilState.RIO_DE_JANEIRO,
         city: City.RIO_DE_JANEIRO,
       },
     };
@@ -96,7 +96,7 @@ describe('Test CaseService', () => {
       description: 'Case description',
       status: 'banana',
       localization: {
-        state: BrazilianState.RIO_DE_JANEIRO,
+        state: BrazilState.RIO_DE_JANEIRO,
         city: City.RIO_DE_JANEIRO,
       },
     };

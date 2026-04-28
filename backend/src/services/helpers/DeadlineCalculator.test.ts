@@ -1,4 +1,4 @@
-import { BrazilianState } from '../../types/BrazilianState';
+import { BrazilState } from '../../types/BrazilState';
 import { City } from '../../types/City';
 import { createDate } from '../../utils/createDate';
 import { BrazilHolidaysProvider } from '../BrazilHolidaysProvider';
@@ -8,7 +8,7 @@ describe(`Testing ${DeadlineCalculator.name}`, () => {
   function makeSut() {
     const brazilHolidaysProvider = new BrazilHolidaysProvider();
     const deadlineCalculator = new DeadlineCalculator(brazilHolidaysProvider, {
-      state: BrazilianState.RIO_DE_JANEIRO,
+      state: BrazilState.RIO_DE_JANEIRO,
       city: City.BELFORD_ROXO,
     });
     return { deadlineCalculator };

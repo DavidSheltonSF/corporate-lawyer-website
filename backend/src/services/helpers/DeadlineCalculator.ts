@@ -1,11 +1,11 @@
-import { BrazilianState } from '../../types/BrazilianState';
+import { BrazilState } from '../../types/BrazilState';
 import { City } from '../../types/City';
 import { HolidaysProvider } from '../HolidaysProvider';
 
 export class DeadlineCalculator {
   constructor(
     private readonly holidaysProvider: HolidaysProvider,
-    private readonly caseLocalization: { state: BrazilianState; city: City }
+    private readonly caseLocalization: { state: BrazilState; city: City }
   ) {}
 
   isWeekend(date: Date): boolean {

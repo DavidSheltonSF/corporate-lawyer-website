@@ -9,7 +9,7 @@ import { IUserModel, UserModel } from '../../../models/UserModel';
 import { CaseFile } from '../../../entities/CaseFile';
 import { WithId } from '../../../types/WithId';
 import { CaseFileDTO } from '../../../dtos/caseFile/CaseFileDTO';
-import { BrazilianState } from '../../../types/BrazilianState';
+import { BrazilState } from '../../../types/BrazilState';
 import { City } from '../../../types/City';
 config();
 jest.setTimeout(999999);
@@ -73,7 +73,7 @@ describe('Test CaseRepository', () => {
       courtDivision: 'court division', //vara
       status: CasesStatus.open,
       location: {
-        state: BrazilianState.RIO_DE_JANEIRO,
+        state: BrazilState.RIO_DE_JANEIRO,
         city: City.DUQUE_DE_CAXIAS,
       },
     };
@@ -102,7 +102,7 @@ describe('Test CaseRepository', () => {
       courtDivision: 'court division', //vara
       status: CasesStatus.open,
       location: {
-        state: BrazilianState.RIO_DE_JANEIRO,
+        state: BrazilState.RIO_DE_JANEIRO,
         city: City.DUQUE_DE_CAXIAS,
       },
     };
@@ -135,7 +135,7 @@ describe('Test CaseRepository', () => {
       courtDivision: 'court division', //vara
       status: CasesStatus.open,
       location: {
-        state: BrazilianState.RIO_DE_JANEIRO,
+        state: BrazilState.RIO_DE_JANEIRO,
         city: City.DUQUE_DE_CAXIAS,
       },
     };
@@ -169,7 +169,7 @@ describe('Test CaseRepository', () => {
       courtDivision: 'court division', //vara
       status: CasesStatus.open,
       location: {
-        state: BrazilianState.RIO_DE_JANEIRO,
+        state: BrazilState.RIO_DE_JANEIRO,
         city: City.DUQUE_DE_CAXIAS,
       },
     };
@@ -198,7 +198,7 @@ describe('Test CaseRepository', () => {
       courtDivision: 'court division', //vara
       status: CasesStatus.open,
       location: {
-        state: BrazilianState.RIO_DE_JANEIRO,
+        state: BrazilState.RIO_DE_JANEIRO,
         city: City.DUQUE_DE_CAXIAS,
       },
     };
@@ -239,7 +239,7 @@ describe('Test CaseRepository', () => {
       courtDivision: 'court division', //vara
       status: CasesStatus.open,
       location: {
-        state: BrazilianState.RIO_DE_JANEIRO,
+        state: BrazilState.RIO_DE_JANEIRO,
         city: City.DUQUE_DE_CAXIAS,
       },
     };
@@ -299,7 +299,7 @@ describe('Test CaseRepository', () => {
       courtDivision: 'court division', //vara
       status: CasesStatus.open,
       location: {
-        state: BrazilianState.RIO_DE_JANEIRO,
+        state: BrazilState.RIO_DE_JANEIRO,
         city: City.DUQUE_DE_CAXIAS,
       },
     };

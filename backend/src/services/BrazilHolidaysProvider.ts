@@ -1,4 +1,4 @@
-import { BrazilianState } from '../types/BrazilianState';
+import { BrazilState } from '../types/BrazilState';
 import { City } from '../types/City';
 import { HolidaysRecord } from '../types/HolidaysRecord';
 import { HolidaysProvider } from './HolidaysProvider';
@@ -37,7 +37,7 @@ export const brazilHolidaysRecord: HolidaysRecord = {
 };
 
 export class BrazilHolidaysProvider implements HolidaysProvider {
-  getLocalHolidays(state: BrazilianState, city: City): string[] {
+  getLocalHolidays(state: BrazilState, city: City): string[] {
     return [
       ...brazilHolidaysRecord.national,
       ...brazilHolidaysRecord.states[state],

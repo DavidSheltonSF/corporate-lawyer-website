@@ -1,4 +1,4 @@
-import { BrazilianState } from '../types/BrazilianState';
+import { BrazilState } from '../types/BrazilState';
 import { City } from '../types/City';
 import { BrazilHolidaysProvider } from './BrazilHolidaysProvider';
 
@@ -11,7 +11,7 @@ describe(`Testing ${BrazilHolidaysProvider.name}`, () => {
     const { brazilHolidaysProvider } = makeSut();
 
     const holidays = brazilHolidaysProvider.getLocalHolidays(
-      BrazilianState.RIO_DE_JANEIRO,
+      BrazilState.RIO_DE_JANEIRO,
       City.RIO_DE_JANEIRO
     );
     console.log(holidays);
