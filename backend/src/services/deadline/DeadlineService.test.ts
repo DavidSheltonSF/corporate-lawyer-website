@@ -12,6 +12,7 @@ import { City } from '../../types/City';
 import { BrazilHolidaysProvider } from '../BrazilHolidaysProvider';
 import { createDate } from '../../utils/createDate';
 import { DeadlineCalculator } from '../helpers/DeadlineCalculator';
+import { mockCreateDeadlineDTO } from '../../tests/mocks/deadline/mockCreateDeadlineDTO';
 
 describe(`Test ${DeadlineService.name}`, () => {
   function makeSut() {
@@ -33,72 +34,42 @@ describe(`Test ${DeadlineService.name}`, () => {
 
   test('should call DeadlineRepository.create', async () => {
     const { deadlineService, deadlineRepository, holidaysProvider } = makeSut();
-    const newDeadline = {
-      caseId: Types.ObjectId.createFromTime(848484).toString(),
-      lawyerId: Types.ObjectId.createFromTime(8484).toString(),
-      type: DeadlineType.PAGAMENTO,
-      intimationDate: createDate(2026, 4, 27).toISOString(),
-      days: 3,
-      priority: DeadlinePriority.ALTA,
-    };
+
+    const deadlineData = mockCreateDeadlineDTO();
 
     const deadlineCalculator = new DeadlineCalculator(holidaysProvider, {
       state: BrazilState.RIO_DE_JANEIRO,
       city: City.BELFORD_ROXO,
     });
+    const startDate = deadlineCalculator.getNextBusinessDay(new Date(deadlineData.intimationDate));
+    const dueDate = deadlineCalculator.getDueDate(new Date(startDate), deadlineData.days);
 
-    const startDate = deadlineCalculator.getNextBusinessDay(new Date(newDeadline.intimationDate));
-    const dueDate = deadlineCalculator.getDueDate(new Date(startDate), newDeadline.days);
+    await deadlineService.create(deadlineData);
 
-
-    await deadlineService.create(newDeadline);
-
-    expect(deadlineRepository.create).toHaveBeenCalledWith(newDeadline, startDate, dueDate );
+    expect(deadlineRepository.create).toHaveBeenCalledWith(deadlineData, startDate, dueDate);
   });
 
   test('should thow InvalidDeadlineTypeError if the type provided is invalid', async () => {
     const { deadlineService } = makeSut();
-
-    const newDeadline = {
-      caseId: Types.ObjectId.createFromTime(848484).toString(),
-      lawyerId: Types.ObjectId.createFromTime(8484).toString(),
-      type: 'banana',
-      intimationDate: '2050-02-02',
-      days: 5,
-      priority: DeadlinePriority.ALTA,
-    };
-
-    await expect(deadlineService.create(newDeadline)).rejects.toThrow(InvalidDeadlineTypeError);
+    const deadlineData = mockCreateDeadlineDTO();
+    deadlineData.type = 'banana';
+    await expect(deadlineService.create(deadlineData)).rejects.toThrow(InvalidDeadlineTypeError);
   });
 
   test('should thow InvalidDeadlinePriorityError if the priority provided is invalid', async () => {
     const { deadlineService } = makeSut();
-
-    const newDeadline = {
-      caseId: Types.ObjectId.createFromTime(848484).toString(),
-      lawyerId: Types.ObjectId.createFromTime(8484).toString(),
-      type: DeadlineType.PAGAMENTO,
-      intimationDate: '2050-02-02',
-      days: 5,
-      priority: 'banana',
-    };
-
-    await expect(deadlineService.create(newDeadline)).rejects.toThrow(InvalidDeadlinePriorityError);
+    const deadlineData = mockCreateDeadlineDTO();
+    deadlineData.priority = 'banana';
+    await expect(deadlineService.create(deadlineData)).rejects.toThrow(
+      InvalidDeadlinePriorityError
+    );
   });
 
   test('should thow InvalidDateError if the intimationDate provided is invalid', async () => {
     const { deadlineService } = makeSut();
-
-    const newDeadline = {
-      caseId: Types.ObjectId.createFromTime(848484).toString(),
-      lawyerId: Types.ObjectId.createFromTime(8484).toString(),
-      type: DeadlineType.PAGAMENTO,
-      intimationDate: '2050-02-50',
-      days: 5,
-      priority: DeadlinePriority.ALTA,
-    };
-
-    await expect(deadlineService.create(newDeadline)).rejects.toThrow(InvalidDateError);
+    const deadlineData = mockCreateDeadlineDTO();
+    deadlineData.intimationDate = 'banana';
+    await expect(deadlineService.create(deadlineData)).rejects.toThrow(InvalidDateError);
   });
 
   test('should find all deadlines', async () => {
