@@ -1,11 +1,10 @@
-import { CaseCardDTO } from '../dtos/case/CaseCardDTO';
-import { CaseResponseDTO } from '../dtos/case/CaseResponseDTO';
-import { Case } from '../entities/Case';
-import { WithId } from '../types/WithId';
-import { CaseCardPersistence } from './Case/CasePersistence';
-import { CaseFileMapper } from './CaseFile/CaseFileMapper';
-import { HearingMapper } from './Hearing/HearingMapper';
-import { toUserIdentity } from './toUserIdentity';
+import { CaseCardDTO } from '../../dtos/case/CaseCardDTO';
+import { CaseResponseDTO } from '../../dtos/case/CaseResponseDTO';
+import { Case } from '../../entities/Case';
+import { WithId } from '../../types/WithId';
+import { CaseFileMapper } from '../CaseFile/CaseFileMapper';
+import { HearingMapper } from '../Hearing/HearingMapper';
+import { toUserIdentity } from '../toUserIdentity';
 
 export class CaseMapper {
   static persistenceToPopulatedPresentation(cas: any): WithId<CaseCardDTO> {
@@ -57,7 +56,6 @@ export class CaseMapper {
   }
 
   static persistenceToDomain(cas: unknown): WithId<Case> {
-    const casePersistence = cas as CaseCardPersistence;
 
     const lawyers = casePersistence.lawyers.map((lawyer) => lawyer.toString());
     const files = casePersistence.files.map((document) => document.toString());
