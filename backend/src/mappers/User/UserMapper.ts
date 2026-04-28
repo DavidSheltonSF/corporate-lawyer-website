@@ -1,5 +1,5 @@
-import { User } from '../entities/User';
-import { WithId } from '../types/WithId';
+import { User } from '../../entities/User';
+import { WithId } from '../../types/WithId';
 
 export class UserMapper {
   static persistenceToDomain(data: any): WithId<User> {
