@@ -1,5 +1,5 @@
+import { CreateDeadlineDTO } from '../../dtos/deadLine/CreateDeadlineDTO';
 import { DeadlineDTO } from '../../dtos/deadLine/DeadlineDTO';
-import { DeadlineResponseDTO } from '../../dtos/deadLine/DeadlineResponseDTO';
 import { UpdateDeadlineDTO } from '../../dtos/deadLine/UpdateDeadlineDTO';
 import { CaseNotFoundError } from '../../errors/domain/CaseNotFoundError';
 import { DomainError } from '../../errors/domain/DomainError';
@@ -22,7 +22,7 @@ export class DeadlineService implements Partial<IDeadlineService> {
     private readonly holidaysProvider: HolidaysProvider
   ) {}
 
-  async create(data: DeadlineDTO): Promise<WithId<DeadlineResponseDTO>> {
+  async create(data: CreateDeadlineDTO): Promise<WithId<DeadlineResponseDTO>> {
     validateDeadline(data);
 
     const { caseId, intimationDate, days } = data;
