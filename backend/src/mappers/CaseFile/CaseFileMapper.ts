@@ -1,24 +1,22 @@
 import { CaseFileDTO } from '../../dtos/caseFile/CaseFileDTO';
 import { WithId } from '../../types/WithId';
-import { CaseFilePersistence } from './CaseFilePersistence';
 
 export class CaseFileMapper {
-  static persistenceToPresentation(caseFile: unknown): WithId<CaseFileDTO> {
-    const caseFilePersistence = caseFile as CaseFilePersistence;
+  static persistenceToPresentation(caseFile: any): WithId<CaseFileDTO> {
     const uploadedBy = {
-      id: caseFilePersistence.uploadedBy._id.toString(),
-      firstName: caseFilePersistence.uploadedBy.firstName,
-      lastName: caseFilePersistence.uploadedBy.lastName,
+      id: caseFile.uploadedBy._id.toString(),
+      firstName: caseFile.uploadedBy.firstName,
+      lastName: caseFile.uploadedBy.lastName,
     };
 
     return {
-      id: caseFilePersistence._id.toString(),
-      name: caseFilePersistence.name,
-      size: caseFilePersistence.size,
-      mimeType: caseFilePersistence.mimeType,
-      url: caseFilePersistence.url,
+      id: caseFile._id.toString(),
+      name: caseFile.name,
+      size: caseFile.size,
+      mimeType: caseFile.mimeType,
+      url: caseFile.url,
       uploadedBy: uploadedBy,
-      uploadedAt: caseFilePersistence.uploadedAt.toISOString(),
+      uploadedAt: caseFile.uploadedAt.toISOString(),
     };
   }
 }
