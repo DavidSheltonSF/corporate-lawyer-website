@@ -1,16 +1,8 @@
 import { InvalidCaseStatusError } from '../../../errors/domain/InvalidCaseStatusError';
+import { getThrownError } from '../../../tests/helpers/getThrownError';
 import { validateCaseStatus } from './validateCaseStatus';
 
 describe(`Testing ${validateCaseStatus.name}`, () => {
-  function getThrownError(callBack: Function) {
-    try {
-      callBack();
-      return null;
-    } catch (error) {
-      return error;
-    }
-  }
-
   test('should not throw error when case status is valid', () => {
     const thrownError1 = getThrownError(() => validateCaseStatus('open'));
     const thrownError2 = getThrownError(() => validateCaseStatus('closed'));

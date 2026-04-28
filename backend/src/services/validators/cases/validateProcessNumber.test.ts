@@ -1,16 +1,8 @@
-import { InvalidProcessNumberError } from "../../../errors/domain/InvalidProcessNumberError";
+import { InvalidProcessNumberError } from '../../../errors/domain/InvalidProcessNumberError';
+import { getThrownError } from '../../../tests/helpers/getThrownError';
 import { validateProcessNumber } from './validateProcessNumber';
 
 describe(`Testing ${validateProcessNumber.name}`, () => {
-  function getThrownError(callBack: Function) {
-    try {
-      callBack();
-      return null;
-    } catch (error) {
-      return error;
-    }
-  }
-
   test('should not throw error when user process number is valid', () => {
     const thrownError1 = getThrownError(() => validateProcessNumber('00012345620248260100'));
     const thrownError2 = getThrownError(() => validateProcessNumber('00888845620248260100'));
