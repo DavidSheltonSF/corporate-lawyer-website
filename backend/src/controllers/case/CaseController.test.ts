@@ -4,7 +4,9 @@ import { CaseService } from '../../services/case/CaseService';
 import { UserService } from '../../services/user/UserService';
 import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
+import { BrazilianState } from '../../types/BrazilianState';
 import { CasesStatus } from '../../types/CasesStatus';
+import { City } from '../../types/City';
 import { UserRole } from '../../types/UserRole';
 import { HttpRequest } from '../types/HttpRequest';
 import { HttpStatusCode } from '../types/HttpStatusCode';
@@ -63,6 +65,10 @@ describe(`Test ${CaseController.name}`, () => {
       lawyers: ['fakeidiii'],
       processNumber: '8585874-77.5855.8.11.1258', // NNNNNNN-DD.AAAA.J.TR.OOOO
       status: CasesStatus.open,
+      location: {
+        state: BrazilianState.RIO_DE_JANEIRO,
+        city: City.RIO_DE_JANEIRO,
+      },
     };
 
     httpRequest.body = newCase;
