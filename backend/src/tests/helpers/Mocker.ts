@@ -3,7 +3,7 @@ import { Types } from 'mongoose';
 
 export class Mocker {
   static mockName(): string {
-    return casual.name;
+    return casual.first_name;
   }
 
   static mockEmail(): string {
