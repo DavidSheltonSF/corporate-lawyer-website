@@ -2,19 +2,18 @@ import { WithMongoId } from '../../database/mongoDB/types/WithMongoId';
 import { IDeadlineModel } from '../../models/DeadlineModel';
 import { DeadlineType } from '../../types/DeadLineType';
 import { DeadlinePriority } from '../../types/DeadLinePriority';
-import { mockMongoId } from '../helpers/mockMongoId';
-import casual from 'casual';
+import { Mocker } from '../helpers/Mocker';
 
 export function mockDeadlineMongoPersistence(): WithMongoId<IDeadlineModel> {
   return {
-    _id: mockMongoId(),
-    caseId: mockMongoId(),
-    lawyerId: mockMongoId(),
-    type: casual.random_element(Object.keys(DeadlineType)),
+    _id: Mocker.mockMongoId(),
+    caseId: Mocker.mockMongoId(),
+    lawyerId: Mocker.mockMongoId(),
+    type: Mocker.mockEnum(DeadlineType),
     intimationDate: new Date('2025-05-01'),
-    days: casual.integer(0, 10),
+    days: Mocker.mockInteger(1, 30),
     startDate: new Date('2025-05-05'),
     dueDate: new Date('2025-05-08'),
-    priority: casual.random_element(Object.keys(DeadlinePriority)),
+    priority: Mocker.mockEnum(DeadlinePriority),
   };
 }
