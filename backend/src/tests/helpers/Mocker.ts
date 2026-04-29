@@ -10,7 +10,7 @@ export class Mocker {
     return casual.integer(from, to);
   }
 
-  static mockEnum<T>(enumerator: any): string {
+  static mockEnum<T>(enumerator: any): T {
     return casual.random_element(Object.keys(enumerator));
   }
 
