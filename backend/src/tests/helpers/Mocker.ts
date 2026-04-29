@@ -1,5 +1,5 @@
 import casual from 'casual';
-import { Types, type ObjectId } from 'mongoose';
+import { Types } from 'mongoose';
 
 export class Mocker {
   static mockName(): string {
@@ -14,7 +14,7 @@ export class Mocker {
     return casual.random_element(Object.keys(enumerator));
   }
 
-  static mockMongoId(): ObjectId {
-    return Types.ObjectId.createFromTime(this.mockInteger()).
+  static mockMongoId(): Types.ObjectId {
+    return Types.ObjectId.createFromTime(this.mockInteger());
   }
 }
