@@ -1,8 +1,10 @@
 import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { UserService } from '../../services/user/UserService';
+import { mockUserMongoPersistence } from '../../tests/mocks/mockUserMongoPersistence';
 import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
+import { mockCreateClientDTO } from '../../tests/mocks/user/mockCreateClientDTO';
 import { UserRole } from '../../types/UserRole';
 import { HttpRequest } from '../types/HttpRequest';
 import { HttpStatusCode } from '../types/HttpStatusCode';
@@ -12,14 +14,8 @@ describe(`Test ${UserController.name}`, () => {
   function makeSut() {
     const caseRepository = createMockCaseRepository();
     const userRepository = createMockUserRepository();
-    userRepository.findById = jest.fn().mockResolvedValue({
-      id: 'dfasfaf',
-      firstName: 'José',
-      lastName: 'Miranda',
-      email: 'testando@email',
-      cpf: '55422888744',
-      role: 'lawyer',
-    });
+    const userPersistence = mockUserMongoPersistence();
+    userRepository.findById = jest.fn().mockResolvedValue(userPersistence);
 
     const userService = new UserService(userRepository, caseRepository);
     const userController = new UserController(userService);
@@ -49,16 +45,8 @@ describe(`Test ${UserController.name}`, () => {
   test('should retun OK (200) and call UserRepository.create', async () => {
     const { userController, userRepository, httpRequest } = makeSut();
 
-    const newUser = {
-      firstName: 'David',
-      lastName: 'Faria',
-      cpf: '18877748777',
-      email: 'david@email.com',
-      password: 'Da##54848vvv',
-      role: UserRole.client,
-    };
-
-    httpRequest.body = newUser;
+    const createClientDTO = mockCreateClientDTO();
+    httpRequest.body = createClientDTO;
 
     const response = await userController.createClient(httpRequest);
 
@@ -69,13 +57,9 @@ describe(`Test ${UserController.name}`, () => {
   test('should throw BadRequestError if there is any missing required field', async () => {
     const { userController, httpRequest } = makeSut();
 
-    // Missing email
-    const newUser = {
-      firstName: 'David',
-      lastName: 'Faria',
-      cpf: '18877748777',
-    };
-    httpRequest.body = newUser;
+    let createClientDTO = mockCreateClientDTO();
+    const { email, ...clientDTOWithoutEmail } = createClientDTO;
+    httpRequest.body = clientDTOWithoutEmail;
 
     await expect(userController.createClient(httpRequest)).rejects.toThrow(BadRequestError);
   });
@@ -83,16 +67,8 @@ describe(`Test ${UserController.name}`, () => {
   test('should throw EntityAlredyExistsError if the user already exists', async () => {
     const { httpRequest, userRepository, userController } = makeSut();
 
-    const newUser = {
-      firstName: 'David',
-      lastName: 'Faria',
-      cpf: '18877748777',
-      email: 'david@email.com',
-      password: 'david123',
-      role: UserRole.admin,
-    };
-
-    httpRequest.body = newUser;
+    let createClientDTO = mockCreateClientDTO();
+    httpRequest.body = createClientDTO;
 
     userRepository.existsByEmail = jest.fn().mockResolvedValue(true);
     await expect(userController.createClient(httpRequest)).rejects.toThrow(
@@ -140,20 +116,15 @@ describe(`Test ${UserController.name}`, () => {
   test('should delete a user by id', async () => {
     const { userRepository, caseRepository, httpRequest } = makeSut();
 
-    httpRequest.params = { id: 'gfdgfdsgsdggg' };
+    const userPersistence = mockUserMongoPersistence();
+    const id = userPersistence._id.toString();
+    httpRequest.params = { id };
 
-    userRepository.findById = jest.fn().mockResolvedValue({
-      id: 'dfasfaf',
-      firstName: 'José',
-      lastName: 'Miranda',
-      email: 'testando@email',
-      cpf: '55422888744',
-      role: 'lawyer',
-    });
+    userRepository.findById = jest.fn().mockResolvedValue(userPersistence);
     const userService = new UserService(userRepository, caseRepository);
     const userController = new UserController(userService);
     const response = await userController.deleteById(httpRequest);
-    expect(userRepository.deleteById).toHaveBeenCalledWith(httpRequest.params.id);
+    expect(userRepository.deleteById).toHaveBeenCalledWith(id);
     expect(response.status).toBe(HttpStatusCode.ok);
   });
 });
