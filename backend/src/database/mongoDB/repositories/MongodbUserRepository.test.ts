@@ -1,10 +1,10 @@
 import { config } from 'dotenv';
 import { UserModel } from '../../../models/UserModel';
 import { MongodbUserRepository } from './MongodbUserRepository';
-import { UserRole } from '../../../types/UserRole';
 import bcrypt from 'bcrypt';
 import { Types } from 'mongoose';
 import { MongodbTestConnector } from '../MongodbTestConnector';
+import { mockUserDTO } from '../../../tests/mocks/user/mockUserDTO';
 config();
 
 jest.setTimeout(999999);
@@ -34,117 +34,61 @@ describe('Test UserRepository', () => {
 
   test('should create a new user', async () => {
     const { userRepository } = makeSut();
+    const userDTO = mockUserDTO();
+    const user = await userRepository.create(userDTO);
+    const passwordIsValid = bcrypt.compare(userDTO.password, user.password);
 
-    const newUser = {
-      firstName: 'José',
-      lastName: 'Sílva',
-      cpf: '18877748777',
-      email: 'jose@email.com',
-      password: 'jose123',
-      role: UserRole.client,
-    };
-
-    const user = await userRepository.create(newUser);
-    const { password, ...newUserWithoutPassword } = newUser;
-    const passwordIsValid = bcrypt.compare(password, user.password);
-    expect(user).toMatchObject(newUserWithoutPassword);
+    expect(user).toMatchObject({ ...userDTO, password: expect.any(String) });
     expect(passwordIsValid).toBeTruthy();
   });
 
   test('should find user by id', async () => {
     const { userRepository } = makeSut();
-
-    const newUser = {
-      firstName: 'José',
-      lastName: 'Sílva',
-      cpf: '18877748777',
-      email: 'jose@email.com',
-      password: 'jose123',
-      role: UserRole.client,
-    };
-
-    const newId = (await UserModel.create(newUser))._id;
-
+    const userDTO = mockUserDTO();
+    const newId = (await UserModel.create(userDTO))._id;
     const user = await userRepository.findById(newId.toString());
-
     if (!user) {
       throw Error('User not found');
     }
+    const passwordIsValid = bcrypt.compare(userDTO.password, user.password);
 
-    const { password, ...newUserWithoutPassword } = newUser;
-
-    const passwordIsValid = bcrypt.compare(password, user.password);
-
-    expect(user).toMatchObject(newUserWithoutPassword);
+    expect(user).toMatchObject({ ...userDTO, password: expect.any(String) });
     expect(passwordIsValid).toBeTruthy();
   });
 
   test('should find user by email', async () => {
     const { userRepository } = makeSut();
-
-    const newUser = {
-      firstName: 'José',
-      lastName: 'Sílva',
-      cpf: '18877748777',
-      email: 'jose@email.com',
-      password: 'jose123',
-      role: UserRole.client,
-    };
-
-    await UserModel.create(newUser);
-
-    const user = await userRepository.findByEmail(newUser.email);
-
+    const userDTO = mockUserDTO();
+    await UserModel.create(userDTO);
+    const user = await userRepository.findByEmail(userDTO.email);
     if (!user) {
       throw Error('User not found');
     }
+    const passwordIsValid = bcrypt.compare(userDTO.password, user.password);
 
-    const { password, ...newUserWithoutPassword } = newUser;
-
-    const passwordIsValid = bcrypt.compare(password, user.password);
-
-    expect(user).toMatchObject(newUserWithoutPassword);
+    expect(user).toMatchObject({ ...userDTO, password: expect.any(String) });
     expect(passwordIsValid).toBeTruthy();
   });
 
   test('should return true if user exists, but false if user does not exist', async () => {
     const { userRepository } = makeSut();
-
-    const newUser = {
-      firstName: 'José',
-      lastName: 'Sílva',
-      cpf: '18877748777',
-      email: 'jose@email.com',
-      password: 'jose123',
-      role: UserRole.client,
-    };
-
-    const newId = (await UserModel.create(newUser))._id;
+    const userDTO = mockUserDTO();
+    const newId = (await UserModel.create(userDTO))._id;
 
     const existingUser = await userRepository.existsById(newId.toString());
     const nonExistingUser = await userRepository.existsById(
       Types.ObjectId.createFromTime(89466141).toString()
     );
-
     expect(existingUser).toBeTruthy();
     expect(nonExistingUser).toBeFalsy();
   });
 
   test('should return true if user exists, but false if user does not exist, given the email', async () => {
     const { userRepository } = makeSut();
+    const userDTO = mockUserDTO();
+    await UserModel.create(userDTO);
 
-    const newUser = {
-      firstName: 'José',
-      lastName: 'Sílva',
-      cpf: '18877748777',
-      email: 'jose@email.com',
-      password: 'jose123',
-      role: UserRole.client,
-    };
-
-    await UserModel.create(newUser);
-
-    const existingUser = await userRepository.existsByEmail(newUser.email);
+    const existingUser = await userRepository.existsByEmail(userDTO.email);
     const nonExistingUser = await userRepository.existsByEmail('fakeiiuuu@email.com');
 
     expect(existingUser).toBeTruthy();
@@ -153,23 +97,18 @@ describe('Test UserRepository', () => {
 
   test('should delete a user', async () => {
     const { userRepository } = makeSut();
+    const userDTO = mockUserDTO();
 
-    const newUser = {
-      firstName: 'José',
-      lastName: 'Sílva',
-      cpf: '18877748777',
-      email: 'jose@email.com',
-      password: 'jose123',
-      role: UserRole.client,
-    };
-    const userId = (await UserModel.create(newUser))._id;
+    const userId = (await UserModel.create(userDTO))._id;
 
     const result = await userRepository.deleteById(userId.toString());
-    expect(result?.firstName).toBe(newUser.firstName);
-    expect(result?.lastName).toBe(newUser.lastName);
-    expect(result?.cpf).toBe(newUser.cpf);
-    expect(result?.email).toBe(newUser.email);
-    expect(result?.role).toBe(newUser.role);
+    expect(result?.firstName).toBe(userDTO.firstName);
+    expect(result?.lastName).toBe(userDTO.lastName);
+    expect(result?.cpf).toBe(userDTO.cpf);
+    expect(result?.email).toBe(userDTO.email);
+    expect(result?.role).toBe(userDTO.role);
+
+    expect(result).toMatchObject({ ...userDTO, password: expect.any(String) });
 
     // Ensure user is actually deleted
     const deletedUser = await UserModel.findById(userId);
@@ -179,29 +118,27 @@ describe('Test UserRepository', () => {
   test('should update a user', async () => {
     const { userRepository } = makeSut();
 
-    const newUser = {
-      firstName: 'José',
-      lastName: 'Sílva',
-      cpf: '18877748777',
-      email: 'jose@email.com',
-      password: 'jose123',
-      role: UserRole.client,
-    };
-    const userId = (await UserModel.create(newUser))._id;
+    const userDTO = mockUserDTO();
+    const userId = (await UserModel.create(userDTO))._id;
 
     const result = await userRepository.updateById(userId.toString(), { firstName: 'Updated' });
 
-    expect(result?.lastName).toBe(newUser.lastName);
-    expect(result?.cpf).toBe(newUser.cpf);
-    expect(result?.email).toBe(newUser.email);
-    expect(result?.role).toBe(newUser.role);
+    expect(result).toMatchObject({
+      ...userDTO,
+      password: expect.any(String), //password is encrypted right after saved
+      firstName: expect.any(String), //first name was updated
+    });
 
     // Ensure user is actually updated
     const updatedUser = await UserModel.findById(userId);
+    console.log(updatedUser);
+
+    expect(updatedUser).toMatchObject({
+      ...userDTO,
+      _id: expect.anything(),
+      password: expect.any(String),
+      firstName: expect.anything(),
+    });
     expect(updatedUser?.firstName).toBe('Updated');
-    expect(updatedUser?.lastName).toBe(newUser.lastName);
-    expect(updatedUser?.cpf).toBe(newUser.cpf);
-    expect(updatedUser?.email).toBe(newUser.email);
-    expect(updatedUser?.role).toBe(newUser.role);
   });
 });
