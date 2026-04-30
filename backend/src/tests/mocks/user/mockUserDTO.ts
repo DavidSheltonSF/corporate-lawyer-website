@@ -1,14 +1,14 @@
 import { UserDTO } from '../../../dtos/user/UserDTO';
 import { UserRole } from '../../../types/UserRole';
-import { Mocker } from '../../helpers/Mocker';
+import { UserFieldsMocker } from '../../helpers/UserFieldsMocker';
 
 export function mockUserDTO(): UserDTO {
   return {
-    firstName: Mocker.mockName(),
-    lastName: Mocker.mockName(),
-    email: Mocker.mockEmail(),
-    cpf: Mocker.mockCpf(),
-    password: Mocker.mockPassword(),
-    role: Mocker.mockEnum(UserRole),
+    firstName: UserFieldsMocker.mockName(),
+    lastName: UserFieldsMocker.mockName(),
+    email: UserFieldsMocker.mockEmail(),
+    cpf: UserFieldsMocker.mockCpf(),
+    password: UserFieldsMocker.mockPassword(),
+    role: UserFieldsMocker.mockEnum(UserRole),
   };
 }
