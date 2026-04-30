@@ -7,7 +7,7 @@ export class Mocker {
   }
 
   static mockEmail(): string {
-    return casual.email;
+    return casual.email.toLowerCase();
   }
 
   static mockCpf(): string {
