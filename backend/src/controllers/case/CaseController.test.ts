@@ -2,12 +2,13 @@ import { CreateCaseDTO } from '../../dtos/case/CreateCaseDTO';
 import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO';
 import { CaseService } from '../../services/case/CaseService';
 import { UserService } from '../../services/user/UserService';
+import { mockCreateCaseDTO } from '../../tests/mocks/case/mockCreateCaseDTO';
+import { mockUserMongoPersistence } from '../../tests/mocks/mockUserMongoPersistence';
 import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
 import { BrazilState } from '../../types/BrazilState';
 import { CasesStatus } from '../../types/CasesStatus';
 import { City } from '../../types/City';
-import { UserRole } from '../../types/UserRole';
 import { HttpRequest } from '../types/HttpRequest';
 import { HttpStatusCode } from '../types/HttpStatusCode';
 import { CaseController } from './CaseController';
@@ -16,15 +17,7 @@ describe(`Test ${CaseController.name}`, () => {
   function makeSut() {
     const caseRepository = createMockCaseRepository();
     const userRepository = createMockUserRepository();
-    userRepository.findById = jest.fn().mockResolvedValue({
-      id: 'fakeid',
-      firstName: 'José',
-      lastName: 'Almeida',
-      email: 'jo@email.com',
-      cpf: '15588787855',
-      password: 'jose123',
-      role: UserRole.lawyer,
-    });
+    userRepository.findById = jest.fn().mockResolvedValue(mockUserMongoPersistence());
 
     const userService = new UserService(userRepository, caseRepository);
     const caseService = new CaseService(caseRepository);
@@ -56,25 +49,12 @@ describe(`Test ${CaseController.name}`, () => {
   test('should call CaseRepository.create and return 201', async () => {
     const { caseController, caseRepository, httpRequest } = makeSut();
 
-    const newCase: CreateCaseDTO = {
-      title: 'Ação de Usucapião Urbano',
-      client: 'fakeid',
-      court: 'fakecourt',
-      courtDivision: 'fakecourtdivision',
-      description: 'description bla bla',
-      lawyers: ['fakeidiii'],
-      processNumber: '8585874-77.5855.8.11.1258', // NNNNNNN-DD.AAAA.J.TR.OOOO
-      status: CasesStatus.open,
-      location: {
-        state: BrazilState.RIO_DE_JANEIRO,
-        city: City.RIO_DE_JANEIRO,
-      },
-    };
+    const createCaseDTO = mockCreateCaseDTO();
 
-    httpRequest.body = newCase;
+    httpRequest.body = createCaseDTO;
 
     const response = await caseController.create(httpRequest);
-    expect(caseRepository.create).toHaveBeenCalledWith(newCase);
+    expect(caseRepository.create).toHaveBeenCalledWith(createCaseDTO);
     expect(response.status).toBe(HttpStatusCode.created);
   });
 
