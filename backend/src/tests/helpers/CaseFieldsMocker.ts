@@ -10,7 +10,10 @@ export class CaseFieldsMocker {
   }
 
   static mockCaseTitle(): string {
-    return casual.title;
+    return casual.random_element([
+      'Ação de Usucapião Urbano',
+      'Pedido de indenização por danos morais',
+    ]);
   }
 
   static mockDescription(): string {
