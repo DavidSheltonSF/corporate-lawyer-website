@@ -1,4 +1,3 @@
-import { CreateCaseDTO } from '../../dtos/case/CreateCaseDTO';
 import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO';
 import { CaseService } from '../../services/case/CaseService';
 import { UserService } from '../../services/user/UserService';
@@ -6,9 +5,7 @@ import { mockCreateCaseDTO } from '../../tests/mocks/case/mockCreateCaseDTO';
 import { mockUserMongoPersistence } from '../../tests/mocks/mockUserMongoPersistence';
 import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
-import { BrazilState } from '../../types/BrazilState';
-import { CasesStatus } from '../../types/CasesStatus';
-import { City } from '../../types/City';
+
 import { HttpRequest } from '../types/HttpRequest';
 import { HttpStatusCode } from '../types/HttpStatusCode';
 import { CaseController } from './CaseController';
