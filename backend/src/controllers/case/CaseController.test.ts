@@ -2,9 +2,10 @@ import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO';
 import { CaseService } from '../../services/case/CaseService';
 import { UserService } from '../../services/user/UserService';
 import { mockCreateCaseDTO } from '../../tests/mocks/case/mockCreateCaseDTO';
-import { mockUserMongoPersistence } from '../../tests/mocks/mockUserMongoPersistence';
 import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
+import { UserMocker } from '../../tests/mocks/UserMocker';
+import { UserRole } from '../../types/UserRole';
 
 import { HttpRequest } from '../types/HttpRequest';
 import { HttpStatusCode } from '../types/HttpStatusCode';
@@ -14,7 +15,9 @@ describe(`Test ${CaseController.name}`, () => {
   function makeSut() {
     const caseRepository = createMockCaseRepository();
     const userRepository = createMockUserRepository();
-    userRepository.findById = jest.fn().mockResolvedValue(mockUserMongoPersistence());
+    const lawyerData = UserMocker.mockUserDTOWithId();
+    lawyerData.role = UserRole.lawyer;
+    userRepository.findById = jest.fn().mockResolvedValue(lawyerData);
 
     const userService = new UserService(userRepository, caseRepository);
     const caseService = new CaseService(caseRepository);
@@ -29,8 +32,8 @@ describe(`Test ${CaseController.name}`, () => {
       body: {},
       headers: {},
       user: {
-        id: 'fakeid',
-        email: 'fake@email.com',
+        id: lawyerData.id,
+        email: 'lawyer@email.com',
       },
     };
 
@@ -44,7 +47,7 @@ describe(`Test ${CaseController.name}`, () => {
   }
 
   test('should call CaseRepository.create and return 201', async () => {
-    const { caseController, caseRepository, httpRequest } = makeSut();
+    const { caseController, caseRepository, userRepository, httpRequest } = makeSut();
 
     const createCaseDTO = mockCreateCaseDTO();
 
@@ -119,7 +122,7 @@ describe(`Test ${CaseController.name}`, () => {
   });
 
   test('should call caseRepository.getStatsByClientId with provided data and return OK (200) ', async () => {
-    const { caseController, caseRepository, httpRequest, userRepository } = makeSut();
+    const { caseController, caseRepository, httpRequest } = makeSut();
 
     const response = await caseController.getMyStats(httpRequest);
     console.log(response);
