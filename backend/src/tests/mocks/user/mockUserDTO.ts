@@ -1,5 +1,6 @@
 import { UserDTO } from '../../../dtos/user/UserDTO';
 import { UserRole } from '../../../types/UserRole';
+import { Mocker } from '../../helpers/Mocker';
 import { UserFieldsMocker } from '../../helpers/UserFieldsMocker';
 
 export function mockUserDTO(): UserDTO {
@@ -9,6 +10,6 @@ export function mockUserDTO(): UserDTO {
     email: UserFieldsMocker.mockEmail(),
     cpf: UserFieldsMocker.mockCpf(),
     password: UserFieldsMocker.mockPassword(),
-    role: UserFieldsMocker.mockEnum(UserRole),
+    role: Mocker.mockEnum(UserRole),
   };
 }
