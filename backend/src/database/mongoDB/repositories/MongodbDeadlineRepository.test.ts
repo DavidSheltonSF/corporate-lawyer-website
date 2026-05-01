@@ -5,8 +5,8 @@ import { Types } from 'mongoose';
 import { MongodbTestConnector } from '../MongodbTestConnector';
 import { DeadlineType } from '../../../types/DeadLineType';
 import { DeadlinePriority } from '../../../types/DeadLinePriority';
-import { mockCreateDeadlineDTO } from '../../../tests/mocks/deadline/mockCreateDeadlineDTO';
 import { mockDeadlineMongoPersistence } from '../../../tests/mocks/mockDeadlineMongoPersistence';
+import { DeadlineMocker } from '../../../tests/mocks/DeadlineMocker';
 config();
 
 jest.setTimeout(999999);
@@ -46,7 +46,7 @@ describe('Test DeadlineRepository', () => {
     const startDate = tomorrow;
     const dueDate = new Date(tomorrow.getDate() + 5);
 
-    const deadlineData = mockCreateDeadlineDTO();
+    const deadlineData = DeadlineMocker.mockCreateDeadlineDTO();
 
     const deadline = await deadlineRepository.create(deadlineData, startDate, dueDate);
     const createdDeadline = await DeadlineModel.findById(deadline.id);
@@ -72,19 +72,19 @@ describe('Test DeadlineRepository', () => {
 
   //   const pendingDeadlineStartDate = tomorrow;
   //   const pendingDeadlineDueDate = new Date(tomorrow.getDate() + 5);
-  //   const pendingDeadlineDTO = mockCreateDeadlineDTO();
+  //   const pendingDeadlineDTO = DeadlineMocker.mockCreateDeadlineDTO();
   //   pendingDeadlineDTO.intimationDate = today.toISOString();
   //   pendingDeadlineDTO.days = 5;
 
   //   const openDeadlineStartDate = yesterday;
   //   const openDeadlineDueDate = tomorrow;
-  //   const openDeadlineDTO = mockCreateDeadlineDTO();
+  //   const openDeadlineDTO = DeadlineMocker.mockCreateDeadlineDTO();
   //   openDeadlineDTO.intimationDate = new Date(yesterday.getDate() - 1).toISOString();
   //   openDeadlineDTO.days = 5;
 
   //   const expiredDeadlineStartDate = new Date('2026-04-01');
   //   const expiredDeadlineDueDate = new Date('2026-04-9');
-  //   const expiredDeadlineDTO = mockCreateDeadlineDTO();
+  //   const expiredDeadlineDTO = DeadlineMocker.mockCreateDeadlineDTO();
   //   expiredDeadlineDTO.intimationDate = new Date('2026-04-01').toISOString();
   //   expiredDeadlineDTO.days = 5;
 
@@ -112,8 +112,8 @@ describe('Test DeadlineRepository', () => {
   test('should find all deadlines', async () => {
     // I couldn't mock 'status' field properly since it is calculated using mongodb virtuals
     const { deadlineRepository } = makeSut();
-    const deadlinePersistence1 = mockDeadlineMongoPersistence();
-    const deadlinePersistence2 = mockDeadlineMongoPersistence();
+    const deadlinePersistence1 = DeadlineMocker.mockDeadlineMongoPersistence();
+    const deadlinePersistence2 = DeadlineMocker.mockDeadlineMongoPersistence();
 
     await DeadlineModel.create([deadlinePersistence1, deadlinePersistence2]);
     const deadlines = await deadlineRepository.findAll();
@@ -123,7 +123,7 @@ describe('Test DeadlineRepository', () => {
 
   test('should find deadline by id', async () => {
     const { deadlineRepository } = makeSut();
-    const deadlinePersistence = mockDeadlineMongoPersistence();
+    const deadlinePersistence = DeadlineMocker.mockDeadlineMongoPersistence();
     const newId = (await DeadlineModel.create(deadlinePersistence))._id;
     const deadline = await deadlineRepository.findById(newId.toString());
 
@@ -145,7 +145,7 @@ describe('Test DeadlineRepository', () => {
 
     const { deadlineRepository } = makeSut();
 
-    const deadlinePersistence = mockDeadlineMongoPersistence();
+    const deadlinePersistence = DeadlineMocker.mockDeadlineMongoPersistence();
     const otherCaseDeadlinePersistence = mockDeadlineMongoPersistence();
 
     await DeadlineModel.create(deadlinePersistence);
@@ -159,7 +159,7 @@ describe('Test DeadlineRepository', () => {
   test('should delete a deadline', async () => {
     const { deadlineRepository } = makeSut();
 
-    const deadlinePersistence = mockDeadlineMongoPersistence();
+    const deadlinePersistence = DeadlineMocker.mockDeadlineMongoPersistence();
 
     const deadlineId = (await DeadlineModel.create(deadlinePersistence))._id;
 
@@ -182,7 +182,7 @@ describe('Test DeadlineRepository', () => {
   test('should update a deadline', async () => {
     const { deadlineRepository } = makeSut();
 
-    const deadlinePersistence = mockDeadlineMongoPersistence();
+    const deadlinePersistence = DeadlineMocker.mockDeadlineMongoPersistence();
 
     const deadlineId = (await DeadlineModel.create(deadlinePersistence))._id;
 
@@ -202,7 +202,7 @@ describe('Test DeadlineRepository', () => {
   test('should return true if deadline exists, but false if deadline does not exist', async () => {
     const { deadlineRepository } = makeSut();
 
-    const deadlinePersistence = mockDeadlineMongoPersistence();
+    const deadlinePersistence = DeadlineMocker.mockDeadlineMongoPersistence();
 
     const newId = (await DeadlineModel.create(deadlinePersistence))._id;
 
