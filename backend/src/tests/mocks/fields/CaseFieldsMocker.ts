@@ -1,8 +1,8 @@
 import casual from 'casual';
 import { Types } from 'mongoose';
-import { CaseLocation } from '../../types/CaseLocation';
-import { BrazilState } from '../../types/BrazilState';
-import { City } from '../../types/City';
+import { CaseLocation } from '../../../types/CaseLocation';
+import { BrazilState } from '../../../types/BrazilState';
+import { City } from '../../../types/City';
 
 export class CaseFieldsMocker {
   static mockProcessNumber(): string {

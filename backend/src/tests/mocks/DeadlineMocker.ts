@@ -7,7 +7,7 @@ import { DeadlinePriority } from '../../types/DeadLinePriority';
 import { DeadlineStatus } from '../../types/DeadLineStatus';
 import { DeadlineType } from '../../types/DeadLineType';
 import { WithId } from '../../types/WithId';
-import { Mocker } from '../helpers/Mocker';
+import { Mocker } from './fields/Mocker';
 
 export class DeadlineMocker {
   static mockCreateDeadlineDTO(): CreateDeadlineDTO {

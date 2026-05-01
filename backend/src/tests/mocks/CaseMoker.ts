@@ -1,5 +1,5 @@
-import { Mocker } from '../helpers/Mocker';
-import { CaseFieldsMocker } from '../helpers/CaseFieldsMocker';
+import { Mocker } from './fields/Mocker';
+import { CaseFieldsMocker } from './fields/CaseFieldsMocker';
 import { CasesStatus } from '../../types/CasesStatus';
 import { CreateCaseDTO } from '../../dtos/case/CreateCaseDTO';
 import { CaseDTO } from '../../dtos/case/CaseDTO';
