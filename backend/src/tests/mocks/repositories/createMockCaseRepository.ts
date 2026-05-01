@@ -1,14 +1,18 @@
 import { CaseRepository } from '../../../repositories/CaseRepository';
-import { mockCaseMongoDocs } from '../mockCaseMongoDocs';
+import { CaseMocker } from '../CaseMoker';
 
 export const createMockCaseRepository = (): CaseRepository => {
   return {
-    findById: jest.fn().mockResolvedValue(mockCaseMongoDocs[0]!),
-    findAll: jest.fn().mockResolvedValue(mockCaseMongoDocs),
-    findPopulatedByClientId: jest.fn().mockResolvedValue(mockCaseMongoDocs),
-    findPopulatedById: jest.fn().mockResolvedValue(mockCaseMongoDocs),
-    create: jest.fn().mockResolvedValue(mockCaseMongoDocs[0]!),
-    updateById: jest.fn().mockResolvedValue(mockCaseMongoDocs[0]!),
+    findById: jest.fn().mockResolvedValue(CaseMocker.mockCaseDTOWithId()),
+    findAll: jest
+      .fn()
+      .mockResolvedValue([CaseMocker.mockCaseDTOWithId(), CaseMocker.mockCaseDTOWithId()]),
+    findPopulatedByClientId: jest
+      .fn()
+      .mockResolvedValue([CaseMocker.mockCaseDTOWithId(), CaseMocker.mockCaseDTOWithId()]),
+    findPopulatedById: jest.fn().mockResolvedValue(CaseMocker.mockCaseDTOWithId()),
+    create: jest.fn().mockResolvedValue(CaseMocker.mockCaseDTOWithId()),
+    updateById: jest.fn().mockResolvedValue(CaseMocker.mockCaseDTOWithId()),
     getStats: jest.fn().mockResolvedValue({ inProgress: 2, closed: 3 }),
     getStatsByClientId: jest.fn().mockResolvedValue({ inProgress: 2, closed: 3 }),
     deleteById: jest.fn().mockResolvedValue(true),
