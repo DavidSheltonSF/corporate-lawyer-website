@@ -2,11 +2,13 @@ import { Schema, model, Document, Types } from 'mongoose';
 import { DeadlineType } from '../types/DeadLineType';
 import { DeadlinePriority } from '../types/DeadLinePriority';
 import { DeadlineStatus } from '../types/DeadLineStatus';
+import { DeadlineCountingType } from '../types/DeadlineCountingType';
 
 export interface IDeadlineModel {
   caseId: Types.ObjectId;
   lawyerId: Types.ObjectId;
   type: DeadlineType;
+  countingType: DeadlineCountingType;
   intimationDate: Date;
   days: number;
   startDate: Date;
@@ -23,6 +25,11 @@ const DeadlineSchema = new Schema<DeadlineMongoDocument>(
     type: {
       type: String,
       enum: Object.values(DeadlineType),
+      required: true,
+    },
+    countingType: {
+      type: String,
+      enum: Object.values(DeadlineCountingType),
       required: true,
     },
     intimationDate: { type: Date, required: true },
