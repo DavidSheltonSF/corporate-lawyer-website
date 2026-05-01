@@ -1,6 +1,6 @@
 import { Types } from 'mongoose';
 import { mockCaseRepository } from '../../tests/mocks/repositories/mockCaseRepository';
-import { createMockDeadlineRepository } from '../../tests/mocks/repositories/createMockDeadlineRepository';
+import { mockDeadlineRepository } from '../../tests/mocks/repositories/mockDeadlineRepository';
 import { DeadlineService } from './DeadlineService';
 import { DeadlineType } from '../../types/DeadLineType';
 import { DeadlinePriority } from '../../types/DeadLinePriority';
@@ -17,7 +17,7 @@ import { DeadlineMocker } from '../../tests/mocks/entities/DeadlineMocker';
 describe(`Test ${DeadlineService.name}`, () => {
   function makeSut() {
     const caseRepository = mockCaseRepository();
-    const deadlineRepository = createMockDeadlineRepository();
+    const deadlineRepository = mockDeadlineRepository();
     const holidaysProvider = new BrazilHolidaysProvider();
     const deadlineService = new DeadlineService(
       deadlineRepository,
