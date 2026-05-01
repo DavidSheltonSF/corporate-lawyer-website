@@ -1,6 +1,8 @@
+import { WithMongoId } from '../../database/mongoDB/types/WithMongoId';
 import { CreateDeadlineDTO } from '../../dtos/deadLine/CreateDeadlineDTO';
 import { DeadlineDTO } from '../../dtos/deadLine/DeadlineDTO';
 import { UpdateDeadlineDTO } from '../../dtos/deadLine/UpdateDeadlineDTO';
+import { IDeadlineModel } from '../../models/DeadlineModel';
 import { DeadlinePriority } from '../../types/DeadLinePriority';
 import { DeadlineStatus } from '../../types/DeadLineStatus';
 import { DeadlineType } from '../../types/DeadLineType';
@@ -54,6 +56,20 @@ export class DeadlineMocker {
       dueDate: new Date('2025-05-08').toISOString(),
       priority: Mocker.mockEnum(DeadlinePriority),
       status: Mocker.mockEnum(DeadlineStatus),
+    };
+  }
+
+  static mockDeadlineMongoPersistence(): WithMongoId<IDeadlineModel> {
+    return {
+      _id: Mocker.mockMongoId(),
+      caseId: Mocker.mockMongoId(),
+      lawyerId: Mocker.mockMongoId(),
+      type: Mocker.mockEnum(DeadlineType),
+      intimationDate: new Date('2025-05-01'),
+      days: Mocker.mockInteger(1, 30),
+      startDate: new Date('2025-05-05'),
+      dueDate: new Date('2025-05-08'),
+      priority: Mocker.mockEnum(DeadlinePriority),
     };
   }
 }
