@@ -125,7 +125,6 @@ describe(`Test ${CaseController.name}`, () => {
     const { caseController, caseRepository, httpRequest } = makeSut();
 
     const response = await caseController.getMyStats(httpRequest);
-    console.log(response);
 
     expect(caseRepository.getStatsByClientId).toHaveBeenCalledWith(httpRequest.user?.id);
     expect(response.status).toBe(HttpStatusCode.ok);
