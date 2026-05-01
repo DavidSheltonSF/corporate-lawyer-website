@@ -45,7 +45,7 @@ export class DeadlineService implements Partial<IDeadlineService> {
       countingType: validCountingType,
     });
 
-    const startDate = deadlineCalculator.getNextBusinessDay(new Date(intimationDate));
+    const startDate = deadlineCalculator.getStartDate(new Date(intimationDate));
     const duedate = deadlineCalculator.getDueDate(startDate, days);
 
     return await this.deadlineRepository.create(data, startDate, duedate);
