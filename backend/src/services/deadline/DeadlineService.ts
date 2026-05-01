@@ -37,7 +37,7 @@ export class DeadlineService implements Partial<IDeadlineService> {
 
     const validState = getBrazilState(state);
     const validCity = getCity(city);
-    const validCountingType = getDeadlineCountingType(countingType)
+    const validCountingType = getDeadlineCountingType(countingType);
 
     const deadlineCalculator = new DeadlineCalculator(this.holidaysProvider, {
       state: validState,
@@ -45,10 +45,12 @@ export class DeadlineService implements Partial<IDeadlineService> {
       countingType: validCountingType,
     });
 
-    const startDate = deadlineCalculator.getStartDate(new Date(intimationDate));
-    const duedate = deadlineCalculator.getDueDate(startDate, days);
+    const { startDate, dueDate } = deadlineCalculator.getDeadlineDateRange(
+      new Date(intimationDate),
+      days
+    );
 
-    return await this.deadlineRepository.create(data, startDate, duedate);
+    return await this.deadlineRepository.create(data, startDate, dueDate);
   }
 
   async findAll(): Promise<WithId<DeadlineDTO>[]> {
@@ -66,10 +68,7 @@ export class DeadlineService implements Partial<IDeadlineService> {
     return await this.deadlineRepository.findByCaseId(id);
   }
 
-  async updateById(
-    id: string,
-    data: UpdateDeadlineDTO
-  ): Promise<WithId<DeadlineDTO> | null> {
+  async updateById(id: string, data: UpdateDeadlineDTO): Promise<WithId<DeadlineDTO> | null> {
     validateDeadlinePartial(data);
     return await this.deadlineRepository.updateById(id, data);
   }
