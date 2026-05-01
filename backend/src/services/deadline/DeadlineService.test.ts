@@ -10,6 +10,7 @@ import { City } from '../../types/City';
 import { BrazilHolidaysProvider } from '../BrazilHolidaysProvider';
 import { DeadlineCalculator } from '../helpers/DeadlineCalculator';
 import { DeadlineMocker } from '../../tests/mocks/entities/DeadlineMocker';
+import { DeadlineCountingType } from '../../types/DeadlineCountingType';
 
 describe(`Test ${DeadlineService.name}`, () => {
   function makeSut() {
@@ -29,14 +30,16 @@ describe(`Test ${DeadlineService.name}`, () => {
     };
   }
 
-  test('should call DeadlineRepository.create', async () => {
+  test('should call DeadlineRepository.create with the data provided and the right startDate and dueDate', async () => {
     const { deadlineService, deadlineRepository, holidaysProvider } = makeSut();
 
     const deadlineData = DeadlineMocker.mockCreateDeadlineDTO();
+    deadlineData.countingType = DeadlineCountingType.DIAS_UTEIS
 
     const deadlineCalculator = new DeadlineCalculator(holidaysProvider, {
       state: BrazilState.RIO_DE_JANEIRO,
       city: City.BELFORD_ROXO,
+      countingType: DeadlineCountingType.DIAS_UTEIS,
     });
     const startDate = deadlineCalculator.getNextBusinessDay(new Date(deadlineData.intimationDate));
     const dueDate = deadlineCalculator.getDueDate(new Date(startDate), deadlineData.days);
@@ -45,6 +48,7 @@ describe(`Test ${DeadlineService.name}`, () => {
 
     expect(deadlineRepository.create).toHaveBeenCalledWith(deadlineData, startDate, dueDate);
   });
+
 
   test('should thow InvalidDeadlineTypeError if the type provided is invalid', async () => {
     const { deadlineService } = makeSut();
