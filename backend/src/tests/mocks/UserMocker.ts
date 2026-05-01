@@ -1,6 +1,6 @@
 import { CreateClientDTO } from '../../dtos/user/CreateClientDTO';
 import { UserDTO } from '../../dtos/user/UserDTO';
-import { InvalidUserRoleError } from '../../errors/domain/InvalidUserRoleError';
+import { UserRole } from '../../types/UserRole';
 import { WithId } from '../../types/WithId';
 import { Mocker } from '../helpers/Mocker';
 import { UserFieldsMocker } from '../helpers/UserFieldsMocker';
@@ -22,7 +22,7 @@ export class UserMocker {
       email: UserFieldsMocker.mockEmail(),
       cpf: UserFieldsMocker.mockCpf(),
       password: UserFieldsMocker.mockPassword(),
-      role: Mocker.mockEnum(InvalidUserRoleError),
+      role: Mocker.mockEnum(UserRole),
     };
   }
 
