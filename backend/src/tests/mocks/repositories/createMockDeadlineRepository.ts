@@ -1,18 +1,26 @@
 import { DeadlineRepository } from '../../../repositories/DeadlineRepository';
-import { mockDeadlineMongoPersistence } from '../mockDeadlineMongoPersistence';
+import { DeadlineMocker } from '../DeadlineMocker';
 
 export const createMockDeadlineRepository = (): DeadlineRepository => {
   return {
-    create: jest.fn().mockResolvedValue(mockDeadlineMongoPersistence()),
-    findById: jest.fn().mockResolvedValue(mockDeadlineMongoPersistence()),
+    create: jest.fn().mockResolvedValue(DeadlineMocker.mockCreateDeadlineDTO()),
+    findById: jest.fn().mockResolvedValue(DeadlineMocker.mockDeadlineDTOWithId()),
     findByCaseId: jest
       .fn()
-      .mockResolvedValue([mockDeadlineMongoPersistence(), mockDeadlineMongoPersistence()]),
+      .mockResolvedValue([
+        DeadlineMocker.mockDeadlineDTOWithId(),
+        DeadlineMocker.mockDeadlineDTOWithId(),
+      ]),
     findAll: jest
       .fn()
-      .mockResolvedValue([mockDeadlineMongoPersistence(), mockDeadlineMongoPersistence()]),
-    deleteById: jest.fn().mockResolvedValue(mockDeadlineMongoPersistence()),
-    updateById: jest.fn().mockResolvedValue(mockDeadlineMongoPersistence()),
+      .mockResolvedValue([
+        DeadlineMocker.mockDeadlineDTOWithId(),
+        DeadlineMocker.mockDeadlineDTOWithId(),
+      ]),
+    deleteById: jest.fn().mockResolvedValue(DeadlineMocker.mockDeadlineDTOWithId()),
+    updateById: jest.fn().mockResolvedValue(DeadlineMocker.mockDeadlineDTOWithId()),
     existsById: jest.fn().mockResolvedValue(true),
   };
 };
+
+DeadlineMocker;
