@@ -3,7 +3,7 @@ import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { UserService } from '../../services/user/UserService';
 import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
-import { UserMocker } from '../../tests/mocks/UserMocker';
+import { UserMocker } from '../../tests/mocks/entities/UserMocker';
 import { UserRole } from '../../types/UserRole';
 import { HttpRequest } from '../types/HttpRequest';
 import { HttpStatusCode } from '../types/HttpStatusCode';

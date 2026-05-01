@@ -1,5 +1,5 @@
 import { CaseRepository } from '../../../repositories/CaseRepository';
-import { CaseMocker } from '../CaseMoker';
+import { CaseMocker } from '../entities/CaseMoker';
 
 export const createMockCaseRepository = (): CaseRepository => {
   return {

@@ -2,7 +2,7 @@ import { Types } from 'mongoose';
 import { UserRepository } from '../../../repositories/UserRepository';
 import { UserRole } from '../../../types/UserRole';
 import { CasesStatus } from '../../../types/CasesStatus';
-import { UserMocker } from '../UserMocker';
+import { UserMocker } from '../entities/UserMocker';
 
 export const createMockUserRepository = (): UserRepository => {
   return {

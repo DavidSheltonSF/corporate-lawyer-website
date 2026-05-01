@@ -7,8 +7,8 @@ import { createMockUserRepository } from '../../tests/mocks/repositories/createM
 import { UserService } from '../../services/user/UserService';
 import { UserRole } from '../../types/UserRole';
 import { BrazilHolidaysProvider } from '../../services/BrazilHolidaysProvider';
-import { DeadlineMocker } from '../../tests/mocks/DeadlineMocker';
-import { UserMocker } from '../../tests/mocks/UserMocker';
+import { DeadlineMocker } from '../../tests/mocks/entities/DeadlineMocker';
+import { UserMocker } from '../../tests/mocks/entities/UserMocker';
 
 describe(`Test ${DeadlineController.name}`, () => {
   function makeSut() {
@@ -16,7 +16,7 @@ describe(`Test ${DeadlineController.name}`, () => {
     const caseRepository = createMockCaseRepository();
     const userRepository = createMockUserRepository();
     const lawyerData = UserMocker.mockUserDTOWithId();
-    lawyerData.role = UserRole.lawyer
+    lawyerData.role = UserRole.lawyer;
     userRepository.findById = jest.fn().mockResolvedValue(lawyerData);
     const holidaysProvider = new BrazilHolidaysProvider();
 

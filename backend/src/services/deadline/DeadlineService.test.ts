@@ -12,7 +12,7 @@ import { City } from '../../types/City';
 import { BrazilHolidaysProvider } from '../BrazilHolidaysProvider';
 import { createDate } from '../../utils/createDate';
 import { DeadlineCalculator } from '../helpers/DeadlineCalculator';
-import { DeadlineMocker } from '../../tests/mocks/DeadlineMocker';
+import { DeadlineMocker } from '../../tests/mocks/entities/DeadlineMocker';
 
 describe(`Test ${DeadlineService.name}`, () => {
   function makeSut() {

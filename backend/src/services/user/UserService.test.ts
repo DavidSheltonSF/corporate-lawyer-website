@@ -3,7 +3,7 @@ import { InvalidEmailError } from '../../errors/domain/InvalidEmailError';
 import { InvalidNameError } from '../../errors/domain/InvalidNameError';
 import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
-import { UserMocker } from '../../tests/mocks/UserMocker';
+import { UserMocker } from '../../tests/mocks/entities/UserMocker';
 import { UserService } from './UserService';
 
 describe(`Test ${UserService.name}`, () => {

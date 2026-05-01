@@ -1,5 +1,5 @@
 import { DeadlineRepository } from '../../../repositories/DeadlineRepository';
-import { DeadlineMocker } from '../DeadlineMocker';
+import { DeadlineMocker } from '../entities/DeadlineMocker';
 
 export const createMockDeadlineRepository = (): DeadlineRepository => {
   return {

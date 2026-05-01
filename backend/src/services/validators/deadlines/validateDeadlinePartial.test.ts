@@ -3,7 +3,7 @@ import { InvalidDeadlineTypeError } from '../../../errors/domain/InvalidDeadline
 import { InvalidDeadlinePriorityError } from '../../../errors/domain/InvalidDeadlinePriorityError';
 import { InvalidDateError } from '../../../errors/domain/InvalidDateError';
 import { getThrownError } from '../../../tests/helpers/getThrownError';
-import { DeadlineMocker } from '../../../tests/mocks/DeadlineMocker';
+import { DeadlineMocker } from '../../../tests/mocks/entities/DeadlineMocker';
 
 describe(`Testing ${validateDeadlinePartial.name}`, () => {
   test('should not throw error if all deadline fields are  valid', () => {

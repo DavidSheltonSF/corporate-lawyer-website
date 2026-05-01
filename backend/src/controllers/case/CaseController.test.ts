@@ -1,10 +1,10 @@
 import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO';
 import { CaseService } from '../../services/case/CaseService';
 import { UserService } from '../../services/user/UserService';
-import { CaseMocker } from '../../tests/mocks/CaseMoker';
+import { CaseMocker } from '../../tests/mocks/entities/CaseMoker';
 import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
-import { UserMocker } from '../../tests/mocks/UserMocker';
+import { UserMocker } from '../../tests/mocks/entities/UserMocker';
 import { UserRole } from '../../types/UserRole';
 
 import { HttpRequest } from '../types/HttpRequest';

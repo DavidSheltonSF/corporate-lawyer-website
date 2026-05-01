@@ -1,9 +1,9 @@
-import { CreateClientDTO } from '../../dtos/user/CreateClientDTO';
-import { UserDTO } from '../../dtos/user/UserDTO';
-import { UserRole } from '../../types/UserRole';
-import { WithId } from '../../types/WithId';
-import { GenericMocker } from './fields/GenericMocker';
-import { UserFieldsMocker } from './fields/UserFieldsMocker';
+import { CreateClientDTO } from '../../../dtos/user/CreateClientDTO';
+import { UserDTO } from '../../../dtos/user/UserDTO';
+import { UserRole } from '../../../types/UserRole';
+import { WithId } from '../../../types/WithId';
+import { GenericMocker } from '../fields/GenericMocker';
+import { UserFieldsMocker } from '../fields/UserFieldsMocker';
 
 export class UserMocker {
   static mockCreateClientDTO(): CreateClientDTO {

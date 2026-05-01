@@ -1,13 +1,13 @@
-import { WithMongoId } from '../../database/mongoDB/types/WithMongoId';
-import { CreateDeadlineDTO } from '../../dtos/deadLine/CreateDeadlineDTO';
-import { DeadlineDTO } from '../../dtos/deadLine/DeadlineDTO';
-import { UpdateDeadlineDTO } from '../../dtos/deadLine/UpdateDeadlineDTO';
-import { IDeadlineModel } from '../../models/DeadlineModel';
-import { DeadlinePriority } from '../../types/DeadLinePriority';
-import { DeadlineStatus } from '../../types/DeadLineStatus';
-import { DeadlineType } from '../../types/DeadLineType';
-import { WithId } from '../../types/WithId';
-import { GenericMocker } from './fields/GenericMocker';
+import { WithMongoId } from '../../../database/mongoDB/types/WithMongoId';
+import { CreateDeadlineDTO } from '../../../dtos/deadLine/CreateDeadlineDTO';
+import { DeadlineDTO } from '../../../dtos/deadLine/DeadlineDTO';
+import { UpdateDeadlineDTO } from '../../../dtos/deadLine/UpdateDeadlineDTO';
+import { IDeadlineModel } from '../../../models/DeadlineModel';
+import { DeadlinePriority } from '../../../types/DeadLinePriority';
+import { DeadlineStatus } from '../../../types/DeadLineStatus';
+import { DeadlineType } from '../../../types/DeadLineType';
+import { WithId } from '../../../types/WithId';
+import { GenericMocker } from '../fields/GenericMocker';
 
 export class DeadlineMocker {
   static mockCreateDeadlineDTO(): CreateDeadlineDTO {

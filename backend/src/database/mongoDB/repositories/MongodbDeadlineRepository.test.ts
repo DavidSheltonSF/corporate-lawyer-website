@@ -5,7 +5,7 @@ import { Types } from 'mongoose';
 import { MongodbTestConnector } from '../MongodbTestConnector';
 import { DeadlineType } from '../../../types/DeadLineType';
 import { DeadlinePriority } from '../../../types/DeadLinePriority';
-import { DeadlineMocker } from '../../../tests/mocks/DeadlineMocker';
+import { DeadlineMocker } from '../../../tests/mocks/entities/DeadlineMocker';
 import { DeadlineStatus } from '../../../types/DeadLineStatus';
 config();
 

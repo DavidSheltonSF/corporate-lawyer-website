@@ -4,7 +4,7 @@ import { MongodbUserRepository } from './MongodbUserRepository';
 import bcrypt from 'bcrypt';
 import { Types } from 'mongoose';
 import { MongodbTestConnector } from '../MongodbTestConnector';
-import { UserMocker } from '../../../tests/mocks/UserMocker';
+import { UserMocker } from '../../../tests/mocks/entities/UserMocker';
 config();
 
 jest.setTimeout(999999);
