@@ -40,6 +40,16 @@ export class DeadlineCalculator {
     return currentDate;
   }
 
+  getStartDate(date: Date): Date {
+    const { countingType } = this.config;
+    if (countingType === DeadlineCountingType.DIAS_CORRIDOS) {
+      const startDate = date;
+      startDate.setDate(startDate.getDate() + 1);
+      return startDate;
+    }
+    return this.getNextBusinessDay(date);
+  }
+
   getDueDate(date: Date, days: number): Date {
     let current = new Date(date);
 
