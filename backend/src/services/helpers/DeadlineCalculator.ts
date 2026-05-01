@@ -54,10 +54,11 @@ export class DeadlineCalculator {
     let current = new Date(date);
     const { countingType } = this.config;
     const countAllDays = countingType === DeadlineCountingType.DIAS_CORRIDOS;
-    let i = 0;
-    while (i < days-1) {
+    
+    let addedDays = 1; // including start date
+    while (addedDays < days) {
       if (countAllDays || this.isBusinessDay(current)) {
-        i++;
+        addedDays++;
       }
       current.setDate(current.getDate() + 1);
     }
@@ -65,4 +66,9 @@ export class DeadlineCalculator {
     return current;
   }
 
+  getDeadlineDateRange(intimationDate: Date, days: number): { startDate: Date; dueDate: Date } {
+    const startDate = this.getStartDate(intimationDate);
+    const dueDate = this.getDueDate(startDate, days);
+    return { startDate, dueDate };
+  }
 }
