@@ -4,7 +4,7 @@ import { MongodbUserRepository } from './MongodbUserRepository';
 import bcrypt from 'bcrypt';
 import { Types } from 'mongoose';
 import { MongodbTestConnector } from '../MongodbTestConnector';
-import { mockUserDTO } from '../../../tests/mocks/user/mockUserDTO';
+import { UserMocker } from '../../../tests/mocks/UserMocker';
 config();
 
 jest.setTimeout(999999);
@@ -34,7 +34,7 @@ describe('Test UserRepository', () => {
 
   test('should create a new user', async () => {
     const { userRepository } = makeSut();
-    const userDTO = mockUserDTO();
+    const userDTO = UserMocker.mockUserDTO();
     const user = await userRepository.create(userDTO);
     const passwordIsValid = bcrypt.compare(userDTO.password, user.password);
 
@@ -44,7 +44,7 @@ describe('Test UserRepository', () => {
 
   test('should find user by id', async () => {
     const { userRepository } = makeSut();
-    const userDTO = mockUserDTO();
+    const userDTO = UserMocker.mockUserDTO();
     const newId = (await UserModel.create(userDTO))._id;
     const user = await userRepository.findById(newId.toString());
     if (!user) {
@@ -58,7 +58,7 @@ describe('Test UserRepository', () => {
 
   test('should find user by email', async () => {
     const { userRepository } = makeSut();
-    const userDTO = mockUserDTO();
+    const userDTO = UserMocker.mockUserDTO();
     await UserModel.create(userDTO);
     const user = await userRepository.findByEmail(userDTO.email);
     if (!user) {
@@ -72,7 +72,7 @@ describe('Test UserRepository', () => {
 
   test('should return true if user exists, but false if user does not exist', async () => {
     const { userRepository } = makeSut();
-    const userDTO = mockUserDTO();
+    const userDTO = UserMocker.mockUserDTO();
     const newId = (await UserModel.create(userDTO))._id;
 
     const existingUser = await userRepository.existsById(newId.toString());
@@ -85,7 +85,7 @@ describe('Test UserRepository', () => {
 
   test('should return true if user exists, but false if user does not exist, given the email', async () => {
     const { userRepository } = makeSut();
-    const userDTO = mockUserDTO();
+    const userDTO = UserMocker.mockUserDTO();
     await UserModel.create(userDTO);
 
     const existingUser = await userRepository.existsByEmail(userDTO.email);
@@ -97,7 +97,7 @@ describe('Test UserRepository', () => {
 
   test('should delete a user', async () => {
     const { userRepository } = makeSut();
-    const userDTO = mockUserDTO();
+    const userDTO = UserMocker.mockUserDTO();
 
     const userId = (await UserModel.create(userDTO))._id;
 
@@ -118,7 +118,7 @@ describe('Test UserRepository', () => {
   test('should update a user', async () => {
     const { userRepository } = makeSut();
 
-    const userDTO = mockUserDTO();
+    const userDTO = UserMocker.mockUserDTO();
     const userId = (await UserModel.create(userDTO))._id;
 
     const result = await userRepository.updateById(userId.toString(), { firstName: 'Updated' });
