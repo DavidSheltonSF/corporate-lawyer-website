@@ -3,7 +3,7 @@ import { DeadlineMocker } from '../entities/DeadlineMocker';
 
 export const mockDeadlineRepository = (): DeadlineRepository => {
   return {
-    create: jest.fn().mockResolvedValue(DeadlineMocker.mockCreateDeadlineDTO()),
+    create: jest.fn().mockResolvedValue(DeadlineMocker.mockDeadlineDTOWithId()),
     findById: jest.fn().mockResolvedValue(DeadlineMocker.mockDeadlineDTOWithId()),
     findByCaseId: jest
       .fn()
