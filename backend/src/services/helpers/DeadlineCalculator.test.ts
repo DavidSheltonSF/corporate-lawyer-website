@@ -11,7 +11,7 @@ describe(`Testing ${DeadlineCalculator.name}`, () => {
     const deadlineCalculator = new DeadlineCalculator(brazilHolidaysProvider, {
       state: BrazilState.RIO_DE_JANEIRO,
       city: City.BELFORD_ROXO,
-      countingType: DeadlineCountingType.DIAS_UTEIS
+      countingType: DeadlineCountingType.DIAS_UTEIS,
     });
     return { deadlineCalculator, brazilHolidaysProvider };
   }
@@ -76,22 +76,54 @@ describe(`Testing ${DeadlineCalculator.name}`, () => {
 
   test('should return the deadline duedate skiping weekends and holidays', () => {
     const { deadlineCalculator } = makeSut();
-    const date = createDate(2026, 4, 30);
+    const date = createDate(2026, 5, 1);
     const result = deadlineCalculator.getDueDate(date, 5);
     expect(result.toISOString()).toBe(createDate(2026, 5, 8).toISOString());
   });
 
-   test('should return the deadline duedate not skiping weekends nor holidays', () => {
-        const { brazilHolidaysProvider } = makeSut();
+  test('should return the deadline duedate not skiping weekends nor holidays', () => {
+    const { brazilHolidaysProvider } = makeSut();
+
+    const deadlineCalculator = new DeadlineCalculator(brazilHolidaysProvider, {
+      state: BrazilState.RIO_DE_JANEIRO,
+      city: City.BELFORD_ROXO,
+      countingType: DeadlineCountingType.DIAS_CORRIDOS,
+    });
+
+    const startDate = createDate(2026, 5, 2);
+    const result = deadlineCalculator.getDueDate(startDate, 5);
+    expect(result.toISOString()).toBe(createDate(2026, 5, 6).toISOString());
+  });
+
+  test('should return the startDate and the dueDate properly, skiping weekend and holidays', () => {
+    const { brazilHolidaysProvider } = makeSut();
+
+    const deadlineCalculator = new DeadlineCalculator(brazilHolidaysProvider, {
+      state: BrazilState.RIO_DE_JANEIRO,
+      city: City.BELFORD_ROXO,
+      countingType: DeadlineCountingType.DIAS_UTEIS,
+    });
+
+    const intimationDate = createDate(2026, 5, 1);
+    const { startDate, dueDate } = deadlineCalculator.getDeadlineDateRange(intimationDate, 5);
+
+    expect(startDate.toISOString()).toBe(createDate(2026, 5, 4).toISOString());
+    expect(dueDate.toISOString()).toBe(createDate(2026, 5, 8).toISOString());
+  })
+
+   test('should return the startDate and the dueDate properly, not skiping weekend nor holidays', () => {
+     const { brazilHolidaysProvider } = makeSut();
 
      const deadlineCalculator = new DeadlineCalculator(brazilHolidaysProvider, {
        state: BrazilState.RIO_DE_JANEIRO,
        city: City.BELFORD_ROXO,
        countingType: DeadlineCountingType.DIAS_CORRIDOS,
      });
-     
-     const date = createDate(2026, 5, 1);
-     const result = deadlineCalculator.getDueDate(date, 5);
-     expect(result.toISOString()).toBe(createDate(2026, 5, 6).toISOString());
+
+     const intimationDate = createDate(2026, 5, 1);
+     const {startDate, dueDate} = deadlineCalculator.getDeadlineDateRange(intimationDate, 5);
+   
+     expect(startDate.toISOString()).toBe(createDate(2026, 5, 2).toISOString());
+     expect(dueDate.toISOString()).toBe(createDate(2026, 5, 6).toISOString());
    });
 });
