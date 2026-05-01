@@ -12,7 +12,7 @@ import { City } from '../../types/City';
 import { BrazilHolidaysProvider } from '../BrazilHolidaysProvider';
 import { createDate } from '../../utils/createDate';
 import { DeadlineCalculator } from '../helpers/DeadlineCalculator';
-import { mockCreateDeadlineDTO } from '../../tests/mocks/deadline/mockCreateDeadlineDTO';
+import { DeadlineMocker } from '../../tests/mocks/DeadlineMocker';
 
 describe(`Test ${DeadlineService.name}`, () => {
   function makeSut() {
@@ -35,7 +35,7 @@ describe(`Test ${DeadlineService.name}`, () => {
   test('should call DeadlineRepository.create', async () => {
     const { deadlineService, deadlineRepository, holidaysProvider } = makeSut();
 
-    const deadlineData = mockCreateDeadlineDTO();
+    const deadlineData = DeadlineMocker.mockCreateDeadlineDTO();
 
     const deadlineCalculator = new DeadlineCalculator(holidaysProvider, {
       state: BrazilState.RIO_DE_JANEIRO,
@@ -51,14 +51,14 @@ describe(`Test ${DeadlineService.name}`, () => {
 
   test('should thow InvalidDeadlineTypeError if the type provided is invalid', async () => {
     const { deadlineService } = makeSut();
-    const deadlineData = mockCreateDeadlineDTO();
+    const deadlineData = DeadlineMocker.mockCreateDeadlineDTO();
     deadlineData.type = 'banana';
     await expect(deadlineService.create(deadlineData)).rejects.toThrow(InvalidDeadlineTypeError);
   });
 
   test('should thow InvalidDeadlinePriorityError if the priority provided is invalid', async () => {
     const { deadlineService } = makeSut();
-    const deadlineData = mockCreateDeadlineDTO();
+    const deadlineData = DeadlineMocker.mockCreateDeadlineDTO();
     deadlineData.priority = 'banana';
     await expect(deadlineService.create(deadlineData)).rejects.toThrow(
       InvalidDeadlinePriorityError
@@ -67,7 +67,7 @@ describe(`Test ${DeadlineService.name}`, () => {
 
   test('should thow InvalidDateError if the intimationDate provided is invalid', async () => {
     const { deadlineService } = makeSut();
-    const deadlineData = mockCreateDeadlineDTO();
+    const deadlineData = DeadlineMocker.mockCreateDeadlineDTO();
     deadlineData.intimationDate = 'banana';
     await expect(deadlineService.create(deadlineData)).rejects.toThrow(InvalidDateError);
   });
