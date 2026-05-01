@@ -1,8 +1,6 @@
-import { Types } from 'mongoose';
 import { mockCaseRepository } from '../../tests/mocks/repositories/mockCaseRepository';
 import { mockDeadlineRepository } from '../../tests/mocks/repositories/mockDeadlineRepository';
 import { DeadlineService } from './DeadlineService';
-import { DeadlineType } from '../../types/DeadLineType';
 import { DeadlinePriority } from '../../types/DeadLinePriority';
 import { InvalidDeadlineTypeError } from '../../errors/domain/InvalidDeadlineTypeError';
 import { InvalidDeadlinePriorityError } from '../../errors/domain/InvalidDeadlinePriorityError';
@@ -10,7 +8,6 @@ import { InvalidDateError } from '../../errors/domain/InvalidDateError';
 import { BrazilState } from '../../types/BrazilState';
 import { City } from '../../types/City';
 import { BrazilHolidaysProvider } from '../BrazilHolidaysProvider';
-import { createDate } from '../../utils/createDate';
 import { DeadlineCalculator } from '../helpers/DeadlineCalculator';
 import { DeadlineMocker } from '../../tests/mocks/entities/DeadlineMocker';
 
