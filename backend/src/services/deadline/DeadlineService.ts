@@ -10,6 +10,7 @@ import { WithId } from '../../types/WithId';
 import { DeadlineCalculator } from '../helpers/DeadlineCalculator';
 import { getBrazilState } from '../helpers/getBrazilState';
 import { getCity } from '../helpers/getCity';
+import { getDeadlineCountingType } from '../helpers/getDeadlineCountingType';
 import { HolidaysProvider } from '../HolidaysProvider';
 import { validateDeadline } from '../validators/deadlines/validateDeadline';
 import { validateDeadlinePartial } from '../validators/deadlines/validateDeadlinePartial';
@@ -25,7 +26,7 @@ export class DeadlineService implements Partial<IDeadlineService> {
   async create(data: CreateDeadlineDTO): Promise<WithId<DeadlineDTO>> {
     validateDeadline(data);
 
-    const { caseId, intimationDate, days } = data;
+    const { caseId, intimationDate, days, countingType } = data;
 
     const deadlineCase = await this.caseRepository.findById(caseId);
     if (!deadlineCase) {
@@ -36,10 +37,12 @@ export class DeadlineService implements Partial<IDeadlineService> {
 
     const validState = getBrazilState(state);
     const validCity = getCity(city);
+    const validCountingType = getDeadlineCountingType(countingType)
 
     const deadlineCalculator = new DeadlineCalculator(this.holidaysProvider, {
       state: validState,
       city: validCity,
+      countingType: validCountingType,
     });
 
     const startDate = deadlineCalculator.getNextBusinessDay(new Date(intimationDate));

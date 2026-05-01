@@ -1,11 +1,16 @@
 import { BrazilState } from '../../types/BrazilState';
 import { City } from '../../types/City';
+import { DeadlineCountingType } from '../../types/DeadlineCountingType';
 import { HolidaysProvider } from '../HolidaysProvider';
 
 export class DeadlineCalculator {
   constructor(
     private readonly holidaysProvider: HolidaysProvider,
-    private readonly caseLocalization: { state: BrazilState; city: City }
+    private readonly config: {
+      state: BrazilState;
+      city: City;
+      countingType: DeadlineCountingType;
+    }
   ) {}
 
   isWeekend(date: Date): boolean {
@@ -14,7 +19,7 @@ export class DeadlineCalculator {
   }
 
   isHoliday(date: Date): boolean {
-    const { state, city } = this.caseLocalization;
+    const { state, city } = this.config;
     const dateString = date.toISOString();
     const formatted = dateString.split('T')[0] as string;
     const holidays = this.holidaysProvider.getLocalHolidays(state, city);
