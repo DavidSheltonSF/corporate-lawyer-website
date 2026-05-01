@@ -5,7 +5,6 @@ import { Types } from 'mongoose';
 import { MongodbTestConnector } from '../MongodbTestConnector';
 import { DeadlineType } from '../../../types/DeadLineType';
 import { DeadlinePriority } from '../../../types/DeadLinePriority';
-import { mockDeadlineMongoPersistence } from '../../../tests/mocks/mockDeadlineMongoPersistence';
 import { DeadlineMocker } from '../../../tests/mocks/DeadlineMocker';
 import { DeadlineStatus } from '../../../types/DeadLineStatus';
 config();
@@ -147,7 +146,7 @@ describe('Test DeadlineRepository', () => {
     const { deadlineRepository } = makeSut();
 
     const deadlinePersistence = DeadlineMocker.mockDeadlineMongoPersistence();
-    const otherCaseDeadlinePersistence = mockDeadlineMongoPersistence();
+    const otherCaseDeadlinePersistence = DeadlineMocker.mockDeadlineMongoPersistence();
 
     await DeadlineModel.create(deadlinePersistence);
     await DeadlineModel.create(otherCaseDeadlinePersistence);
