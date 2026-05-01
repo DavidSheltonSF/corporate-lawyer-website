@@ -1,13 +1,13 @@
 import { Types } from 'mongoose';
 import { UserRepository } from '../../../repositories/UserRepository';
-import { mockUserMongoDocs } from '../mockUserMongoDocs';
 import { UserRole } from '../../../types/UserRole';
 import { CasesStatus } from '../../../types/CasesStatus';
+import { UserMocker } from '../UserMocker';
 
 export const createMockUserRepository = (): UserRepository => {
   return {
-    create: jest.fn().mockResolvedValue(mockUserMongoDocs[0]!),
-    findById: jest.fn().mockResolvedValue(mockUserMongoDocs[0]!),
+    create: jest.fn().mockResolvedValue(UserMocker.mockUserDTOWithId()),
+    findById: jest.fn().mockResolvedValue(UserMocker.mockUserDTOWithId()),
     findByIdWithCases: jest.fn().mockResolvedValue({
       _id: Types.ObjectId.createFromTime(48585555),
       firstName: 'José',
@@ -30,7 +30,9 @@ export const createMockUserRepository = (): UserRepository => {
         },
       ],
     }),
-    findAll: jest.fn().mockResolvedValue(mockUserMongoDocs),
+    findAll: jest
+      .fn()
+      .mockResolvedValue([UserMocker.mockUserDTOWithId(), UserMocker.mockUserDTOWithId()]),
     findClients: jest.fn().mockResolvedValue([
       {
         _id: Types.ObjectId.createFromTime(48585555),
@@ -42,9 +44,9 @@ export const createMockUserRepository = (): UserRepository => {
         role: UserRole.client,
       },
     ]),
-    findByEmail: jest.fn().mockResolvedValue(mockUserMongoDocs[0]!),
-    deleteById: jest.fn().mockResolvedValue(mockUserMongoDocs[0]!),
-    updateById: jest.fn().mockResolvedValue(mockUserMongoDocs[0]!),
+    findByEmail: jest.fn().mockResolvedValue(UserMocker.mockUserDTOWithId()),
+    deleteById: jest.fn().mockResolvedValue(UserMocker.mockUserDTOWithId()),
+    updateById: jest.fn().mockResolvedValue(UserMocker.mockUserDTOWithId()),
     existsById: jest.fn().mockResolvedValue(true),
     existsByEmail: jest.fn().mockResolvedValue(false),
   };
