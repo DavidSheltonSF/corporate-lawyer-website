@@ -131,7 +131,6 @@ describe('Test UserRepository', () => {
 
     // Ensure user is actually updated
     const updatedUser = await UserModel.findById(userId);
-    console.log(updatedUser);
 
     expect(updatedUser).toMatchObject({
       ...userDTO,
