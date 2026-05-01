@@ -55,11 +55,11 @@ export class DeadlineCalculator {
     const { countingType } = this.config;
     const countAllDays = countingType === DeadlineCountingType.DIAS_CORRIDOS;
     let i = 0;
-    while (i < days) {
-      current.setDate(current.getDate() + 1);
+    while (i < days-1) {
       if (countAllDays || this.isBusinessDay(current)) {
         i++;
       }
+      current.setDate(current.getDate() + 1);
     }
 
     return current;
