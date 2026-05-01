@@ -4,6 +4,7 @@ export interface DeadlineDTO {
   type: string;
   intimationDate: string;
   days: number;
+  countingType: string;
   priority: string;
   status: string;
   startDate: string;
