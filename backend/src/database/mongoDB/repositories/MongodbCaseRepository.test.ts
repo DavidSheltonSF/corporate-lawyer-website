@@ -7,8 +7,6 @@ import { Types } from 'mongoose';
 import { MongodbTestConnector } from '../MongodbTestConnector';
 import { IUserModel, UserModel } from '../../../models/UserModel';
 import { CaseFile } from '../../../entities/CaseFile';
-import { WithId } from '../../../types/WithId';
-import { CaseFileDTO } from '../../../dtos/caseFile/CaseFileDTO';
 import { BrazilState } from '../../../types/BrazilState';
 import { City } from '../../../types/City';
 config();
