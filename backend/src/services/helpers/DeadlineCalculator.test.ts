@@ -1,5 +1,6 @@
 import { BrazilState } from '../../types/BrazilState';
 import { City } from '../../types/City';
+import { DeadlineCountingType } from '../../types/DeadlineCountingType';
 import { createDate } from '../../utils/createDate';
 import { BrazilHolidaysProvider } from '../BrazilHolidaysProvider';
 import { DeadlineCalculator } from './DeadlineCalculator';
@@ -10,8 +11,9 @@ describe(`Testing ${DeadlineCalculator.name}`, () => {
     const deadlineCalculator = new DeadlineCalculator(brazilHolidaysProvider, {
       state: BrazilState.RIO_DE_JANEIRO,
       city: City.BELFORD_ROXO,
+      countingType: DeadlineCountingType.DIAS_UTEIS
     });
-    return { deadlineCalculator };
+    return { deadlineCalculator, brazilHolidaysProvider };
   }
   test('should return true if date is weekend and false if it is not', () => {
     const { deadlineCalculator } = makeSut();
@@ -78,4 +80,18 @@ describe(`Testing ${DeadlineCalculator.name}`, () => {
     const result = deadlineCalculator.getDueDate(date, 5);
     expect(result.toISOString()).toBe(createDate(2026, 5, 8).toISOString());
   });
+
+   test('should return the deadline duedate not skiping weekends nor holidays', () => {
+        const { brazilHolidaysProvider } = makeSut();
+
+     const deadlineCalculator = new DeadlineCalculator(brazilHolidaysProvider, {
+       state: BrazilState.RIO_DE_JANEIRO,
+       city: City.BELFORD_ROXO,
+       countingType: DeadlineCountingType.DIAS_CORRIDOS,
+     });
+     
+     const date = createDate(2026, 5, 1);
+     const result = deadlineCalculator.getDueDate(date, 5);
+     expect(result.toISOString()).toBe(createDate(2026, 5, 6).toISOString());
+   });
 });
