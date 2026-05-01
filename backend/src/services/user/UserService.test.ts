@@ -2,13 +2,13 @@ import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExist
 import { InvalidEmailError } from '../../errors/domain/InvalidEmailError';
 import { InvalidNameError } from '../../errors/domain/InvalidNameError';
 import { mockCaseRepository } from '../../tests/mocks/repositories/mockCaseRepository';
-import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
+import { mockUserRepository } from '../../tests/mocks/repositories/mockUserRepository';
 import { UserMocker } from '../../tests/mocks/entities/UserMocker';
 import { UserService } from './UserService';
 
 describe(`Test ${UserService.name}`, () => {
   function makeSut() {
-    const userRepository = createMockUserRepository();
+    const userRepository = mockUserRepository();
     const caseRepository = mockCaseRepository();
     const userService = new UserService(userRepository, caseRepository);
 

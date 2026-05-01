@@ -4,7 +4,7 @@ import { UserRole } from '../../../types/UserRole';
 import { CasesStatus } from '../../../types/CasesStatus';
 import { UserMocker } from '../entities/UserMocker';
 
-export const createMockUserRepository = (): UserRepository => {
+export const mockUserRepository = (): UserRepository => {
   return {
     create: jest.fn().mockResolvedValue(UserMocker.mockUserDTOWithId()),
     findById: jest.fn().mockResolvedValue(UserMocker.mockUserDTOWithId()),

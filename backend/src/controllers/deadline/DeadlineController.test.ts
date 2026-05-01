@@ -3,7 +3,7 @@ import { mockCaseRepository } from '../../tests/mocks/repositories/mockCaseRepos
 import { createMockDeadlineRepository } from '../../tests/mocks/repositories/createMockDeadlineRepository';
 import { HttpStatusCode } from '../types/HttpStatusCode';
 import { DeadlineController } from './DeadlineController';
-import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
+import { mockUserRepository } from '../../tests/mocks/repositories/mockUserRepository';
 import { UserService } from '../../services/user/UserService';
 import { UserRole } from '../../types/UserRole';
 import { BrazilHolidaysProvider } from '../../services/BrazilHolidaysProvider';
@@ -14,7 +14,7 @@ describe(`Test ${DeadlineController.name}`, () => {
   function makeSut() {
     const deadlineRepository = createMockDeadlineRepository();
     const caseRepository = mockCaseRepository();
-    const userRepository = createMockUserRepository();
+    const userRepository = mockUserRepository();
     const lawyerData = UserMocker.mockUserDTOWithId();
     lawyerData.role = UserRole.lawyer;
     userRepository.findById = jest.fn().mockResolvedValue(lawyerData);

@@ -3,7 +3,7 @@ import { CaseService } from '../../services/case/CaseService';
 import { UserService } from '../../services/user/UserService';
 import { CaseMocker } from '../../tests/mocks/entities/CaseMoker';
 import { mockCaseRepository } from '../../tests/mocks/repositories/mockCaseRepository';
-import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
+import { mockUserRepository } from '../../tests/mocks/repositories/mockUserRepository';
 import { UserMocker } from '../../tests/mocks/entities/UserMocker';
 import { UserRole } from '../../types/UserRole';
 
@@ -14,7 +14,7 @@ import { CaseController } from './CaseController';
 describe(`Test ${CaseController.name}`, () => {
   function makeSut() {
     const caseRepository = mockCaseRepository();
-    const userRepository = createMockUserRepository();
+    const userRepository = mockUserRepository();
     const lawyerData = UserMocker.mockUserDTOWithId();
     lawyerData.role = UserRole.lawyer;
     userRepository.findById = jest.fn().mockResolvedValue(lawyerData);

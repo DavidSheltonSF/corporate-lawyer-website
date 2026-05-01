@@ -2,7 +2,7 @@ import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExist
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { UserService } from '../../services/user/UserService';
 import { mockCaseRepository } from '../../tests/mocks/repositories/mockCaseRepository';
-import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
+import { mockUserRepository } from '../../tests/mocks/repositories/mockUserRepository';
 import { UserMocker } from '../../tests/mocks/entities/UserMocker';
 import { UserRole } from '../../types/UserRole';
 import { HttpRequest } from '../types/HttpRequest';
@@ -12,7 +12,7 @@ import { UserController } from './UserController';
 describe(`Test ${UserController.name}`, () => {
   function makeSut() {
     const caseRepository = mockCaseRepository();
-    const userRepository = createMockUserRepository();
+    const userRepository = mockUserRepository();
     const lawyerData = UserMocker.mockUserDTOWithId();
     lawyerData.role = UserRole.lawyer;
     userRepository.findById = jest.fn().mockResolvedValue(lawyerData);
