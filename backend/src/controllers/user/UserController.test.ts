@@ -1,7 +1,7 @@
 import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { UserService } from '../../services/user/UserService';
-import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
+import { mockCaseRepository } from '../../tests/mocks/repositories/mockCaseRepository';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
 import { UserMocker } from '../../tests/mocks/entities/UserMocker';
 import { UserRole } from '../../types/UserRole';
@@ -11,7 +11,7 @@ import { UserController } from './UserController';
 
 describe(`Test ${UserController.name}`, () => {
   function makeSut() {
-    const caseRepository = createMockCaseRepository();
+    const caseRepository = mockCaseRepository();
     const userRepository = createMockUserRepository();
     const lawyerData = UserMocker.mockUserDTOWithId();
     lawyerData.role = UserRole.lawyer;

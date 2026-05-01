@@ -2,7 +2,7 @@ import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO';
 import { CaseService } from '../../services/case/CaseService';
 import { UserService } from '../../services/user/UserService';
 import { CaseMocker } from '../../tests/mocks/entities/CaseMoker';
-import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
+import { mockCaseRepository } from '../../tests/mocks/repositories/mockCaseRepository';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
 import { UserMocker } from '../../tests/mocks/entities/UserMocker';
 import { UserRole } from '../../types/UserRole';
@@ -13,7 +13,7 @@ import { CaseController } from './CaseController';
 
 describe(`Test ${CaseController.name}`, () => {
   function makeSut() {
-    const caseRepository = createMockCaseRepository();
+    const caseRepository = mockCaseRepository();
     const userRepository = createMockUserRepository();
     const lawyerData = UserMocker.mockUserDTOWithId();
     lawyerData.role = UserRole.lawyer;

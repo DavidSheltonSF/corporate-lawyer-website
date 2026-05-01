@@ -1,6 +1,6 @@
 import { CaseService } from './CaseService';
 import { CasesStatus } from '../../types/CasesStatus';
-import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
+import { mockCaseRepository } from '../../tests/mocks/repositories/mockCaseRepository';
 import { InvalidProcessNumberError } from '../../errors/domain/InvalidProcessNumberError';
 import { InvalidCaseTitleError } from '../../errors/domain/InvalidCaseTitleError';
 import { InvalidCaseStatusError } from '../../errors/domain/InvalidCaseStatusError';
@@ -9,7 +9,7 @@ import { City } from '../../types/City';
 
 describe('Test CaseService', () => {
   function makeSut() {
-    const caseRepository = createMockCaseRepository();
+    const caseRepository = mockCaseRepository();
     const caseService = new CaseService(caseRepository);
 
     return {

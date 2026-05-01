@@ -1,5 +1,5 @@
 import { DeadlineService } from '../../services/deadline/DeadlineService';
-import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
+import { mockCaseRepository } from '../../tests/mocks/repositories/mockCaseRepository';
 import { createMockDeadlineRepository } from '../../tests/mocks/repositories/createMockDeadlineRepository';
 import { HttpStatusCode } from '../types/HttpStatusCode';
 import { DeadlineController } from './DeadlineController';
@@ -13,7 +13,7 @@ import { UserMocker } from '../../tests/mocks/entities/UserMocker';
 describe(`Test ${DeadlineController.name}`, () => {
   function makeSut() {
     const deadlineRepository = createMockDeadlineRepository();
-    const caseRepository = createMockCaseRepository();
+    const caseRepository = mockCaseRepository();
     const userRepository = createMockUserRepository();
     const lawyerData = UserMocker.mockUserDTOWithId();
     lawyerData.role = UserRole.lawyer;

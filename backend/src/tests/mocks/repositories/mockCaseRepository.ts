@@ -1,7 +1,7 @@
 import { CaseRepository } from '../../../repositories/CaseRepository';
 import { CaseMocker } from '../entities/CaseMoker';
 
-export const createMockCaseRepository = (): CaseRepository => {
+export const mockCaseRepository = (): CaseRepository => {
   return {
     findById: jest.fn().mockResolvedValue(CaseMocker.mockCaseDTOWithId()),
     findAll: jest
