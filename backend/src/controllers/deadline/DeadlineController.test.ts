@@ -7,7 +7,6 @@ import { createMockUserRepository } from '../../tests/mocks/repositories/createM
 import { UserService } from '../../services/user/UserService';
 import { UserRole } from '../../types/UserRole';
 import { BrazilHolidaysProvider } from '../../services/BrazilHolidaysProvider';
-import { mockUpateDeadlineDTO } from '../../tests/mocks/deadline/mockUpdateDeadlineDTO';
 import { DeadlineMocker } from '../../tests/mocks/DeadlineMocker';
 import { UserMocker } from '../../tests/mocks/UserMocker';
 
