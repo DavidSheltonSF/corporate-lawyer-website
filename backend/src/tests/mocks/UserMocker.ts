@@ -2,7 +2,7 @@ import { CreateClientDTO } from '../../dtos/user/CreateClientDTO';
 import { UserDTO } from '../../dtos/user/UserDTO';
 import { UserRole } from '../../types/UserRole';
 import { WithId } from '../../types/WithId';
-import { Mocker } from './fields/Mocker';
+import { GenericMocker } from './fields/GenericMocker';
 import { UserFieldsMocker } from './fields/UserFieldsMocker';
 
 export class UserMocker {
@@ -22,11 +22,11 @@ export class UserMocker {
       email: UserFieldsMocker.mockEmail(),
       cpf: UserFieldsMocker.mockCpf(),
       password: UserFieldsMocker.mockPassword(),
-      role: Mocker.mockEnum(UserRole),
+      role: GenericMocker.mockEnum(UserRole),
     };
   }
 
   static mockUserDTOWithId(): WithId<UserDTO> {
-    return { ...UserMocker.mockUserDTO(), id: Mocker.mockMongoId().toString() };
+    return { ...UserMocker.mockUserDTO(), id: GenericMocker.mockMongoId().toString() };
   }
 }

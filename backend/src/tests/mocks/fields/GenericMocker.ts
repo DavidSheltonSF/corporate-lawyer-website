@@ -1,7 +1,7 @@
 import casual from 'casual';
 import { Types } from 'mongoose';
 
-export class Mocker {
+export class GenericMocker {
   static mockInteger(from?: number, to?: number): number {
     return casual.integer(from, to);
   }

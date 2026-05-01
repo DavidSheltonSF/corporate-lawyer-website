@@ -7,17 +7,17 @@ import { DeadlinePriority } from '../../types/DeadLinePriority';
 import { DeadlineStatus } from '../../types/DeadLineStatus';
 import { DeadlineType } from '../../types/DeadLineType';
 import { WithId } from '../../types/WithId';
-import { Mocker } from './fields/Mocker';
+import { GenericMocker } from './fields/GenericMocker';
 
 export class DeadlineMocker {
   static mockCreateDeadlineDTO(): CreateDeadlineDTO {
     return {
-      caseId: Mocker.mockMongoId().toString(),
-      lawyerId: Mocker.mockMongoId().toString(),
-      type: Mocker.mockEnum(DeadlineType),
+      caseId: GenericMocker.mockMongoId().toString(),
+      lawyerId: GenericMocker.mockMongoId().toString(),
+      type: GenericMocker.mockEnum(DeadlineType),
       intimationDate: new Date('2025-05-01').toISOString(),
-      days: Mocker.mockInteger(1, 30),
-      priority: Mocker.mockEnum(DeadlinePriority),
+      days: GenericMocker.mockInteger(1, 30),
+      priority: GenericMocker.mockEnum(DeadlinePriority),
     };
   }
 
@@ -32,44 +32,44 @@ export class DeadlineMocker {
 
   static mockDeadlineDTO(): DeadlineDTO {
     return {
-      caseId: Mocker.mockMongoId().toString(),
-      lawyerId: Mocker.mockMongoId().toString(),
-      type: Mocker.mockEnum(DeadlineType),
+      caseId: GenericMocker.mockMongoId().toString(),
+      lawyerId: GenericMocker.mockMongoId().toString(),
+      type: GenericMocker.mockEnum(DeadlineType),
       intimationDate: new Date('2025-05-01').toISOString(),
-      days: Mocker.mockInteger(1, 30),
+      days: GenericMocker.mockInteger(1, 30),
       startDate: new Date('2025-05-05').toISOString(),
       dueDate: new Date('2025-05-08').toISOString(),
-      priority: Mocker.mockEnum(DeadlinePriority),
-      status: Mocker.mockEnum(DeadlineStatus),
+      priority: GenericMocker.mockEnum(DeadlinePriority),
+      status: GenericMocker.mockEnum(DeadlineStatus),
     };
   }
 
   static mockDeadlineDTOWithId(): WithId<DeadlineDTO> {
     return {
-      id: Mocker.mockMongoId().toString(),
-      caseId: Mocker.mockMongoId().toString(),
-      lawyerId: Mocker.mockMongoId().toString(),
-      type: Mocker.mockEnum(DeadlineType),
+      id: GenericMocker.mockMongoId().toString(),
+      caseId: GenericMocker.mockMongoId().toString(),
+      lawyerId: GenericMocker.mockMongoId().toString(),
+      type: GenericMocker.mockEnum(DeadlineType),
       intimationDate: new Date('2025-05-01').toISOString(),
-      days: Mocker.mockInteger(1, 30),
+      days: GenericMocker.mockInteger(1, 30),
       startDate: new Date('2025-05-05').toISOString(),
       dueDate: new Date('2025-05-08').toISOString(),
-      priority: Mocker.mockEnum(DeadlinePriority),
-      status: Mocker.mockEnum(DeadlineStatus),
+      priority: GenericMocker.mockEnum(DeadlinePriority),
+      status: GenericMocker.mockEnum(DeadlineStatus),
     };
   }
 
   static mockDeadlineMongoPersistence(): WithMongoId<IDeadlineModel> {
     return {
-      _id: Mocker.mockMongoId(),
-      caseId: Mocker.mockMongoId(),
-      lawyerId: Mocker.mockMongoId(),
-      type: Mocker.mockEnum(DeadlineType),
+      _id: GenericMocker.mockMongoId(),
+      caseId: GenericMocker.mockMongoId(),
+      lawyerId: GenericMocker.mockMongoId(),
+      type: GenericMocker.mockEnum(DeadlineType),
       intimationDate: new Date('2025-05-01'),
-      days: Mocker.mockInteger(1, 30),
+      days: GenericMocker.mockInteger(1, 30),
       startDate: new Date('2025-05-05'),
       dueDate: new Date('2025-05-08'),
-      priority: Mocker.mockEnum(DeadlinePriority),
+      priority: GenericMocker.mockEnum(DeadlinePriority),
     };
   }
 }
