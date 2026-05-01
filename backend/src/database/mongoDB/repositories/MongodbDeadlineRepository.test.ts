@@ -7,6 +7,7 @@ import { DeadlineType } from '../../../types/DeadLineType';
 import { DeadlinePriority } from '../../../types/DeadLinePriority';
 import { mockDeadlineMongoPersistence } from '../../../tests/mocks/mockDeadlineMongoPersistence';
 import { DeadlineMocker } from '../../../tests/mocks/DeadlineMocker';
+import { DeadlineStatus } from '../../../types/DeadLineStatus';
 config();
 
 jest.setTimeout(999999);
@@ -61,53 +62,53 @@ describe('Test DeadlineRepository', () => {
     expect(createdDeadline?.priority).toEqual(deadlineData.priority);
   });
 
-  // test('should return deadlines with proper status', async () => {
-  //   const { deadlineRepository } = makeSut();
+  test('should return deadlines with proper status', async () => {
+    const { deadlineRepository } = makeSut();
 
-  //   const today = new Date();
-  //   const yesterday = new Date(today);
-  //   yesterday.setDate(yesterday.getDate() - 1);
-  //   const tomorrow = new Date(today);
-  //   tomorrow.setDate(tomorrow.getDate() + 1);
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
 
-  //   const pendingDeadlineStartDate = tomorrow;
-  //   const pendingDeadlineDueDate = new Date(tomorrow.getDate() + 5);
-  //   const pendingDeadlineDTO = DeadlineMocker.mockCreateDeadlineDTO();
-  //   pendingDeadlineDTO.intimationDate = today.toISOString();
-  //   pendingDeadlineDTO.days = 5;
+    const pendingDeadlineStartDate = tomorrow;
+    const pendingDeadlineDueDate = new Date(tomorrow.getDate() + 5);
+    const pendingDeadlineDTO = DeadlineMocker.mockCreateDeadlineDTO();
+    pendingDeadlineDTO.intimationDate = today.toISOString();
+    pendingDeadlineDTO.days = 5;
 
-  //   const openDeadlineStartDate = yesterday;
-  //   const openDeadlineDueDate = tomorrow;
-  //   const openDeadlineDTO = DeadlineMocker.mockCreateDeadlineDTO();
-  //   openDeadlineDTO.intimationDate = new Date(yesterday.getDate() - 1).toISOString();
-  //   openDeadlineDTO.days = 5;
+    const openDeadlineStartDate = yesterday;
+    const openDeadlineDueDate = tomorrow;
+    const openDeadlineDTO = DeadlineMocker.mockCreateDeadlineDTO();
+    openDeadlineDTO.intimationDate = new Date(yesterday.getDate() - 1).toISOString();
+    openDeadlineDTO.days = 5;
 
-  //   const expiredDeadlineStartDate = new Date('2026-04-01');
-  //   const expiredDeadlineDueDate = new Date('2026-04-9');
-  //   const expiredDeadlineDTO = DeadlineMocker.mockCreateDeadlineDTO();
-  //   expiredDeadlineDTO.intimationDate = new Date('2026-04-01').toISOString();
-  //   expiredDeadlineDTO.days = 5;
+    const expiredDeadlineStartDate = new Date('2026-04-01');
+    const expiredDeadlineDueDate = new Date('2026-04-9');
+    const expiredDeadlineDTO = DeadlineMocker.mockCreateDeadlineDTO();
+    expiredDeadlineDTO.intimationDate = new Date('2026-04-01').toISOString();
+    expiredDeadlineDTO.days = 5;
 
-  //   const pendingDeadline = await deadlineRepository.create(
-  //     pendingDeadlineDTO,
-  //     pendingDeadlineStartDate,
-  //     pendingDeadlineDueDate
-  //   );
-  //   const openDeadline = await deadlineRepository.create(
-  //     openDeadlineDTO,
-  //     openDeadlineStartDate,
-  //     openDeadlineDueDate
-  //   );
-  //   const expiredDeadline = await deadlineRepository.create(
-  //     expiredDeadlineDTO,
-  //     expiredDeadlineStartDate,
-  //     expiredDeadlineDueDate
-  //   );
+    const pendingDeadline = await deadlineRepository.create(
+      pendingDeadlineDTO,
+      pendingDeadlineStartDate,
+      pendingDeadlineDueDate
+    );
+    const openDeadline = await deadlineRepository.create(
+      openDeadlineDTO,
+      openDeadlineStartDate,
+      openDeadlineDueDate
+    );
+    const expiredDeadline = await deadlineRepository.create(
+      expiredDeadlineDTO,
+      expiredDeadlineStartDate,
+      expiredDeadlineDueDate
+    );
 
-  //   expect(pendingDeadline.status).toBe(DeadlineStatus.PENDENTE);
-  //   expect(openDeadline.status).toBe(DeadlineStatus.EM_ANDAMENTO);
-  //   expect(expiredDeadline.status).toBe(DeadlineStatus.VENCIDO);
-  // });
+    expect(pendingDeadline.status).toBe(DeadlineStatus.PENDENTE);
+    expect(openDeadline.status).toBe(DeadlineStatus.EM_ANDAMENTO);
+    expect(expiredDeadline.status).toBe(DeadlineStatus.VENCIDO);
+  });
 
   test('should find all deadlines', async () => {
     // I couldn't mock 'status' field properly since it is calculated using mongodb virtuals
