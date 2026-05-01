@@ -1,7 +1,6 @@
 import { CasePopulatedResponseDTO } from '../../dtos/case/CasePopulatedResponseDTO';
 import { CaseFileDTO } from '../../dtos/caseFile/CaseFileDTO';
 import { CreateCaseFileDTO } from '../../dtos/caseFile/CreateCaseFileDTO';
-import { CaseResponseDTO } from '../../dtos/case/CaseResponseDTO';
 import { CreateCaseDTO } from '../../dtos/case/CreateCaseDTO';
 import { CaseRepository } from '../../repositories/CaseRepository';
 import { CaseQuery } from '../../types/CaseQuery';
@@ -12,10 +11,11 @@ import { ICaseService } from './ICaseService';
 import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO';
 import { validateCase } from '../validators/cases/validateCase';
 import { DuplicateUniqueFieldError } from '../../errors/domain/DuplicateUniqueFieldError';
+import { CaseDTO } from '../../dtos/case/CaseDTO';
 
 export class CaseService implements ICaseService {
   constructor(private caseRepository: CaseRepository) {}
-  async create(data: CreateCaseDTO): Promise<WithId<CaseResponseDTO>> {
+  async create(data: CreateCaseDTO): Promise<WithId<CaseDTO>> {
     try {
       validateCase(data);
       return await this.caseRepository.create(data);
@@ -28,7 +28,7 @@ export class CaseService implements ICaseService {
     }
   }
 
-  async updateById(id: string, data: UpdateCaseDTO): Promise<WithId<CaseResponseDTO> | null> {
+  async updateById(id: string, data: UpdateCaseDTO): Promise<WithId<CaseDTO> | null> {
     try {
       return await this.caseRepository.updateById(id, data);
     } catch (error: any) {
@@ -57,7 +57,7 @@ export class CaseService implements ICaseService {
   async findById(
     id: string,
     populate?: boolean
-  ): Promise<WithId<CaseResponseDTO | CasePopulatedResponseDTO> | null> {
+  ): Promise<WithId<CaseDTO | CasePopulatedResponseDTO> | null> {
     try {
       const findPromise = populate
         ? this.caseRepository.findPopulatedById(id)

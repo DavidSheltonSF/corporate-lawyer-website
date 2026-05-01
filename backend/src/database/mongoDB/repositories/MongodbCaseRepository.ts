@@ -13,10 +13,10 @@ import { CreateCaseFileDTO } from '../../../dtos/caseFile/CreateCaseFileDTO';
 import { CaseFileDTO } from '../../../dtos/caseFile/CaseFileDTO';
 import { CaseFileMapper } from '../../../mappers/CaseFile/CaseFileMapper';
 import { UpdateCaseDTO } from '../../../dtos/case/UpdateCaseDTO';
-import { CaseResponseDTO } from '../../../dtos/case/CaseResponseDTO';
+import { CaseDTO } from '../../../dtos/case/CaseDTO';
 
 export class MongodbCaseRepository implements CaseRepository {
-  async create(data: CreateCaseDTO): Promise<WithId<CaseResponseDTO>> {
+  async create(data: CreateCaseDTO): Promise<WithId<CaseDTO>> {
     const client = new Types.ObjectId(data.client);
     const lawyers = data.lawyers.map((lawyer) => new Types.ObjectId(lawyer));
 
@@ -35,7 +35,7 @@ export class MongodbCaseRepository implements CaseRepository {
     return CaseMapper.persistenceToPresentation(cas);
   }
 
-  async updateById(id: string, data: UpdateCaseDTO): Promise<WithId<CaseResponseDTO> | null> {
+  async updateById(id: string, data: UpdateCaseDTO): Promise<WithId<CaseDTO> | null> {
     const cas = await CaseModel.findByIdAndUpdate(id, data, { returnDocument: 'after' });
     if (!cas) return null;
     return CaseMapper.persistenceToPresentation(cas);
@@ -154,7 +154,7 @@ export class MongodbCaseRepository implements CaseRepository {
     };
   }
 
-  async findById(id: string): Promise<WithId<CaseResponseDTO> | null> {
+  async findById(id: string): Promise<WithId<CaseDTO> | null> {
     const query = CaseModel.findById(id);
 
     const foundCase = await query.lean();

@@ -1,5 +1,5 @@
+import { CaseDTO } from '../../dtos/case/CaseDTO';
 import { CasePopulatedResponseDTO } from '../../dtos/case/CasePopulatedResponseDTO';
-import { CaseResponseDTO } from '../../dtos/case/CaseResponseDTO';
 import { Case } from '../../entities/Case';
 import { WithId } from '../../types/WithId';
 import { CaseFileMapper } from '../CaseFile/CaseFileMapper';
@@ -32,7 +32,7 @@ export class CaseMapper {
     };
   }
 
-  static persistenceToPresentation(cas: any): WithId<CaseResponseDTO> {
+  static persistenceToPresentation(cas: any): WithId<CaseDTO> {
     const { title, processNumber, court, courtDivision, status, description, location } = cas;
 
     const lawyers = cas.lawyers.map((lawyer: any) => lawyer.toString());

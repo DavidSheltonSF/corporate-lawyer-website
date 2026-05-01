@@ -1,4 +1,4 @@
-import { CaseResponseDTO } from '../../dtos/case/CaseResponseDTO';
+import { CaseDTO } from '../../dtos/case/CaseDTO';
 import { UserResponseDTO } from '../../dtos/user/UserResponseDTO';
 import { Page } from '../../types/Page';
 import { WithId } from '../../types/WithId';
@@ -9,7 +9,7 @@ export type FindAllResponse = HttpResponse<WithId<UserResponseDTO>[]>;
 export type FindClientsResponse = HttpResponse<Page<WithId<UserResponseDTO>> | null>;
 export type FindByIdResponse = HttpResponse<WithId<UserResponseDTO> | null>;
 export type FindClientByIdResponse = HttpResponse<
-  (WithId<UserResponseDTO> & { cases: CaseResponseDTO[] }) | null
+  (WithId<UserResponseDTO> & { cases: CaseDTO[] }) | null
 >;
 export type UpdateByIdResponse = HttpResponse<WithId<UserResponseDTO> | null>;
 export type DeleteByIdResponse = HttpResponse<WithId<UserResponseDTO> | null>;
