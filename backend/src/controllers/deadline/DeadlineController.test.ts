@@ -1,33 +1,24 @@
-import { Types } from 'mongoose';
 import { DeadlineService } from '../../services/deadline/DeadlineService';
 import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
 import { createMockDeadlineRepository } from '../../tests/mocks/repositories/createMockDeadlineRepository';
 import { HttpStatusCode } from '../types/HttpStatusCode';
 import { DeadlineController } from './DeadlineController';
-import { DeadlineType } from '../../types/DeadLineType';
-import { DeadlineStatus } from '../../types/DeadLineStatus';
-import { DeadlinePriority } from '../../types/DeadLinePriority';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
 import { UserService } from '../../services/user/UserService';
 import { UserRole } from '../../types/UserRole';
 import { BrazilHolidaysProvider } from '../../services/BrazilHolidaysProvider';
-import { mockCreateDeadlineDTO } from '../../tests/mocks/deadline/mockCreateDeadlineDTO';
 import { mockUpateDeadlineDTO } from '../../tests/mocks/deadline/mockUpdateDeadlineDTO';
+import { DeadlineMocker } from '../../tests/mocks/DeadlineMocker';
+import { UserMocker } from '../../tests/mocks/UserMocker';
 
 describe(`Test ${DeadlineController.name}`, () => {
   function makeSut() {
     const deadlineRepository = createMockDeadlineRepository();
     const caseRepository = createMockCaseRepository();
     const userRepository = createMockUserRepository();
-    userRepository.findById = jest.fn().mockResolvedValue({
-      _id: 'dfsfsdfasfdsfadf',
-      firstName: 'Carla',
-      lastName: 'Medeiros',
-      email: 'carla@email.com',
-      cpf: '12555877744',
-      password: 'Carla#456',
-      role: UserRole.lawyer,
-    });
+    const lawyerData = UserMocker.mockUserDTOWithId();
+    lawyerData.role = UserRole.lawyer
+    userRepository.findById = jest.fn().mockResolvedValue(lawyerData);
     const holidaysProvider = new BrazilHolidaysProvider();
 
     const userService = new UserService(userRepository, caseRepository);
@@ -50,7 +41,7 @@ describe(`Test ${DeadlineController.name}`, () => {
   test('should retun CREATED (201) and call DeadlineRepository.create', async () => {
     const { deadlineController, deadlineRepository } = makeSut();
 
-    const deadlineData = mockCreateDeadlineDTO();
+    const deadlineData = DeadlineMocker.mockCreateDeadlineDTO();
     const httpRequest = {
       user: {
         id: 'dsfdfa',
@@ -99,7 +90,7 @@ describe(`Test ${DeadlineController.name}`, () => {
 
     const deadlineId = 'dfsadfggsfasga';
 
-    const deadlineData = mockUpateDeadlineDTO();
+    const deadlineData = DeadlineMocker.mockUpateDeadlineDTO();
 
     const httpRequest = {
       user: {
