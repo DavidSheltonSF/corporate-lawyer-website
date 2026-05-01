@@ -3,6 +3,7 @@ import { CreateDeadlineDTO } from '../../../dtos/deadLine/CreateDeadlineDTO';
 import { DeadlineDTO } from '../../../dtos/deadLine/DeadlineDTO';
 import { UpdateDeadlineDTO } from '../../../dtos/deadLine/UpdateDeadlineDTO';
 import { IDeadlineModel } from '../../../models/DeadlineModel';
+import { DeadlineCountingType } from '../../../types/DeadlineCountingType';
 import { DeadlinePriority } from '../../../types/DeadLinePriority';
 import { DeadlineStatus } from '../../../types/DeadLineStatus';
 import { DeadlineType } from '../../../types/DeadLineType';
@@ -17,6 +18,7 @@ export class DeadlineMocker {
       type: GenericMocker.mockEnum(DeadlineType),
       intimationDate: new Date('2025-05-01').toISOString(),
       days: GenericMocker.mockInteger(1, 30),
+      countingType: GenericMocker.mockEnum(DeadlineCountingType),
       priority: GenericMocker.mockEnum(DeadlinePriority),
     };
   }
@@ -26,6 +28,7 @@ export class DeadlineMocker {
       type: DeadlineType.CONTESTACAO,
       intimationDate: new Date().toISOString(),
       days: 5,
+      countingType: GenericMocker.mockEnum(DeadlineCountingType),
       priority: DeadlinePriority.ALTA,
     };
   }
@@ -37,6 +40,7 @@ export class DeadlineMocker {
       type: GenericMocker.mockEnum(DeadlineType),
       intimationDate: new Date('2025-05-01').toISOString(),
       days: GenericMocker.mockInteger(1, 30),
+      countingType: GenericMocker.mockEnum(DeadlineCountingType),
       startDate: new Date('2025-05-05').toISOString(),
       dueDate: new Date('2025-05-08').toISOString(),
       priority: GenericMocker.mockEnum(DeadlinePriority),
@@ -52,6 +56,7 @@ export class DeadlineMocker {
       type: GenericMocker.mockEnum(DeadlineType),
       intimationDate: new Date('2025-05-01').toISOString(),
       days: GenericMocker.mockInteger(1, 30),
+      countingType: GenericMocker.mockEnum(DeadlineCountingType),
       startDate: new Date('2025-05-05').toISOString(),
       dueDate: new Date('2025-05-08').toISOString(),
       priority: GenericMocker.mockEnum(DeadlinePriority),
@@ -67,6 +72,7 @@ export class DeadlineMocker {
       type: GenericMocker.mockEnum(DeadlineType),
       intimationDate: new Date('2025-05-01'),
       days: GenericMocker.mockInteger(1, 30),
+      countingType: GenericMocker.mockEnum(DeadlineCountingType),
       startDate: new Date('2025-05-05'),
       dueDate: new Date('2025-05-08'),
       priority: GenericMocker.mockEnum(DeadlinePriority),
