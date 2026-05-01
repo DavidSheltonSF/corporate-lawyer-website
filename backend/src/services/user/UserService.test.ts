@@ -3,7 +3,7 @@ import { InvalidEmailError } from '../../errors/domain/InvalidEmailError';
 import { InvalidNameError } from '../../errors/domain/InvalidNameError';
 import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
-import { mockCreateClientDTO } from '../../tests/mocks/user/mockCreateClientDTO';
+import { UserMocker } from '../../tests/mocks/UserMocker';
 import { UserService } from './UserService';
 
 describe(`Test ${UserService.name}`, () => {
@@ -20,21 +20,21 @@ describe(`Test ${UserService.name}`, () => {
 
   test('should call UserRepository.create', async () => {
     const { userService, userRepository } = makeSut();
-    const createClientDTO = mockCreateClientDTO();
+    const createClientDTO = UserMocker.mockCreateClientDTO();
     await userService.createClient(createClientDTO);
     expect(userRepository.create).toHaveBeenCalled();
   });
 
   test('should thow InvalidNameError if firstName or lastName provided is invalid', async () => {
     const { userService } = makeSut();
-    const createClientDTO = mockCreateClientDTO();
+    const createClientDTO = UserMocker.mockCreateClientDTO();
     createClientDTO.lastName = 'Faria2461';
     await expect(userService.createClient(createClientDTO)).rejects.toThrow(InvalidNameError);
   });
 
   test('should throw EntityAlreadyExistsError if the user already exists', async () => {
     const { userService, userRepository } = makeSut();
-    const createClientDTO = mockCreateClientDTO();
+    const createClientDTO = UserMocker.mockCreateClientDTO();
     userRepository.existsByEmail = jest.fn().mockResolvedValue(true);
     await expect(userService.createClient(createClientDTO)).rejects.toThrow(
       EntityAlreadyExistsError
