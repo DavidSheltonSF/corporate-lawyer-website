@@ -43,7 +43,7 @@ export class DeadlineCalculator {
   getStartDate(date: Date): Date {
     const { countingType } = this.config;
     if (countingType === DeadlineCountingType.DIAS_CORRIDOS) {
-      const startDate = date;
+      const startDate = new Date(date);
       startDate.setDate(startDate.getDate() + 1);
       return startDate;
     }
@@ -64,4 +64,5 @@ export class DeadlineCalculator {
 
     return current;
   }
+
 }
