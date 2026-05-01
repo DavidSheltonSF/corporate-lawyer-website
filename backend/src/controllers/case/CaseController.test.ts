@@ -1,7 +1,7 @@
 import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO';
 import { CaseService } from '../../services/case/CaseService';
 import { UserService } from '../../services/user/UserService';
-import { mockCreateCaseDTO } from '../../tests/mocks/case/mockCreateCaseDTO';
+import { CaseMocker } from '../../tests/mocks/CaseMoker';
 import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
 import { UserMocker } from '../../tests/mocks/UserMocker';
@@ -49,7 +49,7 @@ describe(`Test ${CaseController.name}`, () => {
   test('should call CaseRepository.create and return 201', async () => {
     const { caseController, caseRepository, userRepository, httpRequest } = makeSut();
 
-    const createCaseDTO = mockCreateCaseDTO();
+    const createCaseDTO = CaseMocker.mockCreateCaseDTO();
 
     httpRequest.body = createCaseDTO;
 
