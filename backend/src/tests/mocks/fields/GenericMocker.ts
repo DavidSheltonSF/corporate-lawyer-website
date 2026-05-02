@@ -13,4 +13,8 @@ export class GenericMocker {
   static mockMongoId(): Types.ObjectId {
     return Types.ObjectId.createFromTime(this.mockInteger());
   }
+
+  static mockBoolean(): boolean {
+    return casual.random_element([true, false]);
+  }
 }
