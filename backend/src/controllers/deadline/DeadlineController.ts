@@ -4,10 +4,7 @@ import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFa
 import { HttpRequest } from '../types/HttpRequest';
 import { NotFoundError } from '../../errors/presentation/NotFoundError';
 import { IUserService } from '../../services/user/IUserService';
-import { UserRole } from '../../types/UserRole';
-import { ForbiddenError } from '../../errors/presentation/ForbiddenError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
-import { getAuthenticatedUser } from '../helpers/getAuthenticatedUser';
 import { requireAutheticatedLawyer } from '../helpers/requireAutheticatedLawyer';
 
 export class DeadlineController implements Partial<IDeadlineController> {
