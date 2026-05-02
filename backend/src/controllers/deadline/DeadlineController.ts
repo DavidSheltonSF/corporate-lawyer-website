@@ -21,7 +21,7 @@ export class DeadlineController implements Partial<IDeadlineController> {
       throw new BadRequestError('Missing request body');
     }
 
-    const { caseId, lawyerId, type, priority, intimationDate, days } = body;
+    const { caseId, lawyerId, type, priority, intimationDate, days, countingType } = body;
 
     const response = await this.deadlineService.create({
       caseId,
@@ -30,6 +30,7 @@ export class DeadlineController implements Partial<IDeadlineController> {
       priority,
       intimationDate,
       days,
+      countingType,
     });
 
     return HttpResponseFactory.makeCreated(response);
