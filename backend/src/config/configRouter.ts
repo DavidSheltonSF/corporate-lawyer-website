@@ -6,6 +6,7 @@ import { casesRoutes } from '../routes/casesRoutes';
 import { usersRoutes } from '../routes/usersRoutes';
 import { makeUserController } from '../factories/controllers/makeUserController';
 import { expressHttpAdapter } from '../routes/adapters/expressHttpAdapter';
+import { loginLimiter } from '../middlewares/loginLimiter';
 
 export function configRouter(app: Application) {
   const authController = makeAuthController();
@@ -14,7 +15,7 @@ export function configRouter(app: Application) {
 
   const router = Router();
   router.get('/api/me', requireAuth, expressHttpAdapter(authController.getMe));
-  router.post('/api/auth', expressHttpAdapter(authController.auth));
+  router.post('/api/auth', loginLimiter, expressHttpAdapter(authController.auth));
   casesRoutes(router, caseController);
   usersRoutes(router, userController);
 
