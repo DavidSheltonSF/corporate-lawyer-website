@@ -1,4 +1,3 @@
-import { NotificationeMapper } from '../../../mappers/notification/NotificationMapper';
 import { NotificationModel } from '../../../models/NotificationModel';
 import { NotificationMoker } from '../../../tests/mocks/entities/NotificationMocker';
 import { GenericMocker } from '../../../tests/mocks/fields/GenericMocker';
