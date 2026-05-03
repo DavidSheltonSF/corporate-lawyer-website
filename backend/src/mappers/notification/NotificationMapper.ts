@@ -14,7 +14,7 @@ export class NotificationeMapper {
       channels,
       isRead,
       createdAt: createdAt.toISOString(),
-      readAt: readAt.toISOString(),
+      readAt: readAt?.toISOString() || null,
     };
   }
 }
