@@ -1,7 +1,10 @@
 import { fakeUserDatabase } from './users';
 import { CasesStatus } from '../../types/CasesStatus';
+import { ICaseModel } from '../../models/CaseModel';
+import { BrazilState } from '../../types/BrazilState';
+import { City } from '../../types/City';
 
-export const fakeCases = [
+export const fakeCases: ICaseModel[] = [
   {
     client: fakeUserDatabase[3]!._id,
     lawyers: [fakeUserDatabase[0]!._id, fakeUserDatabase[1]!._id],
@@ -12,6 +15,14 @@ export const fakeCases = [
     court: 'STJ',
     courtDivision: '5ª Vara Cívil',
     status: CasesStatus.open,
+    hearings: [],
+    files: [],
+    location: {
+      state: BrazilState.RIO_DE_JANEIRO,
+      city: City.BELFORD_ROXO,
+    },
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     client: fakeUserDatabase[3]!._id,
@@ -23,6 +34,14 @@ export const fakeCases = [
     court: 'TJ-RJ',
     courtDivision: '7ª Vara de Registros Públicos',
     status: CasesStatus.open,
+    hearings: [],
+    files: [],
+    location: {
+      state: BrazilState.RIO_DE_JANEIRO,
+      city: City.BELFORD_ROXO,
+    },
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     client: fakeUserDatabase[3]!._id,
@@ -34,6 +53,14 @@ export const fakeCases = [
     court: 'TJ-SP',
     courtDivision: '2ª Vara Cível',
     status: CasesStatus.closed,
+    hearings: [],
+    files: [],
+    location: {
+      state: BrazilState.RIO_DE_JANEIRO,
+      city: City.BELFORD_ROXO,
+    },
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     client: fakeUserDatabase[3]!._id,
@@ -45,6 +72,14 @@ export const fakeCases = [
     court: 'TJ-SP',
     courtDivision: '14ª Vara Cível',
     status: CasesStatus.open,
+    hearings: [],
+    files: [],
+    location: {
+      state: BrazilState.RIO_DE_JANEIRO,
+      city: City.BELFORD_ROXO,
+    },
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     client: fakeUserDatabase[3]!._id,
@@ -55,6 +90,14 @@ export const fakeCases = [
     court: 'TJ-SP',
     courtDivision: '14ª Vara Cível',
     status: CasesStatus.closed,
+    hearings: [],
+    files: [],
+    location: {
+      state: BrazilState.RIO_DE_JANEIRO,
+      city: City.BELFORD_ROXO,
+    },
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     client: fakeUserDatabase[2]!._id,
@@ -65,6 +108,14 @@ export const fakeCases = [
     court: 'TJ-SP',
     courtDivision: '14ª Vara Cível',
     status: CasesStatus.open,
+    hearings: [],
+    files: [],
+    location: {
+      state: BrazilState.RIO_DE_JANEIRO,
+      city: City.BELFORD_ROXO,
+    },
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     client: fakeUserDatabase[2]!._id,
@@ -75,6 +126,14 @@ export const fakeCases = [
     court: 'TJ-SP',
     courtDivision: '14ª Vara Cível',
     status: CasesStatus.closed,
+    hearings: [],
+    files: [],
+    location: {
+      state: BrazilState.RIO_DE_JANEIRO,
+      city: City.BELFORD_ROXO,
+    },
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     client: fakeUserDatabase[4]!._id,
@@ -86,6 +145,14 @@ export const fakeCases = [
     court: 'TJ-MG',
     courtDivision: '3ª Vara Cível',
     status: CasesStatus.open,
+    hearings: [],
+    files: [],
+    location: {
+      state: BrazilState.RIO_DE_JANEIRO,
+      city: City.BELFORD_ROXO,
+    },
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     client: fakeUserDatabase[5]!._id,
@@ -97,6 +164,14 @@ export const fakeCases = [
     court: 'TJ-SP',
     courtDivision: '10ª Vara Cível',
     status: CasesStatus.closed,
+    hearings: [],
+    files: [],
+    location: {
+      state: BrazilState.RIO_DE_JANEIRO,
+      city: City.BELFORD_ROXO,
+    },
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     client: fakeUserDatabase[6]!._id,
@@ -107,6 +182,14 @@ export const fakeCases = [
     court: 'TJ-RJ',
     courtDivision: '1ª Vara de Família',
     status: CasesStatus.open,
+    hearings: [],
+    files: [],
+    location: {
+      state: BrazilState.RIO_DE_JANEIRO,
+      city: City.BELFORD_ROXO,
+    },
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     client: fakeUserDatabase[7]!._id,
@@ -118,6 +201,14 @@ export const fakeCases = [
     court: 'TJ-MG',
     courtDivision: '2ª Vara de Órfãos e Sucessões',
     status: CasesStatus.closed,
+    hearings: [],
+    files: [],
+    location: {
+      state: BrazilState.RIO_DE_JANEIRO,
+      city: City.BELFORD_ROXO,
+    },
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     client: fakeUserDatabase[8]!._id,
@@ -128,6 +219,14 @@ export const fakeCases = [
     court: 'TJ-SP',
     courtDivision: '5ª Vara de Família',
     status: CasesStatus.open,
+    hearings: [],
+    files: [],
+    location: {
+      state: BrazilState.RIO_DE_JANEIRO,
+      city: City.BELFORD_ROXO,
+    },
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     client: fakeUserDatabase[9]!._id,
@@ -139,6 +238,14 @@ export const fakeCases = [
     court: 'TJ-RJ',
     courtDivision: '6ª Vara Cível',
     status: CasesStatus.closed,
+    hearings: [],
+    files: [],
+    location: {
+      state: BrazilState.RIO_DE_JANEIRO,
+      city: City.BELFORD_ROXO,
+    },
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     client: fakeUserDatabase[10]!._id,
@@ -150,6 +257,14 @@ export const fakeCases = [
     court: 'TJ-SP',
     courtDivision: '8ª Vara de Família',
     status: CasesStatus.open,
+    hearings: [],
+    files: [],
+    location: {
+      state: BrazilState.RIO_DE_JANEIRO,
+      city: City.BELFORD_ROXO,
+    },
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     client: fakeUserDatabase[11]!._id,
@@ -161,5 +276,13 @@ export const fakeCases = [
     court: 'TJ-MG',
     courtDivision: '4ª Vara Cível',
     status: CasesStatus.closed,
+    hearings: [],
+    files: [],
+    location: {
+      state: BrazilState.RIO_DE_JANEIRO,
+      city: City.BELFORD_ROXO,
+    },
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
 ];
