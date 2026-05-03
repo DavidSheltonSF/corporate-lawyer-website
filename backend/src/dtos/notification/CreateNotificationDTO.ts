@@ -4,7 +4,5 @@ export interface CreateNotificationDTO {
   channels: string[];
   title: string;
   message: string;
-  isRead: boolean;
-  readAt: string;
   metadata?: Record<string, any> | undefined;
 }
