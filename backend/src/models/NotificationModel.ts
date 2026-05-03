@@ -8,9 +8,9 @@ export interface INotificationModel {
   channel: NotificationChannel[];
   title: string;
   message: string;
-  isRead: boolean;
+  isRead?: boolean;
   createdAt: Date;
-  readAt: Date;
+  readAt?: Date;
   metadata?: Record<string, any> | undefined;
 }
 
@@ -24,7 +24,7 @@ const NotificationSchema = new Schema<NotificationMongoDocument>(
     title: { type: String, required: true },
     message: { type: String, required: true },
     isRead: { type: Boolean, default: false },
-    readAt: { type: Date, required: true },
+    readAt: { type: Date },
     metadata: { type: Schema.Types.Mixed },
   },
   {
