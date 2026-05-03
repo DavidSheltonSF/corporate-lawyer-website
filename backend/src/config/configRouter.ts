@@ -1,12 +1,11 @@
 import { Application, Router } from 'express';
-import { requireAuth } from '../middlewares/requireAuth';
 import { makeAuthController } from '../factories/controllers/makeAuthController';
 import { makeCaseController } from '../factories/controllers/makeCaseController';
 import { casesRoutes } from '../routes/casesRoutes';
 import { usersRoutes } from '../routes/usersRoutes';
 import { makeUserController } from '../factories/controllers/makeUserController';
-import { expressHttpAdapter } from '../routes/adapters/expressHttpAdapter';
-import { loginLimiter } from '../middlewares/loginLimiter';
+import { testRoutes } from '../routes/testRoutes';
+import { authRoutes } from '../routes/authRoutes';
 
 export function configRouter(app: Application) {
   const authController = makeAuthController();
@@ -14,10 +13,10 @@ export function configRouter(app: Application) {
   const userController = makeUserController();
 
   const router = Router();
-  router.get('/api/me', requireAuth, expressHttpAdapter(authController.getMe));
-  router.post('/api/auth', loginLimiter, expressHttpAdapter(authController.auth));
+  authRoutes(router, authController);
   casesRoutes(router, caseController);
   usersRoutes(router, userController);
+  testRoutes(router);
 
   app.use(router);
 }
