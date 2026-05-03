@@ -3,7 +3,7 @@ import { WithId } from '../../types/WithId';
 
 export class NotificationeMapper {
   static persistenceToPresentation(notification: any): WithId<NotificationDTO> {
-    const { _id, userId, title, message, type, channel, isRead, createdAt, readAt } = notification;
+    const { _id, userId, title, message, type, channels, isRead, createdAt, readAt } = notification;
 
     return {
       id: _id.toString(),
@@ -11,7 +11,7 @@ export class NotificationeMapper {
       title,
       message,
       type,
-      channel,
+      channels,
       isRead,
       createdAt: createdAt.toISOString(),
       readAt: readAt.toISOString(),

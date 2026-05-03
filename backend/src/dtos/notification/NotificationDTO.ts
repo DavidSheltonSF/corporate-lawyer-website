@@ -1,7 +1,7 @@
 export interface NotificationDTO {
   userId: string;
   type: string;
-  channel: string[];
+  channels: string[];
   title: string;
   message: string;
   isRead: boolean;
