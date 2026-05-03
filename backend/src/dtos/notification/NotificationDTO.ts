@@ -6,6 +6,6 @@ export interface NotificationDTO {
   message: string;
   isRead: boolean;
   createdAt: string;
-  readAt: string;
+  readAt: string | null;
   metadata?: Record<string, any> | undefined;
 }
