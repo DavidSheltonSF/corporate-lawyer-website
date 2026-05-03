@@ -1,5 +1,5 @@
 import { NotificationModel } from '../../../models/NotificationModel';
-import { NotificationMoker } from '../../../tests/mocks/entities/NotificationMocker';
+import { NotificationMocker } from '../../../tests/mocks/entities/NotificationMocker';
 import { GenericMocker } from '../../../tests/mocks/fields/GenericMocker';
 import { MongodbTestConnector } from '../MongodbTestConnector';
 import { MongodbNotificationRepository } from './MongodbNotificationRepository';
@@ -29,14 +29,14 @@ describe(`Testing ${MongodbNotificationRepository.name}`, () => {
 
   test('should crate a notification', async () => {
     const { notificationRepository } = makeSut();
-    const notificationDTO = NotificationMoker.mockCreateNotificationDTO();
+    const notificationDTO = NotificationMocker.mockCreateNotificationDTO();
     const result = await notificationRepository.create(notificationDTO);
     expect(result).toMatchObject(notificationDTO);
   });
 
   test('should find a notification by id', async () => {
     const { notificationRepository } = makeSut();
-    const notificationDTO = NotificationMoker.mockCreateNotificationDTO();
+    const notificationDTO = NotificationMocker.mockCreateNotificationDTO();
     const notificationId = (await NotificationModel.create(notificationDTO))._id;
     const result = await notificationRepository.findById(notificationId.toString());
     expect(result).toMatchObject(notificationDTO);
@@ -44,8 +44,8 @@ describe(`Testing ${MongodbNotificationRepository.name}`, () => {
 
   test('should find all notifications', async () => {
     const { notificationRepository } = makeSut();
-    const notification1 = NotificationMoker.mockCreateNotificationDTO();
-    const notification2 = NotificationMoker.mockCreateNotificationDTO();
+    const notification1 = NotificationMocker.mockCreateNotificationDTO();
+    const notification2 = NotificationMocker.mockCreateNotificationDTO();
     await NotificationModel.create([notification1, notification2]);
     const result = await notificationRepository.findAll();
     expect(result).toContainEqual(expect.objectContaining(notification1));
@@ -55,9 +55,9 @@ describe(`Testing ${MongodbNotificationRepository.name}`, () => {
   test('should find a notifications by user id', async () => {
     const { notificationRepository } = makeSut();
     const userId = GenericMocker.mockMongoId().toString();
-    const notification1 = NotificationMoker.mockCreateNotificationDTO();
-    const notification2 = NotificationMoker.mockCreateNotificationDTO();
-    const notification3 = NotificationMoker.mockCreateNotificationDTO();
+    const notification1 = NotificationMocker.mockCreateNotificationDTO();
+    const notification2 = NotificationMocker.mockCreateNotificationDTO();
+    const notification3 = NotificationMocker.mockCreateNotificationDTO();
 
     notification1.userId = userId;
     notification3.userId = userId;

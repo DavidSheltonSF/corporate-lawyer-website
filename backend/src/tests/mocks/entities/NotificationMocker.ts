@@ -6,7 +6,7 @@ import { WithId } from '../../../types/WithId';
 import { GenericMocker } from '../fields/GenericMocker';
 import { NotificationFieldsMocker } from '../fields/NotificationFieldsMoker';
 
-export class NotificationMoker {
+export class NotificationMocker {
   static mockCreateNotificationDTO(): CreateNotificationDTO {
     return {
       userId: GenericMocker.mockMongoId().toString(),
