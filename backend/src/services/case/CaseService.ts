@@ -13,12 +13,24 @@ import { validateCase } from '../validators/cases/validateCase';
 import { DuplicateUniqueFieldError } from '../../errors/domain/DuplicateUniqueFieldError';
 import { CaseDTO } from '../../dtos/case/CaseDTO';
 
+import { EventBus } from '../../events/EventBust';
+import { CASE_CREATED, CaseCreatedEvent } from '../../events/case/CaseEvents';
+
 export class CaseService implements ICaseService {
-  constructor(private caseRepository: CaseRepository) {}
+  constructor(private caseRepository: CaseRepository, private eventBus: EventBus) {}
   async create(data: CreateCaseDTO): Promise<WithId<CaseDTO>> {
     try {
       validateCase(data);
-      return await this.caseRepository.create(data);
+      const createdCase = await this.caseRepository.create(data);
+      const { id, client, lawyers, title } = createdCase;
+
+      this.eventBus.emit<CaseCreatedEvent>(CASE_CREATED, {
+        caseId: id,
+        lawyerId: lawyers[0] || '',
+        clientId: client,
+        caseTitle: title,
+      });
+      return createdCase;
     } catch (error: any) {
       if (error.code === 11000) {
         console.log(error);
