@@ -11,14 +11,12 @@ export class NotificationMocker {
     return {
       userId: GenericMocker.mockMongoId().toString(),
       type: GenericMocker.mockEnum(NotificationType),
-      channel: [
+      channels: [
         GenericMocker.mockEnum(NotificationChannel),
         GenericMocker.mockEnum(NotificationChannel),
       ],
       title: NotificationFieldsMocker.mockTitle(),
       message: NotificationFieldsMocker.mockMessage(),
-      isRead: GenericMocker.mockBoolean(),
-      readAt: new Date().toISOString(),
     };
   }
 
@@ -27,7 +25,7 @@ export class NotificationMocker {
       id: GenericMocker.mockMongoId().toString(),
       userId: GenericMocker.mockMongoId().toString(),
       type: GenericMocker.mockEnum(NotificationType),
-      channel: [
+      channels: [
         GenericMocker.mockEnum(NotificationChannel),
         GenericMocker.mockEnum(NotificationChannel),
       ],
