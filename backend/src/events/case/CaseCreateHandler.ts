@@ -35,7 +35,13 @@ export class CaseCreateHandler {
         }),
       ];
 
-      await Promise.allSettled(promises);
+      const result = await Promise.allSettled(promises);
+
+      result.forEach((result) => {
+        if (result.status === 'rejected') {
+          console.log('Notification failed', result.reason);
+        }
+      });
     });
   }
 }
