@@ -59,9 +59,15 @@ export function DropdownInputWithLabel({ id, name, label, items, itemLabel }: Pr
             value={selectedValue !== null ? itemLabel(items[selectedValue]) : '...'}
             readOnly
           />
-          <span className={`transition-[rotate] duration-300 ${!listIsOpen && 'rotate-180'}`}>
-            <ArrowDropUp height="24px" width="24px" />
-          </span>
+
+          <button
+            className="flex items-center justify-center rounded-md size-[32px] bg-white hover:brightness-90 cursor-pointer"
+            onClick={() => setListIsOpen(!listIsOpen)}
+          >
+            <span className={`transition-[rotate] duration-300 ${!listIsOpen && 'rotate-180'}`}>
+              <ArrowDropUp height="24px" width="24px" />
+            </span>
+          </button>
         </div>
         <div
           className={`transition-[height] duration-300 absolute z-1 w-full bg-white overflow-hidden w-full top-[100%]  ${
