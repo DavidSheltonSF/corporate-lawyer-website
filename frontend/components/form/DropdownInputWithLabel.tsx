@@ -5,12 +5,20 @@ interface Props {
   id: string;
   name: string;
   label: string;
-  items: string[];
+  defaultValue?: string;
+  itemsRecord: Record<string, string>;
   itemLabel: Function;
 }
 
-export function DropdownInputWithLabel({ id, name, label, items, itemLabel }: Props) {
-  const [selectedValue, setSelectedValue] = useState<number | null>(null);
+export function DropdownInputWithLabel({
+  id,
+  name,
+  label,
+  itemsRecord,
+  itemLabel,
+  defaultValue,
+}: Props) {
+  const [selectedValue, setSelectedValue] = useState<string | null>(null);
   const [listIsOpen, setListIsOpen] = useState(false);
   const dropRef = useRef<HTMLDivElement>(null);
 
@@ -21,18 +29,23 @@ export function DropdownInputWithLabel({ id, name, label, items, itemLabel }: Pr
       }
     }
 
+    if (defaultValue) {
+      setSelectedValue(defaultValue);
+    }
+
     document.addEventListener('click', handleClickOutside);
 
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  });
+  }, [defaultValue]);
 
+  const items = Object.values(itemsRecord);
   const renderItems = items.map((item, index) => {
     return (
       <li
         onClick={() => {
-          setSelectedValue(index);
+          setSelectedValue(item);
           setListIsOpen(false);
         }}
         className="bg-white hover:brightness-80 cursor-pointer px-[8px] h-[32px]"
@@ -56,7 +69,7 @@ export function DropdownInputWithLabel({ id, name, label, items, itemLabel }: Pr
             name={name}
             className="w-full h-full"
             type="text"
-            value={selectedValue !== null ? itemLabel(items[selectedValue]) : '...'}
+            value={selectedValue !== null ? itemLabel(itemsRecord[selectedValue]) : '...'}
             readOnly
           />
 
