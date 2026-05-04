@@ -1,24 +1,24 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowDropUp } from '../icons/ArrowDropUp';
 
-interface Props {
+interface Props<T> {
   id: string;
   name: string;
   label: string;
-  defaultValue?: string;
-  itemsRecord: Record<string, string>;
+  defaultValue?: T[keyof T];
+  itemsRecord: T
   itemLabel: Function;
 }
 
-export function DropdownInputWithLabel({
+export function DropdownInputWithLabel<T extends Record<string, string>>({
   id,
   name,
   label,
   itemsRecord,
   itemLabel,
   defaultValue,
-}: Props) {
-  const [selectedValue, setSelectedValue] = useState<string | null>(null);
+}: Props<T>) {
+  const [selectedValue, setSelectedValue] = useState<T[keyof T] | null>(null);
   const [listIsOpen, setListIsOpen] = useState(false);
   const dropRef = useRef<HTMLDivElement>(null);
 
@@ -45,7 +45,7 @@ export function DropdownInputWithLabel({
     return (
       <li
         onClick={() => {
-          setSelectedValue(item);
+          setSelectedValue(item as T[keyof T]);
           setListIsOpen(false);
         }}
         className="bg-white hover:brightness-80 cursor-pointer px-[8px] h-[32px]"
