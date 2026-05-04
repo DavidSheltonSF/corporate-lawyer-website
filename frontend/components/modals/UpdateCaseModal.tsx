@@ -16,6 +16,10 @@ import { DropdownInputWithLabel } from '../form/DropdownInputWithLabel';
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { handleLogout } from '@/lib/handleLogout';
+import { BrazilState } from '@/types/BrazilState';
+import { BrazilStateLabel } from '@/lib/BrazilStateLabel';
+import { CityLabel } from '@/lib/CityLabel';
+import { City } from '@/types/City';
 
 interface Props {
   isOpen: boolean;
@@ -123,6 +127,22 @@ export function UpdateCaseModal({ loadCases, isOpen, setIsOpen, selectedCaseId }
                 label="Status"
                 items={Object.values(CaseStatusEnum)}
                 itemLabel={(item: CaseStatusEnum) => CaseStatusLabel[item]}
+              />
+            </div>
+            <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
+              <DropdownInputWithLabel
+                id="estado-input"
+                name="state"
+                label="Estado"
+                items={Object.values(BrazilState)}
+                itemLabel={(item: BrazilState) => BrazilStateLabel[item]}
+              />
+              <DropdownInputWithLabel
+                id="city-input"
+                name="city"
+                label="Cidade"
+                items={Object.values(City)}
+                itemLabel={(item: City) => CityLabel[item]}
               />
             </div>
             <div>
