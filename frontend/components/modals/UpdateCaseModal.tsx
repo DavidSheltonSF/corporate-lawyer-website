@@ -125,8 +125,9 @@ export function UpdateCaseModal({ loadCases, isOpen, setIsOpen, selectedCaseId }
                 id="status-input"
                 name="status"
                 label="Status"
-                items={Object.values(CaseStatusEnum)}
+                itemsRecord={{ ...CaseStatusEnum }}
                 itemLabel={(item: CaseStatusEnum) => CaseStatusLabel[item]}
+                defaultValue={caseData?.status}
               />
             </div>
             <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
@@ -134,15 +135,17 @@ export function UpdateCaseModal({ loadCases, isOpen, setIsOpen, selectedCaseId }
                 id="estado-input"
                 name="state"
                 label="Estado"
-                items={Object.values(BrazilState)}
+                itemsRecord={{ ...BrazilState }}
                 itemLabel={(item: BrazilState) => BrazilStateLabel[item]}
+                defaultValue={caseData?.location.state}
               />
               <DropdownInputWithLabel
                 id="city-input"
                 name="city"
                 label="Cidade"
-                items={Object.values(City)}
+                itemsRecord={{ ...City }}
                 itemLabel={(item: City) => CityLabel[item]}
+                defaultValue={caseData?.location.city}
               />
             </div>
             <div>

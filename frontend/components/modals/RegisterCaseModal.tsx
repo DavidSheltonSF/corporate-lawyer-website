@@ -82,7 +82,7 @@ export function RegisterCaseModal({ isOpen, setIsOpen, selectedClientId }: Props
                 id="status-input"
                 name="status"
                 label="Status"
-                items={Object.values(CaseStatusEnum)}
+                itemsRecord={{ ...CaseStatusEnum }}
                 itemLabel={(item: CaseStatusEnum) => CaseStatusLabel[item]}
               />
             </div>
@@ -91,14 +91,14 @@ export function RegisterCaseModal({ isOpen, setIsOpen, selectedClientId }: Props
                 id="estado-input"
                 name="state"
                 label="Estado"
-                items={Object.values(BrazilState)}
+                itemsRecord={{ ...BrazilState }}
                 itemLabel={(item: BrazilState) => BrazilStateLabel[item]}
               />
               <DropdownInputWithLabel
                 id="city-input"
                 name="city"
                 label="Cidade"
-                items={Object.values(City)}
+                itemsRecord={{ ...City }}
                 itemLabel={(item: City) => CityLabel[item]}
               />
             </div>
