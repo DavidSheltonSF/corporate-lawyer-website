@@ -35,7 +35,7 @@ export function DropdownInputWithLabel({ id, name, label, items, itemLabel }: Pr
           setSelectedValue(index);
           setListIsOpen(false);
         }}
-        className="bg-white hover:brightness-80 cursor-pointer px-[8px]"
+        className="bg-white hover:brightness-80 cursor-pointer px-[8px] h-[32px]"
         key={index}
       >
         {itemLabel(item)}
@@ -68,7 +68,7 @@ export function DropdownInputWithLabel({ id, name, label, items, itemLabel }: Pr
             listIsOpen && 'border py-[8px]'
           }`}
           style={{
-            height: listIsOpen ? (items.length + 1) * 36 : 0,
+            height: listIsOpen ? (items.length + 1) * 32 : 0,
           }}
         >
           <ul>
