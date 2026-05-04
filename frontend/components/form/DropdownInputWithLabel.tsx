@@ -10,7 +10,7 @@ interface Props {
 }
 
 export function DropdownInputWithLabel({ id, name, label, items, itemLabel }: Props) {
-  const [selectedValue, setSelectedValue] = useState(0);
+  const [selectedValue, setSelectedValue] = useState<number | null>(null);
   const [listIsOpen, setListIsOpen] = useState(false);
   const dropRef = useRef<HTMLDivElement>(null);
 
@@ -56,7 +56,7 @@ export function DropdownInputWithLabel({ id, name, label, items, itemLabel }: Pr
             name={name}
             className="w-full h-full"
             type="text"
-            value={itemLabel(items[selectedValue])}
+            value={selectedValue !== null ? itemLabel(items[selectedValue]) : '...'}
             readOnly
           />
           <span className={`transition-[rotate] duration-300 ${!listIsOpen && 'rotate-180'}`}>
@@ -68,10 +68,21 @@ export function DropdownInputWithLabel({ id, name, label, items, itemLabel }: Pr
             listIsOpen && 'border py-[8px]'
           }`}
           style={{
-            height: listIsOpen ? items.length * 36 : 0,
+            height: listIsOpen ? (items.length + 1) * 36 : 0,
           }}
         >
-          <ul>{renderItems}</ul>
+          <ul>
+            <li
+              onClick={() => {
+                setSelectedValue(null);
+                setListIsOpen(false);
+              }}
+              className="bg-white hover:brightness-80 cursor-pointer px-[8px]"
+            >
+              ...
+            </li>
+            {renderItems}
+          </ul>
         </div>
       </div>
     </div>
