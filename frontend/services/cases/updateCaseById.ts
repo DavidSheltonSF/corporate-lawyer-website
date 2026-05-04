@@ -4,7 +4,6 @@ import { WithId } from '@/types/WithId';
 import { mapLabelToCaseStatus } from '@/mapper/mapLabelToCaseStatus';
 import { apiFetch } from '../apiFetch';
 import { mapLabelToBrazilState } from '@/mapper/mapLabelToBrazilState';
-import { City } from '@/types/City';
 import { mapLabelToCity } from '@/mapper/mapLabelToCity';
 
 export async function updateCaseById(id: string, formData: FormData): Promise<WithId<Case>> {
@@ -14,9 +13,12 @@ export async function updateCaseById(id: string, formData: FormData): Promise<Wi
   const court = formData.get('court');
   const courtDivision = formData.get('courtDivision');
   const status = formData.get('status');
+  const state = formData.get('state');
+  const city = formData.get('city');
+  alert(status);
   const mappedStatus = mapLabelToCaseStatus(status?.toString() || '');
-  const mappedState = mapLabelToBrazilState(StaticRange?.toString() || '');
-  const mappedCity = mapLabelToCity(City?.toString() || '');
+  const mappedState = mapLabelToBrazilState(state?.toString() || '');
+  const mappedCity = mapLabelToCity(city?.toString() || '');
 
   const response = await apiFetch(`${API_URL}/cases/${id}`, {
     headers: {
