@@ -15,7 +15,7 @@ export async function updateCaseById(id: string, formData: FormData): Promise<Wi
   const status = formData.get('status');
   const state = formData.get('state');
   const city = formData.get('city');
-  alert(status);
+
   const mappedStatus = mapLabelToCaseStatus(status?.toString() || '');
   const mappedState = mapLabelToBrazilState(state?.toString() || '');
   const mappedCity = mapLabelToCity(city?.toString() || '');
