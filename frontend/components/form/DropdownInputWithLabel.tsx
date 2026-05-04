@@ -74,6 +74,7 @@ export function DropdownInputWithLabel({
           />
 
           <button
+            type="button"
             className="flex items-center justify-center rounded-md size-[32px] bg-white hover:brightness-90 cursor-pointer"
             onClick={() => setListIsOpen(!listIsOpen)}
           >
