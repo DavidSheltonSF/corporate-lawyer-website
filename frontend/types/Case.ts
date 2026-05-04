@@ -1,5 +1,7 @@
+import { BrazilState } from './BrazilState';
 import { CaseFile } from './CaseFile';
 import { CaseStatusEnum } from './CaseStatusEnum';
+import { City } from './City';
 import { HearingProps } from './HearingProps';
 
 export interface Case {
@@ -13,6 +15,10 @@ export interface Case {
   files: CaseFile[];
   hearings: HearingProps[];
   status: CaseStatusEnum;
+  location: {
+    state: BrazilState;
+    city: City;
+  };
   createdAt: Date;
   updatedAt: Date;
 }
