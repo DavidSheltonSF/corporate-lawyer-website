@@ -12,6 +12,8 @@ import { getCasePopulatedById } from '@/services/cases/getCasePopulatedById';
 import { WithId } from '@/types/WithId';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { handleLogout } from '@/lib/handleLogout';
+import { BrazilStateLabel } from '@/lib/BrazilStateLabel';
+import { CityLabel } from '@/lib/CityLabel';
 
 interface Props {
   selectedCaseId: string | null;
@@ -92,6 +94,8 @@ export function CaseModal({ selectedCaseId, isOpen, setIsOpen, openUploadModal }
                 <FieldValue field="status:" value={CaseStatusLabel[caseData.status]} />
                 <FieldValue field="tribunal:" value={caseData.court} />
                 <FieldValue field="vara:" value={caseData.courtDivision} />
+                <FieldValue field="estado:" value={BrazilStateLabel[caseData.location.state]} />
+                <FieldValue field="cidade:" value={CityLabel[caseData.location.city]} />
               </div>
               <div className="flex flex-col gap-[8px] border-b border-black/50 p-[16px]">
                 <h1 className="text-2xl font-bold">Resumo</h1>
