@@ -3,6 +3,8 @@ import { Case } from '@/types/Case';
 import { WithId } from '@/types/WithId';
 import { apiFetch } from '../apiFetch';
 import { mapLabelToCaseStatus } from '@/mapper/mapLabelToCaseStatus';
+import { mapLabelToBrazilState } from '@/mapper/mapLabelToBrazilState';
+import { mapLabelToCity } from '@/mapper/mapLabelToCity';
 
 export async function createCase(
   clientId: string,
@@ -15,7 +17,11 @@ export async function createCase(
   const court = formData.get('court');
   const courtDivision = formData.get('courtDivision');
   const status = formData.get('status');
+  const state = formData.get('state');
+  const city = formData.get('city');
   const mappedStatus = mapLabelToCaseStatus(status?.toString() || '');
+  const mappedState = mapLabelToBrazilState(state?.toString() || '');
+  const mappedCity = mapLabelToCity(city?.toString() || '');
 
   const response = await apiFetch(`${API_URL}/cases`, {
     headers: {
@@ -31,6 +37,10 @@ export async function createCase(
       court,
       courtDivision,
       status: mappedStatus,
+      location: {
+        state: mappedState,
+        city: mappedCity,
+      },
     }),
   });
 
