@@ -125,7 +125,7 @@ export function UpdateCaseModal({ loadCases, isOpen, setIsOpen, selectedCaseId }
                 id="status-input"
                 name="status"
                 label="Status"
-                itemsRecord={{ ...CaseStatusEnum }}
+                itemsRecord={CaseStatusEnum}
                 itemLabel={(item: CaseStatusEnum) => CaseStatusLabel[item]}
                 defaultValue={caseData?.status}
               />
@@ -135,7 +135,7 @@ export function UpdateCaseModal({ loadCases, isOpen, setIsOpen, selectedCaseId }
                 id="estado-input"
                 name="state"
                 label="Estado"
-                itemsRecord={{ ...BrazilState }}
+                itemsRecord={BrazilState}
                 itemLabel={(item: BrazilState) => BrazilStateLabel[item]}
                 defaultValue={caseData?.location.state}
               />
@@ -143,7 +143,7 @@ export function UpdateCaseModal({ loadCases, isOpen, setIsOpen, selectedCaseId }
                 id="city-input"
                 name="city"
                 label="Cidade"
-                itemsRecord={{ ...City }}
+                itemsRecord={City}
                 itemLabel={(item: City) => CityLabel[item]}
                 defaultValue={caseData?.location.city}
               />
