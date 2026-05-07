@@ -1,16 +1,38 @@
+'use client';
+
 import { formatRelativeTime } from '@/lib/formatRelativeTime';
 import { Notification } from '@/types/Notification';
 import { WithId } from '@/types/WithId';
 import { NotificationIcon } from '../icons/NotificationIcon';
+import { useState } from 'react';
+import { markNotificationAsRead } from '@/services/notifications/markNotificationAsRead';
 
 interface Props {
-  notification: WithId<Notification>;
+  notificationData: WithId<Notification>;
 }
 
-export function NotificationCard({ notification }: Props) {
-  const { title, message, createdAt } = notification;
+export function NotificationCard({ notificationData }: Props) {
+  const [notification, setNotification] = useState<WithId<Notification>>(notificationData);
+  const { title, message, createdAt, isRead } = notification;
+
+  async function handleNotificationClick(id: string) {
+    try {
+      const updatedNotification = await markNotificationAsRead(id);
+      setNotification(updatedNotification);
+    } catch (error: any) {
+      console.log(error);
+    }
+  }
+
   return (
-    <article className="flex border w-[90%] min-h-fit rounded-md p-[16px]">
+    <article
+      onClick={() => handleNotificationClick(notification.id)}
+      className={`flex border w-[90%] min-h-fit rounded-md p-[16px] shadow-lg ${
+        !isRead
+          ? 'cursor-pointer border-color-primary-light inner-shadow-soft-primary hover:-translate-y-0.5 transition-all duration-300'
+          : ''
+      }`}
+    >
       <div className="flex size-full items-center gap-[16px]">
         <div className="flex justify-center items-center size-[56px] border rounded-md">
           <NotificationIcon width="60%" height="60%" color="var(--primary-color-light)" />
