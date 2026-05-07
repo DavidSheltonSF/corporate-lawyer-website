@@ -14,9 +14,11 @@ import { NotificationCard } from './NotificationCard';
 interface Props {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  unreadCount: number;
+  setUnreadCount: Dispatch<SetStateAction<number>>;
 }
 
-export function NotificationsModal({ isOpen, setIsOpen }: Props) {
+export function NotificationsModal({ isOpen, setIsOpen, unreadCount, setUnreadCount }: Props) {
   const [requestState, setRequestState] = useState<RequestState | null>(null);
   const [notifications, setNotifications] = useState<WithId<Notification>[]>([]);
 
@@ -27,6 +29,9 @@ export function NotificationsModal({ isOpen, setIsOpen }: Props) {
         const notificationsResponse = await getMyNotifications();
         setRequestState({ status: 'ok' });
         setNotifications(notificationsResponse);
+        setUnreadCount(
+          notificationsResponse.filter((notification) => notification.isRead === false).length
+        );
       } catch (error: any) {
         console.log(error);
         if (error instanceof UnauthorizedError) {
@@ -37,10 +42,16 @@ export function NotificationsModal({ isOpen, setIsOpen }: Props) {
     }
 
     loadNotifications();
-  }, []);
+  }, [isOpen, unreadCount]);
 
   const renderNotifications = notifications.map((notification, index) => {
-    return <NotificationCard key={index} notificationData={notification} />;
+    return (
+      <NotificationCard
+        key={index}
+        notificationData={notification}
+        decreaceUnreadCount={() => setUnreadCount(unreadCount - 1)}
+      />
+    );
   });
 
   return (
@@ -53,8 +64,16 @@ export function NotificationsModal({ isOpen, setIsOpen }: Props) {
           setIsOpen(false);
         }}
       >
-        <div className="flex flex-col justify-start items-center w-full h-full gap-[24px] overflow-auto py-[24px]">
-          {renderNotifications}
+        <div className="flex flex-col justify-start w-full h-full gap-[24px] overflow-auto p-[24px]">
+          <div className="flex items-center gap-[16px]">
+            <h2>Notificações</h2>
+            <div className="flex justify-center items-center size-[32px] bg-color-primary-light rounded-md ">
+              <span className="text-color-white">{unreadCount}</span>
+            </div>
+          </div>
+          <div className="flex flex-col justify-start items-center w-full h-full gap-[24px] overflow-auto py-[24px]">
+            {renderNotifications}
+          </div>
         </div>
       </PrimaryModalWindow>
     )
