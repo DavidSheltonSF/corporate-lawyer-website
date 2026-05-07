@@ -19,15 +19,12 @@ interface Props {
 }
 
 export function NotificationsModal({ isOpen, setIsOpen, unreadCount, setUnreadCount }: Props) {
-  const [requestState, setRequestState] = useState<RequestState | null>(null);
   const [notifications, setNotifications] = useState<WithId<Notification>[]>([]);
 
   useEffect(() => {
     async function loadNotifications() {
       try {
-        setRequestState({ status: 'loading' });
         const notificationsResponse = await getMyNotifications();
-        setRequestState({ status: 'ok' });
         setNotifications(notificationsResponse);
         setUnreadCount(
           notificationsResponse.filter((notification) => notification.isRead === false).length
@@ -37,7 +34,6 @@ export function NotificationsModal({ isOpen, setIsOpen, unreadCount, setUnreadCo
         if (error instanceof UnauthorizedError) {
           handleLogout();
         }
-        setRequestState({ status: 'error', message: error.message });
       }
     }
 
