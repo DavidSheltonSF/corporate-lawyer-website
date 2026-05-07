@@ -71,7 +71,7 @@ export function NotificationsModal({ isOpen, setIsOpen, unreadCount, setUnreadCo
               <span className="text-color-white">{unreadCount}</span>
             </div>
           </div>
-          <div className="flex flex-col justify-start items-center w-full h-full gap-[24px] overflow-auto px-[24px]">
+          <div className="flex flex-col justify-start items-center w-full h-full gap-[24px] overflow-auto p-[24px]">
             {renderNotifications}
           </div>
         </div>
