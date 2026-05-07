@@ -51,6 +51,42 @@ export function testRoutes(router: Router) {
         },
         createdAt: '2026-05-09T14:15:45.789Z',
       },
+      {
+        userId: 'a3f9c1e70d4b8a2fff12ac90',
+        type: 'CASE_CREATED',
+        channel: [],
+        title: 'Processo encerrado',
+        message: 'Processo "Pedido de Abescorpus" foi encerrado com sucesso',
+        isRead: false,
+        metadata: {
+          caseId: '69fcce6790233e78aff43b71',
+        },
+        createdAt: '2026-05-09T14:15:45.789Z',
+      },
+      {
+        userId: 'a3f9c1e70d4b8a2fff12ac90',
+        type: 'CASE_CREATED',
+        channel: [],
+        title: 'Processo encerrado',
+        message: 'Processo "Pedido de Abescorpus" foi encerrado com sucesso',
+        isRead: true,
+        metadata: {
+          caseId: '69fcce6790233e78aff43b71',
+        },
+        createdAt: '2026-05-09T14:15:45.789Z',
+      },
+      {
+        userId: 'a3f9c1e70d4b8a2fff12ac90',
+        type: 'CASE_CREATED',
+        channel: [],
+        title: 'Processo encerrado',
+        message: 'Processo "Pedido de Abescorpus" foi encerrado com sucesso',
+        isRead: true,
+        metadata: {
+          caseId: '69fcce6790233e78aff43b71',
+        },
+        createdAt: '2026-05-09T14:15:45.789Z',
+      },
     ]);
     res.status(200).json({ data: response });
   });
