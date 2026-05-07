@@ -17,4 +17,8 @@ export class NotificationService implements INotificationService {
   async findByUserId(userId: string): Promise<WithId<NotificationDTO>[]> {
     return this.notificationRepository.findByUserId(userId);
   }
+
+  async markAsRead(id: string): Promise<WithId<NotificationDTO> | null> {
+    return this.notificationRepository.updateById(id, { isRead: true, readAt: new Date() });
+  }
 }
