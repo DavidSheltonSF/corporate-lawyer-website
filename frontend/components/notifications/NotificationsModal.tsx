@@ -10,6 +10,7 @@ import { NotificationIcon } from '../icons/NotificationIcon';
 import { Notification } from '@/types/Notification';
 import { formatRelativeTime } from '@/lib/formatRelativeTime';
 import { NotificationCard } from './NotificationCard';
+import { NotificationsList } from './NotificationsList';
 
 interface Props {
   isOpen: boolean;
@@ -44,16 +45,6 @@ export function NotificationsModal({ isOpen, setIsOpen, unreadCount, setUnreadCo
     return () => clearInterval(interval);
   }, [isOpen, unreadCount]);
 
-  const renderNotifications = notifications.map((notification, index) => {
-    return (
-      <NotificationCard
-        key={index}
-        notificationData={notification}
-        decreaceUnreadCount={() => setUnreadCount(unreadCount - 1)}
-      />
-    );
-  });
-
   return (
     isOpen && (
       <PrimaryModalWindow
@@ -72,7 +63,11 @@ export function NotificationsModal({ isOpen, setIsOpen, unreadCount, setUnreadCo
                 <span className="text-color-white">{unreadCount}</span>
               </div>
             </div>
-            <div className="flex flex-col gap-[24px]">{renderNotifications}</div>
+            <NotificationsList
+              notifications={notifications}
+              unreadCount={unreadCount}
+              setUnreadCount={setUnreadCount}
+            />
           </div>
         </div>
       </PrimaryModalWindow>
