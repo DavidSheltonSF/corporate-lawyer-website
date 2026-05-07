@@ -6,6 +6,7 @@ import { getMe } from '@/services/users/getMe';
 import { User } from '@/types/User';
 import { WithId } from '@/types/WithId';
 import { redirect } from 'next/navigation';
+import { Notifications } from '@/components/notifications/Notifications';
 
 export default async function ClientPage() {
   let user: WithId<User> | null = null;
@@ -27,6 +28,7 @@ export default async function ClientPage() {
       <AuthenticatedUserProvider userData={user}>
         {user.role === 'lawyer' ? <LawyerView /> : <ClientView />}
       </AuthenticatedUserProvider>
+      <Notifications />
     </div>
   );
 }
