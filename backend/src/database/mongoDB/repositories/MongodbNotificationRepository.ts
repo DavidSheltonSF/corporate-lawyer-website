@@ -1,5 +1,6 @@
 import { CreateNotificationDTO } from '../../../dtos/notification/CreateNotificationDTO';
 import { NotificationDTO } from '../../../dtos/notification/NotificationDTO';
+import { UpdateNotificationDTO } from '../../../dtos/notification/UpdateNotificationDTO';
 import { NotificationeMapper } from '../../../mappers/notification/NotificationMapper';
 import { NotificationModel } from '../../../models/NotificationModel';
 import { NotificationRepository } from '../../../repositories/NotificationRepository';
@@ -26,5 +27,21 @@ export class MongodbNotificationRepository implements Partial<NotificationReposi
       return null;
     }
     return NotificationeMapper.persistenceToPresentation(notification);
+  }
+
+  async updateById(
+    id: string,
+    data: UpdateNotificationDTO
+  ): Promise<WithId<NotificationDTO> | null> {
+    const result = await NotificationModel.findOneAndUpdate({ _id: id }, data, {
+      returnDocument: 'after',
+    });
+    if (!result) {
+      console.log(null);
+      return null;
+    }
+
+    console.log(result);
+    return NotificationeMapper.persistenceToPresentation(result);
   }
 }
