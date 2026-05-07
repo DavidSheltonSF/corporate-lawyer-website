@@ -22,10 +22,26 @@ export class NotificationController implements INotificationsController {
 
   findMy = async (httpRequest: HttpRequest) => {
     const authUser = httpRequest.user;
-    if(!authUser){
-      throw Error('User credentials were not provided, use the requireAuth middleware')
+    if (!authUser) {
+      throw Error('User credentials were not provided, use the requireAuth middleware');
     }
     const notifications = await this.notificationService.findByUserId(authUser.id);
     return HttpResponseFactory.makeOk(notifications);
+  };
+
+  markAsRead = async (httpRequest: HttpRequest) => {
+    const { id } = httpRequest.params;
+    if (!id) {
+      throw new BadRequestError('Missing id param');
+    }
+    console.log('CONTROLLER STARTS');
+    const notification = await this.notificationService.markAsRead(id);
+
+    if (!notification) {
+      throw new NotFoundError(`Notification with id '${id}' was not found`);
+    }
+    console.log('CONTROLLER ENDS');
+
+    return HttpResponseFactory.makeOk(notification);
   };
 }
