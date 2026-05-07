@@ -38,6 +38,10 @@ export function NotificationsModal({ isOpen, setIsOpen, unreadCount, setUnreadCo
     }
 
     loadNotifications();
+
+    const interval = setInterval(loadNotifications, 30000);
+
+    return () => clearInterval(interval);
   }, [isOpen, unreadCount]);
 
   const renderNotifications = notifications.map((notification, index) => {
