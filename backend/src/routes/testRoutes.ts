@@ -25,7 +25,7 @@ export function testRoutes(router: Router) {
         metadata: {
           caseId: '69fcce6790233e78aff43b71',
         },
-        createdAt: '2026-05-07T17:39:51.393Z',
+        createdAt: '2026-05-06T17:39:51.393',
       },
       {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
@@ -37,7 +37,7 @@ export function testRoutes(router: Router) {
         metadata: {
           caseId: '69fcce6790233e78aff43b71',
         },
-        createdAt: '2026-05-08T10:20:30.123Z',
+        createdAt: '2026-05-07T10:20:30.123',
       },
       {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
@@ -49,7 +49,7 @@ export function testRoutes(router: Router) {
         metadata: {
           caseId: '69fcce6790233e78aff43b71',
         },
-        createdAt: '2026-05-09T14:15:45.789Z',
+        createdAt: '2026-05-07T14:15:45.789',
       },
       {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
@@ -61,7 +61,7 @@ export function testRoutes(router: Router) {
         metadata: {
           caseId: '69fcce6790233e78aff43b71',
         },
-        createdAt: '2026-05-09T14:15:45.789Z',
+        createdAt: '2026-05-02T14:15:45.789',
       },
       {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
@@ -73,7 +73,7 @@ export function testRoutes(router: Router) {
         metadata: {
           caseId: '69fcce6790233e78aff43b71',
         },
-        createdAt: '2026-05-09T14:15:45.789Z',
+        createdAt: '2026-05-04T14:15:45.789',
       },
       {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
@@ -85,7 +85,7 @@ export function testRoutes(router: Router) {
         metadata: {
           caseId: '69fcce6790233e78aff43b71',
         },
-        createdAt: '2026-05-09T14:15:45.789Z',
+        createdAt: '2026-05-03T14:15:45.789',
       },
     ]);
     res.status(200).json({ data: response });
