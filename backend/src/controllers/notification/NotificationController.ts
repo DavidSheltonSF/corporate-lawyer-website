@@ -20,12 +20,12 @@ export class NotificationController implements INotificationsController {
     return HttpResponseFactory.makeOk(foundUser);
   };
 
-  findUserById = async (httpRequest: HttpRequest) => {
-    const { id } = httpRequest.params;
-    if (!id) {
-      throw new BadRequestError('Missing id param');
+  findMy = async (httpRequest: HttpRequest) => {
+    const authUser = httpRequest.user;
+    if(!authUser){
+      throw Error('User credentials were not provided, use the requireAuth middleware')
     }
-    const notifications = await this.notificationService.findByUserId(id);
+    const notifications = await this.notificationService.findByUserId(authUser.id);
     return HttpResponseFactory.makeOk(notifications);
   };
 }

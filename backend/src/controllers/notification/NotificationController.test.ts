@@ -1,7 +1,4 @@
-import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError';
-import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { NotificationService } from '../../services/notification/NotificationService';
-import { mockCaseRepository } from '../../tests/mocks/repositories/mockCaseRepository';
 import { mockNotificationRepository } from '../../tests/mocks/repositories/mockNotificationRepository';
 import { NotificationMocker } from '../../tests/mocks/entities/NotificationMocker';
 import { HttpRequest } from '../types/HttpRequest';
@@ -44,13 +41,13 @@ describe(`Test ${NotificationController.name}`, () => {
     expect(response.status).toBe(HttpStatusCode.ok);
   });
 
-  test('should call NotificationRepository.findByUserId with the provided ID and return OK (200)', async () => {
+  test('should call NotificationRepository.findMy with the provided ID and return OK (200)', async () => {
     const { notificationController, notificationRepository, httpRequest } = makeSut();
 
-    httpRequest.params = { id: 'gfdgfdsgsdggg' };
+    httpRequest.user = { id: 'gfdgfdsgsdggg', email: 'fake@email.com' };
 
-    const response = await notificationController.findUserById(httpRequest);
-    expect(notificationRepository.findByUserId).toHaveBeenCalledWith(httpRequest.params.id);
+    const response = await notificationController.findMy(httpRequest);
+    expect(notificationRepository.findByUserId).toHaveBeenCalledWith(httpRequest.user.id);
     expect(response.status).toBe(HttpStatusCode.ok);
   });
 });
