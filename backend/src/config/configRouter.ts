@@ -6,17 +6,20 @@ import { usersRoutes } from '../routes/usersRoutes';
 import { makeUserController } from '../factories/controllers/makeUserController';
 import { testRoutes } from '../routes/testRoutes';
 import { authRoutes } from '../routes/authRoutes';
+import { notificationsRoutes } from '../routes/notificationsRoutes';
+import { makeNotificationController } from '../factories/controllers/makeNotificationController';
 
 export function configRouter(app: Application) {
   const authController = makeAuthController();
   const caseController = makeCaseController();
   const userController = makeUserController();
+  const notificationController = makeNotificationController();
 
   const router = Router();
   authRoutes(router, authController);
   casesRoutes(router, caseController);
   usersRoutes(router, userController);
+  notificationsRoutes(router, notificationController)
   testRoutes(router);
-
   app.use(router);
 }
