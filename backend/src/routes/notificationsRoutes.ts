@@ -17,5 +17,5 @@ export function notificationsRoutes(
     requireAuth,
     expressHttpAdapter(notificationController.findMy)
   );
-  router.put('/api/notifications/:id/read', notificationController.markAsRead);
+  router.put('/api/notifications/:id/read', expressHttpAdapter(notificationController.markAsRead));
 }
