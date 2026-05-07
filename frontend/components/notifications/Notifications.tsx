@@ -6,6 +6,7 @@ import { NotificationsModal } from './NotificationsModal';
 
 export function Notifications() {
   const [isOpen, setIsOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
 
   function openModal() {
     setIsOpen(true);
@@ -13,8 +14,8 @@ export function Notifications() {
 
   return (
     <>
-      <NotificationsModal isOpen={isOpen} setIsOpen={setIsOpen} />
-      <NotificationButton openModal={openModal} />
+      <NotificationsModal isOpen={isOpen} setIsOpen={setIsOpen} setUnreadCount={setUnreadCount} unreadCount={unreadCount}  />
+      <NotificationButton openModal={openModal} unreadCount={unreadCount} />
     </>
   );
 }
