@@ -112,6 +112,11 @@ h3 {
   border-color: var(--primary-color-light);
 }
 
+/*Shadows*/
+.inner-shadow-soft-white {
+  box-shadow: inset -1px -1px 8px -1px rgba(255, 255, 255, 0.61);
+}
+
 /* Chrome... */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
