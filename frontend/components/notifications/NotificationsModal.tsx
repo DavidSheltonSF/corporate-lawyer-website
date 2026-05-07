@@ -40,7 +40,7 @@ export function NotificationsModal({ isOpen, setIsOpen }: Props) {
   }, []);
 
   const renderNotifications = notifications.map((notification, index) => {
-    return <NotificationCard key={index} notification={notification} />;
+    return <NotificationCard key={index} notificationData={notification} />;
   });
 
   return (
