@@ -1,6 +1,6 @@
 'use client';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { PrimaryModal } from './PrimaryModal';
+import { PrimaryModal } from '../ui/Modal/PrimaryModal';
 import { InputWithLabel } from '../form/InputWithLabel';
 import { Button } from '../ui/Button/Button';
 import { RequestState } from '@/types/RequestState';

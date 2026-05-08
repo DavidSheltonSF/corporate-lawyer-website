@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { PrimaryModal } from './PrimaryModal';
+import { PrimaryModal } from '../ui/Modal/PrimaryModal';
 import { uploadCaseFile } from '@/services/cases/uploadCaseFile';
 import { RequestState } from '@/types/RequestState';
 import { DropArea } from '../DropArea';

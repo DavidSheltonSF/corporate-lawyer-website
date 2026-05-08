@@ -1,6 +1,6 @@
 'use client';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { PrimaryModal } from './PrimaryModal';
+import { PrimaryModal } from '../ui/Modal/PrimaryModal';
 import { FieldValue } from '../FieldValue';
 import { CaseModalSkeleton } from './CaseModalSkeleton';
 import { SafeUser } from '@/types/SafeUser';

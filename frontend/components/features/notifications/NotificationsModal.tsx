@@ -1,6 +1,6 @@
 'use client';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { PrimaryModal } from '../../modals/PrimaryModal';
+import { PrimaryModal } from '../../ui/Modal/PrimaryModal';
 import { getMyNotifications } from '@/services/notifications/getMyNotifications';
 import { RequestState } from '@/types/RequestState';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';

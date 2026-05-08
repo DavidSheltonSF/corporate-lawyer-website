@@ -1,6 +1,6 @@
 'use case';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { PrimaryModal } from './PrimaryModal';
+import { PrimaryModal } from '../ui/Modal/PrimaryModal';
 import { Button } from '../ui/Button/Button';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../form/RequestFeedback';
