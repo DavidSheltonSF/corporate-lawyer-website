@@ -4,7 +4,7 @@ import { ProfessionalCard } from '../components/ProfessionalCard';
 import { HeroSection } from '../components/HeroSection';
 import { professionalsInfo } from '@/data/professionalsInfo';
 import { servicesDetails } from '@/data/servicesDetails';
-import { Carousel } from '../components/carousel/Carousel';
+import { Carousel } from '../components/Carousel/Carousel';
 import { DynamicSections } from '@/components/DynamicSections';
 import { DynamicSection } from '@/components/DynamicSection';
 import { LawAreaServicesModal } from '@/components/modals/LawAreaServicesModal';
