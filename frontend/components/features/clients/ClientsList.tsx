@@ -1,7 +1,7 @@
 'use client';
 import { WithId } from '@/types/WithId';
 import { Activity, useState } from 'react';
-import { CardSkeleton } from '../../CardSkeleton';
+import { CardSkeleton } from '../../ui/Card/CardSkeleton';
 import { ClientCard } from './ClientCard';
 import { SafeUser } from '@/types/SafeUser';
 import { CardOptionsModal } from '../../modals/CardOptionsModal';

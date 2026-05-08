@@ -2,7 +2,7 @@
 import { CaseCard } from './CaseCard';
 import { WithId } from '@/types/WithId';
 import { Activity, useState } from 'react';
-import { CardSkeleton } from '../../CardSkeleton';
+import { CardSkeleton } from '../../ui/Card/CardSkeleton';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { CaseModal } from '../../modals/CaseModal';
 import { CardOptionsModal } from '../../modals/CardOptionsModal';
