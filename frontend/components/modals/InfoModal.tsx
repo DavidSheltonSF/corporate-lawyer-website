@@ -6,7 +6,7 @@ interface Props {
   children: ReactNode;
 }
 
-export function SecondaryModalWindow({ closeModal, children }: Props) {
+export function InfoModal({ closeModal, children }: Props) {
   return (
     <div
       className={`flex relative flex-col size-[100%] text-color-white font-bold bg-color-black-dark p-[16px]`}
