@@ -1,5 +1,5 @@
 'use client';
-import { PrimaryModalWindow } from './PrimaryModalWindow';
+import { PrimaryModal } from './PrimaryModal';
 import { Button } from '../ui/Button/Button';
 import { Dispatch, SetStateAction } from 'react';
 
@@ -17,7 +17,7 @@ export function CardOptionsModal({ openDeleteModal, openUpdateModal, isOpen, set
 
   return (
     isOpen && (
-      <PrimaryModalWindow
+      <PrimaryModal
         additionalStyles="fixed z-99999999999 top-[15%] left-1/2 translate-x-[-50%] w-[90%] min-md:w-[400px] h-fit rounded-lg overflow-hidden shadow-[0px_0px__3px_black]"
         closeModal={() => {
           closeModal();
@@ -50,7 +50,7 @@ export function CardOptionsModal({ openDeleteModal, openUpdateModal, isOpen, set
             </Button>
           </div>
         </div>
-      </PrimaryModalWindow>
+      </PrimaryModal>
     )
   );
 }

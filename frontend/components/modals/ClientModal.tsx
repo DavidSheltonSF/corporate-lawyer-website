@@ -1,6 +1,6 @@
 'use client';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { PrimaryModalWindow } from './PrimaryModalWindow';
+import { PrimaryModal } from './PrimaryModal';
 import { FieldValue } from '../FieldValue';
 import { CaseModalSkeleton } from './CaseModalSkeleton';
 import { SafeUser } from '@/types/SafeUser';
@@ -70,7 +70,7 @@ export function ClientModal({ isOpen, setIsOpen, clientId, openRegisterCaseModal
 
   return (
     isOpen && (
-      <PrimaryModalWindow
+      <PrimaryModal
         additionalStyles={
           'fixed z-99999999999 top-[2%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[880px] h-fit rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
         }
@@ -108,7 +108,7 @@ export function ClientModal({ isOpen, setIsOpen, clientId, openRegisterCaseModal
             </main>
           </div>
         )}
-      </PrimaryModalWindow>
+      </PrimaryModal>
     )
   );
 }

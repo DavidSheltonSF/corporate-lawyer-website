@@ -1,6 +1,6 @@
 'use case';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { PrimaryModalWindow } from './PrimaryModalWindow';
+import { PrimaryModal } from './PrimaryModal';
 import { Button } from '../ui/Button/Button';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../form/RequestFeedback';
@@ -16,7 +16,7 @@ interface Props {
 export function ConfirmModal({ isOpen, setIsOpen, onConfirm, requestState, text }: Props) {
   return (
     isOpen && (
-      <PrimaryModalWindow
+      <PrimaryModal
         additionalStyles={
           'fixed z-99999999999 top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[400px] h-[240px] rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
         }
@@ -54,7 +54,7 @@ export function ConfirmModal({ isOpen, setIsOpen, onConfirm, requestState, text 
             </Button>
           </div>
         </div>
-      </PrimaryModalWindow>
+      </PrimaryModal>
     )
   );
 }

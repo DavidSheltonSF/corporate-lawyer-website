@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { PrimaryModalWindow } from './PrimaryModalWindow';
+import { PrimaryModal } from './PrimaryModal';
 import { uploadCaseFile } from '@/services/cases/uploadCaseFile';
 import { RequestState } from '@/types/RequestState';
 import { DropArea } from '../DropArea';
@@ -82,7 +82,7 @@ export function CaseFilesUploadModal({
 
   return (
     isOpen && (
-      <PrimaryModalWindow
+      <PrimaryModal
         additionalStyles="z-2 fixed top-[25%] left-1/2 translate-x-[-50%] w-[360px] h-[320px] rounded-lg overflow-hidden shadow-[0px_0px__3px_black]"
         closeModal={() => {
           closeModal();
@@ -94,7 +94,7 @@ export function CaseFilesUploadModal({
           )}
           <DropArea uploadState={uploadState} handleChange={handleChange} handleDrop={handleDrop} />
         </div>
-      </PrimaryModalWindow>
+      </PrimaryModal>
     )
   );
 }

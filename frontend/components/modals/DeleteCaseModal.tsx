@@ -1,6 +1,6 @@
 'use case';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { PrimaryModalWindow } from './PrimaryModalWindow';
+import { PrimaryModal } from './PrimaryModal';
 import { Button } from '../ui/Button/Button';
 
 import { deleteCaseById } from '@/services/users/deleteCaseById';

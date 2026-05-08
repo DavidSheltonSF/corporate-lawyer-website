@@ -1,6 +1,6 @@
 'use client';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { PrimaryModalWindow } from '../../modals/PrimaryModalWindow';
+import { PrimaryModal } from '../../modals/PrimaryModal';
 import { getMyNotifications } from '@/services/notifications/getMyNotifications';
 import { RequestState } from '@/types/RequestState';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
@@ -47,7 +47,7 @@ export function NotificationsModal({ isOpen, setIsOpen, unreadCount, setUnreadCo
 
   return (
     isOpen && (
-      <PrimaryModalWindow
+      <PrimaryModal
         additionalStyles={
           'fixed z-99999999999 top-[8%] left-1/2 translate-x-[-50%] w-[90%] min-md:w-[70%] min-lg:w-[560px] h-[82vh] min-lg:h-[65vh] rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
         }
@@ -70,7 +70,7 @@ export function NotificationsModal({ isOpen, setIsOpen, unreadCount, setUnreadCo
             />
           </div>
         </div>
-      </PrimaryModalWindow>
+      </PrimaryModal>
     )
   );
 }

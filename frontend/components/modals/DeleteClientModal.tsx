@@ -1,5 +1,5 @@
 'use client';
-import { PrimaryModalWindow } from './PrimaryModalWindow';
+import { PrimaryModal } from './PrimaryModal';
 import { Button } from '../ui/Button/Button';
 import { deleteUser } from '@/services/users/deleteUser';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
@@ -51,7 +51,7 @@ export function DeleteClientModal({ loadClients, isOpen, setIsOpen, selectedClie
 
   return (
     isOpen && (
-      <PrimaryModalWindow
+      <PrimaryModal
         additionalStyles="fixed z-99999999999 top-[15%] left-1/2 translate-x-[-50%] w-[360px] h-fit rounded-lg overflow-hidden shadow-[0px_0px__3px_black]"
         closeModal={() => {
           setConfrimInputText('');
@@ -84,7 +84,7 @@ export function DeleteClientModal({ loadClients, isOpen, setIsOpen, selectedClie
             Confirmar
           </Button>
         </div>
-      </PrimaryModalWindow>
+      </PrimaryModal>
     )
   );
 }

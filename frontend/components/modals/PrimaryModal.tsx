@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from "react";
+import { useRef } from 'react';
 
 interface Props {
   closeModal: Function;
@@ -8,21 +8,21 @@ interface Props {
   additionalStyles: string;
 }
 
-export function PrimaryModalWindow(props: Props) {
-  const { closeModal, children, additionalStyles} = props;
-  const modalRef = useRef<HTMLDivElement>(null)
+export function PrimaryModal(props: Props) {
+  const { closeModal, children, additionalStyles } = props;
+  const modalRef = useRef<HTMLDivElement>(null);
 
   function close() {
     if (!modalRef.current) return;
     modalRef.current.classList.add('fade-out-animation-fast');
     setTimeout(() => {
-      closeModal()
+      closeModal();
     }, 300);
   }
 
   return (
     <div
-    ref={modalRef}
+      ref={modalRef}
       className={`flex flex-col bg-color-primary fade-in-animation-fast ${additionalStyles}`}
     >
       <div className="flex justify-end items-center h-[56px] pr-[8px]">

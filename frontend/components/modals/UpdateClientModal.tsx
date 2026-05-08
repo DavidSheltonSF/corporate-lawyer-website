@@ -1,6 +1,6 @@
 'use client';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { PrimaryModalWindow } from './PrimaryModalWindow';
+import { PrimaryModal } from './PrimaryModal';
 import { InputWithLabel } from '../form/InputWithLabel';
 import { Button } from '../ui/Button/Button';
 import { RequestState } from '@/types/RequestState';
@@ -69,7 +69,7 @@ export function UpdateClientModal({ loadClients, isOpen, setIsOpen, selectedClie
 
   return (
     isOpen && (
-      <PrimaryModalWindow
+      <PrimaryModal
         additionalStyles={
           'fixed z-99999999999 top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[678px] h-fit rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
         }
@@ -125,7 +125,7 @@ export function UpdateClientModal({ loadClients, isOpen, setIsOpen, selectedClie
             </div>
           </form>
         </div>
-      </PrimaryModalWindow>
+      </PrimaryModal>
     )
   );
 }
