@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { NavbarItem } from './NavbarItem';
-import { NavbarMobileMenuButton } from './NavbarMobileMenuButton';
+import { NavbarMobileMenuButton } from '../NavbarMobileMenuButton';
 import { NavbarList } from './NavbarList';
 import Link from 'next/link';
 
