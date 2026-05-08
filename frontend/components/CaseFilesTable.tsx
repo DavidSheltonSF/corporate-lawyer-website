@@ -10,7 +10,7 @@ interface Props {
   documents: CaseFile[];
 }
 
-export function FilesTable({ documents }: Props) {
+export function CaseFilesTable({ documents }: Props) {
   const userContext = useAuthenticatedUserContext();
 
   if (!userContext) {
