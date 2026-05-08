@@ -1,5 +1,5 @@
-import { DynamicSections } from '../DynamicSections';
-import { DynamicSection } from '../DynamicSection';
+import { DynamicSections } from '../layout/DynamicSections/DynamicSections';
+import { DynamicSection } from '../layout/DynamicSections/DynamicSection';
 import { DashboardSection } from '../DashboardSection';
 
 import CaseSearchSection from '../CaseSearchSection';

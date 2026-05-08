@@ -5,8 +5,8 @@ import { HeroSection } from '../components/HeroSection';
 import { professionalsInfo } from '@/data/professionalsInfo';
 import { servicesDetails } from '@/data/servicesDetails';
 import { Carousel } from '../components/Carousel/Carousel';
-import { DynamicSections } from '@/components/DynamicSections';
-import { DynamicSection } from '@/components/DynamicSection';
+import { DynamicSections } from '@/components/layout/DynamicSections/DynamicSections';
+import { DynamicSection } from '@/components/layout/DynamicSections/DynamicSection';
 import { LawAreaServicesModal } from '@/components/modals/LawAreaServicesModal';
 
 export default function Home() {
@@ -41,9 +41,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex flex-col gap-[16px]">
-                <h2 className="text-color-secondary font-bold">
-                  Também somos adaptáveis
-                </h2>
+                <h2 className="text-color-secondary font-bold">Também somos adaptáveis</h2>
                 <p>
                   Além disso, somos um escritório moderno e adaptável, que utiliza tecnologias
                   inovadoras para agilizar atendimentos, acompanhar processos e oferecer suporte

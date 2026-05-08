@@ -8,6 +8,8 @@ interface Props {
   setSelectedSection: any;
 }
 
+SubNavbar.Item = SubNavbarItem;
+
 export function SubNavbar(props: Props) {
   const { itemsNames, selectedSection, setSelectedSection } = props;
 
@@ -17,7 +19,7 @@ export function SubNavbar(props: Props) {
         {itemsNames
           ? itemsNames.map((itemName, index) => {
               return (
-                <SubNavbarItem
+                <SubNavbar.Item
                   key={`subnav-item${index}`}
                   index={index}
                   label={itemName}
