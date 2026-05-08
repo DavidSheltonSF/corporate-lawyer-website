@@ -6,6 +6,9 @@ import { NavbarMobileMenuButton } from '../NavbarMobileMenuButton';
 import { NavbarList } from './NavbarList';
 import Link from 'next/link';
 
+Navbar.List = NavbarList;
+Navbar.Item = NavbarItem;
+
 export function Navbar() {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const navbarRef = useRef<HTMLDivElement>(null);
@@ -36,10 +39,10 @@ export function Navbar() {
           />
         </Link>
       </div>
-      <NavbarList menuIsOpen={menuIsOpen}>
-        <NavbarItem name="Início" link="/" />
-        <NavbarItem name="Página do Cliente" link="/clientPageLogin" />
-      </NavbarList>
+      <Navbar.List menuIsOpen={menuIsOpen}>
+        <Navbar.Item name="Início" link="/" />
+        <Navbar.Item name="Página do Cliente" link="/clientPageLogin" />
+      </Navbar.List>
       <NavbarMobileMenuButton menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen} />
     </nav>
   );
