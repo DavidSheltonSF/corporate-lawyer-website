@@ -1,10 +1,11 @@
 interface Props {
-  field:  string;
+  valueTextColor?: string;
+  field: string;
   value: string;
   gap?: string;
 }
 
-export function FieldValue({ field, value, gap="8px" }: Props) {
+export function FieldValue({ valueTextColor, field, value, gap = '8px' }: Props) {
   return (
     <span
       style={{
@@ -13,7 +14,14 @@ export function FieldValue({ field, value, gap="8px" }: Props) {
       }}
     >
       <p className="font-bold">{field}</p>
-      <p className="break-all">{value}</p>
+      <p
+        className="break-all"
+        style={{
+          color: valueTextColor,
+        }}
+      >
+        {value}
+      </p>
     </span>
   );
 }
