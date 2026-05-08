@@ -2,7 +2,7 @@
 import { CaseCard } from './CaseCard';
 import { WithId } from '@/types/WithId';
 import { Activity, useState } from 'react';
-import { CaseCardSkeleton } from '../../CaseCardSkeleton';
+import { CardSkeleton } from '../../CardSkeleton';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { CaseModal } from '../../modals/CaseModal';
 import { CardOptionsModal } from '../../modals/CardOptionsModal';
@@ -41,7 +41,7 @@ export function CasesList({ cases, loading, loadCases }: Props) {
   });
 
   const renderCaseSkeletons = Array.from({ length: 4 }).map((page, index) => {
-    return <CaseCardSkeleton key={index} />;
+    return <CardSkeleton key={index} />;
   });
 
   function openUpdateModal() {

@@ -1,7 +1,7 @@
 'use client';
 import { WithId } from '@/types/WithId';
 import { Activity, useState } from 'react';
-import { CaseCardSkeleton } from '../../CaseCardSkeleton';
+import { CardSkeleton } from '../../CardSkeleton';
 import { ClientCard } from './ClientCard';
 import { SafeUser } from '@/types/SafeUser';
 import { CardOptionsModal } from '../../modals/CardOptionsModal';
@@ -49,7 +49,7 @@ export function ClientsList({ clients, requestState, loadClients }: Props) {
   });
 
   const renderCaseSkeletons = Array.from({ length: 4 }).map((page, index) => {
-    return <CaseCardSkeleton key={index} />;
+    return <CardSkeleton key={index} />;
   });
 
   let message = '';

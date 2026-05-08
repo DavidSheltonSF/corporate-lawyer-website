@@ -1,4 +1,4 @@
-export function CaseCardSkeleton() {
+export function CardSkeleton() {
   return (
     <article className="flex flex-col animate-pulse bg-color-primary w-full min-md:w-[80%] min-lg:w-[640px] min-h-[280px] rounded-xl overflow-hidden">
       <header className="flex items-center pl-[24px] h-[56px]">
