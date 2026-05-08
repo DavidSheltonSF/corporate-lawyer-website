@@ -1,15 +1,15 @@
 'use client';
 import { WithId } from '@/types/WithId';
 import { Activity, useState } from 'react';
-import { CaseCardSkeleton } from './CaseCardSkeleton';
+import { CaseCardSkeleton } from '../../CaseCardSkeleton';
 import { ClientCard } from './ClientCard';
 import { SafeUser } from '@/types/SafeUser';
-import { CardOptionsModal } from './modals/CardOptionsModal';
+import { CardOptionsModal } from '../../modals/CardOptionsModal';
 import { RequestState } from '@/types/RequestState';
-import { DeleteClientModal } from './modals/DeleteClientModal';
-import { UpdateClientModal } from './modals/UpdateClientModal';
-import { ClientModal } from './modals/ClientModal';
-import { RegisterCaseModal } from './modals/RegisterCaseModal';
+import { DeleteClientModal } from '../../modals/DeleteClientModal';
+import { UpdateClientModal } from '../../modals/UpdateClientModal';
+import { ClientModal } from '../../modals/ClientModal';
+import { RegisterCaseModal } from '../../modals/RegisterCaseModal';
 import { UserIdentity } from '@/types/UserIdentity';
 
 interface Props {

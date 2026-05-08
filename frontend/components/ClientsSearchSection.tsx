@@ -4,7 +4,7 @@ import { SearchBar } from './SearchBar';
 import { WithId } from '@/types/WithId';
 import { Pagination } from './Pagination';
 import { CaseModal } from './modals/CaseModal';
-import { ClientsList } from './ClientsList';
+import { ClientsList } from './features/clients/ClientsList';
 import { getClients } from '@/services/users/getClients';
 import { SafeUser } from '@/types/SafeUser';
 import { RegisterUserModal } from './modals/RegisterUserModal';
