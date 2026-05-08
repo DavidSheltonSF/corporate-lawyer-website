@@ -26,12 +26,15 @@ export function CasesList({ cases, loading, loadCases }: Props) {
   const renderCases = cases?.map((cas, index) => {
     return (
       <CaseCard
+        key={index}
         openOptionsModal={() => {
           setOptionsModalIsOpen(true);
+          setSelectedCaseId(cas.id);
         }}
-        setSelectedCaseId={setSelectedCaseId}
-        openCaseModal={() => setCaseModalIsOpen(true)}
-        key={index}
+        openCaseModal={() => {
+          setCaseModalIsOpen(true);
+          setSelectedCaseId(cas.id);
+        }}
         caseData={cas}
       />
     );
