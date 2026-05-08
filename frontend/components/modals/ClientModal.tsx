@@ -4,7 +4,7 @@ import { PrimaryModalWindow } from './PrimaryModalWindow';
 import { FieldValue } from '../FieldValue';
 import { CaseModalSkeleton } from './CaseModalSkeleton';
 import { SafeUser } from '@/types/SafeUser';
-import { Button } from '../Button';
+import { Button } from '../ui/Button/Button';
 import { getClientWithCases } from '@/services/users/getClientWithCases';
 import { Case } from '@/types/Case';
 import { reduceString } from '@/lib/reduceString';

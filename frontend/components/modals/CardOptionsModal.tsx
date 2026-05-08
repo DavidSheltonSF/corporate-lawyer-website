@@ -1,6 +1,6 @@
 'use client';
 import { PrimaryModalWindow } from './PrimaryModalWindow';
-import { Button } from '../Button';
+import { Button } from '../ui/Button/Button';
 import { Dispatch, SetStateAction } from 'react';
 
 interface Props {

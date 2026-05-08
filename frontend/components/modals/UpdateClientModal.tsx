@@ -2,7 +2,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { PrimaryModalWindow } from './PrimaryModalWindow';
 import { InputWithLabel } from '../form/InputWithLabel';
-import { Button } from '../Button';
+import { Button } from '../ui/Button/Button';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../form/RequestFeedback';
 import { updateUser } from '@/services/users/updateUser';

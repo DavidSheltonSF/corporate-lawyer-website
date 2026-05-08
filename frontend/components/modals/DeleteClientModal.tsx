@@ -1,6 +1,6 @@
 'use client';
 import { PrimaryModalWindow } from './PrimaryModalWindow';
-import { Button } from '../Button';
+import { Button } from '../ui/Button/Button';
 import { deleteUser } from '@/services/users/deleteUser';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { RequestState } from '@/types/RequestState';

@@ -1,5 +1,5 @@
 'use client';
-import { Button } from './Button';
+import { Button } from './ui/Button/Button';
 
 interface Props {
   handleClick: Function;

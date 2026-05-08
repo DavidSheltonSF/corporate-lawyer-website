@@ -8,7 +8,7 @@ import { ClientsList } from './ClientsList';
 import { getClients } from '@/services/users/getClients';
 import { SafeUser } from '@/types/SafeUser';
 import { RegisterUserModal } from './modals/RegisterUserModal';
-import { Button } from './Button';
+import { Button } from './ui/Button/Button';
 import { RequestState } from '@/types/RequestState';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { handleLogout } from '@/lib/handleLogout';
