@@ -27,14 +27,19 @@ export function ClientsList({ clients, requestState, loadClients }: Props) {
   const [selectedClient, setSelectedClient] = useState<WithId<UserIdentity> | null>(null);
 
   const renderCases = clients?.map((client, index) => {
+    const clientIdentity = {
+      id: client.id,
+      firstName: client.firstName,
+      lastName: client.lastName,
+    };
     return (
       <ClientCard
-        setSelectedClient={setSelectedClient}
         openOptionsModal={() => {
           setOptionsModalIsOpen(true);
+          setSelectedClient(clientIdentity);
         }}
-        openClientModal={(client: WithId<UserIdentity>) => {
-          setSelectedClient(client);
+        openClientModal={() => {
+          setSelectedClient(clientIdentity);
           setClientModalIsOpen(true);
         }}
         key={index}
