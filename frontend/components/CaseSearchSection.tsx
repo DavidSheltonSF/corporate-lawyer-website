@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { SearchBar } from './SearchBar';
-import { CasesList } from './CasesList';
+import { CasesList } from './features/cases/CasesList';
 import { getMyCases } from '@/services/cases/getMyCases';
 import { WithId } from '@/types/WithId';
 import { Pagination } from './Pagination';

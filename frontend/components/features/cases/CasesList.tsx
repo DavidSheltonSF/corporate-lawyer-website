@@ -2,13 +2,13 @@
 import { CaseCard } from './CaseCard';
 import { WithId } from '@/types/WithId';
 import { Activity, useState } from 'react';
-import { CaseCardSkeleton } from './CaseCardSkeleton';
+import { CaseCardSkeleton } from '../../CaseCardSkeleton';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
-import { CaseModal } from './modals/CaseModal';
-import { CardOptionsModal } from './modals/CardOptionsModal';
-import { UpdateCaseModal } from './modals/UpdateCaseModal';
-import { DeleteCaseModal } from './modals/DeleteCaseModal';
-import { CaseFilesUploadModal } from './modals/CaseFilesUploadModal';
+import { CaseModal } from '../../modals/CaseModal';
+import { CardOptionsModal } from '../../modals/CardOptionsModal';
+import { UpdateCaseModal } from '../../modals/UpdateCaseModal';
+import { DeleteCaseModal } from '../../modals/DeleteCaseModal';
+import { CaseFilesUploadModal } from '../../modals/CaseFilesUploadModal';
 
 interface Props {
   cases: WithId<CaseWithRelations>[];

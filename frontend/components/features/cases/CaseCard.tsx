@@ -3,8 +3,8 @@ import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { WithId } from '@/types/WithId';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
-import { FieldValue } from './FieldValue';
-import { Card } from './ui/Card/Card';
+import { FieldValue } from '../../FieldValue';
+import { Card } from '../../ui/Card/Card';
 
 interface Props {
   openCaseModal: Function;
