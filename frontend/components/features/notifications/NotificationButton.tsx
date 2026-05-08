@@ -1,7 +1,7 @@
 'use client';
 
 import { Activity } from 'react';
-import { NotificationIcon } from '../icons/NotificationIcon';
+import { NotificationIcon } from '../../icons/NotificationIcon';
 
 interface Props {
   openModal: Function;

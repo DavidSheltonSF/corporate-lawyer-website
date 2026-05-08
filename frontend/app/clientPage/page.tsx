@@ -6,7 +6,7 @@ import { getMe } from '@/services/users/getMe';
 import { User } from '@/types/User';
 import { WithId } from '@/types/WithId';
 import { redirect } from 'next/navigation';
-import { Notifications } from '@/components/notifications/Notifications';
+import { Notifications } from '@/components/features/notifications/Notifications';
 
 export default async function ClientPage() {
   let user: WithId<User> | null = null;

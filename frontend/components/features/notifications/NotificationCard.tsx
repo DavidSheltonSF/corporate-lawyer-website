@@ -3,8 +3,8 @@
 import { formatRelativeTime } from '@/lib/formatRelativeTime';
 import { Notification } from '@/types/Notification';
 import { WithId } from '@/types/WithId';
-import { NotificationIcon } from '../icons/NotificationIcon';
-import {  useState } from 'react';
+import { NotificationIcon } from '../../icons/NotificationIcon';
+import { useState } from 'react';
 import { markNotificationAsRead } from '@/services/notifications/markNotificationAsRead';
 
 interface Props {
