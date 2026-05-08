@@ -1,5 +1,5 @@
 'use client';
-import { CaseFilesTable } from './CaseFilesTable';
+import { CaseFilesTable } from './features/cases/CaseFilesTable';
 import { useEffect, useState } from 'react';
 import { CaseFile } from '@/types/CaseFile';
 import { getMyCaseFilesByCaseId } from '@/services/cases/getMyCaseFilesByCaseId';
