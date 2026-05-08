@@ -8,8 +8,8 @@
   --primary-color-light: #0475d1;
   --secondary-color: #e9d07f;
   --bright-yellow-shadow: 0 0 10px 5px #e9d07f8f;
-  --color-ok: #08ee3a;
-  --color-error: #ee2308;
+  --color-green: #08ee3a;
+  --color-red: #ee2308;
   --blue-gradient: linear-gradient(
     90deg,
     rgba(4, 117, 209, 1) 6%,
@@ -98,6 +98,14 @@ h3 {
 
 .text-color-black {
   color: var(--black-color);
+}
+
+.text-color-green {
+  color: var(--color-green);
+}
+
+.text-color-red {
+  color: var(--color-red);
 }
 
 .text-color-secondary {
