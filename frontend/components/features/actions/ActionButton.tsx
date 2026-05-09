@@ -4,9 +4,10 @@ import React from 'react';
 
 interface Props {
   Icon: React.ComponentType<IconProps>;
+  label: string;
   handleClick: () => void;
 }
-export function ActionButton({ Icon, handleClick }: Props) {
+export function ActionButton({ Icon, label, handleClick }: Props) {
   return (
     <Button
       darkHover
@@ -18,7 +19,7 @@ export function ActionButton({ Icon, handleClick }: Props) {
     >
       <div className="flex gap-[8px]">
         <Icon width="24px" height="24px" />
-        <span className="flex justify-start">Alterar</span>
+        <span className="flex justify-start">{label}</span>
       </div>
     </Button>
   );
