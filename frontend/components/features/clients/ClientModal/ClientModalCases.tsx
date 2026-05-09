@@ -27,7 +27,7 @@ export function ClientModalCases({ cases, openRegisterCaseModal }: Props) {
           <Button darkHover onclick={() => openRegisterCaseModal()}>Adicionar Processo</Button>
         </div>
       </div>
-      <div className="flex flex-col gap-[24px] p-[24px] h-[224px] min-lg:h-[316px] overflow-auto">
+      <div className="flex flex-col gap-[24px] p-[24px] size-full">
         {renderClientCases}
       </div>
     </div>
