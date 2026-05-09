@@ -160,7 +160,7 @@ export function UpdateCaseModal({ loadCases, isOpen, setIsOpen, selectedCaseId }
               />
             </div>
 
-            <div className="flex justify-end w-full bg-black min-md:w-[200px]  min-md:ml-auto">
+            <div className="flex justify-end w-full min-md:w-[200px]  min-md:ml-auto">
               <Button
                 width="100%"
                 backgroundColor="var(--primary-color)"
