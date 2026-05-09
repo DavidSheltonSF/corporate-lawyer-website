@@ -79,7 +79,7 @@ export function UpdateClientModal({ loadClients, isOpen, setIsOpen, selectedClie
           setIsOpen(false);
         }}
       >
-        <div className="flex flex-col size-full bg-color-white items-center p-[16px]">
+        <div className="flex flex-col size-full items-center p-[16px]">
           <div className="flex justify-center items-center h-[40px] w-full">
             <RequestFeedback requestState={requestState} />
           </div>
@@ -113,7 +113,7 @@ export function UpdateClientModal({ loadClients, isOpen, setIsOpen, selectedClie
               />
             </div>
 
-            <div className="flex justify-end w-full bg-black min-md:w-[200px]  min-md:ml-auto">
+            <div className="flex justify-end w-full min-md:w-[200px]  min-md:ml-auto">
               <Button
                 width="100%"
                 backgroundColor="var(--primary-color)"

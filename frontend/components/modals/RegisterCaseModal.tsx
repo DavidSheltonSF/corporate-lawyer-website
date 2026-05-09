@@ -62,7 +62,7 @@ export function RegisterCaseModal({ isOpen, setIsOpen, selectedClientId }: Props
           setRequestState(null);
         }}
       >
-        <div className="flex flex-col h-fit bg-color-white items-center p-[16px]">
+        <div className="flex flex-col h-fit items-center p-[16px]">
           <div className="flex justify-center items-center h-[40px] w-full">
             <RequestFeedback requestState={requestState} />
           </div>
@@ -106,7 +106,7 @@ export function RegisterCaseModal({ isOpen, setIsOpen, selectedClientId }: Props
               <InputWithLabel id="description-input" name="description" label="Description" />
             </div>
 
-            <div className="flex justify-end w-full bg-black min-md:w-[200px]  min-md:ml-auto">
+            <div className="flex justify-end w-full min-md:w-[200px]  min-md:ml-auto">
               <Button
                 width="100%"
                 backgroundColor="var(--primary-color)"
