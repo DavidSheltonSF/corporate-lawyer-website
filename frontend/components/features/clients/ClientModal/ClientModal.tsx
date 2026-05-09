@@ -1,8 +1,8 @@
 'use client';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { PrimaryModal } from '../ui/Modal/PrimaryModal';
-import { FieldValue } from '../FieldValue';
-import { CaseModalSkeleton } from './CaseModalSkeleton';
+import { PrimaryModal } from '../../../ui/Modal/PrimaryModal';
+import { FieldValue } from '../../../FieldValue';
+import { CaseModalSkeleton } from '../../../modals/CaseModalSkeleton';
 import { SafeUser } from '@/types/SafeUser';
 import { getClientWithCases } from '@/services/users/getClientWithCases';
 import { Case } from '@/types/Case';

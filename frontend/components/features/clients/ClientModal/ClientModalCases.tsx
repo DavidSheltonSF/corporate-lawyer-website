@@ -1,6 +1,6 @@
 import { reduceString } from '@/lib/reduceString';
 import { Case } from '@/types/Case';
-import { Button } from '../ui/Button/Button';
+import { Button } from '../../../ui/Button/Button';
 
 interface Props {
   cases: Case[];

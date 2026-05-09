@@ -8,7 +8,7 @@ import { CardActionsModal } from '../actions/CardActionsModal';
 import { RequestState } from '@/types/RequestState';
 import { DeleteClientModal } from '../../modals/DeleteClientModal';
 import { UpdateClientModal } from '../../modals/UpdateClientModal';
-import { ClientModal } from '../../modals/ClientModal';
+import { ClientModal } from './ClientModal/ClientModal';
 import { RegisterCaseModal } from '../../modals/RegisterCaseModal';
 import { UserIdentity } from '@/types/UserIdentity';
 
