@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { SearchBar } from '../../SearchBar';
+import { SearchBar } from '../../ui/Search/SearchBar';
 import { CasesList } from './CasesList';
 import { getMyCases } from '@/services/cases/getMyCases';
 import { WithId } from '@/types/WithId';

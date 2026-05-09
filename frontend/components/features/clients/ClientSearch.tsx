@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { SearchBar } from '../../SearchBar';
+import { SearchBar } from '../../ui/Search/SearchBar';
 import { WithId } from '@/types/WithId';
 import { Pagination } from '../../Pagination';
 import { CaseModal } from '../../modals/CaseModal';
