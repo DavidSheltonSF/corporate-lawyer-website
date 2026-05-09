@@ -5,7 +5,7 @@ import { NotificationChannel } from '../types/NotificationChannel';
 export interface INotificationModel {
   userId: Types.ObjectId;
   type: NotificationType;
-  channel: NotificationChannel[];
+  channels: NotificationChannel[];
   title: string;
   message: string;
   isRead?: boolean;
@@ -20,7 +20,7 @@ const NotificationSchema = new Schema<NotificationMongoDocument>(
   {
     userId: { type: Types.ObjectId, ref: 'Users', index: true, requred: true },
     type: { type: String, enum: Object.values(NotificationType), required: true },
-    channel: [{ type: String, enum: Object.values(NotificationChannel), required: true }],
+    channels: [{ type: String, enum: Object.values(NotificationChannel), required: true }],
     title: { type: String, required: true },
     message: { type: String, required: true },
     isRead: { type: Boolean, default: false },
