@@ -74,12 +74,12 @@ export default function CaseSearch() {
 
   useEffect(() => {
     loadCases();
-  }, [page, query]);
+  }, [page]);
 
   return (
     <section className="flex flex-col items-center relative size-full">
       <div className="flex flex-col lg:flex-row gap-[40px] size-full">
-        <SearchBar setQuery={setQuery} />
+        <SearchBar query={query} setQuery={setQuery} action={loadCases} />
         <div className="h-[48px] rounded-full w-[180px]">
           <DropDownButton
             selectedItem={statusFilder}

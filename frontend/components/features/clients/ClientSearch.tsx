@@ -46,13 +46,13 @@ export default function ClientSearch() {
 
   useEffect(() => {
     loadClients();
-  }, [page, query]);
+  }, [page]);
 
   return (
     <section className="flex flex-col items-center size-full">
       <RegisterUserModal isOpen={registerUserModalIsOpen} setIsOpen={setRegisterUserModalIsOpen} />
       <div className="flex flex-col lg:flex-row gap-[40px] size-full">
-        <SearchBar setQuery={setQuery} />
+        <SearchBar query={query} action={loadClients} setQuery={setQuery} />
         <div className="w-full min-lg:min-w-[200px]">
           <Button
             fontSize="1.2rem"
