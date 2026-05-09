@@ -1,6 +1,6 @@
 'use client';
 import { useContext } from 'react';
-import { InfoModal } from '../features/marketing/Modal/InfoModal';
+import { InfoModal } from '../Modal/InfoModal';
 import { ServiceDetailsModal } from './ServiceDetailsModal';
 import { ServicesModalContext } from '@/contexts/modals/ServicesModalContext';
 import { MissingContextError } from '@/errors/MissingContextError';

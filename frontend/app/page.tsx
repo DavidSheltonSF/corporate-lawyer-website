@@ -7,7 +7,7 @@ import { servicesDetails } from '@/data/servicesDetails';
 import { Carousel } from '../components/ui/Carousel/Carousel';
 import { DynamicSections } from '@/components/layout/DynamicSections/DynamicSections';
 import { DynamicSection } from '@/components/layout/DynamicSections/DynamicSection';
-import { LawAreaServicesModal } from '@/components/modals/LawAreaServicesModal';
+import { LawAreaServicesModal } from '@/components/features/marketing/services/LawAreaServicesModal';
 
 export default function Home() {
   return (
