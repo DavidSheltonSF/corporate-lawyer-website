@@ -63,6 +63,9 @@ export function RegisterCaseModal({ isOpen, setIsOpen, selectedClientId }: Props
         }}
       >
         <div className="flex flex-col h-fit items-center p-[16px]">
+          <div className="">
+            <h2>Cadastrar Novo Processo</h2>
+          </div>
           <div className="flex justify-center items-center h-[40px] w-full">
             <RequestFeedback requestState={requestState} />
           </div>

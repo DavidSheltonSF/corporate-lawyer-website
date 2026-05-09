@@ -90,6 +90,9 @@ export function UpdateCaseModal({ loadCases, isOpen, setIsOpen, selectedCaseId }
         }}
       >
         <div className="flex flex-col h-fit bg-color-white items-center p-[16px]">
+          <div className=''>
+            <h2>Alterar Processo</h2>
+          </div>
           <div className="flex justify-center items-center h-[40px] w-full">
             <RequestFeedback requestState={requestState} />
           </div>
