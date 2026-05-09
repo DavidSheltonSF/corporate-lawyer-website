@@ -2,7 +2,7 @@ import { DynamicSections } from '../layout/DynamicSections/DynamicSections';
 import { DynamicSection } from '../layout/DynamicSections/DynamicSection';
 import { DashboardSection } from '../DashboardSection';
 
-import CaseSearchSection from '../features/cases/CaseSearchSection';
+import CaseSearch from '../features/cases/CaseSearch';
 import ClientSearch from '../features/clients/ClientSearch';
 
 export function LawyerView() {
@@ -14,7 +14,7 @@ export function LawyerView() {
             <DashboardSection />
           </DynamicSection>
           <DynamicSection>
-            <CaseSearchSection />
+            <CaseSearch />
           </DynamicSection>
           <DynamicSection>
             <ClientSearch />

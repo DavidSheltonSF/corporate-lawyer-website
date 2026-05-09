@@ -16,7 +16,7 @@ import { getCases } from '@/services/cases/getCases';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { handleLogout } from '@/lib/handleLogout';
 
-export default function CaseSearchSection() {
+export default function CaseSearch() {
   const [query, setQuery] = useState('');
   const [statusFilder, setStatusFilter] = useState<CaseStatusEnum | null>(null);
   const [page, setPage] = useState(1);
