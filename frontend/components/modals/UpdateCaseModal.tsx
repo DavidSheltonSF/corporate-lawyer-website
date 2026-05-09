@@ -81,7 +81,7 @@ export function UpdateCaseModal({ loadCases, isOpen, setIsOpen, selectedCaseId }
     isOpen && (
       <PrimaryModal
         additionalStyles={
-          'fixed z-99999999999 top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[678px] h-[90%] rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
+          'fixed z-99999999999 top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[678px] h-[90%] min-lg:h-fit rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
         }
         closeModal={() => {
           setRequestState(null);
