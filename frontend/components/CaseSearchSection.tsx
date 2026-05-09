@@ -8,7 +8,6 @@ import { Pagination } from './Pagination';
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { DropDownButton } from './DropdownButton';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
-import { CaseModal } from './modals/CaseModal';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { useAuthenticatedUserContext } from '@/hooks/useAuthenticatedUserContext';
 import { MissingContextError } from '@/errors/MissingContextError';
