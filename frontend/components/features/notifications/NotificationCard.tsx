@@ -18,9 +18,11 @@ export function NotificationCard({ notificationData, decreaceUnreadCount }: Prop
 
   async function handleNotificationClick(id: string) {
     try {
-      const updatedNotification = await markNotificationAsRead(id);
-      setNotification(updatedNotification);
-      decreaceUnreadCount();
+      if (!isRead) {
+        const updatedNotification = await markNotificationAsRead(id);
+        setNotification(updatedNotification);
+        decreaceUnreadCount();
+      }
     } catch (error: any) {
       console.log(error);
     }
