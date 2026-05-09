@@ -5,7 +5,7 @@ import { Activity, useState } from 'react';
 import { CardSkeleton } from '../../ui/Card/CardSkeleton';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { CaseModal } from '../../modals/CaseModal';
-import { CardOptionsModal } from '../../ui/Modal/CardOptionsModal';
+import { CardOptionsModal } from '../actions/CardOptionsModal';
 import { UpdateCaseModal } from '../../modals/UpdateCaseModal';
 import { DeleteCaseModal } from '../../modals/DeleteCaseModal';
 import { CaseFilesUploadModal } from '../../modals/CaseFilesUploadModal';

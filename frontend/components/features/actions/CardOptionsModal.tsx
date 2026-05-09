@@ -1,9 +1,9 @@
 'use client';
-import { PrimaryModal } from './PrimaryModal';
+import { PrimaryModal } from '../../ui/Modal/PrimaryModal';
 import { Dispatch, SetStateAction } from 'react';
 import { EditIcon } from '@/components/icons/EditIcon';
 import { DeleteIcon } from '@/components/icons/DeleteIcon';
-import { ActionButton } from '../../features/actions/ActionButton';
+import { ActionButton } from './ActionButton';
 
 interface Props {
   isOpen: boolean;
