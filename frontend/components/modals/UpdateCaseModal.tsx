@@ -149,7 +149,12 @@ export function UpdateCaseModal({ loadCases, isOpen, setIsOpen, selectedCaseId }
               />
             </div>
             <div>
-              <InputWithLabel id="description-input" name="description" label="Description" />
+              <InputWithLabel
+                id="description-input"
+                name="description"
+                label="Description"
+                defaultValue={caseData?.description}
+              />
             </div>
 
             <div className="flex justify-end w-full bg-black min-md:w-[200px]  min-md:ml-auto">
