@@ -1,18 +1,8 @@
 import { LogoLoadingAnimated } from '@/components/LogoLoadingAnimated';
 
-interface Props {
-  width?: string;
-  height?: string;
-}
-export function LoadingModalScreeen({ width, height }: Props) {
+export function LoadingModalScreeen() {
   return (
-    <div
-    className='flex justify-center items-center'
-      style={{
-        width,
-        height,
-      }}
-    >
+    <div className="flex justify-center items-center w-full h-[400px]">
       <LogoLoadingAnimated />
     </div>
   );
