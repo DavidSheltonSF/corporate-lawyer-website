@@ -20,6 +20,8 @@ import { BrazilState } from '@/types/BrazilState';
 import { BrazilStateLabel } from '@/lib/BrazilStateLabel';
 import { CityLabel } from '@/lib/CityLabel';
 import { City } from '@/types/City';
+import { ShowSkeletonOnLoading } from '../ui/ShowSkeletonOnLoading';
+import { LoadingModalScreeen } from '../ui/Modal/LoadingModalScreen';
 
 interface Props {
   isOpen: boolean;
@@ -34,6 +36,7 @@ export function UpdateCaseModal({ loadCases, isOpen, setIsOpen, selectedCaseId }
 
   async function getUser() {
     try {
+      setRequestState({ status: 'loading' });
       const data = await getCaseById(selectedCaseId || '');
       setCaseData(data);
       setRequestState({
@@ -77,6 +80,8 @@ export function UpdateCaseModal({ loadCases, isOpen, setIsOpen, selectedCaseId }
     };
   }, [isOpen]);
 
+  const isLoading = requestState?.status === 'loading';
+
   return (
     isOpen && (
       <PrimaryModal
@@ -89,89 +94,91 @@ export function UpdateCaseModal({ loadCases, isOpen, setIsOpen, selectedCaseId }
           setIsOpen(false);
         }}
       >
-        <div className="flex flex-col h-fit bg-color-white items-center p-[16px]">
-          <div className=''>
-            <h2>Alterar Processo</h2>
-          </div>
-          <div className="flex justify-center items-center h-[40px] w-full">
-            <RequestFeedback requestState={requestState} />
-          </div>
-          <form className="flex flex-col gap-[16px] w-full h-full" action={alterCase}>
-            <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
-              <InputWithLabel
-                id="title-input"
-                name="title"
-                label="Título"
-                defaultValue={caseData?.title}
-              />
-              <InputWithLabel
-                id="process-number-input"
-                name="processNumber"
-                label="Número do Processo"
-                defaultValue={caseData?.processNumber}
-              />
+        <ShowSkeletonOnLoading isLoading={isLoading} Skeleton={LoadingModalScreeen}>
+          <div className="flex flex-col h-fit bg-color-white items-center p-[16px]">
+            <div className="">
+              <h2>Alterar Processo</h2>
             </div>
-            <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
-              <InputWithLabel
-                id="court-input"
-                name="court"
-                label="Tribunal"
-                defaultValue={caseData?.court}
-              />
-              <InputWithLabel
-                id="court-division-input"
-                name="courtDivision"
-                label="Vara"
-                defaultValue={caseData?.courtDivision}
-              />
-              <DropdownInputWithLabel
-                id="status-input"
-                name="status"
-                label="Status"
-                itemsRecord={CaseStatusEnum}
-                itemLabel={(item: CaseStatusEnum) => CaseStatusLabel[item]}
-                defaultValue={caseData?.status}
-              />
+            <div className="flex justify-center items-center h-[40px] w-full">
+              <RequestFeedback requestState={requestState} />
             </div>
-            <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
-              <DropdownInputWithLabel
-                id="estado-input"
-                name="state"
-                label="Estado"
-                itemsRecord={BrazilState}
-                itemLabel={(item: BrazilState) => BrazilStateLabel[item]}
-                defaultValue={caseData?.location.state}
-              />
-              <DropdownInputWithLabel
-                id="city-input"
-                name="city"
-                label="Cidade"
-                itemsRecord={City}
-                itemLabel={(item: City) => CityLabel[item]}
-                defaultValue={caseData?.location.city}
-              />
-            </div>
-            <div>
-              <InputWithLabel
-                id="description-input"
-                name="description"
-                label="Description"
-                defaultValue={caseData?.description}
-              />
-            </div>
+            <form className="flex flex-col gap-[16px] w-full h-full" action={alterCase}>
+              <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
+                <InputWithLabel
+                  id="title-input"
+                  name="title"
+                  label="Título"
+                  defaultValue={caseData?.title}
+                />
+                <InputWithLabel
+                  id="process-number-input"
+                  name="processNumber"
+                  label="Número do Processo"
+                  defaultValue={caseData?.processNumber}
+                />
+              </div>
+              <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
+                <InputWithLabel
+                  id="court-input"
+                  name="court"
+                  label="Tribunal"
+                  defaultValue={caseData?.court}
+                />
+                <InputWithLabel
+                  id="court-division-input"
+                  name="courtDivision"
+                  label="Vara"
+                  defaultValue={caseData?.courtDivision}
+                />
+                <DropdownInputWithLabel
+                  id="status-input"
+                  name="status"
+                  label="Status"
+                  itemsRecord={CaseStatusEnum}
+                  itemLabel={(item: CaseStatusEnum) => CaseStatusLabel[item]}
+                  defaultValue={caseData?.status}
+                />
+              </div>
+              <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
+                <DropdownInputWithLabel
+                  id="estado-input"
+                  name="state"
+                  label="Estado"
+                  itemsRecord={BrazilState}
+                  itemLabel={(item: BrazilState) => BrazilStateLabel[item]}
+                  defaultValue={caseData?.location.state}
+                />
+                <DropdownInputWithLabel
+                  id="city-input"
+                  name="city"
+                  label="Cidade"
+                  itemsRecord={City}
+                  itemLabel={(item: City) => CityLabel[item]}
+                  defaultValue={caseData?.location.city}
+                />
+              </div>
+              <div>
+                <InputWithLabel
+                  id="description-input"
+                  name="description"
+                  label="Description"
+                  defaultValue={caseData?.description}
+                />
+              </div>
 
-            <div className="flex justify-end w-full min-md:w-[200px]  min-md:ml-auto">
-              <Button
-                width="100%"
-                backgroundColor="var(--primary-color)"
-                textColor="var(--white-color)"
-                fontSize="1.2rem"
-              >
-                Confirmar Alterações
-              </Button>
-            </div>
-          </form>
-        </div>
+              <div className="flex justify-end w-full min-md:w-[200px]  min-md:ml-auto">
+                <Button
+                  width="100%"
+                  backgroundColor="var(--primary-color)"
+                  textColor="var(--white-color)"
+                  fontSize="1.2rem"
+                >
+                  Confirmar Alterações
+                </Button>
+              </div>
+            </form>
+          </div>
+        </ShowSkeletonOnLoading>
       </PrimaryModal>
     )
   );

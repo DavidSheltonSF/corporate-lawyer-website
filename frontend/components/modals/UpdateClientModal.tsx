@@ -10,6 +10,8 @@ import { getUserById } from '@/services/users/getUserById';
 import { SafeUser } from '@/types/SafeUser';
 import { handleLogout } from '@/lib/handleLogout';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
+import { ShowSkeletonOnLoading } from '../ui/ShowSkeletonOnLoading';
+import { LoadingModalScreeen } from '../ui/Modal/LoadingModalScreen';
 
 interface Props {
   isOpen: boolean;
@@ -24,6 +26,7 @@ export function UpdateClientModal({ loadClients, isOpen, setIsOpen, selectedClie
 
   async function getUser() {
     try {
+      setRequestState({status: 'loading'})
       const data = await getUserById(selectedClientId || '');
       setClientData(data);
       setRequestState({
@@ -67,6 +70,7 @@ export function UpdateClientModal({ loadClients, isOpen, setIsOpen, selectedClie
     };
   }, [isOpen]);
 
+  const isLoading = requestState?.status === 'loading';
   return (
     isOpen && (
       <PrimaryModal
@@ -79,52 +83,54 @@ export function UpdateClientModal({ loadClients, isOpen, setIsOpen, selectedClie
           setIsOpen(false);
         }}
       >
-        <div className="flex flex-col size-full items-center p-[16px]">
-          <div className="flex justify-center items-center h-[40px] w-full">
-            <RequestFeedback requestState={requestState} />
-          </div>
-          <form className="flex flex-col gap-[16px] w-full h-full" action={alterClient}>
-            <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
-              <InputWithLabel
-                id="first-name-input"
-                name="firstName"
-                label="Nome"
-                defaultValue={clientData?.firstName}
-              />
-              <InputWithLabel
-                id="last-name-input"
-                name="lastName"
-                label="Sobrenome"
-                defaultValue={clientData?.lastName}
-              />
+        <ShowSkeletonOnLoading isLoading={isLoading} Skeleton={LoadingModalScreeen}>
+          <div className="flex flex-col size-full items-center p-[16px]">
+            <div className="flex justify-center items-center h-[40px] w-full">
+              <RequestFeedback requestState={requestState} />
             </div>
-            <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
-              <InputWithLabel
-                id="email-input"
-                name="email"
-                label="Email"
-                defaultValue={clientData?.email}
-              />
-              <InputWithLabel
-                id="cpf-input"
-                name="cpf"
-                label="CPF"
-                defaultValue={clientData?.cpf}
-              />
-            </div>
+            <form className="flex flex-col gap-[16px] w-full h-full" action={alterClient}>
+              <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
+                <InputWithLabel
+                  id="first-name-input"
+                  name="firstName"
+                  label="Nome"
+                  defaultValue={clientData?.firstName}
+                />
+                <InputWithLabel
+                  id="last-name-input"
+                  name="lastName"
+                  label="Sobrenome"
+                  defaultValue={clientData?.lastName}
+                />
+              </div>
+              <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
+                <InputWithLabel
+                  id="email-input"
+                  name="email"
+                  label="Email"
+                  defaultValue={clientData?.email}
+                />
+                <InputWithLabel
+                  id="cpf-input"
+                  name="cpf"
+                  label="CPF"
+                  defaultValue={clientData?.cpf}
+                />
+              </div>
 
-            <div className="flex justify-end w-full min-md:w-[200px]  min-md:ml-auto">
-              <Button
-                width="100%"
-                backgroundColor="var(--primary-color)"
-                textColor="var(--white-color)"
-                fontSize="1.2rem"
-              >
-                Confirmar Alterações
-              </Button>
-            </div>
-          </form>
-        </div>
+              <div className="flex justify-end w-full min-md:w-[200px]  min-md:ml-auto">
+                <Button
+                  width="100%"
+                  backgroundColor="var(--primary-color)"
+                  textColor="var(--white-color)"
+                  fontSize="1.2rem"
+                >
+                  Confirmar Alterações
+                </Button>
+              </div>
+            </form>
+          </div>
+        </ShowSkeletonOnLoading>
       </PrimaryModal>
     )
   );
