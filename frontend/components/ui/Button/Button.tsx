@@ -12,6 +12,7 @@ interface Props {
   children: React.ReactNode;
   onclick?: React.MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
+  darkHover?: boolean; // decrease brightness on hover
 }
 
 export function Button(props: Props) {
@@ -27,12 +28,15 @@ export function Button(props: Props) {
     paddingY = 'auto',
     onclick,
     disabled,
+    darkHover,
   } = props;
   return (
     <button
       type={type}
       disabled={disabled}
-      className={`w-full rounded-sm ${!disabled && 'cursor-pointer hover:brightness-120 px-[8px]'}`}
+      className={`w-full rounded-sm transition-[filter] duration-300 ${
+        !disabled && 'cursor-pointer px-[8px]'
+      } ${darkHover ? 'hover:brightness-90' : 'hover:brightness-120'}`}
       style={{
         backgroundColor,
         color: textColor,
