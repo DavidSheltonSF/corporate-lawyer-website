@@ -6,7 +6,7 @@ import { Button } from '../ui/Button/Button';
 import { deleteCaseById } from '@/services/users/deleteCaseById';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
-import { ConfirmModal } from './ConfirmModal';
+import { ConfirmModal } from '../ui/Modal/ConfirmModal';
 import { handleLogout } from '@/lib/handleLogout';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 

@@ -1,9 +1,9 @@
 'use case';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { PrimaryModal } from '../ui/Modal/PrimaryModal';
-import { Button } from '../ui/Button/Button';
+import { PrimaryModal } from './PrimaryModal';
+import { Button } from '../Button/Button';
 import { RequestState } from '@/types/RequestState';
-import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
+import { RequestFeedback } from '../Feedback/RequestFeedback';
 
 interface Props {
   onConfirm: Function;
