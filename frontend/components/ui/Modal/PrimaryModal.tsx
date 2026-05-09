@@ -43,9 +43,7 @@ export function PrimaryModal(props: Props) {
           <img className="size-full" src="/icons/close.svg" alt="" />
         </button>
       </div>
-      <div className="bg-color-white size-full overflow-y-auto min-lg:overflow-y-hidden">
-        {children}
-      </div>
+      <div className="bg-color-white size-full overflow-y-auto">{children}</div>
     </div>
   );
 }
