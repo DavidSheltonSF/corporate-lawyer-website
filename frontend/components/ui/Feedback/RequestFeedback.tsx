@@ -14,11 +14,11 @@ export function RequestFeedback({ requestState }: Props) {
   let color = '';
   switch (status) {
     case 'ok':
-      color = 'var(--color-ok)';
+      color = 'var(--color-green)';
       break;
 
     case 'error':
-      color = 'var(--color-error)';
+      color = 'var(--color-red)';
       break;
 
     default:
