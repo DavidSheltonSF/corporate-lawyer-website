@@ -55,70 +55,68 @@ export function RegisterCaseModal({ isOpen, setIsOpen, selectedClientId }: Props
     isOpen && (
       <PrimaryModal
         additionalStyles={
-          'fixed z-99999999999 top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[678px] h-[84%] min-lg:h-fit rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
+          'fixed z-99999999999 top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[678px] h-fit rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
         }
         closeModal={() => {
           setIsOpen(false);
           setRequestState(null);
         }}
       >
-        <div className="flex size-full p-[16px]">
-          <div className="flex flex-col size-full items-center overflow-auto">
-            <div className="flex justify-center items-center h-[40px] w-full">
-              <RequestFeedback requestState={requestState} />
-            </div>
-            <form className="flex flex-col gap-[16px] w-full h-full" action={registerCase}>
-              <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
-                <InputWithLabel id="title-input" name="title" label="Título" />
-                <InputWithLabel
-                  id="process-number-input"
-                  name="processNumber"
-                  label="Número do Processo"
-                />
-              </div>
-              <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
-                <InputWithLabel id="court-input" name="court" label="Tribunal" />
-                <InputWithLabel id="court-division-input" name="courtDivision" label="Vara" />
-                <DropdownInputWithLabel
-                  id="status-input"
-                  name="status"
-                  label="Status"
-                  itemsRecord={CaseStatusEnum}
-                  itemLabel={(item: CaseStatusEnum) => CaseStatusLabel[item]}
-                />
-              </div>
-              <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
-                <DropdownInputWithLabel
-                  id="estado-input"
-                  name="state"
-                  label="Estado"
-                  itemsRecord={BrazilState}
-                  itemLabel={(item: BrazilState) => BrazilStateLabel[item]}
-                />
-                <DropdownInputWithLabel
-                  id="city-input"
-                  name="city"
-                  label="Cidade"
-                  itemsRecord={City}
-                  itemLabel={(item: City) => CityLabel[item]}
-                />
-              </div>
-              <div>
-                <InputWithLabel id="description-input" name="description" label="Description" />
-              </div>
-
-              <div className="flex justify-end w-full min-md:w-[200px]  min-md:ml-auto">
-                <Button
-                  width="100%"
-                  backgroundColor="var(--primary-color)"
-                  textColor="var(--white-color)"
-                  fontSize="1.2rem"
-                >
-                  Confirmar Alterações
-                </Button>
-              </div>
-            </form>
+        <div className="flex flex-col size-full bg-color-white items-center p-[16px]">
+          <div className="flex justify-center items-center h-[40px] w-full">
+            <RequestFeedback requestState={requestState} />
           </div>
+          <form className="flex flex-col gap-[16px] w-full h-full" action={registerCase}>
+            <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
+              <InputWithLabel id="title-input" name="title" label="Título" />
+              <InputWithLabel
+                id="process-number-input"
+                name="processNumber"
+                label="Número do Processo"
+              />
+            </div>
+            <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
+              <InputWithLabel id="court-input" name="court" label="Tribunal" />
+              <InputWithLabel id="court-division-input" name="courtDivision" label="Vara" />
+              <DropdownInputWithLabel
+                id="status-input"
+                name="status"
+                label="Status"
+                itemsRecord={CaseStatusEnum}
+                itemLabel={(item: CaseStatusEnum) => CaseStatusLabel[item]}
+              />
+            </div>
+            <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
+              <DropdownInputWithLabel
+                id="estado-input"
+                name="state"
+                label="Estado"
+                itemsRecord={BrazilState}
+                itemLabel={(item: BrazilState) => BrazilStateLabel[item]}
+              />
+              <DropdownInputWithLabel
+                id="city-input"
+                name="city"
+                label="Cidade"
+                itemsRecord={City}
+                itemLabel={(item: City) => CityLabel[item]}
+              />
+            </div>
+            <div>
+              <InputWithLabel id="description-input" name="description" label="Description" />
+            </div>
+
+            <div className="flex justify-end w-full bg-black min-md:w-[200px]  min-md:ml-auto">
+              <Button
+                width="100%"
+                backgroundColor="var(--primary-color)"
+                textColor="var(--white-color)"
+                fontSize="1.2rem"
+              >
+                Confirmar Alterações
+              </Button>
+            </div>
+          </form>
         </div>
       </PrimaryModal>
     )
