@@ -78,15 +78,21 @@ export function ClientsList({ clients, requestState, loadClients }: Props) {
       <ClientModal
         clientId={selectedClient?.id || ''}
         isOpen={clientModalIsOpen}
-        setIsOpen={setClientModalIsOpen}
+        close={() => {
+          setClientModalIsOpen(false);
+        }}
         openRegisterCaseModal={() => {
+          setClientModalIsOpen(false);
           setRegisterCaseModalIsOpen(true);
         }}
       />
       <RegisterCaseModal
         selectedClientId={selectedClient?.id || ''}
         isOpen={registerCaseModalIsOpen}
-        setIsOpen={setRegisterCaseModalIsOpen}
+        close={() => {
+          setRegisterCaseModalIsOpen(false);
+          setClientModalIsOpen(true);
+        }}
       />
 
       <CardActionsModal
