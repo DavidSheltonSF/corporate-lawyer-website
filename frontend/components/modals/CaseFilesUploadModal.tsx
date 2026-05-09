@@ -4,7 +4,7 @@ import { PrimaryModal } from '../ui/Modal/PrimaryModal';
 import { uploadCaseFile } from '@/services/cases/uploadCaseFile';
 import { RequestState } from '@/types/RequestState';
 import { DropArea } from '../DropArea';
-import { RequestFeedback } from '../form/RequestFeedback';
+import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
 import { handleLogout } from '@/lib/handleLogout';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 

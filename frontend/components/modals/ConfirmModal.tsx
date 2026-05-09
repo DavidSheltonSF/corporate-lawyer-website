@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { PrimaryModal } from '../ui/Modal/PrimaryModal';
 import { Button } from '../ui/Button/Button';
 import { RequestState } from '@/types/RequestState';
-import { RequestFeedback } from '../form/RequestFeedback';
+import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
 
 interface Props {
   onConfirm: Function;

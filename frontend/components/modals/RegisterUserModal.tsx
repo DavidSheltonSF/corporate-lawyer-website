@@ -5,7 +5,7 @@ import { InputWithLabel } from '../ui/Input/InputWithLabel';
 import { Button } from '../ui/Button/Button';
 import { createClient } from '@/services/users/createClient';
 import { RequestState } from '@/types/RequestState';
-import { RequestFeedback } from '../form/RequestFeedback';
+import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
 import { handleLogout } from '@/lib/handleLogout';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 interface Props {
