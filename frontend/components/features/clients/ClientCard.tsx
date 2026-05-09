@@ -13,11 +13,10 @@ export function ClientCard({ clientData, openClientModal, openOptionsModal }: Pr
   const { firstName, lastName, email, cpf } = clientData;
 
   return (
-    <Card
-      title={`${firstName} ${lastName}`}
-      openModal={openClientModal}
-      openOptionsModal={openOptionsModal}
-    >
+    <Card openModal={openClientModal} openOptionsModal={openOptionsModal}>
+      <h1>
+        {firstName} {lastName}
+      </h1>
       <FieldValue field="Nome" value={firstName} />
       <FieldValue field="Sobrenome" value={lastName} />
       <FieldValue field="Email" value={email} />
