@@ -4,7 +4,7 @@ import { Activity, useState } from 'react';
 import { CardSkeleton } from '../../ui/Card/CardSkeleton';
 import { ClientCard } from './ClientCard';
 import { SafeUser } from '@/types/SafeUser';
-import { CardOptionsModal } from '../actions/CardOptionsModal';
+import { CardActionsModal } from '../actions/CardActionsModal';
 import { RequestState } from '@/types/RequestState';
 import { DeleteClientModal } from '../../modals/DeleteClientModal';
 import { UpdateClientModal } from '../../modals/UpdateClientModal';
@@ -89,7 +89,7 @@ export function ClientsList({ clients, requestState, loadClients }: Props) {
         setIsOpen={setRegisterCaseModalIsOpen}
       />
 
-      <CardOptionsModal
+      <CardActionsModal
         isOpen={optionsModalIsOpen}
         setIsOpen={setOptionsModalIsOpen}
         openDeleteModal={openDeleteModal}

@@ -5,7 +5,7 @@ import { Activity, useState } from 'react';
 import { CardSkeleton } from '../../ui/Card/CardSkeleton';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { CaseModal } from '../../modals/CaseModal';
-import { CardOptionsModal } from '../actions/CardOptionsModal';
+import { CardActionsModal } from '../actions/CardActionsModal';
 import { UpdateCaseModal } from '../../modals/UpdateCaseModal';
 import { DeleteCaseModal } from '../../modals/DeleteCaseModal';
 import { CaseFilesUploadModal } from '../../modals/CaseFilesUploadModal';
@@ -83,7 +83,7 @@ export function CasesList({ cases, loading, loadCases }: Props) {
         isOpen={deleteModalIsOpen}
         setIsOpen={setDeleteModalIsOpen}
       />
-      <CardOptionsModal
+      <CardActionsModal
         isOpen={optionsModalIsOpen}
         setIsOpen={setOptionsModalIsOpen}
         openUpdateModal={openUpdateModal}
