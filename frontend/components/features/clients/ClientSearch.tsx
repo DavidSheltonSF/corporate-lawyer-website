@@ -13,7 +13,7 @@ import { RequestState } from '@/types/RequestState';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { handleLogout } from '@/lib/handleLogout';
 
-export default function ClientSearchSection() {
+export default function ClientSearch() {
   const [requestState, setRequestState] = useState<RequestState | null>(null);
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
