@@ -15,7 +15,7 @@ import { ClientModalCases } from './ClientModalCases';
 interface Props {
   clientId: string | null;
   isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  close: () => void;
   openRegisterCaseModal: () => void;
 }
 
@@ -23,7 +23,7 @@ ClientModal.Header = ClientModalHeader;
 ClientModal.Info = ClientModalInfo;
 ClientModal.Cases = ClientModalCases;
 
-export function ClientModal({ isOpen, setIsOpen, clientId, openRegisterCaseModal }: Props) {
+export function ClientModal({ isOpen, close, clientId, openRegisterCaseModal }: Props) {
   const [clientData, setClientData] = useState<(SafeUser & { cases: Case[] }) | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -50,7 +50,7 @@ export function ClientModal({ isOpen, setIsOpen, clientId, openRegisterCaseModal
 
     function resetStates() {
       setClientData(null);
-      setIsOpen(false);
+      close;
     }
 
     fetchClientData();
@@ -67,9 +67,7 @@ export function ClientModal({ isOpen, setIsOpen, clientId, openRegisterCaseModal
         additionalStyles={
           'fixed z-99999999999 top-[2%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[880px] h-[90%] rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
         }
-        closeModal={() => {
-          setIsOpen(false);
-        }}
+        closeModal={close}
       >
         {loading || !clientData ? (
           <CaseModalSkeleton />
