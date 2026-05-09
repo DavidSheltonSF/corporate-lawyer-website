@@ -5,6 +5,7 @@ import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { FieldValue } from '../../FieldValue';
 import { Card } from '../../ui/Card/Card';
+import { reduceString } from '@/lib/reduceString';
 
 interface Props {
   openCaseModal: Function;
@@ -37,7 +38,8 @@ export function CaseCard({ caseData, openCaseModal, openOptionsModal }: Props) {
   });
 
   return (
-    <Card title={title} openModal={openCaseModal} openOptionsModal={openOptionsModal}>
+    <Card openModal={openCaseModal} openOptionsModal={openOptionsModal}>
+      <h1>{reduceString(title, 40)}</h1>
       <FieldValue field="nº" value={processNumber} />
       <FieldValue field="cliente:" value={`${clientData?.firstName} ${clientData?.lastName}`} />
       <FieldValue field="advogados:" value={formatStringList(lawyersNames)} />
