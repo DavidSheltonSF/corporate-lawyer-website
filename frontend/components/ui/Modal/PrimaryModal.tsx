@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface Props {
   closeModal: Function;
@@ -19,6 +19,14 @@ export function PrimaryModal(props: Props) {
       closeModal();
     }, 300);
   }
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
 
   return (
     <div
