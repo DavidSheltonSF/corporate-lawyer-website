@@ -4,7 +4,7 @@ import { Activity, useState } from 'react';
 import { CardSkeleton } from '../../ui/Card/CardSkeleton';
 import { ClientCard } from './ClientCard';
 import { SafeUser } from '@/types/SafeUser';
-import { CardOptionsModal } from '../../modals/CardOptionsModal';
+import { CardOptionsModal } from '../../ui/Modal/CardOptionsModal';
 import { RequestState } from '@/types/RequestState';
 import { DeleteClientModal } from '../../modals/DeleteClientModal';
 import { UpdateClientModal } from '../../modals/UpdateClientModal';
