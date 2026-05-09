@@ -1,7 +1,9 @@
 'use client';
 import { PrimaryModal } from './PrimaryModal';
-import { Button } from '../Button/Button';
 import { Dispatch, SetStateAction } from 'react';
+import { EditIcon } from '@/components/icons/EditIcon';
+import { DeleteIcon } from '@/components/icons/DeleteIcon';
+import { ActionButton } from '../../features/actions/ActionButton';
 
 interface Props {
   isOpen: boolean;
@@ -24,30 +26,21 @@ export function CardOptionsModal({ openDeleteModal, openUpdateModal, isOpen, set
         }}
       >
         <div className="size-full flex flex-col text-center items-center justify-center gap-[8px] p-[8px]">
-          <div className="my-[24px]">
-            <p className="text-black text-lg">O que quer fazer?</p>
-          </div>
-          <div className="flex w-full justify-around">
-            <Button
-              onclick={() => {
+          <div className="flex flex-col w-full justify-around">
+            <ActionButton
+              Icon={EditIcon}
+              handleClick={() => {
                 openUpdateModal();
                 closeModal();
               }}
-              backgroundColor="var(--primary-color)"
-              textColor="var(--white-color)"
-            >
-              Alterar
-            </Button>
-            <Button
-              onclick={() => {
-                openDeleteModal();
+            />
+            <ActionButton
+              Icon={DeleteIcon}
+              handleClick={() => {
+                openUpdateModal();
                 closeModal();
               }}
-              backgroundColor="var(--primary-color)"
-              textColor="var(--white-color)"
-            >
-              Excluir
-            </Button>
+            />
           </div>
         </div>
       </PrimaryModal>
