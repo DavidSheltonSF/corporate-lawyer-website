@@ -4,6 +4,8 @@ import { UpdateNotificationDTO } from '../../../dtos/notification/UpdateNotifica
 import { NotificationeMapper } from '../../../mappers/notification/NotificationMapper';
 import { NotificationModel } from '../../../models/NotificationModel';
 import { NotificationRepository } from '../../../repositories/NotificationRepository';
+import { NotificationQuery } from '../../../types/NotificationQuery';
+import { Page } from '../../../types/Page';
 import { WithId } from '../../../types/WithId';
 
 export class MongodbNotificationRepository implements Partial<NotificationRepository> {
@@ -17,10 +19,34 @@ export class MongodbNotificationRepository implements Partial<NotificationReposi
     return notifications.map(NotificationeMapper.persistenceToPresentation);
   }
 
-  async findByUserId(userId: string): Promise<WithId<NotificationDTO>[]> {
-    const notifications = await NotificationModel.find({ userId });
-    return notifications.map(NotificationeMapper.persistenceToPresentation);
+  async findByUserId(
+    userId: string,
+    notificationQuery: NotificationQuery
+  ): Promise<Page<WithId<NotificationDTO>>> {
+    const { limit = 4, page = 1 } = notificationQuery;
+    const notificationsPromise = NotificationModel.find({ userId })
+      .limit(limit)
+      .skip((page - 1) * limit)
+      .lean();
+
+    const totalItemsPromise = NotificationModel.countDocuments();
+
+    const [notifications, totalItems] = await Promise.all([
+      notificationsPromise,
+      totalItemsPromise,
+    ]);
+    const mappedNotifications = notifications.map(NotificationeMapper.persistenceToPresentation);
+
+    return {
+      data: mappedNotifications,
+      meta: {
+        currentPage: page,
+        totalItems,
+        totalPages: Math.ceil(totalItems / limit),
+      },
+    };
   }
+
   async findById(id: string): Promise<WithId<NotificationDTO> | null> {
     const notification = await NotificationModel.findById(id);
     if (!notification) {

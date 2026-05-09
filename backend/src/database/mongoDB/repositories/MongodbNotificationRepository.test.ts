@@ -63,10 +63,14 @@ describe(`Testing ${MongodbNotificationRepository.name}`, () => {
     notification3.userId = userId;
 
     await NotificationModel.create([notification1, notification2, notification3]);
-    const result = await notificationRepository.findByUserId(userId);
-    console.log(result);
-    expect(result).toContainEqual(expect.objectContaining(notification1));
-    expect(result).toContainEqual(expect.objectContaining(notification3));
-    expect(result).not.toContainEqual(expect.objectContaining(notification2));
+    const query = { page: 1, limit: 4 };
+    const result = await notificationRepository.findByUserId(userId, query);
+    const { currentPage } = result.meta;
+    const data = result.data;
+
+    expect(data).toContainEqual(expect.objectContaining(notification1));
+    expect(data).toContainEqual(expect.objectContaining(notification3));
+    expect(data).not.toContainEqual(expect.objectContaining(notification2));
+    expect(currentPage).toBe(query.page);
   });
 });
