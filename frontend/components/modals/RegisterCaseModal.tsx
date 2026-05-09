@@ -17,12 +17,13 @@ import { BrazilState } from '@/types/BrazilState';
 import { BrazilStateLabel } from '@/lib/BrazilStateLabel';
 import { City } from '@/types/City';
 import { CityLabel } from '@/lib/CityLabel';
+
 interface Props {
   selectedClientId: string | null;
   isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  close: () => void;
 }
-export function RegisterCaseModal({ isOpen, setIsOpen, selectedClientId }: Props) {
+export function RegisterCaseModal({ isOpen, close, selectedClientId }: Props) {
   const [requestState, setRequestState] = useState<RequestState | null>(null);
 
   const context = useAuthenticatedUserContext();
@@ -58,7 +59,7 @@ export function RegisterCaseModal({ isOpen, setIsOpen, selectedClientId }: Props
           'fixed z-99999999999 top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[678px] h-[90%] min-lg:h-fit rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
         }
         closeModal={() => {
-          setIsOpen(false);
+          close();
           setRequestState(null);
         }}
       >
