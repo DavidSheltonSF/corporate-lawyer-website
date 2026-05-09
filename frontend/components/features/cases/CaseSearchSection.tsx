@@ -1,12 +1,12 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { SearchBar } from './SearchBar';
-import { CasesList } from './features/cases/CasesList';
+import { SearchBar } from '../../SearchBar';
+import { CasesList } from './CasesList';
 import { getMyCases } from '@/services/cases/getMyCases';
 import { WithId } from '@/types/WithId';
-import { Pagination } from './Pagination';
+import { Pagination } from '../../Pagination';
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';
-import { DropDownButton } from './DropdownButton';
+import { DropDownButton } from '../../DropdownButton';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { useAuthenticatedUserContext } from '@/hooks/useAuthenticatedUserContext';
