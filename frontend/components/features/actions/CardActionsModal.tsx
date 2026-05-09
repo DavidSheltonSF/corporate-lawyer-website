@@ -29,6 +29,7 @@ export function CardActionsModal({ openDeleteModal, openUpdateModal, isOpen, set
           <div className="flex flex-col w-full justify-around">
             <ActionButton
               Icon={EditIcon}
+              label="Alterar"
               handleClick={() => {
                 openUpdateModal();
                 closeModal();
@@ -36,8 +37,9 @@ export function CardActionsModal({ openDeleteModal, openUpdateModal, isOpen, set
             />
             <ActionButton
               Icon={DeleteIcon}
+              label="Deletar"
               handleClick={() => {
-                openUpdateModal();
+                openDeleteModal();
                 closeModal();
               }}
             />
