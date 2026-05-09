@@ -3,7 +3,7 @@ import { DynamicSection } from '../layout/DynamicSections/DynamicSection';
 import { DashboardSection } from '../DashboardSection';
 
 import CaseSearchSection from '../features/cases/CaseSearchSection';
-import ClientSearchSection from '../ClientsSearchSection';
+import ClientSearchSection from '../features/clients/ClientsSearchSection';
 
 export function LawyerView() {
   return (
