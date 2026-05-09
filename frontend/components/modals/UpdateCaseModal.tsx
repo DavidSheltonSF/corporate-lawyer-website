@@ -1,7 +1,7 @@
 'use case';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { PrimaryModal } from '../ui/Modal/PrimaryModal';
-import { InputWithLabel } from '../form/InputWithLabel';
+import { InputWithLabel } from '../ui/Input/InputWithLabel';
 import { Button } from '../ui/Button/Button';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../form/RequestFeedback';
@@ -12,7 +12,7 @@ import { WithId } from '@/types/WithId';
 import { Case } from '@/types/Case';
 import { updateCaseById } from '@/services/cases/updateCaseById';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
-import { DropdownInputWithLabel } from '../form/DropdownInputWithLabel';
+import { DropdownInputWithLabel } from '../ui/Input/DropdownInputWithLabel';
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { handleLogout } from '@/lib/handleLogout';

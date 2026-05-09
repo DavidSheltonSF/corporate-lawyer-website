@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowDropUp } from '../icons/ArrowDropUp';
+import { ArrowDropUp } from '../../icons/ArrowDropUp';
 
 interface Props<T> {
   id: string;
   name: string;
   label: string;
   defaultValue?: T[keyof T];
-  itemsRecord: T
+  itemsRecord: T;
   itemLabel: Function;
 }
 
