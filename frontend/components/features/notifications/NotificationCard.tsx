@@ -9,6 +9,7 @@ import { markNotificationAsRead } from '@/services/notifications/markNotificatio
 import { useCaseModalContext } from '@/hooks/useCaseModalContext';
 import { useNotificationsModalContext } from '@/hooks/useNotificationsModalContext';
 import { EntityType } from '@/types/EntityType';
+import { NotificationIconSelector } from './NotificationIconSelector';
 
 interface Props {
   notificationData: WithId<Notification>;
@@ -60,7 +61,7 @@ export function NotificationCard({ notificationData, decreaceUnreadCount }: Prop
     >
       <div className="flex size-full items-center gap-[16px]">
         <div className="flex justify-center items-center min-h-[56px] min-w-[56px] size-[56px] border rounded-md">
-          <NotificationIcon width="60%" height="60%" color="var(--primary-color-light)" />
+          <NotificationIconSelector notificationType={notification.type} />
         </div>
         <div className="flex flex-col h-full w-full">
           <h3 className="font-bold">{title}</h3>
