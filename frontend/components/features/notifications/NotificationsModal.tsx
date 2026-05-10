@@ -12,18 +12,13 @@ import { formatRelativeTime } from '@/lib/formatRelativeTime';
 import { NotificationCard } from './NotificationCard';
 import { NotificationsList } from './NotificationsList';
 import { Button } from '@/components/ui/Button/Button';
+import { useNotificationsModalContext } from '@/hooks/useNotificationsModalContext';
 
-interface Props {
-  isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-  unreadCount: number;
-  setUnreadCount: Dispatch<SetStateAction<number>>;
-}
-
-export function NotificationsModal({ isOpen, setIsOpen, unreadCount, setUnreadCount }: Props) {
+export function NotificationsModal() {
   const [notifications, setNotifications] = useState<WithId<Notification>[]>([]);
   const [nextPage, setNextPage] = useState(2);
   const [totalPages, setTotalPages] = useState(0);
+  const { isOpen, setIsOpen, unreadCount, setUnreadCount } = useNotificationsModalContext();
 
   useEffect(() => {
     async function loadNotifications() {
@@ -45,7 +40,7 @@ export function NotificationsModal({ isOpen, setIsOpen, unreadCount, setUnreadCo
     loadNotifications();
 
     const interval = setInterval(() => {
-      if(!isOpen){
+      if (!isOpen) {
         loadNotifications();
       }
     }, 30000);
