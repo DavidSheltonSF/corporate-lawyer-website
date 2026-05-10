@@ -22,18 +22,26 @@ export function NotificationCard({ notificationData, decreaceUnreadCount }: Prop
   const setCaseModalIsOpen = caseModalContext.setIsOpen;
   const setSelectedCaseId = caseModalContext.setSelectedCaseId;
 
-  async function handleNotificationClick(id: string) {
+  async function markAsRead() {
+    const updatedNotification = await markNotificationAsRead(notification.id);
+    setNotification(updatedNotification);
+    decreaceUnreadCount();
+  }
+
+  function openRelatedCaseModal() {
+    setSelectedCaseId(notification?.metadata?.caseId);
+    setCaseModalIsOpen(true);
+    setIsOpen(false);
+  }
+
+  async function handleNotificationClick() {
     try {
       if (!isRead) {
-        const updatedNotification = await markNotificationAsRead(id);
-        setNotification(updatedNotification);
-        decreaceUnreadCount();
+        await markAsRead();
       }
 
       if (notification.type === 'CASE_CREATED') {
-        setSelectedCaseId(notification?.metadata?.caseId);
-        setCaseModalIsOpen(true);
-        setIsOpen(false);
+        openRelatedCaseModal();
       }
     } catch (error: any) {
       console.log(error);
@@ -46,7 +54,7 @@ export function NotificationCard({ notificationData, decreaceUnreadCount }: Prop
 
   return (
     <article
-      onClick={() => handleNotificationClick(notification.id)}
+      onClick={handleNotificationClick}
       className={`${baseStyles} ${!isRead ? isReadStyles : ''}`}
     >
       <div className="flex size-full items-center gap-[16px]">
