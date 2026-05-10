@@ -1,6 +1,8 @@
 import { CreateNotificationDTO } from '../../dtos/notification/CreateNotificationDTO';
 import { NotificationDTO } from '../../dtos/notification/NotificationDTO';
 import { NotificationRepository } from '../../repositories/NotificationRepository';
+import { NotificationQuery } from '../../types/NotificationQuery';
+import { Page } from '../../types/Page';
 import { WithId } from '../../types/WithId';
 import { INotificationService } from './INotificationService';
 
@@ -14,8 +16,11 @@ export class NotificationService implements INotificationService {
     return this.notificationRepository.findById(id);
   }
 
-  async findByUserId(userId: string): Promise<WithId<NotificationDTO>[]> {
-    return this.notificationRepository.findByUserId(userId);
+  async findByUserId(
+    userId: string,
+    notificationQuery: NotificationQuery
+  ): Promise<Page<WithId<NotificationDTO>>> {
+    return this.notificationRepository.findByUserId(userId, notificationQuery);
   }
 
   async markAsRead(id: string): Promise<WithId<NotificationDTO> | null> {

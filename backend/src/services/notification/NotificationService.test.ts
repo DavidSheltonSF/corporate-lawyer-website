@@ -30,7 +30,8 @@ describe(`Test ${NotificationService.name}`, () => {
   test('should find notifications by user id', async () => {
     const { notificationService, notificationRepository } = makeSut();
     const userId = 'testid--fnsianf';
-    await notificationService.findByUserId(userId);
-    expect(notificationRepository.findByUserId).toHaveBeenCalledWith(userId);
+    const query = { page: 1, limit: 4 };
+    await notificationService.findByUserId(userId, query);
+    expect(notificationRepository.findByUserId).toHaveBeenCalledWith(userId, query);
   });
 });
