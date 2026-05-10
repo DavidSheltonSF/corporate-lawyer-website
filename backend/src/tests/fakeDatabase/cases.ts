@@ -7,7 +7,7 @@ import { City } from '../../types/City';
 export const fakeCases: ICaseModel[] = [
   {
     client: fakeUserDatabase[3]!._id,
-    lawyers: [fakeUserDatabase[0]!._id, fakeUserDatabase[1]!._id],
+    lawyers: [fakeUserDatabase[1]!._id],
     processNumber: '01119418441616-44156',
     title: 'Ação de indenização por danos morais',
     description:
@@ -26,7 +26,7 @@ export const fakeCases: ICaseModel[] = [
   },
   {
     client: fakeUserDatabase[3]!._id,
-    lawyers: [fakeUserDatabase[0]!._id, fakeUserDatabase[1]!._id],
+    lawyers: [fakeUserDatabase[1]!._id],
     processNumber: '55329184722017-11422',
     title: 'Ação de usucapião urbano',
     description:
@@ -83,7 +83,7 @@ export const fakeCases: ICaseModel[] = [
   },
   {
     client: fakeUserDatabase[3]!._id,
-    lawyers: [fakeUserDatabase[0]!._id, fakeUserDatabase[1]!._id],
+    lawyers: [fakeUserDatabase[1]!._id],
     processNumber: '91283747777923-44177',
     title: 'Ação de danos morais',
     description: 'O cliente busca ressarcimento pelos danos morais.',
@@ -156,7 +156,7 @@ export const fakeCases: ICaseModel[] = [
   },
   {
     client: fakeUserDatabase[5]!._id,
-    lawyers: [fakeUserDatabase[1]!._id, fakeUserDatabase[0]!._id],
+    lawyers: [fakeUserDatabase[1]!._id],
     processNumber: '98765432109876-54321',
     title: 'Ação de despejo por falta de pagamento',
     description:
@@ -249,7 +249,7 @@ export const fakeCases: ICaseModel[] = [
   },
   {
     client: fakeUserDatabase[10]!._id,
-    lawyers: [fakeUserDatabase[1]!._id, fakeUserDatabase[0]!._id],
+    lawyers: [fakeUserDatabase[1]!._id],
     processNumber: '22113344556677-88990',
     title: 'Ação de reconhecimento de união estável',
     description:
