@@ -39,13 +39,11 @@ export class NotificationController implements INotificationsController {
     if (!id) {
       throw new BadRequestError('Missing id param');
     }
-    console.log('CONTROLLER STARTS');
     const notification = await this.notificationService.markAsRead(id);
 
     if (!notification) {
       throw new NotFoundError(`Notification with id '${id}' was not found`);
     }
-    console.log('CONTROLLER ENDS');
 
     return HttpResponseFactory.makeOk(notification);
   };
