@@ -3,13 +3,13 @@ import { EntityType } from '../../types/EntityType';
 import { NotificationChannel } from '../../types/NotificationChannel';
 import { NotificationType } from '../../types/NotificationType';
 import { EventBus } from '../EventBust';
-import { CASE_CREATED, CaseEventPayload } from './CaseEvents';
+import { CaseEvent, CaseEventPayload } from './CaseEvents';
 
 export class CaseCreateHandler {
   constructor(private readonly notificationService: INotificationService) {}
 
   register(eventBus: EventBus) {
-    eventBus.on<CaseEventPayload>(CASE_CREATED, async (event) => {
+    eventBus.on<CaseEventPayload>(CaseEvent.CASE_CREATED, async (event) => {
       const { clientId, lawyerId, caseId, caseTitle } = event;
 
       const promises = [
