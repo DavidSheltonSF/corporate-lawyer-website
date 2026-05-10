@@ -28,14 +28,14 @@ export function NotificationCard({ notificationData, decreaceUnreadCount }: Prop
     }
   }
 
+  const baseStyles = 'flex border w-full min-h-fit rounded-md p-[16px] shadow-lg fade-in-animation';
+  const isReadStyles =
+    'cursor-pointer border-color-primary-light inner-shadow-soft-primary hover:-translate-y-0.5 transition-all duration-300';
+
   return (
     <article
       onClick={() => handleNotificationClick(notification.id)}
-      className={`flex border w-full min-h-fit rounded-md p-[16px] shadow-lg fade-in-animation ${
-        !isRead
-          ? 'cursor-pointer border-color-primary-light inner-shadow-soft-primary hover:-translate-y-0.5 transition-all duration-300'
-          : ''
-      }`}
+      className={`${baseStyles} ${!isRead ? isReadStyles : ''}`}
     >
       <div className="flex size-full items-center gap-[16px]">
         <div className="flex justify-center items-center size-[56px] border rounded-md">
