@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { markNotificationAsRead } from '@/services/notifications/markNotificationAsRead';
 import { useCaseModalContext } from '@/hooks/useCaseModalContext';
 import { useNotificationsModalContext } from '@/hooks/useNotificationsModalContext';
+import { EntityType } from '@/types/EntityType';
 
 interface Props {
   notificationData: WithId<Notification>;
@@ -29,7 +30,7 @@ export function NotificationCard({ notificationData, decreaceUnreadCount }: Prop
   }
 
   function openRelatedCaseModal() {
-    setSelectedCaseId(notification?.metadata?.caseId);
+    setSelectedCaseId(notification.metadata?.entityId || '');
     setCaseModalIsOpen(true);
     setIsOpen(false);
   }
@@ -40,7 +41,7 @@ export function NotificationCard({ notificationData, decreaceUnreadCount }: Prop
         await markAsRead();
       }
 
-      if (notification.type === 'CASE_CREATED') {
+      if (notification?.metadata?.entityType === EntityType.CASE) {
         openRelatedCaseModal();
       }
     } catch (error: any) {
