@@ -2,16 +2,18 @@
 
 import { Activity } from 'react';
 import { NotificationIcon } from '../../icons/NotificationIcon';
+import { useNotificationsModalContext } from '@/hooks/useNotificationsModalContext';
 
 interface Props {
-  openModal: Function;
   unreadCount: number;
 }
 
-export function NotificationButton({ openModal, unreadCount }: Props) {
+export function NotificationButton({ unreadCount }: Props) {
+  const { setIsOpen } = useNotificationsModalContext();
+
   return (
     <button
-      onClick={() => openModal()}
+      onClick={() => setIsOpen(true)}
       className="flex justify-center items-center fixed bottom-[112px] right-[24px] size-[64px] rounded-full bg-color-primary-light cursor-pointer hover:brightness-110 inner-shadow-soft-white"
     >
       <NotificationIcon width="50%" height="50%" color="white" />
