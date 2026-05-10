@@ -14,17 +14,15 @@ import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { handleLogout } from '@/lib/handleLogout';
 import { BrazilStateLabel } from '@/lib/BrazilStateLabel';
 import { CityLabel } from '@/lib/CityLabel';
+import { useCaseModalContext } from '@/hooks/useCaseModalContext';
+import { useCaseFilesUploadModalContext } from '@/hooks/useCaseFilesUploadModalContext';
 
-interface Props {
-  selectedCaseId: string | null;
-  isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-  openUploadModal: Function;
-}
-
-export function CaseModal({ selectedCaseId, isOpen, setIsOpen, openUploadModal }: Props) {
+export function CaseModal() {
   const [caseData, setCaseData] = useState<WithId<CaseWithRelations> | null>(null);
   const [loading, setLoading] = useState(false);
+  const { selectedCaseId, isOpen, setIsOpen } = useCaseModalContext();
+  const uploadModalContext = useCaseFilesUploadModalContext();
+  const setUploadModalIsOpen = uploadModalContext.setIsOpen;
 
   useEffect(() => {
     async function fetchCaseData() {
@@ -63,6 +61,11 @@ export function CaseModal({ selectedCaseId, isOpen, setIsOpen, openUploadModal }
   const lawyersNames = caseData?.lawyers.map(
     (lawyer: any) => `${lawyer.firstName} ${lawyer.lastName}`
   );
+
+  function openUploadModal() {
+    setIsOpen(false);
+    setUploadModalIsOpen(true);
+  }
 
   return (
     isOpen && (
@@ -105,7 +108,7 @@ export function CaseModal({ selectedCaseId, isOpen, setIsOpen, openUploadModal }
                 <div className="relative w-full bg-color-primary p-[16px]">
                   <h1 className="text-2xl font-bold text-color-white">Arquivos</h1>
                   <div className="absolute right-[16px] top-[50%] translate-y-[-50%]">
-                    <OpenUploadModalButton handleClick={() => openUploadModal()} />
+                    <OpenUploadModalButton handleClick={openUploadModal} />
                   </div>
                 </div>
 
