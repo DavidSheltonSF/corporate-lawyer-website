@@ -4,11 +4,10 @@ import { WithId } from '@/types/WithId';
 import { Activity, useState } from 'react';
 import { CardSkeleton } from '../../ui/Card/CardSkeleton';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
-import { CaseModal } from '../../modals/CaseModal';
 import { CardActionsModal } from '../actions/CardActionsModal';
 import { UpdateCaseModal } from '../../modals/UpdateCaseModal';
 import { DeleteCaseModal } from '../../modals/DeleteCaseModal';
-import { CaseFilesUploadModal } from '../../modals/CaseFilesUploadModal';
+import { useCaseModalContext } from '@/hooks/useCaseModalContext';
 
 interface Props {
   cases: WithId<CaseWithRelations>[];
@@ -18,11 +17,10 @@ interface Props {
 
 export function CasesList({ cases, loading, loadCases }: Props) {
   const [selectedCaseId, setSelectedCaseId] = useState<string | null>(null);
-  const [caseModalIsOpen, setCaseModalIsOpen] = useState(false);
   const [optionsModalIsOpen, setOptionsModalIsOpen] = useState(false);
   const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
-  const [uploadModalIsOpen, setUploadModalIsOpen] = useState(false);
+  const setCaseModalIsOpen = useCaseModalContext().setIsOpen;
   const renderCases = cases?.map((cas, index) => {
     return (
       <CaseCard
@@ -54,23 +52,6 @@ export function CasesList({ cases, loading, loadCases }: Props) {
 
   return (
     <div className="flex flex-col gap-[32px] mt-[88px] w-full">
-      <CaseFilesUploadModal
-        isOpen={uploadModalIsOpen}
-        close={() => {
-          setUploadModalIsOpen(false);
-          setCaseModalIsOpen(true);
-        }}
-        caseId={selectedCaseId || ''}
-      />
-      <CaseModal
-        openUploadModal={() => {
-          setUploadModalIsOpen(true);
-          setCaseModalIsOpen(false);
-        }}
-        selectedCaseId={selectedCaseId}
-        isOpen={caseModalIsOpen}
-        setIsOpen={setCaseModalIsOpen}
-      />
       <UpdateCaseModal
         loadCases={loadCases}
         selectedCaseId={selectedCaseId}
