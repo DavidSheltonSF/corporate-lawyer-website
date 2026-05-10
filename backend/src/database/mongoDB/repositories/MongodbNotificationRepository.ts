@@ -67,8 +67,6 @@ export class MongodbNotificationRepository implements Partial<NotificationReposi
       console.log(null);
       return null;
     }
-
-    console.log(result);
     return NotificationeMapper.persistenceToPresentation(result);
   }
 }
