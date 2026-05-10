@@ -11,6 +11,7 @@ import { Notification } from '@/types/Notification';
 import { formatRelativeTime } from '@/lib/formatRelativeTime';
 import { NotificationCard } from './NotificationCard';
 import { NotificationsList } from './NotificationsList';
+import { Button } from '@/components/ui/Button/Button';
 
 interface Props {
   isOpen: boolean;
@@ -21,15 +22,18 @@ interface Props {
 
 export function NotificationsModal({ isOpen, setIsOpen, unreadCount, setUnreadCount }: Props) {
   const [notifications, setNotifications] = useState<WithId<Notification>[]>([]);
+  const [nextPage, setNextPage] = useState(2);
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     async function loadNotifications() {
       try {
-        const notificationsResponse = await getMyNotifications();
-        setNotifications(notificationsResponse);
-        setUnreadCount(
-          notificationsResponse.filter((notification) => notification.isRead === false).length
-        );
+        setNotifications([]);
+        const response = await getMyNotifications(1, 4);
+        const data = response.data;
+        setNotifications(data);
+        setTotalPages(response.meta.totalPages);
+        setUnreadCount(data.filter((notification) => !notification.isRead).length);
       } catch (error: any) {
         console.log(error);
         if (error instanceof UnauthorizedError) {
@@ -42,8 +46,29 @@ export function NotificationsModal({ isOpen, setIsOpen, unreadCount, setUnreadCo
 
     const interval = setInterval(loadNotifications, 30000);
 
-    return () => clearInterval(interval);
-  }, [isOpen, unreadCount]);
+    return () => {
+      clearInterval(interval);
+      setNotifications([]);
+      setNextPage(2);
+    };
+  }, [isOpen]);
+
+  async function loadMore() {
+    try {
+      if (nextPage > totalPages) return;
+      const response = await getMyNotifications(nextPage, 4);
+      const data = response.data;
+      setNotifications((prev) => [...prev, ...data]);
+
+      setUnreadCount((prev) => data.filter((notification) => !notification.isRead).length + prev);
+      setNextPage((prev) => prev + 1);
+    } catch (error: any) {
+      console.log(error);
+      if (error instanceof UnauthorizedError) {
+        handleLogout();
+      }
+    }
+  }
 
   return (
     isOpen && (
@@ -68,6 +93,15 @@ export function NotificationsModal({ isOpen, setIsOpen, unreadCount, setUnreadCo
               unreadCount={unreadCount}
               setUnreadCount={setUnreadCount}
             />
+            <Button
+              backgroundColor="var(--primary-color)"
+              paddingY="8px"
+              textColor="var(--white-color)"
+              width="100%"
+              onclick={loadMore}
+            >
+              Carregar Mais
+            </Button>
           </div>
         </div>
       </PrimaryModal>
