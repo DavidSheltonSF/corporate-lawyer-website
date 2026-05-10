@@ -9,7 +9,7 @@ interface Props {
   setUnreadCount: Dispatch<SetStateAction<number>>;
 }
 export function NotificationsList({ notifications, unreadCount, setUnreadCount }: Props) {
-  const sortedNotifications = notifications.sort((a, b) => {
+  const sortedNotifications = notifications.toSorted((a, b) => {
     const aCreatedAt = new Date(a.createdAt);
     const bCreatedAt = new Date(b.createdAt);
     return bCreatedAt.getTime() - aCreatedAt.getTime();
@@ -18,7 +18,7 @@ export function NotificationsList({ notifications, unreadCount, setUnreadCount }
   const renderNotifications = sortedNotifications.map((notification, index) => {
     return (
       <NotificationCard
-        key={index}
+        key={notification.id}
         notificationData={notification}
         decreaceUnreadCount={() => setUnreadCount(unreadCount - 1)}
       />
