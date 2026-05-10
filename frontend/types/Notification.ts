@@ -1,3 +1,5 @@
+import { NotificationMetadata } from './NotificationMetadata';
+
 export interface Notification {
   userId: string;
   type: string;
@@ -7,5 +9,5 @@ export interface Notification {
   isRead: boolean;
   createdAt: string;
   readAt?: string | null;
-  metadata?: Record<string, any> | undefined;
+  metadata?: NotificationMetadata | undefined;
 }
