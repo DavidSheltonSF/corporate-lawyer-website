@@ -41,13 +41,19 @@ describe(`Test ${NotificationController.name}`, () => {
     expect(response.status).toBe(HttpStatusCode.ok);
   });
 
-  test('should call NotificationRepository.findMy with the provided ID and return OK (200)', async () => {
+  test('should call NotificationRepository.findByUserId with the provided ID and return OK (200)', async () => {
     const { notificationController, notificationRepository, httpRequest } = makeSut();
 
     httpRequest.user = { id: 'gfdgfdsgsdggg', email: 'fake@email.com' };
 
+    httpRequest.params = { id: 'gfdgfdsgsdggg' };
+    httpRequest.query = { page: 1, limit: 4 };
+
     const response = await notificationController.findMy(httpRequest);
-    expect(notificationRepository.findByUserId).toHaveBeenCalledWith(httpRequest.user.id);
+    expect(notificationRepository.findByUserId).toHaveBeenCalledWith(
+      httpRequest.params.id,
+      httpRequest.query
+    );
     expect(response.status).toBe(HttpStatusCode.ok);
   });
 });

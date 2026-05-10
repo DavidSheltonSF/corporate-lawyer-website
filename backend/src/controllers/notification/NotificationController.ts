@@ -25,7 +25,12 @@ export class NotificationController implements INotificationsController {
     if (!authUser) {
       throw Error('User credentials were not provided, use the requireAuth middleware');
     }
-    const notifications = await this.notificationService.findByUserId(authUser.id);
+
+    const { page = 1, limit = 5 } = httpRequest.query;
+    const notifications = await this.notificationService.findByUserId(authUser.id, {
+      page: Number(page),
+      limit: Number(limit),
+    });
     return HttpResponseFactory.makeOk(notifications);
   };
 
