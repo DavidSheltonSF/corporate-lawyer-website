@@ -18,7 +18,7 @@ export function testRoutes(router: Router) {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
         type: 'CASE_CREATED',
         channels: ['IN_APP'],
-        title: 'Novo processo cadastrado',
+        title: '1 - Novo processo cadastrado',
         message: 'O processo "Pedido de Habeas Corpus" foi cadastrado com sucesso.',
         isRead: false,
         metadata: {
@@ -30,8 +30,9 @@ export function testRoutes(router: Router) {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
         type: 'CASE_CREATED',
         channels: ['IN_APP'],
-        title: 'Novo processo cadastrado',
-        message: 'O processo "Ação Trabalhista contra Empresa XPTO" foi cadastrado com sucesso.',
+        title: '2 - Atualização de caso',
+        message:
+          'O andamento do processo "Ação Trabalhista contra Empresa XPTO" foi atualizado no sistema.',
         isRead: true,
         metadata: {
           caseId: '69fcce6790233e78aff43b72',
@@ -42,9 +43,9 @@ export function testRoutes(router: Router) {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
         type: 'CASE_CREATED',
         channels: ['IN_APP'],
-        title: 'Novo processo cadastrado',
+        title: '3 - Documento anexado',
         message:
-          'O processo "Inventário de Bens da Família Oliveira" foi registrado na plataforma.',
+          'O documento de prova para "Inventário de Bens da Família Oliveira" foi anexado com sucesso.',
         isRead: false,
         metadata: {
           caseId: '69fcce6790233e78aff43b73',
@@ -55,8 +56,8 @@ export function testRoutes(router: Router) {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
         type: 'CASE_CREATED',
         channels: ['IN_APP'],
-        title: 'Novo processo cadastrado',
-        message: 'O processo "Revisão de Contrato Imobiliário" foi cadastrado com sucesso.',
+        title: '4 - Nova tarefa',
+        message: 'Uma nova tarefa foi criada para o processo "Revisão de Contrato Imobiliário".',
         isRead: false,
         metadata: {
           caseId: '69fcce6790233e78aff43b74',
@@ -67,7 +68,7 @@ export function testRoutes(router: Router) {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
         type: 'CASE_CREATED',
         channels: ['IN_APP'],
-        title: 'Novo caso adicionado',
+        title: '5 - Novo caso adicionado',
         message: 'O processo "Ação de Guarda Compartilhada" foi adicionado ao sistema.',
         isRead: true,
         metadata: {
@@ -79,8 +80,9 @@ export function testRoutes(router: Router) {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
         type: 'CASE_CREATED',
         channels: ['IN_APP'],
-        title: 'Novo processo cadastrado',
-        message: 'O processo "Cobrança de Dívida Bancária" foi criado com sucesso.',
+        title: '6 - Prazo atualizado',
+        message:
+          'O prazo do processo "Cobrança de Dívida Bancária" foi alterado para a próxima semana.',
         isRead: false,
         metadata: {
           caseId: '69fcce6790233e78aff43b76',
@@ -91,8 +93,9 @@ export function testRoutes(router: Router) {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
         type: 'CASE_CREATED',
         channels: ['IN_APP'],
-        title: 'Novo processo cadastrado',
-        message: 'O processo "Ação de Divórcio Litigioso" foi registrado com sucesso.',
+        title: '7 - Nova audiência marcada',
+        message:
+          'A audiência do processo "Ação de Divórcio Litigioso" foi marcada para o dia 17/05/2026.',
         isRead: false,
         metadata: {
           caseId: '69fcce6790233e78aff43b77',
@@ -103,8 +106,8 @@ export function testRoutes(router: Router) {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
         type: 'CASE_CREATED',
         channels: ['IN_APP'],
-        title: 'Novo caso adicionado',
-        message: 'O processo "Recurso de Apelação em Ação Civil" foi adicionado ao sistema.',
+        title: '8 - Recurso registrado',
+        message: 'O recurso de apelação para "Recurso de Apelação em Ação Civil" foi registrado.',
         isRead: true,
         metadata: {
           caseId: '69fcce6790233e78aff43b78',
@@ -115,8 +118,9 @@ export function testRoutes(router: Router) {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
         type: 'CASE_CREATED',
         channels: ['IN_APP'],
-        title: 'Novo processo cadastrado',
-        message: 'O processo "Execução de Sentença Trabalhista" foi criado com sucesso.',
+        title: '9 - Sentença publicada',
+        message:
+          'A sentença do processo "Execução de Sentença Trabalhista" foi publicada no sistema.',
         isRead: false,
         metadata: {
           caseId: '69fcce6790233e78aff43b79',
@@ -127,8 +131,9 @@ export function testRoutes(router: Router) {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
         type: 'CASE_CREATED',
         channels: ['IN_APP'],
-        title: 'Novo processo cadastrado',
-        message: 'O processo "Ação de Indenização por Danos Morais" foi registrado na plataforma.',
+        title: '10 - Notificação de cliente',
+        message:
+          'O cliente foi notificado sobre a evolução do processo "Ação de Indenização por Danos Morais".',
         isRead: false,
         metadata: {
           caseId: '69fcce6790233e78aff43b7a',
@@ -139,8 +144,9 @@ export function testRoutes(router: Router) {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
         type: 'CASE_CREATED',
         channels: ['IN_APP'],
-        title: 'Novo caso adicionado',
-        message: 'O processo "Revisão de Pensão Alimentícia" foi adicionado ao sistema com êxito.',
+        title: '11 - Relatório disponível',
+        message:
+          'O relatório do processo "Revisão de Pensão Alimentícia" está disponível para download.',
         isRead: true,
         metadata: {
           caseId: '69fcce6790233e78aff43b7b',
