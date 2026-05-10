@@ -18,7 +18,7 @@ interface NotificationMongoDocument extends Document, INotificationModel {}
 
 const NotificationSchema = new Schema<NotificationMongoDocument>(
   {
-    userId: { type: Types.ObjectId, ref: 'Users', index: true, requred: true },
+    userId: { type: Types.ObjectId, ref: 'Users', index: true, required: true },
     type: { type: String, enum: Object.values(NotificationType), required: true },
     channels: [{ type: String, enum: Object.values(NotificationChannel), required: true }],
     title: { type: String, required: true },
