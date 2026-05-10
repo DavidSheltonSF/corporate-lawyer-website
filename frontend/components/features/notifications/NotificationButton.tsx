@@ -4,12 +4,8 @@ import { Activity } from 'react';
 import { NotificationIcon } from '../../icons/NotificationIcon';
 import { useNotificationsModalContext } from '@/hooks/useNotificationsModalContext';
 
-interface Props {
-  unreadCount: number;
-}
-
-export function NotificationButton({ unreadCount }: Props) {
-  const { setIsOpen } = useNotificationsModalContext();
+export function NotificationButton() {
+  const { setIsOpen, unreadCount } = useNotificationsModalContext();
 
   return (
     <button
