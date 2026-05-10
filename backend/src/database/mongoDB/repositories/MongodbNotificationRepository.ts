@@ -25,6 +25,7 @@ export class MongodbNotificationRepository implements Partial<NotificationReposi
   ): Promise<Page<WithId<NotificationDTO>>> {
     const { limit = 4, page = 1 } = notificationQuery;
     const notificationsPromise = NotificationModel.find({ userId })
+      .sort({ createdAt: -1 })
       .limit(limit)
       .skip((page - 1) * limit)
       .lean();
