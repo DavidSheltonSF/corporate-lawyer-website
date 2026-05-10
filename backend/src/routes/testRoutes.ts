@@ -1,7 +1,6 @@
 import { Request, Response, Router } from 'express';
 import { UserModel } from '../models/UserModel';
 import { NotificationModel } from '../models/NotificationModel';
-import { Types } from 'mongoose';
 
 export function testRoutes(router: Router) {
   router.get('/api/users/', async (req: Request, res: Response) => {
@@ -18,7 +17,7 @@ export function testRoutes(router: Router) {
       {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
         type: 'CASE_CREATED',
-        channel: ['IN_APP'],
+        channels: ['IN_APP'],
         title: 'Novo processo cadastrado',
         message: 'O processo "Pedido de Habeas Corpus" foi cadastrado com sucesso.',
         isRead: false,
@@ -30,7 +29,7 @@ export function testRoutes(router: Router) {
       {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
         type: 'CASE_CREATED',
-        channel: ['IN_APP'],
+        channels: ['IN_APP'],
         title: 'Novo processo cadastrado',
         message: 'O processo "Ação Trabalhista contra Empresa XPTO" foi cadastrado com sucesso.',
         isRead: true,
@@ -42,7 +41,7 @@ export function testRoutes(router: Router) {
       {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
         type: 'CASE_CREATED',
-        channel: ['IN_APP'],
+        channels: ['IN_APP'],
         title: 'Novo processo cadastrado',
         message:
           'O processo "Inventário de Bens da Família Oliveira" foi registrado na plataforma.',
@@ -55,7 +54,7 @@ export function testRoutes(router: Router) {
       {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
         type: 'CASE_CREATED',
-        channel: ['IN_APP'],
+        channels: ['IN_APP'],
         title: 'Novo processo cadastrado',
         message: 'O processo "Revisão de Contrato Imobiliário" foi cadastrado com sucesso.',
         isRead: false,
@@ -67,7 +66,7 @@ export function testRoutes(router: Router) {
       {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
         type: 'CASE_CREATED',
-        channel: ['IN_APP'],
+        channels: ['IN_APP'],
         title: 'Novo caso adicionado',
         message: 'O processo "Ação de Guarda Compartilhada" foi adicionado ao sistema.',
         isRead: true,
@@ -79,7 +78,7 @@ export function testRoutes(router: Router) {
       {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
         type: 'CASE_CREATED',
-        channel: ['IN_APP'],
+        channels: ['IN_APP'],
         title: 'Novo processo cadastrado',
         message: 'O processo "Cobrança de Dívida Bancária" foi criado com sucesso.',
         isRead: false,
@@ -87,6 +86,66 @@ export function testRoutes(router: Router) {
           caseId: '69fcce6790233e78aff43b76',
         },
         createdAt: '2026-05-07T15:33:51.002Z',
+      },
+      {
+        userId: 'a3f9c1e70d4b8a2fff12ac90',
+        type: 'CASE_CREATED',
+        channels: ['IN_APP'],
+        title: 'Novo processo cadastrado',
+        message: 'O processo "Ação de Divórcio Litigioso" foi registrado com sucesso.',
+        isRead: false,
+        metadata: {
+          caseId: '69fcce6790233e78aff43b77',
+        },
+        createdAt: '2026-05-08T09:15:22.567Z',
+      },
+      {
+        userId: 'a3f9c1e70d4b8a2fff12ac90',
+        type: 'CASE_CREATED',
+        channels: ['IN_APP'],
+        title: 'Novo caso adicionado',
+        message: 'O processo "Recurso de Apelação em Ação Civil" foi adicionado ao sistema.',
+        isRead: true,
+        metadata: {
+          caseId: '69fcce6790233e78aff43b78',
+        },
+        createdAt: '2026-05-08T12:47:30.891Z',
+      },
+      {
+        userId: 'a3f9c1e70d4b8a2fff12ac90',
+        type: 'CASE_CREATED',
+        channels: ['IN_APP'],
+        title: 'Novo processo cadastrado',
+        message: 'O processo "Execução de Sentença Trabalhista" foi criado com sucesso.',
+        isRead: false,
+        metadata: {
+          caseId: '69fcce6790233e78aff43b79',
+        },
+        createdAt: '2026-05-08T14:22:15.234Z',
+      },
+      {
+        userId: 'a3f9c1e70d4b8a2fff12ac90',
+        type: 'CASE_CREATED',
+        channels: ['IN_APP'],
+        title: 'Novo processo cadastrado',
+        message: 'O processo "Ação de Indenização por Danos Morais" foi registrado na plataforma.',
+        isRead: false,
+        metadata: {
+          caseId: '69fcce6790233e78aff43b7a',
+        },
+        createdAt: '2026-05-08T16:58:44.678Z',
+      },
+      {
+        userId: 'a3f9c1e70d4b8a2fff12ac90',
+        type: 'CASE_CREATED',
+        channels: ['IN_APP'],
+        title: 'Novo caso adicionado',
+        message: 'O processo "Revisão de Pensão Alimentícia" foi adicionado ao sistema com êxito.',
+        isRead: true,
+        metadata: {
+          caseId: '69fcce6790233e78aff43b7b',
+        },
+        createdAt: '2026-05-09T10:35:19.445Z',
       },
     ]);
     res.status(200).json({ data: response });
