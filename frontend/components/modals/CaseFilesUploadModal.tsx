@@ -7,21 +7,19 @@ import { DropArea } from '../DropArea';
 import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
 import { handleLogout } from '@/lib/handleLogout';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
+import { useCaseFilesUploadModalContext } from '@/hooks/useCaseFilesUploadModalContext';
+import { useCaseModalContext } from '@/hooks/useCaseModalContext';
 
-export function CaseFilesUploadModal({
-  caseId,
-  isOpen,
-  close,
-}: {
-  caseId: string;
-  isOpen: boolean;
-  close: Function;
-}) {
+export function CaseFilesUploadModal() {
   const [uploadState, setUploadState] = useState<null | RequestState>(null);
+  const { isOpen, setIsOpen, selectedCaseId } = useCaseFilesUploadModalContext();
+  const caseModalContext = useCaseModalContext();
+  const setCaseModalIsOpen = caseModalContext.setIsOpen;
 
   function closeModal() {
     if (uploadState?.status === 'loading') return;
-    close();
+    setIsOpen(false);
+    setCaseModalIsOpen(true);
     setUploadState(null);
   }
 
@@ -37,7 +35,7 @@ export function CaseFilesUploadModal({
 
       await new Promise((resolve) => setTimeout(resolve, 5000));
 
-      await uploadCaseFile(formData, caseId);
+      await uploadCaseFile(formData, selectedCaseId);
       setUploadState({ status: 'ok', message: 'Arquivo adicionado com sucesso!' });
     } catch (error) {
       setUploadState({ status: 'error', message: 'Arquivo não adicionado' });
@@ -71,7 +69,7 @@ export function CaseFilesUploadModal({
       const formData = new FormData();
       formData.append('file', fileItem);
 
-      await uploadCaseFile(formData, caseId);
+      await uploadCaseFile(formData, selectedCaseId);
 
       setUploadState({ status: 'ok', message: 'Arquivo adicionado com sucesso!' });
     } catch (error) {
