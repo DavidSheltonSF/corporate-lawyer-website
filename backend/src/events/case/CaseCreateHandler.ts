@@ -1,4 +1,5 @@
 import { INotificationService } from '../../services/notification/INotificationService';
+import { EntityType } from '../../types/EntityType';
 import { NotificationChannel } from '../../types/NotificationChannel';
 import { NotificationType } from '../../types/NotificationType';
 import { EventBus } from '../EventBust';
@@ -15,22 +16,24 @@ export class CaseCreateHandler {
         this.notificationService.create({
           userId: clientId,
           channels: [NotificationChannel.IN_APP],
-          type: NotificationType.CASE_CREATED,
+          type: NotificationType.CREATED,
           title: 'Novo processo cadastrado',
           message: `Processo "${caseTitle}" cadastrado com sucesso`,
           metadata: {
-            caseId,
+            entityType: EntityType.CASE,
+            entityId: caseId,
           },
         }),
 
         this.notificationService.create({
           userId: lawyerId,
           channels: [NotificationChannel.IN_APP],
-          type: NotificationType.CASE_CREATED,
+          type: NotificationType.CREATED,
           title: 'Novo processo cadastrado',
           message: `Processo "${caseTitle}" cadastrado com sucesso`,
           metadata: {
-            caseId,
+            entityType: EntityType.CASE,
+            entityId: caseId,
           },
         }),
       ];
