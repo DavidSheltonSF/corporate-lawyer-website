@@ -126,7 +126,7 @@ h3 {
 }
 
 .inner-shadow-soft-primary {
-  box-shadow: inset -1px -1px 5px -1px var(--primary-color-light);
+  box-shadow: inset -1px -1px 10px 1px var(--primary-color-light);
 }
 
 /* Chrome... */
