@@ -12,7 +12,7 @@ interface Props {
 export function ModalsProvider({ children }: Props) {
   const [servicesModalIsOpen, setServicesModalIsOpen] = useState(false);
   const [serviceAreaId, setServiceAreaId] = useState('');
-  const [caseMosalIsOpen, setCaseModalIsOpen] = useState(false);
+  const [caseModalIsOpen, setCaseModalIsOpen] = useState(false);
   const [caseFilesUploadModalIsOpen, setCaseFilesUploadModalIsOpen] = useState(false);
 
   const [selectedCaseId, setSelectedCaseId] = useState('');
@@ -29,7 +29,7 @@ export function ModalsProvider({ children }: Props) {
       >
         <CaseModalContext.Provider
           value={{
-            isOpen: caseMosalIsOpen,
+            isOpen: caseModalIsOpen,
             setIsOpen: setCaseModalIsOpen,
             selectedCaseId: selectedCaseId,
             setSelectedCaseId: setSelectedCaseId,
