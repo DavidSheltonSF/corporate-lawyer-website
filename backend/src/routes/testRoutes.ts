@@ -1,6 +1,7 @@
 import { Request, Response, Router } from 'express';
 import { UserModel } from '../models/UserModel';
 import { NotificationModel } from '../models/NotificationModel';
+import { NotificationType } from '../types/NotificationType';
 
 export function testRoutes(router: Router) {
   router.get('/api/users/', async (req: Request, res: Response) => {
@@ -16,7 +17,7 @@ export function testRoutes(router: Router) {
     const response = await NotificationModel.create([
       {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
-        type: 'CASE_CREATED',
+        type: NotificationType.CREATED,
         channels: ['IN_APP'],
         title: '1 - Novo processo cadastrado',
         message: 'O processo "Pedido de Habeas Corpus" foi cadastrado com sucesso.',
@@ -28,7 +29,7 @@ export function testRoutes(router: Router) {
       },
       {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
-        type: 'CASE_CREATED',
+        type: NotificationType.UPDATED,
         channels: ['IN_APP'],
         title: '2 - Atualização de caso',
         message:
@@ -41,7 +42,7 @@ export function testRoutes(router: Router) {
       },
       {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
-        type: 'CASE_CREATED',
+        type: NotificationType.CREATED,
         channels: ['IN_APP'],
         title: '3 - Documento anexado',
         message:
@@ -54,7 +55,7 @@ export function testRoutes(router: Router) {
       },
       {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
-        type: 'CASE_CREATED',
+        type: NotificationType.CREATED,
         channels: ['IN_APP'],
         title: '4 - Nova tarefa',
         message: 'Uma nova tarefa foi criada para o processo "Revisão de Contrato Imobiliário".',
@@ -66,7 +67,7 @@ export function testRoutes(router: Router) {
       },
       {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
-        type: 'CASE_CREATED',
+        type: NotificationType.CREATED,
         channels: ['IN_APP'],
         title: '5 - Novo caso adicionado',
         message: 'O processo "Ação de Guarda Compartilhada" foi adicionado ao sistema.',
@@ -78,7 +79,7 @@ export function testRoutes(router: Router) {
       },
       {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
-        type: 'CASE_CREATED',
+        type: NotificationType.CREATED,
         channels: ['IN_APP'],
         title: '6 - Prazo atualizado',
         message:
@@ -91,7 +92,7 @@ export function testRoutes(router: Router) {
       },
       {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
-        type: 'CASE_CREATED',
+        type: NotificationType.CREATED,
         channels: ['IN_APP'],
         title: '7 - Nova audiência marcada',
         message:
@@ -104,7 +105,7 @@ export function testRoutes(router: Router) {
       },
       {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
-        type: 'CASE_CREATED',
+        type: NotificationType.CREATED,
         channels: ['IN_APP'],
         title: '8 - Recurso registrado',
         message: 'O recurso de apelação para "Recurso de Apelação em Ação Civil" foi registrado.',
@@ -116,7 +117,7 @@ export function testRoutes(router: Router) {
       },
       {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
-        type: 'CASE_CREATED',
+        type: NotificationType.CREATED,
         channels: ['IN_APP'],
         title: '9 - Sentença publicada',
         message:
@@ -129,7 +130,7 @@ export function testRoutes(router: Router) {
       },
       {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
-        type: 'CASE_CREATED',
+        type: NotificationType.CREATED,
         channels: ['IN_APP'],
         title: '10 - Notificação de cliente',
         message:
@@ -142,7 +143,7 @@ export function testRoutes(router: Router) {
       },
       {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
-        type: 'CASE_CREATED',
+        type: NotificationType.CREATED,
         channels: ['IN_APP'],
         title: '11 - Relatório disponível',
         message:
