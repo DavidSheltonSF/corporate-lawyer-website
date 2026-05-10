@@ -6,6 +6,8 @@ import { WithId } from '@/types/WithId';
 import { NotificationIcon } from '../../icons/NotificationIcon';
 import { useState } from 'react';
 import { markNotificationAsRead } from '@/services/notifications/markNotificationAsRead';
+import { useCaseModalContext } from '@/hooks/useCaseModalContext';
+import { useNotificationsModalContext } from '@/hooks/useNotificationsModalContext';
 
 interface Props {
   notificationData: WithId<Notification>;
@@ -15,6 +17,10 @@ interface Props {
 export function NotificationCard({ notificationData, decreaceUnreadCount }: Props) {
   const [notification, setNotification] = useState<WithId<Notification>>(notificationData);
   const { title, message, createdAt, isRead } = notification;
+  const caseModalContext = useCaseModalContext();
+  const { setIsOpen } = useNotificationsModalContext();
+  const setCaseModalIsOpen = caseModalContext.setIsOpen;
+  const setSelectedCaseId = caseModalContext.setSelectedCaseId;
 
   async function handleNotificationClick(id: string) {
     try {
@@ -22,6 +28,12 @@ export function NotificationCard({ notificationData, decreaceUnreadCount }: Prop
         const updatedNotification = await markNotificationAsRead(id);
         setNotification(updatedNotification);
         decreaceUnreadCount();
+      }
+
+      if (notification.type === 'CASE_CREATED') {
+        setSelectedCaseId(notification?.metadata?.caseId);
+        setCaseModalIsOpen(true);
+        setIsOpen(false);
       }
     } catch (error: any) {
       console.log(error);
