@@ -14,17 +14,20 @@ import { DuplicateUniqueFieldError } from '../../errors/domain/DuplicateUniqueFi
 import { CaseDTO } from '../../dtos/case/CaseDTO';
 
 import { EventBus } from '../../events/EventBust';
-import { CASE_CREATED, CaseCreatedEvent } from '../../events/case/CaseEvents';
+import { CASE_CREATED, CaseEventPayload } from '../../events/case/CaseEvents';
 
 export class CaseService implements ICaseService {
-  constructor(private caseRepository: CaseRepository, private eventBus: EventBus) {}
+  constructor(
+    private caseRepository: CaseRepository,
+    private eventBus: EventBus
+  ) {}
   async create(data: CreateCaseDTO): Promise<WithId<CaseDTO>> {
     try {
       validateCase(data);
       const createdCase = await this.caseRepository.create(data);
       const { id, client, lawyers, title } = createdCase;
 
-      this.eventBus.emit<CaseCreatedEvent>(CASE_CREATED, {
+      this.eventBus.emit<CaseEventPayload>(CASE_CREATED, {
         caseId: id,
         lawyerId: lawyers[0] || '',
         clientId: client,

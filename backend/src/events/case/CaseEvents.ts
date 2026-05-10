@@ -1,6 +1,6 @@
 export const CASE_CREATED = 'CASE_CREATED';
 
-export type CaseCreatedEvent = {
+export type CaseEventPayload = {
   caseId: string;
   caseTitle: string;
   clientId: string;
