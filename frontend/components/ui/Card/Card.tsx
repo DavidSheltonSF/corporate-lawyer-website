@@ -1,4 +1,5 @@
 import { VerticalMoreIcon } from '@/components/icons/VerticalMoreIcon';
+import { Button } from '../Button/Button';
 
 interface Props {
   openModal: Function;
@@ -8,29 +9,28 @@ interface Props {
 
 export function Card({ openModal, openOptionsModal, children }: Props) {
   return (
-    <article className="flex flex-col fade-in-animation bg-color-primary w-full min-md:w-[80%] min-lg:w-[656px] min-h-[280px] h-max rounded-xl cursor-pointer">
-      <header className="flex justify-end w-full p-[16px]">
-        <button
-          className="cursor-pointer"
-          onClick={() => {
+    <article
+      className="relative flex flex-col bg-color-white rounded-[8px] w-full h-fit min-md:w-[720px]"
+      onClick={() => openModal()}
+    >
+      <div className="absolute top-[8px] right-[8px]">
+        <Button
+          paddingX="4px"
+          paddingY="4px"
+          width="auto"
+          height="auto"
+          darkHover
+          onclick={(e) => {
+            e.stopPropagation();
             openOptionsModal();
           }}
         >
-          <VerticalMoreIcon color="var(--white-color)" height="32px" width="32px" />
-        </button>
-      </header>
-      <div
-        onClick={() => {
-          openModal();
-        }}
-        className="flex flex-1 flex-col gap-[16px] px-[24px] py-[16px] bg-color-white text-color-black text-lg"
-        style={{
-          borderBottomLeftRadius: 'inherit',
-          borderBottomRightRadius: 'inherit',
-        }}
-      >
-        {children}
+          <span className="flex justify-center items-center">
+            <VerticalMoreIcon width="24px" height="24px" />
+          </span>
+        </Button>
       </div>
+      <div>{children}</div>
     </article>
   );
 }
