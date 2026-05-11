@@ -25,14 +25,15 @@ export class CaseService implements ICaseService {
     try {
       validateCase(data);
       const createdCase = await this.caseRepository.create(data);
-      const { id, client, lawyers, title } = createdCase;
 
+      const { id, client, lawyers, title } = createdCase;
       this.eventBus.emit<CaseEventPayload>(CaseEvent.CASE_CREATED, {
         caseId: id,
         lawyerId: lawyers[0] || '',
         clientId: client,
         caseTitle: title,
       });
+
       return createdCase;
     } catch (error: any) {
       if (error.code === 11000) {
@@ -45,7 +46,20 @@ export class CaseService implements ICaseService {
 
   async updateById(id: string, data: UpdateCaseDTO): Promise<WithId<CaseDTO> | null> {
     try {
-      return await this.caseRepository.updateById(id, data);
+      const updatedCase = await this.caseRepository.updateById(id, data);
+      if (!updatedCase) {
+        return null;
+      }
+
+      const { client, title, lawyers } = updatedCase;
+      this.eventBus.emit<CaseEventPayload>(CaseEvent.CASE_UPDATED, {
+        caseId: updatedCase.id,
+        lawyerId: lawyers[0] || '',
+        clientId: client,
+        caseTitle: title,
+      });
+
+      return updatedCase;
     } catch (error: any) {
       if (error.code === 11000) {
         throw new DuplicateUniqueFieldError(error.keyValue);
