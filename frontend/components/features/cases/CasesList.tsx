@@ -1,5 +1,5 @@
 'use client';
-import { CaseCard } from './CaseCard';
+import { CaseCard } from './CaseCard/CaseCard';
 import { WithId } from '@/types/WithId';
 import { Activity, useState } from 'react';
 import { CardSkeleton } from '../../ui/Card/CardSkeleton';

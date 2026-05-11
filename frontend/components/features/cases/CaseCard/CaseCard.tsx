@@ -3,7 +3,7 @@ import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { WithId } from '@/types/WithId';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
-import { Card } from '../../ui/Card/Card';
+import { Card } from '../../../ui/Card/Card';
 import { UserIcon } from '@/components/icons/UserIcon';
 import { BalanceIcon } from '@/components/icons/BalanceIcon';
 import { FolderIcon } from '@/components/icons/FolderIcon';
