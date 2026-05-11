@@ -3,22 +3,22 @@ import { EntityType } from '../../types/EntityType';
 import { NotificationChannel } from '../../types/NotificationChannel';
 import { NotificationType } from '../../types/NotificationType';
 import { EventBus } from '../EventBust';
-import { CASE_CREATED, CaseEventPayload } from './CaseEvents';
+import { CaseEvent, CaseEventPayload } from './CaseEvents';
 
 export class CaseUpdateHandler {
   constructor(private readonly notificationService: INotificationService) {}
 
   register(eventBus: EventBus) {
-    eventBus.on<CaseEventPayload>(CASE_CREATED, async (event) => {
+    eventBus.on<CaseEventPayload>(CaseEvent.CASE_UPDATED, async (event) => {
       const { clientId, lawyerId, caseId, caseTitle } = event;
 
       const promises = [
         this.notificationService.create({
           userId: clientId,
           channels: [NotificationChannel.IN_APP],
-          type: NotificationType.CREATED,
-          title: 'Novo processo cadastrado',
-          message: `Processo "${caseTitle}" cadastrado com sucesso`,
+          type: NotificationType.UPDATED,
+          title: 'Processo atualizado',
+          message: `Processo "${caseTitle}" foi atualizado`,
           metadata: {
             entityType: EntityType.CASE,
             entityId: caseId,
@@ -28,9 +28,9 @@ export class CaseUpdateHandler {
         this.notificationService.create({
           userId: lawyerId,
           channels: [NotificationChannel.IN_APP],
-          type: NotificationType.CREATED,
-          title: 'Novo processo cadastrado',
-          message: `Processo "${caseTitle}" cadastrado com sucesso`,
+          type: NotificationType.UPDATED,
+          title: 'Processo atualizado',
+          message: `Processo "${caseTitle}" foi atualizado`,
           metadata: {
             entityType: EntityType.CASE,
             entityId: caseId,
