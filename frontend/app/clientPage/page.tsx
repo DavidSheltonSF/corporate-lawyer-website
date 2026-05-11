@@ -22,7 +22,7 @@ export default async function ClientPage() {
   }
 
   return (
-    <div className="relative bg-color-black min-h-[100vh]">
+    <div className="bg-color-black min-h-[100vh]">
       <HeroSection
         background="var(--blue-gradient)"
         title={`Bem vindo(a) ${user?.role === 'lawyer' ? 'Dra' : ''} ${user?.firstName}`}
@@ -30,7 +30,7 @@ export default async function ClientPage() {
       />
       <AuthenticatedUserProvider userData={user}>
         <CaseModal />
-        <CaseFilesUploadModal/>
+        <CaseFilesUploadModal />
         {user.role === 'lawyer' ? <LawyerView /> : <ClientView />}
       </AuthenticatedUserProvider>
       <Notifications />
