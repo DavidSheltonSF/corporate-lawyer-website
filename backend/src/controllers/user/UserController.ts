@@ -122,9 +122,12 @@ export class UserController implements IUserController {
       throw new BadRequestError('Missing id param');
     }
 
-    const foundUser = await this.userService.findById(id, {
-      cases: include === 'cases',
-    });
+    let foundUserPromise =
+      include === 'cases'
+        ? this.userService.findByIdWithCases(id)
+        : this.userService.findById(id);
+
+    const foundUser = await foundUserPromise;
 
     return HttpResponseFactory.makeOk(foundUser);
   };
