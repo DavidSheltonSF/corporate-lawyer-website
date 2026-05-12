@@ -10,6 +10,7 @@ import { useCaseModalContext } from '@/hooks/useCaseModalContext';
 import { useNotificationsModalContext } from '@/hooks/useNotificationsModalContext';
 import { EntityType } from '@/types/EntityType';
 import { NotificationIconSelector } from './NotificationIconSelector';
+import { useSelectedCaseContext } from '@/hooks/useSelectedCaseContext';
 
 interface Props {
   notificationData: WithId<Notification>;
@@ -22,7 +23,7 @@ export function NotificationCard({ notificationData, decreaceUnreadCount }: Prop
   const caseModalContext = useCaseModalContext();
   const { setIsOpen } = useNotificationsModalContext();
   const setCaseModalIsOpen = caseModalContext.setIsOpen;
-  const setSelectedCaseId = caseModalContext.setSelectedCaseId;
+  const {setSelectedCaseId} = useSelectedCaseContext()
 
   async function markAsRead() {
     const updatedNotification = await markNotificationAsRead(notification.id);
