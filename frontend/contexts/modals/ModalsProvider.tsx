@@ -15,8 +15,6 @@ export function ModalsProvider({ children }: Props) {
   const [caseModalIsOpen, setCaseModalIsOpen] = useState(false);
   const [caseFilesUploadModalIsOpen, setCaseFilesUploadModalIsOpen] = useState(false);
 
-  const [selectedCaseId, setSelectedCaseId] = useState('');
-
   return (
     <div>
       <ServicesModalContext.Provider
@@ -31,13 +29,10 @@ export function ModalsProvider({ children }: Props) {
           value={{
             isOpen: caseModalIsOpen,
             setIsOpen: setCaseModalIsOpen,
-            selectedCaseId: selectedCaseId,
-            setSelectedCaseId: setSelectedCaseId,
           }}
         >
           <CaseFilesUploadModalContext
             value={{
-              selectedCaseId,
               isOpen: caseFilesUploadModalIsOpen,
               setIsOpen: setCaseFilesUploadModalIsOpen,
             }}
