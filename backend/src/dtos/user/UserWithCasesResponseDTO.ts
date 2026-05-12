@@ -1,7 +1,7 @@
 import { WithId } from '../../types/WithId';
 import { CaseDTO } from '../case/CaseDTO';
-import { UserResponseDTO } from './UserResponseDTO';
+import { UserDTO } from './UserDTO';
 
-export type UserWithCasesResponseDTO = UserResponseDTO & {
+export type UserWithCasesResponseDTO = Omit<UserDTO, 'password'> & {
   cases: WithId<CaseDTO>[];
 };
