@@ -24,12 +24,16 @@ export function ClientModalCases({ cases, openRegisterCaseModal }: Props) {
       <div className="relative w-full bg-color-primary p-[16px]">
         <h1 className="text-2xl font-bold text-color-white">Processos</h1>
         <div className="absolute right-[16px] top-[50%] translate-y-[-50%]">
-          <Button darkHover onclick={() => openRegisterCaseModal()}>Adicionar Processo</Button>
+          <Button
+            backgroundColor="var(--white-color)"
+            darkHover
+            onclick={() => openRegisterCaseModal()}
+          >
+            Adicionar Processo
+          </Button>
         </div>
       </div>
-      <div className="flex flex-col gap-[24px] p-[24px] size-full">
-        {renderClientCases}
-      </div>
+      <div className="flex flex-col gap-[24px] p-[24px] size-full">{renderClientCases}</div>
     </div>
   );
 }
