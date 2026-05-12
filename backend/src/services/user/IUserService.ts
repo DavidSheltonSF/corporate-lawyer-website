@@ -10,7 +10,8 @@ export interface IUserService {
   createClient(data: CreateClientDTO): Promise<WithId<UserResponseDTO>>;
   findAll(): Promise<WithId<UserResponseDTO>[]>;
   findClients(userQuery: UserQuery): Promise<Page<WithId<UserResponseDTO>>>;
-  findById(id: string, include?: UserIncludeOptions): Promise<WithId<UserResponseDTO> | null>;
+  findById(id: string): Promise<WithId<UserResponseDTO> | null>;
+  findByIdWithCases(id: string): Promise<WithId<UserResponseDTO> | null>;
   findByEmail(email: string): Promise<WithId<UserResponseDTO> | null>;
   updateById(id: string, data: Partial<UpdateUserDTO>): Promise<WithId<UserResponseDTO> | null>;
   deleteById(id: string): Promise<WithId<UserResponseDTO> | null>;
