@@ -1,5 +1,5 @@
 import { INotificationService } from '../services/notification/INotificationService';
-import { CaseCreateHandler } from './case/CaseCreateHandler';
+import { NotifyCaseCreatedHandler } from './case/NotifyCaseCreatedHandler';
 import { CaseDeleteHandler } from './case/CaseDeleteHandler';
 import { CaseUpdateHandler } from './case/CaseUpdateHandler';
 import { EventBus } from './EventBust';
@@ -7,7 +7,7 @@ import { EventBus } from './EventBust';
 export function registerCaseEvents(notificationService: INotificationService) {
   const eventBus = new EventBus();
   const handlers = [
-    new CaseCreateHandler(notificationService),
+    new NotifyCaseCreatedHandler(notificationService),
     new CaseUpdateHandler(notificationService),
     new CaseDeleteHandler(notificationService),
   ];
