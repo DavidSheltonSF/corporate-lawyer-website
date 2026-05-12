@@ -8,9 +8,9 @@ import { UserRole } from '../../../types/UserRole';
 import { UserMapper } from '../../../mappers/User/UserMapper';
 import { UpdateUserDTO } from '../../../dtos/user/UpdateUserDTO';
 import { UserDTO } from '../../../dtos/user/UserDTO';
-import { UserWithCases } from '../../../types/UserWithCases';
 import { CaseMapper } from '../../../mappers/Case/CaseMapper';
 import { CaseModel } from '../../../models/CaseModel';
+import { UserWithCasesDTO } from '../../../dtos/user/UserWithCasesDTO';
 
 export class MongodbUserRepository implements UserRepository {
   async create(data: UserDTO): Promise<WithId<UserDTO>> {
@@ -62,7 +62,7 @@ export class MongodbUserRepository implements UserRepository {
     return UserMapper.persistenceToPresentation(user);
   }
 
-  async findByIdWithCases(id: string): Promise<WithId<UserWithCases> | null> {
+  async findByIdWithCases(id: string): Promise<WithId<UserWithCasesDTO> | null> {
     const user = await UserModel.findById(id).lean();
     const cases = await CaseModel.find({ client: id }).lean();
 
@@ -77,12 +77,11 @@ export class MongodbUserRepository implements UserRepository {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
+      phone: user.phone,
       cpf: user.cpf,
       password: user.password,
       role: user.role,
       cases: mappedCases,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
     };
   }
 
@@ -102,7 +101,7 @@ export class MongodbUserRepository implements UserRepository {
     return UserMapper.persistenceToPresentation(result);
   }
 
-  async updateById(id: string, data: UpdateUserDTO): Promise<WithId<UserDTO> | null> {
+  async updateById(id: string, data: Partial<UpdateUserDTO>): Promise<WithId<UserDTO> | null> {
     const result = await UserModel.findOneAndUpdate({ _id: id }, data, { returnDocument: 'after' });
     if (!result) return null;
     return UserMapper.persistenceToPresentation(result);
