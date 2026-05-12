@@ -9,6 +9,7 @@ export function OpenUploadModalButton({ handleClick, disabled }: Props) {
   return (
     <div className="size-[48px] min-md:h-[48px] min-md:w-[200px]">
       <Button
+      darkHover
         backgroundColor="var(--white-color)"
         height="100%"
         width="100%"
