@@ -11,6 +11,7 @@ import { UpdateClientModal } from '../../modals/UpdateClientModal';
 import { ClientModal } from './ClientModal/ClientModal';
 import { RegisterCaseModal } from '../../modals/RegisterCaseModal';
 import { UserIdentity } from '@/types/UserIdentity';
+import { useSelectedClientContext } from '@/hooks/useSelectedClientContext';
 
 interface Props {
   clients: WithId<SafeUser>[];
@@ -24,7 +25,8 @@ export function ClientsList({ clients, requestState, loadClients }: Props) {
   const [optionsModalIsOpen, setOptionsModalIsOpen] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false);
-  const [selectedClient, setSelectedClient] = useState<WithId<UserIdentity> | null>(null);
+  
+   const { selectedClientSlice, setSelectedClientSlice } = useSelectedClientContext();
 
   const renderCases = clients?.map((client, index) => {
     const clientIdentity = {
@@ -36,10 +38,10 @@ export function ClientsList({ clients, requestState, loadClients }: Props) {
       <ClientCard
         openOptionsModal={() => {
           setOptionsModalIsOpen(true);
-          setSelectedClient(clientIdentity);
+          setSelectedClientSlice(clientIdentity);
         }}
         openClientModal={() => {
-          setSelectedClient(clientIdentity);
+          setSelectedClientSlice(clientIdentity);
           setClientModalIsOpen(true);
         }}
         key={index}
@@ -76,7 +78,7 @@ export function ClientsList({ clients, requestState, loadClients }: Props) {
   return (
     <div className="flex flex-col gap-[32px] mt-[88px] w-full">
       <ClientModal
-        clientId={selectedClient?.id || ''}
+        clientId={selectedClientSlice?.id || ''}
         isOpen={clientModalIsOpen}
         close={() => {
           setClientModalIsOpen(false);
@@ -87,7 +89,7 @@ export function ClientsList({ clients, requestState, loadClients }: Props) {
         }}
       />
       <RegisterCaseModal
-        selectedClientId={selectedClient?.id || ''}
+        selectedClientId={selectedClientSlice?.id || ''}
         isOpen={registerCaseModalIsOpen}
         close={() => {
           setRegisterCaseModalIsOpen(false);
@@ -104,13 +106,13 @@ export function ClientsList({ clients, requestState, loadClients }: Props) {
       <DeleteClientModal
         isOpen={deleteModalIsOpen}
         setIsOpen={setDeleteModalIsOpen}
-        selectedClient={selectedClient}
+        selectedClient={selectedClientSlice}
         loadClients={loadClients}
       />
       <UpdateClientModal
         isOpen={updateModalIsOpen}
         setIsOpen={setUpdateModalIsOpen}
-        selectedClientId={selectedClient?.id || ''}
+        selectedClientId={selectedClientSlice?.id || ''}
         loadClients={loadClients}
       />
       <Activity mode={!isLoading ? 'visible' : 'hidden'}>
