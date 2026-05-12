@@ -16,11 +16,13 @@ import { BrazilStateLabel } from '@/lib/BrazilStateLabel';
 import { CityLabel } from '@/lib/CityLabel';
 import { useCaseModalContext } from '@/hooks/useCaseModalContext';
 import { useCaseFilesUploadModalContext } from '@/hooks/useCaseFilesUploadModalContext';
+import { useSelectedCaseContext } from '@/hooks/useSelectedCaseContext';
 
 export function CaseModal() {
   const [caseData, setCaseData] = useState<WithId<CaseWithRelations> | null>(null);
   const [loading, setLoading] = useState(false);
-  const { selectedCaseId, isOpen, setIsOpen } = useCaseModalContext();
+  const {selectedCaseId} = useSelectedCaseContext()
+  const { isOpen, setIsOpen } = useCaseModalContext();
   const uploadModalContext = useCaseFilesUploadModalContext();
   const setUploadModalIsOpen = uploadModalContext.setIsOpen;
 
