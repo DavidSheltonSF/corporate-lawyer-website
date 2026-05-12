@@ -3,17 +3,17 @@ import { ICaseController } from '../../controllers/case/ICaseController';
 import { MongodbCaseRepository } from '../../database/mongoDB/repositories/MongodbCaseRepository';
 import { MongodbNotificationRepository } from '../../database/mongoDB/repositories/MongodbNotificationRepository';
 import { MongodbUserRepository } from '../../database/mongoDB/repositories/MongodbUserRepository';
-import { EventBus } from '../../events/EventBust';
+import { InMemoryEventBus } from '../../events/InMemoryEventBus';
 import { registerCaseEvents } from '../../events/registerCaseEvents';
 import { CaseService } from '../../services/case/CaseService';
 import { NotificationService } from '../../services/notification/NotificationService';
 import { UserService } from '../../services/user/UserService';
 
 export function makeCaseController(): ICaseController {
-  const eventBus = new EventBus();
+  const eventBus = new InMemoryEventBus();
   const notificationRepository = new MongodbNotificationRepository();
   const notificationService = new NotificationService(notificationRepository);
-  registerCaseEvents(notificationService);
+  registerCaseEvents(notificationService, eventBus);
 
   const caseRepository = new MongodbCaseRepository();
   const caseService = new CaseService(caseRepository, eventBus);
