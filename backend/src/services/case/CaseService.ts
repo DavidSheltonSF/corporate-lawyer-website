@@ -126,6 +126,15 @@ export class CaseService implements ICaseService {
       return null;
     }
 
+    const { lawyers, title, client } = deletedCase;
+
+    this.eventBus.emit<CaseEventPayload>(CaseEvent.CASE_DELETED, {
+      caseId: deletedCase.id,
+      lawyerId: lawyers[0] || '',
+      clientId: client,
+      caseTitle: title,
+    });
+
     return deletedCase;
   }
 }
