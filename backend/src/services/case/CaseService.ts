@@ -12,14 +12,13 @@ import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO';
 import { validateCase } from '../validators/cases/validateCase';
 import { DuplicateUniqueFieldError } from '../../errors/domain/DuplicateUniqueFieldError';
 import { CaseDTO } from '../../dtos/case/CaseDTO';
-
-import { EventBus } from '../../events/EventBust';
-import { CaseEvent, CaseEventPayload } from '../../events/case/CaseEvents';
+import { CaseEvent } from '../../events/case/CaseEvents';
+import { IEventBus } from '../../events/IEventBus';
 
 export class CaseService implements ICaseService {
   constructor(
     private caseRepository: CaseRepository,
-    private eventBus: EventBus
+    private eventBus: IEventBus
   ) {}
   async create(data: CreateCaseDTO): Promise<WithId<CaseDTO>> {
     try {
@@ -27,7 +26,7 @@ export class CaseService implements ICaseService {
       const createdCase = await this.caseRepository.create(data);
 
       const { id, client, lawyers, title } = createdCase;
-      this.eventBus.emit<CaseEventPayload>(CaseEvent.CASE_CREATED, {
+      this.eventBus.publish(CaseEvent.CASE_CREATED, {
         caseId: id,
         lawyerId: lawyers[0] || '',
         clientId: client,
@@ -52,7 +51,7 @@ export class CaseService implements ICaseService {
       }
 
       const { client, title, lawyers } = updatedCase;
-      this.eventBus.emit<CaseEventPayload>(CaseEvent.CASE_UPDATED, {
+      this.eventBus.publish(CaseEvent.CASE_UPDATED, {
         caseId: updatedCase.id,
         lawyerId: lawyers[0] || '',
         clientId: client,
@@ -128,7 +127,7 @@ export class CaseService implements ICaseService {
 
     const { lawyers, title, client } = deletedCase;
 
-    this.eventBus.emit<CaseEventPayload>(CaseEvent.CASE_DELETED, {
+    this.eventBus.publish(CaseEvent.CASE_DELETED, {
       caseId: deletedCase.id,
       lawyerId: lawyers[0] || '',
       clientId: client,
