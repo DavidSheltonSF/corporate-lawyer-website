@@ -10,7 +10,6 @@ import { DeleteClientModal } from '../../modals/DeleteClientModal';
 import { UpdateClientModal } from '../../modals/UpdateClientModal';
 import { ClientModal } from './ClientModal/ClientModal';
 import { RegisterCaseModal } from '../../modals/RegisterCaseModal';
-import { UserIdentity } from '@/types/UserIdentity';
 import { useSelectedClientContext } from '@/hooks/useSelectedClientContext';
 
 interface Props {
