@@ -9,10 +9,12 @@ import { handleLogout } from '@/lib/handleLogout';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { useCaseFilesUploadModalContext } from '@/hooks/useCaseFilesUploadModalContext';
 import { useCaseModalContext } from '@/hooks/useCaseModalContext';
+import { useSelectedCaseContext } from '@/hooks/useSelectedCaseContext';
 
 export function CaseFilesUploadModal() {
   const [uploadState, setUploadState] = useState<null | RequestState>(null);
-  const { isOpen, setIsOpen, selectedCaseId } = useCaseFilesUploadModalContext();
+  const { selectedCaseId } = useSelectedCaseContext();
+  const { isOpen, setIsOpen } = useCaseFilesUploadModalContext();
   const caseModalContext = useCaseModalContext();
   const setCaseModalIsOpen = caseModalContext.setIsOpen;
 
