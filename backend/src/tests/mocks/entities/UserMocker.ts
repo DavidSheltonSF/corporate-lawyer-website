@@ -11,6 +11,7 @@ export class UserMocker {
       firstName: UserFieldsMocker.mockName(),
       lastName: UserFieldsMocker.mockName(),
       email: UserFieldsMocker.mockEmail(),
+      phone: UserFieldsMocker.mockPhone(),
       cpf: UserFieldsMocker.mockCpf(),
     };
   }
@@ -20,6 +21,8 @@ export class UserMocker {
       firstName: UserFieldsMocker.mockName(),
       lastName: UserFieldsMocker.mockName(),
       email: UserFieldsMocker.mockEmail(),
+      phone: UserFieldsMocker.mockPhone(),
+
       cpf: UserFieldsMocker.mockCpf(),
       password: UserFieldsMocker.mockPassword(),
       role: GenericMocker.mockEnum(UserRole),
