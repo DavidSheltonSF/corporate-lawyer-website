@@ -14,11 +14,15 @@ import { validateEmail } from '../validators/users/validateEmail';
 import { validateUserPartial } from '../validators/users/validateUserPartial';
 import { IUserService } from './IUserService';
 import { UserIncludeOptions } from '../../types/UserincludeOptions';
+import { UserWithCasesResponseDTO } from '../../dtos/user/UserWithCasesResponseDTO';
 
 export class UserService implements IUserService {
-  constructor(private userRepository: UserRepository, private caseRepository: CaseRepository) {}
+  constructor(
+    private userRepository: UserRepository,
+    private caseRepository: CaseRepository
+  ) {}
   async createClient(data: CreateClientDTO): Promise<WithId<CreateClientResponseDTO>> {
-    const { firstName, lastName, email, cpf } = data;
+    const { firstName, lastName, email, phone, cpf } = data;
 
     validateUserPartial(data);
 
@@ -34,6 +38,7 @@ export class UserService implements IUserService {
       firstName,
       lastName,
       email,
+      phone,
       cpf,
       password: tempPassword,
       role: UserRole.client,
@@ -64,22 +69,20 @@ export class UserService implements IUserService {
     return { data: mappedUsers, meta: page.meta };
   }
 
-  async findById(
-    id: string,
-    include?: UserIncludeOptions
-  ): Promise<WithId<UserResponseDTO> | null> {
-    let user = null;
-
-    if (include?.cases) {
-      user = await this.userRepository.findByIdWithCases(id);
-    } else {
-      user = await this.userRepository.findById(id);
-    }
-
+  async findById(id: string): Promise<WithId<UserResponseDTO> | null> {
+    const user = await this.userRepository.findById(id);
     if (!user) {
       return null;
     }
+    const { password, ...userWithoutPassword } = user;
+    return userWithoutPassword;
+  }
 
+  async findByIdWithCases(id: string): Promise<WithId<UserWithCasesResponseDTO> | null> {
+    const user = await this.userRepository.findByIdWithCases(id);
+    if (!user) {
+      return null;
+    }
     const { password, ...userWithoutPassword } = user;
     return userWithoutPassword;
   }
