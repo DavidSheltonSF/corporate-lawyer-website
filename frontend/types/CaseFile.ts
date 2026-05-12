@@ -1,4 +1,4 @@
-import { UserIdentity } from './UserIdentity';
+import { UserSlice } from './UserSlice';
 import { WithId } from './WithId';
 
 export interface CaseFile {
@@ -6,6 +6,6 @@ export interface CaseFile {
   url: string;
   size: string;
   mimeType: string;
-  uploadedBy: WithId<UserIdentity>;
+  uploadedBy: WithId<UserSlice>;
   uploadedAt: Date;
 }

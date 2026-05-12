@@ -6,14 +6,14 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
 import { WithId } from '@/types/WithId';
-import { UserIdentity } from '@/types/UserIdentity';
+import { UserSlice } from '@/types/UserSlice';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { handleLogout } from '@/lib/handleLogout';
 
 interface Props {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
-  selectedClient: WithId<UserIdentity> | null;
+  selectedClient: WithId<UserSlice> | null;
   loadClients: Function;
 }
 

@@ -1,10 +1,10 @@
-import { UserIdentity } from '@/types/UserIdentity';
+import { UserSlice } from '@/types/UserSlice';
 import { WithId } from '@/types/WithId';
 import { Dispatch, SetStateAction, createContext } from 'react';
 
 export interface SelectedClientContext {
-  selectedClientSlice: WithId<UserIdentity> | null;
-  setSelectedClientSlice: Dispatch<SetStateAction<WithId<UserIdentity> | null>>;
+  selectedClientSlice: WithId<UserSlice> | null;
+  setSelectedClientSlice: Dispatch<SetStateAction<WithId<UserSlice> | null>>;
 }
 
 export const SelectedClientContext = createContext<SelectedClientContext | undefined>(undefined);

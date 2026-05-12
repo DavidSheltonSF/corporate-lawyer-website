@@ -1,4 +1,4 @@
-export interface UserIdentity {
+export interface UserSlice {
   firstName: string;
   lastName: string;
 }

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { SelectedClientContext } from './SelectedClientContext';
-import { UserIdentity } from '@/types/UserIdentity';
+import { UserSlice } from '@/types/UserSlice';
 import { WithId } from '@/types/WithId';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export function SelectedClientProvider({ children }: Props) {
-  const [selectedClientSlice, setSelectedClientSlice] = useState<WithId<UserIdentity> | null>(null);
+  const [selectedClientSlice, setSelectedClientSlice] = useState<WithId<UserSlice> | null>(null);
   return (
     <SelectedClientContext.Provider value={{ selectedClientSlice, setSelectedClientSlice }}>
       {children}
