@@ -4,6 +4,7 @@ import { MongodbCaseRepository } from '../../database/mongoDB/repositories/Mongo
 import { MongodbNotificationRepository } from '../../database/mongoDB/repositories/MongodbNotificationRepository';
 import { MongodbUserRepository } from '../../database/mongoDB/repositories/MongodbUserRepository';
 import { CaseCreateHandler } from '../../events/case/CaseCreateHandler';
+import { CaseDeleteHandler } from '../../events/case/CaseDeleteHandler';
 import { CaseUpdateHandler } from '../../events/case/CaseUpdateHandler';
 import { EventBus } from '../../events/EventBust';
 import { CaseService } from '../../services/case/CaseService';
@@ -16,8 +17,11 @@ export function makeCaseController(): ICaseController {
   const notificationService = new NotificationService(notificationRepository);
   const caseCreatedHandler = new CaseCreateHandler(notificationService);
   const caseUpdatedHandler = new CaseUpdateHandler(notificationService);
+  const caseDeletedHandler = new CaseDeleteHandler(notificationService);
   caseCreatedHandler.register(eventBus);
   caseUpdatedHandler.register(eventBus);
+  caseDeletedHandler.register(eventBus)
+  
   const caseRepository = new MongodbCaseRepository();
   const caseService = new CaseService(caseRepository, eventBus);
   const userRepository = new MongodbUserRepository();
