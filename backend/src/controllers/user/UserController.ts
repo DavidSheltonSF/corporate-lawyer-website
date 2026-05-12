@@ -38,12 +38,13 @@ export class UserController implements IUserController {
 
     checkMissingFields(body, ['firstName', 'lastName', 'email', 'cpf']);
 
-    const { firstName, lastName, email, cpf } = body;
+    const { firstName, lastName, email, phone, cpf } = body;
 
     const data = await this.userService.createClient({
       firstName,
       lastName,
       email,
+      phone,
       cpf,
     });
 
