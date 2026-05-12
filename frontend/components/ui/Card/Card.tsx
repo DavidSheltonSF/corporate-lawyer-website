@@ -13,7 +13,7 @@ export function Card({ openModal, openOptionsModal, children }: Props) {
       className="relative flex flex-col bg-color-white rounded-[8px] w-full h-fit min-md:w-[720px]"
       onClick={() => openModal()}
     >
-      <div className="absolute top-[8px] right-[8px]">
+      <div className="absolute top-[8px] right-[8px] hover:bg-inherit">
         <Button
           paddingX="4px"
           paddingY="4px"
