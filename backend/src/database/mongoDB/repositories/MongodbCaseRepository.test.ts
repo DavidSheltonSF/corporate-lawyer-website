@@ -9,6 +9,7 @@ import { IUserModel, UserModel } from '../../../models/UserModel';
 import { CaseFile } from '../../../entities/CaseFile';
 import { BrazilState } from '../../../types/BrazilState';
 import { City } from '../../../types/City';
+import { UserMocker } from '../../../tests/mocks/entities/UserMocker';
 config();
 jest.setTimeout(999999);
 
@@ -31,23 +32,11 @@ describe('Test CaseRepository', () => {
   async function makeSut() {
     const caseRepository = new MongodbCaseRepository();
 
-    const newClient: IUserModel = {
-      firstName: 'Flávia',
-      lastName: 'Santiago',
-      email: 'flavia@email.com',
-      cpf: '11144744474',
-      password: 'flavia123',
-      role: UserRole.client,
-    };
+    const newClient = UserMocker.mockUserDTO();
+    newClient.role = UserRole.client;
 
-    const newLawyer = {
-      firstName: 'Carla',
-      lastName: 'Medeiros',
-      email: 'carla@email.com',
-      cpf: '11148814474',
-      password: 'carla123',
-      role: UserRole.lawyer,
-    };
+    const newLawyer = UserMocker.mockUserDTO();
+    newLawyer.role = UserRole.lawyer;
 
     const clientId = (await UserModel.create(newClient))._id;
     const lawyerId = (await UserModel.create(newLawyer))._id;
@@ -290,7 +279,7 @@ describe('Test CaseRepository', () => {
     const newCase = {
       client: clientId,
       lawyers: [lawyerId],
-      processNumber: '354435235425623',
+      processNumber: '214435235425623',
       title: 'Case title',
       description: 'Case description',
       court: 'court', //tribunal
