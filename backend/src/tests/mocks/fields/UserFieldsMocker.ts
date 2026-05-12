@@ -14,7 +14,10 @@ export class UserFieldsMocker {
   }
 
   static mockCpf(): string {
-    return casual.random_element(['15855855577', '225.558.115-55']);
+    const firstSlice = casual.random_element([1000, 9999]);
+    const secondSlice = casual.random_element([10000, 99999]);
+    const thirdSlice = casual.random_element([10000, 99999]);
+    return `${firstSlice}${secondSlice}${thirdSlice}`;
   }
 
   static mockPassword(): string {
