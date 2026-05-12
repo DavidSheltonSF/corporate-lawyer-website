@@ -31,13 +31,16 @@ export function Button(props: Props) {
     darkHover,
   } = props;
 
+  const baseStyles = 'w-full rounded-sm  px-[8px]';
+  const activeStyles = 'transition-[filter] duration-300 cursor-pointer';
+  const disabledStyles = 'cursor-default';
+  const hoverStyles = darkHover ? 'hover:brightness-90' : 'hover:brightness-120';
+
   return (
     <button
       type={type}
       disabled={disabled}
-      className={`w-full rounded-sm transition-[filter] duration-300 ${
-        !disabled && 'cursor-pointer px-[8px]'
-      } ${darkHover ? 'hover:brightness-90' : 'hover:brightness-120'}`}
+      className={`${baseStyles} ${disabled ? disabledStyles : activeStyles} ${hoverStyles}`}
       style={{
         backgroundColor,
         color: textColor,
