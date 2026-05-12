@@ -1,4 +1,4 @@
-import { UserIdentity } from '../../types/UserIdentity';
+import { UserSlice } from '../../types/UserSlice';
 import { WithId } from '../../types/WithId';
 
 export interface CaseFileDTO {
@@ -6,6 +6,6 @@ export interface CaseFileDTO {
   url: string;
   size: number;
   mimeType: string;
-  uploadedBy: WithId<UserIdentity>;
+  uploadedBy: WithId<UserSlice>;
   uploadedAt: string;
 }
