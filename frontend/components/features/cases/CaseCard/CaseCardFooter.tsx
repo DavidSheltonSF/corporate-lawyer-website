@@ -27,7 +27,7 @@ export function CaseCardFooter({ clientName, lawyerName, status }: Props) {
   }
 
   return (
-    <div className="flex flex-col min-md:flex-row min-md:w-[88%] gap-[80px]">
+    <div className="flex flex-col min-md:flex-row min-md:w-[88%] gap-[8px] min-md:gap-[80px]">
       <div className="flex gap-2 flex-1">
         <UserIcon width="24px" height="24px" />
         <span>{clientName}</span>
