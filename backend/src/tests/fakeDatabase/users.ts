@@ -9,6 +9,7 @@ export const fakeUserDatabase = [
     email: 'maria@email.com',
     cpf: '11144888876',
     password: 'Maria@123',
+    phone: '11987654321',
     role: UserRole.lawyer,
   },
   {
@@ -18,6 +19,7 @@ export const fakeUserDatabase = [
     email: 'flavia@email.com',
     cpf: '11144744474',
     password: 'Flavia@123',
+    phone: '21987654321',
     role: UserRole.lawyer,
   },
   {
@@ -27,6 +29,7 @@ export const fakeUserDatabase = [
     email: 'carla@email.com',
     cpf: '12555877744',
     password: 'Carla#456',
+    phone: '31987654321',
     role: UserRole.lawyer,
   },
   {
@@ -36,6 +39,7 @@ export const fakeUserDatabase = [
     email: 'ju@email.com',
     cpf: '11112287774',
     password: 'Ju!78910',
+    phone: '41987654321',
     role: UserRole.client,
   },
   {
@@ -45,6 +49,7 @@ export const fakeUserDatabase = [
     email: 'luan@email.com',
     cpf: '22548585555',
     password: 'Luan@123',
+    phone: '51987654321',
     role: UserRole.client,
   },
   {
@@ -54,6 +59,7 @@ export const fakeUserDatabase = [
     email: 'raimundo@email.com',
     cpf: '84455632822',
     password: 'RaiMundo$1',
+    phone: '61987654321',
     role: UserRole.client,
   },
   {
@@ -63,6 +69,7 @@ export const fakeUserDatabase = [
     email: 'tati@email.com',
     cpf: '55544744558',
     password: 'Tatitati8855$1',
+    phone: '71987654321',
     role: UserRole.client,
   },
   {
@@ -72,6 +79,7 @@ export const fakeUserDatabase = [
     email: 'jumarsiro@email.com',
     cpf: '55556744558',
     password: 'JumarTenorio855$1',
+    phone: '81987654321',
     role: UserRole.client,
   },
   {
@@ -81,6 +89,7 @@ export const fakeUserDatabase = [
     email: 'lucas@email.com',
     cpf: '22233444455',
     password: 'Lucas@2024',
+    phone: '91987654321',
     role: UserRole.client,
   },
   {
@@ -90,6 +99,7 @@ export const fakeUserDatabase = [
     email: 'marina@email.com',
     cpf: '33344555566',
     password: 'Marina#2024',
+    phone: '11987654322',
     role: UserRole.client,
   },
   {
@@ -99,6 +109,7 @@ export const fakeUserDatabase = [
     email: 'pedro@email.com',
     cpf: '44455666677',
     password: 'Pedro!2024',
+    phone: '21987654322',
     role: UserRole.client,
   },
   {
@@ -108,6 +119,7 @@ export const fakeUserDatabase = [
     email: 'ana@email.com',
     cpf: '55566777788',
     password: 'Ana$2024',
+    phone: '31987654322',
     role: UserRole.client,
   },
   {
@@ -117,6 +129,7 @@ export const fakeUserDatabase = [
     email: 'bruno@email.com',
     cpf: '66677888899',
     password: 'Bruno2024!',
+    phone: '41987654322',
     role: UserRole.client,
   },
   {
@@ -126,6 +139,7 @@ export const fakeUserDatabase = [
     email: 'patricia@email.com',
     cpf: '77788999900',
     password: 'Patricia#2024',
+    phone: '51987654322',
     role: UserRole.client,
   },
 ];
