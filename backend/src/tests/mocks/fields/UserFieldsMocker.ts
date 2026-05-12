@@ -9,6 +9,10 @@ export class UserFieldsMocker {
     return casual.email.toLowerCase();
   }
 
+  static mockPhone(): string {
+    return casual.phone.toLowerCase();
+  }
+
   static mockCpf(): string {
     return casual.random_element(['15855855577', '225.558.115-55']);
   }
