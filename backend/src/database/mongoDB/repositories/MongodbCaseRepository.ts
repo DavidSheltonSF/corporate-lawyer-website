@@ -232,9 +232,9 @@ export class MongodbCaseRepository implements CaseRepository {
     return caseFiles.map(CaseFileMapper.persistenceToPresentation);
   }
 
-  async deleteById(id: string): Promise<boolean> {
-    const result = await CaseModel.findByIdAndDelete(id);
-    return result !== null;
+  async deleteById(id: string): Promise<WithId<CaseDTO> | null> {
+    const deletedCase = await CaseModel.findByIdAndDelete(id);
+    return CaseMapper.persistenceToPresentation(deletedCase);
   }
 
   async deleteByUserId(id: string): Promise<{
