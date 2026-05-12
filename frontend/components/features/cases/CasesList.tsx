@@ -8,6 +8,7 @@ import { CardActionsModal } from '../actions/CardActionsModal';
 import { UpdateCaseModal } from '../../modals/UpdateCaseModal';
 import { DeleteCaseModal } from '../../modals/DeleteCaseModal';
 import { useCaseModalContext } from '@/hooks/useCaseModalContext';
+import { useSelectedCaseContext } from '@/hooks/useSelectedCaseContext';
 
 interface Props {
   cases: WithId<CaseWithRelations>[];
@@ -16,11 +17,11 @@ interface Props {
 }
 
 export function CasesList({ cases, loading, loadCases }: Props) {
-  const [selectedCaseId, setSelectedCaseId] = useState<string | null>(null);
   const [optionsModalIsOpen, setOptionsModalIsOpen] = useState(false);
   const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const setCaseModalIsOpen = useCaseModalContext().setIsOpen;
+  const { selectedCaseId, setSelectedCaseId } = useSelectedCaseContext();
   const renderCases = cases?.map((cas, index) => {
     return (
       <CaseCard
