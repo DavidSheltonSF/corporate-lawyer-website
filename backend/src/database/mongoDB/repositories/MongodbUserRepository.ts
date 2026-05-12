@@ -18,14 +18,9 @@ export class MongodbUserRepository implements UserRepository {
     return UserMapper.persistenceToPresentation(user);
   }
 
-  async findAll(): Promise<WithId<User>[]> {
+  async findAll(): Promise<WithId<UserDTO>[]> {
     const users = await UserModel.find({}).lean();
-    return users.map((user) => {
-      return {
-        id: user._id.toString(),
-        ...user,
-      };
-    });
+    return users.map(UserMapper.persistenceToPresentation);
   }
 
   async findClients(userQuery: UserQuery): Promise<Page<WithId<UserDTO>>> {
