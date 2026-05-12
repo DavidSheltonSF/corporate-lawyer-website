@@ -12,6 +12,6 @@ export interface IUserService {
   findClients(userQuery: UserQuery): Promise<Page<WithId<UserResponseDTO>>>;
   findById(id: string, include?: UserIncludeOptions): Promise<WithId<UserResponseDTO> | null>;
   findByEmail(email: string): Promise<WithId<UserResponseDTO> | null>;
-  updateById(id: string, data: UpdateUserDTO): Promise<WithId<UserResponseDTO> | null>;
+  updateById(id: string, data: Partial<UpdateUserDTO>): Promise<WithId<UserResponseDTO> | null>;
   deleteById(id: string): Promise<WithId<UserResponseDTO> | null>;
 }
