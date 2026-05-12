@@ -13,7 +13,7 @@ export interface UserRepository {
   findByIdWithCases(id: string): Promise<WithId<UserWithCasesDTO> | null>;
   findByEmail(email: string): Promise<WithId<UserDTO> | null>;
   deleteById(id: string): Promise<WithId<UserDTO> | null>;
-  updateById(id: string, data: UpdateUserDTO): Promise<WithId<UserDTO> | null>;
+  updateById(id: string, data: Partial<UpdateUserDTO>): Promise<WithId<UserDTO> | null>;
   existsById(id: string): Promise<boolean>;
   existsByEmail(email: string): Promise<boolean>;
 }
