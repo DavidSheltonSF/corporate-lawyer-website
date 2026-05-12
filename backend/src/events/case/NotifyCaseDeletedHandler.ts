@@ -5,7 +5,7 @@ import { NotificationType } from '../../types/NotificationType';
 import { EventBus } from '../EventBust';
 import { CaseEvent, CaseEventPayload } from './CaseEvents';
 
-export class CaseDeleteHandler {
+export class NotifyCaseDeletedHandler {
   constructor(private readonly notificationService: INotificationService) {}
 
   register(eventBus: EventBus) {
@@ -40,10 +40,10 @@ export class CaseDeleteHandler {
       const result = await Promise.allSettled(promises);
 
       result.forEach((result) => {
-        if(result.status === 'rejected') {
-          console.log('Notification falled', result.reason)
+        if (result.status === 'rejected') {
+          console.log('Notification falled', result.reason);
         }
-      })
+      });
     });
   }
 }

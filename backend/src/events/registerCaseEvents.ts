@@ -1,6 +1,6 @@
 import { INotificationService } from '../services/notification/INotificationService';
 import { NotifyCaseCreatedHandler } from './case/NotifyCaseCreatedHandler';
-import { CaseDeleteHandler } from './case/CaseDeleteHandler';
+import { CaseDeleteHandler } from './case/NotifyCaseDeletedHandler';
 import { NotifyCaseUpdatedHandler } from './case/NotifyCaseUpdatedHandler';
 import { EventBus } from './EventBust';
 
