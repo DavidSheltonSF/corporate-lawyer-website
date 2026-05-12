@@ -98,7 +98,7 @@ export class UserService implements IUserService {
     return userWithoutPassword;
   }
 
-  async updateById(id: string, data: UpdateUserDTO): Promise<WithId<UserResponseDTO> | null> {
+  async updateById(id: string, data: Partial<UpdateUserDTO>): Promise<WithId<UserResponseDTO> | null> {
     validateUserPartial(data);
     const result = await this.userRepository.updateById(id, data);
     if (!result) {
