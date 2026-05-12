@@ -18,7 +18,7 @@ interface Props {
 export function Button(props: Props) {
   const {
     type,
-    backgroundColor = 'var(--white-color)',
+    backgroundColor = 'inherit',
     textColor = 'var(--black-color)',
     fontSize = '1.2rem',
     children,
@@ -30,6 +30,7 @@ export function Button(props: Props) {
     disabled,
     darkHover,
   } = props;
+
   return (
     <button
       type={type}
