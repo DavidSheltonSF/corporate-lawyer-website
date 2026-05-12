@@ -2,7 +2,7 @@
 import { WithId } from '@/types/WithId';
 import { Activity, useState } from 'react';
 import { CardSkeleton } from '../../ui/Card/CardSkeleton';
-import { ClientCard } from './ClientCard';
+import { ClientCard } from './ClientCard/ClientCard';
 import { SafeUser } from '@/types/SafeUser';
 import { CardActionsModal } from '../actions/CardActionsModal';
 import { RequestState } from '@/types/RequestState';

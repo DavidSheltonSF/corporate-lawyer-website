@@ -1,7 +1,7 @@
 import { WithId } from '@/types/WithId';
-import { FieldValue } from '../../FieldValue';
+import { FieldValue } from '../../../FieldValue';
 import { SafeUser } from '@/types/SafeUser';
-import { Card } from '../../ui/Card/Card';
+import { Card } from '../../../ui/Card/Card';
 import { UserIcon } from '@/components/icons/UserIcon';
 import { EmailIcon } from '@/components/icons/EmailIcon';
 import { PhoneIcon } from '@/components/icons/PhoneIcon';
