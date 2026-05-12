@@ -2,15 +2,17 @@
 
 import { useState } from 'react';
 import { SelectedClientContext } from './SelectedClientContext';
+import { UserIdentity } from '@/types/UserIdentity';
+import { WithId } from '@/types/WithId';
 
 interface Props {
   children: React.ReactNode;
 }
 
 export function SelectedClientProvider({ children }: Props) {
-  const [selectedClientId, setSelectedClientId] = useState('');
+  const [selectedClientSlice, setSelectedClientSlice] = useState<WithId<UserIdentity> | null>(null);
   return (
-    <SelectedClientContext.Provider value={{ selectedClientId, setSelectedClientId }}>
+    <SelectedClientContext.Provider value={{ selectedClientSlice, setSelectedClientSlice }}>
       {children}
     </SelectedClientContext.Provider>
   );
