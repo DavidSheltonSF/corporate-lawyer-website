@@ -6,6 +6,7 @@ export interface IUserModel {
   firstName: string;
   lastName: string;
   email: string;
+  phone: string;
   cpf: string;
   password: string;
   role: UserRole;
@@ -20,6 +21,7 @@ const UserSchema = new Schema<UserMongoDocument>(
     firstName: { type: String, required: true, trim: true },
     lastName: { type: String, required: true, trim: true },
     email: { type: String, required: true, unique: true, lowercase: true, trim: true },
+    phone: { type: String, required: true, trim: true },
     cpf: { type: String, required: true, unique: true, trim: true },
     password: { type: String, required: true },
     role: {
