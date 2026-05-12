@@ -5,7 +5,7 @@ import { NotificationType } from '../../types/NotificationType';
 import { EventBus } from '../EventBust';
 import { CaseEvent, CaseEventPayload } from './CaseEvents';
 
-export class CaseUpdateHandler {
+export class NotifyCaseUpdatedHandler {
   constructor(private readonly notificationService: INotificationService) {}
 
   register(eventBus: EventBus) {

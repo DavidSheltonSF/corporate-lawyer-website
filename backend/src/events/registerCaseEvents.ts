@@ -1,14 +1,14 @@
 import { INotificationService } from '../services/notification/INotificationService';
 import { NotifyCaseCreatedHandler } from './case/NotifyCaseCreatedHandler';
 import { CaseDeleteHandler } from './case/CaseDeleteHandler';
-import { CaseUpdateHandler } from './case/CaseUpdateHandler';
+import { NotifyCaseUpdatedHandler } from './case/NotifyCaseUpdatedHandler';
 import { EventBus } from './EventBust';
 
 export function registerCaseEvents(notificationService: INotificationService) {
   const eventBus = new EventBus();
   const handlers = [
     new NotifyCaseCreatedHandler(notificationService),
-    new CaseUpdateHandler(notificationService),
+    new NotifyCaseUpdatedHandler(notificationService),
     new CaseDeleteHandler(notificationService),
   ];
   handlers.forEach((handler) => handler.register(eventBus));
