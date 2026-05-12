@@ -1,7 +1,3 @@
-export interface UserResponseDTO {
-  firstName: string;
-  lastName: string;
-  email: string;
-  cpf: string;
-  role: string;
-}
+import { UserDTO } from './UserDTO';
+
+export type UserResponseDTO = Omit<UserDTO, 'password'>;

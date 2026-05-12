@@ -1,6 +1,3 @@
-export interface UpdateUserDTO {
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  cpf?: string;
-}
+import { UserDTO } from './UserDTO';
+
+export type UpdateUserDTO = Omit<UserDTO, 'password' | 'role'>;
