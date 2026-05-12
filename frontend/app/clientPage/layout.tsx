@@ -1,4 +1,5 @@
 import { SelectedCaseProvider } from '@/contexts/cases/SelectedCaseProvider';
+import { SelectedClientProvider } from '@/contexts/clients/SelectedClientProvider';
 
 export default function RootLayout({
   children,
@@ -7,7 +8,9 @@ export default function RootLayout({
 }>) {
   return (
     <div lang="en">
-      <SelectedCaseProvider>{children}</SelectedCaseProvider>
+      <SelectedClientProvider>
+        <SelectedCaseProvider>{children}</SelectedCaseProvider>
+      </SelectedClientProvider>
     </div>
   );
 }
