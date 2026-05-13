@@ -20,10 +20,14 @@ export function NotificationsList({ notifications, unreadCount, setUnreadCount }
   });
 
   return (
-    <div className="flex flex-col gap-[24px] min-h:h-[100%]">
-      {notifications.length ===0 ? <div className='flex justify-center w-full'>
-        <h2>Não há notificações no momento</h2>
-      </div> : renderNotifications}
+    <div className="flex flex-col gap-[24px] flex-1">
+      {notifications.length === 0 ? (
+        <div className="flex justify-center w-full">
+          <h2>Não há notificações no momento</h2>
+        </div>
+      ) : (
+        renderNotifications
+      )}
     </div>
   );
 }
