@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { Button } from '../Button/Button';
+import { CloseIcon } from '@/components/icons/CloseIcon';
 
 interface Props {
   closeModal: Function;
@@ -29,21 +31,22 @@ export function PrimaryModal(props: Props) {
   }, []);
 
   return (
-    <div
-      ref={modalRef}
-      className={`flex flex-col bg-color-primary fade-in-animation-fast ${additionalStyles}`}
-    >
-      <div className="flex justify-end items-center h-[56px] pr-[8px]">
-        <button
-          className="size-[40px] cursor-pointer hover:bg-white/20 transition-[background-color] duration-300 rounded-lg"
-          onClick={() => {
+    <div ref={modalRef} className={`bg-color-white fade-in-animation-fast ${additionalStyles}`}>
+      <div className="absolute top-[8px] right-[8px] bg-inherit">
+        <Button
+          darkHover
+          width="48px"
+          height="48px"
+          onclick={() => {
             close();
           }}
         >
-          <img className="size-full" src="/icons/close.svg" alt="" />
-        </button>
+          <span className="flex justify-center items-center size-full ">
+            <CloseIcon color="var(--black-color)" width="100%" height="100%" />
+          </span>
+        </Button>
       </div>
-      <div className="bg-color-white size-full overflow-y-auto">{children}</div>
+      <div className="size-full overflow-y-auto">{children}</div>
     </div>
   );
 }
