@@ -3,7 +3,7 @@ import { ModalContextType } from '@/contexts/modals/ModalContextType';
 import { MissingContextError } from '@/errors/MissingContextError';
 import { useContext } from 'react';
 
-export const useCaseModalContext = (): ModalContextType => {
+export const useCaseModalContext = (): CaseModalContext => {
   const context = useContext(CaseModalContext);
 
   if (!context) {
