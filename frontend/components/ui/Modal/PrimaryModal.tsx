@@ -32,7 +32,7 @@ export function PrimaryModal(props: Props) {
 
   return (
     <div ref={modalRef} className={`bg-color-white fade-in-animation-fast ${additionalStyles}`}>
-      <div className="absolute top-[8px] right-[8px] bg-inherit">
+      <div className="absolute top-[16px] right-[16px] bg-inherit">
         <Button
           darkHover
           width="48px"
