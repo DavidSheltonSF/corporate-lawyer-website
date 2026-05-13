@@ -10,6 +10,7 @@
   --bright-yellow-shadow: 0 0 10px 5px #e9d07f8f;
   --color-green: #08ee3a;
   --color-red: #ee2308;
+  --color-muted: #6d6d6d;
   --blue-gradient: linear-gradient(
     90deg,
     rgba(4, 117, 209, 1) 6%,
@@ -110,6 +111,11 @@ h3 {
 
 .text-color-secondary {
   color: var(--secondary-color);
+}
+
+.text-muted {
+  color: var(--color-muted);
+  font-size: var(--font-sm);
 }
 
 .border-color-secondary {
