@@ -16,6 +16,7 @@ export function ModalsProvider({ children }: Props) {
   const [caseModalIsOpen, setCaseModalIsOpen] = useState(false);
   const [caseModalOnClose, setCaseModalOnClose] = useState(null);
   const [caseFilesUploadModalIsOpen, setCaseFilesUploadModalIsOpen] = useState(false);
+  const [clientModalIsOpen, setClientModalIsOpen] = useState(false);
 
   return (
     <div>
@@ -27,22 +28,29 @@ export function ModalsProvider({ children }: Props) {
           setServiceAreaId,
         }}
       >
-        <CaseModalContext.Provider
+        <ClientModalContext.Provider
           value={{
-            isOpen: caseModalIsOpen,
-            setIsOpen: setCaseModalIsOpen,
-            onClose: caseModalOnClose,
+            isOpen: clientModalIsOpen,
+            setIsOpen: setClientModalIsOpen,
           }}
         >
-          <CaseFilesUploadModalContext
+          <CaseModalContext.Provider
             value={{
-              isOpen: caseFilesUploadModalIsOpen,
-              setIsOpen: setCaseFilesUploadModalIsOpen,
+              isOpen: caseModalIsOpen,
+              setIsOpen: setCaseModalIsOpen,
+              onClose: caseModalOnClose,
             }}
           >
-            {children}
-          </CaseFilesUploadModalContext>
-        </CaseModalContext.Provider>
+            <CaseFilesUploadModalContext
+              value={{
+                isOpen: caseFilesUploadModalIsOpen,
+                setIsOpen: setCaseFilesUploadModalIsOpen,
+              }}
+            >
+              {children}
+            </CaseFilesUploadModalContext>
+          </CaseModalContext.Provider>
+        </ClientModalContext.Provider>
       </ServicesModalContext.Provider>
     </div>
   );
