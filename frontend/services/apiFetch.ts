@@ -1,3 +1,4 @@
+import { NotFoundError } from '@/errors/NotFoundError';
 import { ServerError } from '@/errors/ServerError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
@@ -25,6 +26,11 @@ export async function apiFetch(url: string, options?: RequestInit): Promise<Resp
   if (response.status === 401) {
     const json = await response.json();
     throw new UnauthorizedError(json.message);
+  }
+
+  if (response.status === 404) {
+    const json = await response.json();
+    throw new NotFoundError(json.message);
   }
 
   if (response.status === 500) {
