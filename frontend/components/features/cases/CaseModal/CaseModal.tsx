@@ -23,7 +23,7 @@ export function CaseModal() {
   const [caseData, setCaseData] = useState<WithId<CaseWithRelations> | null>(null);
   const [requestState, setRequestState] = useState<RequestState | null>(null);
   const { selectedCaseId } = useSelectedCaseContext();
-  const { isOpen, setIsOpen } = useCaseModalContext();
+  const { isOpen, setIsOpen, onClose } = useCaseModalContext();
   const uploadModalContext = useCaseFilesUploadModalContext();
   const setUploadModalIsOpen = uploadModalContext.setIsOpen;
   const isLoading = requestState?.status === 'loading';
@@ -140,6 +140,7 @@ export function CaseModal() {
         }
         closeModal={() => {
           setIsOpen(false);
+          onClose();
         }}
       >
         {renderContent()}
