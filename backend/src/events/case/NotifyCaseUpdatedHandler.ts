@@ -17,7 +17,7 @@ export class NotifyCaseUpdatedHandler implements EventListener {
         channels: [NotificationChannel.IN_APP],
         type: NotificationType.UPDATED,
         title: 'Processo atualizado',
-        message: `Processo "${caseTitle}" foi atualizado - NEW HANDLER`,
+        message: `Processo "${caseTitle}" foi atualizado`,
         metadata: {
           entityType: EntityType.CASE,
           entityId: caseId,
@@ -29,7 +29,7 @@ export class NotifyCaseUpdatedHandler implements EventListener {
         channels: [NotificationChannel.IN_APP],
         type: NotificationType.UPDATED,
         title: 'Processo atualizado',
-        message: `Processo "${caseTitle}" foi atualizado -  NEW HANDLER`,
+        message: `Processo "${caseTitle}" foi atualizado`,
         metadata: {
           entityType: EntityType.CASE,
           entityId: caseId,
