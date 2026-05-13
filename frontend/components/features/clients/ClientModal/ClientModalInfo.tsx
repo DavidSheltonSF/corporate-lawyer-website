@@ -1,6 +1,7 @@
 import { FieldValue } from '@/components/FieldValue';
 import { EmailIcon } from '@/components/icons/EmailIcon';
 import { PhoneIcon } from '@/components/icons/PhoneIcon';
+import { InfoItem } from '@/components/ui/InfoItem';
 import { Case } from '@/types/Case';
 import { SafeUser } from '@/types/SafeUser';
 
@@ -13,14 +14,8 @@ export function ClientModalInfo({ clientData }: Props) {
   const { email, phone } = clientData;
   return (
     <div className="flex flex-col min-md:flex-row min-md:items-start text-lg min-lg:text-xl gap-[8px] min-md:gap-[40px] p-[24px]">
-      <div className="flex gap-2">
-        <EmailIcon width="24px" height="24px" />
-        <span>{email}</span>
-      </div>
-      <div className="flex gap-2">
-        <PhoneIcon width="24px" height="24px" />
-        <span>{phone}</span>
-      </div>
+      <InfoItem Icon={EmailIcon} value={email} />
+      <InfoItem Icon={PhoneIcon} value={phone} />
     </div>
   );
 }
