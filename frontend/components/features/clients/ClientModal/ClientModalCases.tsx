@@ -14,14 +14,12 @@ export function ClientModalCases({ cases, openRegisterCaseModal }: Props) {
   const renderClientCases = cases.map((cas, index) => {
     return (
       <Card
+        key={cas.id}
         className="w-full h-fit"
         openModal={() => null}
         openOptionsModal={() => null}
       >
-        <div
-          key={cas.id}
-          className="flex flex-col gap-[8px] w-full border-[1px] p-[8px] rounded-[8px]"
-        >
+        <div className="flex flex-col gap-[8px] w-full border-[1px] p-[8px] rounded-[8px]">
           <h2 className="font-bold ">{cas.title}</h2>
           <div className="flex flex-col">{cas.description}</div>
         </div>
