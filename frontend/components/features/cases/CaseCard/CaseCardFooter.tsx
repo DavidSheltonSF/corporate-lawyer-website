@@ -1,6 +1,7 @@
 import { BalanceIcon } from '@/components/icons/BalanceIcon';
 import { FolderIcon } from '@/components/icons/FolderIcon';
 import { UserIcon } from '@/components/icons/UserIcon';
+import { InfoItem } from '@/components/ui/InfoItem';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 
@@ -28,24 +29,9 @@ export function CaseCardFooter({ clientName, lawyerName, status }: Props) {
 
   return (
     <div className="flex flex-col min-md:flex-row min-md:w-[88%] gap-[8px]">
-      <div className="flex gap-2 flex-1">
-        <UserIcon width="24px" height="24px" />
-        <span>{clientName}</span>
-      </div>
-      <div className="flex gap-2 flex-1">
-        <BalanceIcon width="24px" height="24px" />
-        <span>{lawyerName}</span>
-      </div>
-      <div className="flex gap-2 flex-1">
-        <FolderIcon width="24px" height="24px" />
-        <span
-          style={{
-            color: statusColor,
-          }}
-        >
-          {CaseStatusLabel[status]}
-        </span>
-      </div>
+      <InfoItem Icon={UserIcon} value={clientName} />
+      <InfoItem Icon={BalanceIcon} value={lawyerName} />
+      <InfoItem Icon={FolderIcon} value={CaseStatusLabel[status]} valueColor={statusColor}/>
     </div>
   );
 }
