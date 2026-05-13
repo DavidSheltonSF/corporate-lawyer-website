@@ -14,6 +14,7 @@ interface Props {
   onclick?: React.MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
   darkHover?: boolean; // decrease brightness on hover
+  border?: string;
 }
 
 export function Button(props: Props) {
@@ -31,9 +32,8 @@ export function Button(props: Props) {
     onclick,
     disabled,
     darkHover,
+    border,
   } = props;
-
-  
 
   const baseStyles = 'w-full rounded-sm  px-[8px]';
   const activeStyles = 'transition-[filter] duration-300 cursor-pointer';
@@ -53,6 +53,7 @@ export function Button(props: Props) {
         width,
         paddingInline: paddingX,
         paddingBlock: paddingY,
+        border,
       }}
       onClick={onclick}
     >
