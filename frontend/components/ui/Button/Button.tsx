@@ -7,6 +7,7 @@ interface Props {
   fontSize?: string;
   width?: string;
   height?: string;
+  size?: string;
   paddingX?: string;
   paddingY?: string;
   children: React.ReactNode;
@@ -22,14 +23,17 @@ export function Button(props: Props) {
     textColor = 'var(--black-color)',
     fontSize = '1.2rem',
     children,
-    width = '128px',
-    height = '56px',
+    size,
+    width = size ? size : '128px',
+    height = size ? size : '56px',
     paddingX = 'auto',
     paddingY = 'auto',
     onclick,
     disabled,
     darkHover,
   } = props;
+
+  
 
   const baseStyles = 'w-full rounded-sm  px-[8px]';
   const activeStyles = 'transition-[filter] duration-300 cursor-pointer';
