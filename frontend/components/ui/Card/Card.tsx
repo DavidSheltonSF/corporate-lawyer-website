@@ -2,15 +2,16 @@ import { VerticalMoreIcon } from '@/components/icons/VerticalMoreIcon';
 import { Button } from '../Button/Button';
 
 interface Props {
+  className?: string;
   openModal: Function;
   openOptionsModal: Function;
   children: React.ReactNode;
 }
 
-export function Card({ openModal, openOptionsModal, children }: Props) {
+export function Card({ openModal, openOptionsModal, children, className }: Props) {
   return (
     <article
-      className="relative flex flex-col bg-color-white rounded-[8px] w-full h-fit min-md:w-[720px]"
+      className={`relative flex flex-col bg-color-white rounded-[8px] ${className}`}
       onClick={() => openModal()}
     >
       <div className="absolute top-[8px] right-[8px] hover:bg-inherit">
