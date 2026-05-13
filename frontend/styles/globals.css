@@ -115,7 +115,7 @@ h3 {
 
 .text-muted {
   color: var(--color-muted);
-  font-size: var(--font-sm);
+  font-size: var(--font-xs);
 }
 
 .border-color-secondary {
