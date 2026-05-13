@@ -12,8 +12,8 @@ export function ClientModalHeader({ firstName, lastName, cpf }: Props) {
       <h1 className="text-3xl font-bold ">
         {firstName} {lastName}
       </h1>
-      <div className="flex flex-1 text-black/55">
-        <FieldValue field="CPF:" value={cpf} />
+      <div className="flex flex-1">
+       <span className="text-muted">CPF {cpf}</span>
       </div>
     </header>
   );
