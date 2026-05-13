@@ -25,7 +25,11 @@ export function CaseCard({ caseData, openCaseModal, openOptionsModal }: Props) {
   });
 
   return (
-    <Card openOptionsModal={() => openOptionsModal()} openModal={() => openCaseModal()}>
+    <Card
+      className="w-[20px] h-fit min-md:w-[720px]"
+      openOptionsModal={() => openOptionsModal()}
+      openModal={() => openCaseModal()}
+    >
       <div className="flex flex-col text-color-black p-[24px] gap-[32px]">
         <CaseCard.Header title={caseData.title} processNumber={caseData.processNumber} />
         <CaseCard.Footer
