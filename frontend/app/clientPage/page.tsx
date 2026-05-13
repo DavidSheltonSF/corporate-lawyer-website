@@ -8,7 +8,7 @@ import { User } from '@/types/User';
 import { WithId } from '@/types/WithId';
 import { redirect } from 'next/navigation';
 import { Notifications } from '@/components/features/notifications/Notifications';
-import { CaseModal } from '@/components/modals/CaseModal';
+import { CaseModal } from '@/components/features/cases/CaseModal/CaseModal';
 import { CaseFilesUploadModal } from '@/components/modals/CaseFilesUploadModal';
 
 export default async function ClientPage() {

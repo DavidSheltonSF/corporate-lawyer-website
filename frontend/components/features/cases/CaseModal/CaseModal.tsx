@@ -1,13 +1,13 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { PrimaryModal } from '../ui/Modal/PrimaryModal';
-import { FieldValue } from '../FieldValue';
-import { CaseFilesSection } from '../CaseFilesSection';
+import { PrimaryModal } from '../../../ui/Modal/PrimaryModal';
+import { FieldValue } from '../../../FieldValue';
+import { CaseFilesSection } from '../../../CaseFilesSection';
 import { CaseModalSkeleton } from './CaseModalSkeleton';
 import { formatStringList } from '@/lib/formatStringList';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
-import { OpenUploadModalButton } from '../OpenUploadModalButton';
+import { OpenUploadModalButton } from '../../../OpenUploadModalButton';
 import { getCasePopulatedById } from '@/services/cases/getCasePopulatedById';
 import { WithId } from '@/types/WithId';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';

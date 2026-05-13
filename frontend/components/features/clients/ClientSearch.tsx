@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { SearchBar } from '../../ui/Search/SearchBar';
 import { WithId } from '@/types/WithId';
 import { Pagination } from '../../Pagination';
-import { CaseModal } from '../../modals/CaseModal';
+import { CaseModal } from '../cases/CaseModal/CaseModal';
 import { ClientsList } from './ClientsList';
 import { getClients } from '@/services/users/getClients';
 import { SafeUser } from '@/types/SafeUser';
