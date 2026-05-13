@@ -1,5 +1,6 @@
 import { EmailIcon } from '@/components/icons/EmailIcon';
 import { PhoneIcon } from '@/components/icons/PhoneIcon';
+import { InfoItem } from '@/components/ui/InfoItem';
 
 interface Props {
   email: string;
@@ -9,14 +10,8 @@ interface Props {
 export function ClientCardFooter({ email, phone }: Props) {
   return (
     <footer className="flex flex-col min-md:flex-row min-md:w-[88%] gap-[8px]">
-      <div className="flex gap-2 flex-1">
-        <EmailIcon width="24px" height="24px" />
-        <span>{email}</span>
-      </div>
-      <div className="flex gap-2 flex-1">
-        <PhoneIcon width="24px" height="24px" />
-        <span>{phone}</span>
-      </div>
+      <InfoItem Icon={EmailIcon} value={email} />
+      <InfoItem Icon={PhoneIcon} value={phone} />
     </footer>
   );
 }
