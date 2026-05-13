@@ -1,6 +1,7 @@
 import { reduceString } from '@/lib/reduceString';
 import { Case } from '@/types/Case';
 import { Button } from '../../../ui/Button/Button';
+import { AddIcon } from '@/components/icons/AddIcon';
 
 interface Props {
   cases: Case[];
@@ -20,20 +21,26 @@ export function ClientModalCases({ cases, openRegisterCaseModal }: Props) {
     );
   });
   return (
-    <div className="flex flex-col gap-[8px] border-b border-black/50">
-      <div className="relative w-full bg-color-primary p-[16px]">
-        <h1 className="text-2xl font-bold text-color-white">Processos</h1>
-        <div className="absolute right-[16px] top-[50%] translate-y-[-50%]">
-          <Button
-            backgroundColor="var(--white-color)"
-            darkHover
-            onclick={() => openRegisterCaseModal()}
-          >
-            Adicionar Processo
-          </Button>
-        </div>
+    <div className="flex flex-col gap-[24px] p-[24px]">
+      <div className="flex justify-between items-center w-full ">
+        <h1 className="text-2xl font-bold">Processos</h1>
+        <Button
+        darkHover
+          backgroundColor="var(--white-color)"
+          textColor="var(--black-color)"
+          size="fit-content"
+          paddingX="16px"
+          paddingY="8px"
+          border='1px solid var(--black-color)'
+          onclick={() => openRegisterCaseModal()}
+        >
+          <span className="flex justify-center items-center gap-[8px]">
+            <AddIcon width="24px" height="24px" color="var(--black-color)" />
+            <span>Adicionar</span>
+          </span>
+        </Button>
       </div>
-      <div className="flex flex-col gap-[24px] p-[24px] size-full">{renderClientCases}</div>
+      <div className="flex flex-col gap-[24px] size-full">{renderClientCases}</div>
     </div>
   );
 }
