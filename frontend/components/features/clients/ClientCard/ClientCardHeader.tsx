@@ -14,8 +14,8 @@ export function ClientCardHeader({ clientName, cpf }: Props) {
         </div>
         <h2>{clientName}</h2>
       </div>
-      <div className="small-text opacity-70">
-        <span>CPF: {cpf}</span>
+      <div>
+        <span className='text-muted'>CPF: {cpf}</span>
       </div>
     </header>
   );
