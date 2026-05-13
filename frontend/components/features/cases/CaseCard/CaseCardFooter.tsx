@@ -29,9 +29,15 @@ export function CaseCardFooter({ clientName, lawyerName, status }: Props) {
 
   return (
     <div className="flex flex-col min-md:flex-row min-md:w-[88%] gap-[8px]">
-      <InfoItem Icon={UserIcon} value={clientName} />
-      <InfoItem Icon={BalanceIcon} value={lawyerName} />
-      <InfoItem Icon={FolderIcon} value={CaseStatusLabel[status]} valueColor={statusColor}/>
+      <span className="flex-1">
+        <InfoItem Icon={UserIcon} value={clientName} />
+      </span>
+      <span className="flex-1">
+        <InfoItem Icon={BalanceIcon} value={lawyerName} />
+      </span>
+      <span className='flex-1'>
+        <InfoItem Icon={FolderIcon} value={CaseStatusLabel[status]} valueColor={statusColor} />
+      </span>
     </div>
   );
 }
