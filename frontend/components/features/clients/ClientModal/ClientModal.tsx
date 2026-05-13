@@ -11,6 +11,7 @@ import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { ClientModalHeader } from './ClientModalHeader';
 import { ClientModalInfo } from './ClientModalInfo';
 import { ClientModalCases } from './ClientModalCases';
+import { RequestState } from '@/types/RequestState';
 
 interface Props {
   clientId: string | null;
@@ -25,18 +26,22 @@ ClientModal.Cases = ClientModalCases;
 
 export function ClientModal({ isOpen, close, clientId, openRegisterCaseModal }: Props) {
   const [clientData, setClientData] = useState<(SafeUser & { cases: Case[] }) | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [requestState, setRequestState] = useState<RequestState | null>(null);
+  const isLoading = requestState?.status === 'loading';
+  const error = requestState?.status === 'error';
 
   useEffect(() => {
     async function fetchClientData() {
       try {
         if (!isOpen || !clientId) return;
-        setLoading(true);
+        setRequestState({ status: 'loading' });
         const clientFound = await getClientWithCases(clientId);
         setClientData(clientFound);
-        setLoading(false);
-      } catch (error) {
+        setRequestState({ status: 'ok' });
+      } catch (error: any) {
         console.log(error);
+        setRequestState({ status: 'error', message: error.message });
+
         if (error instanceof UnauthorizedError) {
           handleLogout();
         }
@@ -69,11 +74,11 @@ export function ClientModal({ isOpen, close, clientId, openRegisterCaseModal }: 
         }
         closeModal={close}
       >
-        {loading ? (
+        {isLoading ? (
           <CaseModalSkeleton />
         ) : (
           <div className="flex size-full">
-            {!clientData ? (
+            {error || !clientData ? (
               <div className="flex flex-col items-center size-ful pt-[80px] px-[24px] text-center gap-[16px]">
                 <h1>Cliente não encontrado</h1>
                 <h3>O cliente procurado foi removido do sistema ou não existe</h3>
