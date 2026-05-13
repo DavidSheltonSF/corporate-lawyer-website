@@ -85,7 +85,7 @@ export function ClientModal({ isOpen, close, clientId, openRegisterCaseModal }: 
 
     return (
       <div className="flex flex-col size-full">
-        <ClientModal.Header firstName={clientData.firstName} lastName={clientData.lastName} />
+        <ClientModal.Header firstName={clientData.firstName} lastName={clientData.lastName} cpf={clientData.cpf}/>
         <ClientModal.Info clientData={clientData} />
         <ClientModal.Cases cases={clientData.cases} openRegisterCaseModal={openRegisterCaseModal} />
       </div>
