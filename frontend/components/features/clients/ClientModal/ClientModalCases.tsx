@@ -3,6 +3,7 @@ import { Case } from '@/types/Case';
 import { Button } from '../../../ui/Button/Button';
 import { AddIcon } from '@/components/icons/AddIcon';
 import { WithId } from '@/types/WithId';
+import { Card } from '@/components/ui/Card/Card';
 
 interface Props {
   cases: WithId<Case>[];
@@ -12,13 +13,19 @@ interface Props {
 export function ClientModalCases({ cases, openRegisterCaseModal }: Props) {
   const renderClientCases = cases.map((cas, index) => {
     return (
-      <div
-        key={cas.id}
-        className="flex flex-col gap-[8px] w-full border-[1px] p-[8px] rounded-[8px]"
+      <Card
+        className="w-full h-fit"
+        openModal={() => null}
+        openOptionsModal={() => null}
       >
-        <h2 className="font-bold ">{reduceString(cas.title, 24)}</h2>
-        <div className="flex flex-col">{reduceString(cas.description || '', 70)}</div>
-      </div>
+        <div
+          key={cas.id}
+          className="flex flex-col gap-[8px] w-full border-[1px] p-[8px] rounded-[8px]"
+        >
+          <h2 className="font-bold ">{cas.title}</h2>
+          <div className="flex flex-col">{cas.description}</div>
+        </div>
+      </Card>
     );
   });
   return (
