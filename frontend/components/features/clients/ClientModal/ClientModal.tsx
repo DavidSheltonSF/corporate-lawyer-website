@@ -13,6 +13,7 @@ import { ClientModalInfo } from './ClientModalInfo';
 import { ClientModalCases } from './ClientModalCases';
 import { RequestState } from '@/types/RequestState';
 import { CardSkeleton } from '@/components/ui/Card/CardSkeleton';
+import { WithId } from '@/types/WithId';
 
 interface Props {
   clientId: string | null;
@@ -26,7 +27,7 @@ ClientModal.Info = ClientModalInfo;
 ClientModal.Cases = ClientModalCases;
 
 export function ClientModal({ isOpen, close, clientId, openRegisterCaseModal }: Props) {
-  const [clientData, setClientData] = useState<(SafeUser & { cases: Case[] }) | null>(null);
+  const [clientData, setClientData] = useState<(SafeUser & { cases: WithId<Case>[] }) | null>(null);
   const [requestState, setRequestState] = useState<RequestState | null>(null);
   const isLoading = requestState?.status === 'loading';
   const error = requestState?.status === 'error';
@@ -85,7 +86,11 @@ export function ClientModal({ isOpen, close, clientId, openRegisterCaseModal }: 
 
     return (
       <div className="flex flex-col size-full">
-        <ClientModal.Header firstName={clientData.firstName} lastName={clientData.lastName} cpf={clientData.cpf}/>
+        <ClientModal.Header
+          firstName={clientData.firstName}
+          lastName={clientData.lastName}
+          cpf={clientData.cpf}
+        />
         <ClientModal.Info clientData={clientData} />
         <ClientModal.Cases cases={clientData.cases} openRegisterCaseModal={openRegisterCaseModal} />
       </div>
