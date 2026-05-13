@@ -1,5 +1,5 @@
 'use client';
-import {  useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PrimaryModal } from '../ui/Modal/PrimaryModal';
 import { FieldValue } from '../FieldValue';
 import { CaseFilesSection } from '../CaseFilesSection';
@@ -26,6 +26,11 @@ export function CaseModal() {
   const { isOpen, setIsOpen } = useCaseModalContext();
   const uploadModalContext = useCaseFilesUploadModalContext();
   const setUploadModalIsOpen = uploadModalContext.setIsOpen;
+  const isLoading = requestState?.status === 'loading';
+  const error = requestState?.status === 'error';
+  const lawyersNames = caseData?.lawyers.map(
+    (lawyer: any) => `${lawyer.firstName} ${lawyer.lastName}`
+  );
 
   useEffect(() => {
     async function fetchCaseData() {
@@ -62,16 +67,69 @@ export function CaseModal() {
     };
   }, [isOpen]);
 
-  const lawyersNames = caseData?.lawyers.map(
-    (lawyer: any) => `${lawyer.firstName} ${lawyer.lastName}`
-  );
-
-  const isLoading = requestState?.status === 'loading';
-  const error = requestState?.status === 'error';
-
   function openUploadModal() {
     setIsOpen(false);
     setUploadModalIsOpen(true);
+  }
+
+  function renderContent() {
+    if (!isOpen) return null;
+
+    if (isLoading) {
+      return <CaseModalSkeleton />;
+    }
+
+    if (error || !caseData) {
+      return (
+        <div className="flex flex-col items-center size-ful pt-[80px] px-[24px] text-center gap-[16px]">
+          <h1>Proceso não encontrado</h1>
+          <h3>O processo procurado foi removido do sistema ou não existe</h3>
+        </div>
+      );
+    }
+
+    return (
+      <div className="flex flex-col size-full bg-color-white">
+        <header className="w-full bg-color-primary p-[16px] border-t border-white/50">
+          <h1 className="text-3xl text-color-white font-bold ">{caseData?.title || ''}</h1>
+        </header>
+        <div className="flex flex-col w-full text-lg min-lg:text-xl">
+          <div>
+            <div className="flex flex-col gap-[8px] border-b border-black/50 p-[16px]">
+              <FieldValue field="nº:" value={caseData.processNumber} />
+              <FieldValue
+                field="cliente:"
+                value={`
+                    ${caseData.client.firstName} ${caseData.client.lastName}
+                    `}
+              />
+              <FieldValue field="advogados:" value={formatStringList(lawyersNames || [])} />
+              <FieldValue field="status:" value={CaseStatusLabel[caseData.status]} />
+              <FieldValue field="tribunal:" value={caseData.court} />
+              <FieldValue field="vara:" value={caseData.courtDivision} />
+              <FieldValue field="estado:" value={BrazilStateLabel[caseData.location.state]} />
+              <FieldValue field="cidade:" value={CityLabel[caseData.location.city]} />
+            </div>
+            <div className="flex flex-col gap-[8px] border-b border-black/50 p-[16px]">
+              <h1 className="text-2xl font-bold">Resumo</h1>
+              <p>{caseData.description}</p>
+            </div>
+            <div className="flex flex-col gap-[8px] border-b border-black/50">
+              <div className="relative w-full bg-color-primary p-[16px]">
+                <h1 className="text-2xl font-bold text-color-white">Arquivos</h1>
+                <div className="absolute right-[16px] top-[50%] translate-y-[-50%]">
+                  <OpenUploadModalButton handleClick={openUploadModal} />
+                </div>
+              </div>
+
+              <div className="h-[224px] min-lg:h-[316px] overflow-auto">
+                <CaseFilesSection id={selectedCaseId || ''} files={caseData.files} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -84,56 +142,7 @@ export function CaseModal() {
           setIsOpen(false);
         }}
       >
-        {isLoading ? (
-          <CaseModalSkeleton />
-        ) : (
-          <div className="flex flex-col size-full bg-color-white">
-            <header className="w-full bg-color-primary p-[16px] border-t border-white/50">
-              <h1 className="text-3xl text-color-white font-bold ">{caseData?.title || ''}</h1>
-            </header>
-            <main className="flex flex-col w-full text-lg min-lg:text-xl">
-              {error || !caseData ? (
-                <div className="flex justify-center items-center size-full">
-                  <h1 className='mt-[80px]'>Processo não encontrado</h1>
-                </div>
-              ) : (
-                <div>
-                  <div className="flex flex-col gap-[8px] border-b border-black/50 p-[16px]">
-                    <FieldValue field="nº:" value={caseData.processNumber} />
-                    <FieldValue
-                      field="cliente:"
-                      value={`
-                    ${caseData.client.firstName} ${caseData.client.lastName}
-                    `}
-                    />
-                    <FieldValue field="advogados:" value={formatStringList(lawyersNames || [])} />
-                    <FieldValue field="status:" value={CaseStatusLabel[caseData.status]} />
-                    <FieldValue field="tribunal:" value={caseData.court} />
-                    <FieldValue field="vara:" value={caseData.courtDivision} />
-                    <FieldValue field="estado:" value={BrazilStateLabel[caseData.location.state]} />
-                    <FieldValue field="cidade:" value={CityLabel[caseData.location.city]} />
-                  </div>
-                  <div className="flex flex-col gap-[8px] border-b border-black/50 p-[16px]">
-                    <h1 className="text-2xl font-bold">Resumo</h1>
-                    <p>{caseData.description}</p>
-                  </div>
-                  <div className="flex flex-col gap-[8px] border-b border-black/50">
-                    <div className="relative w-full bg-color-primary p-[16px]">
-                      <h1 className="text-2xl font-bold text-color-white">Arquivos</h1>
-                      <div className="absolute right-[16px] top-[50%] translate-y-[-50%]">
-                        <OpenUploadModalButton handleClick={openUploadModal} />
-                      </div>
-                    </div>
-
-                    <div className="h-[224px] min-lg:h-[316px] overflow-auto">
-                      <CaseFilesSection id={selectedCaseId || ''} files={caseData.files} />
-                    </div>
-                  </div>
-                </div>
-              )}
-            </main>
-          </div>
-        )}
+        {renderContent()}
       </PrimaryModal>
     )
   );
