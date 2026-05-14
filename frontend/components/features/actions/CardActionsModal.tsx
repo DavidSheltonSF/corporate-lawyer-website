@@ -4,46 +4,42 @@ import { Dispatch, SetStateAction } from 'react';
 import { EditIcon } from '@/components/icons/EditIcon';
 import { DeleteIcon } from '@/components/icons/DeleteIcon';
 import { ActionButton } from './ActionButton';
+import { IconProps } from '@/components/icons/Icon';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface Props {
-  isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-  openDeleteModal: Function;
-  openUpdateModal: Function;
+  data: { actions: { Icon: React.ComponentType<IconProps>; label: string; action: Function }[] };
+  close: Function;
 }
 
-export function CardActionsModal({ openDeleteModal, openUpdateModal, isOpen, setIsOpen }: Props) {
-  function closeModal() {
-    setIsOpen(false);
-  }
+export function CardActionsModal({ data, close }: Props) {
+  const { actions } = data;
+  const isMobile = useMediaQuery('(max-width: 1024px)');
+
+  const renderActions = actions.map((actionItem, index) => {
+    const { Icon, label, action } = actionItem;
+    return (
+      <ActionButton
+        key={index}
+        Icon={Icon}
+        label={label}
+        handleClick={() => {
+          action();
+        }}
+      />
+    );
+  });
 
   return (
-    isOpen && (
+    isMobile && (
       <PrimaryModal
         additionalStyles="top-[15%] left-1/2 translate-x-[-50%] w-[90%] min-md:w-[400px] h-fit"
         closeModal={() => {
-          closeModal();
+          close();
         }}
       >
         <div className="size-full flex flex-col text-center items-center justify-center gap-[8px] p-[8px]">
-          <div className="flex flex-col w-full justify-around">
-            <ActionButton
-              Icon={EditIcon}
-              label="Alterar"
-              handleClick={() => {
-                openUpdateModal();
-                closeModal();
-              }}
-            />
-            <ActionButton
-              Icon={DeleteIcon}
-              label="Deletar"
-              handleClick={() => {
-                openDeleteModal();
-                closeModal();
-              }}
-            />
-          </div>
+          <div className="flex flex-col w-full justify-around">{renderActions}</div>
         </div>
       </PrimaryModal>
     )
