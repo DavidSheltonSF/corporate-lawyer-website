@@ -5,13 +5,14 @@ export type ModalType =
   | 'register-client'
   | 'case'
   | 'register-case'
+  | 'update-case'
   | 'upload-case-files'
   | 'notifications'
   | null;
 
 export interface ModalContext {
   currentModal: ModalType;
-  modalData: unknown;
+  modalData: any;
 
   openModal: (modal: ModalType, data: unknown) => void;
   closeModal: () => void;
