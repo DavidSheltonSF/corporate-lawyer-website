@@ -8,7 +8,7 @@ interface Props {
 export function OpenUploadModalButton({ handleClick, disabled }: Props) {
   return (
     <Button
-      className="flex px-[16px] py-[8px] gap-[8px] size-full bg-color-white hover:brightness-90"
+      className="flex px-[16px] py-[8px] gap-[8px] size-full bg-color-white hover:brightness-95"
       onclick={() => handleClick()}
       disabled={disabled}
     >
