@@ -14,28 +14,30 @@ import { ClientModalCases } from './ClientModalCases';
 import { RequestState } from '@/types/RequestState';
 import { CardSkeleton } from '@/components/ui/Card/CardSkeleton';
 import { WithId } from '@/types/WithId';
+import { RegisterCaseModal } from '@/components/modals/RegisterCaseModal';
 
 interface Props {
-  clientId: string | null;
-  isOpen: boolean;
+  data: unknown;
   close: () => void;
-  openRegisterCaseModal: () => void;
 }
 
 ClientModal.Header = ClientModalHeader;
 ClientModal.Info = ClientModalInfo;
 ClientModal.Cases = ClientModalCases;
 
-export function ClientModal({ isOpen, close, clientId, openRegisterCaseModal }: Props) {
+export function ClientModal({ close, data }: Props) {
   const [clientData, setClientData] = useState<(SafeUser & { cases: WithId<Case>[] }) | null>(null);
+  const [registerCaseModalIsOpen, setRegisterCaseModalIsOpen] = useState(false);
   const [requestState, setRequestState] = useState<RequestState | null>(null);
   const isLoading = requestState?.status === 'loading';
   const error = requestState?.status === 'error';
+  const clientModalData = data as {clientId: string};
+  const clientId = clientModalData.clientId;
 
   useEffect(() => {
     async function fetchClientData() {
       try {
-        if (!isOpen || !clientId) return;
+        if (!clientId) return;
         setRequestState({ status: 'loading' });
         const clientFound = await getClientWithCases(clientId);
         setClientData(clientFound);
@@ -50,10 +52,6 @@ export function ClientModal({ isOpen, close, clientId, openRegisterCaseModal }: 
       }
     }
 
-    function cleanClientDataOnClose() {
-      if (isOpen) return;
-      setClientData(null);
-    }
 
     function resetStates() {
       setClientData(null);
@@ -61,14 +59,22 @@ export function ClientModal({ isOpen, close, clientId, openRegisterCaseModal }: 
     }
 
     fetchClientData();
-    cleanClientDataOnClose();
-
     return () => {
       resetStates;
     };
-  }, [isOpen]);
+  }, []);
 
-  if (!isOpen) return null;
+  if (registerCaseModalIsOpen) {
+    return (
+      <RegisterCaseModal
+        selectedClientId={clientId}
+        isOpen={registerCaseModalIsOpen}
+        close={() => {
+          setRegisterCaseModalIsOpen(false);
+        }}
+      />
+    );
+  }
 
   function renderContent() {
     if (isLoading) {
@@ -92,7 +98,12 @@ export function ClientModal({ isOpen, close, clientId, openRegisterCaseModal }: 
           cpf={clientData.cpf}
         />
         <ClientModal.Info clientData={clientData} />
-        <ClientModal.Cases cases={clientData.cases} openRegisterCaseModal={openRegisterCaseModal} />
+        <ClientModal.Cases
+          cases={clientData.cases}
+          openRegisterCaseModal={() => {
+            setRegisterCaseModalIsOpen(true);
+          }}
+        />
       </div>
     );
   }
