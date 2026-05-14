@@ -18,7 +18,7 @@ export function CaseCard({ caseData, openCaseModal, openOptionsModal }: Props) {
   const clientData = caseData.client;
   const { firstName, lastName } = clientData;
 
-  const { title, processNumber, status } = caseData;
+  const {id, title, processNumber, status } = caseData;
 
   const lawyersNames = caseData.lawyers?.map((lawyer) => {
     return `${lawyer.firstName} ${lawyer.lastName}`;
@@ -28,7 +28,7 @@ export function CaseCard({ caseData, openCaseModal, openOptionsModal }: Props) {
     <Card
       className="w-[20px] h-fit min-md:w-[720px]"
       openOptionsModal={() => openOptionsModal()}
-      openModal={() => openCaseModal()}
+      openModal={() => openCaseModal(id)}
     >
       <div className="flex flex-col text-color-black p-[24px] gap-[32px]">
         <CaseCard.Header title={caseData.title} processNumber={caseData.processNumber} />
