@@ -1,13 +1,11 @@
 @import 'tailwindcss';
 
 :root {
-  --white-color: #f9fafb;
-  --black-color: #2c2c2c;
-  --black-color-dark: #1d1c1c;
-  --primary-color: #032a49;
-  --primary-color-light: #0475d1;
-  --secondary-color: #e9d07f;
-  --bright-yellow-shadow: 0 0 10px 5px #e9d07f8f;
+  --color-white: #f9fafb;
+  --color-black: #2c2c2c;
+  --color-primary: #032a49;
+  --color-primary-light: #0475d1;
+  --color-secondary: #e9d07f;
   --color-green: #08ee3a;
   --color-red: #ee2308;
   --color-muted: #6d6d6d;
@@ -57,7 +55,7 @@ h3 {
 }
 
 .bg-color-black {
-  background-color: var(--black-color);
+  background-color: var(--color-black);
 }
 
 .bg-color-black-dark {
@@ -65,37 +63,37 @@ h3 {
 }
 
 .bg-color-white {
-  background-color: var(--white-color);
+  background-color: var(--color-white);
 }
 
 .bg-color-primary {
-  background-color: var(--primary-color);
+  background-color: var(--color-primary);
 }
 
 .bg-color-primary-light {
-  background-color: var(--primary-color-light);
+  background-color: var(--color-primary-light);
 }
 
 .bg-color-secondary {
-  background-color: var(--secondary-color);
+  background-color: var(--color-secondary);
 }
 
 .bg-load-up-secondary {
   background: linear-gradient(
     0deg,
     rgba(255, 255, 0, 0),
-    var(--secondary-color),
-    var(--secondary-color)
+    var(--color-secondary),
+    var(--color-secondary)
   );
   background-size: 100% 200%;
 }
 
 .text-color-white {
-  color: var(--white-color);
+  color: var(--color-white);
 }
 
 .text-color-black {
-  color: var(--black-color);
+  color: var(--color-black);
 }
 
 .text-color-green {
@@ -107,7 +105,7 @@ h3 {
 }
 
 .text-color-secondary {
-  color: var(--secondary-color);
+  color: var(--color-secondary);
 }
 
 .text-muted {
@@ -116,11 +114,11 @@ h3 {
 }
 
 .border-color-secondary {
-  border-color: var(--secondary-color);
+  border-color: var(--color-secondary);
 }
 
 .border-color-primary-light {
-  border-color: var(--primary-color-light);
+  border-color: var(--color-primary-light);
 }
 .border-divider {
   border-bottom: 1px solid var(--color-divider);
@@ -131,7 +129,7 @@ h3 {
 }
 
 .inner-shadow-soft-primary {
-  box-shadow: inset -1px -1px 10px 1px var(--primary-color-light);
+  box-shadow: inset -1px -1px 10px 1px var(--color-primary-light);
 }
 
 /* Chrome... */
