@@ -18,6 +18,7 @@ import { useCaseModalContext } from '@/hooks/useCaseModalContext';
 import { useCaseFilesUploadModalContext } from '@/hooks/useCaseFilesUploadModalContext';
 import { useSelectedCaseContext } from '@/hooks/useSelectedCaseContext';
 import { RequestState } from '@/types/RequestState';
+import { CaseFilesUploadModal } from '@/components/modals/CaseFilesUploadModal';
 
 interface Props {
   data: unknown;
@@ -27,8 +28,7 @@ interface Props {
 export function CaseModal({ data, close }: Props) {
   const [caseData, setCaseData] = useState<WithId<CaseWithRelations> | null>(null);
   const [requestState, setRequestState] = useState<RequestState | null>(null);
-  const uploadModalContext = useCaseFilesUploadModalContext();
-  const setUploadModalIsOpen = uploadModalContext.setIsOpen;
+  const [uploadModalIsOpen, setUploadModalIsOpen] = useState(false);
   const isLoading = requestState?.status === 'loading';
   const error = requestState?.status === 'error';
   const lawyersNames = caseData?.lawyers.map(
@@ -131,6 +131,10 @@ export function CaseModal({ data, close }: Props) {
         </div>
       </div>
     );
+  }
+
+  if(uploadModalIsOpen){
+    return <CaseFilesUploadModal caseId={caseId} close={() => setUploadModalIsOpen(false)} />
   }
 
   return (
