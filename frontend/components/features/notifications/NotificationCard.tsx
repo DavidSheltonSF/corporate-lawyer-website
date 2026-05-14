@@ -3,13 +3,11 @@
 import { formatRelativeTime } from '@/lib/formatRelativeTime';
 import { Notification } from '@/types/Notification';
 import { WithId } from '@/types/WithId';
-import { NotificationIcon } from '../../icons/NotificationIcon';
 import { useState } from 'react';
 import { markNotificationAsRead } from '@/services/notifications/markNotificationAsRead';
 import { useNotificationsModalContext } from '@/hooks/useNotificationsModalContext';
 import { EntityType } from '@/types/EntityType';
 import { NotificationIconSelector } from './NotificationIconSelector';
-import { useSelectedCaseContext } from '@/hooks/useSelectedCaseContext';
 import { useModal } from '@/hooks/useModal';
 
 interface Props {
