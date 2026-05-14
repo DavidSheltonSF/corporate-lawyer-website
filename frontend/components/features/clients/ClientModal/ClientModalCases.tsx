@@ -4,6 +4,7 @@ import { Button } from '../../../ui/Button/Button';
 import { AddIcon } from '@/components/icons/AddIcon';
 import { WithId } from '@/types/WithId';
 import { Card } from '@/components/ui/Card/Card';
+import { ClientCaseCard } from './ClientCaseCard';
 
 interface Props {
   cases: WithId<Case>[];
@@ -12,19 +13,7 @@ interface Props {
 
 export function ClientModalCases({ cases, openRegisterCaseModal }: Props) {
   const renderClientCases = cases.map((cas, index) => {
-    return (
-      <Card
-        key={cas.id}
-        className="w-full h-fit"
-        openModal={() => null}
-        openOptionsModal={() => null}
-      >
-        <div className="flex flex-col gap-[8px] w-full border-[1px] p-[8px] rounded-[8px]">
-          <h2 className="font-bold ">{cas.title}</h2>
-          <div className="flex flex-col">{cas.description}</div>
-        </div>
-      </Card>
-    );
+    return <ClientCaseCard key={cas.id} caseData={cas} />;
   });
   return (
     <div className="flex flex-col gap-[24px] p-[24px]">
