@@ -1,12 +1,10 @@
 'use case';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PrimaryModal } from '../ui/Modal/PrimaryModal';
 import { InputWithLabel } from '../ui/Input/InputWithLabel';
 import { Button } from '../ui/Button/Button';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
-import { updateUser } from '@/services/users/updateUser';
-import { SafeUser } from '@/types/SafeUser';
 import { getCaseById } from '@/services/cases/getCaseById';
 import { WithId } from '@/types/WithId';
 import { Case } from '@/types/Case';
