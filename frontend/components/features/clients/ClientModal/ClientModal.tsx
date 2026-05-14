@@ -31,7 +31,7 @@ export function ClientModal({ close, data }: Props) {
   const [requestState, setRequestState] = useState<RequestState | null>(null);
   const isLoading = requestState?.status === 'loading';
   const error = requestState?.status === 'error';
-  const clientModalData = data as {clientId: string};
+  const clientModalData = data as { clientId: string };
   const clientId = clientModalData.clientId;
 
   useEffect(() => {
@@ -51,7 +51,6 @@ export function ClientModal({ close, data }: Props) {
         }
       }
     }
-
 
     function resetStates() {
       setClientData(null);
@@ -110,9 +109,7 @@ export function ClientModal({ close, data }: Props) {
 
   return (
     <PrimaryModal
-      additionalStyles={
-        'fixed z-99999999999 top-[2%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[880px] h-[90%] rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
-      }
+      additionalStyles={'top-[2%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[880px] h-[90%]'}
       closeModal={close}
     >
       {renderContent()}
