@@ -4,7 +4,6 @@ import { createContext, Dispatch, SetStateAction } from 'react';
 
 export type AuthenticatedUserContextType = {
   userData: WithId<User> | null;
-  setUserData: Dispatch<SetStateAction<WithId<User> | null>>;
 };
 
 export const AuthenticatedUserContext = createContext<AuthenticatedUserContextType | undefined>(
