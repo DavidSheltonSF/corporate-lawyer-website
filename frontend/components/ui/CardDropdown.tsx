@@ -50,7 +50,7 @@ export function CardDropdown({ isOpen, close, className, options }: Props) {
   const baseStyles = `bg-red-200 py-[16px] rounded-[8px] text-color-black`;
 
   return (
-    <div
+    isDesktop && <div
       className={twMerge(positionStyles, sizeStyles, transitionStyles, baseStyles, className)}
       ref={dropdownRef}
       onClick={(e) => e.stopPropagation()}
