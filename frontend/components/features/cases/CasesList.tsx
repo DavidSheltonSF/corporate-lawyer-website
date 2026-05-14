@@ -21,9 +21,8 @@ export function CasesList({ cases, loading, loadCases }: Props) {
   const [optionsModalIsOpen, setOptionsModalIsOpen] = useState(false);
   const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
-  const setCaseModalIsOpen = useCaseModalContext().setIsOpen;
-  const { selectedCaseId, setSelectedCaseId } = useSelectedCaseContext();
-  const {openModal} = useModal()
+  const [selectedCaseId, setSelectedCaseId] = useState('');
+  const { openModal } = useModal();
   const renderCases = cases?.map((cas, index) => {
     return (
       <CaseCard
@@ -33,7 +32,7 @@ export function CasesList({ cases, loading, loadCases }: Props) {
           setSelectedCaseId(cas.id);
         }}
         openCaseModal={(caseId: string) => {
-          openModal('case', {caseId})
+          openModal('case', { caseId });
         }}
         caseData={cas}
       />
