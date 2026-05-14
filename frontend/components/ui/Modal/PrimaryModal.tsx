@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { Button } from '../Button/Button';
 import { CloseIcon } from '@/components/icons/CloseIcon';
+import { twMerge } from 'tailwind-merge';
 
 interface Props {
   closeModal: Function;
@@ -30,8 +31,11 @@ export function PrimaryModal(props: Props) {
     };
   }, []);
 
+  const baseStyles =
+    'z-10 fixed bg-color-white fade-in-animation-fast rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black';
+
   return (
-    <div ref={modalRef} className={`bg-color-white fade-in-animation-fast ${additionalStyles}`}>
+    <div ref={modalRef} className={twMerge(baseStyles, additionalStyles)}>
       <div className="absolute top-[16px] right-[16px] bg-inherit">
         <Button
           className="p-[8px] bg-inherit hover:brightness-95"
