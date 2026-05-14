@@ -18,7 +18,7 @@ export function CaseCard({ caseData, openCaseModal, openOptionsModal }: Props) {
   const clientData = caseData.client;
   const { firstName, lastName } = clientData;
 
-  const {id, title, processNumber, status } = caseData;
+  const { id, status } = caseData;
 
   const lawyersNames = caseData.lawyers?.map((lawyer) => {
     return `${lawyer.firstName} ${lawyer.lastName}`;
