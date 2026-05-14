@@ -7,12 +7,12 @@ import { WithId } from '@/types/WithId';
 
 interface Props {
   children: ReactNode;
+  userData: WithId<User | null>;
 }
 
-export function AuthenticatedUserProvider({ children }: Props) {
-  const [userData, setUserData] = useState<WithId<User> | null>(null)
+export function AuthenticatedUserProvider({ userData, children }: Props) {
   return (
-    <AuthenticatedUserContext.Provider value={{ userData, setUserData }}>
+    <AuthenticatedUserContext.Provider value={{ userData }}>
       {children}
     </AuthenticatedUserContext.Provider>
   );
