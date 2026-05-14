@@ -14,9 +14,6 @@ import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { handleLogout } from '@/lib/handleLogout';
 import { BrazilStateLabel } from '@/lib/BrazilStateLabel';
 import { CityLabel } from '@/lib/CityLabel';
-import { useCaseModalContext } from '@/hooks/useCaseModalContext';
-import { useCaseFilesUploadModalContext } from '@/hooks/useCaseFilesUploadModalContext';
-import { useSelectedCaseContext } from '@/hooks/useSelectedCaseContext';
 import { RequestState } from '@/types/RequestState';
 import { CaseFilesUploadModal } from '@/components/modals/CaseFilesUploadModal';
 
@@ -133,8 +130,8 @@ export function CaseModal({ data, close }: Props) {
     );
   }
 
-  if(uploadModalIsOpen){
-    return <CaseFilesUploadModal caseId={caseId} close={() => setUploadModalIsOpen(false)} />
+  if (uploadModalIsOpen) {
+    return <CaseFilesUploadModal caseId={caseId} close={() => setUploadModalIsOpen(false)} />;
   }
 
   return (
