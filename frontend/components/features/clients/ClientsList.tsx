@@ -8,7 +8,6 @@ import { CardActionsModal } from '../actions/CardActionsModal';
 import { RequestState } from '@/types/RequestState';
 import { DeleteClientModal } from '../../modals/DeleteClientModal';
 import { UpdateClientModal } from '../../modals/UpdateClientModal';
-import { useSelectedClientContext } from '@/hooks/useSelectedClientContext';
 import { useModal } from '@/hooks/useModal';
 import { UserSlice } from '@/types/UserSlice';
 

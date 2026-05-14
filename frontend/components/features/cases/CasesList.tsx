@@ -7,8 +7,6 @@ import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { CardActionsModal } from '../actions/CardActionsModal';
 import { UpdateCaseModal } from '../../modals/UpdateCaseModal';
 import { DeleteCaseModal } from '../../modals/DeleteCaseModal';
-import { useCaseModalContext } from '@/hooks/useCaseModalContext';
-import { useSelectedCaseContext } from '@/hooks/useSelectedCaseContext';
 import { useModal } from '@/hooks/useModal';
 
 interface Props {
