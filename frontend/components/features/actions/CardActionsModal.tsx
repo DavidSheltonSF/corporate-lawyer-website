@@ -20,7 +20,7 @@ export function CardActionsModal({ openDeleteModal, openUpdateModal, isOpen, set
   return (
     isOpen && (
       <PrimaryModal
-        additionalStyles="fixed z-99999999999 top-[15%] left-1/2 translate-x-[-50%] w-[90%] min-md:w-[400px] h-fit rounded-lg overflow-hidden shadow-[0px_0px__3px_black]"
+        additionalStyles="top-[15%] left-1/2 translate-x-[-50%] w-[90%] min-md:w-[400px] h-fit"
         closeModal={() => {
           closeModal();
         }}
