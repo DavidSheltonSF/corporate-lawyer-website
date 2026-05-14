@@ -1,6 +1,5 @@
 import { Card } from '@/components/ui/Card/Card';
-import { useCaseModalContext } from '@/hooks/useCaseModalContext';
-import { useSelectedCaseContext } from '@/hooks/useSelectedCaseContext';
+import { useModal } from '@/hooks/useModal';
 import { Case } from '@/types/Case';
 import { WithId } from '@/types/WithId';
 
@@ -9,17 +8,16 @@ interface Props {
 }
 export function ClientCaseCard({ caseData }: Props) {
   const { id, title, description } = caseData;
-  const { setSelectedCaseId } = useSelectedCaseContext();
-  const caseModalContext = useCaseModalContext();
-  const setCaseModalIsOpen = caseModalContext.setIsOpen
+
+  const { openModal } = useModal();
+  
 
   return (
     <Card
       key={id}
       className="w-full h-fit cursor-pointer"
       openModal={() => {
-        setSelectedCaseId(id);
-        setCaseModalIsOpen(true);
+        openModal('case', { caseId: id });
       }}
       openOptionsModal={() => null}
     >
