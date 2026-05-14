@@ -34,7 +34,7 @@ export function PrimaryModal(props: Props) {
     <div ref={modalRef} className={`bg-color-white fade-in-animation-fast ${additionalStyles}`}>
       <div className="absolute top-[16px] right-[16px] bg-inherit">
         <Button
-          className="p-[8px] bg-inherit hover:brightness-90"
+          className="p-[8px] bg-inherit hover:brightness-95"
           onclick={() => {
             close();
           }}
