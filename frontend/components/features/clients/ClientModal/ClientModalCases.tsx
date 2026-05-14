@@ -15,24 +15,14 @@ export function ClientModalCases({ cases, openRegisterCaseModal }: Props) {
   const renderClientCases = cases.map((cas, index) => {
     return <ClientCaseCard key={cas.id} caseData={cas} />;
   });
+
   return (
     <div className="flex flex-col gap-[24px] p-[24px]">
-      <div className="flex justify-between items-center w-full ">
+      <div className="flex justify-between items-center w-full">
         <h1 className="text-2xl font-bold">Processos</h1>
-        <Button
-          darkHover
-          backgroundColor="var(--white-color)"
-          textColor="var(--black-color)"
-          size="fit-content"
-          paddingX="16px"
-          paddingY="8px"
-          border="1px solid var(--black-color)"
-          onclick={() => openRegisterCaseModal()}
-        >
-          <span className="flex justify-center items-center gap-[8px]">
-            <AddIcon width="24px" height="24px" color="var(--black-color)" />
-            <span>Adicionar</span>
-          </span>
+        <Button className="flex justify-center gap-[8px] px-[16px] py-[8px] bg-color-white hover:brightness-95 border border-black/40">
+          <AddIcon width="24px" height="24px" color="var(--black-color)" />
+          <span>Cadastrar Processo</span>
         </Button>
       </div>
       <div className="flex flex-col gap-[24px] size-full">{renderClientCases}</div>
