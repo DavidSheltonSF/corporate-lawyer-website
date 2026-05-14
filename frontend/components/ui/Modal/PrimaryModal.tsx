@@ -34,16 +34,12 @@ export function PrimaryModal(props: Props) {
     <div ref={modalRef} className={`bg-color-white fade-in-animation-fast ${additionalStyles}`}>
       <div className="absolute top-[16px] right-[16px] bg-inherit">
         <Button
-          darkHover
-          width="48px"
-          height="48px"
+          className="p-[8px] bg-inherit hover:brightness-90"
           onclick={() => {
             close();
           }}
         >
-          <span className="flex justify-center items-center size-full ">
-            <CloseIcon color="var(--black-color)" width="100%" height="100%" />
-          </span>
+          <CloseIcon color="var(--black-color)" width="32px" height="32px" />
         </Button>
       </div>
       <div className="size-full overflow-y-auto">{children}</div>
