@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 import { AuthenticatedUserContext } from './AuthenticatedUserContext';
 import { User } from '@/types/User';
 import { WithId } from '@/types/WithId';
