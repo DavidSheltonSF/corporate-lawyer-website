@@ -1,5 +1,5 @@
 'use client';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { useState } from 'react';
 import { PrimaryModal } from '../ui/Modal/PrimaryModal';
 import { uploadCaseFile } from '@/services/cases/uploadCaseFile';
 import { RequestState } from '@/types/RequestState';
@@ -8,7 +8,6 @@ import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
 import { handleLogout } from '@/lib/handleLogout';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { useCaseModalContext } from '@/hooks/useCaseModalContext';
-import { useSelectedCaseContext } from '@/hooks/useSelectedCaseContext';
 
 interface Props {
   caseId: string;
