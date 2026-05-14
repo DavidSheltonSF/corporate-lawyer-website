@@ -1,5 +1,5 @@
 'use client';
-import { twMerge } from "tailwind-merge";
+import { twMerge } from 'tailwind-merge';
 
 interface Props {
   type?: 'submit' | 'reset' | 'button';
@@ -13,7 +13,7 @@ export function Button(props: Props) {
   const { type, children, onclick, disabled, className } = props;
 
   const baseStyles = 'rounded-sm';
-  const activeStyles = 'transition-[filter] duration-300 cursor-pointer';
+  const activeStyles = 'hover:brightness-120 transition-[filter] duration-300 cursor-pointer';
   const disabledStyles = 'cursor-default';
 
   return (
