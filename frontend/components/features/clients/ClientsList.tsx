@@ -8,9 +8,8 @@ import { CardActionsModal } from '../actions/CardActionsModal';
 import { RequestState } from '@/types/RequestState';
 import { DeleteClientModal } from '../../modals/DeleteClientModal';
 import { UpdateClientModal } from '../../modals/UpdateClientModal';
-import { ClientModal } from './ClientModal/ClientModal';
-import { RegisterCaseModal } from '../../modals/RegisterCaseModal';
 import { useSelectedClientContext } from '@/hooks/useSelectedClientContext';
+import { useModal } from '@/hooks/useModal';
 
 interface Props {
   clients: WithId<SafeUser>[];
@@ -19,13 +18,11 @@ interface Props {
 }
 
 export function ClientsList({ clients, requestState, loadClients }: Props) {
-  const [clientModalIsOpen, setClientModalIsOpen] = useState(false);
-  const [registerCaseModalIsOpen, setRegisterCaseModalIsOpen] = useState(false);
   const [optionsModalIsOpen, setOptionsModalIsOpen] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false);
-  
-   const { selectedClientSlice, setSelectedClientSlice } = useSelectedClientContext();
+  const { selectedClientSlice, setSelectedClientSlice } = useSelectedClientContext();
+  const { openModal } = useModal();
 
   const renderCases = clients?.map((client, index) => {
     const clientIdentity = {
@@ -39,9 +36,8 @@ export function ClientsList({ clients, requestState, loadClients }: Props) {
           setOptionsModalIsOpen(true);
           setSelectedClientSlice(clientIdentity);
         }}
-        openClientModal={() => {
-          setSelectedClientSlice(clientIdentity);
-          setClientModalIsOpen(true);
+        openClientModal={(clientId: string) => {
+          openModal('client', {clientId});
         }}
         key={index}
         clientData={client}
@@ -76,26 +72,6 @@ export function ClientsList({ clients, requestState, loadClients }: Props) {
 
   return (
     <div className="flex flex-col gap-[32px] mt-[88px] w-full">
-      <ClientModal
-        clientId={selectedClientSlice?.id || ''}
-        isOpen={clientModalIsOpen}
-        close={() => {
-          setClientModalIsOpen(false);
-        }}
-        openRegisterCaseModal={() => {
-          setClientModalIsOpen(false);
-          setRegisterCaseModalIsOpen(true);
-        }}
-      />
-      <RegisterCaseModal
-        selectedClientId={selectedClientSlice?.id || ''}
-        isOpen={registerCaseModalIsOpen}
-        close={() => {
-          setRegisterCaseModalIsOpen(false);
-          setClientModalIsOpen(true);
-        }}
-      />
-
       <CardActionsModal
         isOpen={optionsModalIsOpen}
         setIsOpen={setOptionsModalIsOpen}
