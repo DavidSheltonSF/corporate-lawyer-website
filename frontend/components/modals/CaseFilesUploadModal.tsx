@@ -7,7 +7,6 @@ import { DropArea } from '../DropArea';
 import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
 import { handleLogout } from '@/lib/handleLogout';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
-import { useCaseModalContext } from '@/hooks/useCaseModalContext';
 
 interface Props {
   caseId: string;
@@ -16,13 +15,10 @@ interface Props {
 
 export function CaseFilesUploadModal({ caseId, close }: Props) {
   const [uploadState, setUploadState] = useState<null | RequestState>(null);
-  const caseModalContext = useCaseModalContext();
-  const setCaseModalIsOpen = caseModalContext.setIsOpen;
 
   function closeModal() {
     if (uploadState?.status === 'loading') return;
     close();
-    setCaseModalIsOpen(true);
     setUploadState(null);
   }
 
