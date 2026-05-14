@@ -19,11 +19,14 @@ import { useCaseFilesUploadModalContext } from '@/hooks/useCaseFilesUploadModalC
 import { useSelectedCaseContext } from '@/hooks/useSelectedCaseContext';
 import { RequestState } from '@/types/RequestState';
 
-export function CaseModal() {
+interface Props {
+  data: unknown;
+  close: Function;
+}
+
+export function CaseModal({ data, close }: Props) {
   const [caseData, setCaseData] = useState<WithId<CaseWithRelations> | null>(null);
   const [requestState, setRequestState] = useState<RequestState | null>(null);
-  const { selectedCaseId } = useSelectedCaseContext();
-  const { isOpen, setIsOpen, onClose } = useCaseModalContext();
   const uploadModalContext = useCaseFilesUploadModalContext();
   const setUploadModalIsOpen = uploadModalContext.setIsOpen;
   const isLoading = requestState?.status === 'loading';
@@ -32,12 +35,15 @@ export function CaseModal() {
     (lawyer: any) => `${lawyer.firstName} ${lawyer.lastName}`
   );
 
+  const caseModalData = data as { caseId: string };
+  const caseId = caseModalData.caseId;
+
   useEffect(() => {
     async function fetchCaseData() {
       try {
-        if (!isOpen || !selectedCaseId) return;
+        if (!caseId) return;
         setRequestState({ status: 'loading' });
-        const caseFound = await getCasePopulatedById(selectedCaseId);
+        const caseFound = await getCasePopulatedById(caseId);
         setCaseData(caseFound);
         setRequestState({ status: 'ok' });
       } catch (error: any) {
@@ -50,13 +56,11 @@ export function CaseModal() {
     }
 
     function cleanCaseDataOnClose() {
-      if (isOpen) return;
       setCaseData(null);
     }
 
     function resetStates() {
       setCaseData(null);
-      setIsOpen(false);
     }
 
     fetchCaseData();
@@ -65,16 +69,13 @@ export function CaseModal() {
     return () => {
       resetStates;
     };
-  }, [isOpen]);
+  }, []);
 
   function openUploadModal() {
-    setIsOpen(false);
     setUploadModalIsOpen(true);
   }
 
   function renderContent() {
-    if (!isOpen) return null;
-
     if (isLoading) {
       return <CaseModalSkeleton />;
     }
@@ -123,7 +124,7 @@ export function CaseModal() {
               </div>
 
               <div className="h-[224px] min-lg:h-[316px] overflow-auto">
-                <CaseFilesSection id={selectedCaseId || ''} files={caseData.files} />
+                <CaseFilesSection id={caseId || ''} files={caseData.files} />
               </div>
             </div>
           </div>
@@ -133,18 +134,15 @@ export function CaseModal() {
   }
 
   return (
-    isOpen && (
-      <PrimaryModal
-        additionalStyles={
-          'fixed z-99999999999 top-[2%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[880px] h-[82vh] min-lg:h-[95vh] rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
-        }
-        closeModal={() => {
-          setIsOpen(false);
-          onClose();
-        }}
-      >
-        {renderContent()}
-      </PrimaryModal>
-    )
+    <PrimaryModal
+      additionalStyles={
+        'fixed z-99999999999 top-[2%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[880px] h-[82vh] min-lg:h-[95vh] rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
+      }
+      closeModal={() => {
+        close();
+      }}
+    >
+      {renderContent()}
+    </PrimaryModal>
   );
 }
