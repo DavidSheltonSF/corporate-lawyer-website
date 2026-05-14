@@ -8,8 +8,6 @@ import { User } from '@/types/User';
 import { WithId } from '@/types/WithId';
 import { redirect } from 'next/navigation';
 import { Notifications } from '@/components/features/notifications/Notifications';
-import { CaseModal } from '@/components/features/cases/CaseModal/CaseModal';
-import { CaseFilesUploadModal } from '@/components/modals/CaseFilesUploadModal';
 import { ModalProvider } from '@/contexts/modals/ModalProvider';
 import { ModalRenderer } from '@/components/renderer/ModalRenderer';
 
