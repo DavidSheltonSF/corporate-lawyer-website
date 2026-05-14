@@ -6,11 +6,11 @@ import { WithId } from '@/types/WithId';
 import { NotificationIcon } from '../../icons/NotificationIcon';
 import { useState } from 'react';
 import { markNotificationAsRead } from '@/services/notifications/markNotificationAsRead';
-import { useCaseModalContext } from '@/hooks/useCaseModalContext';
 import { useNotificationsModalContext } from '@/hooks/useNotificationsModalContext';
 import { EntityType } from '@/types/EntityType';
 import { NotificationIconSelector } from './NotificationIconSelector';
 import { useSelectedCaseContext } from '@/hooks/useSelectedCaseContext';
+import { useModal } from '@/hooks/useModal';
 
 interface Props {
   notificationData: WithId<Notification>;
@@ -20,10 +20,8 @@ interface Props {
 export function NotificationCard({ notificationData, decreaceUnreadCount }: Props) {
   const [notification, setNotification] = useState<WithId<Notification>>(notificationData);
   const { title, message, createdAt, isRead } = notification;
-  const caseModalContext = useCaseModalContext();
   const { setIsOpen } = useNotificationsModalContext();
-  const setCaseModalIsOpen = caseModalContext.setIsOpen;
-  const {setSelectedCaseId} = useSelectedCaseContext()
+  const { openModal } = useModal();
 
   async function markAsRead() {
     const updatedNotification = await markNotificationAsRead(notification.id);
@@ -32,8 +30,7 @@ export function NotificationCard({ notificationData, decreaceUnreadCount }: Prop
   }
 
   function openRelatedCaseModal() {
-    setSelectedCaseId(notification.metadata?.entityId || '');
-    setCaseModalIsOpen(true);
+    openModal('case', { caseId: notification.metadata?.entityId || '' });
     setIsOpen(false);
   }
 
