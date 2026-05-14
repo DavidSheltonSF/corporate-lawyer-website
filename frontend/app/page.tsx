@@ -11,7 +11,7 @@ import { LawAreaServicesModal } from '@/components/features/marketing/services/L
 
 export default function Home() {
   return (
-    <div className="bg-color-black">
+    <div>
       <LawAreaServicesModal />
 
       <HeroSection
