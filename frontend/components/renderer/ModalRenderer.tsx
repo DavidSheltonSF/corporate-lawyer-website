@@ -3,6 +3,7 @@
 import { useModal } from '@/hooks/useModal';
 import { ClientModal } from '../features/clients/ClientModal/ClientModal';
 import { CaseModal } from '../features/cases/CaseModal/CaseModal';
+import { UpdateCaseModal } from '../modals/UpdateCaseModal';
 
 export function ModalRenderer() {
   const { currentModal, modalData, openModal, closeModal } = useModal();
@@ -13,6 +14,9 @@ export function ModalRenderer() {
 
     case 'case':
       return <CaseModal data={modalData} close={closeModal} />;
+
+    case 'update-case':
+      return <UpdateCaseModal data={modalData} close={closeModal}/>
 
     default:
       return null;
