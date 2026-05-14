@@ -10,17 +10,13 @@ interface Props {
 export function ActionButton({ Icon, label, handleClick }: Props) {
   return (
     <Button
-      darkHover
+      className="flex gap-[8px] w-full py-[8px] px-[16px] bg-color-white hover:brightness-95"
       onclick={() => {
         handleClick();
       }}
-      textColor="var(--black-color)"
-      width="100%"
     >
-      <div className="flex gap-[8px]">
-        <Icon width="24px" height="24px" />
-        <span className="flex justify-start">{label}</span>
-      </div>
+      <Icon width="24px" height="24px" />
+      <span className="flex justify-start">{label}</span>
     </Button>
   );
 }
