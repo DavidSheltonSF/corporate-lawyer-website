@@ -3,7 +3,7 @@ import { WithId } from '@/types/WithId';
 import { createContext, Dispatch, SetStateAction } from 'react';
 
 export type AuthenticatedUserContextType = {
-  userData: WithId<User>;
+  userData: WithId<User> | null;
 };
 
 export const AuthenticatedUserContext = createContext<AuthenticatedUserContextType | undefined>(
