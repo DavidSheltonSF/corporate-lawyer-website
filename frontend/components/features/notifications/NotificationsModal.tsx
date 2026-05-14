@@ -1,15 +1,11 @@
 'use client';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PrimaryModal } from '../../ui/Modal/PrimaryModal';
 import { getMyNotifications } from '@/services/notifications/getMyNotifications';
-import { RequestState } from '@/types/RequestState';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { handleLogout } from '@/lib/handleLogout';
 import { WithId } from '@/types/WithId';
-import { NotificationIcon } from '../../icons/NotificationIcon';
 import { Notification } from '@/types/Notification';
-import { formatRelativeTime } from '@/lib/formatRelativeTime';
-import { NotificationCard } from './NotificationCard';
 import { NotificationsList } from './NotificationsList';
 import { Button } from '@/components/ui/Button/Button';
 import { useNotificationsModalContext } from '@/hooks/useNotificationsModalContext';
