@@ -10,6 +10,7 @@ import { DeleteClientModal } from '../../modals/DeleteClientModal';
 import { UpdateClientModal } from '../../modals/UpdateClientModal';
 import { useSelectedClientContext } from '@/hooks/useSelectedClientContext';
 import { useModal } from '@/hooks/useModal';
+import { UserSlice } from '@/types/UserSlice';
 
 interface Props {
   clients: WithId<SafeUser>[];
@@ -21,7 +22,7 @@ export function ClientsList({ clients, requestState, loadClients }: Props) {
   const [optionsModalIsOpen, setOptionsModalIsOpen] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false);
-  const { selectedClientSlice, setSelectedClientSlice } = useSelectedClientContext();
+  const [selectedClientSlice, setSelectedClientSlice] = useState<WithId<UserSlice> | null>(null);
   const { openModal } = useModal();
 
   const renderCases = clients?.map((client, index) => {
