@@ -4,21 +4,32 @@ import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { Card } from '../../../ui/Card/Card';
 import { CaseCardHeader } from './CaseCardHeader';
 import { CaseCardFooter } from './CaseCardFooter';
+import { EditIcon } from '@/components/icons/EditIcon';
+import { DeleteIcon } from '@/components/icons/DeleteIcon';
+import { useModal } from '@/hooks/useModal';
 
 interface Props {
   openCaseModal: Function;
   openOptionsModal: Function;
   caseData: WithId<CaseWithRelations>;
+  isDropdownOpen: boolean;
+  closeDropdown: () => void;
 }
 
 CaseCard.Header = CaseCardHeader;
 CaseCard.Footer = CaseCardFooter;
 
-export function CaseCard({ caseData, openCaseModal, openOptionsModal }: Props) {
+export function CaseCard({
+  caseData,
+  openCaseModal,
+  openOptionsModal,
+  isDropdownOpen,
+  closeDropdown,
+}: Props) {
   const clientData = caseData.client;
   const { firstName, lastName } = clientData;
-
   const { id, status } = caseData;
+  const { openModal } = useModal();
 
   const lawyersNames = caseData.lawyers?.map((lawyer) => {
     return `${lawyer.firstName} ${lawyer.lastName}`;
@@ -26,9 +37,24 @@ export function CaseCard({ caseData, openCaseModal, openOptionsModal }: Props) {
 
   return (
     <Card
-      className="w-[20px] h-fit min-md:w-[720px]"
-      openOptionsModal={() => openOptionsModal()}
-      openModal={() => openCaseModal(id)}
+      closeDropdown={closeDropdown}
+      actions={[
+        {
+          label: 'Alterar',
+          Icon: EditIcon,
+
+          action: () => {
+            openModal('update-case', { caseId: id });
+          },
+        },
+        { label: 'Deletar', Icon: DeleteIcon, action: () => {} },
+      ]}
+      className="relative w-full h-fit min-md:w-[720px]"
+      isDropdownOpen={isDropdownOpen}
+      openDropdown={() => {
+        openOptionsModal();
+      }}
+      openCardModal={() => openCaseModal(id)}
     >
       <div className="flex flex-col text-color-black p-[24px] gap-[32px]">
         <CaseCard.Header title={caseData.title} processNumber={caseData.processNumber} />
