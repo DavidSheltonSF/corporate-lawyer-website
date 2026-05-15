@@ -14,21 +14,15 @@ export function Card({ openModal, openOptionsModal, children, className }: Props
       className={`relative flex flex-col bg-color-white rounded-[8px] ${className}`}
       onClick={() => openModal()}
     >
-      <div className="absolute top-[8px] right-[8px] hover:bg-inherit">
+      <div className="absolute top-[8px] right-[8px]">
         <Button
-          paddingX="4px"
-          paddingY="4px"
-          width="auto"
-          height="auto"
-          darkHover
+          className="flex justify-center items-center p-[4px] siz-fit bg-color-white hover:brightness-95"
           onclick={(e) => {
             e.stopPropagation();
             openOptionsModal();
           }}
         >
-          <span className="flex justify-center items-center">
-            <VerticalMoreIcon width="24px" height="24px" />
-          </span>
+          <VerticalMoreIcon width="32px" height="32px" />
         </Button>
       </div>
       <div>{children}</div>
