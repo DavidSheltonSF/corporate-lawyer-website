@@ -9,6 +9,7 @@ export type ModalType =
   | 'upload-case-files'
   | 'mobile-actions'
   | 'notifications'
+  | 'confirm'
   | null;
 
 export interface ModalContext {
