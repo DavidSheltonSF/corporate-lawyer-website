@@ -12,13 +12,20 @@ interface Props {
   openDropdown: Function;
   caseData: WithId<CaseWithRelations>;
   isDropdownOpen: boolean;
+  deleteCase: (id: string) => void;
   closeDropdown: () => void;
 }
 
 CaseCard.Header = CaseCardHeader;
 CaseCard.Footer = CaseCardFooter;
 
-export function CaseCard({ caseData, openDropdown, isDropdownOpen, closeDropdown }: Props) {
+export function CaseCard({
+  caseData,
+  openDropdown,
+  isDropdownOpen,
+  closeDropdown,
+  deleteCase,
+}: Props) {
   const clientData = caseData.client;
   const { firstName, lastName } = clientData;
   const { id, status } = caseData;
@@ -39,7 +46,13 @@ export function CaseCard({ caseData, openDropdown, isDropdownOpen, closeDropdown
             openModal('update-case', { caseId: id });
           },
         },
-        { label: 'Deletar', Icon: DeleteIcon, action: () => {} },
+        {
+          label: 'Deletar',
+          Icon: DeleteIcon,
+          action: () => {
+            openModal('confirm', { onConfirm: () => deleteCase(id) });
+          },
+        },
       ]}
       className="relative w-full h-fit min-md:w-[720px]"
       isDropdownOpen={isDropdownOpen}
