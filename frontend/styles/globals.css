@@ -89,8 +89,12 @@ h3 {
 }
 
 /* fill */
-.fill-color-white{
+.fill-color-white {
   fill: var(--color-white);
+}
+
+.fill-color-black {
+  fill: var(--color-black);
 }
 
 .text-color-white {
