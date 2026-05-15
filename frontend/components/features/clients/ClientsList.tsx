@@ -18,27 +18,17 @@ interface Props {
 }
 
 export function ClientsList({ clients, requestState, loadClients }: Props) {
-  const [optionsModalIsOpen, setOptionsModalIsOpen] = useState(false);
-  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
-  const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false);
-  const [selectedClientSlice, setSelectedClientSlice] = useState<WithId<UserSlice> | null>(null);
-  const { openModal } = useModal();
+  const [openedDropdownId, setOpenedDropdownId] = useState<string | null>(null);
 
   const renderCases = clients?.map((client, index) => {
-    const clientIdentity = {
-      id: client.id,
-      firstName: client.firstName,
-      lastName: client.lastName,
-    };
+    const { id } = client;
     return (
       <ClientCard
-        openOptionsModal={() => {
-          setOptionsModalIsOpen(true);
-          setSelectedClientSlice(clientIdentity);
+        isDropdownOpen={openedDropdownId === id}
+        openDropdown={() => {
+          setOpenedDropdownId(id);
         }}
-        openClientModal={(clientId: string) => {
-          openModal('client', {clientId});
-        }}
+        closeDropdown={() => setOpenedDropdownId(null)}
         key={index}
         clientData={client}
       />
@@ -63,33 +53,8 @@ export function ClientsList({ clients, requestState, loadClients }: Props) {
 
   const isLoading = requestState?.status === 'loading';
 
-  function openDeleteModal() {
-    setDeleteModalIsOpen(true);
-  }
-  function openUpdateModal() {
-    setUpdateModalIsOpen(true);
-  }
-
   return (
     <div className="flex flex-col gap-[32px] mt-[88px] w-full">
-      <CardActionsModal
-        isOpen={optionsModalIsOpen}
-        setIsOpen={setOptionsModalIsOpen}
-        openDeleteModal={openDeleteModal}
-        openUpdateModal={openUpdateModal}
-      />
-      <DeleteClientModal
-        isOpen={deleteModalIsOpen}
-        setIsOpen={setDeleteModalIsOpen}
-        selectedClient={selectedClientSlice}
-        loadClients={loadClients}
-      />
-      <UpdateClientModal
-        isOpen={updateModalIsOpen}
-        setIsOpen={setUpdateModalIsOpen}
-        selectedClientId={selectedClientSlice?.id || ''}
-        loadClients={loadClients}
-      />
       <Activity mode={!isLoading ? 'visible' : 'hidden'}>
         <h1 className="text-3xl">{message}</h1>
       </Activity>
