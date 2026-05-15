@@ -1,19 +1,14 @@
 import { IconProps } from '@/components/icons/Icon';
 import { Button } from '../../ui/Button/Button';
 import React from 'react';
+import { CardAction } from './types';
 
-interface Props {
-  Icon: React.ComponentType<IconProps>;
-  label: string;
-  handleClick: () => void;
-}
-export function ActionButton({ Icon, label, handleClick }: Props) {
+
+export function ActionButton({ Icon, label, action }: CardAction) {
   return (
     <Button
       className="flex gap-[8px] w-full py-[8px] px-[16px] bg-color-white hover:brightness-95"
-      onclick={() => {
-        handleClick();
-      }}
+      onclick={action}
     >
       <Icon width="24px" height="24px" />
       <span className="flex justify-start">{label}</span>
