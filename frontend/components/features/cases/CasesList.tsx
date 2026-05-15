@@ -8,6 +8,9 @@ import { CardActionsModal } from '../actions/CardActionsModal';
 import { UpdateCaseModal } from '../../modals/UpdateCaseModal';
 import { DeleteCaseModal } from '../../modals/DeleteCaseModal';
 import { useModal } from '@/hooks/useModal';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { EditIcon } from '@/components/icons/EditIcon';
+import { DeleteIcon } from '@/components/icons/DeleteIcon';
 
 interface Props {
   cases: WithId<CaseWithRelations>[];
@@ -16,18 +19,17 @@ interface Props {
 }
 
 export function CasesList({ cases, loading, loadCases }: Props) {
-  const [optionsModalIsOpen, setOptionsModalIsOpen] = useState(false);
-  const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false);
-  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
-  const [selectedCaseId, setSelectedCaseId] = useState('');
+  const [openedDropdownId, setOpenedDropdownId] = useState<string | null>(null);
+
   const { openModal } = useModal();
   const renderCases = cases?.map((cas, index) => {
     return (
       <CaseCard
         key={index}
+        isDropdownOpen={openedDropdownId === cas.id}
+        closeDropdown={() => setOpenedDropdownId(null)}
         openOptionsModal={() => {
-          setOptionsModalIsOpen(true);
-          setSelectedCaseId(cas.id);
+          setOpenedDropdownId(cas.id);
         }}
         openCaseModal={(caseId: string) => {
           openModal('case', { caseId });
@@ -41,35 +43,8 @@ export function CasesList({ cases, loading, loadCases }: Props) {
     return <CardSkeleton key={index} />;
   });
 
-  function openUpdateModal() {
-    setUpdateModalIsOpen(true);
-  }
-
-  function openDeleteModal() {
-    setDeleteModalIsOpen(true);
-  }
-
   return (
     <div className="flex flex-col gap-[32px] mt-[88px] w-full">
-      <UpdateCaseModal
-        loadCases={loadCases}
-        selectedCaseId={selectedCaseId}
-        isOpen={updateModalIsOpen}
-        setIsOpen={setUpdateModalIsOpen}
-      />
-      <DeleteCaseModal
-        selectedCaseId={selectedCaseId}
-        loadCases={loadCases}
-        isOpen={deleteModalIsOpen}
-        setIsOpen={setDeleteModalIsOpen}
-      />
-      <CardActionsModal
-        isOpen={optionsModalIsOpen}
-        setIsOpen={setOptionsModalIsOpen}
-        openUpdateModal={openUpdateModal}
-        openDeleteModal={openDeleteModal}
-      />
-
       <Activity mode={!loading && (!cases || cases.length === 0) ? 'visible' : 'hidden'}>
         <h1 className="text-3xl">Nenhum caso encontrado</h1>
       </Activity>
