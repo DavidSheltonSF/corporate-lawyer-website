@@ -26,7 +26,7 @@ export function CaseCard({
   isDropdownOpen,
   closeDropdown,
   deleteCase,
-  loadCases
+  loadCases,
 }: Props) {
   const clientData = caseData.client;
   const { firstName, lastName } = clientData;
@@ -52,10 +52,13 @@ export function CaseCard({
           label: 'Deletar',
           Icon: DeleteIcon,
           action: () => {
-            openModal('confirm', { message: 'Tem certeza que deseja excluir esse processo?', onConfirm: () => {
-              deleteCase(id);
-              loadCases()
-            } });
+            openModal('confirm', {
+              message: 'Tem certeza que deseja excluir esse processo?',
+              onConfirm: () => {
+                deleteCase(id);
+                loadCases();
+              },
+            });
           },
         },
       ]}
@@ -65,7 +68,7 @@ export function CaseCard({
       openDropdown={() => {
         openDropdown();
       }}
-      openCardModal={() => openModal('case', { id })}
+      openCardModal={() => openModal('case', { caseId: id })}
     >
       <div className="flex flex-col text-color-black p-[24px] gap-[32px]">
         <CaseCard.Header title={caseData.title} processNumber={caseData.processNumber} />
