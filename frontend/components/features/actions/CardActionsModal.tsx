@@ -6,9 +6,10 @@ import { DeleteIcon } from '@/components/icons/DeleteIcon';
 import { ActionButton } from './ActionButton';
 import { IconProps } from '@/components/icons/Icon';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { CardAction } from './types';
 
 interface Props {
-  data: { actions: { Icon: React.ComponentType<IconProps>; label: string; action: Function }[] };
+  data: { actions: CardAction[] };
   close: Function;
 }
 
@@ -23,9 +24,7 @@ export function CardActionsModal({ data, close }: Props) {
         key={index}
         Icon={Icon}
         label={label}
-        handleClick={() => {
-          action();
-        }}
+        action={action}
       />
     );
   });
