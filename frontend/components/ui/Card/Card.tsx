@@ -1,25 +1,54 @@
 import { VerticalMoreIcon } from '@/components/icons/VerticalMoreIcon';
 import { Button } from '../Button/Button';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { CardDropdown } from '../CardDropdown';
+import { useModal } from '@/hooks/useModal';
+import { CardAction } from '@/components/features/actions/types';
 
 interface Props {
   className?: string;
-  openModal: Function;
-  openOptionsModal: Function;
+  openCardModal: () => void;
+  isDropdownOpen: boolean;
+  openDropdown: () => void;
+  closeDropdown: () => void;
+  actions: CardAction[];
   children: React.ReactNode;
 }
 
-export function Card({ openModal, openOptionsModal, children, className }: Props) {
+export function Card({
+  actions,
+  openCardModal,
+  openDropdown,
+  isDropdownOpen,
+  closeDropdown,
+  children,
+  className,
+}: Props) {
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
+  const { openModal } = useModal();
+
+  function openActions() {
+    isDesktop ? openDropdown() : openModal('mobile-actions', { actions });
+  }
+
+  function renderDropdown() {
+    if (isDropdownOpen) {
+      return <CardDropdown actions={actions} close={closeDropdown} />;
+    }
+  }
+
   return (
     <article
       className={`relative flex flex-col bg-color-white rounded-[8px] ${className}`}
-      onClick={() => openModal()}
+      onClick={openCardModal}
     >
+      {renderDropdown()}
       <div className="absolute top-[8px] right-[8px]">
         <Button
-          className="flex justify-center items-center p-[4px] siz-fit bg-color-white hover:brightness-95"
+          className="flex justify-center items-center p-[4px] bg-color-white hover:brightness-95"
           onclick={(e) => {
             e.stopPropagation();
-            openOptionsModal();
+            openActions();
           }}
         >
           <VerticalMoreIcon width="32px" height="32px" />
