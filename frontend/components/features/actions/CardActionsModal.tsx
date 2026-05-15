@@ -1,10 +1,6 @@
 'use client';
 import { PrimaryModal } from '../../ui/Modal/PrimaryModal';
-import { Dispatch, SetStateAction } from 'react';
-import { EditIcon } from '@/components/icons/EditIcon';
-import { DeleteIcon } from '@/components/icons/DeleteIcon';
 import { ActionButton } from './ActionButton';
-import { IconProps } from '@/components/icons/Icon';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { CardAction } from './types';
 
@@ -19,14 +15,7 @@ export function CardActionsModal({ data, close }: Props) {
 
   const renderActions = actions.map((actionItem, index) => {
     const { Icon, label, action } = actionItem;
-    return (
-      <ActionButton
-        key={index}
-        Icon={Icon}
-        label={label}
-        action={action}
-      />
-    );
+    return <ActionButton key={index} Icon={Icon} label={label} action={action} />;
   });
 
   return (
