@@ -1,23 +1,21 @@
 import { WithChildren } from '@/types/WithChildren';
 
 export interface IconProps {
-  height: string;
-  width: string;
-  color?: string;
+  className: string;
 }
 
-export function Icon(props: WithChildren<IconProps>) {
-  const { height = '56px', width = '56px', color = 'black', children } = props;
-
+export function Icon({ className, children }: WithChildren<IconProps>) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      height={height}
-      viewBox="0 -960 960 960"
-      width={width}
-      fill={color}
-    >
-      {children}
-    </svg>
+    <span className={className}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="size-full"
+        height="size-full"
+        viewBox="0 -960 960 960"
+        fill="inherit"
+      >
+        {children}
+      </svg>
+    </span>
   );
 }
