@@ -9,7 +9,6 @@ import { DeleteIcon } from '@/components/icons/DeleteIcon';
 import { useModal } from '@/hooks/useModal';
 
 interface Props {
-  openCaseModal: Function;
   openDropdown: Function;
   caseData: WithId<CaseWithRelations>;
   isDropdownOpen: boolean;
@@ -19,13 +18,7 @@ interface Props {
 CaseCard.Header = CaseCardHeader;
 CaseCard.Footer = CaseCardFooter;
 
-export function CaseCard({
-  caseData,
-  openCaseModal,
-  openDropdown,
-  isDropdownOpen,
-  closeDropdown,
-}: Props) {
+export function CaseCard({ caseData, openDropdown, isDropdownOpen, closeDropdown }: Props) {
   const clientData = caseData.client;
   const { firstName, lastName } = clientData;
   const { id, status } = caseData;
@@ -54,7 +47,7 @@ export function CaseCard({
       openDropdown={() => {
         openDropdown();
       }}
-      openCardModal={() => openCaseModal(id)}
+      openCardModal={() => openModal('case', { id })}
     >
       <div className="flex flex-col text-color-black p-[24px] gap-[32px]">
         <CaseCard.Header title={caseData.title} processNumber={caseData.processNumber} />

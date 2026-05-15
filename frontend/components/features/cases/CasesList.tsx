@@ -21,7 +21,6 @@ interface Props {
 export function CasesList({ cases, loading, loadCases }: Props) {
   const [openedDropdownId, setOpenedDropdownId] = useState<string | null>(null);
 
-  const { openModal } = useModal();
   const renderCases = cases?.map((cas, index) => {
     return (
       <CaseCard
@@ -30,9 +29,6 @@ export function CasesList({ cases, loading, loadCases }: Props) {
         closeDropdown={() => setOpenedDropdownId(null)}
         openDropdown={() => {
           setOpenedDropdownId(cas.id);
-        }}
-        openCaseModal={(caseId: string) => {
-          openModal('case', { caseId });
         }}
         caseData={cas}
       />
