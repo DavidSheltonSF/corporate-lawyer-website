@@ -6,13 +6,12 @@ import { useEffect, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 interface Props {
-  isOpen: boolean;
   close: Function;
   className?: string;
-  options: { Icon: React.ComponentType<IconProps>; label: string; action: Function }[];
+  actions: { Icon: React.ComponentType<IconProps>; label: string; action: Function }[];
 }
 
-export function CardDropdown({ isOpen, close, className, options }: Props) {
+export function CardDropdown({ close, className, actions }: Props) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const isDesktop = useMediaQuery('(min-width: 1024px)');
 
@@ -29,8 +28,8 @@ export function CardDropdown({ isOpen, close, className, options }: Props) {
     };
   }, [close]);
 
-  const renderItems = options.map((options, index) => {
-    const { Icon, label, action } = options;
+  const renderItems = actions.map((actions, index) => {
+    const { Icon, label, action } = actions;
     return (
       <li key={index} className="w-full">
         <Button
@@ -50,12 +49,14 @@ export function CardDropdown({ isOpen, close, className, options }: Props) {
   const baseStyles = `bg-red-200 py-[16px] rounded-[8px] text-color-black`;
 
   return (
-    isDesktop && <div
-      className={twMerge(positionStyles, sizeStyles, transitionStyles, baseStyles, className)}
-      ref={dropdownRef}
-      onClick={(e) => e.stopPropagation()}
-    >
-      <ul className="flex flex-col">{renderItems}</ul>
-    </div>
+    isDesktop && (
+      <div
+        className={twMerge(positionStyles, sizeStyles, transitionStyles, baseStyles, className)}
+        ref={dropdownRef}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <ul className="flex flex-col">{renderItems}</ul>
+      </div>
+    )
   );
 }
