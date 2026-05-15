@@ -4,13 +4,6 @@ import { WithId } from '@/types/WithId';
 import { Activity, useState } from 'react';
 import { CardSkeleton } from '../../ui/Card/CardSkeleton';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
-import { CardActionsModal } from '../actions/CardActionsModal';
-import { UpdateCaseModal } from '../../modals/UpdateCaseModal';
-import { DeleteCaseModal } from '../../modals/DeleteCaseModal';
-import { useModal } from '@/hooks/useModal';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { EditIcon } from '@/components/icons/EditIcon';
-import { DeleteIcon } from '@/components/icons/DeleteIcon';
 
 interface Props {
   cases: WithId<CaseWithRelations>[];
