@@ -28,7 +28,7 @@ export function CasesList({ cases, loading, loadCases }: Props) {
         key={index}
         isDropdownOpen={openedDropdownId === cas.id}
         closeDropdown={() => setOpenedDropdownId(null)}
-        openOptionsModal={() => {
+        openDropdown={() => {
           setOpenedDropdownId(cas.id);
         }}
         openCaseModal={(caseId: string) => {

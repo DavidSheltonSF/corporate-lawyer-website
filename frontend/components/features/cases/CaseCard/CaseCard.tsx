@@ -10,7 +10,7 @@ import { useModal } from '@/hooks/useModal';
 
 interface Props {
   openCaseModal: Function;
-  openOptionsModal: Function;
+  openDropdown: Function;
   caseData: WithId<CaseWithRelations>;
   isDropdownOpen: boolean;
   closeDropdown: () => void;
@@ -22,7 +22,7 @@ CaseCard.Footer = CaseCardFooter;
 export function CaseCard({
   caseData,
   openCaseModal,
-  openOptionsModal,
+  openDropdown,
   isDropdownOpen,
   closeDropdown,
 }: Props) {
@@ -37,7 +37,6 @@ export function CaseCard({
 
   return (
     <Card
-      closeDropdown={closeDropdown}
       actions={[
         {
           label: 'Alterar',
@@ -51,8 +50,9 @@ export function CaseCard({
       ]}
       className="relative w-full h-fit min-md:w-[720px]"
       isDropdownOpen={isDropdownOpen}
+      closeDropdown={closeDropdown}
       openDropdown={() => {
-        openOptionsModal();
+        openDropdown();
       }}
       openCardModal={() => openCaseModal(id)}
     >
