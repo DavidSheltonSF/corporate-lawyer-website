@@ -78,6 +78,10 @@ h3 {
   background-color: var(--color-secondary);
 }
 
+.bg-color-red {
+  background-color: var(--color-red);
+}
+
 .bg-load-up-secondary {
   background: linear-gradient(
     0deg,
