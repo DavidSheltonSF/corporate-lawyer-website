@@ -3,26 +3,45 @@ import { SafeUser } from '@/types/SafeUser';
 import { Card } from '../../../ui/Card/Card';
 import { ClientCardHeader } from './ClientCardHeader';
 import { ClientCardFooter } from './ClientCardFooter';
+import { EditIcon } from '@/components/icons/EditIcon';
+import { DeleteIcon } from '@/components/icons/DeleteIcon';
+import { useModal } from '@/hooks/useModal';
 
 interface Props {
   clientData: WithId<SafeUser>;
-  openClientModal: Function;
-  openOptionsModal: Function;
+  openDropdown: () => void;
+  isDropdownOpen: boolean;
+  closeDropdown: () => void;
 }
 
 ClientCard.Header = ClientCardHeader;
 ClientCard.Footer = ClientCardFooter;
 
-export function ClientCard({ clientData, openClientModal, openOptionsModal }: Props) {
+export function ClientCard({ clientData, openDropdown, isDropdownOpen, closeDropdown }: Props) {
   const { id, firstName, lastName, email, phone, cpf } = clientData;
+  const { openModal } = useModal();
 
   return (
     <Card
       className="w-full h-fit min-md:w-[720px]"
-      openModal={() => {
-        openClientModal(id);
+      actions={[
+        {
+          label: 'Alterar',
+          Icon: EditIcon,
+          action: () => {},
+        },
+        {
+          label: 'Deletar',
+          Icon: DeleteIcon,
+          action: () => {},
+        },
+      ]}
+      openDropdown={openDropdown}
+      isDropdownOpen={isDropdownOpen}
+      closeDropdown={closeDropdown}
+      openCardModal={() => {
+        openModal('client', { clientId: id });
       }}
-      openOptionsModal={openOptionsModal}
     >
       <div className="flex flex-col text-color-black p-[24px] gap-[32px]">
         <ClientCard.Header clientName={`${firstName} ${lastName}`} cpf={cpf} />
