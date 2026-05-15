@@ -89,10 +89,7 @@ export function NotificationsModal() {
               setUnreadCount={setUnreadCount}
             />
             <Button
-              backgroundColor="var(--primary-color)"
-              paddingY="8px"
-              textColor="var(--white-color)"
-              width="100%"
+              className="bg-color-primary text-color-white w-full py-[8px]"
               onclick={loadMore}
             >
               Carregar Mais
