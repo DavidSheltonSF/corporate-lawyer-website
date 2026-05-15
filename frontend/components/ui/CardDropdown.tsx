@@ -46,7 +46,7 @@ export function CardDropdown({ close, className, actions }: Props) {
   const positionStyles = 'absolute top-[-8px] right-0 translate-x-[100%]';
   const sizeStyles = `w-[300px] h-fit`;
   const transitionStyles = 'transition-all duration-300 fade-in-animation';
-  const baseStyles = `bg-red-200 py-[16px] rounded-[8px] text-color-black`;
+  const baseStyles = `bg-color-white py-[8px] rounded-[8px] text-color-black`;
 
   return (
     isDesktop && (
