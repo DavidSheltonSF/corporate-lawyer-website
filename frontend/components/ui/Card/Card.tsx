@@ -45,13 +45,13 @@ export function Card({
       {renderDropdown()}
       <div className="absolute top-[8px] right-[8px]">
         <Button
-          className="flex justify-center items-center p-[4px] bg-color-white hover:brightness-95"
+          className="group flex justify-center items-center p-[4px] hover:bg-[var(--color-primary)] transition-[background] duration-300"
           onclick={(e) => {
             e.stopPropagation();
             openActions();
           }}
         >
-          <VerticalMoreIcon className="size-[32px]" />
+          <VerticalMoreIcon className="size-[32px] fill-color-black group-hover:invert" />
         </Button>
       </div>
       <div>{children}</div>
