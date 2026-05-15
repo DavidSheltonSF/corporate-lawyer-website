@@ -5,6 +5,7 @@ import { ClientModal } from '../features/clients/ClientModal/ClientModal';
 import { CaseModal } from '../features/cases/CaseModal/CaseModal';
 import { UpdateCaseModal } from '../modals/UpdateCaseModal';
 import { CardActionsModal } from '../features/actions/CardActionsModal';
+import { ConfirmModal } from '../ui/Modal/ConfirmModal';
 
 export function ModalRenderer() {
   const { currentModal, modalData, openModal, closeModal } = useModal();
@@ -21,6 +22,9 @@ export function ModalRenderer() {
 
     case 'mobile-actions':
       return <CardActionsModal data={modalData} close={closeModal} />;
+
+    case 'confirm':
+      return <ConfirmModal data={modalData} close={closeModal} />;
 
     default:
       return null;
