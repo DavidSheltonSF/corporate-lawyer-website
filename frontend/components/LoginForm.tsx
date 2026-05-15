@@ -6,6 +6,7 @@ import { LoadingMessage } from './LoadingMessage';
 import { login } from '@/actions/login';
 import { redirect } from 'next/navigation';
 import { RequestState } from '@/types/RequestState';
+import { Button } from './ui/Button/Button';
 
 export function LoginForm() {
   const [requestState, setRequestState] = useState<RequestState | null>(null);
@@ -57,12 +58,9 @@ export function LoginForm() {
         type="password"
         required={true}
       />
-      <button
-        type="submit"
-        className="w-full bg-[var(--primary-color-light)] rounded-full font-bold h-[40px] hover:brightness-124 transition-all duration-[300ms] cursor-pointer"
-      >
+      <Button type="submit" className="w-full bg-color-primary-light font-bold h-[40px]">
         Entrar
-      </button>
+      </Button>
     </form>
   );
 }
