@@ -88,6 +88,11 @@ h3 {
   background-size: 100% 200%;
 }
 
+/* fill */
+.fill-color-white{
+  fill: var(--color-white);
+}
+
 .text-color-white {
   color: var(--color-white);
 }
