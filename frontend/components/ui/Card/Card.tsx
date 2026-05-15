@@ -51,7 +51,7 @@ export function Card({
             openActions();
           }}
         >
-          <VerticalMoreIcon width="32px" height="32px" />
+          <VerticalMoreIcon className="size-[32px]" />
         </Button>
       </div>
       <div>{children}</div>

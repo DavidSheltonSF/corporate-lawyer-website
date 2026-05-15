@@ -43,7 +43,7 @@ export function PrimaryModal(props: Props) {
             close();
           }}
         >
-          <CloseIcon color="var(--black-color)" width="32px" height="32px" />
+          <CloseIcon className="w-[40px] h-[40px]" />
         </Button>
       </div>
       <div className="size-full overflow-y-auto">{children}</div>

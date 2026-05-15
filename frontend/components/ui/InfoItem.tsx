@@ -9,7 +9,7 @@ interface Props {
 export function InfoItem({ Icon, value, valueColor }: Props) {
   return (
     <div className="flex items-center gap-2">
-      <Icon width="24px" height="24px" />
+      <Icon className="size-[24px]" />
       <span
         style={{
           color: valueColor,
