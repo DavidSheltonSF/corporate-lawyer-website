@@ -3,6 +3,7 @@ import { CaseFile } from './CaseFile';
 import { CaseStatusEnum } from './CaseStatusEnum';
 import { City } from './City';
 import { HearingProps } from './HearingProps';
+import { WithId } from './WithId';
 
 export interface Case {
   clientId: string;
@@ -12,7 +13,7 @@ export interface Case {
   description?: string;
   court: string;
   courtDivision: string;
-  files: CaseFile[];
+  files: WithId<CaseFile>[];
   hearings: HearingProps[];
   status: CaseStatusEnum;
   location: {
