@@ -12,12 +12,19 @@ interface Props {
   openDropdown: () => void;
   isDropdownOpen: boolean;
   closeDropdown: () => void;
+  loadClients: () => void;
 }
 
 ClientCard.Header = ClientCardHeader;
 ClientCard.Footer = ClientCardFooter;
 
-export function ClientCard({ clientData, openDropdown, isDropdownOpen, closeDropdown }: Props) {
+export function ClientCard({
+  clientData,
+  openDropdown,
+  isDropdownOpen,
+  closeDropdown,
+  loadClients,
+}: Props) {
   const { id, firstName, lastName, email, phone, cpf } = clientData;
   const { openModal } = useModal();
 
@@ -29,13 +36,18 @@ export function ClientCard({ clientData, openDropdown, isDropdownOpen, closeDrop
           label: 'Alterar',
           Icon: EditIcon,
           action: () => {
-            openModal('update-client', { clientId: id });
+            openModal('update-client', { clientId: id, loadClients });
           },
         },
         {
           label: 'Deletar',
           Icon: DeleteIcon,
-          action: () => {},
+          action: () => {
+            openModal('delete-client', {
+              clientSlice: { id, firstName: firstName, lastName },
+              loadClients,
+            });
+          },
         },
       ]}
       openDropdown={openDropdown}
