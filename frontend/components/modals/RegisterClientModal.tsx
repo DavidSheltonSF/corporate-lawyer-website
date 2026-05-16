@@ -12,7 +12,7 @@ interface Props {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
-export function RegisterUserModal({ isOpen, setIsOpen }: Props) {
+export function RegisterClientModal({ isOpen, setIsOpen }: Props) {
   const [requestState, setRequestState] = useState<RequestState | null>(null);
 
   async function registerClient(formData: FormData) {

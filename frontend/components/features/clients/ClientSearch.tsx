@@ -7,7 +7,7 @@ import { CaseModal } from '../cases/CaseModal/CaseModal';
 import { ClientsList } from './ClientsList';
 import { getClients } from '@/services/users/getClients';
 import { SafeUser } from '@/types/SafeUser';
-import { RegisterUserModal } from '../../modals/RegisterUserModal';
+import { RegisterClientModal } from '../../modals/RegisterClientModal';
 import { Button } from '../../ui/Button/Button';
 import { RequestState } from '@/types/RequestState';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
@@ -50,12 +50,15 @@ export default function ClientSearch() {
 
   return (
     <section className="flex flex-col items-center size-full">
-      <RegisterUserModal isOpen={registerUserModalIsOpen} setIsOpen={setRegisterUserModalIsOpen} />
+      <RegisterClientModal
+        isOpen={registerUserModalIsOpen}
+        setIsOpen={setRegisterUserModalIsOpen}
+      />
       <div className="flex flex-col lg:flex-row gap-[40px] size-full">
         <SearchBar query={query} action={loadClients} setQuery={setQuery} />
         <div className="w-full min-lg:min-w-[200px]">
           <Button
-          className='p-[16px] bg-color-white text-color-black w-full min-lg:w-fit'
+            className="p-[16px] bg-color-white text-color-black w-full min-lg:w-fit"
             onclick={() => setRegisterUserModalIsOpen(true)}
           >
             Novo Cliente
