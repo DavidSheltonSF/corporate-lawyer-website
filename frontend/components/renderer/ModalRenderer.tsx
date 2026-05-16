@@ -6,6 +6,7 @@ import { CaseModal } from '../features/cases/CaseModal/CaseModal';
 import { UpdateCaseModal } from '../modals/UpdateCaseModal';
 
 import { ConfirmModal } from '../ui/Modal/ConfirmModal';
+import { UpdateClientModal } from '../modals/UpdateClientModal';
 
 export function ModalRenderer() {
   const { currentModal, modalData, openModal, closeModal } = useModal();
@@ -19,6 +20,9 @@ export function ModalRenderer() {
 
     case 'update-case':
       return <UpdateCaseModal data={modalData} close={closeModal} />;
+
+    case 'update-client':
+      return <UpdateClientModal data={modalData} close={closeModal} />;
 
     case 'confirm':
       return <ConfirmModal data={modalData} close={closeModal} />;
