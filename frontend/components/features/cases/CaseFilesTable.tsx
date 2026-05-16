@@ -36,12 +36,10 @@ export function CaseFilesTable({ documents }: Props) {
             <div className="flex justify-center items-center">
               <Link href={document.url} target="_blank">
                 <div className="hidden min-lg:block">
-                  <Button backgroundColor="var(--primary-color)" textColor="var(--white-color)">
-                    Download
-                  </Button>
+                  <Button className="bg-color-primary text-color-white px-[16px] py-[8px]">Download</Button>
                 </div>
                 <div className="min-lg:hidden">
-                  <Button backgroundColor="var(--primary-color)" width="56px" height="56px">
+                  <Button className="bg-color-primary size-[56px]">
                     <span className="flex size-full justify-center items-center">
                       {' '}
                       <Image src="/icons/download.svg" width={32} height={32} alt=""></Image>
