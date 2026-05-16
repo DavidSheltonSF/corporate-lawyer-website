@@ -36,9 +36,9 @@ export function PrimaryModal(props: Props) {
 
   return (
     <div ref={modalRef} className={twMerge(baseStyles, additionalStyles)}>
-      <div className="absolute top-[16px] right-[16px] bg-inherit">
+      <div className="flex items-center justify-end w-full h-[48px] border-divider">
         <Button
-          className="p-[8px] bg-inherit hover:brightness-95"
+          className="bg-inherit p-[8px] hover:brightness-95"
           onclick={() => {
             close();
           }}
