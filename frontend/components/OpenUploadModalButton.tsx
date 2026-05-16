@@ -8,12 +8,12 @@ interface Props {
 export function OpenUploadModalButton({ handleClick, disabled }: Props) {
   return (
     <Button
-      className="flex px-[16px] py-[8px] gap-[8px] size-full bg-color-white hover:brightness-95"
+      className="flex items-center px-[16px] py-[8px] gap-[8px] bg-color-white hover:brightness-95 border"
       onclick={() => handleClick()}
       disabled={disabled}
     >
       <img src="/icons/upload.svg" alt="" />
-      <span className="hidden min-md:block">Adicionar Documento</span>
+      <span className="hidden min-md:block">Anexar arquivo</span>
     </Button>
   );
 }
