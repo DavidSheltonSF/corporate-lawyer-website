@@ -9,6 +9,7 @@ import { useNotificationsModalContext } from '@/hooks/useNotificationsModalConte
 import { EntityType } from '@/types/EntityType';
 import { NotificationIconSelector } from './NotificationIconSelector';
 import { useModal } from '@/hooks/useModal';
+import { NotificationType } from '@/types/NotificationType';
 
 interface Props {
   notificationData: WithId<Notification>;
@@ -36,6 +37,10 @@ export function NotificationCard({ notificationData, decreaceUnreadCount }: Prop
     try {
       if (!isRead) {
         await markAsRead();
+      }
+
+      if (notification.type === NotificationType.DELETED) {
+        return;
       }
 
       if (notification?.metadata?.entityType === EntityType.CASE) {
