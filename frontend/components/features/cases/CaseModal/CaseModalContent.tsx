@@ -1,17 +1,13 @@
 import { FieldValue } from '@/components/FieldValue';
 import { BalanceIcon } from '@/components/icons/BalanceIcon';
-import { EmailIcon } from '@/components/icons/EmailIcon';
 import { FolderIcon } from '@/components/icons/FolderIcon';
-import { PhoneIcon } from '@/components/icons/PhoneIcon';
 import { UserIcon } from '@/components/icons/UserIcon';
 import { InfoItem } from '@/components/ui/InfoItem';
 import { BrazilStateLabel } from '@/lib/BrazilStateLabel';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { CityLabel } from '@/lib/CityLabel';
-import { Case } from '@/types/Case';
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
-import { SafeUser } from '@/types/SafeUser';
 import { WithId } from '@/types/WithId';
 
 interface Props {
