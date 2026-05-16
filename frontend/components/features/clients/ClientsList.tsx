@@ -5,10 +5,6 @@ import { CardSkeleton } from '../../ui/Card/CardSkeleton';
 import { ClientCard } from './ClientCard/ClientCard';
 import { SafeUser } from '@/types/SafeUser';
 import { RequestState } from '@/types/RequestState';
-import { DeleteClientModal } from '../../modals/DeleteClientModal';
-import { UpdateClientModal } from '../../modals/UpdateClientModal';
-import { useModal } from '@/hooks/useModal';
-import { UserSlice } from '@/types/UserSlice';
 
 interface Props {
   clients: WithId<SafeUser>[];
