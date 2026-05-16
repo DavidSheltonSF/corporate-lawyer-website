@@ -1,5 +1,5 @@
 'use client';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PrimaryModal } from '../ui/Modal/PrimaryModal';
 import { InputWithLabel } from '../ui/Input/InputWithLabel';
 import { Button } from '../ui/Button/Button';
@@ -14,20 +14,19 @@ import { ShowSkeletonOnLoading } from '../ui/ShowSkeletonOnLoading';
 import { LoadingModalScreeen } from '../ui/Modal/LoadingModalScreen';
 
 interface Props {
-  isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-  selectedClientId: string;
-  loadClients: Function;
+  data: { clientId: string; loadClients: () => void };
+  close: () => void;
 }
 
-export function UpdateClientModal({ loadClients, isOpen, setIsOpen, selectedClientId }: Props) {
+export function UpdateClientModal({ data, close }: Props) {
   const [clientData, setClientData] = useState<SafeUser | null>(null);
   const [requestState, setRequestState] = useState<RequestState | null>(null);
+  const { clientId, loadClients } = data;
 
   async function getUser() {
     try {
-      setRequestState({status: 'loading'})
-      const data = await getUserById(selectedClientId || '');
+      setRequestState({ status: 'loading' });
+      const data = await getUserById(clientId);
       setClientData(data);
       setRequestState({
         status: 'ok',
@@ -44,7 +43,7 @@ export function UpdateClientModal({ loadClients, isOpen, setIsOpen, selectedClie
 
   async function alterClient(formData: FormData) {
     try {
-      const data = await updateUser(selectedClientId || '', formData);
+      const data = await updateUser(clientId, formData);
       setRequestState({
         status: 'ok',
         message: `Cliente atualizado com sucesso.`,
@@ -61,77 +60,67 @@ export function UpdateClientModal({ loadClients, isOpen, setIsOpen, selectedClie
   }
 
   useEffect(() => {
-    if (!isOpen) return;
     getUser();
 
     return () => {
       setRequestState(null);
       setClientData(null);
     };
-  }, [isOpen]);
+  }, []);
 
   const isLoading = requestState?.status === 'loading';
   return (
-    isOpen && (
-      <PrimaryModal
-        additionalStyles={
-          'fixed z-99999999999 top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[678px] h-fit rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
-        }
-        closeModal={() => {
-          setRequestState(null);
-          setClientData(null);
-          setIsOpen(false);
-        }}
-      >
-        <ShowSkeletonOnLoading isLoading={isLoading} Skeleton={LoadingModalScreeen}>
-          <div className="flex flex-col size-full items-center p-[16px]">
-            <div className="flex justify-center items-center h-[40px] w-full">
-              <RequestFeedback requestState={requestState} />
-            </div>
-            <form className="flex flex-col gap-[16px] w-full h-full" action={alterClient}>
-              <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
-                <InputWithLabel
-                  id="first-name-input"
-                  name="firstName"
-                  label="Nome"
-                  defaultValue={clientData?.firstName}
-                />
-                <InputWithLabel
-                  id="last-name-input"
-                  name="lastName"
-                  label="Sobrenome"
-                  defaultValue={clientData?.lastName}
-                />
-              </div>
-              <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
-                <InputWithLabel
-                  id="email-input"
-                  name="email"
-                  label="Email"
-                  defaultValue={clientData?.email}
-                />
-                <InputWithLabel
-                  id="cpf-input"
-                  name="cpf"
-                  label="CPF"
-                  defaultValue={clientData?.cpf}
-                />
-              </div>
-
-              <div className="flex justify-end w-full min-md:w-[200px]  min-md:ml-auto">
-                <Button
-                  width="100%"
-                  backgroundColor="var(--primary-color)"
-                  textColor="var(--white-color)"
-                  fontSize="1.2rem"
-                >
-                  Confirmar Alterações
-                </Button>
-              </div>
-            </form>
+    <PrimaryModal
+      additionalStyles={
+        'fixed z-99999999999 top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[678px] h-fit rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
+      }
+      closeModal={() => {
+        setRequestState(null);
+        setClientData(null);
+        close();
+      }}
+    >
+      <ShowSkeletonOnLoading isLoading={isLoading} Skeleton={LoadingModalScreeen}>
+        <div className="flex flex-col size-full items-center p-[16px]">
+          <div className="flex justify-center items-center h-[40px] w-full">
+            <RequestFeedback requestState={requestState} />
           </div>
-        </ShowSkeletonOnLoading>
-      </PrimaryModal>
-    )
+          <form className="flex flex-col gap-[16px] w-full h-full" action={alterClient}>
+            <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
+              <InputWithLabel
+                id="first-name-input"
+                name="firstName"
+                label="Nome"
+                defaultValue={clientData?.firstName}
+              />
+              <InputWithLabel
+                id="last-name-input"
+                name="lastName"
+                label="Sobrenome"
+                defaultValue={clientData?.lastName}
+              />
+            </div>
+            <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
+              <InputWithLabel
+                id="email-input"
+                name="email"
+                label="Email"
+                defaultValue={clientData?.email}
+              />
+              <InputWithLabel
+                id="cpf-input"
+                name="cpf"
+                label="CPF"
+                defaultValue={clientData?.cpf}
+              />
+            </div>
+
+            <Button className="w-full min-md:w-[200px]  min-md:ml-auto bg-color-primary py-[8px] text-color-white">
+              Confirmar Alterações
+            </Button>
+          </form>
+        </div>
+      </ShowSkeletonOnLoading>
+    </PrimaryModal>
   );
 }
