@@ -1,9 +1,7 @@
-import { reduceString } from '@/lib/reduceString';
 import { Case } from '@/types/Case';
 import { Button } from '../../../ui/Button/Button';
 import { AddIcon } from '@/components/icons/AddIcon';
 import { WithId } from '@/types/WithId';
-import { Card } from '@/components/ui/Card/Card';
 import { ClientCaseCard } from './ClientCaseCard';
 
 interface Props {
