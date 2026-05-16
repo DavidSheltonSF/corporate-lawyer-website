@@ -1,7 +1,7 @@
 import { VerticalMoreIcon } from '@/components/icons/VerticalMoreIcon';
 import { Button } from '../Button/Button';
 import { CardDropdown } from '../CardDropdown';
-import { CardAction } from '@/components/features/actions/types';
+import { CardAction } from '@/types/CardAction';
 
 interface Props {
   className?: string;

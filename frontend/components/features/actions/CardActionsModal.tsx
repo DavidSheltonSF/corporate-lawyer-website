@@ -2,7 +2,7 @@
 import { PrimaryModal } from '../../ui/Modal/PrimaryModal';
 import { ActionButton } from './ActionButton';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { CardAction } from './types';
+import { CardAction } from '../../../types/CardAction';
 
 interface Props {
   data: { actions: CardAction[] };

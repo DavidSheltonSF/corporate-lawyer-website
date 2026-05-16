@@ -1,7 +1,7 @@
 import { IconProps } from '@/components/icons/Icon';
 import { Button } from '../../ui/Button/Button';
 import React from 'react';
-import { CardAction } from './types';
+import { CardAction } from '../../../types/CardAction';
 
 export function ActionButton({ Icon, label, action }: CardAction) {
   return (
