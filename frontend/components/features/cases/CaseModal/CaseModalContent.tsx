@@ -18,7 +18,7 @@ interface Props {
   caseData: WithId<CaseWithRelations> | null;
 }
 
-export function CaseModalInfo({ caseData }: Props) {
+export function CaseModalContent({ caseData }: Props) {
   if (!caseData) return null;
   const { client, lawyers, status, court, courtDivision, location } = caseData;
   const { firstName, lastName } = client;

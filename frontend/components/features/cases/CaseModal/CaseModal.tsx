@@ -11,7 +11,7 @@ import { handleLogout } from '@/lib/handleLogout';
 import { RequestState } from '@/types/RequestState';
 import { CaseFilesUploadModal } from '@/components/modals/CaseFilesUploadModal';
 import { CaseModalHeader } from './CaseModalHeader';
-import { CaseModalInfo } from './CaseModalInfo';
+import { CaseModalContent } from './CaseModalContent';
 import { CaseModalFiles } from './CaseModalFiles';
 
 interface Props {
@@ -20,7 +20,7 @@ interface Props {
 }
 
 CaseModal.Header = CaseModalHeader;
-CaseModal.Content = CaseModalInfo;
+CaseModal.Content = CaseModalContent;
 CaseModal.Files = CaseModalFiles;
 
 export function CaseModal({ data, close }: Props) {
