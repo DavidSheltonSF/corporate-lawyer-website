@@ -13,10 +13,6 @@ interface Props {
 export function CaseFilesTable({ documents }: Props) {
   const userContext = useAuthenticatedUserContext();
 
-  if (!userContext) {
-    throw new MissingContextError('UserDataContext');
-  }
-
   const userId = userContext.userData.id;
   return (
     <div className="table w-[88%] h-fit">
