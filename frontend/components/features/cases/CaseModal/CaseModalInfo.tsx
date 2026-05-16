@@ -39,17 +39,21 @@ export function CaseModalInfo({ caseData }: Props) {
   }
 
   return (
-    <div className="flex flex-col justify-between text-lg min-lg:text-xl border-b border-divider">
+    <div className="flex flex-col justify-between font-size-md">
       <div className="flex flex-col items-center min-md:flex-row min-md:items-start min-md:gap-[40px] border-b border-divider p-[24px]">
         <InfoItem Icon={UserIcon} value={`${firstName} ${lastName}`} />
         <InfoItem Icon={BalanceIcon} value={`${lawyer.firstName} ${lawyer.lastName}`} />
         <InfoItem valueColor={statusColor} Icon={FolderIcon} value={CaseStatusLabel[status]} />
       </div>
-      <div className="flex flex-col justify-center gap-[8px] p-[24px]">
+      <div className="flex flex-col justify-center gap-[8px] p-[24px] borer-b border-divider">
         <FieldValue field="tribunal" value={court} />
         <FieldValue field="vara" value={courtDivision} />
         <FieldValue field="estado" value={BrazilStateLabel[location.state]} />
         <FieldValue field="cidade" value={CityLabel[location.city]} />
+      </div>
+      <div className="flex flex-col gap-[8px] border-b border-black/50 p-[16px]">
+        <h1 className="text-2xl font-bold">Resumo</h1>
+        <p>{caseData.description}</p>
       </div>
     </div>
   );
