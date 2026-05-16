@@ -1,8 +1,6 @@
 import { VerticalMoreIcon } from '@/components/icons/VerticalMoreIcon';
 import { Button } from '../Button/Button';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { CardDropdown } from '../CardDropdown';
-import { useModal } from '@/hooks/useModal';
 import { CardAction } from '@/components/features/actions/types';
 
 interface Props {
@@ -24,11 +22,8 @@ export function Card({
   children,
   className,
 }: Props) {
-  const isDesktop = useMediaQuery('(min-width: 1024px)');
-  const { openModal } = useModal();
-
   function openActions() {
-    isDesktop ? openDropdown() : openModal('mobile-actions', { actions });
+    openDropdown();
   }
 
   function renderDropdown() {
