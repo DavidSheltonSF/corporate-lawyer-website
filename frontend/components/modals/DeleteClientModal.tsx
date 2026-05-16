@@ -2,29 +2,34 @@
 import { PrimaryModal } from '../ui/Modal/PrimaryModal';
 import { Button } from '../ui/Button/Button';
 import { deleteUser } from '@/services/users/deleteUser';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
-import { WithId } from '@/types/WithId';
-import { UserSlice } from '@/types/UserSlice';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { handleLogout } from '@/lib/handleLogout';
+import { WithId } from '@/types/WithId';
+import { UserSlice } from '@/types/UserSlice';
 
 interface Props {
-  isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-  selectedClient: WithId<UserSlice> | null;
-  loadClients: Function;
+  data: { clientSlice: WithId<UserSlice>; loadClients: () => void };
+  close: () => void;
 }
 
-export function DeleteClientModal({ loadClients, isOpen, setIsOpen, selectedClient }: Props) {
+export function DeleteClientModal({ data, close }: Props) {
   const [requestState, setRequestState] = useState<RequestState | null>(null);
   const [confirmInputText, setConfrimInputText] = useState('');
+  const { clientSlice, loadClients } = data;
+  const { id, firstName, lastName } = clientSlice;
+
+  const confirmDeletionString = `DELETAR ${firstName} ${lastName}`.toUpperCase();
+
+  const confirmInputIsValid = confirmInputText == confirmDeletionString;
 
   async function onDeleteClick() {
     try {
+      if (!confirmInputIsValid) return;
       setRequestState({ status: 'loading' });
-      const result = await deleteUser(selectedClient?.id || '');
+      const result = await deleteUser(id);
       setRequestState({
         status: 'ok',
         message: `${result.firstName} ${result.lastName} foi deletado com sucessso`,
@@ -46,45 +51,39 @@ export function DeleteClientModal({ loadClients, isOpen, setIsOpen, selectedClie
     };
   }, []);
 
-  const confirmDeletionString =
-    `DELETAR ${selectedClient?.firstName} ${selectedClient?.lastName}`.toUpperCase();
-
   return (
-    isOpen && (
-      <PrimaryModal
-        additionalStyles="fixed z-99999999999 top-[15%] left-1/2 translate-x-[-50%] w-[360px] h-fit rounded-lg overflow-hidden shadow-[0px_0px__3px_black]"
-        closeModal={() => {
-          setConfrimInputText('');
-          setRequestState(null);
-          setIsOpen(false);
-        }}
-      >
-        <div className="size-full flex flex-col text-center items-center justify-center gap-[8px] p-[8px]">
-          <div className="my-[24px]">
+    <PrimaryModal
+      additionalStyles="top-[15%] left-1/2 translate-x-[-50%] w-[360px] h-fit"
+      closeModal={close}
+    >
+      <div className="size-full flex flex-col text-center items-center justify-center gap-[8px] p-[8px]">
+        <div className="my-[24px]">
+          {requestState ? (
             <RequestFeedback requestState={requestState} />
-            <p className="text-black text-lg">Para confirmar digite abaixo:</p>
-            <p className="text-black text-lg text-red-600 font-bold">{confirmDeletionString}</p>
-          </div>
-          <div className="bg-blue-200 text-black w-full">
-            <input
-              className="w-full px-[8px] py-[4px]"
-              value={confirmInputText}
-              type="text"
-              onChange={(e) => setConfrimInputText(e.target.value.toUpperCase())}
-            />
-          </div>
-          <Button
-            onclick={() => onDeleteClick()}
-            backgroundColor={
-              confirmInputText !== confirmDeletionString ? '#888888' : 'var(--primary-color)'
-            }
-            textColor="var(--white-color)"
-            disabled={confirmInputText !== confirmDeletionString}
-          >
-            Confirmar
-          </Button>
+          ) : (
+            <div className="flex flex-col">
+              <p className="text-black text-lg">Para confirmar digite abaixo:</p>
+              <p className="text-black text-lg text-red-600 font-bold">{confirmDeletionString}</p>
+            </div>
+          )}
+          <RequestFeedback requestState={requestState} />
         </div>
-      </PrimaryModal>
-    )
+        <div className="bg-blue-200 text-black w-full">
+          <input
+            className="w-full px-[8px] py-[4px]"
+            value={confirmInputText}
+            type="text"
+            onChange={(e) => setConfrimInputText(e.target.value.toUpperCase())}
+          />
+        </div>
+        <Button
+          className={`transition-[background] duration-500 border border-black w-full min-lg:w-[fit] py-[8px] min-lg:px-[16px] ${confirmInputIsValid ? 'bg-color-primary text-color-white cursor-pointer' : 'bg-color-muted text-color-black cursor-default'}`}
+          onclick={() => onDeleteClick()}
+          disabled={!confirmInputIsValid}
+        >
+          Confirmar
+        </Button>
+      </div>
+    </PrimaryModal>
   );
 }
