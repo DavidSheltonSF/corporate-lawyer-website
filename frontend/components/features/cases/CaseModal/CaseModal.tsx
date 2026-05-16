@@ -1,26 +1,27 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { PrimaryModal } from '../../../ui/Modal/PrimaryModal';
-import { FieldValue } from '../../../FieldValue';
-import { CaseFilesSection } from '../../../CaseFilesSection';
 import { CaseModalSkeleton } from './CaseModalSkeleton';
-import { formatStringList } from '@/lib/formatStringList';
-import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { OpenUploadModalButton } from '../../../OpenUploadModalButton';
 import { getCasePopulatedById } from '@/services/cases/getCasePopulatedById';
 import { WithId } from '@/types/WithId';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { handleLogout } from '@/lib/handleLogout';
-import { BrazilStateLabel } from '@/lib/BrazilStateLabel';
-import { CityLabel } from '@/lib/CityLabel';
 import { RequestState } from '@/types/RequestState';
 import { CaseFilesUploadModal } from '@/components/modals/CaseFilesUploadModal';
+import { CaseModalHeader } from './CaseModalHeader';
+import { CaseModalInfo } from './CaseModalInfo';
+import { CaseModalFiles } from './CaseModalFiles';
 
 interface Props {
   data: unknown;
   close: Function;
 }
+
+CaseModal.Header = CaseModalHeader;
+CaseModal.Content = CaseModalInfo;
+CaseModal.Files = CaseModalFiles;
 
 export function CaseModal({ data, close }: Props) {
   const [caseData, setCaseData] = useState<WithId<CaseWithRelations> | null>(null);
@@ -88,44 +89,9 @@ export function CaseModal({ data, close }: Props) {
 
     return (
       <div className="flex flex-col size-full bg-color-white">
-        <header className="w-full bg-color-primary p-[16px] border-t border-white/50">
-          <h1 className="text-3xl text-color-white font-bold ">{caseData?.title || ''}</h1>
-        </header>
-        <div className="flex flex-col w-full text-lg min-lg:text-xl">
-          <div>
-            <div className="flex flex-col gap-[8px] border-b border-black/50 p-[16px]">
-              <FieldValue field="nº:" value={caseData.processNumber} />
-              <FieldValue
-                field="cliente:"
-                value={`
-                    ${caseData.client.firstName} ${caseData.client.lastName}
-                    `}
-              />
-              <FieldValue field="advogados:" value={formatStringList(lawyersNames || [])} />
-              <FieldValue field="status:" value={CaseStatusLabel[caseData.status]} />
-              <FieldValue field="tribunal:" value={caseData.court} />
-              <FieldValue field="vara:" value={caseData.courtDivision} />
-              <FieldValue field="estado:" value={BrazilStateLabel[caseData.location.state]} />
-              <FieldValue field="cidade:" value={CityLabel[caseData.location.city]} />
-            </div>
-            <div className="flex flex-col gap-[8px] border-b border-black/50 p-[16px]">
-              <h1 className="text-2xl font-bold">Resumo</h1>
-              <p>{caseData.description}</p>
-            </div>
-            <div className="flex flex-col gap-[8px] border-b border-black/50">
-              <div className="relative w-full bg-color-primary p-[16px]">
-                <h1 className="text-2xl font-bold text-color-white">Arquivos</h1>
-                <div className="absolute right-[16px] top-[50%] translate-y-[-50%]">
-                  <OpenUploadModalButton handleClick={openUploadModal} />
-                </div>
-              </div>
-
-              <div className="h-[224px] min-lg:h-[316px] overflow-auto">
-                <CaseFilesSection id={caseId || ''} files={caseData.files} />
-              </div>
-            </div>
-          </div>
-        </div>
+        <CaseModal.Header title={caseData.title} processNumber={caseData.processNumber} />
+        <CaseModal.Content caseData={caseData} />
+        <CaseModal.Files caseId={caseData.id} caseFiles={caseData.files} />
       </div>
     );
   }
