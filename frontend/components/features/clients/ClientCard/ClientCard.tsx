@@ -28,7 +28,9 @@ export function ClientCard({ clientData, openDropdown, isDropdownOpen, closeDrop
         {
           label: 'Alterar',
           Icon: EditIcon,
-          action: () => {},
+          action: () => {
+            openModal('update-client', { clientId: id });
+          },
         },
         {
           label: 'Deletar',
