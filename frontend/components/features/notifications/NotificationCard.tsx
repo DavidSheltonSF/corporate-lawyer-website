@@ -38,20 +38,23 @@ export function NotificationCard({ notificationData, decreaceUnreadCount }: Prop
       if (!isRead) {
         await markAsRead();
       }
-
-      if (notification.type === NotificationType.DELETED) {
-        return;
-      }
-
-      if (notification?.metadata?.entityType === EntityType.CASE) {
-        openRelatedCaseModal();
-      }
     } catch (error: any) {
       console.log(error);
     }
   }
 
-  const baseStyles = 'flex border w-full min-h-fit rounded-md p-[16px] shadow-lg fade-in-animation';
+  async function handleOpenRelatedModal() {
+    if (notification.type === NotificationType.DELETED) {
+      return;
+    }
+
+    if (notification?.metadata?.entityType === EntityType.CASE) {
+      openRelatedCaseModal();
+    }
+  }
+
+  const baseStyles =
+    'relative flex flex-col border w-full min-h-fit rounded-md p-[16px] shadow-lg fade-in-animation';
   const isReadStyles =
     'cursor-pointer border-color-primary-light inner-shadow-soft-primary hover:-translate-y-0.5 transition-all duration-300';
 
@@ -70,6 +73,15 @@ export function NotificationCard({ notificationData, decreaceUnreadCount }: Prop
           <p className="text-gray-500 small-text">{formatRelativeTime(new Date(createdAt))}</p>
         </div>
       </div>
+      <span
+        onClick={(e) => {
+          e.stopPropagation();
+          handleOpenRelatedModal()
+        }}
+        className="ml-auto text-blue-500 hover:text-blue-400 cursor-pointer text-md"
+      >
+        Conferir
+      </span>
     </article>
   );
 }
