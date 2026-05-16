@@ -7,6 +7,7 @@ export type ModalType =
   | 'register-case'
   | 'update-case'
   | 'update-client'
+  | 'delete-client'
   | 'upload-case-files'
   | 'notifications'
   | 'confirm'
