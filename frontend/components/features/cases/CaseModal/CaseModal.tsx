@@ -29,9 +29,6 @@ export function CaseModal({ data, close }: Props) {
   const [uploadModalIsOpen, setUploadModalIsOpen] = useState(false);
   const isLoading = requestState?.status === 'loading';
   const error = requestState?.status === 'error';
-  const lawyersNames = caseData?.lawyers.map(
-    (lawyer: any) => `${lawyer.firstName} ${lawyer.lastName}`
-  );
 
   const caseModalData = data as { caseId: string };
   const caseId = caseModalData.caseId;
@@ -73,6 +70,10 @@ export function CaseModal({ data, close }: Props) {
     setUploadModalIsOpen(true);
   }
 
+  function closeUploadModal() {
+    setUploadModalIsOpen(false);
+  }
+
   function renderContent() {
     if (isLoading) {
       return <CaseModalSkeleton />;
@@ -91,13 +92,17 @@ export function CaseModal({ data, close }: Props) {
       <div className="flex flex-col size-full bg-color-white">
         <CaseModal.Header title={caseData.title} processNumber={caseData.processNumber} />
         <CaseModal.Content caseData={caseData} />
-        <CaseModal.Files caseId={caseData.id} caseFiles={caseData.files} />
+        <CaseModal.Files
+          openUploadModal={openUploadModal}
+          caseId={caseData.id}
+          caseFiles={caseData.files}
+        />
       </div>
     );
   }
 
   if (uploadModalIsOpen) {
-    return <CaseFilesUploadModal caseId={caseId} close={() => setUploadModalIsOpen(false)} />;
+    return <CaseFilesUploadModal caseId={caseId} close={closeUploadModal} />;
   }
 
   return (
