@@ -1,7 +1,6 @@
 'use client';
 import { IconProps } from '@/components/icons/Icon';
 import { Button } from '@/components/ui/Button/Button';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useEffect, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -13,7 +12,6 @@ interface Props {
 
 export function CardDropdown({ close, className, actions }: Props) {
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const isDesktop = useMediaQuery('(min-width: 1024px)');
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -49,14 +47,12 @@ export function CardDropdown({ close, className, actions }: Props) {
   const baseStyles = `bg-color-white py-[8px] rounded-[8px] text-color-black`;
 
   return (
-    isDesktop && (
-      <div
-        className={twMerge(positionStyles, sizeStyles, transitionStyles, baseStyles, className)}
-        ref={dropdownRef}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <ul className="flex flex-col">{renderItems}</ul>
-      </div>
-    )
+    <div
+      className={twMerge(positionStyles, sizeStyles, transitionStyles, baseStyles, className)}
+      ref={dropdownRef}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <ul className="flex flex-col">{renderItems}</ul>
+    </div>
   );
 }
