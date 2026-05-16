@@ -55,9 +55,7 @@ export default function ClientSearch() {
         <SearchBar query={query} action={loadClients} setQuery={setQuery} />
         <div className="w-full min-lg:min-w-[200px]">
           <Button
-            fontSize="1.2rem"
-            paddingX="16px"
-            width="auto"
+          className='p-[16px] bg-color-white text-color-black w-full min-lg:w-fit'
             onclick={() => setRegisterUserModalIsOpen(true)}
           >
             Novo Cliente
