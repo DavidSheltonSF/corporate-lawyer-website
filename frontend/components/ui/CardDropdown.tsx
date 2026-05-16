@@ -41,10 +41,10 @@ export function CardDropdown({ close, className, actions }: Props) {
     );
   });
 
-  const positionStyles = 'absolute top-[-8px] right-0 translate-x-[100%]';
-  const sizeStyles = `w-[300px] h-fit`;
+  const positionStyles = 'z-60 absolute top-[10px] min-lg:top-[-8px] right-1/2  min-lg:right-0 translate-x-1/2 min-lg:translate-x-[100%]';
+  const sizeStyles = `w-[70%] min-lg:w-[300px] h-fit`;
   const transitionStyles = 'transition-all duration-300 fade-in-animation';
-  const baseStyles = `bg-color-white py-[8px] rounded-[8px] text-color-black`;
+  const baseStyles = `bg-color-white py-[8px] rounded-[8px] text-color-black shadow-soft`;
 
   return (
     <div
