@@ -8,23 +8,15 @@ import { OpenUploadModalButton } from '@/components/OpenUploadModalButton';
 interface Props {
   caseId: string;
   caseFiles: WithId<CaseFile>[];
+  openUploadModal: () => void;
 }
 
-export function CaseModalFiles({ caseId, caseFiles }: Props) {
-  const [isOpen, setIOpen] = useState(false);
-
-  function renderUploadModal() {
-    if (isOpen) {
-      return <CaseFilesUploadModal caseId={caseId} close={() => setIOpen(false)} />;
-    }
-  }
-
+export function CaseModalFiles({ caseId, caseFiles, openUploadModal }: Props) {
   return (
     <div className="flex flex-col gap-[24px] p-[24px]">
-      {renderUploadModal()}
       <div className="flex justify-between  w-full">
         <h1>Arquivos</h1>
-        <OpenUploadModalButton handleClick={() => setIOpen(true)} />
+        <OpenUploadModalButton handleClick={openUploadModal} />
       </div>
       <div>
         <CaseFilesTable documents={caseFiles} />
