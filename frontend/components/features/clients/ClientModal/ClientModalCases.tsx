@@ -21,7 +21,7 @@ export function ClientModalCases({ cases, openRegisterCaseModal }: Props) {
       <div className="flex justify-between items-center w-full">
         <h1 className="text-2xl font-bold">Processos</h1>
         <Button className="flex justify-center gap-[8px] px-[16px] py-[8px] bg-color-white hover:brightness-95 border border-black/40">
-          <AddIcon width="24px" height="24px" color="var(--black-color)" />
+          <AddIcon className="size-[24px] fill-color-black" />
           <span>Cadastrar Processo</span>
         </Button>
       </div>
