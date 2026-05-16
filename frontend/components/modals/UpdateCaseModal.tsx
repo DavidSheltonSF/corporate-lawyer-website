@@ -22,8 +22,8 @@ import { ShowSkeletonOnLoading } from '../ui/ShowSkeletonOnLoading';
 import { LoadingModalScreeen } from '../ui/Modal/LoadingModalScreen';
 
 interface Props {
-  data: { caseId: string; loadCases: Function };
-  close: Function;
+  data: { caseId: string; loadCases: () => void };
+  close: () => void;
 }
 
 export function UpdateCaseModal({ data, close }: Props) {
@@ -83,11 +83,7 @@ export function UpdateCaseModal({ data, close }: Props) {
       additionalStyles={
         'top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[678px] h-[90%] min-lg:h-fit'
       }
-      closeModal={() => {
-        close();
-        setRequestState(null);
-        setCaseData(null);
-      }}
+      closeModal={close}
     >
       <ShowSkeletonOnLoading isLoading={isLoading} Skeleton={LoadingModalScreeen}>
         <div className="flex flex-col h-fit bg-color-white items-center p-[16px]">
