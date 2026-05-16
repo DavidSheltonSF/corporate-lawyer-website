@@ -7,6 +7,7 @@ import { UpdateCaseModal } from '../modals/UpdateCaseModal';
 
 import { ConfirmModal } from '../ui/Modal/ConfirmModal';
 import { UpdateClientModal } from '../modals/UpdateClientModal';
+import { DeleteClientModal } from '../modals/DeleteClientModal';
 
 export function ModalRenderer() {
   const { currentModal, modalData, openModal, closeModal } = useModal();
@@ -23,6 +24,9 @@ export function ModalRenderer() {
 
     case 'update-client':
       return <UpdateClientModal data={modalData} close={closeModal} />;
+
+    case 'delete-client':
+      return <DeleteClientModal data={modalData} close={closeModal} />;
 
     case 'confirm':
       return <ConfirmModal data={modalData} close={closeModal} />;
