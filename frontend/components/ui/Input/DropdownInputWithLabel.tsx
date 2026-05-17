@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowDropUp } from '../../icons/ArrowDropUp';
+import { ArrowDropUpIcon } from '../../icons/ArrowDropUpIcon';
 
 interface Props<T> {
   id: string;
@@ -79,7 +79,7 @@ export function DropdownInputWithLabel<T extends Record<string, string>>({
             onClick={() => setListIsOpen(!listIsOpen)}
           >
             <span className={`transition-[rotate] duration-300 ${!listIsOpen && 'rotate-180'}`}>
-              <ArrowDropUp height="24px" width="24px" />
+              <ArrowDropUpIcon height="24px" width="24px" />
             </span>
           </button>
         </div>
