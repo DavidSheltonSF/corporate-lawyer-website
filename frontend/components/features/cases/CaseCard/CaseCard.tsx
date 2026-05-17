@@ -45,7 +45,7 @@ export function CaseCard({
           Icon: EditIcon,
 
           action: () => {
-            openModal('update-case', { caseId: id });
+            openModal('update-case', { caseId: id, refetchCases });
           },
         },
         {
