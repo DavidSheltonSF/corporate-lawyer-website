@@ -7,5 +7,5 @@ interface Props {
 }
 
 export function ShowSkeletonOnLoading({ isLoading, Skeleton, children }: Props) {
-  return isLoading ? <Skeleton /> : <div>{children}</div>;
+  return isLoading ? <Skeleton /> : children;
 }
