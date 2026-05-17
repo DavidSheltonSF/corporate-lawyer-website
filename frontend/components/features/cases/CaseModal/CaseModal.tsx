@@ -51,7 +51,7 @@ export function CaseModal({ data, close }: Props) {
 
   function resetStates() {
     setCaseData(null);
-    setCaseData(null);
+    setRequestState(null);
   }
   useEffect(() => {
     fetchCaseData();
@@ -87,17 +87,15 @@ export function CaseModal({ data, close }: Props) {
       <div className="flex flex-col size-full bg-color-white">
         <CaseModal.Header title={caseData.title} processNumber={caseData.processNumber} />
         <CaseModal.Content caseData={caseData} />
-        <CaseModal.Files
-          reloadCases={fetchcase}
-          openUploadModal={openUploadModal}
-          caseFiles={caseData.files}
-        />
+        <CaseModal.Files openUploadModal={openUploadModal} caseFiles={caseData.files} />
       </div>
     );
   }
 
   if (uploadModalIsOpen) {
-    return <CaseFilesUploadModal caseId={caseId} close={closeUploadModal} />;
+    return (
+      <CaseFilesUploadModal refetchCase={fetchCaseData} caseId={caseId} close={closeUploadModal} />
+    );
   }
 
   return (
