@@ -24,7 +24,7 @@ import { UpdateCaseModalHeader } from './UpdateCaseModalHeader';
 import { UpdateCaseModalForm } from './UpdateCaseModalForm';
 
 interface Props {
-  data: { caseId: string; loadCases: () => void };
+  data: { caseId: string; refetchCases: () => void };
   close: () => void;
 }
 
@@ -34,7 +34,7 @@ UpdateCaseModal.Form = UpdateCaseModalForm
 export function UpdateCaseModal({ data, close }: Props) {
   const [caseData, setCaseData] = useState<WithId<Case> | null>(null);
   const [requestState, setRequestState] = useState<RequestState | null>(null);
-  const { caseId, loadCases } = data;
+  const { caseId, refetchCases } = data;
 
   async function getUser() {
     try {
@@ -62,7 +62,7 @@ export function UpdateCaseModal({ data, close }: Props) {
         message: `Processo atualizado com sucesso.`,
       });
       setCaseData(data);
-      loadCases();
+      refetchCases();
     } catch (error: any) {
       console.log(error);
       setRequestState({ status: 'error', message: error.message });
