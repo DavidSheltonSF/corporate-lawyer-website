@@ -33,36 +33,31 @@ export function CaseModal({ data, close }: Props) {
   const caseModalData = data as { caseId: string };
   const caseId = caseModalData.caseId;
 
-  useEffect(() => {
-    async function fetchCaseData() {
-      try {
-        if (!caseId) return;
-        setRequestState({ status: 'loading' });
-        const caseFound = await getCasePopulatedById(caseId);
-        setCaseData(caseFound);
-        setRequestState({ status: 'ok' });
-      } catch (error: any) {
-        console.log(error);
-        setRequestState({ status: 'error', message: error.message });
-        if (error instanceof UnauthorizedError) {
-          handleLogout();
-        }
+  async function fetchCaseData() {
+    try {
+      if (!caseId) return;
+      setRequestState({ status: 'loading' });
+      const caseFound = await getCasePopulatedById(caseId);
+      setCaseData(caseFound);
+      setRequestState({ status: 'ok' });
+    } catch (error: any) {
+      console.log(error);
+      setRequestState({ status: 'error', message: error.message });
+      if (error instanceof UnauthorizedError) {
+        handleLogout();
       }
     }
+  }
 
-    function cleanCaseDataOnClose() {
-      setCaseData(null);
-    }
-
-    function resetStates() {
-      setCaseData(null);
-    }
-
+  function resetStates() {
+    setCaseData(null);
+    setCaseData(null);
+  }
+  useEffect(() => {
     fetchCaseData();
-    cleanCaseDataOnClose();
 
     return () => {
-      resetStates;
+      resetStates();
     };
   }, []);
 
@@ -93,8 +88,8 @@ export function CaseModal({ data, close }: Props) {
         <CaseModal.Header title={caseData.title} processNumber={caseData.processNumber} />
         <CaseModal.Content caseData={caseData} />
         <CaseModal.Files
+          reloadCases={fetchcase}
           openUploadModal={openUploadModal}
-          caseId={caseData.id}
           caseFiles={caseData.files}
         />
       </div>
