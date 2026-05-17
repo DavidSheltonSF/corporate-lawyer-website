@@ -1,16 +1,16 @@
 'use case';
 import { useEffect, useState } from 'react';
-import { PrimaryModal } from '../ui/Modal/PrimaryModal';
-import { InputWithLabel } from '../ui/Input/InputWithLabel';
-import { Button } from '../ui/Button/Button';
+import { PrimaryModal } from '../../../ui/Modal/PrimaryModal';
+import { InputWithLabel } from '../../../ui/Input/InputWithLabel';
+import { Button } from '../../../ui/Button/Button';
 import { RequestState } from '@/types/RequestState';
-import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
+import { RequestFeedback } from '../../../ui/Feedback/RequestFeedback';
 import { getCaseById } from '@/services/cases/getCaseById';
 import { WithId } from '@/types/WithId';
 import { Case } from '@/types/Case';
 import { updateCaseById } from '@/services/cases/updateCaseById';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
-import { DropdownInputWithLabel } from '../ui/Input/DropdownInputWithLabel';
+import { DropdownInputWithLabel } from '../../../ui/Input/DropdownInputWithLabel';
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { handleLogout } from '@/lib/handleLogout';
@@ -18,8 +18,8 @@ import { BrazilState } from '@/types/BrazilState';
 import { BrazilStateLabel } from '@/lib/BrazilStateLabel';
 import { CityLabel } from '@/lib/CityLabel';
 import { City } from '@/types/City';
-import { ShowSkeletonOnLoading } from '../ui/ShowSkeletonOnLoading';
-import { LoadingModalScreeen } from '../ui/Modal/LoadingModalScreen';
+import { ShowSkeletonOnLoading } from '../../../ui/ShowSkeletonOnLoading';
+import { LoadingModalScreeen } from '../../../ui/Modal/LoadingModalScreen';
 
 interface Props {
   data: { caseId: string; loadCases: () => void };

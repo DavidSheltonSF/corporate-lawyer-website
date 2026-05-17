@@ -3,7 +3,7 @@
 import { useModal } from '@/hooks/useModal';
 import { ClientModal } from '../features/clients/ClientModal/ClientModal';
 import { CaseModal } from '../features/cases/CaseModal/CaseModal';
-import { UpdateCaseModal } from '../modals/UpdateCaseModal';
+import { UpdateCaseModal } from '../features/cases/UpdateCaseModal/UpdateCaseModal';
 
 import { ConfirmModal } from '../ui/Modal/ConfirmModal';
 import { UpdateClientModal } from '../modals/UpdateClientModal';
