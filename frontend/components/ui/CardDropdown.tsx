@@ -36,7 +36,10 @@ export function CardDropdown({ close, className, actions }: Props) {
       <li key={index} className="w-full">
         <Button
           className="flex item-center gap-[8px] px-[16px] size-full py-[8px] bg-color-white hover:brightness-95"
-          onclick={() => action()}
+          onclick={() => {
+            action();
+            close();
+          }}
         >
           <Icon className="size-[24px]" />
           <span>{label}</span>
