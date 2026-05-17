@@ -11,9 +11,10 @@ import { UnauthorizedError } from '@/errors/UnauthorizedError';
 interface Props {
   caseId: string;
   close: Function;
+  refetchCase: () => void
 }
 
-export function CaseFilesUploadModal({ caseId, close }: Props) {
+export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
   const [uploadState, setUploadState] = useState<null | RequestState>(null);
 
   function closeModal() {
@@ -32,9 +33,13 @@ export function CaseFilesUploadModal({ caseId, close }: Props) {
 
       formData.append('file', file);
 
+      // REMOVE THIS AFTER TESTS
+      // REMOVE THIS AFTER TESTS
+      // REMOVE THIS AFTER TESTS
       await new Promise((resolve) => setTimeout(resolve, 5000));
 
       await uploadCaseFile(formData, caseId);
+      refetchCase();
       setUploadState({ status: 'ok', message: 'Arquivo adicionado com sucesso!' });
     } catch (error) {
       setUploadState({ status: 'error', message: 'Arquivo não adicionado' });
