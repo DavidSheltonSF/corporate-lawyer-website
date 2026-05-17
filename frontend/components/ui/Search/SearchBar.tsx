@@ -8,16 +8,15 @@ import {
   useState,
 } from 'react';
 import { SearchInput } from './SearchInput';
-import { SearchButton } from './SearchButton';
+import { SearchIcon } from '@/components/icons/SearchIcon';
 
 interface Props {
-  query: string
+  query: string;
   setQuery: Dispatch<SetStateAction<string>>;
-  action: () => void
+  action: () => void;
 }
 
 SearchBar.Input = SearchInput;
-SearchBar.Button = SearchButton;
 
 export function SearchBar({ query, setQuery, action }: Props) {
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -27,27 +26,19 @@ export function SearchBar({ query, setQuery, action }: Props) {
 
   function handleKeyDown(e: KeyboardEvent) {
     if (e.key === 'Enter') {
-      action()
+      action();
     }
   }
 
-  function handleClick(e: MouseEvent) {
-    action()
-  }
-
   return (
-    <div className="flex gap-[16px] bg-color-white w-full min-md:w-[70%] min-lg:w-[520px] h-[48px] rounded-full p-[2px]">
-      <div className="flex gap-[16px] flex-1 rounded-full overflow-hidden">
-        <SearchBar.Input
-          value={query}
-          placeholder="Pesquisar processo..."
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-        />
-      </div>
-      <div className="flex gap-[2px]">
-        <SearchBar.Button onClick={handleClick} />
-      </div>
+    <div className="flex items-center gap-[8px] bg-color-white w-full min-md:w-[70%] min-lg:w-[520px] h-[48px] rounded-full px-[8px]">
+      <SearchIcon className="size-[32px] stroke-color-black" />
+      <SearchBar.Input
+        value={query}
+        placeholder="Pesquisar processo..."
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+      />
     </div>
   );
 }
