@@ -158,7 +158,7 @@ export function UpdateCaseModal({ data, close }: Props) {
             </div>
 
             <div className="flex justify-end w-full min-md:w-[200px]  min-md:ml-auto">
-              <Button className="w-full bg-color-white text-color-white">
+              <Button className="w-full bg-color-primary text-color-white px-[16px] py-[8px]">
                 Confirmar Alterações
               </Button>
             </div>
