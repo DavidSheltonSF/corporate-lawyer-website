@@ -1,4 +1,3 @@
-'use';
 import { HeroSection } from '@/components/HeroSection';
 import { ClientView } from '@/components/views/ClientView';
 import { LawyerView } from '@/components/views/LawyerView';
