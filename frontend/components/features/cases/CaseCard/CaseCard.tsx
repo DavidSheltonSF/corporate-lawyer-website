@@ -14,7 +14,7 @@ interface Props {
   isDropdownOpen: boolean;
   deleteCase: (id: string) => void;
   closeDropdown: () => void;
-  loadCases: () => void;
+  refetchCases: () => void;
 }
 
 CaseCard.Header = CaseCardHeader;
@@ -26,7 +26,7 @@ export function CaseCard({
   isDropdownOpen,
   closeDropdown,
   deleteCase,
-  loadCases,
+  refetchCases,
 }: Props) {
   const clientData = caseData.client;
   const { firstName, lastName } = clientData;
@@ -56,7 +56,7 @@ export function CaseCard({
               message: 'Tem certeza que deseja excluir esse processo?',
               onConfirm: () => {
                 deleteCase(id);
-                loadCases();
+                refetchCases();
               },
             });
           },
