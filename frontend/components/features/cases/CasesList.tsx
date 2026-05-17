@@ -24,7 +24,7 @@ export function CasesList({ cases, loading, loadCases }: Props) {
       setRequestState({ status: 'loading' });
       await deleteCaseById(id);
       setRequestState({ status: 'ok', message: 'Case deleted successfuly' });
-      // loadCases();
+      loadCases();
     } catch (error: any) {
       setRequestState({ status: 'error', message: error.message });
       console.log(error);
@@ -37,7 +37,7 @@ export function CasesList({ cases, loading, loadCases }: Props) {
   const renderCases = cases?.map((cas, index) => {
     return (
       <CaseCard
-      loadCases={loadCases}
+      refetchCases={loadCases}
         deleteCase={deleteCase}
         key={index}
         isDropdownOpen={openedDropdownId === cas.id}
