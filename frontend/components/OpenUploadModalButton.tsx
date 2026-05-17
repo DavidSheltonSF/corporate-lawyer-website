@@ -1,4 +1,5 @@
 'use client';
+import { UploadIcon } from './icons/UploadIcon';
 import { Button } from './ui/Button/Button';
 
 interface Props {
@@ -12,7 +13,7 @@ export function OpenUploadModalButton({ handleClick, disabled }: Props) {
       onclick={() => handleClick()}
       disabled={disabled}
     >
-      <img src="/icons/upload.svg" alt="" />
+      <UploadIcon className='size-[24px]'/>
       <span className="hidden min-md:block">Anexar arquivo</span>
     </Button>
   );
