@@ -1,9 +1,14 @@
-import { Icon, IconProps } from './Icon';
+import { PropsWithClassName } from '@/types/PropsWithClassName';
+import { Icon } from './Icon';
 
-export function UploadIcon(props: IconProps) {
+export function UploadIcon(props: PropsWithClassName) {
   return (
-    <Icon {...props}>
-      <path d="M260-160q-91 0-155.5-63T40-377q0-78 47-139t123-78q25-92 100-149t170-57q117 0 198.5 81.5T760-520q69 8 114.5 59.5T920-340q0 75-52.5 127.5T740-160H520q-33 0-56.5-23.5T440-240v-206l-64 62-56-56 160-160 160 160-56 56-64-62v206h220q42 0 71-29t29-71q0-42-29-71t-71-29h-60v-80q0-83-58.5-141.5T480-720q-83 0-141.5 58.5T280-520h-20q-58 0-99 41t-41 99q0 58 41 99t99 41h100v80H260Zm220-280Z" />
+    <Icon {...props} fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
+      />
     </Icon>
   );
 }

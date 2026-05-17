@@ -1,9 +1,10 @@
-import { Icon, IconProps } from './Icon';
+import { PropsWithClassName } from '@/types/PropsWithClassName';
+import { Icon } from './Icon';
 
-export function CloseIcon(props: IconProps) {
+export function CloseIcon(props: PropsWithClassName) {
   return (
-    <Icon {...props}>
-      <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+    <Icon {...props} fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
     </Icon>
   );
 }

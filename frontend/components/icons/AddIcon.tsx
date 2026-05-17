@@ -1,9 +1,11 @@
-import { Icon, IconProps } from './Icon';
+import { PropsWithClassName } from '@/types/PropsWithClassName';
+import { Icon } from './Icon';
 
-export function AddIcon(props: IconProps) {
+export function AddIcon(props: PropsWithClassName) {
   return (
-    <Icon {...props}>
-      <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
+    <Icon {...props} fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
     </Icon>
   );
 }
+
