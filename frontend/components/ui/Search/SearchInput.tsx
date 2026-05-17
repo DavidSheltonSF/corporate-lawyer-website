@@ -9,7 +9,7 @@ export function SearchInput({ value, placeholder, onChange, onKeyDown }: Props) 
   return (
     <input
       name="caseSearchBar"
-      className="w-full h-full placeholder:text-black/65 text-black pl-[14px]"
+      className="flex flex-1 size-full placeholder:text-black/65 text-black"
       type="text"
       placeholder={placeholder}
       value={value}
