@@ -46,7 +46,7 @@ export function Card({
             openActions();
           }}
         >
-          <VerticalMoreIcon className="size-[32px] fill-color-black group-hover:invert" />
+          <VerticalMoreIcon className="size-[32px] stroke-color-black group-hover:invert" />
         </Button>
       </div>
       <div>{children}</div>
