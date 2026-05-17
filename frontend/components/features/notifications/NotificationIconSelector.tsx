@@ -9,17 +9,18 @@ interface Props {
 }
 
 export function NotificationIconSelector({ notificationType }: Props) {
+  const styles = 'size-[60%] stroke-[var(--color-primary-light)]';
   switch (notificationType) {
     case NotificationType.CREATED:
-      return <AddIcon width="60%" height="60%" color="var(--primary-color-light)" />;
+      return <AddIcon className={styles} />;
 
     case NotificationType.UPDATED:
-      return <UpdateIcon width="60%" height="60%" color="var(--primary-color-light)" />;
+      return <UpdateIcon className={styles} />;
 
     case NotificationType.DELETED:
-      return <DeleteIcon width="60%" height="60%" color="var(--primary-color-light)" />;
+      return <DeleteIcon className={styles} />;
 
     default:
-      return <NotificationIcon width="60%" height="60%" color="var(--primary-color-light)" />;
+      return <NotificationIcon className={styles} />;
   }
 }
