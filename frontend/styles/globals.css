@@ -101,6 +101,12 @@ h3 {
   fill: var(--color-black);
 }
 
+/* stroke */
+
+.stroke-color-white {
+  stroke: var(--color-white);
+}
+
 .text-color-white {
   color: var(--color-white);
 }
@@ -122,7 +128,7 @@ h3 {
 }
 
 .font-size-md {
-  font-size: var(--font-md)
+  font-size: var(--font-md);
 }
 
 .text-muted {
