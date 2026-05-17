@@ -81,19 +81,19 @@ export function UpdateCaseModal({ data, close }: Props) {
   return (
     <PrimaryModal
       additionalStyles={
-        'top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[678px] h-[90%] min-lg:h-fit'
+        'top-[6%] min-lg:top-[1%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[678px] h-[70vh] min-lg:h-fit'
       }
       closeModal={close}
     >
       <ShowSkeletonOnLoading isLoading={isLoading} Skeleton={LoadingModalScreeen}>
-        <div className="flex flex-col h-fit bg-color-white items-center p-[16px]">
+        <div className="flex flex-col size-full bg-color-white items-center p-[16px]">
           <div className="">
             <h2>Alterar Processo</h2>
           </div>
           <div className="flex justify-center items-center h-[40px] w-full">
             <RequestFeedback requestState={requestState} />
           </div>
-          <form className="flex flex-col gap-[16px] w-full h-full" action={alterCase}>
+          <form className="flex flex-col gap-[16px] size-full" action={alterCase}>
             <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
               <InputWithLabel
                 id="title-input"
@@ -148,20 +148,17 @@ export function UpdateCaseModal({ data, close }: Props) {
                 defaultValue={caseData?.location.city}
               />
             </div>
-            <div>
-              <InputWithLabel
-                id="description-input"
-                name="description"
-                label="Description"
-                defaultValue={caseData?.description}
-              />
-            </div>
 
-            <div className="flex justify-end w-full min-md:w-[200px]  min-md:ml-auto">
-              <Button className="w-full bg-color-primary text-color-white px-[16px] py-[8px]">
-                Confirmar Alterações
-              </Button>
-            </div>
+            <InputWithLabel
+              id="description-input"
+              name="description"
+              label="Description"
+              defaultValue={caseData?.description}
+            />
+
+            <Button className="w-full bg-color-primary text-color-white px-[16px] py-[8px]">
+              Confirmar Alterações
+            </Button>
           </form>
         </div>
       </ShowSkeletonOnLoading>
