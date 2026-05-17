@@ -107,6 +107,10 @@ h3 {
   stroke: var(--color-white);
 }
 
+.stroke-color-black {
+  stroke: var(--color-black);
+}
+
 .text-color-white {
   color: var(--color-white);
 }
