@@ -26,7 +26,7 @@ export function ConfirmModal({ data, close }: Props) {
         <div className="flex h-fit justify-between items-end w-full ">
           <Button
             className="w-[144px] h-[56px] bg-color-white text-color-black font-bold border border-black hover:brightness-95"
-            onclick={() => {
+            onClick={() => {
               close();
             }}
           >
@@ -34,7 +34,7 @@ export function ConfirmModal({ data, close }: Props) {
           </Button>
           <Button
             className="w-[144px] h-[56px] bg-color-red text-color-white font-bold"
-            onclick={() => {
+            onClick={() => {
               onConfirm();
               close();
             }}

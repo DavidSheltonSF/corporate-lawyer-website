@@ -78,7 +78,7 @@ export function DeleteClientModal({ data, close }: Props) {
         </div>
         <Button
           className={`transition-[background] duration-500 border border-black w-full min-lg:w-[fit] py-[8px] min-lg:px-[16px] ${confirmInputIsValid ? 'bg-color-primary text-color-white cursor-pointer' : 'bg-color-muted text-color-black cursor-default'}`}
-          onclick={() => onDeleteClick()}
+          onClick={() => onDeleteClick()}
           disabled={!confirmInputIsValid}
         >
           Confirmar

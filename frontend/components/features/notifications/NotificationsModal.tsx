@@ -90,7 +90,7 @@ export function NotificationsModal() {
             />
             <Button
               className="bg-color-primary text-color-white w-full py-[8px]"
-              onclick={loadMore}
+              onClick={loadMore}
             >
               Carregar Mais
             </Button>

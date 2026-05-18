@@ -41,7 +41,7 @@ export function Card({
       <div className="absolute top-[8px] right-[8px]">
         <Button
           className="group flex justify-center items-center p-[4px] hover:bg-[var(--color-primary)] transition-[background] duration-300"
-          onclick={(e) => {
+          onClick={(e) => {
             e.stopPropagation();
             openActions();
           }}
