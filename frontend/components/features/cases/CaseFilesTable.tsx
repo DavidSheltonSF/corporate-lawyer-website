@@ -1,9 +1,5 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { Button } from '../../ui/Button/Button';
 import { formatData } from '@/lib/formatData';
 import { CaseFile } from '@/types/CaseFile';
-import { MissingContextError } from '@/errors/MissingContextError';
 import { useAuthenticatedUserContext } from '@/hooks/useAuthenticatedUserContext';
 import { CaseFilesTableButton } from '@/components/features/cases/CaseFilesTableButton';
 
