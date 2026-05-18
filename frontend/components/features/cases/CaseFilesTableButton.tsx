@@ -12,7 +12,7 @@ export function CaseFilesTableButton({ fileUrl, className }: PropsWithClassName<
   const baseStyles = 'flex w-max items-center gap-[8px]';
   return (
     <Link href={fileUrl} target="_blank">
-      <Button className={twMerge(baseStyles, className)}>
+      <Button variant="secondary" className={twMerge(baseStyles, className)}>
         <DownloadIcon className="size-[24px]" />
         <span className="hidden min-md:block">Download</span>
       </Button>
