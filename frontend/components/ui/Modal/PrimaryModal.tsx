@@ -41,7 +41,7 @@ export function PrimaryModal(props: Props) {
         <h3 className="font-bold">{title}</h3>
         <Button
           className="bg-color-white ml-auto p-[4px] brightness-95 hover:brightness-90"
-          onclick={() => {
+          onClick={() => {
             close();
           }}
         >
