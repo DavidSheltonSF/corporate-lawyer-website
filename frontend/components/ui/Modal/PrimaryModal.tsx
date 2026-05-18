@@ -6,13 +6,14 @@ import { CloseIcon } from '@/components/icons/CloseIcon';
 import { twMerge } from 'tailwind-merge';
 
 interface Props {
+  title?: string;
   closeModal: Function;
   children: React.ReactNode;
   additionalStyles: string;
 }
 
 export function PrimaryModal(props: Props) {
-  const { closeModal, children, additionalStyles } = props;
+  const { closeModal, children, title, additionalStyles } = props;
   const modalRef = useRef<HTMLDivElement>(null);
 
   function close() {
@@ -36,9 +37,10 @@ export function PrimaryModal(props: Props) {
 
   return (
     <div ref={modalRef} className={twMerge(baseStyles, additionalStyles)}>
-      <div className="flex items-center justify-end w-full  border-divider bg-color-white px-[16px] py-[4px]">
+      <div className="flex items-center w-full  border-divider bg-color-white px-[16px] py-[8px]">
+        <h3 className="font-bold">{title}</h3>
         <Button
-          className="bg-color-white p-[4px] hover:brightness-95"
+          className="bg-color-white ml-auto p-[4px] hover:brightness-95"
           onclick={() => {
             close();
           }}
