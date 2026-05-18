@@ -10,7 +10,7 @@ export function OpenUploadModalButton({ handleClick, disabled }: Props) {
   return (
     <Button
       className="flex items-center px-[16px] py-[8px] gap-[8px] bg-color-white hover:brightness-95 border"
-      onclick={() => handleClick()}
+      onClick={() => handleClick()}
       disabled={disabled}
     >
       <UploadIcon className='size-[24px]'/>
