@@ -56,7 +56,7 @@ export function NotificationCard({ notificationData, decreaceUnreadCount }: Prop
   const baseStyles =
     'relative flex flex-col border w-full min-h-fit rounded-md p-[16px] shadow-lg fade-in-animation';
   const isReadStyles =
-    'cursor-pointer border-color-primary-light inner-shadow-soft-primary hover:-translate-y-0.5 transition-all duration-300';
+    'cursor-pointer border-color-primary-light inner-shadow-primary-soft hover:-translate-y-0.5 transition-all duration-300';
 
   return (
     <article

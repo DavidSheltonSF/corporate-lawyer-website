@@ -163,7 +163,7 @@ h3 {
   box-shadow: inset -1px -1px 8px -1px rgba(255, 255, 255, 0.61);
 }
 
-.inner-shadow-soft-primary {
+.inner-shadow-primary-soft {
   box-shadow: inset -1px -1px 10px 1px var(--color-primary-light);
 }
 
