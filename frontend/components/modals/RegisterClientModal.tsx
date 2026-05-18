@@ -58,9 +58,7 @@ export function RegisterClientModal({ isOpen, setIsOpen }: Props) {
               <InputWithLabel id="cpf-input" name="cpf" label="CPF" />
             </div>
             <div className="flex justify-end "></div>
-            <Button
-              className="w-full min-md:w-[200px] min-md:ml-auto bg-color-primary text-color-white py-[8px] font-size-md"
-            >
+            <Button variant="primary" className="w-full min-md:w-fit min-md:ml-auto">
               Salvar
             </Button>
           </form>

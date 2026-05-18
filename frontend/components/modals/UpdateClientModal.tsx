@@ -111,7 +111,7 @@ export function UpdateClientModal({ data, close }: Props) {
               />
             </div>
 
-            <Button className="w-full min-md:w-[200px]  min-md:ml-auto bg-color-primary py-[8px] text-color-white">
+            <Button variant="primary" className="w-full min-md:w-[200px] min-md:ml-auto">
               Confirmar Alterações
             </Button>
           </form>

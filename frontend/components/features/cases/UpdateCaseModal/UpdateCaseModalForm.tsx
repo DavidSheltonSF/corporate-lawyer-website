@@ -81,7 +81,7 @@ export function UpdateCaseModalForm({ caseData, action }: Props) {
         defaultValue={caseData?.description}
       />
 
-      <Button className="w-full min-lg:w-fit min-lg:ml-auto bg-color-primary text-color-white px-[16px] py-[8px]">
+      <Button variant="primary" className="w-full min-lg:w-fit min-lg:ml-auto">
         Confirmar Alterações
       </Button>
     </form>
