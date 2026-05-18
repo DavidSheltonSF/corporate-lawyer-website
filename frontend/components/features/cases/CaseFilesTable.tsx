@@ -5,10 +5,13 @@ import { formatData } from '@/lib/formatData';
 import { CaseFile } from '@/types/CaseFile';
 import { MissingContextError } from '@/errors/MissingContextError';
 import { useAuthenticatedUserContext } from '@/hooks/useAuthenticatedUserContext';
+import { CaseFilesTableButton } from '@/components/features/cases/CaseFilesTableButton';
 
 interface Props {
   documents: CaseFile[];
 }
+
+CaseFilesTable.Button = CaseFilesTableButton;
 
 export function CaseFilesTable({ documents }: Props) {
   const userContext = useAuthenticatedUserContext();
@@ -33,21 +36,11 @@ export function CaseFilesTable({ documents }: Props) {
                 ? 'Me'
                 : document.uploadedBy.firstName + ' ' + document.uploadedBy.lastName
             }`}</div>
-            <div className="flex justify-center items-center">
-              <Link href={document.url} target="_blank">
-                <div className="hidden min-lg:block">
-                  <Button className="bg-color-primary text-color-white px-[16px] py-[8px]">Download</Button>
-                </div>
-                <div className="min-lg:hidden">
-                  <Button className="bg-color-primary size-[56px]">
-                    <span className="flex size-full justify-center items-center">
-                      {' '}
-                      <Image src="/icons/download.svg" width={32} height={32} alt=""></Image>
-                    </span>
-                  </Button>
-                </div>
-              </Link>
-            </div>
+
+            <CaseFilesTable.Button
+              fileUrl={document.url}
+              className="ml-auto bg-color-white hover:brightness-95 text-color-black min-md:border border-black px-[8px] py-[8px]"
+            />
           </div>
         );
       })}
