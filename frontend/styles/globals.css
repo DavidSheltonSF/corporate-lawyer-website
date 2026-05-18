@@ -127,6 +127,10 @@ h3 {
   color: var(--color-red);
 }
 
+.text-color-primary-light {
+  color: var(--color-primary-light)
+}
+
 .text-color-secondary {
   color: var(--color-secondary);
 }
