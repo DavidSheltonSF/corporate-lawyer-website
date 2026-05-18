@@ -58,7 +58,7 @@ export function LoginForm() {
         type="password"
         required={true}
       />
-      <Button type="submit" className="w-full bg-color-primary-light font-bold h-[40px]">
+      <Button variant="primary" type="submit" className="w-full">
         Entrar
       </Button>
     </form>
