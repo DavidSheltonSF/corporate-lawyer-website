@@ -1,5 +1,5 @@
 'use client';
-import { Activity, ReactNode, useEffect, useState } from 'react';
+import { Activity, useEffect, useState } from 'react';
 import { InputForm } from './InputForm';
 import { LoadingMessage } from './LoadingMessage';
 
