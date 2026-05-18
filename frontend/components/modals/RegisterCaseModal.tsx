@@ -112,10 +112,8 @@ export function RegisterCaseModal({ isOpen, close, selectedClientId }: Props) {
 
             <div className="flex justify-end w-full min-md:w-[200px]  min-md:ml-auto">
               <Button
-                width="100%"
-                backgroundColor="var(--primary-color)"
-                textColor="var(--white-color)"
-                fontSize="1.2rem"
+              variant='primary'
+              className='w-full'
               >
                 Confirmar Alterações
               </Button>
