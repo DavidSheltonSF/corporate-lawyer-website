@@ -32,6 +32,11 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
   async function handleUploadFile() {
     try {
       if (!file) return;
+
+      const MAX_FILE_SIZE = 60 * 1024;
+      if (file.size > MAX_FILE_SIZE) {
+        throw Error('Arquivo ultrapassa o tamanho máximo de 10 MB.');
+      }
       const formData = new FormData();
       formData.append('file', file);
       setRequestState({ status: 'loading' });
@@ -40,7 +45,7 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
       refetchCase();
     } catch (error: any) {
       console.log(error);
-      setRequestState({ status: 'error' });
+      setRequestState({ status: 'error', message: error.message });
 
       if (error instanceof UnauthorizedError) {
         handleLogout();
