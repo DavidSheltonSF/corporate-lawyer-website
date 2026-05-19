@@ -7,6 +7,8 @@ import { CaseCardFooter } from './CaseCardFooter';
 import { EditIcon } from '@/components/icons/EditIcon';
 import { DeleteIcon } from '@/components/icons/DeleteIcon';
 import { useModal } from '@/hooks/useModal';
+import { makeCardAction } from '@/components/ui/CardDropdown/makeCardAction';
+import { CardActionType } from '@/components/ui/CardDropdown/types';
 
 interface Props {
   openDropdown: Function;
@@ -37,37 +39,27 @@ export function CaseCard({
     return `${lawyer.firstName} ${lawyer.lastName}`;
   });
 
+  function openUpdateCaseModal() {
+    openModal('update-case', { caseId: id, refetchCases });
+  }
+
+  function openConfirmModal() {
+    openModal('confirm', {
+      message: 'Tem certeza que deseja excluir esse processo?',
+      onConfirm: () => {
+        deleteCase(id);
+        refetchCases();
+      },
+    });
+  }
+
   return (
     <Card
       actions={[
-        {
-          label: 'Alterar',
-          Icon: EditIcon,
-
-          action: () => {
-            openModal('update-case', { caseId: id, refetchCases });
-          },
-        },
-        {
-          label: 'Deletar',
-          Icon: DeleteIcon,
-          action: () => {
-            openModal('confirm', {
-              message: 'Tem certeza que deseja excluir esse processo?',
-              onConfirm: () => {
-                deleteCase(id);
-                refetchCases();
-              },
-            });
-          },
-        },
+        makeCardAction(CardActionType.EDIT, openUpdateCaseModal),
+        makeCardAction(CardActionType.DELETE, openConfirmModal),
       ]}
       className="relative w-full h-fit min-md:w-[720px]"
-      isDropdownOpen={isDropdownOpen}
-      closeDropdown={closeDropdown}
-      openDropdown={() => {
-        openDropdown();
-      }}
       onClick={() => openModal('case', { caseId: id })}
     >
       <div className="flex flex-col text-color-black p-[24px] gap-[32px]">

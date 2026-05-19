@@ -3,13 +3,11 @@ import { Button } from '../Button/Button';
 import { CardDropdown } from '../CardDropdown/CardDropdown';
 import { CardAction } from '@/components/ui/CardDropdown/types';
 import { twMerge } from 'tailwind-merge';
+import { useState } from 'react';
 
 interface Props {
   className?: string;
   onClick?: () => void;
-  isDropdownOpen?: boolean;
-  openDropdown?: () => void;
-  closeDropdown?: () => void;
   actions?: CardAction[];
   children: React.ReactNode;
 }
@@ -17,20 +15,20 @@ interface Props {
 export function Card({
   actions,
   onClick,
-  openDropdown,
-  isDropdownOpen,
-  closeDropdown,
+
   children,
   className,
 }: Props) {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   function renderMoreButton() {
-    if (!isDropdownOpen || !openDropdown || !closeDropdown || !actions) return;
+    if (!actions) return;
     return (
       <Button
         className="group flex justify-center items-center p-[4px] hover:bg-[var(--color-primary)] transition-[background] duration-300"
         onClick={(e) => {
           e.stopPropagation();
-          openDropdown && openDropdown();
+          setIsDropdownOpen(true);
         }}
       >
         <VerticalMoreIcon className="size-[32px] stroke-color-black group-hover:invert" />
@@ -39,8 +37,8 @@ export function Card({
   }
 
   function renderDropdown() {
-    if (!isDropdownOpen || !closeDropdown || !actions) return;
-    return <CardDropdown actions={actions} close={closeDropdown} />;
+    if (!isDropdownOpen || !actions) return;
+    return <CardDropdown actions={actions} close={() => setIsDropdownOpen(false)} />;
   }
 
   const hoverStyles = onClick ? 'cursor-pointer' : '';
