@@ -1,15 +1,15 @@
 'use client';
 import { useState } from 'react';
-import { PrimaryModal } from '../ui/Modal/PrimaryModal';
+import { PrimaryModal } from '../../../ui/Modal/PrimaryModal';
 import { uploadCaseFile } from '@/services/cases/uploadCaseFile';
 import { RequestState } from '@/types/RequestState';
-import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
+import { RequestFeedback } from '../../../ui/Feedback/RequestFeedback';
 import { handleLogout } from '@/lib/handleLogout';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
-import { Button } from '../ui/Button/Button';
-import { UploadButton } from '../ui/UploadButton';
-import { DocumentIcon } from '../icons/DocumentIcon';
-import { CloseIcon } from '../icons/CloseIcon';
+import { Button } from '../../../ui/Button/Button';
+import { UploadButton } from '../../../ui/UploadButton';
+import { DocumentIcon } from '../../../icons/DocumentIcon';
+import { CloseIcon } from '../../../icons/CloseIcon';
 import { formatFileSize } from '@/lib/formatFileSize';
 
 interface Props {

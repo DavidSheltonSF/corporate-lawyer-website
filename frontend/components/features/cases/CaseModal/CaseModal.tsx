@@ -9,7 +9,7 @@ import { WithId } from '@/types/WithId';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { handleLogout } from '@/lib/handleLogout';
 import { RequestState } from '@/types/RequestState';
-import { CaseFilesUploadModal } from '@/components/modals/CaseFilesUploadModal';
+import { CaseFilesUploadModal } from '@/components/features/cases/CaseFilesUploadModal/CaseFilesUploadModal';
 import { CaseModalHeader } from './CaseModalHeader';
 import { CaseModalContent } from './CaseModalContent';
 import { CaseModalFiles } from './CaseModalFiles';
