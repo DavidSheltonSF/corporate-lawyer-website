@@ -12,7 +12,7 @@ import { CardActionType } from '@/components/ui/CardDropdown/types';
 
 interface Props {
   caseData: WithId<CaseWithRelations>;
-  deleteCase: (id: string) => void;
+  deleteCase: (id: string) => Promise<void>;
   refetchCases: () => void;
 }
 
@@ -37,8 +37,8 @@ export function CaseCard({ caseData, deleteCase, refetchCases }: Props) {
     openModal('confirm', {
       title: 'Excluir processo',
       message: 'Tem certeza que deseja excluir este processo? Essa ação não poderá ser desfeita.',
-      onConfirm: () => {
-        deleteCase(id);
+      onConfirm: async () => {
+        await deleteCase(id);
         refetchCases();
       },
     });
