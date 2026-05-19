@@ -1,17 +1,13 @@
 'use client';
 import { Button } from '@/components/ui/Button/Button';
-import { PropsWithClassName } from '@/types/PropsWithClassName';
+import { CardAction } from '@/types/CardAction';
 import { useEffect, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 interface Props {
   close: Function;
   className?: string;
-  actions: {
-    Icon: React.ComponentType<PropsWithClassName>;
-    label: string;
-    action: Function;
-  }[];
+  actions: CardAction[];
 }
 
 export function CardDropdown({ close, className, actions }: Props) {
