@@ -56,7 +56,7 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
   return (
     <PrimaryModal
       title="Envie um arquivo"
-      additionalStyles="z-2 fixed top-[25%] left-1/2 translate-x-[-50%] w-[440px] h-fit rounded-lg overflow-hidden shadow-[0px_0px__3px_black]"
+      additionalStyles="top-[25%] left-1/2 translate-x-[-50%] w-[440px] h-fit"
       closeModal={() => {
         closeModal();
       }}
