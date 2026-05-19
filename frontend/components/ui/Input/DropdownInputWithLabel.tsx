@@ -79,7 +79,7 @@ export function DropdownInputWithLabel<T extends Record<string, string>>({
             onClick={() => setListIsOpen(!listIsOpen)}
           >
             <span className={`transition-[rotate] duration-300 ${!listIsOpen && 'rotate-180'}`}>
-              <ArrowDropUpIcon height="24px" width="24px" />
+              <ArrowDropUpIcon className="size-[24px]" />
             </span>
           </button>
         </div>
