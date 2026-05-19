@@ -1,23 +1,13 @@
 'use case';
 import { useEffect, useState } from 'react';
 import { PrimaryModal } from '../../../ui/Modal/PrimaryModal';
-import { InputWithLabel } from '../../../ui/Input/InputWithLabel';
-import { Button } from '../../../ui/Button/Button';
 import { RequestState } from '@/types/RequestState';
-import { RequestFeedback } from '../../../ui/Feedback/RequestFeedback';
 import { getCaseById } from '@/services/cases/getCaseById';
 import { WithId } from '@/types/WithId';
 import { Case } from '@/types/Case';
 import { updateCaseById } from '@/services/cases/updateCaseById';
-import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
-import { DropdownInputWithLabel } from '../../../ui/Input/DropdownInputWithLabel';
-import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { handleLogout } from '@/lib/handleLogout';
-import { BrazilState } from '@/types/BrazilState';
-import { BrazilStateLabel } from '@/lib/BrazilStateLabel';
-import { CityLabel } from '@/lib/CityLabel';
-import { City } from '@/types/City';
 import { ShowSkeletonOnLoading } from '../../../ui/ShowSkeletonOnLoading';
 import { LoadingModalScreeen } from '../../../ui/Modal/LoadingModalScreen';
 import { UpdateCaseModalHeader } from './UpdateCaseModalHeader';
@@ -29,7 +19,7 @@ interface Props {
 }
 
 UpdateCaseModal.Header = UpdateCaseModalHeader;
-UpdateCaseModal.Form = UpdateCaseModalForm
+UpdateCaseModal.Form = UpdateCaseModalForm;
 
 export function UpdateCaseModal({ data, close }: Props) {
   const [caseData, setCaseData] = useState<WithId<Case> | null>(null);
@@ -83,7 +73,6 @@ export function UpdateCaseModal({ data, close }: Props) {
 
   const isLoading = requestState?.status === 'loading';
 
-
   return (
     <PrimaryModal
       className={
@@ -93,8 +82,8 @@ export function UpdateCaseModal({ data, close }: Props) {
     >
       <ShowSkeletonOnLoading isLoading={isLoading} Skeleton={LoadingModalScreeen}>
         <div className="flex flex-col size-full bg-color-white items-center p-[16px]">
-          <UpdateCaseModal.Header requestState={requestState}/>
-          <UpdateCaseModal.Form caseData={caseData} action={alterCase}/>
+          <UpdateCaseModal.Header requestState={requestState} />
+          <UpdateCaseModal.Form caseData={caseData} action={alterCase} />
         </div>
       </ShowSkeletonOnLoading>
     </PrimaryModal>
