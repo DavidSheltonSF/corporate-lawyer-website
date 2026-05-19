@@ -33,7 +33,7 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
     try {
       if (!file) return;
 
-      const MAX_FILE_SIZE = 60 * 1024;
+      const MAX_FILE_SIZE = 10 * 1024 * 1024;
       if (file.size > MAX_FILE_SIZE) {
         throw Error('Arquivo ultrapassa o tamanho máximo de 10 MB.');
       }
