@@ -75,6 +75,7 @@ export function UpdateCaseModal({ data, close }: Props) {
 
   return (
     <PrimaryModal
+    title='Editar Processo'
       className={
         'top-[6%] min-lg:top-[1%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[678px] h-[70vh] min-lg:h-fit'
       }
