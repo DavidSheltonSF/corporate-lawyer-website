@@ -55,7 +55,15 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
 
   function renderFileCard() {
     if (!file) return;
-    return <UploadedFileCard file={file} onClose={() => setFile(null)} />;
+    return (
+      <UploadedFileCard
+        file={file}
+        onClose={() => {
+          setFile(null);
+          setRequestState(null);
+        }}
+      />
+    );
   }
 
   function renderFeedback() {
