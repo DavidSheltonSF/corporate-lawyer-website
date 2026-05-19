@@ -1,5 +1,3 @@
-import { Button } from '@/components/ui/Button/Button';
-import { RequestFeedback } from '@/components/ui/Feedback/RequestFeedback';
 import { DropdownInputWithLabel } from '@/components/ui/Input/DropdownInputWithLabel';
 import { InputWithLabel } from '@/components/ui/Input/InputWithLabel';
 import { BrazilStateLabel } from '@/lib/BrazilStateLabel';
@@ -12,13 +10,14 @@ import { City } from '@/types/City';
 import { WithId } from '@/types/WithId';
 
 interface Props {
+  formId: string;
   caseData: WithId<Case> | null;
   action: (formData: FormData) => void;
 }
 
-export function UpdateCaseModalForm({ caseData, action }: Props) {
+export function UpdateCaseModalForm({ formId, caseData, action }: Props) {
   return (
-    <form className="flex flex-col gap-[16px] size-full" action={action}>
+    <form id={formId} className="flex flex-col gap-[16px] size-full" action={action}>
       <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
         <InputWithLabel
           id="title-input"
@@ -80,10 +79,6 @@ export function UpdateCaseModalForm({ caseData, action }: Props) {
         label="Description"
         defaultValue={caseData?.description}
       />
-
-      <Button variant="primary" className="w-full min-lg:w-fit min-lg:ml-auto">
-        Confirmar Alterações
-      </Button>
     </form>
   );
 }

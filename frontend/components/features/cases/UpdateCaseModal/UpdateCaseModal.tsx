@@ -72,10 +72,12 @@ export function UpdateCaseModal({ data, close }: Props) {
   }, []);
 
   const isLoading = requestState?.status === 'loading';
+  const formId = 'update-case-form';
 
   return (
     <PrimaryModal
-    title='Editar Processo'
+      title="Editar Processo"
+      formId={formId}
       className={
         'top-[6%] min-lg:top-[1%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[678px] h-[70vh] min-lg:h-fit'
       }
@@ -84,7 +86,7 @@ export function UpdateCaseModal({ data, close }: Props) {
       <ShowSkeletonOnLoading isLoading={isLoading} Skeleton={LoadingModalScreeen}>
         <div className="flex flex-col size-full bg-color-white items-center p-[16px]">
           <UpdateCaseModal.Header requestState={requestState} />
-          <UpdateCaseModal.Form caseData={caseData} action={alterCase} />
+          <UpdateCaseModal.Form formId={formId} caseData={caseData} action={alterCase} />
         </div>
       </ShowSkeletonOnLoading>
     </PrimaryModal>
