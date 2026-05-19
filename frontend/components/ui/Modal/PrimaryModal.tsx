@@ -7,6 +7,7 @@ import { twMerge } from 'tailwind-merge';
 
 interface Props {
   title?: string;
+  formId?: string;
   onConfirm?: () => void;
   onClose: Function;
   confirmText?: string;
@@ -17,6 +18,7 @@ interface Props {
 
 export function PrimaryModal(props: Props) {
   const {
+    formId,
     onConfirm,
     onClose,
     confirmText = 'Confirmar',
@@ -52,8 +54,13 @@ export function PrimaryModal(props: Props) {
         <Button variant="secondary" onClick={() => onClose()}>
           {closeText}
         </Button>
-        {onConfirm && (
-          <Button variant="primary" onClick={onConfirm}>
+        {(onConfirm || formId) && (
+          <Button
+            form={formId}
+            type={formId ? 'submit' : 'button'}
+            variant="primary"
+            onClick={onConfirm}
+          >
             {confirmText}
           </Button>
         )}
