@@ -10,7 +10,7 @@ import { UpdateClientModal } from '../modals/UpdateClientModal';
 import { DeleteClientModal } from '../modals/DeleteClientModal';
 
 export function ModalRenderer() {
-  const { currentModal, modalData, openModal, closeModal } = useModal();
+  const { currentModal, modalData, closeModal } = useModal();
 
   switch (currentModal) {
     case 'client':
