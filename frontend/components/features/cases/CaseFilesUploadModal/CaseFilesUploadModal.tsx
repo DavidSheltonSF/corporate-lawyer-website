@@ -72,7 +72,7 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
         )}
         <UploadButton setFile={setFile} />
         {renderFileCard()}
-        <p className="text-start text-size-sm">Apenas PDFs de tamanho máximo de 10MB</p>
+        <p className="text-start text-size-sm">Apenas PDFs de tamanho máximo de 10 MB</p>
         <div className="flex gap-[24px] ml-auto">
           <Button onClick={() => closeModal()} variant="secondary" className="px-[16px] py-[4px]">
             Voltar
