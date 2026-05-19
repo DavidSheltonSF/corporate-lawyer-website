@@ -10,17 +10,9 @@ export function ClientCaseCard({ caseData }: Props) {
   const { id, title, description } = caseData;
 
   const { openModal } = useModal();
-  
 
   return (
-    <Card
-      key={id}
-      className="w-full h-fit cursor-pointer"
-      onClick={() => {
-        openModal('case', { caseId: id });
-      }}
-      openOptionsModal={() => null}
-    >
+    <Card key={id} className="w-full h-fit" openOptionsModal={() => null}>
       <div className="flex flex-col gap-[8px] w-full border-[1px] p-[8px] rounded-[8px]">
         <h3 className="font-bold ">{title}</h3>
         <div className="flex flex-col">{description}</div>

@@ -1,6 +1,6 @@
 'use client';
 import { Button } from '@/components/ui/Button/Button';
-import { CardAction } from '@/types/CardAction';
+import { CardAction } from '@/components/ui/CardDropdown/types';
 import { useEffect, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 

@@ -1,7 +1,7 @@
 import { VerticalMoreIcon } from '@/components/icons/VerticalMoreIcon';
 import { Button } from '../Button/Button';
-import { CardDropdown } from '../CardDropdown';
-import { CardAction } from '@/types/CardAction';
+import { CardDropdown } from '../CardDropdown/CardDropdown';
+import { CardAction } from '@/components/ui/CardDropdown/types';
 import { twMerge } from 'tailwind-merge';
 
 interface Props {
