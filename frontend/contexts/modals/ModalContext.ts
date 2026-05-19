@@ -17,7 +17,7 @@ export interface ModalContext {
   currentModal: ModalType;
   modalData: any;
 
-  openModal: (modal: ModalType, data: unknown) => void;
+  openModal: (modal: ModalType, data?: unknown) => void;
   closeModal: () => void;
 }
 
