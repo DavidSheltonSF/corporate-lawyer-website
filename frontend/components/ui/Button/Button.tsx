@@ -7,7 +7,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export function Button(props: ButtonProps) {
-  const { type, children, onClick, disabled, className, variant } = props;
+  const { children, disabled, className, variant, ...buttonProps } = props;
 
   const baseStyles = 'rounded-sm font-bold py-[8px] px-[16px] duration-300 cursor-pointer';
   const disabledStyles = 'cursor-default bg-gray/50 text-gray/50';
@@ -21,13 +21,12 @@ export function Button(props: ButtonProps) {
 
   return (
     <button
-      type={type}
+      {...buttonProps}
       disabled={disabled}
       className={twMerge(
         `${baseStyles} ${disabled ? disabledStyles : variants[variant || 'generic']}`,
         className
       )}
-      onClick={onClick}
     >
       {children}
     </button>
