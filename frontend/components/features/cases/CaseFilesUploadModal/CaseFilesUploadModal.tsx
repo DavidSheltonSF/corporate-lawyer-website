@@ -58,6 +58,13 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
     return <UploadedFileCard file={file} onClose={() => setFile(null)} />;
   }
 
+  function renderFeedback() {
+    const isLoading = requestState?.status === 'loading'
+    if(!requestState || isLoading) return;
+
+    return <RequestFeedback requestState={requestState} />;
+  }
+
   return (
     <PrimaryModal
       title="Envie um arquivo"
@@ -67,9 +74,7 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
       }}
     >
       <div className="flex gap-[24px] size-full flex flex-col text-center items-center p-[24px]">
-        {(requestState?.status === 'ok' || requestState?.status === 'error') && (
-          <RequestFeedback requestState={requestState} />
-        )}
+        {renderFeedback()}
         <UploadButton setFile={setFile} />
         {renderFileCard()}
         <p className="text-start text-size-sm">Apenas PDFs de tamanho máximo de 10 MB</p>
