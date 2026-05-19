@@ -4,8 +4,15 @@ import { useEffect, useRef } from 'react';
 import { Button } from '../Button/Button';
 import { CloseIcon } from '@/components/icons/CloseIcon';
 import { twMerge } from 'tailwind-merge';
+import { ButtonVariant } from '../Button/ButtonVariant';
+
+export enum ModalVariant {
+  DANGER = 'DANGER',
+  DEFAULT = 'DEFAULT',
+}
 
 interface Props {
+  variant?: ModalVariant;
   title?: string;
   formId?: string;
   onConfirm?: () => void;
@@ -18,6 +25,7 @@ interface Props {
 
 export function PrimaryModal(props: Props) {
   const {
+    variant = ModalVariant.DEFAULT,
     formId,
     onConfirm,
     onClose,
@@ -48,14 +56,14 @@ export function PrimaryModal(props: Props) {
   function renderFooterButtons() {
     return (
       <div className="flex justify-end items-center gap-[16px]">
-        <Button variant="secondary" onClick={() => onClose()}>
+        <Button variant={ButtonVariant.SECONDARY} onClick={() => onClose()}>
           {closeText}
         </Button>
         {(onConfirm || formId) && (
           <Button
             form={formId}
             type={formId ? 'submit' : 'button'}
-            variant="primary"
+            variant={variant === ModalVariant.DANGER ? ButtonVariant.DANGER : ButtonVariant.PRIMARY}
             onClick={onConfirm}
           >
             {confirmText}
