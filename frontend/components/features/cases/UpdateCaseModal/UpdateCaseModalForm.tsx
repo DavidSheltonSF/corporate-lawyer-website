@@ -12,7 +12,7 @@ import { WithId } from '@/types/WithId';
 interface Props {
   formId: string;
   caseData: WithId<Case> | null;
-  action: (formData: FormData) => void;
+  action: (formData: FormData) => Promise<void>;
 }
 
 export function UpdateCaseModalForm({ formId, caseData, action }: Props) {
