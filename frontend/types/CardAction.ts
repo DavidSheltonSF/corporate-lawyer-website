@@ -1,7 +1,7 @@
-import { IconProps } from '@/components/icons/Icon';
+import { PropsWithClassName } from './PropsWithClassName';
 
 export interface CardAction {
-  Icon: React.ComponentType<IconProps>;
+  Icon: React.ComponentType<PropsWithClassName>;
   label: string;
   action: () => void;
-};
+}
