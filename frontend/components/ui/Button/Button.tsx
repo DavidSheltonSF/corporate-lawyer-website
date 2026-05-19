@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'danger';
 }
 
 export function Button(props: ButtonProps) {
@@ -13,6 +13,7 @@ export function Button(props: ButtonProps) {
   const disabledStyles = 'cursor-default bg-gray/50 text-gray/50';
 
   const variants: Record<string, string> = {
+    danger: 'bg-color-red text-color-white hover:brightness-120',
     primary: 'bg-color-primary-light text-color-white hover:brightness-120',
     secondary:
       'border text-color-primary-light hover:shadow-[var(--inner-shadow-primary-soft)] transition-[box-shadow] transition-[background] hover:bg-[var(--color-primary-light)]/10',
