@@ -45,9 +45,6 @@ export function PrimaryModal(props: Props) {
     };
   }, []);
 
-  const baseStyles =
-    'flex flex-col z-20 fixed bg-color-white fade-in-animation-fast rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black';
-
   function renderFooterButtons() {
     return (
       <div className="flex justify-end items-center gap-[16px]">
@@ -67,6 +64,9 @@ export function PrimaryModal(props: Props) {
       </div>
     );
   }
+
+  const baseStyles =
+    'flex flex-col z-20 fixed bg-color-white fade-in-animation-fast rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black';
 
   return (
     <div ref={modalRef} className={twMerge(baseStyles, className)}>
