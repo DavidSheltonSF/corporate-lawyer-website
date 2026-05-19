@@ -23,7 +23,7 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
   const [requestState, setRequestState] = useState<null | RequestState>(null);
   const [file, setFile] = useState<File | null>(null);
 
-  function closeModal() {
+  function onClose() {
     if (requestState?.status === 'loading') return;
     close();
     setRequestState(null);
@@ -76,9 +76,9 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
   return (
     <PrimaryModal
       title="Envie um arquivo"
-      additionalStyles="top-[25%] left-1/2 translate-x-[-50%] w-[440px] h-fit"
-      closeModal={() => {
-        closeModal();
+      className="top-[25%] left-1/2 translate-x-[-50%] w-[440px] h-fit"
+      onClose={() => {
+        onClose();
       }}
     >
       <div className="flex gap-[24px] size-full flex flex-col text-center items-center p-[24px]">
@@ -87,7 +87,7 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
         {renderFileCard()}
         <p className="text-start text-size-sm">Apenas PDFs de tamanho máximo de 10 MB</p>
         <div className="flex gap-[24px] ml-auto">
-          <Button onClick={() => closeModal()} variant="secondary" className="px-[16px] py-[4px]">
+          <Button onClick={() => onClose()} variant="secondary" className="px-[16px] py-[4px]">
             Voltar
           </Button>
           <Button onClick={handleUploadFile} variant="primary" className="px-[16px] py-[4px]">

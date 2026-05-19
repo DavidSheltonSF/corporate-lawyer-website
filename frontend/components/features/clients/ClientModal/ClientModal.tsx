@@ -109,8 +109,8 @@ export function ClientModal({ close, data }: Props) {
 
   return (
     <PrimaryModal
-      additionalStyles={'top-[2%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[880px] h-[90%]'}
-      closeModal={close}
+      className={'top-[2%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[880px] h-[90%]'}
+      onClose={close}
     >
       {renderContent()}
     </PrimaryModal>

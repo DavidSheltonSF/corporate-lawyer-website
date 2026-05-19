@@ -53,8 +53,8 @@ export function DeleteClientModal({ data, close }: Props) {
 
   return (
     <PrimaryModal
-      additionalStyles="top-[15%] left-1/2 translate-x-[-50%] w-[360px] h-fit"
-      closeModal={close}
+      className="top-[15%] left-1/2 translate-x-[-50%] w-[360px] h-fit"
+      onClose={close}
     >
       <div className="size-full flex flex-col text-center items-center justify-center gap-[8px] p-[8px]">
         <div className="my-[24px]">

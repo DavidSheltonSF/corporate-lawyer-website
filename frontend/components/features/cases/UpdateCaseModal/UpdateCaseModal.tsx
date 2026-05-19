@@ -86,10 +86,10 @@ export function UpdateCaseModal({ data, close }: Props) {
 
   return (
     <PrimaryModal
-      additionalStyles={
+      className={
         'top-[6%] min-lg:top-[1%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[678px] h-[70vh] min-lg:h-fit'
       }
-      closeModal={close}
+      onClose={close}
     >
       <ShowSkeletonOnLoading isLoading={isLoading} Skeleton={LoadingModalScreeen}>
         <div className="flex flex-col size-full bg-color-white items-center p-[16px]">

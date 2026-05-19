@@ -14,10 +14,10 @@ export function ConfirmModal({ data, close }: Props) {
   const { message, onConfirm } = data;
   return (
     <PrimaryModal
-      additionalStyles={
+      className={
         'top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[400px] h-fit'
       }
-      closeModal={close}
+      onClose={close}
     >
       <div className="flex flex-col size-full px-[24px] pb-[24px]">
         <div className="flex my-[24px] h-full text-center">

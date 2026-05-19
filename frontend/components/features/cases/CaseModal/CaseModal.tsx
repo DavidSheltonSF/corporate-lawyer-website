@@ -100,10 +100,10 @@ export function CaseModal({ data, close }: Props) {
 
   return (
     <PrimaryModal
-      additionalStyles={
+      className={
         'top-[2%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[880px] h-[82vh] min-lg:h-[95vh]'
       }
-      closeModal={() => {
+      onClose={() => {
         close();
       }}
     >

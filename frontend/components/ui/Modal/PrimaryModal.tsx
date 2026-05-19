@@ -8,22 +8,22 @@ import { twMerge } from 'tailwind-merge';
 interface Props {
   title?: string;
   onConfirm?: () => void;
-  closeModal: Function;
+  onClose: Function;
   confirmText?: string;
   closeText?: string;
   children: React.ReactNode;
-  additionalStyles: string;
+  className: string;
 }
 
 export function PrimaryModal(props: Props) {
   const {
     onConfirm,
-    closeModal,
+    onClose,
     confirmText = 'Confirmar',
     closeText = 'Voltar',
     children,
     title,
-    additionalStyles,
+    className,
   } = props;
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -31,7 +31,7 @@ export function PrimaryModal(props: Props) {
     if (!modalRef.current) return;
     modalRef.current.classList.add('fade-out-animation-fast');
     setTimeout(() => {
-      closeModal();
+      onClose();
     }, 300);
   }
 
@@ -49,7 +49,7 @@ export function PrimaryModal(props: Props) {
   function renderFooterButtons() {
     return (
       <div className="flex justify-end items-center gap-[16px]">
-        <Button variant="secondary" onClick={() => closeModal()}>
+        <Button variant="secondary" onClick={() => onClose()}>
           {closeText}
         </Button>
         {onConfirm && (
@@ -62,7 +62,7 @@ export function PrimaryModal(props: Props) {
   }
 
   return (
-    <div ref={modalRef} className={twMerge(baseStyles, additionalStyles)}>
+    <div ref={modalRef} className={twMerge(baseStyles, className)}>
       <div className="flex items-center w-full  border-divider bg-color-white px-[24px] py-[8px]">
         <h3 className="font-bold">{title}</h3>
         <Button

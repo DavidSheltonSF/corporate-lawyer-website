@@ -34,10 +34,10 @@ export function RegisterClientModal({ isOpen, setIsOpen }: Props) {
   return (
     isOpen && (
       <PrimaryModal
-        additionalStyles={
+        className={
           'top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-md:w-[678px] h-fit'
         }
-        closeModal={() => {
+        onClose={() => {
           setIsOpen(false);
         }}
       >
