@@ -53,7 +53,7 @@ export function ClientCard({
       openDropdown={openDropdown}
       isDropdownOpen={isDropdownOpen}
       closeDropdown={closeDropdown}
-      openCardModal={() => {
+      onClick={() => {
         openModal('client', { clientId: id });
       }}
     >

@@ -16,7 +16,7 @@ export function ClientCaseCard({ caseData }: Props) {
     <Card
       key={id}
       className="w-full h-fit cursor-pointer"
-      openModal={() => {
+      onClick={() => {
         openModal('case', { caseId: id });
       }}
       openOptionsModal={() => null}

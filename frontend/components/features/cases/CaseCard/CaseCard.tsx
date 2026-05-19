@@ -68,7 +68,7 @@ export function CaseCard({
       openDropdown={() => {
         openDropdown();
       }}
-      openCardModal={() => openModal('case', { caseId: id })}
+      onClick={() => openModal('case', { caseId: id })}
     >
       <div className="flex flex-col text-color-black p-[24px] gap-[32px]">
         <CaseCard.Header title={caseData.title} processNumber={caseData.processNumber} />

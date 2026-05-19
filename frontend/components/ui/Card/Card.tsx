@@ -2,10 +2,11 @@ import { VerticalMoreIcon } from '@/components/icons/VerticalMoreIcon';
 import { Button } from '../Button/Button';
 import { CardDropdown } from '../CardDropdown';
 import { CardAction } from '@/types/CardAction';
+import { twMerge } from 'tailwind-merge';
 
 interface Props {
   className?: string;
-  openCardModal: () => void;
+  onClick?: () => void;
   isDropdownOpen: boolean;
   openDropdown: () => void;
   closeDropdown: () => void;
@@ -15,7 +16,7 @@ interface Props {
 
 export function Card({
   actions,
-  openCardModal,
+  onClick,
   openDropdown,
   isDropdownOpen,
   closeDropdown,
@@ -32,11 +33,11 @@ export function Card({
     }
   }
 
+  const hoverStyles = onClick ? 'cursor-pointer' : '';
+  const baseStyles = 'relative flex flex-col bg-color-white rounded-[8px]';
+
   return (
-    <article
-      className={`relative flex flex-col bg-color-white rounded-[8px] ${className}`}
-      onClick={openCardModal}
-    >
+    <article className={twMerge(baseStyles, hoverStyles, className)} onClick={onClick}>
       {renderDropdown()}
       <div className="absolute top-[8px] right-[8px]">
         <Button
