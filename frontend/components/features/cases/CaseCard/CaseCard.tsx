@@ -35,7 +35,8 @@ export function CaseCard({ caseData, deleteCase, refetchCases }: Props) {
 
   function openConfirmModal() {
     openModal('confirm', {
-      message: 'Tem certeza que deseja excluir esse processo?',
+      title: 'Excluir processo',
+      message: 'Tem certeza que deseja excluir este processo? Essa ação não poderá ser desfeita.',
       onConfirm: () => {
         deleteCase(id);
         refetchCases();
