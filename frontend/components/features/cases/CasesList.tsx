@@ -16,7 +16,6 @@ interface Props {
 }
 
 export function CasesList({ cases, loading, loadCases }: Props) {
-  const [openedDropdownId, setOpenedDropdownId] = useState<string | null>(null);
   const [requestState, setRequestState] = useState<RequestState | null>(null);
 
   async function deleteCase(id: string) {
@@ -35,19 +34,7 @@ export function CasesList({ cases, loading, loadCases }: Props) {
   }
 
   const renderCases = cases?.map((cas, index) => {
-    return (
-      <CaseCard
-      refetchCases={loadCases}
-        deleteCase={deleteCase}
-        key={index}
-        isDropdownOpen={openedDropdownId === cas.id}
-        closeDropdown={() => setOpenedDropdownId(null)}
-        openDropdown={() => {
-          setOpenedDropdownId(cas.id);
-        }}
-        caseData={cas}
-      />
-    );
+    return <CaseCard refetchCases={loadCases} deleteCase={deleteCase} key={index} caseData={cas} />;
   });
 
   const renderCaseSkeletons = Array.from({ length: 4 }).map((page, index) => {

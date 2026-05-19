@@ -11,25 +11,15 @@ import { makeCardAction } from '@/components/ui/CardDropdown/makeCardAction';
 import { CardActionType } from '@/components/ui/CardDropdown/types';
 
 interface Props {
-  openDropdown: Function;
   caseData: WithId<CaseWithRelations>;
-  isDropdownOpen: boolean;
   deleteCase: (id: string) => void;
-  closeDropdown: () => void;
   refetchCases: () => void;
 }
 
 CaseCard.Header = CaseCardHeader;
 CaseCard.Footer = CaseCardFooter;
 
-export function CaseCard({
-  caseData,
-  openDropdown,
-  isDropdownOpen,
-  closeDropdown,
-  deleteCase,
-  refetchCases,
-}: Props) {
+export function CaseCard({ caseData, deleteCase, refetchCases }: Props) {
   const clientData = caseData.client;
   const { firstName, lastName } = clientData;
   const { id, status } = caseData;
