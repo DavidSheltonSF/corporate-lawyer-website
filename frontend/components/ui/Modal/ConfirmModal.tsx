@@ -1,9 +1,5 @@
 'use case';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { ModalVariant, PrimaryModal } from './PrimaryModal';
-import { Button } from '../Button/Button';
-import { RequestState } from '@/types/RequestState';
-import { RequestFeedback } from '../Feedback/RequestFeedback';
 
 interface Props {
   data: { title?: string; message: string; variant?: ModalVariant; onConfirm: () => void };
