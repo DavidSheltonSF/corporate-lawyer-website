@@ -9,22 +9,13 @@ import { useModal } from '@/hooks/useModal';
 
 interface Props {
   clientData: WithId<SafeUser>;
-  openDropdown: () => void;
-  isDropdownOpen: boolean;
-  closeDropdown: () => void;
   loadClients: () => void;
 }
 
 ClientCard.Header = ClientCardHeader;
 ClientCard.Footer = ClientCardFooter;
 
-export function ClientCard({
-  clientData,
-  openDropdown,
-  isDropdownOpen,
-  closeDropdown,
-  loadClients,
-}: Props) {
+export function ClientCard({ clientData, loadClients }: Props) {
   const { id, firstName, lastName, email, phone, cpf } = clientData;
   const { openModal } = useModal();
 

@@ -13,22 +13,8 @@ interface Props {
 }
 
 export function ClientsList({ clients, requestState, loadClients }: Props) {
-  const [openedDropdownId, setOpenedDropdownId] = useState<string | null>(null);
-
   const renderCases = clients?.map((client, index) => {
-    const { id } = client;
-    return (
-      <ClientCard
-        loadClients={loadClients}
-        isDropdownOpen={openedDropdownId === id}
-        openDropdown={() => {
-          setOpenedDropdownId(id);
-        }}
-        closeDropdown={() => setOpenedDropdownId(null)}
-        key={index}
-        clientData={client}
-      />
-    );
+    return <ClientCard loadClients={loadClients} key={index} clientData={client} />;
   });
 
   const renderCaseSkeletons = Array.from({ length: 4 }).map((page, index) => {
