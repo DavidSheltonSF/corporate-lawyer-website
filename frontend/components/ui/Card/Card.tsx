@@ -1,9 +1,8 @@
-import { VerticalMoreIcon } from '@/components/icons/VerticalMoreIcon';
-import { Button } from '../Button/Button';
 import { CardDropdown } from '../CardDropdown/CardDropdown';
 import { CardAction } from '@/components/ui/CardDropdown/types';
 import { twMerge } from 'tailwind-merge';
-import { useState } from 'react';
+import { MouseEvent, useState } from 'react';
+import { CardMoreButton } from './CardMoreButton';
 
 interface Props {
   className?: string;
@@ -12,27 +11,23 @@ interface Props {
   children: React.ReactNode;
 }
 
-export function Card({
-  actions,
-  onClick,
+Card.MoreButton = CardMoreButton;
 
-  children,
-  className,
-}: Props) {
+export function Card({ actions, onClick, children, className }: Props) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  function handleOpenDropdown(e: MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
+    setIsDropdownOpen(true);
+  }
 
   function renderMoreButton() {
     if (!actions) return;
     return (
-      <Button
+      <Card.MoreButton
         className="group flex justify-center items-center p-[4px] hover:bg-[var(--color-primary)] transition-[background] duration-300"
-        onClick={(e) => {
-          e.stopPropagation();
-          setIsDropdownOpen(true);
-        }}
-      >
-        <VerticalMoreIcon className="size-[32px] stroke-color-black group-hover:invert" />
-      </Button>
+        onClick={handleOpenDropdown}
+      />
     );
   }
 
