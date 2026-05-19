@@ -6,14 +6,15 @@ import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../Feedback/RequestFeedback';
 
 interface Props {
-  data: { message: string; onConfirm: () => void };
+  data: { title?: string; message: string; onConfirm: () => void };
   close: () => void;
 }
 
 export function ConfirmModal({ data, close }: Props) {
-  const { message, onConfirm } = data;
+  const { title, message, onConfirm } = data;
   return (
     <PrimaryModal
+      title={title}
       className={
         'top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[400px] h-fit'
       }
