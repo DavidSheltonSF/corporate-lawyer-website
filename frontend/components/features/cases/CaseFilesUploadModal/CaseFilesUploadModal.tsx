@@ -11,6 +11,7 @@ import { UploadButton } from '../../../ui/UploadButton';
 import { DocumentIcon } from '../../../icons/DocumentIcon';
 import { CloseIcon } from '../../../icons/CloseIcon';
 import { formatFileSize } from '@/lib/formatFileSize';
+import { UploadedFileCard } from '@/components/ui/UploadedFileCard';
 
 interface Props {
   caseId: string;
@@ -49,20 +50,7 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
 
   function renderFileCard() {
     if (!file) return;
-    return (
-      <article className="relative flex items-start border w-full h-fit p-[16px] gap-[16px] rounded-sm">
-        <Button onClick={() => setFile(null)} className="absolute top-[8px] right-[8px] p-[4px]">
-          <CloseIcon className="size-[16px] " />
-        </Button>
-        <div className="border size-[64px] rounded-sm">
-          <DocumentIcon className="fill-[var(--color-primary-light)]" />
-        </div>
-        <div className="flex flex-col items-start">
-          <p>{file.name}</p>
-          <p>{formatFileSize(file.size)}</p>
-        </div>
-      </article>
-    );
+    return <UploadedFileCard file={file} onClose={() => setFile(null)} />;
   }
 
   return (
