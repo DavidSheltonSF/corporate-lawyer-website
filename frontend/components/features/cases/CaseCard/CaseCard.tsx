@@ -39,6 +39,7 @@ export function CaseCard({ caseData, deleteCase, refetchCases }: Props) {
       message: 'Tem certeza que deseja excluir este processo? Essa ação não poderá ser desfeita.',
       onConfirm: async () => {
         await deleteCase(id);
+        openModal(null);
         refetchCases();
       },
     });
