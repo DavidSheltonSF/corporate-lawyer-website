@@ -70,7 +70,7 @@ export function PrimaryModal(props: Props) {
 
   return (
     <div ref={modalRef} className={twMerge(baseStyles, className)}>
-      <div className="flex items-center w-full  border-divider bg-color-white px-[24px] py-[8px]">
+      <div className="flex w-full  border-divider bg-color-white px-[24px] py-[20px]">
         <h3 className="font-bold">{title}</h3>
         <Button
           className="bg-color-white ml-auto p-[4px] brightness-95 hover:brightness-90"
@@ -81,7 +81,7 @@ export function PrimaryModal(props: Props) {
           <CloseIcon className="w-[32px] h-[32px]" />
         </Button>
       </div>
-      <div className="size-full overflow-y-auto border-divider">{children}</div>
+      <div className="flex-1 h-fit overflow-y-auto border-divider">{children}</div>
       <footer className="py-[16px] px-[24px]">{renderFooterButtons()}</footer>
     </div>
   );
