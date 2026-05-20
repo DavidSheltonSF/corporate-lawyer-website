@@ -15,7 +15,7 @@ export function ConfirmModal({ data, close }: Props) {
       title={title}
       onConfirm={onConfirm}
       className={
-        'top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[400px] h-fit'
+        'min-lg:w-[400px] h-fit'
       }
       onClose={close}
     >
