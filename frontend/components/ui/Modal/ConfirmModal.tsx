@@ -1,16 +1,17 @@
 'use case';
-import { ModalVariant, PrimaryModal } from './PrimaryModal';
+import { ButtonVariant } from '../Button/ButtonVariant';
+import { PrimaryModal } from './PrimaryModal';
 
 interface Props {
-  data: { title?: string; message: string; variant?: ModalVariant; onConfirm: () => void };
+  data: { title?: string; message: string; confirmButtonVariant?: ButtonVariant; onConfirm: () => void };
   close: () => void;
 }
 
 export function ConfirmModal({ data, close }: Props) {
-  const { title, message, onConfirm, variant = ModalVariant.DEFAULT } = data;
+  const { title, message, onConfirm, confirmButtonVariant = ButtonVariant.DEFAULT } = data;
   return (
     <PrimaryModal
-      variant={variant}
+      confirmButtonVariant={confirmButtonVariant}
       title={title}
       onConfirm={onConfirm}
       className={

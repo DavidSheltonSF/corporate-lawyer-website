@@ -6,7 +6,7 @@ import { ClientCardFooter } from './ClientCardFooter';
 import { useModal } from '@/hooks/useModal';
 import { makeCardAction } from '@/components/ui/CardDropdown/makeCardAction';
 import { CardActionType } from '@/components/ui/CardDropdown/types';
-import { ModalVariant } from '@/components/ui/Modal/PrimaryModal';
+import { ButtonVariant } from '@/components/ui/Button/ButtonVariant';
 
 interface Props {
   clientData: WithId<SafeUser>;
@@ -31,7 +31,7 @@ export function ClientCard({ clientData, loadClients }: Props) {
     openModal('delete-client', {
       clientSlice: { id, firstName, lastName },
       loadClients,
-      variant: ModalVariant.DANGER,
+      variant: ButtonVariant.DANGER,
     });
   }
 

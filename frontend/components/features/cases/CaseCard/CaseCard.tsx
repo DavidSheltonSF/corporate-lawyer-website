@@ -9,7 +9,7 @@ import { DeleteIcon } from '@/components/icons/DeleteIcon';
 import { useModal } from '@/hooks/useModal';
 import { makeCardAction } from '@/components/ui/CardDropdown/makeCardAction';
 import { CardActionType } from '@/components/ui/CardDropdown/types';
-import { ModalVariant } from '@/components/ui/Modal/PrimaryModal';
+import { ButtonVariant } from '@/components/ui/Button/ButtonVariant';
 
 interface Props {
   caseData: WithId<CaseWithRelations>;
@@ -38,7 +38,7 @@ export function CaseCard({ caseData, deleteCase, refetchCases }: Props) {
     openModal('confirm', {
       title: 'Excluir processo',
       message: 'Tem certeza que deseja excluir este processo? Essa ação não poderá ser desfeita.',
-      variant: ModalVariant.DANGER,
+      confirmButtonVariant: ButtonVariant.DANGER,
       onConfirm: async () => {
         await deleteCase(id);
         openModal(null);
