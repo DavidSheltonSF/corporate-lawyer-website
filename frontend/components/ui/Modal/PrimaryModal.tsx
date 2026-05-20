@@ -6,7 +6,6 @@ import { CloseIcon } from '@/components/icons/CloseIcon';
 import { twMerge } from 'tailwind-merge';
 import { ButtonVariant } from '../Button/ButtonVariant';
 
-
 interface Props {
   confirmButtonVariant?: ButtonVariant;
   title?: string;
@@ -69,12 +68,14 @@ export function PrimaryModal(props: Props) {
     );
   }
 
+  const positionStyles = 'fixed top-[50%] translate-y-[-65%] left-1/2 translate-x-[-50%] z-20';
+  const sizeStyles = 'w-[90%] min-md:w-[60%] min-lg:w-[678px]';
   const baseStyles =
-    'fixed top-[50%] translate-y-[-65%] translate-x-[-50%] flex flex-col z-20 left-1/2  bg-color-white fade-in-animation-fast rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black w-[90%] min-md:w-[60%] min-lg:w-[678px]';
+    'flex flex-col bg-color-white fade-in-animation-fast rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black';
 
   return (
-    <div ref={modalRef} className={twMerge(baseStyles, className)}>
-      <div className="flex w-full  border-divider bg-color-white px-[24px] py-[20px]">
+    <div ref={modalRef} className={twMerge(baseStyles, positionStyles, sizeStyles, className)}>
+      <div className="flex w-full border-divider bg-color-white px-[24px] py-[20px]">
         <h3 className="font-bold">{title}</h3>
         <Button
           className="bg-color-white ml-auto p-[4px] brightness-95 hover:brightness-90"
@@ -85,7 +86,9 @@ export function PrimaryModal(props: Props) {
           <CloseIcon className="w-[32px] h-[32px]" />
         </Button>
       </div>
-      <div className="flex-1 h-fit overflow-y-auto min-lg:overflow-y-visible border-divider">{children}</div>
+      <div className="flex-1 h-fit overflow-y-auto min-lg:overflow-y-visible border-divider">
+        {children}
+      </div>
       <footer className="py-[16px] px-[24px]">{renderFooterButtons()}</footer>
     </div>
   );
