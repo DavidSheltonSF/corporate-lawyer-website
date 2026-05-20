@@ -68,9 +68,11 @@ export function UpdateClientModal({ data, close }: Props) {
   }, []);
 
   const isLoading = requestState?.status === 'loading';
+  const formId = 'update-client-form';
   return (
     <PrimaryModal
-    title='Editar cliente'
+      formId={formId}
+      title="Editar cliente"
       className={
         'top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[678px] h-fit'
       }
@@ -81,7 +83,7 @@ export function UpdateClientModal({ data, close }: Props) {
           <div className="flex justify-center items-center h-[40px] w-full">
             <RequestFeedback requestState={requestState} />
           </div>
-          <form className="flex flex-col gap-[16px] w-full h-full" action={alterClient}>
+          <form id={formId} className="flex flex-col gap-[16px] w-full h-full" action={alterClient}>
             <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
               <InputWithLabel
                 id="first-name-input"
