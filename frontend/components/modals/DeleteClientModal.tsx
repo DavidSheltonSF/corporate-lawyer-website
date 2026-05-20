@@ -1,5 +1,5 @@
 'use client';
-import { PrimaryModal } from '../ui/Modal/PrimaryModal';
+import { ModalVariant, PrimaryModal } from '../ui/Modal/PrimaryModal';
 import { Button } from '../ui/Button/Button';
 import { deleteUser } from '@/services/users/deleteUser';
 import { useEffect, useState } from 'react';
@@ -53,6 +53,9 @@ export function DeleteClientModal({ data, close }: Props) {
 
   return (
     <PrimaryModal
+    title='Excluir cliente'
+    onConfirm={onDeleteClick}
+    variant={ModalVariant.DANGER}
       className="top-[15%] left-1/2 translate-x-[-50%] w-[360px] h-fit"
       onClose={close}
     >
@@ -76,13 +79,6 @@ export function DeleteClientModal({ data, close }: Props) {
             onChange={(e) => setConfrimInputText(e.target.value.toUpperCase())}
           />
         </div>
-        <Button
-          className={`transition-[background] duration-500 border border-black w-full min-lg:w-[fit] py-[8px] min-lg:px-[16px] ${confirmInputIsValid ? 'bg-color-primary text-color-white cursor-pointer' : 'bg-color-muted text-color-black cursor-default'}`}
-          onClick={() => onDeleteClick()}
-          disabled={!confirmInputIsValid}
-        >
-          Confirmar
-        </Button>
       </div>
     </PrimaryModal>
   );
