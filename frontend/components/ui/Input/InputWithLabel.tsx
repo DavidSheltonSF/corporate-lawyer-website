@@ -1,3 +1,5 @@
+import { Input } from "./Input";
+
 interface Props {
   id: string;
   name: string;
@@ -11,10 +13,9 @@ export function InputWithLabel({ id, name, label, defaultValue }: Props) {
       <label className="text-[1.3rem]" htmlFor={id}>
         {label}
       </label>
-      <input
+      <Input
         id={id}
         name={name}
-        className="border h-[40px] w-full rounded-sm px-[8px]"
         type="text"
         defaultValue={defaultValue}
       />
