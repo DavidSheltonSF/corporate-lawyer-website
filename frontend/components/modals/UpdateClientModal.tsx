@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import { PrimaryModal } from '../ui/Modal/PrimaryModal';
 import { InputWithLabel } from '../ui/Input/InputWithLabel';
-import { Button } from '../ui/Button/Button';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
 import { updateUser } from '@/services/users/updateUser';
@@ -110,10 +109,6 @@ export function UpdateClientModal({ data, close }: Props) {
                 defaultValue={clientData?.cpf}
               />
             </div>
-
-            <Button variant="primary" className="w-full min-md:w-[200px] min-md:ml-auto">
-              Confirmar Alterações
-            </Button>
           </form>
         </div>
       </ShowSkeletonOnLoading>
