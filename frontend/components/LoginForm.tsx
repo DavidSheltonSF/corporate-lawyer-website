@@ -8,6 +8,8 @@ import { redirect } from 'next/navigation';
 import { RequestState } from '@/types/RequestState';
 import { Button } from './ui/Button/Button';
 import { ButtonVariant } from './ui/Button/ButtonVariant';
+import { Input } from './ui/Input/Input';
+import { RequestFeedback } from './ui/Feedback/RequestFeedback';
 
 export function LoginForm() {
   const [requestState, setRequestState] = useState<RequestState | null>(null);
@@ -31,33 +33,22 @@ export function LoginForm() {
 
   return (
     <form
-      className="flex flex-col w-[90%] lg:w-[480px] bg-color-primary border-[2px] border-color-primary-light rounded-[16px] px-[24px] py-[40px]  gap-[32px] text-color-white text-xl"
+      className="flex flex-col w-[90%] min-md:w-[70%] min-lg:w-[480px] bg-color-white rounded-md p-[24px] gap-[24px] text-color-black"
       action={handleSubmit}
     >
-      <Activity mode={requestState?.status === 'error' ? 'visible' : 'hidden'}>
-        <div className="text-red-400 text-center font-bold">
-          <p>{requestState?.message}</p>
-        </div>
-      </Activity>
+      <h1>Entrar</h1>
+      <RequestFeedback requestState={requestState} />
       <div className="text-center font-bold">
         <LoadingMessage message="Loading" loading={requestState?.status === 'loading'} />
       </div>
 
-      <InputForm
-        id="input-email"
-        name="email"
-        iconPath="/icons/email-primary-light.svg"
-        label="Email"
-        type="email"
-        required={true}
-      />
-      <InputForm
+      <Input id="input-email" name="email" type="email" required={true} placeholder="Email" />
+      <Input
         id="input-password"
         name="password"
-        iconPath="/icons/lock-primary-light.svg"
-        label="Password"
         type="password"
         required={true}
+        placeholder="Senha"
       />
       <Button variant={ButtonVariant.PRIMARY} type="submit" className="w-full">
         Entrar
