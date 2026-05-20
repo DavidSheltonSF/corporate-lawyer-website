@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { IconCircle } from './IconCircle';
 import { TooltipContainer } from './TooltipContainer';
+import { EmailIcon } from './icons/EmailIcon';
 
 export interface ProfessionalCardProps {
   imagePath: string;
@@ -75,11 +76,7 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
               href={`https://mail.google.com/mail/?view=cm&fs=1&to=${email}?su=Solicitação de apoio jurídico`}
               target="_blank"
             >
-              <img
-                className="size-[56px] lg:size-[48px]"
-                src="icons/email.svg"
-                alt={`Envie um email para ${title}`}
-              />
+              <EmailIcon label={`Envie um email para ${title}`} className='size-[56px]'/>
             </a>
             <a href={`https://wa.me/5521969470527`} target="_blank">
               <img
