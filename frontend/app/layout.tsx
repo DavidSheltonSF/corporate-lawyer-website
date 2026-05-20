@@ -56,7 +56,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`flex flex-col ${geistSans.variable} ${geistMono.variable} antialiased relative min-h-screen bg-color-black relative`}
+        className={`flex flex-col ${geistSans.variable} ${geistMono.variable} antialiased relative min-h-screen bg-color-black text-color-white relative`}
       >
         <ServicesModalProvider>
           <header>
