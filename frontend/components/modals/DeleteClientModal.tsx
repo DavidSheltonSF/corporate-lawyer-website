@@ -9,6 +9,7 @@ import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { handleLogout } from '@/lib/handleLogout';
 import { WithId } from '@/types/WithId';
 import { UserSlice } from '@/types/UserSlice';
+import { ButtonVariant } from '../ui/Button/ButtonVariant';
 
 interface Props {
   data: { clientSlice: WithId<UserSlice>; loadClients: () => void };
@@ -55,7 +56,7 @@ export function DeleteClientModal({ data, close }: Props) {
     <PrimaryModal
     title='Excluir cliente'
     onConfirm={onDeleteClick}
-    variant={ModalVariant.DANGER}
+    confirmButtonVariant={confirmInputIsValid ? ButtonVariant.DANGER : ButtonVariant.DISABLED}
       className="top-[15%] left-1/2 translate-x-[-50%] w-[360px] h-fit"
       onClose={close}
     >
