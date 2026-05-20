@@ -7,6 +7,7 @@ import { login } from '@/actions/login';
 import { redirect } from 'next/navigation';
 import { RequestState } from '@/types/RequestState';
 import { Button } from './ui/Button/Button';
+import { ButtonVariant } from './ui/Button/ButtonVariant';
 
 export function LoginForm() {
   const [requestState, setRequestState] = useState<RequestState | null>(null);
@@ -58,7 +59,7 @@ export function LoginForm() {
         type="password"
         required={true}
       />
-      <Button variant="primary" type="submit" className="w-full">
+      <Button variant={ButtonVariant.PRIMARY} type="submit" className="w-full">
         Entrar
       </Button>
     </form>
