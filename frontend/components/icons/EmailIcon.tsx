@@ -1,7 +1,8 @@
 import { PropsWithClassName } from '@/types/PropsWithClassName';
 import { Icon } from './Icon';
+import { IconProps } from './types';
 
-export function EmailIcon(props: PropsWithClassName) {
+export function EmailIcon(props: PropsWithClassName<IconProps>) {
   return (
     <Icon {...props} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
       <path
