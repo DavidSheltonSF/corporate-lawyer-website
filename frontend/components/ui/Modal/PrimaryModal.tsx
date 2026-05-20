@@ -6,13 +6,8 @@ import { CloseIcon } from '@/components/icons/CloseIcon';
 import { twMerge } from 'tailwind-merge';
 import { ButtonVariant } from '../Button/ButtonVariant';
 
-export enum ModalVariant {
-  DANGER = 'DANGER',
-  DEFAULT = 'DEFAULT',
-}
 
 interface Props {
-  variant?: ModalVariant;
   confirmButtonVariant?: ButtonVariant;
   title?: string;
   formId?: string;
@@ -26,7 +21,6 @@ interface Props {
 
 export function PrimaryModal(props: Props) {
   const {
-    variant = ModalVariant.DEFAULT,
     confirmButtonVariant = ButtonVariant.PRIMARY,
     formId,
     onConfirm,
