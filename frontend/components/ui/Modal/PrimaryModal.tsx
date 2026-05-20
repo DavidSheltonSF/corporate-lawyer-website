@@ -69,7 +69,7 @@ export function PrimaryModal(props: Props) {
   }
 
   const positionStyles = 'fixed top-[10vh] left-1/2 translate-x-[-50%] z-20';
-  const sizeStyles = 'w-[90%] min-md:w-[60%] min-lg:w-[678px]';
+  const sizeStyles = 'h-fit w-[90%] min-md:w-[60%] min-lg:w-[678px]';
   const baseStyles =
     'flex flex-col bg-color-white fade-in-animation-fast rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black';
 
