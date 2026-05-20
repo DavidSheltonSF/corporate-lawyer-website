@@ -33,17 +33,25 @@ export function LoginForm() {
 
   return (
     <form
-      className="flex flex-col w-[90%] min-md:w-[70%] min-lg:w-[480px] bg-color-white rounded-md p-[24px] gap-[24px] text-color-black"
+      className="flex flex-col w-[90%] min-md:w-[50%] min-lg:w-[480px] rounded-md p-[24px] gap-[24px] text-color-black text-center"
       action={handleSubmit}
     >
-      <h1>Entrar</h1>
+      <h1 className='text-color-white'>Acessar plataforma</h1>
       <RequestFeedback requestState={requestState} />
       <div className="text-center font-bold">
         <LoadingMessage message="Loading" loading={requestState?.status === 'loading'} />
       </div>
 
-      <Input id="input-email" name="email" type="email" required={true} placeholder="Email" />
       <Input
+        className="bg-color-white"
+        id="input-email"
+        name="email"
+        type="email"
+        required={true}
+        placeholder="Email"
+      />
+      <Input
+        className="bg-color-white"
         id="input-password"
         name="password"
         type="password"
