@@ -13,6 +13,7 @@ export enum ModalVariant {
 
 interface Props {
   variant?: ModalVariant;
+  confirmButtonVariant?: ButtonVariant;
   title?: string;
   formId?: string;
   onConfirm?: () => void;
@@ -26,6 +27,7 @@ interface Props {
 export function PrimaryModal(props: Props) {
   const {
     variant = ModalVariant.DEFAULT,
+    confirmButtonVariant = ButtonVariant.PRIMARY,
     formId,
     onConfirm,
     onClose,
@@ -63,7 +65,7 @@ export function PrimaryModal(props: Props) {
           <Button
             form={formId}
             type={formId ? 'submit' : 'button'}
-            variant={variant === ModalVariant.DANGER ? ButtonVariant.DANGER : ButtonVariant.PRIMARY}
+            variant={confirmButtonVariant}
             onClick={onConfirm}
           >
             {confirmText}
