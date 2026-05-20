@@ -1,24 +1,17 @@
-import { Input } from "./Input";
+import { Input } from './Input';
+import { InputProps } from './types';
 
 interface Props {
-  id: string;
-  name: string;
   label: string;
-  defaultValue?: string;
 }
 
-export function InputWithLabel({ id, name, label, defaultValue }: Props) {
+export function InputWithLabel({ id, label, ...inputProps }: Props & InputProps) {
   return (
     <div className="w-full">
       <label className="text-[1.3rem]" htmlFor={id}>
         {label}
       </label>
-      <Input
-        id={id}
-        name={name}
-        type="text"
-        defaultValue={defaultValue}
-      />
+      <Input id={id} {...inputProps} />
     </div>
   );
 }
