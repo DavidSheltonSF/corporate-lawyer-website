@@ -1,4 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
+import { MobileMenuIcon } from './icons/MobileMenuIcon';
+import { CloseIcon } from './icons/CloseIcon';
 
 interface Props {
   menuIsOpen: boolean;
@@ -10,8 +12,12 @@ export function NavbarMobileMenuButton({ menuIsOpen, setMenuIsOpen }: Props) {
     setMenuIsOpen(!menuIsOpen);
   }
   return (
-    <button className="min-md:hidden" onClick={toggleMenu}>
-      <img className="size-[48px]" src={`/icons/${menuIsOpen ? 'close' : 'menu'}.svg`} alt="" />
+    <button className="min-lg:hidden" onClick={toggleMenu}>
+      {!menuIsOpen ? (
+        <MobileMenuIcon className="size-[48px] stroke-color-white" />
+      ) : (
+        <CloseIcon className="size-[48px] stroke-color-white" />
+      )}
     </button>
   );
 }
