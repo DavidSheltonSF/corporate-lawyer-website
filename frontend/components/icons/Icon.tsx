@@ -1,5 +1,18 @@
 import { SVGProps } from 'react';
+import { IconProps } from './types';
 
-export function Icon(props: SVGProps<SVGSVGElement>) {
-  return <svg xmlns="http://www.w3.org/2000/svg" {...props}></svg>;
+export function Icon(props: SVGProps<SVGSVGElement> & IconProps) {
+  const { label, children } = props;
+  return (
+    <svg
+      role={label ? 'img' : undefined}
+      aria-label={label}
+      aria-hidden={label ? undefined : true}
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      {label && <title>{label}</title>}
+      {children}
+    </svg>
+  );
 }
