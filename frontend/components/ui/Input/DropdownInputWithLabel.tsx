@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowDropUpIcon } from '../../icons/ArrowDropUpIcon';
+import { Input } from './Input';
 
 interface Props<T> {
   id: string;
@@ -62,12 +63,14 @@ export function DropdownInputWithLabel<T extends Record<string, string>>({
         {label}
       </label>
       <div ref={dropRef} className="flex flex-col relative">
-        <div className="flex jusfity-center items-center border h-[40px] w-full rounded-sm px-[8px]">
-          <input
-            onClick={() => setListIsOpen(true)}
+        <div
+          className="flex jusfity-center items-center border h-fit w-full rounded-sm "
+          onClick={() => setListIsOpen(true)}
+        >
+          <Input
             id={id}
             name={name}
-            className="w-full h-full"
+            className="w-full  border-none"
             type="text"
             value={selectedValue !== null ? itemLabel(itemsRecord[selectedValue]) : '...'}
             readOnly
