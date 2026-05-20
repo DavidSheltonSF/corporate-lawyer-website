@@ -70,7 +70,7 @@ export function PrimaryModal(props: Props) {
   }
 
   const baseStyles =
-    'flex flex-col z-20 fixed bg-color-white fade-in-animation-fast rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black';
+    'fixed top-[50%] translate-y-[-65%] translate-x-[-50%] flex flex-col z-20 left-1/2  bg-color-white fade-in-animation-fast rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black w-[90%] min-md:w-[60%] min-lg:w-[678px]';
 
   return (
     <div ref={modalRef} className={twMerge(baseStyles, className)}>
