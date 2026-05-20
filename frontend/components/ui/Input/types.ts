@@ -5,6 +5,6 @@ export interface InputProps {
   required?: boolean;
   type?: string;
   value?: string;
-  readOnly: boolean;
+  readOnly?: boolean;
   defaultValue?: string;
 }
