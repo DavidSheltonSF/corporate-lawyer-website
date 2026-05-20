@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { PrimaryModal } from '../../../ui/Modal/PrimaryModal';
+import { BaseModal } from '../../../ui/Modal/BaseModal';
 import { CaseModalSkeleton } from './CaseModalSkeleton';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { OpenUploadModalButton } from '../../../OpenUploadModalButton';
@@ -99,13 +99,13 @@ export function CaseModal({ data, close }: Props) {
   }
 
   return (
-    <PrimaryModal
+    <BaseModal
       className={'top-[40px] min-lg:w-[880px]'}
       onClose={() => {
         close();
       }}
     >
       {renderContent()}
-    </PrimaryModal>
+    </BaseModal>
   );
 }

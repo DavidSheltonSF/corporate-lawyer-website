@@ -1,6 +1,6 @@
 'use client';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { PrimaryModal } from '../ui/Modal/PrimaryModal';
+import { BaseModal } from '../ui/Modal/BaseModal';
 import { InputWithLabel } from '../ui/Input/InputWithLabel';
 import { Button } from '../ui/Button/Button';
 import { createClient } from '@/services/users/createClient';
@@ -34,7 +34,7 @@ export function RegisterClientModal({ isOpen, setIsOpen }: Props) {
 
   return (
     isOpen && (
-      <PrimaryModal
+      <BaseModal
         className={
           'top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-md:w-[678px] h-fit'
         }
@@ -64,7 +64,7 @@ export function RegisterClientModal({ isOpen, setIsOpen }: Props) {
             </Button>
           </form>
         </div>
-      </PrimaryModal>
+      </BaseModal>
     )
   );
 }

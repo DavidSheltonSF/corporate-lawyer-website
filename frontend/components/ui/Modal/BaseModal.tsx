@@ -18,7 +18,7 @@ interface Props {
   className: string;
 }
 
-export function PrimaryModal(props: Props) {
+export function BaseModal(props: Props) {
   const {
     confirmButtonVariant = ButtonVariant.PRIMARY,
     formId,

@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { PrimaryModal } from '../../../ui/Modal/PrimaryModal';
+import { BaseModal } from '../../../ui/Modal/BaseModal';
 import { uploadCaseFile } from '@/services/cases/uploadCaseFile';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../../../ui/Feedback/RequestFeedback';
@@ -75,7 +75,7 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
   }
 
   return (
-    <PrimaryModal
+    <BaseModal
       title="Envie um arquivo"
       className="top-[25%] left-1/2 translate-x-[-50%] w-[440px] h-fit"
       onClose={() => {
@@ -104,6 +104,6 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
           </Button>
         </div>
       </div>
-    </PrimaryModal>
+    </BaseModal>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { PrimaryModal } from '../ui/Modal/PrimaryModal';
+import { BaseModal } from '../ui/Modal/BaseModal';
 import { InputWithLabel } from '../ui/Input/InputWithLabel';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
@@ -70,7 +70,7 @@ export function UpdateClientModal({ data, close }: Props) {
   const isLoading = requestState?.status === 'loading';
   const formId = 'update-client-form';
   return (
-    <PrimaryModal
+    <BaseModal
       formId={formId}
       title="Editar cliente"
       className={
@@ -121,6 +121,6 @@ export function UpdateClientModal({ data, close }: Props) {
           </form>
         </div>
       </ShowSkeletonOnLoading>
-    </PrimaryModal>
+    </BaseModal>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { PrimaryModal } from '../ui/Modal/PrimaryModal';
+import { BaseModal } from '../ui/Modal/BaseModal';
 import { InputWithLabel } from '../ui/Input/InputWithLabel';
 import { Button } from '../ui/Button/Button';
 import { RequestState } from '@/types/RequestState';
@@ -55,7 +55,7 @@ export function RegisterCaseModal({ isOpen, close, selectedClientId }: Props) {
 
   return (
     isOpen && (
-      <PrimaryModal
+      <BaseModal
         className={
           'fixed z-99999999999 top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[678px] h-[90%] min-lg:h-fit rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
         }
@@ -118,7 +118,7 @@ export function RegisterCaseModal({ isOpen, close, selectedClientId }: Props) {
             </div>
           </form>
         </div>
-      </PrimaryModal>
+      </BaseModal>
     )
   );
 }

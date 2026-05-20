@@ -1,6 +1,6 @@
 'use case';
 import { useEffect, useState } from 'react';
-import { PrimaryModal } from '../../../ui/Modal/PrimaryModal';
+import { BaseModal } from '../../../ui/Modal/BaseModal';
 import { RequestState } from '@/types/RequestState';
 import { getCaseById } from '@/services/cases/getCaseById';
 import { WithId } from '@/types/WithId';
@@ -75,7 +75,7 @@ export function UpdateCaseModal({ data, close }: Props) {
   const formId = 'update-case-form';
 
   return (
-    <PrimaryModal
+    <BaseModal
       title="Editar Processo"
       formId={formId}
       className={'h-[70vh] min-lg:h-fit'}
@@ -87,6 +87,6 @@ export function UpdateCaseModal({ data, close }: Props) {
           <UpdateCaseModal.Form formId={formId} caseData={caseData} action={alterCase} />
         </div>
       </ShowSkeletonOnLoading>
-    </PrimaryModal>
+    </BaseModal>
   );
 }

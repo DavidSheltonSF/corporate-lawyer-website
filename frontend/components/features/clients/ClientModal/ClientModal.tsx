@@ -1,6 +1,6 @@
 'use client';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { PrimaryModal } from '../../../ui/Modal/PrimaryModal';
+import { BaseModal } from '../../../ui/Modal/BaseModal';
 import { FieldValue } from '../../../FieldValue';
 import { CaseModalSkeleton } from '../../cases/CaseModal/CaseModalSkeleton';
 import { SafeUser } from '@/types/SafeUser';
@@ -108,11 +108,11 @@ export function ClientModal({ close, data }: Props) {
   }
 
   return (
-    <PrimaryModal
+    <BaseModal
       className={'top-[2%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[880px] h-[90%]'}
       onClose={close}
     >
       {renderContent()}
-    </PrimaryModal>
+    </BaseModal>
   );
 }

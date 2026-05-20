@@ -1,5 +1,5 @@
 'use client';
-import {  PrimaryModal } from '../ui/Modal/PrimaryModal';
+import { BaseModal } from '../ui/Modal/BaseModal';
 import { deleteUser } from '@/services/users/deleteUser';
 import { useEffect, useState } from 'react';
 import { RequestState } from '@/types/RequestState';
@@ -52,10 +52,10 @@ export function DeleteClientModal({ data, close }: Props) {
   }, []);
 
   return (
-    <PrimaryModal
-    title='Excluir cliente'
-    onConfirm={onDeleteClick}
-    confirmButtonVariant={confirmInputIsValid ? ButtonVariant.DANGER : ButtonVariant.DISABLED}
+    <BaseModal
+      title="Excluir cliente"
+      onConfirm={onDeleteClick}
+      confirmButtonVariant={confirmInputIsValid ? ButtonVariant.DANGER : ButtonVariant.DISABLED}
       className="top-[15%] left-1/2 translate-x-[-50%] w-[360px] h-fit"
       onClose={close}
     >
@@ -80,6 +80,6 @@ export function DeleteClientModal({ data, close }: Props) {
           />
         </div>
       </div>
-    </PrimaryModal>
+    </BaseModal>
   );
 }

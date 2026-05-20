@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { PrimaryModal } from '../../ui/Modal/PrimaryModal';
+import { BaseModal } from '../../ui/Modal/BaseModal';
 import { getMyNotifications } from '@/services/notifications/getMyNotifications';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { handleLogout } from '@/lib/handleLogout';
@@ -67,7 +67,7 @@ export function NotificationsModal() {
 
   return (
     isOpen && (
-      <PrimaryModal
+      <BaseModal
         className={
           'fixed z-99999999999 top-[8%] left-1/2 translate-x-[-50%] w-[90%] min-md:w-[70%] min-lg:w-[560px] h-[82vh] min-lg:h-[65vh] rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
         }
@@ -96,7 +96,7 @@ export function NotificationsModal() {
             </Button>
           </div>
         </div>
-      </PrimaryModal>
+      </BaseModal>
     )
   );
 }
