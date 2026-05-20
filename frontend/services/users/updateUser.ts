@@ -8,6 +8,7 @@ export async function updateUser(id: string, formData: FormData): Promise<WithId
   const lastName = formData.get('lastName');
   const email = formData.get('email');
   const cpf = formData.get('cpf');
+  const phone = formData.get('phone');
 
   const response = await apiFetch(`${API_URL}/users/${id}`, {
     headers: {
@@ -19,6 +20,7 @@ export async function updateUser(id: string, formData: FormData): Promise<WithId
       lastName,
       email,
       cpf,
+      phone
     }),
   });
 
