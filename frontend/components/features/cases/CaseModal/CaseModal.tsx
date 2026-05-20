@@ -84,7 +84,7 @@ export function CaseModal({ data, close }: Props) {
     }
 
     return (
-      <div className="flex flex-col size-full bg-color-white">
+      <div className="flex flex-col size-full overflow-y-scroll">
         <CaseModal.Header title={caseData.title} processNumber={caseData.processNumber} />
         <CaseModal.Content caseData={caseData} />
         <CaseModal.Files openUploadModal={openUploadModal} caseFiles={caseData.files} />
@@ -100,9 +100,7 @@ export function CaseModal({ data, close }: Props) {
 
   return (
     <PrimaryModal
-      className={
-        'top-[2%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[880px] h-[82vh] min-lg:h-[95vh]'
-      }
+      className={'top-[40px] min-lg:w-[880px]'}
       onClose={() => {
         close();
       }}
