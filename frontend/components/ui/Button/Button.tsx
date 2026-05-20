@@ -8,10 +8,9 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export function Button(props: ButtonProps) {
-  const { children, disabled, className, variant, ...buttonProps } = props;
+  const { children, className, variant = ButtonVariant.DEFAULT, ...buttonProps } = props;
 
   const baseStyles = 'rounded-sm font-bold py-[8px] px-[16px] duration-300 cursor-pointer';
-  const disabledStyles = 'cursor-default bg-gray/50 text-gray/50';
 
   const variants: Record<ButtonVariant, string> = {
     DANGER: 'bg-color-red text-color-white hover:brightness-120',
@@ -19,17 +18,11 @@ export function Button(props: ButtonProps) {
     SECONDARY:
       'border text-color-primary-light hover:shadow-[var(--inner-shadow-primary-soft)] transition-[box-shadow] transition-[background] hover:bg-[var(--color-primary-light)]/10',
     DEFAULT: 'transition-[filter] hover:brightness-120 ',
+    DISABLED: 'cursor-default bg-gray-400 text-gray/50',
   };
 
   return (
-    <button
-      {...buttonProps}
-      disabled={disabled}
-      className={twMerge(
-        `${baseStyles} ${disabled ? disabledStyles : variants[variant || ButtonVariant.DEFAULT]}`,
-        className
-      )}
-    >
+    <button {...buttonProps} className={twMerge(`${baseStyles} ${variants[variant]}`, className)}>
       {children}
     </button>
   );
