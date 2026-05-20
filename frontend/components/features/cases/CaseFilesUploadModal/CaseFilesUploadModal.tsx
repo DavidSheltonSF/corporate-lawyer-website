@@ -12,6 +12,7 @@ import { DocumentIcon } from '../../../icons/DocumentIcon';
 import { CloseIcon } from '../../../icons/CloseIcon';
 import { formatFileSize } from '@/lib/formatFileSize';
 import { UploadedFileCard } from '@/components/ui/UploadedFileCard';
+import { ButtonVariant } from '@/components/ui/Button/ButtonVariant';
 
 interface Props {
   caseId: string;
@@ -87,10 +88,18 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
         {renderFileCard()}
         <p className="text-start text-size-sm">Apenas PDFs de tamanho máximo de 10 MB</p>
         <div className="flex gap-[24px] ml-auto">
-          <Button onClick={() => onClose()} variant="secondary" className="px-[16px] py-[4px]">
+          <Button
+            onClick={() => onClose()}
+            variant={ButtonVariant.SECONDARY}
+            className="px-[16px] py-[4px]"
+          >
             Voltar
           </Button>
-          <Button onClick={handleUploadFile} variant="primary" className="px-[16px] py-[4px]">
+          <Button
+            onClick={handleUploadFile}
+            variant={ButtonVariant.PRIMARY}
+            className="px-[16px] py-[4px]"
+          >
             Confirmar
           </Button>
         </div>
