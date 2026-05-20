@@ -3,9 +3,10 @@ import { SafeUser } from '@/types/SafeUser';
 import { Card } from '../../../ui/Card/Card';
 import { ClientCardHeader } from './ClientCardHeader';
 import { ClientCardFooter } from './ClientCardFooter';
-import { EditIcon } from '@/components/icons/EditIcon';
-import { DeleteIcon } from '@/components/icons/DeleteIcon';
 import { useModal } from '@/hooks/useModal';
+import { makeCardAction } from '@/components/ui/CardDropdown/makeCardAction';
+import { CardActionType } from '@/components/ui/CardDropdown/types';
+import { ModalVariant } from '@/components/ui/Modal/PrimaryModal';
 
 interface Props {
   clientData: WithId<SafeUser>;
@@ -19,27 +20,27 @@ export function ClientCard({ clientData, loadClients }: Props) {
   const { id, firstName, lastName, email, phone, cpf } = clientData;
   const { openModal } = useModal();
 
+  function openEditModal() {
+    openModal('update-client', {
+      clientId: id,
+      loadClients,
+    });
+  }
+
+  function openDeleteModal() {
+    openModal('delete-client', {
+      clientSlice: { id, firstName, lastName },
+      loadClients,
+      variant: ModalVariant.DANGER,
+    });
+  }
+
   return (
     <Card
       className="w-full h-fit min-md:w-[720px]"
       actions={[
-        {
-          label: 'Alterar',
-          Icon: EditIcon,
-          action: () => {
-            openModal('update-client', { clientId: id, loadClients });
-          },
-        },
-        {
-          label: 'Deletar',
-          Icon: DeleteIcon,
-          action: () => {
-            openModal('delete-client', {
-              clientSlice: { id, firstName: firstName, lastName },
-              loadClients,
-            });
-          },
-        },
+        makeCardAction(CardActionType.EDIT, openEditModal),
+        makeCardAction(CardActionType.DELETE, openDeleteModal),
       ]}
       onClick={() => {
         openModal('client', { clientId: id });
