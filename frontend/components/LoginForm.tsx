@@ -10,6 +10,7 @@ import { Button } from './ui/Button/Button';
 import { ButtonVariant } from './ui/Button/ButtonVariant';
 import { Input } from './ui/Input/Input';
 import { RequestFeedback } from './ui/Feedback/RequestFeedback';
+import { UnauthorizedError } from '@/errors/UnauthorizedError';
 
 export function LoginForm() {
   const [requestState, setRequestState] = useState<RequestState | null>(null);
@@ -21,7 +22,11 @@ export function LoginForm() {
       setRequestState({ status: 'ok' });
     } catch (error: any) {
       console.log(error);
-      setRequestState({ status: 'error', message: error.message });
+
+      if(error instanceof UnauthorizedError){
+        setRequestState({ status: 'error', message: 'Combinação de email e senha inválida' });
+      }
+      setRequestState({ status: 'error', message: 'Houve algum problema no servidor' });
     }
   }
 
@@ -36,7 +41,7 @@ export function LoginForm() {
       className="flex flex-col w-[90%] min-md:w-[50%] min-lg:w-[480px] rounded-md p-[24px] gap-[24px] text-color-black text-center"
       action={handleSubmit}
     >
-      <h1 className='text-color-white'>Acessar plataforma</h1>
+      <h1 className="text-color-white">Acessar plataforma</h1>
       <RequestFeedback requestState={requestState} />
       <div className="text-center font-bold">
         <LoadingMessage message="Loading" loading={requestState?.status === 'loading'} />
