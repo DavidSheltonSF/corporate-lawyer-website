@@ -12,7 +12,7 @@ export function DynamicSectionWrapper({ index, title, selectedSection, children 
 
   return (
     isSelected && (
-      <section className="flex flex-col fade-in-animation text-white w-full h-full">
+      <section className="flex flex-col fade-in-animation w-full h-full">
         <h1 className="font-bold my-[40px]">{title}</h1>
         {children}
       </section>
