@@ -3,4 +3,5 @@ export enum ButtonVariant {
   SECONDARY = 'SECONDARY',
   DANGER = 'DANGER',
   DEFAULT = 'DEFAULT',
+  DISABLED = 'DISABLED',
 }
