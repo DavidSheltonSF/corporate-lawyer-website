@@ -1,6 +1,5 @@
 'use client';
-import { ModalVariant, PrimaryModal } from '../ui/Modal/PrimaryModal';
-import { Button } from '../ui/Button/Button';
+import {  PrimaryModal } from '../ui/Modal/PrimaryModal';
 import { deleteUser } from '@/services/users/deleteUser';
 import { useEffect, useState } from 'react';
 import { RequestState } from '@/types/RequestState';
