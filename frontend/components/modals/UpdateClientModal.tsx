@@ -111,6 +111,12 @@ export function UpdateClientModal({ data, close }: Props) {
                 label="CPF"
                 defaultValue={clientData?.cpf}
               />
+              <InputWithLabel
+                id="phone-input"
+                name="phone"
+                label="Telefone"
+                defaultValue={clientData?.phone}
+              />
             </div>
           </form>
         </div>
