@@ -17,6 +17,7 @@ import { BrazilState } from '@/types/BrazilState';
 import { BrazilStateLabel } from '@/lib/BrazilStateLabel';
 import { City } from '@/types/City';
 import { CityLabel } from '@/lib/CityLabel';
+import { ButtonVariant } from '../ui/Button/ButtonVariant';
 
 interface Props {
   selectedClientId: string | null;
@@ -111,10 +112,7 @@ export function RegisterCaseModal({ isOpen, close, selectedClientId }: Props) {
             </div>
 
             <div className="flex justify-end w-full min-md:w-[200px]  min-md:ml-auto">
-              <Button
-              variant='primary'
-              className='w-full'
-              >
+              <Button variant={ButtonVariant.PRIMARY} className="w-full">
                 Confirmar Alterações
               </Button>
             </div>

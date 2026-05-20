@@ -8,6 +8,7 @@ import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
 import { handleLogout } from '@/lib/handleLogout';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
+import { ButtonVariant } from '../ui/Button/ButtonVariant';
 interface Props {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -58,7 +59,7 @@ export function RegisterClientModal({ isOpen, setIsOpen }: Props) {
               <InputWithLabel id="cpf-input" name="cpf" label="CPF" />
             </div>
             <div className="flex justify-end "></div>
-            <Button variant="primary" className="w-full min-md:w-fit min-md:ml-auto">
+            <Button variant={ButtonVariant.PRIMARY} className="w-full min-md:w-fit min-md:ml-auto">
               Salvar
             </Button>
           </form>
