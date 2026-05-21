@@ -37,7 +37,7 @@ export function BaseModal(props: PropsWithClassName<Props>) {
     modalRef.current.classList.add('fade-out-animation-fast');
     setTimeout(() => {
       onClose();
-    }, 300);
+    }, 200);
   }
 
   useEffect(() => {
