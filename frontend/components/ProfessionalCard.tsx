@@ -14,38 +14,16 @@ export interface ProfessionalCardProps {
 }
 
 export function ProfessionalCard(props: ProfessionalCardProps) {
-  const {
-    imagePath,
-    imageAlternativeText,
-    title,
-    description,
-    specializations,
-    email,
-    whatsAppNumber,
-  } = props;
+  const { imagePath, imageAlternativeText, title, description, specializations, email } = props;
 
   function renderSpecializations(): ReactNode {
     return specializations.map((specialization, index) => {
       return (
-        <Tooltip
+        <IconCircle
           key={index}
-          label={specialization}
-          tooltipLabelProps={{
-            position: {
-              bottom: '120%',
-              left: '50%',
-              translateX: '-50%',
-            },
-            backgroundColor: '#000',
-            fontSize: '16px',
-          }}
-        >
-          <IconCircle
-            key={index}
-            serviceAreaId={specialization}
-            additionalStyles="size-[56px] lg:size-[48px]"
-          />
-        </Tooltip>
+          serviceAreaId={specialization}
+          additionalStyles="size-[56px] min-lg:size-[48px]"
+        />
       );
     });
   }
