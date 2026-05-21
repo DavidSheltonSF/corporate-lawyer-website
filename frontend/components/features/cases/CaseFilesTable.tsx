@@ -14,7 +14,7 @@ export function CaseFilesTable({ documents }: Props) {
 
   const userId = userContext.userData.id;
   return (
-    <div className="table w-[88%] h-fit">
+    <div className="table w-full h-fit">
       <div className="header">
         <div>Name</div>
         <div className="hidden min-md:block">Upload</div>
