@@ -1,5 +1,6 @@
 import { ChangeEvent, Dispatch, SetStateAction, useRef } from 'react';
 import { Button } from './Button/Button';
+import { ButtonVariant } from './Button/ButtonVariant';
 
 interface Props {
   setFile: Dispatch<SetStateAction<File | null>>;
@@ -21,7 +22,7 @@ export function UploadButton({ setFile }: Props) {
   return (
     <div className="flex size-full">
       <input name="file" onChange={handleChange} ref={inputRef} className="hidden" type="file" />
-      <Button onClick={handleOpenFilePicker} variant="secondary" className="w-full py-[4px]">
+      <Button onClick={handleOpenFilePicker} variant={ButtonVariant.SECONDARY} className="w-full py-[4px]">
         Selecionar arquivo
       </Button>
     </div>
