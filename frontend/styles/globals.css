@@ -181,7 +181,7 @@ h3 {
 
 .table > div {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: 72px;
   gap: 0 32px;
   align-items: center;
@@ -197,7 +197,7 @@ h3 {
 @media (min-width: 768px) {
   .table > div {
     display: grid;
-    grid-template-columns: 2fr 2fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 72px;
     gap: 0 32px;
     align-items: center;
