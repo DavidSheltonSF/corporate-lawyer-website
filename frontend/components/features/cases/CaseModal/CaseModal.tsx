@@ -14,9 +14,11 @@ import { Button } from '@/components/ui/Button/Button';
 import { DocumentIcon } from '@/components/icons/DocumentIcon';
 import { CaseFilesModal } from '../CaseFilesModal/CaseFilesModal';
 import { CaseModalFooter } from './CaseModalFooter';
+import { NotFoundError } from '@/errors/NotFoundError';
+import { ServerError } from '@/errors/ServerError';
 
 interface Props {
-  data: unknown;
+  data: { caseId: string };
   close: Function;
 }
 
@@ -30,9 +32,7 @@ export function CaseModal({ data, close }: Props) {
   const [filesModalIsOpen, setFilesModalIsOpen] = useState(false);
   const isLoading = requestState?.status === 'loading';
   const error = requestState?.status === 'error';
-
-  const caseModalData = data as { caseId: string };
-  const caseId = caseModalData.caseId;
+  const caseId = data.caseId;
 
   async function fetchCaseData() {
     try {
@@ -43,10 +43,26 @@ export function CaseModal({ data, close }: Props) {
       setRequestState({ status: 'ok' });
     } catch (error: any) {
       console.log(error);
-      setRequestState({ status: 'error', message: error.message });
+
+      if (error instanceof NotFoundError) {
+        setRequestState({
+          status: 'error',
+          message: 'O processo procurado foi removido do sistema ou não existe',
+        });
+      }
+
+      if (error instanceof ServerError) {
+        setRequestState({
+          status: 'error',
+          message: 'Houve algum erro no servidor',
+        });
+      }
+
       if (error instanceof UnauthorizedError) {
         handleLogout();
       }
+
+      setRequestState({ status: 'error', message: error.message });
     }
   }
 
@@ -54,6 +70,7 @@ export function CaseModal({ data, close }: Props) {
     setCaseData(null);
     setRequestState(null);
   }
+
   useEffect(() => {
     fetchCaseData();
 
@@ -61,29 +78,6 @@ export function CaseModal({ data, close }: Props) {
       resetStates();
     };
   }, []);
-
-  function renderContent() {
-    if (isLoading) {
-      return <CaseModalSkeleton />;
-    }
-
-    if (error || !caseData) {
-      return (
-        <div className="flex flex-col items-center size-ful pt-[80px] px-[24px] text-center gap-[16px]">
-          <h1>Proceso não encontrado</h1>
-          <h3>O processo procurado foi removido do sistema ou não existe</h3>
-        </div>
-      );
-    }
-
-    return (
-      <div className="flex flex-col size-full overflow-y-scroll">
-        <CaseModal.Header title={caseData.title} processNumber={caseData.processNumber} />
-        <CaseModal.Content caseData={caseData} />
-        <CaseModal.Footer openFilesModal={() => setFilesModalIsOpen(true)} />
-      </div>
-    );
-  }
 
   if (filesModalIsOpen) {
     return (
@@ -96,6 +90,29 @@ export function CaseModal({ data, close }: Props) {
     );
   }
 
+  function renderSkeleton() {
+    return <CaseModalSkeleton />;
+  }
+
+  function renderNotFoundMessage() {
+    return (
+      <div className="flex flex-col items-center size-ful pt-[80px] px-[24px] text-center gap-[16px]">
+        <h1>Não foi possível acessar o processo</h1>
+        <h3>{requestState?.message}</h3>
+      </div>
+    );
+  }
+
+  function renderContent() {
+    return (
+      <div className="flex flex-col size-full overflow-y-scroll">
+        <CaseModal.Header title={caseData?.title} processNumber={caseData?.processNumber} />
+        <CaseModal.Content caseData={caseData} />
+        <CaseModal.Footer openFilesModal={() => setFilesModalIsOpen(true)} />
+      </div>
+    );
+  }
+
   return (
     <BaseModal
       className={'top-[40px] min-lg:w-[880px]'}
@@ -103,7 +120,8 @@ export function CaseModal({ data, close }: Props) {
         close();
       }}
     >
-      {renderContent()}
+      {isLoading && renderSkeleton()}
+      {error || !caseData ? renderNotFoundMessage() : renderContent()}
     </BaseModal>
   );
 }
