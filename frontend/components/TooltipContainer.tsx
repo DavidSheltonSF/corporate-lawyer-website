@@ -14,7 +14,7 @@ export function TooltipContainer({ label, labelClassName, children }: Props) {
   return (
     <div className={'relative group w-fit h-fit'}>
       {children}
-      <span className={twMerge(baseStyles, labelClassName)}>{children}</span>{' '}
+      <span className={twMerge(baseStyles, labelClassName)}>{label}</span>{' '}
     </div>
   );
 }
