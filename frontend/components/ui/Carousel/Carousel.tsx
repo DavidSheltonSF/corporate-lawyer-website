@@ -1,6 +1,8 @@
 'use client';
 import { Children, ReactNode, useState } from 'react';
 import { CarouselButton } from './CarouselButton';
+import { ChevronLeftIcon } from '@/components/icons/ChevronLeftIcon';
+import { ChevronRightIcon } from '@/components/icons/ChevronRightIcon';
 
 interface Props {
   children: ReactNode;
@@ -72,7 +74,7 @@ export function Carousel({ children }: Props) {
   return (
     <div className="relative flex items-center justify-center self-center w-full lg:w-[616px]">
       <div
-        className="carousel-wrapper h-[580px] w-full md:w-[70%] lg:w-[400px] border border-color-secondary bg-black rounded-xl overflow-hidden"
+        className="carousel-wrapper h-[580px] w-full md:w-[70%] lg:w-[400px] border border-color-primary-light bg-color-white text-color-black rounded-xl overflow-hidden"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -93,14 +95,14 @@ export function Carousel({ children }: Props) {
         </div>
       </div>
       <div className={`absolute left-[8px] top-[50%] translate-y-[-50%]`}>
-        <CarouselButton onClickHandler={moveLeft} inert={slideIndex === 0}>
-          <img className="size-full" src="icons/arrow-back.svg" alt="" />
-        </CarouselButton>
+        <CarouselButton Icon={ChevronLeftIcon} onClickHandler={moveLeft} inert={slideIndex === 0} />
       </div>
       <div className={`absolute right-[8px] top-[50%] translate-y-[-50%]`}>
-        <CarouselButton onClickHandler={moveRight} inert={slideIndex === maxIndex}>
-          <img className="size-full" src="icons/arrow-forward.svg" alt="" />
-        </CarouselButton>
+        <CarouselButton
+          Icon={ChevronRightIcon}
+          onClickHandler={moveRight}
+          inert={slideIndex === maxIndex}
+        />
       </div>
       <div className="absolute left-1/2 translate-x-[-50%] bottom-[16px] flex gap-[16px]">
         {Array.from({ length: childrenCount }).map((indicator, index) => {
@@ -109,7 +111,7 @@ export function Carousel({ children }: Props) {
               key={index}
               className={`size-[20px] transition-all duration-800 rounded-full cursor-pointer ${
                 index === slideIndex
-                  ? 'bg-color-secondary brightness-110'
+                  ? 'bg-color-primary-light brightness-110'
                   : 'bg-gray-300 opacity-50'
               }`}
               onClick={() => {
