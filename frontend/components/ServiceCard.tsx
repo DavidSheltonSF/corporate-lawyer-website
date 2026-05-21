@@ -1,6 +1,6 @@
 import { IconCircle } from './IconCircle';
 import { ServiceModalProps } from '../types/ServiceModalProps';
-import { TooltipContainer } from './TooltipContainer';
+import { Tooltip } from './Tooltip';
 import { WithId } from '@/types/WithId';
 
 interface Props {
@@ -13,7 +13,7 @@ export function ServiceCard({ serviceDetails }: Props) {
   return (
     <article className="flex flex-col w-full h-[440px] lg:h-auto lg:w-[80%] shrink-0 group">
       <header className="flex justify-center">
-        <TooltipContainer
+        <Tooltip
           label={`Serviços - ${title}`}
           tooltipLabelProps={{
             position: {
@@ -26,7 +26,7 @@ export function ServiceCard({ serviceDetails }: Props) {
           }}
         >
           <IconCircle serviceAreaId={id} additionalStyles="size-[116px]" />
-        </TooltipContainer>
+        </Tooltip>
       </header>
       <main className="flex flex-col items-center text-center gap-[16px]">
         <h1 className="font-bold mt-[16px]">{title}</h1>

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { IconCircle } from './IconCircle';
-import { TooltipContainer } from './TooltipContainer';
+import { Tooltip } from './Tooltip';
 import { EmailIcon } from './icons/EmailIcon';
 
 export interface ProfessionalCardProps {
@@ -27,7 +27,7 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
   function renderSpecializations(): ReactNode {
     return specializations.map((specialization, index) => {
       return (
-        <TooltipContainer
+        <Tooltip
           key={index}
           label={specialization}
           tooltipLabelProps={{
@@ -45,7 +45,7 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
             serviceAreaId={specialization}
             additionalStyles="size-[56px] lg:size-[48px]"
           />
-        </TooltipContainer>
+        </Tooltip>
       );
     });
   }
@@ -76,7 +76,7 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
               href={`https://mail.google.com/mail/?view=cm&fs=1&to=${email}?su=Solicitação de apoio jurídico`}
               target="_blank"
             >
-              <EmailIcon label={`Envie um email para ${title}`} className='size-[56px]'/>
+              <EmailIcon label={`Envie um email para ${title}`} className="size-[56px]" />
             </a>
             <a href={`https://wa.me/5521969470527`} target="_blank">
               <img
