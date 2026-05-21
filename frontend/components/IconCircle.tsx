@@ -39,7 +39,7 @@ export function IconCircle(props: Props) {
 
   return (
     <div
-      className={`flex items-center justify-center rounded-full bg-color-secondary  overflow-hidden cursor-pointer transition-[box-shadow] duration-400 ease-in-out  group-hover:shadow-[var(--bright-yellow-shadow)] ${additionalStyles}`}
+      className={`flex items-center justify-center rounded-full bg-color-primary-light  overflow-hidden cursor-pointer transition-[box-shadow] duration-400 ease-in-out  group-hover:shadow-[var(--bright-yellow-shadow)] ${additionalStyles}`}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
       onClick={handleClick}
