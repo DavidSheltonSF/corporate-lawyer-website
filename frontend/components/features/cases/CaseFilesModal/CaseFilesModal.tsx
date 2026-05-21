@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { CaseFilesUploadModal } from '../CaseFilesUploadModal/CaseFilesUploadModal';
 import { CaseFilesTable } from '../CaseFilesTable';
 import { OpenUploadModalButton } from '@/components/OpenUploadModalButton';
+import { ModalFeedback } from '@/components/ui/Feedback/ModalFeedback';
 
 interface Props {
   caseId: string;
@@ -26,11 +27,17 @@ export function CaseFilesModal({ caseId, caseFiles, refetchCaseFiles, close }: P
 
   return (
     <BaseModal className="min-h-[50vh]" title="Arquivos" onClose={close}>
-      <div className="flex flex-col p-[24px] h-fit">
-        <div className="flex justify-end">
+      <div className="flex flex-col h-fit">
+        <div className="flex justify-end border-divider px-[24px] py-[8px]">
           <OpenUploadModalButton handleClick={() => setUploadModalIsOpen(true)} />
         </div>
-        <CaseFilesTable documents={caseFiles} />
+        <div className="flex px-[24px]">
+          {caseFiles.length > 0 ? (
+            <CaseFilesTable documents={caseFiles} />
+          ) : (
+            <ModalFeedback title="Nenhum arquivo encontrado" />
+          )}
+        </div>
       </div>
     </BaseModal>
   );
