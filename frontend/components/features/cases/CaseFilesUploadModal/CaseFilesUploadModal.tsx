@@ -76,7 +76,9 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
 
   return (
     <BaseModal
+      className="w-[30vw]"
       title="Envie um arquivo"
+      onConfirm={handleUploadFile}
       onClose={() => {
         onClose();
       }}
@@ -86,22 +88,6 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
         {!file && <UploadButton setFile={setFile} />}
         {renderFileCard()}
         <p className="text-start text-size-sm">Apenas PDFs de tamanho máximo de 10 MB</p>
-        <div className="flex gap-[24px] ml-auto">
-          <Button
-            onClick={() => onClose()}
-            variant={ButtonVariant.SECONDARY}
-            className="px-[16px] py-[4px]"
-          >
-            Voltar
-          </Button>
-          <Button
-            onClick={handleUploadFile}
-            variant={ButtonVariant.PRIMARY}
-            className="px-[16px] py-[4px]"
-          >
-            Confirmar
-          </Button>
-        </div>
       </div>
     </BaseModal>
   );
