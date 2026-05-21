@@ -26,7 +26,7 @@ export function CaseFilesModal({ caseId, caseFiles, refetchCaseFiles, close }: P
   }
 
   return (
-    <BaseModal className="h-[56vh]" title="Arquivos" onClose={close}>
+    <BaseModal title="Arquivos" onClose={close}>
       <div className="flex flex-col h-fit pb-[24px]">
         <div className="flex justify-end border-divider px-[24px] py-[8px]">
           <OpenUploadModalButton handleClick={() => setUploadModalIsOpen(true)} />
