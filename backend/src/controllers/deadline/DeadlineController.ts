@@ -67,7 +67,7 @@ export class DeadlineController implements Partial<IDeadlineController> {
       return HttpResponseFactory.makeBadRequest('Missing id param');
     }
 
-    const foundDeadline = await this.deadlineService.findById(id);
+    const foundDeadline = await this.deadlineService.findByCaseId(id);
 
     return HttpResponseFactory.makeOk(foundDeadline);
   };
