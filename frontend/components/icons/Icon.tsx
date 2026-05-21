@@ -1,7 +1,6 @@
-import { SVGProps } from 'react';
 import { IconProps } from './types';
 
-export function Icon(props: SVGProps<SVGSVGElement> & IconProps) {
+export function Icon(props: IconProps) {
   const { label, children } = props;
   return (
     <svg
