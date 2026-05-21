@@ -1,4 +1,4 @@
-import { IconProps } from '../icons/Icon';
+import { IconProps } from '../icons/types';
 
 interface Props {
   Icon: React.ComponentType<IconProps>;
