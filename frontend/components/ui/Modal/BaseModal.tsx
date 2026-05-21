@@ -15,7 +15,7 @@ interface Props {
   confirmText?: string;
   closeText?: string;
   children: React.ReactNode;
-  className: string;
+  className?: string;
 }
 
 export function BaseModal(props: Props) {
