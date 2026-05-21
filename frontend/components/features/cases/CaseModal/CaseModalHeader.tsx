@@ -1,6 +1,6 @@
 interface Props {
-  title: string;
-  processNumber: string;
+  title?: string;
+  processNumber?: string;
 }
 
 export function CaseModalHeader({ title, processNumber }: Props) {
