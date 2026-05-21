@@ -59,7 +59,7 @@ export class DeadlineController implements Partial<IDeadlineController> {
   };
 
   findByCaseId = async (httpRequest: HttpRequest) => {
-    await requireAutheticatedLawyer(httpRequest, this.userService);
+    // await requireAutheticatedLawyer(httpRequest, this.userService);
 
     const { id } = httpRequest.params;
 
@@ -67,9 +67,12 @@ export class DeadlineController implements Partial<IDeadlineController> {
       return HttpResponseFactory.makeBadRequest('Missing id param');
     }
 
-    const foundDeadline = await this.deadlineService.findByCaseId(id);
+    const caseDeadlines = await this.deadlineService.findByCaseId(id);
+     if (caseDeadlines === null) {
+       throw new NotFoundError(`Case with id '${id}' not found`);
+     }
 
-    return HttpResponseFactory.makeOk(foundDeadline);
+    return HttpResponseFactory.makeOk(caseDeadlines);
   };
 
   updateById = async (httpRequest: HttpRequest) => {
