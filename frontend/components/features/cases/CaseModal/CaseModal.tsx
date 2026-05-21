@@ -94,7 +94,7 @@ export function CaseModal({ data, close }: Props) {
     return <CaseModalSkeleton />;
   }
 
-  function renderNotFoundMessage() {
+  function renderErrorMessage() {
     return (
       <div className="flex flex-col items-center size-ful pt-[80px] px-[24px] text-center gap-[16px]">
         <h1>Não foi possível acessar o processo</h1>
@@ -121,7 +121,7 @@ export function CaseModal({ data, close }: Props) {
       }}
     >
       {isLoading && renderSkeleton()}
-      {error || !caseData ? renderNotFoundMessage() : renderContent()}
+      {error || !caseData ? renderErrorMessage() : renderContent()}
     </BaseModal>
   );
 }
