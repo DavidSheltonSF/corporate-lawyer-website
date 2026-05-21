@@ -3,16 +3,16 @@ import { useEffect, useState } from 'react';
 import { BaseModal } from '../../../ui/Modal/BaseModal';
 import { CaseModalSkeleton } from './CaseModalSkeleton';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
-import { OpenUploadModalButton } from '../../../OpenUploadModalButton';
 import { getCasePopulatedById } from '@/services/cases/getCasePopulatedById';
 import { WithId } from '@/types/WithId';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { handleLogout } from '@/lib/handleLogout';
 import { RequestState } from '@/types/RequestState';
-import { CaseFilesUploadModal } from '@/components/features/cases/CaseFilesUploadModal/CaseFilesUploadModal';
 import { CaseModalHeader } from './CaseModalHeader';
 import { CaseModalContent } from './CaseModalContent';
-import { CaseModalFiles } from './CaseModalFiles';
+import { Button } from '@/components/ui/Button/Button';
+import { DocumentIcon } from '@/components/icons/DocumentIcon';
+import { CaseFilesModal } from '../CaseFilesModal/CaseFilesModal';
 
 interface Props {
   data: unknown;
@@ -21,12 +21,11 @@ interface Props {
 
 CaseModal.Header = CaseModalHeader;
 CaseModal.Content = CaseModalContent;
-CaseModal.Files = CaseModalFiles;
 
 export function CaseModal({ data, close }: Props) {
   const [caseData, setCaseData] = useState<WithId<CaseWithRelations> | null>(null);
   const [requestState, setRequestState] = useState<RequestState | null>(null);
-  const [uploadModalIsOpen, setUploadModalIsOpen] = useState(false);
+  const [filesModalIsOpen, setFilesModalIsOpen] = useState(false);
   const isLoading = requestState?.status === 'loading';
   const error = requestState?.status === 'error';
 
@@ -61,14 +60,6 @@ export function CaseModal({ data, close }: Props) {
     };
   }, []);
 
-  function openUploadModal() {
-    setUploadModalIsOpen(true);
-  }
-
-  function closeUploadModal() {
-    setUploadModalIsOpen(false);
-  }
-
   function renderContent() {
     if (isLoading) {
       return <CaseModalSkeleton />;
@@ -87,14 +78,26 @@ export function CaseModal({ data, close }: Props) {
       <div className="flex flex-col size-full overflow-y-scroll">
         <CaseModal.Header title={caseData.title} processNumber={caseData.processNumber} />
         <CaseModal.Content caseData={caseData} />
-        <CaseModal.Files openUploadModal={openUploadModal} caseFiles={caseData.files} />
+        <footer className="py-[8px] px-[24px]">
+          <Button
+            onClick={() => setFilesModalIsOpen(true)}
+            className="bg-color-white hover:brightness-95 p-[8px]"
+          >
+            <DocumentIcon label="Arquivos" className="size-[24px]" />
+          </Button>
+        </footer>
       </div>
     );
   }
 
-  if (uploadModalIsOpen) {
+  if (filesModalIsOpen) {
     return (
-      <CaseFilesUploadModal refetchCase={fetchCaseData} caseId={caseId} close={closeUploadModal} />
+      <CaseFilesModal
+        caseId={caseData?.id || ''}
+        caseFiles={caseData?.files}
+        close={() => setFilesModalIsOpen(false)}
+        refetchCaseFiles={fetchCaseData}
+      />
     );
   }
 
