@@ -28,7 +28,7 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
     });
   }
   return (
-    <article className="flex self-center lg:self-start flex-col items-between justify-center bg-[#4D3B00] w-full md:w-[70%] lg:w-[760px] rounded-xl border border-[var(--secondary-color)] ">
+    <article className="flex self-center lg:self-start flex-col items-between justify-center w-full md:w-[70%] lg:w-[760px] rounded-xl bg-color-white text-color-black ">
       <main className="flex flex-col lg:flex-row">
         <div className="flex justify-center items-center lg:h-full p-[16px]">
           <img
@@ -38,7 +38,7 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
           />
         </div>
         <div className="flex lg:w-[70%] flex-col gap-[8px] px-[16px] pb-[16px]">
-          <h3 className=" lg:mt-[24px] font-bold text-color-secondary">{title}</h3>
+          <h3 className=" lg:mt-[24px] font-bold">{title}</h3>
           <p className="w-full">{description}</p>
         </div>
       </main>
