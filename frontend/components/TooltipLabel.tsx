@@ -1,42 +1,13 @@
-import { ReactNode } from 'react';
-
-export interface TooltipLabelProps {
-  color?: string;
-  fontSize?: string;
-  backgroundColor?: string;
-  position?: {
-    top?: string;
-    bottom?: string;
-    left?: string;
-    right?: string;
-    translateX?: string;
-    translateY?: string;
-  };
-}
+import { PropsWithChildren, ReactNode } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 interface Props {
-  tooltipLabelProps: TooltipLabelProps;
-  children: ReactNode;
+  className?: string;
 }
 
-export function TooltipLabel({ tooltipLabelProps, children }: Props) {
-  const { color, fontSize, backgroundColor, position } = tooltipLabelProps;
+export function TooltipLabel({ children, className }: PropsWithChildren<Props>) {
+  const baseStyles =
+    'absolute top-[-100%] left-1/2 -translate-x-1/2 hidden z-9999 group-hover:block fade-in-animation w-max p-[4px] rounded-md';
 
-  return (
-    <span
-      className={`absolute hidden z-9999 group-hover:block fade-in-animation-fast w-max p-[4px] rounded-md`}
-      style={{
-        color,
-        fontSize,
-        backgroundColor,
-        top: position?.top,
-        bottom: position?.bottom,
-        left: position?.left,
-        right: position?.right,
-        transform: `translate(${position?.translateX || 0}, ${position?.translateY || 0}`,
-      }}
-    >
-      {children}
-    </span>
-  );
+  return <span className={twMerge(baseStyles, className)}>{children}</span>;
 }

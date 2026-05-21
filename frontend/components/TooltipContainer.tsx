@@ -1,17 +1,17 @@
 import { ReactNode } from 'react';
-import { TooltipLabelProps, TooltipLabel } from './TooltipLabel';
+import { TooltipLabel } from './TooltipLabel';
 
 interface Props {
   label: string;
-  tooltipLabelProps: TooltipLabelProps;
-  additionalStyle?: string;
+  className?: string;
+  labelClassName?: string;
   children: ReactNode;
 }
-export function TooltipContainer({ label, tooltipLabelProps, additionalStyle, children }: Props) {
+export function TooltipContainer({ label, labelClassName, children }: Props) {
   return (
-    <div className={`relative group w-fit h-fit ${additionalStyle}`}>
+    <div className={'relative group w-fit h-fit'}>
       {children}
-      <TooltipLabel tooltipLabelProps={tooltipLabelProps}>{label}</TooltipLabel>
+      <TooltipLabel className={labelClassName}>{label}</TooltipLabel>
     </div>
   );
 }
