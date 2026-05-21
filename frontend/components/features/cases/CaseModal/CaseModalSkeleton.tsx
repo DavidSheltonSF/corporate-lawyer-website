@@ -22,17 +22,12 @@ export function CaseModalSkeleton() {
           <SkeletonLine className="w-50" />
         </div>
         <div className="flex flex-col gap-[8px] border-b border-black/50 p-[16px]">
-          <h1 className="text-2xl font-bold">Resumo</h1>
           <SkeletonLine className="w-190" />
           <SkeletonLine className="w-180" />
           <SkeletonLine className="" />
         </div>
       </div>
       <div className="flex flex-col gap-[24px] p-[24px]">
-        <div className="flex justify-between  w-full">
-          <h1>Arquivos</h1>
-        </div>
-        <div>{/* <CaseFilesTable documents={caseFiles} /> */}</div>
       </div>
     </div>
   );
