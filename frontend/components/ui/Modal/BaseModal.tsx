@@ -5,6 +5,7 @@ import { Button } from '../Button/Button';
 import { CloseIcon } from '@/components/icons/CloseIcon';
 import { twMerge } from 'tailwind-merge';
 import { ButtonVariant } from '../Button/ButtonVariant';
+import { PropsWithClassName } from '@/types/PropsWithClassName';
 
 interface Props {
   confirmButtonVariant?: ButtonVariant;
@@ -15,10 +16,9 @@ interface Props {
   confirmText?: string;
   closeText?: string;
   children: React.ReactNode;
-  className?: string;
 }
 
-export function BaseModal(props: Props) {
+export function BaseModal(props: PropsWithClassName<Props>) {
   const {
     confirmButtonVariant = ButtonVariant.PRIMARY,
     formId,
