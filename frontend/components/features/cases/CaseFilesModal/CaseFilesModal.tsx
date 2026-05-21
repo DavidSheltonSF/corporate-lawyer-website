@@ -28,8 +28,12 @@ export function CaseFilesModal({ caseId, caseFiles, refetchCaseFiles, close }: P
   return (
     <BaseModal title="Arquivos" onClose={close}>
       <div className="flex flex-col h-fit pb-[24px]">
-        <div className="flex justify-end border-divider px-[24px] py-[8px]">
-          <OpenUploadModalButton handleClick={() => setUploadModalIsOpen(true)} />
+        <div className="flex items-center border-divider px-[24px] py-[8px]">
+          <p className="font-bold">Arquivos enviados: {caseFiles.length}</p>
+          <OpenUploadModalButton
+            className="ml-auto"
+            handleClick={() => setUploadModalIsOpen(true)}
+          />
         </div>
         <div className="flex px-[24px]">
           {caseFiles.length > 0 ? (
