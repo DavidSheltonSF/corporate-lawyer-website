@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import { IconCircle } from './IconCircle';
 import { Tooltip } from './ui/Toltip/Tooltip';
 import { EmailIcon } from './icons/EmailIcon';
+import { WhatsAppIcon } from './icons/WhatsAppIcon';
 
 export interface ProfessionalCardProps {
   imagePath: string;
@@ -57,10 +58,9 @@ export function ProfessionalCard(props: ProfessionalCardProps) {
               <EmailIcon label={`Envie um email para ${title}`} className="size-[56px]" />
             </a>
             <a href={`https://wa.me/5521969470527`} target="_blank">
-              <img
-                className="size-[48px] lg:size-[42px]"
-                src="icons/whatsApp.svg"
-                alt={`Envie uma mensagem no WhatsApp para ${title} `}
+              <WhatsAppIcon
+                className="size-[48px] fill-color-black stroke-color-black"
+                label={`Envie uma mensagem no WhatsApp para ${title} `}
               />
             </a>
           </span>
