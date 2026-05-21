@@ -1,4 +1,6 @@
 'use client';
+import { Button } from '@/components/ui/Button/Button';
+import { ButtonVariant } from '@/components/ui/Button/ButtonVariant';
 import { ReactNode } from 'react';
 
 interface Props {
@@ -8,17 +10,12 @@ interface Props {
 
 export function InfoModal({ closeModal, children }: Props) {
   return (
-    <div
-      className={`flex relative flex-col size-[100%] font-bold p-[16px]`}
-    >
+    <div className={`flex relative flex-col size-[100%] font-bold p-[16px]`}>
       <div>{children}</div>
 
-      <button
-        className="w-full mt-auto rounded-full py-[8px] lg:absolute  lg:w-[88px] lg:rounded-md lg:right-[16px] bottom-[16px] bg-color-secondary text-color-black font-bold cursor-pointer hover:brightness-150"
-        onClick={() => closeModal()}
-      >
+      <Button className="min-lg:w-fit min-lg:ml-auto" variant={ButtonVariant.SECONDARY} onClick={() => closeModal()}>
         Ok
-      </button>
+      </Button>
     </div>
   );
 }
