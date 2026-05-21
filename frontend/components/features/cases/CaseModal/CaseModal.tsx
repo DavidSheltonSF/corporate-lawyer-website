@@ -13,6 +13,7 @@ import { CaseModalContent } from './CaseModalContent';
 import { Button } from '@/components/ui/Button/Button';
 import { DocumentIcon } from '@/components/icons/DocumentIcon';
 import { CaseFilesModal } from '../CaseFilesModal/CaseFilesModal';
+import { CaseModalFooter } from './CaseModalFooter';
 
 interface Props {
   data: unknown;
@@ -21,6 +22,7 @@ interface Props {
 
 CaseModal.Header = CaseModalHeader;
 CaseModal.Content = CaseModalContent;
+CaseModal.Footer = CaseModalFooter;
 
 export function CaseModal({ data, close }: Props) {
   const [caseData, setCaseData] = useState<WithId<CaseWithRelations> | null>(null);
@@ -78,14 +80,7 @@ export function CaseModal({ data, close }: Props) {
       <div className="flex flex-col size-full overflow-y-scroll">
         <CaseModal.Header title={caseData.title} processNumber={caseData.processNumber} />
         <CaseModal.Content caseData={caseData} />
-        <footer className="py-[8px] px-[24px]">
-          <Button
-            onClick={() => setFilesModalIsOpen(true)}
-            className="bg-color-white hover:brightness-95 p-[8px]"
-          >
-            <DocumentIcon label="Arquivos" className="size-[24px]" />
-          </Button>
-        </footer>
+        <CaseModal.Footer openFilesModal={() => setFilesModalIsOpen(true)} />
       </div>
     );
   }
