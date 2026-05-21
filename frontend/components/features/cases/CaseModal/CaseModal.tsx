@@ -16,6 +16,7 @@ import { CaseFilesModal } from '../CaseFilesModal/CaseFilesModal';
 import { CaseModalFooter } from './CaseModalFooter';
 import { NotFoundError } from '@/errors/NotFoundError';
 import { ServerError } from '@/errors/ServerError';
+import { ModalFeedback } from '@/components/ui/Feedback/ModalFeedback';
 
 interface Props {
   data: { caseId: string };
@@ -94,15 +95,6 @@ export function CaseModal({ data, close }: Props) {
     return <CaseModalSkeleton />;
   }
 
-  function renderErrorMessage() {
-    return (
-      <div className="flex flex-col items-center size-ful pt-[80px] px-[24px] text-center gap-[16px]">
-        <h1>Não foi possível acessar o processo</h1>
-        <h3>{requestState?.message}</h3>
-      </div>
-    );
-  }
-
   function renderContent() {
     return (
       <div className="flex flex-col size-full overflow-y-scroll">
@@ -121,7 +113,14 @@ export function CaseModal({ data, close }: Props) {
       }}
     >
       {isLoading && renderSkeleton()}
-      {error || !caseData ? renderErrorMessage() : renderContent()}
+      {error || !caseData ? (
+        <ModalFeedback
+          title="Não foi possível acessar o processo"
+          message={requestState?.message}
+        />
+      ) : (
+        renderContent()
+      )}
     </BaseModal>
   );
 }
