@@ -97,7 +97,7 @@ export function CaseModal({ data, close }: Props) {
 
   function renderContent() {
     return (
-      <div className="flex flex-col size-full overflow-y-scroll">
+      <div className="flex flex-col size-full">
         <CaseModal.Header title={caseData?.title} processNumber={caseData?.processNumber} />
         <CaseModal.Content caseData={caseData} />
         <CaseModal.Footer openFilesModal={() => setFilesModalIsOpen(true)} />
