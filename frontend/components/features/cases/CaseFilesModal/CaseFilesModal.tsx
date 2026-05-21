@@ -27,7 +27,7 @@ export function CaseFilesModal({ caseId, caseFiles, refetchCaseFiles, close }: P
 
   return (
     <BaseModal title="Arquivos" onClose={close}>
-      <div className="flex flex-col h-fit pb-[24px]">
+      <div className="flex flex-col max-h-[40vh] pb-[24px]">
         <div className="flex items-center border-divider px-[24px] py-[8px]">
           <p className="font-bold">Arquivos enviados: {caseFiles.length}</p>
           <OpenUploadModalButton
@@ -35,7 +35,7 @@ export function CaseFilesModal({ caseId, caseFiles, refetchCaseFiles, close }: P
             handleClick={() => setUploadModalIsOpen(true)}
           />
         </div>
-        <div className="flex px-[24px]">
+        <div className="flex px-[24px] overflow-y-scroll">
           {caseFiles.length > 0 ? (
             <CaseFilesTable documents={caseFiles} />
           ) : (
