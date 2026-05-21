@@ -47,7 +47,7 @@ export function CaseModalContent({ caseData }: Props) {
         <FieldValue field="estado" value={BrazilStateLabel[location.state]} />
         <FieldValue field="cidade" value={CityLabel[location.city]} />
       </div>
-      <div className="flex flex-col gap-[8px] p-[16px]">
+      <div className="flex flex-col gap-[8px] p-[24px]">
         <h1 className="text-2xl font-bold">Resumo</h1>
         <p>{caseData.description}</p>
       </div>
