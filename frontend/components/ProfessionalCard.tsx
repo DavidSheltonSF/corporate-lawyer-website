@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { IconCircle } from './IconCircle';
-import { Tooltip } from './Tooltip';
+import { Tooltip } from './ui/Toltip/Tooltip';
 import { EmailIcon } from './icons/EmailIcon';
 
 export interface ProfessionalCardProps {

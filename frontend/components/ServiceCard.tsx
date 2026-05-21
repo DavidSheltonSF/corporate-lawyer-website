@@ -1,6 +1,6 @@
 import { IconCircle } from './IconCircle';
 import { ServiceModalProps } from '../types/ServiceModalProps';
-import { Tooltip } from './Tooltip';
+import { Tooltip } from './ui/Toltip/Tooltip';
 import { WithId } from '@/types/WithId';
 
 interface Props {
