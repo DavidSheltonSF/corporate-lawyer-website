@@ -91,7 +91,7 @@ export class DeadlineCalculator {
     current.setHours(0, 0, 0, 0); //normalize hours
 
     let targetDate = new Date(dueDate);
-    targetDate.setHours(0, 0, 0, 0); //normalize hours
+    targetDate.setHours(23, 59, 59, 999); // the deadline ends in the end of the day
 
     if (!countOnlyBusinessDays) {
       const diff = targetDate.getTime() - current.getTime();
