@@ -16,6 +16,7 @@ export class DeadlineMapper {
       startDate,
       dueDate,
       status,
+      caseLocation,
     } = data;
     return {
       id: _id.toString(),
@@ -29,6 +30,7 @@ export class DeadlineMapper {
       type,
       priority,
       status,
+      caseLocation,
     };
   }
 }
