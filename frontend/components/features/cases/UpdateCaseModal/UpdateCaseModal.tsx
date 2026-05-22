@@ -78,7 +78,7 @@ export function UpdateCaseModal({ data, close }: Props) {
     <BaseModal
       title="Editar Processo"
       formId={formId}
-      className={'h-[70vh] min-lg:h-fit w-[90%] min-md:w-[60%] min-lg:w-fit'}
+      className={'h-[70vh] min-lg:h-fit w-[90%] min-md:w-[60%] min-lg:w-[680px]'}
       onClose={close}
     >
       <ShowSkeletonOnLoading isLoading={isLoading} Skeleton={LoadingModalScreeen}>
