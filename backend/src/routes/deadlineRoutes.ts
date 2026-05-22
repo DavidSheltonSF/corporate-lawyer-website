@@ -4,7 +4,7 @@ import { requireAuth } from '../middlewares/requireAuth';
 import { IDeadlineController } from '../controllers/deadline/IDeadlineController';
 
 export function deadlineRoutes(router: Router, deadlineController: IDeadlineController) {
-  router.post('/api/deadlines', expressHttpAdapter(deadlineController.create));
+  router.post('/api/deadlines', requireAuth, expressHttpAdapter(deadlineController.create));
   router.get(
     '/api/cases/:id/deadlines',
     requireAuth,
