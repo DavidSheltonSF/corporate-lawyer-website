@@ -4,16 +4,17 @@ import { CaseFilesUploadModal } from '../CaseFilesUploadModal/CaseFilesUploadMod
 import { CaseFilesTable } from '../CaseFilesTable';
 import { OpenUploadModalButton } from '@/components/OpenUploadModalButton';
 import { ModalFeedback } from '@/components/ui/Feedback/ModalFeedback';
+import { GlobalModalProps } from '@/types/GlobalModalProps';
 
 interface Props {
   caseId: string;
   caseFiles: any;
   refetchCaseFiles: () => void;
-  close: () => void;
 }
 
-export function CaseFilesModal({ caseId, caseFiles, refetchCaseFiles, close }: Props) {
+export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
   const [uploadModalIsOpen, setUploadModalIsOpen] = useState(false);
+  const { caseId, caseFiles, refetchCaseFiles } = payload;
 
   if (uploadModalIsOpen) {
     return (
@@ -26,7 +27,7 @@ export function CaseFilesModal({ caseId, caseFiles, refetchCaseFiles, close }: P
   }
 
   return (
-    <BaseModal className='w-[90%] min-md:w-[60%] min-lg:w-[480px]' title="Arquivos" onClose={close}>
+    <BaseModal className="w-[90%] min-md:w-[60%] min-lg:w-[480px]" title="Arquivos" onClose={close}>
       <div className="flex flex-col max-h-[40vh] pb-[24px]">
         <div className="flex items-center border-divider px-[24px] py-[8px]">
           <p className="font-bold">Arquivos enviados: {caseFiles.length}</p>

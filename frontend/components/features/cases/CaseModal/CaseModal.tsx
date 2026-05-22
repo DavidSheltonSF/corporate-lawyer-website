@@ -29,11 +29,10 @@ CaseModal.Footer = CaseModalFooter;
 export function CaseModal({ payload, close }: GlobalModalProps<Props>) {
   const [caseData, setCaseData] = useState<WithId<CaseWithRelations> | null>(null);
   const [requestState, setRequestState] = useState<RequestState | null>(null);
-  const [filesModalIsOpen, setFilesModalIsOpen] = useState(false);
   const isLoading = requestState?.status === 'loading';
   const error = requestState?.status === 'error';
   const caseId = payload.caseId;
-  const {openModal} = useModal()
+  const { openModal } = useModal();
 
   async function fetchCaseData() {
     try {
@@ -80,17 +79,6 @@ export function CaseModal({ payload, close }: GlobalModalProps<Props>) {
     };
   }, []);
 
-  if (filesModalIsOpen) {
-    return (
-      <CaseFilesModal
-        caseId={caseData?.id || ''}
-        caseFiles={caseData?.files}
-        close={() => setFilesModalIsOpen(false)}
-        refetchCaseFiles={fetchCaseData}
-      />
-    );
-  }
-
 
   function renderSkeleton() {
     return <CaseModalSkeleton />;
@@ -102,8 +90,14 @@ export function CaseModal({ payload, close }: GlobalModalProps<Props>) {
         <CaseModal.Header title={caseData?.title} processNumber={caseData?.processNumber} />
         <CaseModal.Content caseData={caseData} />
         <CaseModal.Footer
-          openFilesModal={() => setFilesModalIsOpen(true)}
-          openDeadlinesModal={() => openModal('deadlines', {caseId})}
+          openFilesModal={() =>
+            openModal('case-files', {
+              caseId,
+              caseFiles: caseData?.files,
+              refetchCaseFiles: fetchCaseData,
+            })
+          }
+          openDeadlinesModal={() => openModal('deadlines', { caseId })}
         />
       </div>
     );

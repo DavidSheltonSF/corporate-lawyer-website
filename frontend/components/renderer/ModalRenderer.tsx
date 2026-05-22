@@ -9,6 +9,7 @@ import { ConfirmModal } from '../ui/Modal/ConfirmModal';
 import { UpdateClientModal } from '../modals/UpdateClientModal';
 import { DeleteClientModal } from '../modals/DeleteClientModal';
 import { DeadlineModal } from '../features/cases/DeadlineModal/DeadlineModal';
+import { CaseFilesModal } from '../features/cases/CaseFilesModal/CaseFilesModal';
 
 export function ModalRenderer() {
   const { currentModal, modalData, closeModal } = useModal();
@@ -34,6 +35,9 @@ export function ModalRenderer() {
 
     case 'deadlines':
       return <DeadlineModal payload={modalData} close={closeModal} />;
+
+    case 'case-files':
+      return <CaseFilesModal payload={modalData} close={closeModal} />;
 
     default:
       return null;
