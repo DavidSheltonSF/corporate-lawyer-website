@@ -4,6 +4,7 @@ export enum CardActionType {
   EDIT = 'EDIT',
   DELETE = 'DELETE',
   CHECK_DEADLINES = 'CHECK_DEADLINES',
+  CHECK_FILES = 'CHECK_FILES',
 }
 
 export interface CardAction {
