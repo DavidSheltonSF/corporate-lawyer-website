@@ -16,7 +16,10 @@ export function ConfirmModal({ payload, close }: GlobalModalProps<Props>) {
     <BaseModal
       confirmButtonVariant={confirmButtonVariant}
       title={title}
-      onConfirm={onConfirm}
+      onConfirm={() => {
+        onConfirm();
+        close();
+      }}
       className={'w-[90%] min-md:w-[60%] min-lg:w-[400px] h-fit'}
       onClose={close}
     >

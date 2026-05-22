@@ -41,7 +41,6 @@ export function CaseCard({ caseData, deleteCase, refetchCases }: Props) {
       confirmButtonVariant: ButtonVariant.DANGER,
       onConfirm: async () => {
         await deleteCase(id);
-        openModal(null);
         refetchCases();
       },
     });
