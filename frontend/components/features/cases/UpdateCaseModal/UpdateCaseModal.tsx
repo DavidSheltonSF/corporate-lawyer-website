@@ -78,11 +78,11 @@ export function UpdateCaseModal({ data, close }: Props) {
     <BaseModal
       title="Editar Processo"
       formId={formId}
-      className={'h-[70vh] min-lg:h-fit'}
+      className={'h-[70vh] min-lg:h-fit w-[90%] min-md:w-[60%] min-lg:w-fit'}
       onClose={close}
     >
       <ShowSkeletonOnLoading isLoading={isLoading} Skeleton={LoadingModalScreeen}>
-        <div className="flex flex-col h-fit p-[16px]">
+        <div className="flex flex-col h-[500px] min-lg:h-fit p-[16px] overflow-y-auto">
           <UpdateCaseModal.Header requestState={requestState} />
           <UpdateCaseModal.Form formId={formId} caseData={caseData} action={alterCase} />
         </div>

@@ -86,7 +86,7 @@ export function BaseModal(props: PropsWithClassName<Props>) {
           <CloseIcon className="w-[32px] h-[32px]" />
         </Button>
       </div>
-      <div className="flex-1 h-fit overflow-y-auto min-lg:overflow-y-visible border-divider">
+      <div className="flex-1 h-fit border-divider">
         {children}
       </div>
       <footer className="py-[16px] px-[24px]">{renderFooterButtons()}</footer>

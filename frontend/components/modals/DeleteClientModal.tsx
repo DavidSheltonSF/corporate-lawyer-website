@@ -56,7 +56,7 @@ export function DeleteClientModal({ data, close }: Props) {
       title="Excluir cliente"
       onConfirm={onDeleteClick}
       confirmButtonVariant={confirmInputIsValid ? ButtonVariant.DANGER : ButtonVariant.DISABLED}
-      className="top-[15%] left-1/2 translate-x-[-50%] w-[360px] h-fit"
+      className="h-fit w-[90%] min-md:w-[356px]"
       onClose={close}
     >
       <div className="size-full flex flex-col text-center items-center justify-center gap-[8px] p-[8px]">

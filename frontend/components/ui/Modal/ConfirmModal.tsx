@@ -19,7 +19,7 @@ export function ConfirmModal({ data, close }: Props) {
       confirmButtonVariant={confirmButtonVariant}
       title={title}
       onConfirm={onConfirm}
-      className={'min-lg:w-[400px] h-fit'}
+      className={'w-[90%] min-md:w-[60%] min-lg:w-[400px] h-fit'}
       onClose={close}
     >
       <div className="flex flex-col size-full px-[24px] p-[24px] text-sm">
