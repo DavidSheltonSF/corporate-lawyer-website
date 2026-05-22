@@ -13,12 +13,12 @@ export function casesRoutes(router: Router, caseController: ICaseController) {
   router.get('/api/cases/:id', expressHttpAdapter(caseController.findById));
   router.get('/api/my/cases', requireAuth, expressHttpAdapter(caseController.findMyCases));
   router.get(
-    '/api/my/cases/:id/caseFiles',
+    '/api/cases/:id/files',
     requireAuth,
     expressHttpAdapter(caseController.findFilesByCaseId)
   );
   router.post(
-    '/api/my/cases/:id/caseFiles',
+    '/api/my/cases/:id/files',
     requireAuth,
     upload.single('file'),
     expressHttpAdapter(caseController.uploadMyFile)
