@@ -8,7 +8,10 @@ import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { requireAutheticatedLawyer } from '../helpers/requireAutheticatedLawyer';
 
 export class DeadlineController implements Partial<IDeadlineController> {
-  constructor(private deadlineService: IDeadlineService, private userService: IUserService) {}
+  constructor(
+    private deadlineService: IDeadlineService,
+    private userService: IUserService
+  ) {}
 
   create = async (httpRequest: HttpRequest) => {
     await requireAutheticatedLawyer(httpRequest, this.userService);
@@ -18,7 +21,8 @@ export class DeadlineController implements Partial<IDeadlineController> {
       throw new BadRequestError('Missing request body');
     }
 
-    const { caseId, lawyerId, type, priority, intimationDate, days, countingType } = body;
+    const { caseId, lawyerId, type, priority, intimationDate, days, countingType, caseLocation } =
+      body;
 
     const response = await this.deadlineService.create({
       caseId,
@@ -28,6 +32,7 @@ export class DeadlineController implements Partial<IDeadlineController> {
       intimationDate,
       days,
       countingType,
+      caseLocation,
     });
 
     return HttpResponseFactory.makeCreated(response);
@@ -68,9 +73,9 @@ export class DeadlineController implements Partial<IDeadlineController> {
     }
 
     const caseDeadlines = await this.deadlineService.findByCaseId(id);
-     if (caseDeadlines === null) {
-       throw new NotFoundError(`Case with id '${id}' not found`);
-     }
+    if (caseDeadlines === null) {
+      throw new NotFoundError(`Case with id '${id}' not found`);
+    }
 
     return HttpResponseFactory.makeOk(caseDeadlines);
   };
