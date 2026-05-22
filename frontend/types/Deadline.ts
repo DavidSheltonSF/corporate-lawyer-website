@@ -9,4 +9,5 @@ export interface Deadline {
   status: string;
   startDate: string;
   dueDate: string;
+  remainingDays: number;
 }
