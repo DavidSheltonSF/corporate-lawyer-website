@@ -1,4 +1,3 @@
-import { config } from 'dotenv';
 import { DeadlineModel } from '../../../models/DeadlineModel';
 import { MongodbDeadlineRepository } from './MongodbDeadlineRepository';
 import { Types } from 'mongoose';
@@ -7,7 +6,6 @@ import { DeadlineType } from '../../../types/DeadLineType';
 import { DeadlinePriority } from '../../../types/DeadLinePriority';
 import { DeadlineMocker } from '../../../tests/mocks/entities/DeadlineMocker';
 import { DeadlineStatus } from '../../../types/DeadLineStatus';
-config();
 
 jest.setTimeout(999999);
 
