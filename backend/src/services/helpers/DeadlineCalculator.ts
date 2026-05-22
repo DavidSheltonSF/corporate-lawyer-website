@@ -5,7 +5,7 @@ import { HolidaysProvider } from '../HolidaysProvider';
 export class DeadlineCalculator {
   constructor(
     private readonly holidaysProvider: HolidaysProvider,
-    private readonly config: { countingType: DeadlineCountingType; caseLocation?: CaseLocation }
+    public config: { countingType: DeadlineCountingType; caseLocation?: CaseLocation }
   ) {}
 
   isWeekend(date: Date): boolean {
