@@ -118,7 +118,7 @@ export function CaseModal({ data, close }: Props) {
 
   return (
     <BaseModal
-      className={'min-lg:w-[880px]'}
+      className={'w-[90%] min-md:w-[60%] min-lg:w-[880px]'}
       onClose={() => {
         close();
       }}
