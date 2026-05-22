@@ -3,6 +3,8 @@ import { CreateDeadlineDTO } from '../../../dtos/deadLine/CreateDeadlineDTO';
 import { DeadlineDTO } from '../../../dtos/deadLine/DeadlineDTO';
 import { UpdateDeadlineDTO } from '../../../dtos/deadLine/UpdateDeadlineDTO';
 import { IDeadlineModel } from '../../../models/DeadlineModel';
+import { BrazilState } from '../../../types/BrazilState';
+import { City } from '../../../types/City';
 import { DeadlineCountingType } from '../../../types/DeadlineCountingType';
 import { DeadlinePriority } from '../../../types/DeadLinePriority';
 import { DeadlineStatus } from '../../../types/DeadLineStatus';
@@ -20,6 +22,10 @@ export class DeadlineMocker {
       days: GenericMocker.mockInteger(1, 30),
       countingType: GenericMocker.mockEnum(DeadlineCountingType),
       priority: GenericMocker.mockEnum(DeadlinePriority),
+      caseLocation: {
+        city: GenericMocker.mockEnum(City),
+        state: GenericMocker.mockEnum(BrazilState)
+      }
     };
   }
 
@@ -45,6 +51,10 @@ export class DeadlineMocker {
       dueDate: new Date('2025-05-08').toISOString(),
       priority: GenericMocker.mockEnum(DeadlinePriority),
       status: GenericMocker.mockEnum(DeadlineStatus),
+      caseLocation: {
+        city: GenericMocker.mockEnum(City),
+        state: GenericMocker.mockEnum(BrazilState),
+      },
     };
   }
 
@@ -61,6 +71,10 @@ export class DeadlineMocker {
       dueDate: new Date('2025-05-08').toISOString(),
       priority: GenericMocker.mockEnum(DeadlinePriority),
       status: GenericMocker.mockEnum(DeadlineStatus),
+      caseLocation: {
+        city: GenericMocker.mockEnum(City),
+        state: GenericMocker.mockEnum(BrazilState),
+      },
     };
   }
 
@@ -76,6 +90,10 @@ export class DeadlineMocker {
       startDate: new Date('2025-05-05'),
       dueDate: new Date('2025-05-08'),
       priority: GenericMocker.mockEnum(DeadlinePriority),
+      caseLocation: {
+        city: GenericMocker.mockEnum(City),
+        state: GenericMocker.mockEnum(BrazilState),
+      },
     };
   }
 }
