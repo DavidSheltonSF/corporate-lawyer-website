@@ -9,8 +9,8 @@ export type ModalType =
   | 'update-client'
   | 'delete-client'
   | 'upload-case-files'
-  | 'notifications'
   | 'confirm'
+  | 'deadlines'
   | null;
 
 export interface ModalContext {
