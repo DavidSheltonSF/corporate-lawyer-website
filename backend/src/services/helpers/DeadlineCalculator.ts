@@ -1,5 +1,6 @@
 import { CaseLocation } from '../../types/CaseLocation';
 import { DeadlineCountingType } from '../../types/DeadlineCountingType';
+import { normalizeDate } from '../../utils/normalizeDate';
 import { HolidaysProvider } from '../HolidaysProvider';
 
 export class DeadlineCalculator {
@@ -18,7 +19,7 @@ export class DeadlineCalculator {
       throw new Error('Missing config params');
     }
     const { caseLocation } = this.config;
-    
+
     const { state, city } = caseLocation;
     const dateString = date.toISOString();
     const formatted = dateString.split('T')[0] as string;
@@ -58,16 +59,17 @@ export class DeadlineCalculator {
       throw new Error('Missing config params');
     }
     const { countingType } = this.config;
-    let current = new Date(date);
+    let current = normalizeDate(new Date(date));
 
     const countAllDays = countingType === DeadlineCountingType.DIAS_CORRIDOS;
 
     let addedDays = 1; // including start date
     while (addedDays < days) {
-      if (countAllDays || this.isBusinessDay(current)) {
-        addedDays++;
-      }
       current.setDate(current.getDate() + 1);
+      if (countAllDays || !this.isBusinessDay(current)) {
+        continue;
+      }
+      addedDays++;
     }
 
     return current;
