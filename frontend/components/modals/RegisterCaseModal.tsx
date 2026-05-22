@@ -57,14 +57,14 @@ export function RegisterCaseModal({ isOpen, close, selectedClientId }: Props) {
     isOpen && (
       <BaseModal
         className={
-          'w-[90%] min-lg:w-[678px] h-[90%] min-lg:h-fit'
+          'w-[90%] min-md:w-[60%] min-lg:w-[678px] h-[90%] h-fit'
         }
         onClose={() => {
           close();
           setRequestState(null);
         }}
       >
-        <div className="flex flex-col h-fit items-center p-[16px]">
+        <div className="flex flex-col h-[60vh] p-[24px] overflow-y-auto">
           <div className="">
             <h2>Cadastrar Novo Processo</h2>
           </div>
