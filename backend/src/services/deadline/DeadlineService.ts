@@ -6,6 +6,7 @@ import { CaseRepository } from '../../repositories/CaseRepository';
 import { DeadlineRepository } from '../../repositories/DeadlineRepository';
 import { DeadlineCountingType } from '../../types/DeadlineCountingType';
 import { WithId } from '../../types/WithId';
+import { toDateOnlyString } from '../../utils/toDateOnly';
 import { DeadlineCalculator } from '../helpers/DeadlineCalculator';
 import { getBrazilState } from '../helpers/getBrazilState';
 import { getCity } from '../helpers/getCity';
@@ -48,7 +49,11 @@ export class DeadlineService implements Partial<IDeadlineService> {
       days
     );
 
-    return await this.deadlineRepository.create(data, startDate, dueDate);
+    return await this.deadlineRepository.create(
+      data,
+      toDateOnlyString(startDate),
+      toDateOnlyString(dueDate)
+    );
   }
 
   async findAll(): Promise<WithId<DeadlineDTO>[]> {
