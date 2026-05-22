@@ -26,7 +26,7 @@ export function CaseFilesModal({ caseId, caseFiles, refetchCaseFiles, close }: P
   }
 
   return (
-    <BaseModal title="Arquivos" onClose={close}>
+    <BaseModal className='w-[90%] min-md:w-[60%] min-lg:w-[480px]' title="Arquivos" onClose={close}>
       <div className="flex flex-col max-h-[40vh] pb-[24px]">
         <div className="flex items-center border-divider px-[24px] py-[8px]">
           <p className="font-bold">Arquivos enviados: {caseFiles.length}</p>
