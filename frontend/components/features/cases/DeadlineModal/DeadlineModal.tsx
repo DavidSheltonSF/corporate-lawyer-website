@@ -62,14 +62,14 @@ export function DeadlineModal({ caseId, close }: Props) {
 
   return (
     <BaseModal className="w-[540px]" title="Prazos" onClose={close}>
-      <div className="flex flex-col max-h-[40vh] pb-[24px]">
+      <div className="flex flex-col max-h-[40vh]">
         <div className="flex items-center p-[24px] border-divider">
           <span className="font-bold">Quantidade: {deadlines.length}</span>
           <Button className="border border-black bg-color-white hover:brightness-95 ml-auto">
             Adicionar Prazo
           </Button>
         </div>
-        <div className="flex flex-col gap-[16px] items-center border-divider px-[24px] py-[8px]">
+        <div className="flex flex-col gap-[16px] border-divider p-[24px] overflow-y-auto">
           {renderDeadlines}
         </div>
       </div>
