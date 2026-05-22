@@ -38,8 +38,7 @@ export class DeadlineService implements Partial<IDeadlineService> {
     const validCountingType = getDeadlineCountingType(countingType);
 
     const deadlineCalculator = new DeadlineCalculator(this.holidaysProvider, {
-      state: validState,
-      city: validCity,
+      caseLocation: { state: validState, city: validCity },
       countingType: validCountingType,
     });
 
