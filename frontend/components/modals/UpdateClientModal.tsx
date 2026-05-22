@@ -11,16 +11,17 @@ import { handleLogout } from '@/lib/handleLogout';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { ShowSkeletonOnLoading } from '../ui/ShowSkeletonOnLoading';
 import { LoadingModalScreeen } from '../ui/Modal/LoadingModalScreen';
+import { GlobalModalProps } from '@/types/GlobalModalProps';
 
 interface Props {
-  data: { clientId: string; loadClients: () => void };
-  close: () => void;
+  clientId: string;
+  loadClients: () => void;
 }
 
-export function UpdateClientModal({ data, close }: Props) {
+export function UpdateClientModal({ payload, close }: GlobalModalProps<Props>) {
   const [clientData, setClientData] = useState<SafeUser | null>(null);
   const [requestState, setRequestState] = useState<RequestState | null>(null);
-  const { clientId, loadClients } = data;
+  const { clientId, loadClients } = payload;
 
   async function getUser() {
     try {

@@ -16,23 +16,23 @@ import { NotFoundError } from '@/errors/NotFoundError';
 import { ServerError } from '@/errors/ServerError';
 import { ModalFeedback } from '@/components/ui/Feedback/ModalFeedback';
 import { useModal } from '@/hooks/useModal';
+import { GlobalModalProps } from '@/types/GlobalModalProps';
 
 interface Props {
-  data: { caseId: string };
-  close: Function;
+  caseId: string;
 }
 
 CaseModal.Header = CaseModalHeader;
 CaseModal.Content = CaseModalContent;
 CaseModal.Footer = CaseModalFooter;
 
-export function CaseModal({ data, close }: Props) {
+export function CaseModal({ payload, close }: GlobalModalProps<Props>) {
   const [caseData, setCaseData] = useState<WithId<CaseWithRelations> | null>(null);
   const [requestState, setRequestState] = useState<RequestState | null>(null);
   const [filesModalIsOpen, setFilesModalIsOpen] = useState(false);
   const isLoading = requestState?.status === 'loading';
   const error = requestState?.status === 'error';
-  const caseId = data.caseId;
+  const caseId = payload.caseId;
   const {openModal} = useModal()
 
   async function fetchCaseData() {

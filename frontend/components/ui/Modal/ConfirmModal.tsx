@@ -1,19 +1,17 @@
 'use case';
+import { GlobalModalProps } from '@/types/GlobalModalProps';
 import { ButtonVariant } from '../Button/ButtonVariant';
 import { BaseModal } from './BaseModal';
 
 interface Props {
-  data: {
-    title?: string;
-    message: string;
-    confirmButtonVariant?: ButtonVariant;
-    onConfirm: () => void;
-  };
-  close: () => void;
+  title?: string;
+  message: string;
+  confirmButtonVariant?: ButtonVariant;
+  onConfirm: () => void;
 }
 
-export function ConfirmModal({ data, close }: Props) {
-  const { title, message, onConfirm, confirmButtonVariant = ButtonVariant.DEFAULT } = data;
+export function ConfirmModal({ payload, close }: GlobalModalProps<Props>) {
+  const { title, message, onConfirm, confirmButtonVariant = ButtonVariant.DEFAULT } = payload;
   return (
     <BaseModal
       confirmButtonVariant={confirmButtonVariant}

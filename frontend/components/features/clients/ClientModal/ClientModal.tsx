@@ -15,24 +15,23 @@ import { RequestState } from '@/types/RequestState';
 import { CardSkeleton } from '@/components/ui/Card/CardSkeleton';
 import { WithId } from '@/types/WithId';
 import { RegisterCaseModal } from '@/components/modals/RegisterCaseModal';
+import { GlobalModalProps } from '@/types/GlobalModalProps';
 
 interface Props {
-  data: unknown;
-  close: () => void;
+  clientId: string;
 }
 
 ClientModal.Header = ClientModalHeader;
 ClientModal.Info = ClientModalInfo;
 ClientModal.Cases = ClientModalCases;
 
-export function ClientModal({ close, data }: Props) {
+export function ClientModal({ payload, close }: GlobalModalProps<Props>) {
   const [clientData, setClientData] = useState<(SafeUser & { cases: WithId<Case>[] }) | null>(null);
   const [registerCaseModalIsOpen, setRegisterCaseModalIsOpen] = useState(false);
   const [requestState, setRequestState] = useState<RequestState | null>(null);
   const isLoading = requestState?.status === 'loading';
   const error = requestState?.status === 'error';
-  const clientModalData = data as { clientId: string };
-  const clientId = clientModalData.clientId;
+  const { clientId } = payload;
 
   useEffect(() => {
     async function fetchClientData() {

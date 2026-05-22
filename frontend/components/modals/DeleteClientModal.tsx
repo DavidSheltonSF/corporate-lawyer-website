@@ -9,16 +9,17 @@ import { handleLogout } from '@/lib/handleLogout';
 import { WithId } from '@/types/WithId';
 import { UserSlice } from '@/types/UserSlice';
 import { ButtonVariant } from '../ui/Button/ButtonVariant';
+import { GlobalModalProps } from '@/types/GlobalModalProps';
 
 interface Props {
-  data: { clientSlice: WithId<UserSlice>; loadClients: () => void };
-  close: () => void;
+  clientSlice: WithId<UserSlice>;
+  loadClients: () => void;
 }
 
-export function DeleteClientModal({ data, close }: Props) {
+export function DeleteClientModal({ payload, close }: GlobalModalProps<Props>) {
   const [requestState, setRequestState] = useState<RequestState | null>(null);
   const [confirmInputText, setConfrimInputText] = useState('');
-  const { clientSlice, loadClients } = data;
+  const { clientSlice, loadClients } = payload;
   const { id, firstName, lastName } = clientSlice;
 
   const confirmDeletionString = `DELETAR ${firstName} ${lastName}`.toUpperCase();

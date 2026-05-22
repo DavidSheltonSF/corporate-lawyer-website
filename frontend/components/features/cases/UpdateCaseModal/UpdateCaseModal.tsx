@@ -12,19 +12,20 @@ import { ShowSkeletonOnLoading } from '../../../ui/ShowSkeletonOnLoading';
 import { LoadingModalScreeen } from '../../../ui/Modal/LoadingModalScreen';
 import { UpdateCaseModalHeader } from './UpdateCaseModalHeader';
 import { UpdateCaseModalForm } from './UpdateCaseModalForm';
+import { GlobalModalProps } from '@/types/GlobalModalProps';
 
 interface Props {
-  data: { caseId: string; refetchCases: () => void };
-  close: () => void;
+  caseId: string;
+  refetchCases: () => void;
 }
 
 UpdateCaseModal.Header = UpdateCaseModalHeader;
 UpdateCaseModal.Form = UpdateCaseModalForm;
 
-export function UpdateCaseModal({ data, close }: Props) {
+export function UpdateCaseModal({ payload, close }: GlobalModalProps<Props>) {
   const [caseData, setCaseData] = useState<WithId<Case> | null>(null);
   const [requestState, setRequestState] = useState<RequestState | null>(null);
-  const { caseId, refetchCases } = data;
+  const { caseId, refetchCases } = payload;
 
   async function getUser() {
     try {

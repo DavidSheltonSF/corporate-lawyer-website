@@ -8,14 +8,14 @@ import { Deadline } from '@/types/Deadline';
 import { Button } from '@/components/ui/Button/Button';
 import { formatDate } from '@/lib/formatDate';
 import { DeadlineStatus } from '@/types/DeadlineStatus';
+import { GlobalModalProps } from '@/types/GlobalModalProps';
 
 interface Props {
-  data: { caseId: string };
-  close: () => void;
+  caseId: string;
 }
 
-export function DeadlineModal({ data, close }: Props) {
-  const { caseId } = data;
+export function DeadlineModal({ payload, close }: GlobalModalProps<Props>) {
+  const { caseId } = payload;
   const [requestState, setRequestState] = useState<RequestState | null>(null);
   const [deadlines, setDeadlines] = useState<WithId<Deadline>[]>([]);
 

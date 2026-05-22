@@ -15,25 +15,25 @@ export function ModalRenderer() {
 
   switch (currentModal) {
     case 'client':
-      return <ClientModal data={modalData} close={closeModal} />;
+      return <ClientModal payload={modalData} close={closeModal} />;
 
     case 'case':
-      return <CaseModal data={modalData} close={closeModal} />;
+      return <CaseModal payload={modalData} close={closeModal} />;
 
     case 'update-case':
-      return <UpdateCaseModal data={modalData} close={closeModal} />;
+      return <UpdateCaseModal payload={modalData} close={closeModal} />;
 
     case 'update-client':
-      return <UpdateClientModal data={modalData} close={closeModal} />;
+      return <UpdateClientModal payload={modalData} close={closeModal} />;
 
     case 'delete-client':
-      return <DeleteClientModal data={modalData} close={closeModal} />;
+      return <DeleteClientModal payload={modalData} close={closeModal} />;
 
     case 'confirm':
-      return <ConfirmModal data={modalData} close={closeModal} />;
+      return <ConfirmModal payload={modalData} close={closeModal} />;
 
     case 'deadlines':
-      return <DeadlineModal data={modalData} close={closeModal} />;
+      return <DeadlineModal payload={modalData} close={closeModal} />;
 
     default:
       return null;
