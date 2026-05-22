@@ -1,3 +1,5 @@
+import { CaseLocationDTO } from "../case/CaseLocationDTO";
+
 export interface DeadlineDTO {
   caseId: string;
   lawyerId: string;
@@ -9,4 +11,5 @@ export interface DeadlineDTO {
   status: string;
   startDate: string;
   dueDate: string;
+  caseLocation: CaseLocationDTO
 }
