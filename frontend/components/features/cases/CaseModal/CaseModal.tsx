@@ -10,8 +10,6 @@ import { handleLogout } from '@/lib/handleLogout';
 import { RequestState } from '@/types/RequestState';
 import { CaseModalHeader } from './CaseModalHeader';
 import { CaseModalContent } from './CaseModalContent';
-import { Button } from '@/components/ui/Button/Button';
-import { DocumentIcon } from '@/components/icons/DocumentIcon';
 import { CaseFilesModal } from '../CaseFilesModal/CaseFilesModal';
 import { CaseModalFooter } from './CaseModalFooter';
 import { NotFoundError } from '@/errors/NotFoundError';
