@@ -58,15 +58,16 @@ const DeadlineSchema = new Schema<DeadlineMongoDocument>(
 );
 
 DeadlineSchema.virtual('status').get(function (this: DeadlineMongoDocument) {
-  const today = new Date();
-  if (today < this.startDate) {
+  const today = normalizeDate(new Date());
+  if (today < new Date(this.startDate)) {
     return DeadlineStatus.PENDENTE;
   }
 
-  if (today > this.dueDate) {
+  const duedate = normalizeDate(new Date(this.dueDate));
+  if (today > duedate) {
     return DeadlineStatus.VENCIDO;
   }
-
+  
   return DeadlineStatus.EM_ANDAMENTO;
 });
 
