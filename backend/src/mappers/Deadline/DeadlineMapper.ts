@@ -4,15 +4,31 @@ import { WithId } from '../../types/WithId';
 
 export class DeadlineMapper {
   static persistenceToPresentation(data: WithMongoId<any>): WithId<DeadlineDTO> {
-    const { _id, caseId, lawyerId, intimationDate, startDate, dueDate } = data;
+    const {
+      _id,
+      caseId,
+      lawyerId,
+      priority,
+      type,
+      intimationDate,
+      days,
+      countingType,
+      startDate,
+      dueDate,
+      status,
+    } = data;
     return {
       id: _id.toString(),
       caseId: caseId.toString(),
       lawyerId: lawyerId.toString(),
       intimationDate: intimationDate.toISOString(),
+      days,
+      countingType,
       startDate: startDate.toISOString(),
       dueDate: dueDate.toISOString(),
-      ...data,
+      type,
+      priority,
+      status,
     };
   }
 }
