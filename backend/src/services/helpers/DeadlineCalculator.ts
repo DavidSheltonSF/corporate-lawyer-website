@@ -5,7 +5,7 @@ import { HolidaysProvider } from '../HolidaysProvider';
 export class DeadlineCalculator {
   constructor(
     private readonly holidaysProvider: HolidaysProvider,
-    public config: { countingType: DeadlineCountingType; caseLocation?: CaseLocation }
+    public config?: { countingType: DeadlineCountingType; caseLocation: CaseLocation }
   ) {}
 
   isWeekend(date: Date): boolean {
@@ -14,10 +14,11 @@ export class DeadlineCalculator {
   }
 
   isHoliday(date: Date): boolean {
-    const { caseLocation } = this.config;
-    if (!caseLocation) {
+    if (!this.config) {
       throw new Error('Missing config params');
     }
+    const { caseLocation } = this.config;
+    
     const { state, city } = caseLocation;
     const dateString = date.toISOString();
     const formatted = dateString.split('T')[0] as string;
@@ -40,6 +41,9 @@ export class DeadlineCalculator {
   }
 
   getStartDate(date: Date): Date {
+    if (!this.config) {
+      throw new Error('Missing config params');
+    }
     const { countingType } = this.config;
     if (countingType === DeadlineCountingType.DIAS_CORRIDOS) {
       const startDate = new Date(date);
@@ -50,6 +54,9 @@ export class DeadlineCalculator {
   }
 
   getDueDate(date: Date, days: number): Date {
+    if (!this.config) {
+      throw new Error('Missing config params');
+    }
     const { countingType } = this.config;
     let current = new Date(date);
 
@@ -73,6 +80,9 @@ export class DeadlineCalculator {
   }
 
   getRemainingDays(dueDate: Date): number {
+    if (!this.config) {
+      throw new Error('Missing config params');
+    }
     const { countingType } = this.config;
 
     const countOnlyBusinessDays = countingType === DeadlineCountingType.DIAS_UTEIS;
