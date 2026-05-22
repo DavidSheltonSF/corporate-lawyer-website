@@ -8,6 +8,7 @@ import { UpdateCaseModal } from '../features/cases/UpdateCaseModal/UpdateCaseMod
 import { ConfirmModal } from '../ui/Modal/ConfirmModal';
 import { UpdateClientModal } from '../modals/UpdateClientModal';
 import { DeleteClientModal } from '../modals/DeleteClientModal';
+import { DeadlineModal } from '../features/cases/DeadlineModal/DeadlineModal';
 
 export function ModalRenderer() {
   const { currentModal, modalData, closeModal } = useModal();
@@ -30,6 +31,9 @@ export function ModalRenderer() {
 
     case 'confirm':
       return <ConfirmModal data={modalData} close={closeModal} />;
+
+    case 'deadlines':
+      return <DeadlineModal data={modalData} close={closeModal} />;
 
     default:
       return null;

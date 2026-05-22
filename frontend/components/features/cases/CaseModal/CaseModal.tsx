@@ -17,7 +17,7 @@ import { CaseModalFooter } from './CaseModalFooter';
 import { NotFoundError } from '@/errors/NotFoundError';
 import { ServerError } from '@/errors/ServerError';
 import { ModalFeedback } from '@/components/ui/Feedback/ModalFeedback';
-import { DeadlineModal } from '../DeadlineModal/DeadlineModal';
+import { useModal } from '@/hooks/useModal';
 
 interface Props {
   data: { caseId: string };
@@ -32,10 +32,10 @@ export function CaseModal({ data, close }: Props) {
   const [caseData, setCaseData] = useState<WithId<CaseWithRelations> | null>(null);
   const [requestState, setRequestState] = useState<RequestState | null>(null);
   const [filesModalIsOpen, setFilesModalIsOpen] = useState(false);
-  const [deadlinesModalIsOpen, setDeadlinesModalIsOpen] = useState(false);
   const isLoading = requestState?.status === 'loading';
   const error = requestState?.status === 'error';
   const caseId = data.caseId;
+  const {openModal} = useModal()
 
   async function fetchCaseData() {
     try {
@@ -93,11 +93,6 @@ export function CaseModal({ data, close }: Props) {
     );
   }
 
-  if (deadlinesModalIsOpen) {
-    return (
-      <DeadlineModal caseId={caseData?.id || ''} close={() => setDeadlinesModalIsOpen(false)} />
-    );
-  }
 
   function renderSkeleton() {
     return <CaseModalSkeleton />;
@@ -110,7 +105,7 @@ export function CaseModal({ data, close }: Props) {
         <CaseModal.Content caseData={caseData} />
         <CaseModal.Footer
           openFilesModal={() => setFilesModalIsOpen(true)}
-          openDeadlinesModal={() => setDeadlinesModalIsOpen(true)}
+          openDeadlinesModal={() => openModal('deadlines', {caseId})}
         />
       </div>
     );

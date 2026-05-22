@@ -10,11 +10,12 @@ import { formatDate } from '@/lib/formatDate';
 import { DeadlineStatus } from '@/types/DeadlineStatus';
 
 interface Props {
-  caseId: string;
+  data: { caseId: string };
   close: () => void;
 }
 
-export function DeadlineModal({ caseId, close }: Props) {
+export function DeadlineModal({ data, close }: Props) {
+  const { caseId } = data;
   const [requestState, setRequestState] = useState<RequestState | null>(null);
   const [deadlines, setDeadlines] = useState<WithId<Deadline>[]>([]);
 
