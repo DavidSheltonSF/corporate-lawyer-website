@@ -6,16 +6,17 @@ import { DeadlineCountingType } from '../types/DeadlineCountingType';
 import { CaseLocation } from '../types/CaseLocation';
 import { City } from '../types/City';
 import { BrazilState } from '../types/BrazilState';
+import { normalizeDate } from '../utils/normalizeDate';
 
 export interface IDeadlineModel {
   caseId: Types.ObjectId;
   lawyerId: Types.ObjectId;
   type: DeadlineType;
   countingType: DeadlineCountingType;
-  intimationDate: Date;
+  intimationDate: string;
   days: number;
-  startDate: Date;
-  dueDate: Date;
+  startDate: string;
+  dueDate: string;
   priority: DeadlinePriority;
   caseLocation: CaseLocation;
 }
@@ -36,10 +37,10 @@ const DeadlineSchema = new Schema<DeadlineMongoDocument>(
       enum: Object.values(DeadlineCountingType),
       required: true,
     },
-    intimationDate: { type: Date, required: true },
+    intimationDate: { type: String, required: true },
     days: { type: Number, required: true },
-    startDate: { type: Date, required: true },
-    dueDate: { type: Date, required: true },
+    startDate: { type: String, required: true },
+    dueDate: { type: String, required: true },
     priority: {
       type: String,
       enum: Object.values(DeadlinePriority),

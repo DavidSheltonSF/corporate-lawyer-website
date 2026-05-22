@@ -9,13 +9,13 @@ import { CreateDeadlineDTO } from '../../../dtos/deadLine/CreateDeadlineDTO';
 export class MongodbDeadlineRepository implements DeadlineRepository {
   async create(
     data: CreateDeadlineDTO,
-    startDate: Date,
-    dueDate: Date
+    startDate: string,
+    dueDate: string
   ): Promise<WithId<DeadlineDTO>> {
     const deadline = await DeadlineModel.create({
       ...data,
-      startDate,
-      dueDate,
+      startDate: startDate.toString(),
+      dueDate: dueDate.toString(),
     });
     return DeadlineMapper.persistenceToPresentation(deadline);
   }
