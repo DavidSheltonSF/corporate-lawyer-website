@@ -1,4 +1,4 @@
-import { formatData } from '@/lib/formatData';
+import { formatDate } from '@/lib/formatDate';
 import { CaseFile } from '@/types/CaseFile';
 import { useAuthenticatedUserContext } from '@/hooks/useAuthenticatedUserContext';
 import { CaseFilesTableButton } from '@/components/features/cases/CaseFilesTableButton';
@@ -27,7 +27,7 @@ export function CaseFilesTable({ documents }: Props) {
         return (
           <div key={index} className="row">
             <div className="overflow-wrap">{document.name}</div>
-            <div className="hidden min-md:block">{`${formatData(document.uploadedAt)} - ${
+            <div className="hidden min-md:block">{`${formatDate(document.uploadedAt)} - ${
               uploadedByMe
                 ? 'Me'
                 : document.uploadedBy.firstName + ' ' + document.uploadedBy.lastName
