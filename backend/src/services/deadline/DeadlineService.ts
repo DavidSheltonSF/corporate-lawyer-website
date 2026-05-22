@@ -4,6 +4,7 @@ import { UpdateDeadlineDTO } from '../../dtos/deadLine/UpdateDeadlineDTO';
 import { CaseNotFoundError } from '../../errors/domain/CaseNotFoundError';
 import { CaseRepository } from '../../repositories/CaseRepository';
 import { DeadlineRepository } from '../../repositories/DeadlineRepository';
+import { DeadlineCountingType } from '../../types/DeadlineCountingType';
 import { WithId } from '../../types/WithId';
 import { DeadlineCalculator } from '../helpers/DeadlineCalculator';
 import { getBrazilState } from '../helpers/getBrazilState';
@@ -54,15 +55,48 @@ export class DeadlineService implements Partial<IDeadlineService> {
     return await this.deadlineRepository.findAll();
   }
 
-  async findById(id: string): Promise<WithId<DeadlineDTO> | null> {
-    return await this.deadlineRepository.findById(id);
+  async findById(id: string): Promise<WithId<DeadlineDTO & { remainingDays: number }> | null> {
+    const deadline = await this.deadlineRepository.findById(id);
+    if (!deadline) {
+      return null;
+    }
+
+    const { caseLocation, dueDate } = deadline;
+    const city = getCity(caseLocation.city);
+    const state = getBrazilState(caseLocation.state);
+    const countingType = getDeadlineCountingType(deadline.countingType);
+    const deadlineCalculator = new DeadlineCalculator(this.holidaysProvider, {
+      countingType,
+      caseLocation: { city, state },
+    });
+
+    const remainingDays = deadlineCalculator.getRemainingDays(new Date(dueDate));
+
+    return { ...deadline, remainingDays };
   }
 
   async findByCaseId(id: string): Promise<WithId<DeadlineDTO>[] | null> {
     const caseExists = await this.caseRepository.exists(id);
     if (!caseExists) return null;
 
-    return await this.deadlineRepository.findByCaseId(id);
+    const deadlineCalculator = new DeadlineCalculator(this.holidaysProvider);
+
+    const deadlines = await this.deadlineRepository.findByCaseId(id);
+
+    const mappedDeadlines = deadlines.map((deadline) => {
+      const { caseLocation, dueDate } = deadline;
+      const city = getCity(caseLocation.city);
+      const state = getBrazilState(caseLocation.state);
+      const countingType = getDeadlineCountingType(deadline.countingType);
+      deadlineCalculator.config = {
+        countingType: countingType,
+        caseLocation: { city, state },
+      };
+      const remainingDays = deadlineCalculator.getRemainingDays(new Date(dueDate));
+      return { ...deadline, remainingDays };
+    });
+
+    return mappedDeadlines;
   }
 
   async updateById(id: string, data: UpdateDeadlineDTO): Promise<WithId<DeadlineDTO> | null> {

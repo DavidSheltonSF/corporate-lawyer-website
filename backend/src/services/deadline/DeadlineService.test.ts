@@ -39,11 +39,10 @@ describe(`Test ${DeadlineService.name}`, () => {
     deadlineData.days = 5;
 
     const deadlineCalculator = new DeadlineCalculator(holidaysProvider, {
-      state: BrazilState.RIO_DE_JANEIRO,
-      city: City.BELFORD_ROXO,
+      caseLocation: { state: BrazilState.RIO_DE_JANEIRO, city: City.BELFORD_ROXO },
       countingType: DeadlineCountingType.DIAS_CORRIDOS,
     });
-    
+
     const startDate = deadlineCalculator.getStartDate(new Date(deadlineData.intimationDate));
     const dueDate = deadlineCalculator.getDueDate(new Date(startDate), deadlineData.days);
 
