@@ -11,6 +11,7 @@ export type ModalType =
   | 'upload-case-files'
   | 'confirm'
   | 'deadlines'
+  | 'case-files'
   | null;
 
 export interface ModalContext {
