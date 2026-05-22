@@ -1,6 +1,7 @@
 import { BrazilState } from '../../types/BrazilState';
 import { City } from '../../types/City';
 import { DeadlineCountingType } from '../../types/DeadlineCountingType';
+import { createDate } from '../../utils/createDate';
 import { HolidaysProvider } from '../HolidaysProvider';
 
 export class DeadlineCalculator {
@@ -54,7 +55,7 @@ export class DeadlineCalculator {
     let current = new Date(date);
     const { countingType } = this.config;
     const countAllDays = countingType === DeadlineCountingType.DIAS_CORRIDOS;
-    
+
     let addedDays = 1; // including start date
     while (addedDays < days) {
       if (countAllDays || this.isBusinessDay(current)) {
@@ -70,5 +71,34 @@ export class DeadlineCalculator {
     const startDate = this.getStartDate(intimationDate);
     const dueDate = this.getDueDate(startDate, days);
     return { startDate, dueDate };
+  }
+
+  getRemainingDays(dueDate: Date): number {
+    const { countingType } = this.config;
+    const countOnlyBusinessDays = countingType === DeadlineCountingType.DIAS_UTEIS;
+
+    let current = new Date();
+    current.setHours(0, 0, 0, 0); //normalize hours
+
+    let targetDate = new Date(dueDate);
+    targetDate.setHours(0, 0, 0, 0); //normalize hours
+
+    if (!countOnlyBusinessDays) {
+      const diff = targetDate.getTime() - current.getTime();
+
+      return Math.ceil(diff / (1000 * 60 * 60 * 24));
+    }
+
+    let daysCount = 0;
+    while (current < targetDate) {
+      current.setDate(current.getDate() + 1);
+
+      if (countOnlyBusinessDays && !this.isBusinessDay(current)) {
+        continue;
+      }
+      daysCount++;
+    }
+
+    return daysCount;
   }
 }

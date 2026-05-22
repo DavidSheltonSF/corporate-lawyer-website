@@ -126,4 +126,17 @@ describe(`Testing ${DeadlineCalculator.name}`, () => {
      expect(startDate.toISOString()).toBe(createDate(2026, 5, 2).toISOString());
      expect(dueDate.toISOString()).toBe(createDate(2026, 5, 6).toISOString());
    });
+
+    test('should return the remaining days properly given a dueDate', () => {
+      const { brazilHolidaysProvider } = makeSut();
+
+      const deadlineCalculator = new DeadlineCalculator(brazilHolidaysProvider, {
+        state: BrazilState.RIO_DE_JANEIRO,
+        city: City.BELFORD_ROXO,
+        countingType: DeadlineCountingType.DIAS_UTEIS,
+      });
+
+      const remainingDays = deadlineCalculator.getRemainingDays(createDate(2026, 5, 25))
+      console.log(remainingDays)
+    });
 });
