@@ -8,7 +8,7 @@ interface Props {
 }
 export function Tooltip({ label, labelClassName, children }: Props) {
   const baseStyles =
-    'absolute top-[-120%] py-[4px] px-[8px] shadow-soft  left-1/2 -translate-x-1/2 hidden z-9999 group-hover:block fade-in-animation w-max p-[4px] rounded-md';
+    'absolute top-[-120%] py-[4px] px-[8px] shadow-soft left-1/2 -translate-x-1/2 hidden z-9999 group-hover:block fade-in-animation w-max p-[4px] rounded-md bg-color-white';
 
   return (
     <div className={'relative group w-fit h-fit'}>
