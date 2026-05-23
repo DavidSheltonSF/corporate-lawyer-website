@@ -6,17 +6,20 @@ import { CloseIcon } from '@/components/icons/CloseIcon';
 import { twMerge } from 'tailwind-merge';
 import { ButtonVariant } from '../Button/ButtonVariant';
 import { PropsWithClassName } from '@/types/PropsWithClassName';
+import { BaseModalFooter } from './BaseModalFooter';
 
 interface Props {
   confirmButtonVariant?: ButtonVariant;
   title?: string;
   formId?: string;
   onConfirm?: () => void;
-  onClose: Function;
+  onClose: () => void;
   confirmText?: string;
   closeText?: string;
   children: React.ReactNode;
 }
+
+BaseModal.Footer = BaseModalFooter;
 
 export function BaseModal(props: PropsWithClassName<Props>) {
   const {
@@ -48,27 +51,6 @@ export function BaseModal(props: PropsWithClassName<Props>) {
     };
   }, []);
 
-  function renderFooterButtons() {
-    return (
-      <div className="flex flex-col min-lg:flex-row justify-end items-center gap-[8px] min-lg:gap-[16px]">
-        <Button className="h-fit" variant={ButtonVariant.SECONDARY} onClick={() => onClose()}>
-          {closeText}
-        </Button>
-        {(onConfirm || formId) && (
-          <Button
-            className="h-fit"
-            form={formId}
-            type={formId ? 'submit' : 'button'}
-            variant={confirmButtonVariant}
-            onClick={onConfirm}
-          >
-            {confirmText}
-          </Button>
-        )}
-      </div>
-    );
-  }
-
   const positionStyles = 'fixed top-[4vh] left-1/2 translate-x-[-50%] z-20';
   const sizeStyles = 'h-fit';
   const baseStyles =
@@ -88,7 +70,14 @@ export function BaseModal(props: PropsWithClassName<Props>) {
         </Button>
       </div>
       <div className="flex-1 h-fit border-divider">{children}</div>
-      <footer className="hidden min-lg:block py-[16px] px-[24px]">{renderFooterButtons()}</footer>
+      <BaseModal.Footer
+        onClose={onClose}
+        onConfirm={onConfirm}
+        closeText={closeText}
+        confirmText={confirmText}
+        formId={formId}
+        confirmButtonVariant={confirmButtonVariant}
+      />
     </div>
   );
 }
