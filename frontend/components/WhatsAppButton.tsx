@@ -1,3 +1,5 @@
+import { WhatsAppIcon } from './icons/WhatsAppIcon';
+
 interface Props {
   whatsAppNumber?: string;
 }
@@ -10,11 +12,9 @@ export function WhatsAppButton({ whatsAppNumber }: Props) {
         href={`https://wa.me/${whatsAppNumber}`}
         target="_blank"
       >
-        <img
-          className="size-[70%]"
-          src="/icons/whatsapp.svg"
-          alt="Envie uma mensagem no WhatsApp"
-          loading="lazy"
+        <WhatsAppIcon
+          className="fill-color-white size-[65%]"
+          label="Envie uma mensagem no WhatsApp"
         />
       </a>
     </div>
