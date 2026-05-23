@@ -1,4 +1,5 @@
 import { WhatsAppIcon } from './icons/WhatsAppIcon';
+import { Button } from './ui/Button/Button';
 
 interface Props {
   whatsAppNumber?: string;
@@ -6,9 +7,9 @@ interface Props {
 
 export function WhatsAppButton({ whatsAppNumber }: Props) {
   return (
-    <div className="fixed right-[24px] bottom-[24px] size-[64px] bg-green-400 rounded-full hover:brightness-120">
+    <Button className="fixed right-[24px] bottom-[24px] size-[64px] bg-green-400 rounded-full p-0">
       <a
-        className="flex size-full items-center justify-center cursor-pointer"
+        className="flex size-full items-center justify-center"
         href={`https://wa.me/${whatsAppNumber}`}
         target="_blank"
       >
@@ -17,6 +18,6 @@ export function WhatsAppButton({ whatsAppNumber }: Props) {
           label="Envie uma mensagem no WhatsApp"
         />
       </a>
-    </div>
+    </Button>
   );
 }
