@@ -26,7 +26,7 @@ export function PriorityBadge({ priority }: Props) {
 
   const current = config[priority];
 
-  const baseStyles = `flex gap-[8px] w-fit p-[8px] rounded-sm font-bold`;
+  const baseStyles = `flex items-center gap-[8px] w-fit p-[8px] rounded-sm font-bold`;
   const dynamicStyles = `${current.className}`;
 
   return (
