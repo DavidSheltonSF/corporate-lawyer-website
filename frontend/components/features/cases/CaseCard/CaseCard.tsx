@@ -50,12 +50,17 @@ export function CaseCard({ caseData, deleteCase, refetchCases }: Props) {
     openModal('deadlines', { caseId: caseData.id });
   }
 
+  function openFilesModal() {
+    openModal('case-files', { caseId: caseData.id });
+  }
+
   return (
     <Card
       actions={[
         makeCardAction(CardActionType.EDIT, openUpdateCaseModal),
         makeCardAction(CardActionType.DELETE, openConfirmModal),
         makeCardAction(CardActionType.CHECK_DEADLINES, openDeadlinesModal),
+        makeCardAction(CardActionType.CHECK_FILES, openFilesModal),
       ]}
       className="relative w-full h-fit min-md:w-[720px]"
       onClick={() => openModal('case', { caseId: id })}
