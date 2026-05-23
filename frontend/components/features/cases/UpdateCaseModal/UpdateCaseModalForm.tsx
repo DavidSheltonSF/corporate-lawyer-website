@@ -77,7 +77,7 @@ export function UpdateCaseModalForm({ formId, caseId, refetchCases }: Props) {
     <ShowSkeletonOnLoading isLoading={isLoading} Skeleton={LoadingModalScreeen}>
       <form
         id={formId}
-        className="flex flex-col gap-[16px] size-full overflow-y-auto"
+        className="flex flex-col gap-[16px] size-full overflow-y-auto p-[24px]"
         action={alterCase}
       >
         <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
