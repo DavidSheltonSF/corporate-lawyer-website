@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/Button/Button';
 import { formatDate } from '@/lib/formatDate';
 import { DeadlineStatus } from '@/types/DeadlineStatus';
 import { GlobalModalProps } from '@/types/GlobalModalProps';
+import { LoadingModalScreeen } from '@/components/ui/Modal/LoadingModalScreen';
 
 interface Props {
   caseId: string;
@@ -18,10 +19,12 @@ export function DeadlineModal({ payload, close }: GlobalModalProps<Props>) {
   const { caseId } = payload;
   const [requestState, setRequestState] = useState<RequestState | null>(null);
   const [deadlines, setDeadlines] = useState<WithId<Deadline>[]>([]);
+  const isLoading = requestState?.status === 'loading';
 
   async function fetchDeadlines() {
     try {
       setRequestState({ status: 'loading' });
+
       const deadlinesData = await getCaseDeadlines(caseId);
       setDeadlines(deadlinesData);
       setRequestState({ status: 'ok' });
@@ -61,8 +64,18 @@ export function DeadlineModal({ payload, close }: GlobalModalProps<Props>) {
     );
   });
 
+  const BaseModalProps = { className: 'w-[540px]', title: 'Prazos', onClose: close };
+
+  if (isLoading) {
+    return (
+      <BaseModal {...BaseModalProps}>
+        <LoadingModalScreeen />
+      </BaseModal>
+    );
+  }
+
   return (
-    <BaseModal className="w-[540px]" title="Prazos" onClose={close}>
+    <BaseModal {...BaseModalProps}>
       <div className="flex flex-col max-h-[40vh]">
         <div className="flex items-center p-[24px] border-divider">
           <span className="font-bold">Quantidade: {deadlines.length}</span>
