@@ -105,6 +105,7 @@ export function CaseModal({ payload, close }: GlobalModalProps<Props>) {
 
   return (
     <BaseModal
+    omitFooter
       className={'w-[90%] min-md:w-[60%] min-lg:w-[880px]'}
       onClose={() => {
         close();
