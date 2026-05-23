@@ -12,18 +12,18 @@ interface Props {
 export function DeadlineCard({ deadline }: Props) {
   return (
     <Card key={deadline.id} className="shadow-soft w-full p-[24px]">
-      <div className="flex justify-between  items-end gap-[16px]">
-        <div className="flex flex-1 flex-col gap-[8px]">
-          <h3 className="">{deadline.type}</h3>
+      <div className="flex flex-col min-md:flex-row min-lg:justify-between min-md:items-end gap-[16px] text-sm min-md:text-md">
+        <div className="flex flex-col gap-[8px]">
+          <p className="font-bold">{deadline.type}</p>
           <RemainingDaysBadge remainingDays={deadline.remainingDays} />
         </div>
-        <div className="flex-1 ">
-          <p>
+        <div className='order-3 min-md:order-none' >
+          <p className="text-muted">
             {formatDate(deadline.startDate)} - {formatDate(deadline.dueDate)}
           </p>
           <p className="text-muted">Prazo final</p>
         </div>
-        <div className="flex flex-1  flex-col gap-[8px]">
+        <div className="flex flex-col gap-[8px]">
           <PriorityBadge priority={deadline.priority} />
         </div>
       </div>
