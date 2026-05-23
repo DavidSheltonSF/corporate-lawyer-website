@@ -16,6 +16,7 @@ interface Props {
   onClose: () => void;
   confirmText?: string;
   closeText?: string;
+  omitFooter?: boolean;
   children: React.ReactNode;
 }
 
@@ -32,6 +33,7 @@ export function BaseModal(props: PropsWithClassName<Props>) {
     children,
     title,
     className,
+    omitFooter = false,
   } = props;
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -70,14 +72,16 @@ export function BaseModal(props: PropsWithClassName<Props>) {
         </Button>
       </div>
       <div className="flex-1 h-fit border-divider">{children}</div>
-      <BaseModal.Footer
-        onClose={onClose}
-        onConfirm={onConfirm}
-        closeText={closeText}
-        confirmText={confirmText}
-        formId={formId}
-        confirmButtonVariant={confirmButtonVariant}
-      />
+      {!omitFooter && (
+        <BaseModal.Footer
+          onClose={onClose}
+          onConfirm={onConfirm}
+          closeText={closeText}
+          confirmText={confirmText}
+          formId={formId}
+          confirmButtonVariant={confirmButtonVariant}
+        />
+      )}
     </div>
   );
 }
