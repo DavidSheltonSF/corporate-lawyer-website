@@ -41,7 +41,7 @@ export function DeadlineModal({ payload, close }: GlobalModalProps<Props>) {
   });
 
   const BaseModalProps = {
-    className: 'w-[90%] min-md:w-[60%] min-lg:w-[740px]',
+    className: 'w-[90%] min-md:w-[60%] min-lg:w-[640px]',
     title: 'Prazos',
     onClose: close,
   };
