@@ -3,13 +3,11 @@ import { useEffect, useState } from 'react';
 import { RequestState } from '@/types/RequestState';
 import { WithId } from '@/types/WithId';
 import { getCaseDeadlines } from '@/services/cases/getCaseDeadlines';
-import { Card } from '@/components/ui/Card/Card';
 import { Deadline } from '@/types/Deadline';
 import { Button } from '@/components/ui/Button/Button';
-import { formatDate } from '@/lib/formatDate';
-import { DeadlineStatus } from '@/types/DeadlineStatus';
 import { GlobalModalProps } from '@/types/GlobalModalProps';
 import { LoadingModalScreeen } from '@/components/ui/Modal/LoadingModalScreen';
+import { DeadlineCard } from '../DeadLineCard/DeadlineCard';
 
 interface Props {
   caseId: string;
@@ -38,30 +36,8 @@ export function DeadlineModal({ payload, close }: GlobalModalProps<Props>) {
     fetchDeadlines();
   }, []);
 
-  function renderDeadlineStatus(deadline: WithId<Deadline>) {
-    const isExpired = deadline.status === DeadlineStatus.VENCIDO;
-    if (isExpired) {
-      return <p>Expirou</p>;
-    }
-
-    if (deadline.remainingDays === 0) {
-      return <p>Expira hoje</p>;
-    }
-
-    return <p>Expira em {deadline.remainingDays}</p>;
-  }
-
   const renderDeadlines = deadlines.map((deadline) => {
-    return (
-      <Card key={deadline.id} className="border border-black w-full p-[24px]">
-        <p>{deadline.type}</p>
-        {renderDeadlineStatus(deadline)}
-        <p>
-          {formatDate(deadline.startDate)} - {formatDate(deadline.dueDate)}
-        </p>
-        <p>{deadline.priority} prioridate</p>
-      </Card>
-    );
+    return <DeadlineCard key={deadline.id} deadline={deadline} />;
   });
 
   const BaseModalProps = { className: 'w-[540px]', title: 'Prazos', onClose: close };
