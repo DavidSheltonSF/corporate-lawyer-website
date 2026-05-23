@@ -10,7 +10,7 @@ interface Props {
 
 export function CaseModalFooter({ openFilesModal, openDeadlinesModal }: Props) {
   return (
-    <footer className="flex gap-[16px] py-[8px] px-[24px]">
+    <footer className="flex gap-[16px] p-[24px]">
       <Tooltip label="Arquivos">
         <Button onClick={openFilesModal} className="bg-color-white hover:brightness-95 p-[8px]">
           <DocumentIcon className="size-[24px]" />
