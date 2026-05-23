@@ -40,7 +40,11 @@ export function DeadlineModal({ payload, close }: GlobalModalProps<Props>) {
     return <DeadlineCard key={deadline.id} deadline={deadline} />;
   });
 
-  const BaseModalProps = { className: 'w-[90%] min-md:w-[60%] min-lg:w-[740px]', title: 'Prazos', onClose: close };
+  const BaseModalProps = {
+    className: 'w-[90%] min-md:w-[60%] min-lg:w-[740px]',
+    title: 'Prazos',
+    onClose: close,
+  };
 
   if (isLoading) {
     return (
@@ -53,9 +57,9 @@ export function DeadlineModal({ payload, close }: GlobalModalProps<Props>) {
   return (
     <BaseModal {...BaseModalProps}>
       <div className="flex flex-col max-h-[58vh]">
-        <div className="flex items-center p-[24px] border-divider">
+        <div className="flex flex-col min-lg:flex-row min-lg:items-center p-[24px] border-divider gap-[16px] min-lg:gap-0">
           <span className="font-bold">Quantidade: {deadlines.length}</span>
-          <Button className="border border-black bg-color-white hover:brightness-95 ml-auto">
+          <Button className="border border-black bg-color-white hover:brightness-95 min-lg:ml-auto">
             Adicionar Prazo
           </Button>
         </div>
