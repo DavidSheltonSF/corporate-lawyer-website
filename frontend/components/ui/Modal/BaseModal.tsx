@@ -51,16 +51,12 @@ export function BaseModal(props: PropsWithClassName<Props>) {
   function renderFooterButtons() {
     return (
       <div className="flex flex-col min-lg:flex-row justify-end items-center gap-[8px] min-lg:gap-[16px]">
-        <Button
-          className="w-full min-lg:h-fit"
-          variant={ButtonVariant.SECONDARY}
-          onClick={() => onClose()}
-        >
+        <Button className="h-fit" variant={ButtonVariant.SECONDARY} onClick={() => onClose()}>
           {closeText}
         </Button>
         {(onConfirm || formId) && (
           <Button
-            className="w-full min-lg:h-fit"
+            className="h-fit"
             form={formId}
             type={formId ? 'submit' : 'button'}
             variant={confirmButtonVariant}
@@ -92,7 +88,7 @@ export function BaseModal(props: PropsWithClassName<Props>) {
         </Button>
       </div>
       <div className="flex-1 h-fit border-divider">{children}</div>
-      <footer className="py-[16px] px-[24px]">{renderFooterButtons()}</footer>
+      <footer className="hidden min-lg:block py-[16px] px-[24px]">{renderFooterButtons()}</footer>
     </div>
   );
 }
