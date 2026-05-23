@@ -1,1 +1,1 @@
-export type DeadlineUrgency = 'OVERDUE' | 'WARNING' | 'SAFE';
+export type DeadlineUrgency = 'OVERDUE' | 'DANGER' | 'WARNING' | 'SAFE';
