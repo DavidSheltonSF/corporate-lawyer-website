@@ -26,9 +26,7 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
 
   async function fetchCaseFiles() {
     try {
-      setRequestState({ status: 'loading' });
-      await new Promise((resolve) => setTimeout(resolve, 4000))
-      
+      setRequestState({ status: 'loading' });      
       const data = await getCaseFiles(caseId);
       setCaseFiles(data);
       setRequestState({ status: 'ok' });
