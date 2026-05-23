@@ -83,7 +83,7 @@ export function UpdateCaseModal({ payload, close }: GlobalModalProps<Props>) {
       onClose={close}
     >
       <ShowSkeletonOnLoading isLoading={isLoading} Skeleton={LoadingModalScreeen}>
-        <div className="flex flex-col h-[500px] min-lg:h-fit p-[24px] overflow-y-auto">
+        <div className="flex flex-col h-[500px] min-lg:h-fit p-[24px] overflow-visible">
           <UpdateCaseModal.Header requestState={requestState} />
           <UpdateCaseModal.Form formId={formId} caseData={caseData} action={alterCase} />
         </div>

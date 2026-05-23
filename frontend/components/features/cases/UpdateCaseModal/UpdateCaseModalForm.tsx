@@ -17,7 +17,7 @@ interface Props {
 
 export function UpdateCaseModalForm({ formId, caseData, action }: Props) {
   return (
-    <form id={formId} className="flex flex-col gap-[16px] size-full" action={action}>
+    <form id={formId} className="flex flex-col gap-[16px] size-full overflow-y-auto" action={action}>
       <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
         <InputWithLabel
           id="title-input"
