@@ -15,9 +15,14 @@ export function RemainingDaysBadge({ remainingDays }: Props) {
       className: 'bg-red-100 text-red-700',
     },
 
+    DANGER: {
+      label: 'Vence hoje',
+      className: 'bg-orange-100 text-orange-700',
+    },
+
     WARNING: {
       label: `Vence em ${remainingDays} dias`,
-      className: 'bg-orange-100 text-orange-700',
+      className: 'bg-yellow-100 text-yellow-700',
     },
 
     SAFE: {
