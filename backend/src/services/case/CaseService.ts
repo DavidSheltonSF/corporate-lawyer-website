@@ -14,6 +14,7 @@ import { DuplicateUniqueFieldError } from '../../errors/domain/DuplicateUniqueFi
 import { CaseDTO } from '../../dtos/case/CaseDTO';
 import { CaseEvent } from '../../events/case/CaseEvents';
 import { IEventBus } from '../../events/IEventBus';
+import { validateCasePartial } from '../validators/cases/validateCasePartial';
 
 export class CaseService implements ICaseService {
   constructor(
@@ -45,6 +46,7 @@ export class CaseService implements ICaseService {
 
   async updateById(id: string, data: UpdateCaseDTO): Promise<WithId<CaseDTO> | null> {
     try {
+      validateCasePartial(data);
       const updatedCase = await this.caseRepository.updateById(id, data);
       if (!updatedCase) {
         return null;
