@@ -3,14 +3,14 @@ import { GlobalModalProps } from '@/types/GlobalModalProps';
 import { ButtonVariant } from '../Button/ButtonVariant';
 import { BaseModal } from './BaseModal';
 
-interface Props {
+export interface ConfirmModalProps {
   title?: string;
   message: string;
   confirmButtonVariant?: ButtonVariant;
   onConfirm: () => void;
 }
 
-export function ConfirmModal({ payload, close }: GlobalModalProps<Props>) {
+export function ConfirmModal({ payload, close }: GlobalModalProps<ConfirmModalProps>) {
   const { title, message, onConfirm, confirmButtonVariant = ButtonVariant.DEFAULT } = payload;
   return (
     <BaseModal
