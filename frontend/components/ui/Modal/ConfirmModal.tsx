@@ -11,7 +11,7 @@ export interface ConfirmModalProps {
 }
 
 export function ConfirmModal({ payload, close }: GlobalModalProps<ConfirmModalProps>) {
-  const { title, message, onConfirm, confirmButtonVariant = ButtonVariant.DEFAULT } = payload;
+  const { title, message, onConfirm, confirmButtonVariant } = payload;
   return (
     <BaseModal
       confirmButtonVariant={confirmButtonVariant}
