@@ -12,10 +12,11 @@ import { BrazilState } from '@/types/BrazilState';
 import { Case } from '@/types/Case';
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { City } from '@/types/City';
-import { RequestState } from '@/types/RequestState';
 import { WithId } from '@/types/WithId';
 import { LoadingModalScreeen } from '@/components/ui/Modal/LoadingModalScreen';
 import { useEffect, useState } from 'react';
+import { useModal } from '@/hooks/useModal';
+import { ConfirmModalProps } from '@/components/ui/Modal/ConfirmModal';
 
 interface Props {
   formId: string;
@@ -25,54 +26,64 @@ interface Props {
 
 export function UpdateCaseModalForm({ formId, caseId, refetchCases }: Props) {
   const [caseData, setCaseData] = useState<WithId<Case> | null>(null);
-  const [requestState, setRequestState] = useState<RequestState | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const { openModal } = useModal();
+
+  function openConfirmDialog(message: string, onCloseGoBack: boolean = false) {
+    openModal<ConfirmModalProps>('confirm', {
+      message,
+      onConfirm: () => {
+        if (onCloseGoBack) {
+          openModal('update-case', { formId, caseId, refetchCases });
+          return;
+        }
+        openModal(null);
+      },
+    });
+  }
 
   async function getUser() {
     try {
-      setRequestState({ status: 'loading' });
+      setIsLoading(true);
       const data = await getCaseById(caseId || '');
       setCaseData(data);
-      setRequestState({
-        status: 'ok',
-        message: `Processo carregado com sucesso.`,
-      });
     } catch (error: any) {
       console.log(error);
-      setRequestState({ status: 'error', message: error.message });
+
       if (error instanceof UnauthorizedError) {
         handleLogout();
       }
+      openConfirmDialog(error.message);
+    } finally {
+      setIsLoading(false);
     }
   }
 
   async function alterCase(formData: FormData) {
+    let message = '';
     try {
       const data = await updateCaseById(caseId || '', formData);
-      setRequestState({
-        status: 'ok',
-        message: `Processo atualizado com sucesso.`,
-      });
       setCaseData(data);
       refetchCases();
+      message = 'Processo atualizado com sucesso';
     } catch (error: any) {
       console.log(error);
-      setRequestState({ status: 'error', message: error.message });
-      if (error instanceof UnauthorizedError) {
-        handleLogout();
-      }
+      message = error.message;
+    } finally {
+      openConfirmDialog(message, true);
     }
   }
 
   useEffect(() => {
-    getUser();
+    if (!caseData) {
+      getUser();
+    }
 
     return () => {
-      setRequestState(null);
       setCaseData(null);
     };
   }, []);
 
-  const isLoading = requestState?.status === 'loading';
   return (
     <ShowSkeletonOnLoading isLoading={isLoading} Skeleton={LoadingModalScreeen}>
       <form
