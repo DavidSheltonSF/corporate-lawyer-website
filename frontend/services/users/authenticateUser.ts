@@ -1,8 +1,8 @@
 import { API_URL } from '@/config/api';
 import { apiFetch } from '../apiFetch';
+import { ActionResponse } from '@/types/ActionResponse';
 
-export async function authenticateUser(formData: FormData): Promise<string> {
-  console.log('authenticateUser');
+export async function authenticateUser(formData: FormData): Promise<ActionResponse> {
   const email = formData.get('email');
   const password = formData.get('password');
 
@@ -14,5 +14,9 @@ export async function authenticateUser(formData: FormData): Promise<string> {
 
   const json = await response.json();
 
-  return json.data;
+  if (!response.ok) {
+    return { success: false, message: json.message };
+  }
+
+  return { success: true, data: json.data };
 }
