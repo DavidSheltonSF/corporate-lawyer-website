@@ -10,7 +10,6 @@ import { Button } from './ui/Button/Button';
 import { ButtonVariant } from './ui/Button/ButtonVariant';
 import { Input } from './ui/Input/Input';
 import { RequestFeedback } from './ui/Feedback/RequestFeedback';
-import { UnauthorizedError } from '@/errors/UnauthorizedError';
 
 export function LoginForm() {
   const [requestState, setRequestState] = useState<RequestState | null>(null);
@@ -18,15 +17,16 @@ export function LoginForm() {
   async function handleSubmit(formData: FormData) {
     try {
       setRequestState({ status: 'loading' });
-      await login(formData);
+      const response = await login(formData);
+      if (!response.success) {
+        setRequestState({ status: 'error', message: response.message });
+        return;
+      }
+
       setRequestState({ status: 'ok' });
     } catch (error: any) {
       console.log(error);
-
-      if(error instanceof UnauthorizedError){
-        setRequestState({ status: 'error', message: 'Combinação de email e senha inválida' });
-      }
-      setRequestState({ status: 'error', message: 'Houve algum problema no servidor' });
+      setRequestState({ status: 'error', message: 'Erro inesperado' });
     }
   }
 
