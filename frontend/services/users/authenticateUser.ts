@@ -2,7 +2,7 @@ import { API_URL } from '@/config/api';
 import { apiFetch } from '../apiFetch';
 import { ActionResponse } from '@/types/ActionResponse';
 
-export async function authenticateUser(formData: FormData): Promise<ActionResponse> {
+export async function authenticateUser(formData: FormData): Promise<ActionResponse<string>> {
   const email = formData.get('email');
   const password = formData.get('password');
 
