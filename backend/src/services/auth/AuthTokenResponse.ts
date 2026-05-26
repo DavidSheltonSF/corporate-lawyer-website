@@ -1,4 +1,4 @@
 export interface AuthTokenResponse {
   token: string | null;
-  message: string | null;
+  invalidFields?: Record<'email' | 'password', string | null>;
 }
