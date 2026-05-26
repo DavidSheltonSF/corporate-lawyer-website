@@ -1,4 +1,3 @@
-import jwt, { JwtPayload } from 'jsonwebtoken';
 import { IUserService } from '../../services/user/IUserService';
 import { IAuthService } from '../../services/auth/IAuthService';
 import { IAuthController } from './IAuthController';
@@ -8,6 +7,8 @@ import { HttpRequest } from '../types/HttpRequest';
 import { UnauthorizedError } from '../../errors/presentation/UnauthorizedError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { ValidationError } from '../../errors/presentation/ValidationError';
+import { AuthenticatedUser } from '../../types/AuthenticatedUser';
+import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
 
 export class AuthController implements IAuthController {
   constructor(
@@ -15,16 +16,13 @@ export class AuthController implements IAuthController {
     private userService: IUserService
   ) {}
 
-  getMe = async (httpRequest: HttpRequest) => {
-    const token = httpRequest.headers.authorization;
-
-    if (!token) {
-      throw new UnauthorizedError('Token missing');
+  getMe = async (httpRequest: HttpRequest & AuthenticatedUser) => {
+    const requestUser = httpRequest.user
+    if (!requestUser) {
+      throw new MissingAuthenticatedUserError();
     }
 
-    const payload = jwt.decode(token) as JwtPayload;
-
-    const email = payload.email;
+    const email = requestUser.email;
     if (!email) {
       throw new UnauthorizedError('Token provided is invalid');
     }
@@ -52,7 +50,7 @@ export class AuthController implements IAuthController {
     const response = await this.authService.authenticate(email, password);
 
     if (response.invalidFields) {
-      throw new ValidationError('Invalid data',{fields: {...response.invalidFields}} );
+      throw new ValidationError('Invalid data', { fields: { ...response.invalidFields } });
     }
 
     return HttpResponseFactory.makeOk(response.token);
