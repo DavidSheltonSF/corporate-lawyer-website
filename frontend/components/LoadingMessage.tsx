@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 
 interface Props {
-  message: string;
-  loading: boolean;
+  message?: string;
 }
 
-export function LoadingMessage({ message, loading }: Props) {
+export function LoadingMessage({ message = 'Carregando' }: Props) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -16,10 +15,10 @@ export function LoadingMessage({ message, loading }: Props) {
     return () => clearInterval(interval);
   }, []);
 
-  return loading ? (
+  return (
     <p>
       {message}
       {'.'.repeat(count)}
     </p>
-  ) : null;
+  );
 }
