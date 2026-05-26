@@ -7,4 +7,5 @@ export interface InputProps {
   value?: string;
   readOnly?: boolean;
   defaultValue?: string;
+  onChange?: () => void;
 }
