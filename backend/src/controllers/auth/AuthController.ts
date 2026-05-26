@@ -7,9 +7,13 @@ import { getMissingFields } from '../../utils/getMissingFields';
 import { HttpRequest } from '../types/HttpRequest';
 import { UnauthorizedError } from '../../errors/presentation/UnauthorizedError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
+import { ValidationError } from '../../errors/presentation/ValidationError';
 
 export class AuthController implements IAuthController {
-  constructor(private authService: IAuthService, private userService: IUserService) {}
+  constructor(
+    private authService: IAuthService,
+    private userService: IUserService
+  ) {}
 
   getMe = async (httpRequest: HttpRequest) => {
     const token = httpRequest.headers.authorization;
@@ -47,8 +51,8 @@ export class AuthController implements IAuthController {
 
     const response = await this.authService.authenticate(email, password);
 
-    if (response.message) {
-      throw new UnauthorizedError(response.message);
+    if (response.invalidFields) {
+      throw new ValidationError('Invalid data',{fields: {...response.invalidFields}} );
     }
 
     return HttpResponseFactory.makeOk(response.token);
