@@ -3,7 +3,7 @@ import { authenticateUser } from '@/services/users/authenticateUser';
 import { ActionResponse } from '@/types/ActionResponse';
 import { cookies } from 'next/headers';
 
-export async function login(formData: FormData): Promise<ActionResponse> {
+export async function login(formData: FormData): Promise<ActionResponse<string>> {
   const response = await authenticateUser(formData);
 
   if (!response.success) {
@@ -11,6 +11,10 @@ export async function login(formData: FormData): Promise<ActionResponse> {
   }
 
   const token = response.data;
+
+  if (!token) {
+    throw new Error('Missing token');
+  }
 
   const cookiesStore = await cookies();
   //cookiesStore.set('authToken', token, { httpOnly: true, secure: true, sameSite: 'none' });
