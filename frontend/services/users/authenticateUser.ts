@@ -15,7 +15,7 @@ export async function authenticateUser(formData: FormData): Promise<ActionRespon
   const json = await response.json();
 
   if (!response.ok) {
-    return { success: false, message: json.message };
+    return { success: false, message: json.message, code: json.code, details: json.details };
   }
 
   return { success: true, data: json.data };
