@@ -7,11 +7,13 @@ export function configErrorHandler(app: Application) {
     console.error(err);
 
     if (err instanceof BaseHttpError) {
-      return res.status(err.statusCode).json({ message: err.message });
+      return res
+        .status(err.statusCode)
+        .json({ message: err.message, code: err.code, details: err.details });
     }
 
     if (err instanceof DomainError) {
-      return res.status(422).json({ message: err.message });
+      return res.status(422).json({ message: err.message, code: 'DOMAIN_ERROR' });
     }
 
     return res.status(500).json({ message: 'Internal server error' });
