@@ -7,7 +7,6 @@ import { HttpRequest } from '../types/HttpRequest';
 import { UnauthorizedError } from '../../errors/presentation/UnauthorizedError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { ValidationError } from '../../errors/presentation/ValidationError';
-import { AuthenticatedUser } from '../../types/AuthenticatedUser';
 import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
 
 export class AuthController implements IAuthController {
@@ -16,8 +15,8 @@ export class AuthController implements IAuthController {
     private userService: IUserService
   ) {}
 
-  getMe = async (httpRequest: HttpRequest & AuthenticatedUser) => {
-    const requestUser = httpRequest.user
+  getMe = async (httpRequest: HttpRequest) => {
+    const requestUser = httpRequest.user;
     if (!requestUser) {
       throw new MissingAuthenticatedUserError();
     }
