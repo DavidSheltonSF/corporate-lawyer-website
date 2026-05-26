@@ -16,7 +16,6 @@ export function LoginForm() {
   async function handleSubmit(formData: FormData) {
     try {
       setRequestState({ status: 'loading' });
-      await new Promise((resolve) => setTimeout(resolve, 3000));
       const response = await login(formData);
       if (!response.success) {
         setRequestState({
