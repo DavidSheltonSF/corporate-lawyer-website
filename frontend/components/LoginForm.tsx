@@ -1,6 +1,5 @@
 'use client';
-import { Activity, useEffect, useState } from 'react';
-import { InputForm } from './InputForm';
+import { useEffect, useState } from 'react';
 import { LoadingMessage } from './LoadingMessage';
 import { login } from '@/actions/login';
 import { redirect } from 'next/navigation';
