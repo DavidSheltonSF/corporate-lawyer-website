@@ -1,6 +1,6 @@
-export interface ActionResponse {
+export interface ActionResponse<T> {
   success: boolean;
-  data?: any;
+  data?: T;
   code?: string;
   details?: any;
   message?: string;
