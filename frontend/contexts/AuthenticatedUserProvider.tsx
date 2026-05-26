@@ -7,7 +7,7 @@ import { WithId } from '@/types/WithId';
 
 interface Props {
   children: ReactNode;
-  userData: WithId<User | null>;
+  userData: WithId<User>;
 }
 
 export function AuthenticatedUserProvider({ userData, children }: Props) {
