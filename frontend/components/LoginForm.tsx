@@ -1,15 +1,16 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { login } from '@/actions/login';
-import { redirect } from 'next/navigation';
 import { RequestState } from '@/types/RequestState';
 import { Input } from './ui/Input/Input';
 import { RequestFeedback } from './ui/Feedback/RequestFeedback';
 import { InputFeedback } from './ui/Input/InputFeedback';
 import { SubmitButton } from './SubmitButton';
+import { useRouter } from 'next/navigation';
 
 export function LoginForm() {
   const [requestState, setRequestState] = useState<RequestState | null>(null);
+  const router = useRouter()
   const errors = requestState?.details?.fields;
 
   async function handleSubmit(formData: FormData) {
@@ -27,17 +28,13 @@ export function LoginForm() {
         return;
       }
       setRequestState({ status: 'ok' });
+      router.push('/clientPage')
     } catch (error: any) {
       console.log(error);
       setRequestState({ status: 'error', message: 'Erro inesperado' });
     }
   }
 
-  useEffect(() => {
-    if (requestState?.status === 'ok') {
-      redirect('/clientPage');
-    }
-  }, [requestState]);
 
   return (
     <form
