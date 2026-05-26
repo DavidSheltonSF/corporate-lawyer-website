@@ -1,24 +1,21 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { LoadingMessage } from './LoadingMessage';
 import { login } from '@/actions/login';
 import { redirect } from 'next/navigation';
 import { RequestState } from '@/types/RequestState';
-import { Button } from './ui/Button/Button';
-import { ButtonVariant } from './ui/Button/ButtonVariant';
 import { Input } from './ui/Input/Input';
 import { RequestFeedback } from './ui/Feedback/RequestFeedback';
 import { InputFeedback } from './ui/Input/InputFeedback';
+import { SubmitButton } from './SubmitButton';
 
 export function LoginForm() {
   const [requestState, setRequestState] = useState<RequestState | null>(null);
   const errors = requestState?.details?.fields;
-  const isLoading = requestState?.status === 'loading';
 
   async function handleSubmit(formData: FormData) {
     try {
       setRequestState({ status: 'loading' });
-      await new Promise((resolve) => setTimeout(resolve, 5000));
+      await new Promise((resolve) => setTimeout(resolve, 3000));
       const response = await login(formData);
       if (!response.success) {
         setRequestState({
@@ -49,11 +46,6 @@ export function LoginForm() {
     >
       <h1 className="text-color-white">Acessar plataforma</h1>
       <RequestFeedback requestState={requestState} />
-      <div className="text-center font-bold text-white bg-green-200 h-[50px]">
-        <LoadingMessage message="Loading" loading={isLoading} />
-        {requestState?.status}
-        {String(isLoading)}
-      </div>
 
       <div className="flex flex-col gap-[4px] items-start">
         <Input
@@ -63,7 +55,7 @@ export function LoginForm() {
           type="email"
           required={true}
           placeholder="Email"
-          //onChange={() => setRequestState(null)}
+          onChange={() => setRequestState(null)}
         />
         {errors?.email && <InputFeedback label={errors?.email} />}
       </div>
@@ -75,13 +67,11 @@ export function LoginForm() {
           type="password"
           required={true}
           placeholder="Senha"
-          //onChange={() => setRequestState(null)}
+          onChange={() => setRequestState(null)}
         />
         {errors?.password && <InputFeedback label={errors?.password} />}
       </div>
-      <Button variant={ButtonVariant.PRIMARY} type="submit" className="w-full">
-        Entrar
-      </Button>
+      <SubmitButton />
     </form>
   );
 }
