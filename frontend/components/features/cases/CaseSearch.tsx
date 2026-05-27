@@ -31,7 +31,7 @@ export default function CaseSearch() {
 
   const { userData } = authUserContext;
 
-  async function loadCases() {
+  async function fetchCases() {
     try {
       setCasesLoading(true);
       let casesPage = null;
@@ -73,13 +73,13 @@ export default function CaseSearch() {
   }
 
   useEffect(() => {
-    loadCases();
+    fetchCases();
   }, [page]);
 
   return (
     <section className="flex flex-col items-center size-full">
       <div className="flex flex-col lg:flex-row gap-[40px] size-full">
-        <SearchBar query={query} setQuery={setQuery} action={loadCases} />
+        <SearchBar query={query} setQuery={setQuery} action={fetchCases} />
         <div className="h-[48px] rounded-full w-[180px]">
           <DropDownButton
             selectedItem={statusFilder}
@@ -90,7 +90,7 @@ export default function CaseSearch() {
           />
         </div>
       </div>
-      <CasesList loadCases={loadCases} loading={casesLoading} cases={cases} />
+      <CasesList loadCases={fetchCases} loading={casesLoading} cases={cases} />
       <Pagination page={page} setPage={setPage} totalPage={totalPage} />
     </section>
   );
