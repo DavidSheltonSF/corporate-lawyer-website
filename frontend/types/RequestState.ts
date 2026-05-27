@@ -3,11 +3,7 @@ type ValidationFields = {
   password: string;
 };
 
-export interface RequestState {
-  status: 'ok' | 'error' | 'loading';
-  message?: string;
-  code?: string;
-  details?: {
-    fields: ValidationFields;
-  };
-}
+export type RequestState<T = undefined> =
+  | { status: 'loading' }
+  | { status: 'ok'}
+  | { status: 'error'; code?: string; message: string; details?: { fields: ValidationFields } };
