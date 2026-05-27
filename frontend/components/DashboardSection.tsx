@@ -13,6 +13,7 @@ import { RequestState } from '@/types/RequestState';
 import { handleLogout } from '@/lib/handleLogout';
 import { CasesStats } from '@/types/CasesStats';
 import { DashboardSkeleton } from './features/deashboard/DashboardSkeleton';
+import { Dashboard } from './features/deashboard/Dashboard';
 
 export function DashboardSection() {
   const [requestState, setRequestState] = useState<RequestState<CasesStats>>({ status: 'idle' });
@@ -71,27 +72,7 @@ export function DashboardSection() {
     case 'loading':
       return <DashboardSkeleton />;
     case 'ok':
-      return (
-        <div className="flex flex-wrap gap-[40px]">
-          {isLoading ? (
-            <DashboardCardSkeleton title="Processos" />
-          ) : (
-            <DashboardCard title="Processos" sectionIndex={1}>
-              <DashboardCardInfo name="Em andamento" value={requestState.data?.open} />
-              <DashboardCardInfo name="Encerrados" value={requestState.data?.closed} />
-            </DashboardCard>
-          )}
-          <DashboardCard title="Atendimento">
-            <DashboardCardInfo name="Data" value="2 de jan. de 2026" />
-          </DashboardCard>
-          <DashboardCard title="Próxima audiência">
-            <DashboardCardInfo name="Data" value="15 de jan. de 2026" />
-          </DashboardCard>
-          <DashboardCard title="Documentação">
-            <DashboardCardInfo name="status" value="pendente" />
-          </DashboardCard>
-        </div>
-      );
+      return <Dashboard data={requestState.data} />;
 
     case 'error':
       return null;
