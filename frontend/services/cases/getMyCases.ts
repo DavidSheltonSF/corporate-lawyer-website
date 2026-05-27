@@ -4,6 +4,8 @@ import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { Page } from '@/types/Page';
 import { WithId } from '@/types/WithId';
 import { apiFetch } from '../apiFetch';
+import { ActionResponse } from '@/types/ActionResponse';
+import { makeActionResponse } from '@/factories/makeActionResponse';
 
 export async function getMyCases(
   queryParams: {
@@ -13,7 +15,7 @@ export async function getMyCases(
     status?: string;
   },
   populate?: string[]
-): Promise<Page<WithId<CaseWithRelations>>> {
+): Promise<ActionResponse<Page<WithId<CaseWithRelations>>>> {
   if (!queryParams) {
     throw new MissingRequiredArgumentError(getMyCases.name, 'queryParams');
   }
@@ -27,8 +29,5 @@ export async function getMyCases(
   }&populate=${populate || ''}`;
 
   const response = await apiFetch(`${baseRoute}/${queryString}`);
-
-  const responseJson = await response.json();
-
-  return responseJson.data;
+  return makeActionResponse(response);
 }
