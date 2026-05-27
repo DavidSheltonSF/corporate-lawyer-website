@@ -3,6 +3,7 @@ import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
 import { JwtPayload } from '../types/JwtPayload';
 import dotenv from 'dotenv';
 import { HttpResponseFactory } from '../factories/HttpResponse/HttpResponseFactory';
+import { UnauthorizedError } from '../errors/presentation/UnauthorizedError';
 
 dotenv.config();
 
@@ -33,14 +34,13 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
   } catch (error: any) {
     console.log(error);
     if (error instanceof TokenExpiredError) {
-      return res.status(401).send(HttpResponseFactory.makeUnauthorized('Token expired'));
+      throw new UnauthorizedError('Token expired');
     }
 
     if (error instanceof JsonWebTokenError) {
-      return res.status(401).send(HttpResponseFactory.makeUnauthorized('Invalid token'));
+      throw new UnauthorizedError('Invalid token');
     }
 
-    console.log(error);
-    return res.status(500).send(HttpResponseFactory.makeServerError(error.message));
+    throw error;
   }
 }
