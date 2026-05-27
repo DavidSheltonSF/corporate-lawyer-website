@@ -11,11 +11,11 @@ import { UserRole } from '@/types/UserRole';
 import { getCasesStats } from '@/services/cases/getCasesStats';
 import { RequestState } from '@/types/RequestState';
 import { handleLogout } from '@/lib/handleLogout';
+import { CasesStats } from '@/types/CasesStats';
+import { DashboardSkeleton } from './features/deashboard/DashboardSkeleton';
 
 export function DashboardSection() {
-  const [openCasesCount, setOpenCasesCount] = useState(0);
-  const [closedCasesCount, setClosedCasesCount] = useState(0);
-  const [requestState, setRequestState] = useState<RequestState | null>(null);
+  const [requestState, setRequestState] = useState<RequestState<CasesStats>>({ status: 'idle' });
   const isLoading = requestState?.status === 'loading';
 
   const context = useAuthenticatedUserContext();
@@ -33,55 +33,67 @@ export function DashboardSection() {
     setRequestState({ status: 'loading' });
 
     switch (userRole) {
-      case UserRole.lawyer || UserRole.admin:
+      case UserRole.admin:
+      case UserRole.lawyer:
         response = await getCasesStats();
         break;
 
       case UserRole.client:
         response = await getMyCasesStats();
         break;
-      default:
-        break;
     }
 
-    if (response && !response.success) {
+    if (!response) {
+      return setRequestState({ status: 'error', message: 'Invalid role' });
+    }
+
+    if (!response.success) {
       const { code, message, details } = response;
       setRequestState({ status: 'error', code, message, details });
+      return;
     }
 
-    const casesCount = response?.data;
-    setOpenCasesCount(casesCount?.open || 0);
-    setClosedCasesCount(casesCount?.closed || 0);
-    setRequestState({ status: 'ok' });
+    setRequestState({ status: 'ok', data: response.data });
   }
 
   useEffect(() => {
     fetchCases();
-
-    if (requestState?.code === 'UNAUTHORIZED') {
-      handleLogout();
-    }
   }, []);
 
-  return (
-    <div className="flex flex-wrap gap-[40px]">
-      {isLoading ? (
-        <DashboardCardSkeleton title="Processos" />
-      ) : (
-        <DashboardCard title="Processos" sectionIndex={1}>
-          <DashboardCardInfo name="Em andamento" value={openCasesCount} />
-          <DashboardCardInfo name="Encerrados" value={closedCasesCount} />
-        </DashboardCard>
-      )}
-      <DashboardCard title="Atendimento">
-        <DashboardCardInfo name="Data" value="2 de jan. de 2026" />
-      </DashboardCard>
-      <DashboardCard title="Próxima audiência">
-        <DashboardCardInfo name="Data" value="15 de jan. de 2026" />
-      </DashboardCard>
-      <DashboardCard title="Documentação">
-        <DashboardCardInfo name="status" value="pendente" />
-      </DashboardCard>
-    </div>
-  );
+  useEffect(() => {
+    if (requestState?.status === 'error') {
+      requestState.code === 'UNAUTHORIZED' && handleLogout();
+    }
+  }, [requestState]);
+
+  switch (requestState.status) {
+    case 'idle':
+    case 'loading':
+      return <DashboardSkeleton />;
+    case 'ok':
+      return (
+        <div className="flex flex-wrap gap-[40px]">
+          {isLoading ? (
+            <DashboardCardSkeleton title="Processos" />
+          ) : (
+            <DashboardCard title="Processos" sectionIndex={1}>
+              <DashboardCardInfo name="Em andamento" value={requestState.data?.open} />
+              <DashboardCardInfo name="Encerrados" value={requestState.data?.closed} />
+            </DashboardCard>
+          )}
+          <DashboardCard title="Atendimento">
+            <DashboardCardInfo name="Data" value="2 de jan. de 2026" />
+          </DashboardCard>
+          <DashboardCard title="Próxima audiência">
+            <DashboardCardInfo name="Data" value="15 de jan. de 2026" />
+          </DashboardCard>
+          <DashboardCard title="Documentação">
+            <DashboardCardInfo name="status" value="pendente" />
+          </DashboardCard>
+        </div>
+      );
+
+    case 'error':
+      return null;
+  }
 }
