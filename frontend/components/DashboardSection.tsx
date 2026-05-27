@@ -39,9 +39,7 @@ export function DashboardSection() {
         default:
           break;
       }
-
-      console.log(casesCount);
-
+      
       mockPromise(10);
       setOpenCasesCount(casesCount.open);
       setClosedCasesCount(casesCount.closed);
