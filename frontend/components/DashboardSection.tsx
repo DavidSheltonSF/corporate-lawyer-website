@@ -49,7 +49,6 @@ export function DashboardSection() {
       setRequestState({ status: 'error', code, message, details });
     }
 
-    mockPromise(10);
     const casesCount = response?.data;
     setOpenCasesCount(casesCount?.open || 0);
     setClosedCasesCount(casesCount?.closed || 0);
