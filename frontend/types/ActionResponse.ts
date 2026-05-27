@@ -1,7 +1,3 @@
-export interface ActionResponse<T> {
-  success: boolean;
-  data?: T;
-  code?: string;
-  details?: any;
-  message?: string;
-}
+export type ActionResponse<T> =
+  | { success: true; data?: T }
+  | { success: false; message: string; code: string; details?: any };
