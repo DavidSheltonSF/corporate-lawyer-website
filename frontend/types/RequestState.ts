@@ -4,6 +4,7 @@ type ValidationFields = {
 };
 
 export type RequestState<T = undefined> =
+  | { status: 'idle' }
   | { status: 'loading' }
-  | { status: 'ok'}
+  | { status: 'ok'; data?: T }
   | { status: 'error'; code?: string; message: string; details?: { fields: ValidationFields } };
