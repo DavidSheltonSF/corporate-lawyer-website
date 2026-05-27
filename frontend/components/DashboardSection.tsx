@@ -9,11 +9,14 @@ import { useAuthenticatedUserContext } from '@/hooks/useAuthenticatedUserContext
 import { MissingContextError } from '@/errors/MissingContextError';
 import { UserRole } from '@/types/UserRole';
 import { getCasesStats } from '@/services/cases/getCasesStats';
+import { RequestState } from '@/types/RequestState';
+import { handleLogout } from '@/lib/handleLogout';
 
 export function DashboardSection() {
-  const [casesCountLoading, setCasesCoundLoading] = useState(true);
   const [openCasesCount, setOpenCasesCount] = useState(0);
   const [closedCasesCount, setClosedCasesCount] = useState(0);
+  const [requestState, setRequestState] = useState<RequestState | null>(null);
+  const isLoading = requestState?.status === 'loading';
 
   const context = useAuthenticatedUserContext();
   if (!context) {
@@ -24,33 +27,46 @@ export function DashboardSection() {
 
   const userRole = authUserData.role;
 
-  useEffect(() => {
-    async function fetchCases() {
-      let casesCount = { open: 0, closed: 0 };
+  async function fetchCases() {
+    let response = null;
 
-      switch (userRole) {
-        case UserRole.lawyer || UserRole.admin:
-          casesCount = await getCasesStats();
-          break;
+    setRequestState({ status: 'loading' });
 
-        case UserRole.client:
-          casesCount = await getMyCasesStats();
-          break;
-        default:
-          break;
-      }
-      
-      mockPromise(10);
-      setOpenCasesCount(casesCount.open);
-      setClosedCasesCount(casesCount.closed);
-      setCasesCoundLoading(false);
+    switch (userRole) {
+      case UserRole.lawyer || UserRole.admin:
+        response = await getCasesStats();
+        break;
+
+      case UserRole.client:
+        response = await getMyCasesStats();
+        break;
+      default:
+        break;
     }
+
+    if (response && !response.success) {
+      const { code, message, details } = response;
+      setRequestState({ status: 'error', code, message, details });
+    }
+
+    mockPromise(10);
+    const casesCount = response?.data;
+    setOpenCasesCount(casesCount?.open || 0);
+    setClosedCasesCount(casesCount?.closed || 0);
+    setRequestState({ status: 'ok' });
+  }
+
+  useEffect(() => {
     fetchCases();
+
+    if (requestState?.code === 'UNAUTHORIZED') {
+      handleLogout();
+    }
   }, []);
 
   return (
     <div className="flex flex-wrap gap-[40px]">
-      {casesCountLoading ? (
+      {isLoading ? (
         <DashboardCardSkeleton title="Processos" />
       ) : (
         <DashboardCard title="Processos" sectionIndex={1}>
