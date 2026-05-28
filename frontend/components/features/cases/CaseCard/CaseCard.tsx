@@ -13,7 +13,7 @@ import { ButtonVariant } from '@/components/ui/Button/ButtonVariant';
 
 interface Props {
   caseData: WithId<CaseWithRelations>;
-  deleteCase: (id: string) => Promise<void>;
+  deleteCase: (id: string) => void;
   refetchCases: () => void;
 }
 
