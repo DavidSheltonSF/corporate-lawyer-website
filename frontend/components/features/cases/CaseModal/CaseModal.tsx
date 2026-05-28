@@ -79,7 +79,6 @@ export function CaseModal({ payload, close }: GlobalModalProps<Props>) {
     };
   }, []);
 
-
   function renderSkeleton() {
     return <CaseModalSkeleton />;
   }
@@ -105,8 +104,8 @@ export function CaseModal({ payload, close }: GlobalModalProps<Props>) {
 
   return (
     <BaseModal
-    omitFooter
-      className={'w-[90%] min-md:w-[60%] min-lg:w-[880px]'}
+      omitFooter
+      className={'w-[90%] min-md:w-[60%] min-lg:w-[880px] min-lg:min-h-[600px]'}
       onClose={() => {
         close();
       }}
