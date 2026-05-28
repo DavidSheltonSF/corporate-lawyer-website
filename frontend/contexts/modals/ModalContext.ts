@@ -24,7 +24,7 @@ export interface ModalContext {
   modalData: any;
   previousModal?: PreviousModal;
 
-  openModal: <T>(modal: ModalType, data?: T, previousModal?: PreviousModal) => void;
+  openModal: <T, M>(modal: ModalType, data?: T, previousModal?: PreviousModal<M>) => void;
   closeModal: () => void;
 }
 
