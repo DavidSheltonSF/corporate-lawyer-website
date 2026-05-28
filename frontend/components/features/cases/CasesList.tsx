@@ -6,6 +6,7 @@ import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { RequestState } from '@/types/RequestState';
 import { deleteCaseById } from '@/services/users/deleteCaseById';
 import { Page } from '@/types/Page';
+import { useModal } from '@/hooks/useModal';
 
 interface Props {
   requestState: RequestState<Page<WithId<CaseWithRelations>>>;
@@ -13,13 +14,23 @@ interface Props {
 }
 
 export function CasesList({ requestState, loadCases }: Props) {
+  const { openModal } = useModal();
+
   async function deleteCase(id: string) {
-    try {
-      await deleteCaseById(id);
-      loadCases();
-    } catch (error: any) {
-      console.log(error);
+    const response = await deleteCaseById(id);
+
+    if (!response.success) {
+      return openModal('confirm', {
+        message: response.message,
+        onConfirm: () => openModal(null),
+      });
     }
+
+    openModal('confirm', {
+      message: 'Processo removido com sucesso',
+      onConfirm: () => openModal(null),
+    });
+    loadCases();
   }
 
   function renderContent() {
@@ -36,7 +47,12 @@ export function CasesList({ requestState, loadCases }: Props) {
         }
         const renderCases = data?.data?.map((cas, index) => {
           return (
-            <CaseCard refetchCases={loadCases} deleteCase={deleteCase} key={index} caseData={cas} />
+            <CaseCard
+              refetchCases={loadCases}
+              deleteCase={deleteCase}
+              key={cas.id}
+              caseData={cas}
+            />
           );
         });
         return renderCases;
