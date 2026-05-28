@@ -14,11 +14,17 @@ export type ModalType =
   | 'case-files'
   | null;
 
+export interface PreviousModal<T = unknown> {
+  type: ModalType | null;
+  data: T;
+}
+
 export interface ModalContext {
   currentModal: ModalType;
   modalData: any;
+  previousModal?: PreviousModal;
 
-  openModal: <T>(modal: ModalType, data?: T) => void;
+  openModal: <T>(modal: ModalType, data?: T, previousModal?: PreviousModal) => void;
   closeModal: () => void;
 }
 
