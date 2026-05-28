@@ -71,7 +71,7 @@ export function BaseModal(props: PropsWithClassName<Props>) {
           <CloseIcon className="w-[32px] h-[32px]" />
         </Button>
       </div>
-      <div className="flex-1 h-fit border-divider">{children}</div>
+      <div className="size-full border-divider">{children}</div>
       {!omitFooter && (
         <BaseModal.Footer
           onClose={onClose}
