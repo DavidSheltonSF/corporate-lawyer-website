@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { SearchBar } from '../../ui/Search/SearchBar';
-import { CasesList } from './CasesList';
+import { CasesList } from './CasesList/CasesList';
 import { getMyCases } from '@/services/cases/getMyCases';
 import { WithId } from '@/types/WithId';
 import { Pagination } from '../../Pagination';
@@ -87,11 +87,11 @@ export default function CaseSearch() {
     fetchCases();
   }, [page]);
 
-   useEffect(() => {
-     if (requestState?.status === 'error') {
-       requestState.code === 'UNAUTHORIZED' && handleLogout();
-     }
-   }, [requestState]);
+  useEffect(() => {
+    if (requestState?.status === 'error') {
+      requestState.code === 'UNAUTHORIZED' && handleLogout();
+    }
+  }, [requestState]);
 
   return (
     <section className="flex flex-col items-center size-full">
