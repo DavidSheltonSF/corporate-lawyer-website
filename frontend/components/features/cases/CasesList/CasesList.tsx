@@ -1,7 +1,5 @@
 'use client';
-import { CaseCard } from '../CaseCard/CaseCard';
 import { WithId } from '@/types/WithId';
-import { CardSkeleton } from '../../../ui/Card/CardSkeleton';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { RequestState } from '@/types/RequestState';
 import { deleteCaseById } from '@/services/users/deleteCaseById';
