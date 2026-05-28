@@ -10,7 +10,6 @@ import { handleLogout } from '@/lib/handleLogout';
 import { RequestState } from '@/types/RequestState';
 import { CaseModalHeader } from './CaseModalHeader';
 import { CaseModalContent } from './CaseModalContent';
-import { CaseFilesModal } from '../CaseFilesModal/CaseFilesModal';
 import { CaseModalFooter } from './CaseModalFooter';
 import { NotFoundError } from '@/errors/NotFoundError';
 import { ServerError } from '@/errors/ServerError';
@@ -90,10 +89,7 @@ export function CaseModal({ payload, close }: GlobalModalProps<Props>) {
               openFilesModal={() =>
                 openModal(
                   'case-files',
-                  {
-                    caseId,
-                    refetchCaseFiles: fetchCaseData,
-                  },
+                  { caseId },
                   {
                     type: 'case',
                     data: { caseId },
