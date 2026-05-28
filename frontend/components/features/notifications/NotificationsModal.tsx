@@ -68,9 +68,7 @@ export function NotificationsModal() {
   return (
     isOpen && (
       <BaseModal
-        className={
-          'fixed z-99999999999 top-[8%] left-1/2 translate-x-[-50%] w-[90%] min-md:w-[70%] min-lg:w-[560px] h-[82vh] min-lg:h-[65vh] rounded-lg overflow-hidden shadow-[0px_0px__3px_black] text-color-black'
-        }
+        className={'w-[90%] min-md:w-[70%] min-lg:w-[560px] h-[82vh] min-lg:h-[65vh]'}
         onClose={() => {
           setIsOpen(false);
         }}
