@@ -68,30 +68,34 @@ export function NotificationsModal() {
   return (
     isOpen && (
       <BaseModal
+        title="Notificações"
+        omitFooter={true}
         className={'w-[90%] min-md:w-[70%] min-lg:w-[560px] h-[82vh] min-lg:h-[65vh]'}
         onClose={() => {
           setIsOpen(false);
         }}
       >
-        <div className="flex w-full h-full overflow-auto">
-          <div className="flex flex-col w-full h-full gap-[24px] overflow-auto p-[24px]">
-            <div className="flex items-center gap-[16px] w-full">
-              <h2>Notificações</h2>
-              <div className="flex justify-center items-center size-[32px] bg-color-primary-light rounded-md ">
-                <span className="text-color-white">{unreadCount}</span>
+        <div className="flex size-full overflow">
+          <div className="w-full max-h-[55vh] overflow-auto">
+            <div className="flex flex-col w-full h-full gap-[24px] overflow-auto p-[24px]">
+              <div className="flex items-center gap-[16px] w-full">
+                <h3>Não lidas:</h3>
+                <div className="flex justify-center items-center size-[32px] bg-color-primary-light rounded-md ">
+                  <span className="text-color-white">{unreadCount}</span>
+                </div>
               </div>
+              <NotificationsList
+                notifications={notifications}
+                unreadCount={unreadCount}
+                setUnreadCount={setUnreadCount}
+              />
+              <Button
+                className="bg-color-primary text-color-white w-full py-[8px]"
+                onClick={loadMore}
+              >
+                Carregar Mais
+              </Button>
             </div>
-            <NotificationsList
-              notifications={notifications}
-              unreadCount={unreadCount}
-              setUnreadCount={setUnreadCount}
-            />
-            <Button
-              className="bg-color-primary text-color-white w-full py-[8px]"
-              onClick={loadMore}
-            >
-              Carregar Mais
-            </Button>
           </div>
         </div>
       </BaseModal>
