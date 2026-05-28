@@ -30,7 +30,7 @@ export function CaseModal({ payload, close }: GlobalModalProps<Props>) {
     status: 'idle',
   });
   const caseId = payload.caseId;
-  const openModalWithReturn = useModalWithReturn<Props>({ type: 'case', data: { caseId } });
+  const openModalWithReturn = useModalWithReturn<Props>({ type: 'case', payload: { caseId } });
 
   async function fetchCaseData() {
     try {

@@ -16,7 +16,7 @@ export type ModalType =
 
 export interface PreviousModal<T = unknown> {
   type: ModalType | null;
-  data: T;
+  payload: T;
 }
 
 export interface ModalContext {
@@ -24,7 +24,7 @@ export interface ModalContext {
   modalData: any;
   previousModal?: PreviousModal;
 
-  openModal: <T, M>(modal: ModalType, data?: T, previousModal?: PreviousModal<M>) => void;
+  openModal: <T, M>(modal: ModalType, payload?: T, previousModal?: PreviousModal<M>) => void;
   closeModal: () => void;
 }
 
