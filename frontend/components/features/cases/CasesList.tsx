@@ -16,7 +16,7 @@ interface Props {
 export function CasesList({ requestState, loadCases }: Props) {
   const { openModal } = useModal();
 
-  async function deleteCase(id: string) {
+  async function handleDeleteCase(id: string) {
     const response = await deleteCaseById(id);
 
     if (!response.success) {
@@ -49,7 +49,7 @@ export function CasesList({ requestState, loadCases }: Props) {
           return (
             <CaseCard
               refetchCases={loadCases}
-              deleteCase={deleteCase}
+              deleteCase={handleDeleteCase}
               key={cas.id}
               caseData={cas}
             />
