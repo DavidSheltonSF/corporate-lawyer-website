@@ -7,11 +7,16 @@ import { RequestState } from '@/types/RequestState';
 import { deleteCaseById } from '@/services/users/deleteCaseById';
 import { Page } from '@/types/Page';
 import { useModal } from '@/hooks/useModal';
+import { CasesListLoading } from './CasesListLoading';
+import { CasesListData } from './CasesListData';
 
 interface Props {
   requestState: RequestState<Page<WithId<CaseWithRelations>>>;
   loadCases: () => void;
 }
+
+CasesList.Loading = CasesListLoading;
+CasesList.Data = CasesListData;
 
 export function CasesList({ requestState, loadCases }: Props) {
   const { openModal } = useModal();
@@ -36,26 +41,16 @@ export function CasesList({ requestState, loadCases }: Props) {
   function renderContent() {
     switch (requestState?.status) {
       case 'loading':
-        const renderCaseSkeletons = Array.from({ length: 4 }).map((page, index) => {
-          return <CardSkeleton key={index} />;
-        });
-        return renderCaseSkeletons;
+        return <CasesList.Loading />;
       case 'ok':
-        const { data } = requestState;
-        if (data?.data.length === 0) {
-          return <h1>Nenhum processo encontrado</h1>;
-        }
-        const renderCases = data?.data?.map((cas, index) => {
-          return (
-            <CaseCard
-              refetchCases={loadCases}
-              deleteCase={handleDeleteCase}
-              key={cas.id}
-              caseData={cas}
-            />
-          );
-        });
-        return renderCases;
+        const data = requestState.data?.data;
+        return (
+          <CasesList.Data
+            data={data}
+            refetchCases={loadCases}
+            handleDeleteCase={handleDeleteCase}
+          />
+        );
 
       case 'error':
         return null;
