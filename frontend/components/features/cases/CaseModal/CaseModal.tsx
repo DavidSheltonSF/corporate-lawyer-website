@@ -14,8 +14,8 @@ import { CaseModalFooter } from './CaseModalFooter';
 import { NotFoundError } from '@/errors/NotFoundError';
 import { ServerError } from '@/errors/ServerError';
 import { ModalFeedback } from '@/components/ui/Feedback/ModalFeedback';
-import { useModal } from '@/hooks/useModal';
 import { GlobalModalProps } from '@/types/GlobalModalProps';
+import { useModalWithReturn } from '@/hooks/useModalWithReturn';
 
 interface Props {
   caseId: string;
@@ -30,7 +30,7 @@ export function CaseModal({ payload, close }: GlobalModalProps<Props>) {
     status: 'idle',
   });
   const caseId = payload.caseId;
-  const { openModal } = useModal();
+  const openModalWithReturn = useModalWithReturn<Props>({ type: 'case', data: { caseId } });
 
   async function fetchCaseData() {
     try {
@@ -86,26 +86,8 @@ export function CaseModal({ payload, close }: GlobalModalProps<Props>) {
             <CaseModal.Header title={title} processNumber={processNumber} />
             <CaseModal.Content caseData={requestState.data} />
             <CaseModal.Footer
-              openFilesModal={() =>
-                openModal(
-                  'case-files',
-                  { caseId },
-                  {
-                    type: 'case',
-                    data: { caseId },
-                  }
-                )
-              }
-              openDeadlinesModal={() =>
-                openModal(
-                  'deadlines',
-                  { caseId },
-                  {
-                    type: 'case',
-                    data: { caseId },
-                  }
-                )
-              }
+              openFilesModal={() => openModalWithReturn('case-files', { caseId })}
+              openDeadlinesModal={() => openModalWithReturn('deadlines', { caseId })}
             />
           </div>
         );
