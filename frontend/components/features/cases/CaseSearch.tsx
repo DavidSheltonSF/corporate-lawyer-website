@@ -74,6 +74,10 @@ export default function CaseSearch() {
 
       const { data } = response;
 
+      if (data?.data.length === 0) {
+        return setRequestState({ status: 'empty' });
+      }
+
       setRequestState({ status: 'ok', data: response.data });
       setPage(data?.meta.currentPage || 1);
       setTotalPage(data?.meta.totalPages || 1);
