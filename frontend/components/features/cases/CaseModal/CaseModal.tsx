@@ -27,10 +27,9 @@ CaseModal.Content = CaseModalContent;
 CaseModal.Footer = CaseModalFooter;
 
 export function CaseModal({ payload, close }: GlobalModalProps<Props>) {
-  const [caseData, setCaseData] = useState<WithId<CaseWithRelations> | null>(null);
-  const [requestState, setRequestState] = useState<RequestState | null>(null);
-  const isLoading = requestState?.status === 'loading';
-  const error = requestState?.status === 'error';
+  const [requestState, setRequestState] = useState<RequestState<WithId<CaseWithRelations>>>({
+    status: 'idle',
+  });
   const caseId = payload.caseId;
   const { openModal } = useModal();
 
@@ -39,8 +38,7 @@ export function CaseModal({ payload, close }: GlobalModalProps<Props>) {
       if (!caseId) return;
       setRequestState({ status: 'loading' });
       const caseFound = await getCasePopulatedById(caseId);
-      setCaseData(caseFound);
-      setRequestState({ status: 'ok' });
+      setRequestState({ status: 'ok', data: caseFound });
     } catch (error: any) {
       console.log(error);
 
@@ -67,8 +65,7 @@ export function CaseModal({ payload, close }: GlobalModalProps<Props>) {
   }
 
   function resetStates() {
-    setCaseData(null);
-    setRequestState(null);
+    setRequestState({ status: 'idle' });
   }
 
   useEffect(() => {
@@ -79,27 +76,38 @@ export function CaseModal({ payload, close }: GlobalModalProps<Props>) {
     };
   }, []);
 
-  function renderSkeleton() {
-    return <CaseModalSkeleton />;
-  }
-
   function renderContent() {
-    return (
-      <div className="flex flex-col size-full">
-        <CaseModal.Header title={caseData?.title} processNumber={caseData?.processNumber} />
-        <CaseModal.Content caseData={caseData} />
-        <CaseModal.Footer
-          openFilesModal={() =>
-            openModal('case-files', {
-              caseId,
-              caseFiles: caseData?.files,
-              refetchCaseFiles: fetchCaseData,
-            })
-          }
-          openDeadlinesModal={() => openModal('deadlines', { caseId })}
-        />
-      </div>
-    );
+    switch (requestState.status) {
+      case 'loading':
+        return <CaseModalSkeleton />;
+      case 'ok':
+        const { title, processNumber } = requestState.data;
+        return (
+          <div className="flex flex-col size-full">
+            <CaseModal.Header title={title} processNumber={processNumber} />
+            <CaseModal.Content caseData={requestState.data} />
+            <CaseModal.Footer
+              openFilesModal={() =>
+                openModal('case-files', {
+                  caseId,
+                  refetchCaseFiles: fetchCaseData,
+                })
+              }
+              openDeadlinesModal={() => openModal('deadlines', { caseId })}
+            />
+          </div>
+        );
+
+      case 'error':
+        return (
+          <ModalFeedback
+            title="Não foi possível acessar o processo"
+            message={requestState?.message}
+          />
+        );
+      default:
+        return null;
+    }
   }
 
   return (
@@ -110,15 +118,7 @@ export function CaseModal({ payload, close }: GlobalModalProps<Props>) {
         close();
       }}
     >
-      {isLoading && renderSkeleton()}
-      {error || !caseData ? (
-        <ModalFeedback
-          title="Não foi possível acessar o processo"
-          message={requestState?.message}
-        />
-      ) : (
-        renderContent()
-      )}
+      {renderContent()}
     </BaseModal>
   );
 }
