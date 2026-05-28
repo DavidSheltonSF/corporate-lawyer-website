@@ -42,6 +42,10 @@ export function CasesList({ requestState, loadCases }: Props) {
     switch (requestState?.status) {
       case 'loading':
         return <CasesList.Loading />;
+
+      case 'empty':
+        return <h1>Nenhum processo encontrado</h1>;
+
       case 'ok':
         const data = requestState.data?.data;
         return (
