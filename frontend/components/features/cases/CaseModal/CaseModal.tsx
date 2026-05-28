@@ -88,12 +88,28 @@ export function CaseModal({ payload, close }: GlobalModalProps<Props>) {
             <CaseModal.Content caseData={requestState.data} />
             <CaseModal.Footer
               openFilesModal={() =>
-                openModal('case-files', {
-                  caseId,
-                  refetchCaseFiles: fetchCaseData,
-                })
+                openModal(
+                  'case-files',
+                  {
+                    caseId,
+                    refetchCaseFiles: fetchCaseData,
+                  },
+                  {
+                    type: 'case',
+                    data: { caseId },
+                  }
+                )
               }
-              openDeadlinesModal={() => openModal('deadlines', { caseId })}
+              openDeadlinesModal={() =>
+                openModal(
+                  'deadlines',
+                  { caseId },
+                  {
+                    type: 'case',
+                    data: { caseId },
+                  }
+                )
+              }
             />
           </div>
         );
