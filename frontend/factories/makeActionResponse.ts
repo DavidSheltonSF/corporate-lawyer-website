@@ -1,11 +1,24 @@
 import { ActionResponse } from '@/types/ActionResponse';
 
-export async function makeActionResponse<T>(res: Response): Promise<ActionResponse<T | null>> {
-  let body: any = null;
+export async function makeActionResponse<T>(res: Response): Promise<ActionResponse<T>> {
   try {
-    if (res.status !== 204) {
-      body = await res.json();
+    const body = await res.json();
+
+    if (!res.ok) {
+      return {
+        success: false,
+        message: body.message || 'Unespected error',
+        code: body.code,
+        details: body.details,
+        status: res.status,
+      };
     }
+
+    return {
+      success: true,
+      data: body.data,
+      status: res.status,
+    };
   } catch (error) {
     console.log(error);
     return {
@@ -15,20 +28,4 @@ export async function makeActionResponse<T>(res: Response): Promise<ActionRespon
       status: res.status,
     };
   }
-
-  if (!res.ok) {
-    return {
-      success: false,
-      message: body?.message || 'Unespected error',
-      code: body?.code,
-      details: body?.details,
-      status: res.status,
-    };
-  }
-
-  return {
-    success: true,
-    data: body?.data ?? null,
-    status: res.status,
-  };
 }
