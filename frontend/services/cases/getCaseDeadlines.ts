@@ -4,18 +4,15 @@ import { MissingRequiredArgumentError } from '@/errors/MissingRequiredArgumentEr
 import { WithId } from '@/types/WithId';
 import { apiFetch } from '../apiFetch';
 import { Deadline } from '@/types/Deadline';
+import { ActionResponse } from '@/types/ActionResponse';
+import { makeActionResponse } from '@/factories/makeActionResponse';
 
-export async function getCaseDeadlines(id: string): Promise<WithId<Deadline>[]> {
+export async function getCaseDeadlines(id: string): Promise<ActionResponse<WithId<Deadline>[]>> {
   if (!id) {
     throw new MissingRequiredArgumentError(getCaseDeadlines.name, 'id');
   }
 
   const response = await apiFetch(`${API_URL}/cases/${id}/deadlines`);
 
-  const json = await response.json();
-
-  if (!json?.data) {
-    throw new InvalidAPIResponseError('Missing data', json);
-  }
-  return json.data;
+  return makeActionResponse(response);
 }
