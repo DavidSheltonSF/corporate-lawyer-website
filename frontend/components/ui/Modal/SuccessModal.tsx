@@ -15,7 +15,7 @@ export function SuccessModal({ payload, close }: GlobalModalProps<Props>) {
       closeText="Ok"
       onClose={close}
     >
-      <div className="flex flex-col size-full px-[24px] p-[24px] text-sm">
+      <div className="flex justify-center items-center text-center size-full px-[24px] p-[24px] text-sm">
         <h3>{message}</h3>
       </div>
     </BaseModal>
