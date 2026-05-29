@@ -43,11 +43,10 @@ export function CasesList({ requestState, loadCases }: Props) {
 
       case 'ok':
         const data = requestState.data?.data;
-
         if (data.length === 0) {
           return <h1>Nenhum processo encontrado</h1>;
         }
-        <CasesList.Data data={data} refetchCases={loadCases} handleDeleteCase={handleDeleteCase} />;
+        return <CasesList.Data data={data} refetchCases={loadCases} handleDeleteCase={handleDeleteCase} />;
 
       case 'error':
         return null;
