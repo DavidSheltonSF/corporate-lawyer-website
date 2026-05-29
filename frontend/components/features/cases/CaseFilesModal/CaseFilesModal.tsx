@@ -90,7 +90,7 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
   }
 
   const BaseModalProps = {
-    className: 'w-[90%] min-md:w-[60%] min-lg:w-[480px]',
+    className: 'w-[90%] min-md:w-[60%] min-lg:w-[780px]',
     title: 'Arquivos',
     onClose: close,
   };
