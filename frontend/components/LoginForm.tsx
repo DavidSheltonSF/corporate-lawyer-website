@@ -9,9 +9,9 @@ import { SubmitButton } from './SubmitButton';
 import { useRouter } from 'next/navigation';
 
 export function LoginForm() {
-  const [requestState, setRequestState] = useState<RequestState | null>(null);
-  const router = useRouter()
-  const errors = requestState?.details?.fields;
+  const [requestState, setRequestState] = useState<RequestState>({status: 'idle'});
+  const router = useRouter();
+  const errors = requestState?.status === 'error' ? requestState?.details?.fields : null;
 
   async function handleSubmit(formData: FormData) {
     try {
@@ -26,14 +26,13 @@ export function LoginForm() {
         });
         return;
       }
-      setRequestState({ status: 'ok' });
-      router.push('/clientPage')
+      setRequestState({ status: 'ok', data: null });
+      router.push('/clientPage');
     } catch (error: any) {
       console.log(error);
       setRequestState({ status: 'error', message: 'Erro inesperado' });
     }
   }
-
 
   return (
     <form
@@ -51,7 +50,7 @@ export function LoginForm() {
           type="email"
           required={true}
           placeholder="Email"
-          onChange={() => setRequestState(null)}
+          onChange={() => setRequestState({ status: 'idle' })}
         />
         {errors?.email && <InputFeedback label={errors?.email} />}
       </div>
@@ -63,7 +62,7 @@ export function LoginForm() {
           type="password"
           required={true}
           placeholder="Senha"
-          onChange={() => setRequestState(null)}
+          onChange={() => setRequestState({ status: 'idle' })}
         />
         {errors?.password && <InputFeedback label={errors?.password} />}
       </div>
