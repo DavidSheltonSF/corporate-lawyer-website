@@ -2,24 +2,24 @@ import { useEffect, useRef, useState } from 'react';
 import { ArrowDropUpIcon } from '../../icons/ArrowDropUpIcon';
 import { Input } from './Input';
 
-interface Props<T> {
+interface Props {
   id: string;
   name: string;
   label: string;
-  defaultValue?: T[keyof T];
-  itemsRecord: T;
-  itemLabel: Function;
+  defaultValue?: string;
+  itemsRecord: Record<string, string>;
+  itemLabel: Record<string, string>;
 }
 
-export function DropdownInputWithLabel<T extends Record<string, string>>({
+export function DropdownInputWithLabel({
   id,
   name,
   label,
   itemsRecord,
   itemLabel,
   defaultValue,
-}: Props<T>) {
-  const [selectedValue, setSelectedValue] = useState<T[keyof T] | null>(null);
+}: Props) {
+  const [selectedValue, setSelectedValue] = useState<string | null>(null);
   const [listIsOpen, setListIsOpen] = useState(false);
   const dropRef = useRef<HTMLDivElement>(null);
 
@@ -46,13 +46,13 @@ export function DropdownInputWithLabel<T extends Record<string, string>>({
     return (
       <li
         onClick={() => {
-          setSelectedValue(item as T[keyof T]);
+          setSelectedValue(item);
           setListIsOpen(false);
         }}
         className="bg-white hover:brightness-80 cursor-pointer px-[8px] h-[32px]"
         key={index}
       >
-        {itemLabel(item)}
+        {itemLabel[item]}
       </li>
     );
   });
@@ -72,7 +72,7 @@ export function DropdownInputWithLabel<T extends Record<string, string>>({
             name={name}
             className="w-full  border-none"
             type="text"
-            value={selectedValue !== null ? itemLabel(itemsRecord[selectedValue]) : '...'}
+            value={selectedValue !== null ? itemLabel[itemsRecord[selectedValue]] : '...'}
             readOnly
           />
 
