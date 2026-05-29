@@ -21,7 +21,6 @@ export function DeadlineModal({ payload, close }: GlobalModalProps<Props>) {
   const [requestState, setRequestState] = useState<RequestState<WithId<Deadline>[]>>({
     status: 'idle',
   });
-  const isLoading = requestState?.status === 'loading';
 
   async function fetchDeadlines() {
     setRequestState({ status: 'loading' });
