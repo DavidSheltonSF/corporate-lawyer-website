@@ -1,11 +1,11 @@
-type ValidationFields = {
-  email: string;
-  password: string;
-};
-
 export type RequestState<T = undefined> =
   | { status: 'idle' }
   | { status: 'loading' }
-  | { status: 'empty' }
+  | { status: 'empty_list' }
   | { status: 'ok'; data: T }
-  | { status: 'error'; code?: string; message: string; details?: { fields: ValidationFields } };
+  | {
+      status: 'error';
+      code?: string;
+      message: string;
+      details?: { fields: Record<string, string> };
+    };
