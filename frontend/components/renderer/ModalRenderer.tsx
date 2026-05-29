@@ -11,6 +11,7 @@ import { DeleteClientModal } from '../modals/DeleteClientModal';
 import { DeadlineModal } from '../features/deadlines/DeadlineModal/DeadlineModal';
 import { CaseFilesModal } from '../features/cases/CaseFilesModal/CaseFilesModal';
 import { SuccessModal } from '../ui/Modal/SuccessModal';
+import { ErrorModal } from '../ui/Modal/ErrorModal';
 
 export function ModalRenderer() {
   const { currentModal, modalData, closeModal } = useModal();
@@ -36,6 +37,9 @@ export function ModalRenderer() {
 
     case 'success':
       return <SuccessModal payload={modalData} close={closeModal} />;
+
+    case 'error':
+      return <ErrorModal payload={modalData} close={closeModal} />;
 
     case 'deadlines':
       return <DeadlineModal payload={modalData} close={closeModal} />;
