@@ -3,7 +3,7 @@ import { authenticateUser } from '@/services/users/authenticateUser';
 import { ActionResponse } from '@/types/ActionResponse';
 import { cookies } from 'next/headers';
 
-export async function login(formData: FormData): Promise<ActionResponse<string>> {
+export async function login(formData: FormData): Promise<ActionResponse<null>> {
   const response = await authenticateUser(formData);
 
   if (!response.success) {
@@ -20,5 +20,5 @@ export async function login(formData: FormData): Promise<ActionResponse<string>>
   //cookiesStore.set('authToken', token, { httpOnly: true, secure: true, sameSite: 'none' });
   cookiesStore.set('authToken', token, { httpOnly: true });
 
-  return response;
+  return { ...response, data: null };
 }
