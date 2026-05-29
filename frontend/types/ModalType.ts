@@ -9,6 +9,7 @@ export type ModalType =
   | 'upload-case-files'
   | 'confirm'
   | 'success'
+  | 'error'
   | 'deadlines'
   | 'case-files'
   | null;
