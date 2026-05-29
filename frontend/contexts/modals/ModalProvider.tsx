@@ -7,16 +7,16 @@ export function ModalProvider({ children }: PropsWithChildren) {
   const [modalData, setModalData] = useState<unknown>();
   const [previousModal, setPreviousModal] = useState<PreviousModal | undefined>();
 
-  function openModal(modal: ModalType, data: unknown, previousModal?: PreviousModal) {
+  function openModal(modal: ModalType, payload: unknown, previousModal?: PreviousModal) {
     setCurrentModal(modal);
-    setModalData(data);
+    setModalData(payload);
     setPreviousModal(previousModal);
   }
 
   function closeModal() {
     if (previousModal) {
       setCurrentModal(previousModal.type);
-      setModalData(previousModal.data);
+      setModalData(previousModal.payload);
       setPreviousModal(undefined);
       return;
     }
