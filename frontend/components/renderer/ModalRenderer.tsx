@@ -10,6 +10,7 @@ import { UpdateClientModal } from '../modals/UpdateClientModal';
 import { DeleteClientModal } from '../modals/DeleteClientModal';
 import { DeadlineModal } from '../features/deadlines/DeadlineModal/DeadlineModal';
 import { CaseFilesModal } from '../features/cases/CaseFilesModal/CaseFilesModal';
+import { SuccessModal } from '../ui/Modal/SuccessModal';
 
 export function ModalRenderer() {
   const { currentModal, modalData, closeModal } = useModal();
@@ -32,6 +33,9 @@ export function ModalRenderer() {
 
     case 'confirm':
       return <ConfirmModal payload={modalData} close={closeModal} />;
+
+    case 'success':
+      return <SuccessModal payload={modalData} close={closeModal} />;
 
     case 'deadlines':
       return <DeadlineModal payload={modalData} close={closeModal} />;
