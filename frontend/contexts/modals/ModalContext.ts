@@ -10,6 +10,7 @@ export type ModalType =
   | 'delete-client'
   | 'upload-case-files'
   | 'confirm'
+  | 'success'
   | 'deadlines'
   | 'case-files'
   | null;
