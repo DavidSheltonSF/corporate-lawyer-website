@@ -1,6 +1,7 @@
 'use client';
 import { PropsWithChildren, useState } from 'react';
-import { ModalType, ModalContext, PreviousModal } from './ModalContext';
+import { ModalContext, PreviousModal } from './ModalContext';
+import { ModalType } from '@/types/ModalType';
 
 export function ModalProvider({ children }: PropsWithChildren) {
   const [currentModal, setCurrentModal] = useState<ModalType>(null);
