@@ -58,20 +58,6 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
     );
   }
 
-  const BaseModalProps = {
-    className: 'w-[90%] min-md:w-[60%] min-lg:w-[480px]',
-    title: 'Arquivos',
-    onClose: close,
-  };
-
-  if (isLoading) {
-    return (
-      <BaseModal {...BaseModalProps}>
-        <LoadingModalScreeen />
-      </BaseModal>
-    );
-  }
-
   function renderContent() {
     switch (requestState.status) {
       case 'loading':
@@ -102,6 +88,12 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
         break;
     }
   }
+
+  const BaseModalProps = {
+    className: 'w-[90%] min-md:w-[60%] min-lg:w-[480px]',
+    title: 'Arquivos',
+    onClose: close,
+  };
 
   return <BaseModal {...BaseModalProps}>{renderContent()}</BaseModal>;
 }
