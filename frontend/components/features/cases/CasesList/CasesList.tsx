@@ -29,7 +29,7 @@ export function CasesList({ requestState, loadCases }: Props) {
       });
     }
 
-    openModal('confirm', {
+    openModal('success', {
       message: 'Processo removido com sucesso',
       onConfirm: () => openModal(null),
     });
