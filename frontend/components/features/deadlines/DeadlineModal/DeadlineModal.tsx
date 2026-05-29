@@ -6,15 +6,17 @@ import { getCaseDeadlines } from '@/services/cases/getCaseDeadlines';
 import { Deadline } from '@/types/Deadline';
 import { Button } from '@/components/ui/Button/Button';
 import { GlobalModalProps } from '@/types/GlobalModalProps';
-import { LoadingModalScreeen } from '@/components/ui/Modal/LoadingModalScreen';
+import { DeadlineCard } from '../DeadLineCard/DeadlineCard';
 import { handleLogout } from '@/lib/handleLogout';
 import { DeadlineModalContent } from './DeadlineModalContent';
+import { DeadlineModalSkeleton } from './DeadlineModalSkeleton';
 
 interface Props {
   caseId: string;
 }
 
 DeadlineModal.Content = DeadlineModalContent;
+DeadlineModal.Skeleton = DeadlineModalSkeleton;
 
 export function DeadlineModal({ payload, close }: GlobalModalProps<Props>) {
   const { caseId } = payload;
@@ -56,7 +58,7 @@ export function DeadlineModal({ payload, close }: GlobalModalProps<Props>) {
   function renderContent() {
     switch (requestState.status) {
       case 'loading':
-        return <LoadingModalScreeen/>
+        return <DeadlineModal.Skeleton />;
 
       case 'ok':
         const { data } = requestState;
