@@ -5,14 +5,11 @@ import { CaseModalSkeleton } from './CaseModalSkeleton';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { getCasePopulatedById } from '@/services/cases/getCasePopulatedById';
 import { WithId } from '@/types/WithId';
-import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { handleLogout } from '@/lib/handleLogout';
 import { RequestState } from '@/types/RequestState';
 import { CaseModalHeader } from './CaseModalHeader';
 import { CaseModalContent } from './CaseModalContent';
 import { CaseModalFooter } from './CaseModalFooter';
-import { NotFoundError } from '@/errors/NotFoundError';
-import { ServerError } from '@/errors/ServerError';
 import { ModalFeedback } from '@/components/ui/Feedback/ModalFeedback';
 import { GlobalModalProps } from '@/types/GlobalModalProps';
 import { useModalWithReturn } from '@/hooks/useModalWithReturn';
@@ -29,38 +26,24 @@ export function CaseModal({ payload, close }: GlobalModalProps<Props>) {
   const [requestState, setRequestState] = useState<RequestState<WithId<CaseWithRelations>>>({
     status: 'idle',
   });
-  const caseId = payload.caseId;
-  const openModalWithReturn = useModalWithReturn<Props>({ type: 'case', payload: { caseId } });
+  const caseId = payload?.caseId;
+
+  const openModalWithReturn = useModalWithReturn<Props>({
+    type: 'case',
+    payload: { caseId },
+  });
 
   async function fetchCaseData() {
-    try {
-      if (!caseId) return;
-      setRequestState({ status: 'loading' });
-      const caseFound = await getCasePopulatedById(caseId);
-      setRequestState({ status: 'ok', data: caseFound });
-    } catch (error: any) {
-      console.log(error);
+    setRequestState({ status: 'loading' });
 
-      if (error instanceof NotFoundError) {
-        setRequestState({
-          status: 'error',
-          message: 'O processo procurado foi removido do sistema ou não existe',
-        });
-      }
+    const response = await getCasePopulatedById(caseId);
 
-      if (error instanceof ServerError) {
-        setRequestState({
-          status: 'error',
-          message: 'Houve algum erro no servidor',
-        });
-      }
-
-      if (error instanceof UnauthorizedError) {
-        handleLogout();
-      }
-
-      setRequestState({ status: 'error', message: error.message });
+    if (!response.success) {
+      const { code, message, details } = response;
+      return setRequestState({ status: 'error', code, message, details });
     }
+
+    setRequestState({ status: 'ok', data: response.data });
   }
 
   function resetStates() {
@@ -74,6 +57,14 @@ export function CaseModal({ payload, close }: GlobalModalProps<Props>) {
       resetStates();
     };
   }, []);
+
+  useEffect(() => {
+    if (requestState.status === 'error') {
+      if (requestState.code === 'UNAUTHORIZED') {
+        handleLogout();
+      }
+    }
+  }, [requestState]);
 
   function renderContent() {
     switch (requestState.status) {
