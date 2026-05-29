@@ -1,6 +1,4 @@
 import { API_URL } from '@/config/api';
-import { InvalidAPIResponseError } from '@/errors/InvalidAPIResponseError';
-import { MissingRequiredArgumentError } from '@/errors/MissingRequiredArgumentError';
 import { WithId } from '@/types/WithId';
 import { apiFetch } from '../apiFetch';
 import { Deadline } from '@/types/Deadline';
