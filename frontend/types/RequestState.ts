@@ -1,4 +1,4 @@
-export type RequestState<T = undefined> =
+export type RequestState<T = unknown> =
   | { status: 'idle' }
   | { status: 'loading' }
   | { status: 'empty_list' }
