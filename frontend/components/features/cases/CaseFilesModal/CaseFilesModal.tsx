@@ -8,7 +8,6 @@ import { GlobalModalProps } from '@/types/GlobalModalProps';
 import { WithId } from '@/types/WithId';
 import { CaseFile } from '@/types/CaseFile';
 import { RequestState } from '@/types/RequestState';
-import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { handleLogout } from '@/lib/handleLogout';
 import { getCaseFiles } from '@/services/cases/getCaseFiles';
 import { LoadingModalScreeen } from '@/components/ui/Modal/LoadingModalScreen';
@@ -19,28 +18,34 @@ interface Props {
 
 export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
   const [uploadModalIsOpen, setUploadModalIsOpen] = useState(false);
-  const [requestState, setRequestState] = useState<RequestState | null>(null);
-  const [caseFiles, setCaseFiles] = useState<WithId<CaseFile>[]>([]);
+  const [requestState, setRequestState] = useState<RequestState<WithId<CaseFile>[]>>({
+    status: 'idle',
+  });
   const { caseId } = payload;
   const isLoading = requestState?.status === 'loading';
 
   async function fetchCaseFiles() {
-    try {
-      setRequestState({ status: 'loading' });      
-      const data = await getCaseFiles(caseId);
-      setCaseFiles(data);
-      setRequestState({ status: 'ok' });
-    } catch (error: any) {
-      if (error instanceof UnauthorizedError) {
-        handleLogout();
-      }
+    setRequestState({ status: 'loading' });
+    const response = await getCaseFiles(caseId);
 
-      setRequestState({ status: 'error', message: error.message });
+    if (!response.success) {
+      const { code, message, details } = response;
+      return setRequestState({ status: 'error', code, message, details });
     }
+
+    setRequestState({ status: 'ok', data: response.data });
   }
 
   useEffect(() => {
     fetchCaseFiles();
+  }, []);
+
+  useEffect(() => {
+    if (requestState.status === 'error') {
+      if (requestState.code === 'UNAUTHORIZED') {
+        handleLogout();
+      }
+    }
   }, []);
 
   if (uploadModalIsOpen) {
@@ -67,24 +72,36 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
     );
   }
 
-  return (
-    <BaseModal {...BaseModalProps}>
-      <div className="flex flex-col max-h-[40vh] pb-[24px]">
-        <div className="flex items-center border-divider px-[24px] py-[8px]">
-          <p className="font-bold">Arquivos enviados: {caseFiles.length}</p>
-          <OpenUploadModalButton
-            className="ml-auto"
-            handleClick={() => setUploadModalIsOpen(true)}
-          />
-        </div>
-        <div className="flex px-[24px] overflow-y-scroll">
-          {caseFiles.length > 0 ? (
-            <CaseFilesTable documents={caseFiles} />
-          ) : (
-            <ModalFeedback title="Nenhum arquivo encontrado" />
-          )}
-        </div>
-      </div>
-    </BaseModal>
-  );
+  function renderContent() {
+    switch (requestState.status) {
+      case 'loading':
+        return <LoadingModalScreeen />;
+
+      case 'ok':
+        const caseFiles = requestState.data;
+        return (
+          <div className="flex flex-col max-h-[40vh] pb-[24px]">
+            <div className="flex items-center border-divider px-[24px] py-[8px]">
+              <p className="font-bold">Arquivos enviados: {caseFiles.length}</p>
+              <OpenUploadModalButton
+                className="ml-auto"
+                handleClick={() => setUploadModalIsOpen(true)}
+              />
+            </div>
+            <div className="flex px-[24px] overflow-y-scroll">
+              {caseFiles.length > 0 ? (
+                <CaseFilesTable documents={caseFiles} />
+              ) : (
+                <ModalFeedback title="Nenhum arquivo encontrado" />
+              )}
+            </div>
+          </div>
+        );
+
+      default:
+        break;
+    }
+  }
+
+  return <BaseModal {...BaseModalProps}>{renderContent()}</BaseModal>;
 }
