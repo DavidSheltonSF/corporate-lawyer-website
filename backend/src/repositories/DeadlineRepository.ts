@@ -2,9 +2,15 @@ import { WithId } from '../types/WithId';
 import { UpdateDeadlineDTO } from '../dtos/deadLine/UpdateDeadlineDTO';
 import { DeadlineDTO } from '../dtos/deadLine/DeadlineDTO';
 import { CreateDeadlineDTO } from '../dtos/deadLine/CreateDeadlineDTO';
+import { CaseLocationDTO } from '../dtos/case/CaseLocationDTO';
 
 export interface DeadlineRepository {
-  create(data: CreateDeadlineDTO, startDate: string, dueDate: string): Promise<WithId<DeadlineDTO>>;
+  create(
+    data: CreateDeadlineDTO,
+    startDate: string,
+    dueDate: string,
+    caseLocation: CaseLocationDTO
+  ): Promise<WithId<DeadlineDTO>>;
   findAll(): Promise<WithId<DeadlineDTO>[]>;
   findById(id: string): Promise<WithId<DeadlineDTO> | null>;
   findByCaseId(id: string): Promise<WithId<DeadlineDTO>[]>;
