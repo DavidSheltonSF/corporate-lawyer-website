@@ -1,9 +1,7 @@
 import { validateDeadline } from './validateDeadline';
-import { InvalidDeadlineTypeError } from '../../../errors/domain/InvalidDeadlineTypeError';
-import { InvalidDeadlinePriorityError } from '../../../errors/domain/InvalidDeadlinePriorityError';
-import { InvalidDateError } from '../../../errors/domain/InvalidDateError';
 import { getThrownError } from '../../../tests/helpers/getThrownError';
 import { DeadlineMocker } from '../../../tests/mocks/entities/DeadlineMocker';
+import { ValidationError } from '../../../errors/presentation/ValidationError';
 
 describe(`Testing ${validateDeadline.name}`, () => {
   test('should not throw error if all deadline fields are  valid', () => {
@@ -16,20 +14,20 @@ describe(`Testing ${validateDeadline.name}`, () => {
     const deadlineDTO = DeadlineMocker.mockCreateDeadlineDTO();
     deadlineDTO.type = 'banana';
     const thrownError = getThrownError(() => validateDeadline(deadlineDTO));
-    expect(thrownError).toBeInstanceOf(InvalidDeadlineTypeError);
+    expect(thrownError).toBeInstanceOf(ValidationError);
   });
 
   test('should throw InvalidDeadlinePriorityError if type provided is invalid', () => {
     const deadlineDTO = DeadlineMocker.mockCreateDeadlineDTO();
     deadlineDTO.priority = 'banana';
     const thrownError = getThrownError(() => validateDeadline(deadlineDTO));
-    expect(thrownError).toBeInstanceOf(InvalidDeadlinePriorityError);
+    expect(thrownError).toBeInstanceOf(ValidationError);
   });
 
   test('should throw InvalidDateError if the intimationDate provided is invalid', () => {
     const deadlineDTO = DeadlineMocker.mockCreateDeadlineDTO();
     deadlineDTO.intimationDate = 'banana';
     const thrownError = getThrownError(() => validateDeadline(deadlineDTO));
-    expect(thrownError).toBeInstanceOf(InvalidDateError);
+    expect(thrownError).toBeInstanceOf(ValidationError);
   });
 });
