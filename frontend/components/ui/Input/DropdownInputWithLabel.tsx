@@ -7,18 +7,10 @@ interface Props {
   name: string;
   label: string;
   defaultValue?: string;
-  itemsRecord: Record<string, string>;
   itemLabel: Record<string, string>;
 }
 
-export function DropdownInputWithLabel({
-  id,
-  name,
-  label,
-  itemsRecord,
-  itemLabel,
-  defaultValue,
-}: Props) {
+export function DropdownInputWithLabel({ id, name, label, itemLabel, defaultValue }: Props) {
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
   const [listIsOpen, setListIsOpen] = useState(false);
   const dropRef = useRef<HTMLDivElement>(null);
@@ -41,7 +33,7 @@ export function DropdownInputWithLabel({
     };
   }, [defaultValue]);
 
-  const items = Object.values(itemsRecord);
+  const items = Object.values(itemLabel);
   const renderItems = items.map((item, index) => {
     return (
       <li
@@ -52,7 +44,7 @@ export function DropdownInputWithLabel({
         className="bg-white hover:brightness-80 cursor-pointer px-[8px] h-[32px]"
         key={index}
       >
-        {itemLabel[item]}
+        {item}
       </li>
     );
   });
@@ -72,7 +64,7 @@ export function DropdownInputWithLabel({
             name={name}
             className="w-full  border-none"
             type="text"
-            value={selectedValue !== null ? itemLabel[itemsRecord[selectedValue]] : '...'}
+            value={selectedValue !== null ? selectedValue : '...'}
             readOnly
           />
 
