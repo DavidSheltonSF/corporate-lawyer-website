@@ -1,6 +1,6 @@
 import { InvalidDateError } from '../../errors/domain/InvalidDateError';
 
-export function validateDate(dateString: string): boolean {
+export function isValidDateString(dateString: string): boolean {
   const formattedDate = dateString.split('T')[0] as string;
 
   const regex = /^\d{4}-\d{2}-\d{2}$/;

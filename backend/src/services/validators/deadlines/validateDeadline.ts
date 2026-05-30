@@ -1,6 +1,6 @@
 import { CreateDeadlineDTO } from '../../../dtos/deadLine/CreateDeadlineDTO';
 import { ValidationError } from '../../../errors/presentation/ValidationError';
-import { validateDate } from '../validateDate';
+import { isValidDateString } from '../isValidDateString';
 import { validateDeadlinePriority } from './validateDeadlinePriority';
 import { validateDeadlineType } from './validateDeadlineType';
 
@@ -17,7 +17,7 @@ export function validateDeadline(data: CreateDeadlineDTO) {
     invalidFields.priority = 'Invalid deadline priority';
   }
 
-  if (!validateDate(intimationDate)) {
+  if (!isValidDateString(intimationDate)) {
     invalidFields.intimationDate = 'Invalid date';
   }
 
