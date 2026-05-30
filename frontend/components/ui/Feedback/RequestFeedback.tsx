@@ -2,7 +2,7 @@ import { RequestState } from '@/types/RequestState';
 import { FeedbackMessage } from './FeedbackMessage';
 
 interface Props {
-  requestState: RequestState | null;
+  requestState: RequestState;
 }
 
 export function RequestFeedback({ requestState }: Props) {
