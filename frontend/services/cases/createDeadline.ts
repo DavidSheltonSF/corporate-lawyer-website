@@ -11,13 +11,13 @@ import { makeActionResponse } from '@/factories/makeActionResponse';
 export async function createDeadline(
   caseId: string,
   lawyerId: string,
-  formData: FormData
+  formData: Record<string, string>
 ): Promise<ActionResponse<WithId<Deadline>>> {
-  const type = formData.get('type');
-  const countingType = formData.get('countingType');
-  const intimationDate = formData.get('intimationDate');
-  const days = formData.get('days');
-  const priority = formData.get('priority');
+  const type = formData.type;
+  const countingType = formData.countingType;
+  const intimationDate = formData.intimationDate;
+  const days = formData.days;
+  const priority = formData.priority;
   const mappedCountingType = mapLabelToDeadlineCountintType(countingType?.toString() || '');
   const mappedType = mapLabelToDeadlineType(type?.toString() || '');
 
