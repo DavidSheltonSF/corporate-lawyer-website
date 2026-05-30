@@ -1,11 +1,10 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BaseModal } from '../../../ui/Modal/BaseModal';
 import { uploadCaseFile } from '@/services/cases/uploadCaseFile';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../../../ui/Feedback/RequestFeedback';
 import { handleLogout } from '@/lib/handleLogout';
-import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { UploadButton } from '../../../ui/UploadButton';
 import { UploadedFileCard } from '@/components/ui/UploadedFileCard';
 
@@ -26,28 +25,28 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
   }
 
   async function handleUploadFile() {
-    try {
-      if (!file) return;
+    if (!file) return;
 
-      const MAX_FILE_SIZE = 10 * 1024 * 1024;
-      if (file.size > MAX_FILE_SIZE) {
-        throw Error('Arquivo ultrapassa o tamanho máximo de 10 MB.');
-      }
-      const formData = new FormData();
-      formData.append('file', file);
-      setRequestState({ status: 'loading' });
-      await uploadCaseFile(formData, caseId);
-      setRequestState({ status: 'ok', message: `Arquivo '${file?.name}' foi enviado com sucesso` });
-      refetchCase();
-    } catch (error: any) {
-      console.log(error);
-      setRequestState({ status: 'error', message: error.message });
+    const formData = new FormData();
+    formData.append('file', file);
+    setRequestState({ status: 'loading' });
+    const response = await uploadCaseFile(formData, caseId);
 
-      if (error instanceof UnauthorizedError) {
+    if (!response.success) {
+      setRequestState({ ...response, status: 'error' });
+    }
+
+    setRequestState({ status: 'ok', data: null });
+    refetchCase();
+  }
+
+  useEffect(() => {
+    if (requestState?.status === 'error') {
+      if (requestState.code === 'UNAUTHORIZED') {
         handleLogout();
       }
     }
-  }
+  }, [requestState]);
 
   function renderFileCard() {
     if (!file) return;
