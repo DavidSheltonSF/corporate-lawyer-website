@@ -61,7 +61,7 @@ export function CreateDeadlineModal({ caseId, close }: Props) {
               name="intimationDate"
               label="Data de intimação"
             />
-            <InputWithLabel type="number" id="days-input" name="days" label="Dias" />
+            <InputWithLabel type="number" min={1} id="days-input" name="days" label="Dias" />
           </div>
 
           <DropdownInputWithLabel
