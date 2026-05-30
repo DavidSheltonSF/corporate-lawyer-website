@@ -1,7 +1,7 @@
 export type RequestState<T = unknown> =
   | { status: 'idle' }
   | { status: 'loading' }
-  | { status: 'ok'; data: T }
+  | { status: 'ok'; data: T; message?: string }
   | {
       status: 'error';
       code?: string;
