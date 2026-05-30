@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react';
 import { BaseModal } from '../../../ui/Modal/BaseModal';
 import { uploadCaseFile } from '@/services/cases/uploadCaseFile';
 import { RequestState } from '@/types/RequestState';
-import { RequestFeedback } from '../../../ui/Feedback/RequestFeedback';
 import { handleLogout } from '@/lib/handleLogout';
 import { UploadButton } from '../../../ui/UploadButton';
 import { UploadedFileCard } from '@/components/ui/UploadedFileCard';
 import { UploadFileState } from '@/types/UploadFileState';
 import { FeedbackMessage } from '@/components/ui/Feedback/FeedbackMessage';
 import { ButtonVariant } from '@/components/ui/Button/ButtonVariant';
+import { RequestFeedback } from '@/components/ui/Feedback/RequestFeedback';
 
 interface Props {
   caseId: string;
@@ -64,17 +64,17 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
     );
   }
 
-  function renderFeedback() {
-    const isLoading = requestState?.status === 'loading';
-    if (!requestState || isLoading) return;
-
-    return <RequestFeedback requestState={requestState} />;
-  }
-
   function renderUploadFeedback() {
-    if (uploadFileState.status !== 'error') return;
+    switch (uploadFileState?.status) {
+      case 'ok':
+        return <FeedbackMessage status="ok" message={uploadFileState.message} />;
 
-    return <FeedbackMessage status={uploadFileState.status} message={uploadFileState.message} />;
+      case 'error':
+        return <FeedbackMessage status="error" message={uploadFileState.message} />;
+
+      default:
+        return null;
+    }
   }
 
   return (
@@ -88,7 +88,7 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
       }}
     >
       <div className="flex gap-[24px] size-full flex flex-col text-center items-center p-[24px]">
-        {renderFeedback()}
+        <RequestFeedback requestState={requestState} />
         {renderUploadFeedback()}
         {uploadFileState.status !== 'ok' && (
           <UploadButton setUploadFileState={setUploadFileState} />
