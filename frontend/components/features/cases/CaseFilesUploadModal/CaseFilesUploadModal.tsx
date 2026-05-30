@@ -9,6 +9,7 @@ import { UploadButton } from '../../../ui/UploadButton';
 import { UploadedFileCard } from '@/components/ui/UploadedFileCard';
 import { UploadFileState } from '@/types/UploadFileState';
 import { FeedbackMessage } from '@/components/ui/Feedback/FeedbackMessage';
+import { ButtonVariant } from '@/components/ui/Button/ButtonVariant';
 
 interface Props {
   caseId: string;
@@ -80,6 +81,7 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
     <BaseModal
       className="w-[90%] min-md:w-[60%] min-lg:w-[520px]"
       title="Envie um arquivo"
+      confirmButtonVariant={uploadFileState.status !== 'ok' ? ButtonVariant.DISABLED : undefined}
       onConfirm={handleUploadFile}
       onClose={() => {
         onClose();
