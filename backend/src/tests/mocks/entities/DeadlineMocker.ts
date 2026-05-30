@@ -23,10 +23,6 @@ export class DeadlineMocker {
       days: GenericMocker.mockInteger(1, 30),
       countingType: GenericMocker.mockEnum(DeadlineCountingType),
       priority: GenericMocker.mockEnum(DeadlinePriority),
-      caseLocation: {
-        city: GenericMocker.mockEnum(City),
-        state: GenericMocker.mockEnum(BrazilState),
-      },
     };
   }
 
