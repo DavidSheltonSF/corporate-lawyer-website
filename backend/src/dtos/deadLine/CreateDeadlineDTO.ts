@@ -1,5 +1,3 @@
-import { CaseLocationDTO } from '../case/CaseLocationDTO';
-
 export interface CreateDeadlineDTO {
   caseId: string;
   lawyerId: string;
@@ -8,5 +6,4 @@ export interface CreateDeadlineDTO {
   days: number;
   countingType: string;
   priority: string;
-  caseLocation: CaseLocationDTO;
 }
