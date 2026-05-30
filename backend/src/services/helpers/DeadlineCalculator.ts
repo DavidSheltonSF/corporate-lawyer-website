@@ -82,35 +82,12 @@ export class DeadlineCalculator {
   }
 
   getRemainingDays(dueDate: Date): number {
-    if (!this.config) {
-      throw new Error('Missing config params');
-    }
-    const { countingType } = this.config;
-
-    const countOnlyBusinessDays = countingType === DeadlineCountingType.DIAS_UTEIS;
-
     let current = new Date();
     current.setHours(0, 0, 0, 0); //normalize hours
 
     let targetDate = new Date(dueDate);
     targetDate.setHours(23, 59, 59, 999); // the deadline ends in the end of the day
-
-    if (!countOnlyBusinessDays) {
-      const diff = targetDate.getTime() - current.getTime();
-
-      return Math.ceil(diff / (1000 * 60 * 60 * 24));
-    }
-
-    let daysCount = 0;
-    while (current < targetDate) {
-      current.setDate(current.getDate() + 1);
-
-      if (countOnlyBusinessDays && !this.isBusinessDay(current)) {
-        continue;
-      }
-      daysCount++;
-    }
-
-    return daysCount;
+    const diff = targetDate.getTime() - current.getTime();
+    return Math.ceil(diff / (1000 * 60 * 60 * 24));
   }
 }
