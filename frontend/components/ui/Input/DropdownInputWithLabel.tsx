@@ -1,16 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowDropUpIcon } from '../../icons/ArrowDropUpIcon';
 import { Input } from './Input';
+import { InputProps } from './types';
 
 interface Props {
-  id: string;
-  name: string;
   label: string;
-  defaultValue?: string;
   itemLabel: Record<string, string>;
 }
 
-export function DropdownInputWithLabel({ id, name, label, itemLabel, defaultValue }: Props) {
+export function DropdownInputWithLabel({
+  id,
+  label,
+  itemLabel,
+  defaultValue,
+  ...inputProps
+}: Props & InputProps) {
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
   const [listIsOpen, setListIsOpen] = useState(false);
   const dropRef = useRef<HTMLDivElement>(null);
@@ -61,11 +65,11 @@ export function DropdownInputWithLabel({ id, name, label, itemLabel, defaultValu
         >
           <Input
             id={id}
-            name={name}
             className="w-full  border-none"
             type="text"
             value={selectedValue !== null ? selectedValue : '...'}
             readOnly
+            {...inputProps}
           />
 
           <button
