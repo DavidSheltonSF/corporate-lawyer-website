@@ -1,6 +1,6 @@
 import { UpdateDeadlineDTO } from '../../../dtos/deadLine/UpdateDeadlineDTO';
 import { isValidDateString } from '../isValidDateString';
-import { validateDeadlinePriority } from './validateDeadlinePriority';
+import { isValidDeadlinePriority } from './isValidDeadlinePriority';
 import { isValidDeadlineType } from './isValidDeadlineType';
 
 export function validateDeadlinePartial(data: UpdateDeadlineDTO) {
@@ -11,7 +11,7 @@ export function validateDeadlinePartial(data: UpdateDeadlineDTO) {
   }
 
   if (priority) {
-    validateDeadlinePriority(priority);
+    isValidDeadlinePriority(priority);
   }
 
   if (intimationDate) {
