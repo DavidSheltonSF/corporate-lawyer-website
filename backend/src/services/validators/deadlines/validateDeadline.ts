@@ -1,16 +1,21 @@
 import { CreateDeadlineDTO } from '../../../dtos/deadLine/CreateDeadlineDTO';
 import { ValidationError } from '../../../errors/presentation/ValidationError';
 import { isValidDateString } from '../isValidDateString';
+import { isValidDeadlineCountingType } from './isValidDeadlineCountingType';
 import { isValidDeadlinePriority } from './isValidDeadlinePriority';
 import { isValidDeadlineType } from './isValidDeadlineType';
 
 export function validateDeadline(data: CreateDeadlineDTO) {
-  const { type, priority, intimationDate } = data;
+  const { type, priority, intimationDate, countingType } = data;
 
   const invalidFields: Record<string, string> = {};
 
   if (!isValidDeadlineType(type)) {
     invalidFields.type = 'Invalid deadline type';
+  }
+
+  if (!isValidDeadlineCountingType(countingType)) {
+    invalidFields.countingType = 'Invalid deadline counting type';
   }
 
   if (!isValidDeadlinePriority(priority)) {
