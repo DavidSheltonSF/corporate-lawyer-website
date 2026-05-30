@@ -1,3 +1,5 @@
+import { ChangeEventHandler } from 'react';
+
 export interface InputProps {
   id: string;
   name: string;
@@ -8,5 +10,5 @@ export interface InputProps {
   readOnly?: boolean;
   defaultValue?: string;
   min?: number;
-  onChange?: Function;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
 }
