@@ -61,12 +61,12 @@ export class DeadlineCalculator {
     const { countingType } = this.config;
     let current = normalizeDate(new Date(date));
 
-    const countAllDays = countingType === DeadlineCountingType.DIAS_CORRIDOS;
+    const countOnlyBusinessDays = countingType === DeadlineCountingType.DIAS_UTEIS;
 
     let addedDays = 1; // including start date
     while (addedDays < days) {
       current.setDate(current.getDate() + 1);
-      if (countAllDays || !this.isBusinessDay(current)) {
+      if (countOnlyBusinessDays && !this.isBusinessDay(current)) {
         continue;
       }
       addedDays++;
