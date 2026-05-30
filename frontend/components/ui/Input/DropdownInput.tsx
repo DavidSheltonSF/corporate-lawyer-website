@@ -5,11 +5,20 @@ import { InputProps } from './types';
 
 interface Props {
   itemLabel: Record<string, string>;
+  value?: string;
+  onSelectValue?: (value: string) => void;
 }
 
-export function DropdownInput({ itemLabel, defaultValue, ...inputProps }: Props & InputProps) {
-  const [selectedValue, setSelectedValue] = useState<string | null>(null);
+export function DropdownInput({
+  value,
+  itemLabel,
+  defaultValue,
+  onSelectValue,
+  ...inputProps
+}: Props & InputProps) {
+  const [selectedValue, setSelectedValue] = useState<string>(value || '');
   const [listIsOpen, setListIsOpen] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
   const dropRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -29,6 +38,13 @@ export function DropdownInput({ itemLabel, defaultValue, ...inputProps }: Props 
       document.removeEventListener('click', handleClickOutside);
     };
   }, [defaultValue]);
+
+  useEffect(() => {
+    onSelectValue && onSelectValue(selectedValue);
+    if (inputRef.current) {
+      inputRef.current.value = selectedValue;
+    }
+  }, [selectedValue]);
 
   const items = Object.values(itemLabel);
   const renderItems = items.map((item, index) => {
@@ -54,10 +70,11 @@ export function DropdownInput({ itemLabel, defaultValue, ...inputProps }: Props 
           onClick={() => setListIsOpen(true)}
         >
           <Input
+            ref={inputRef}
             className="w-full  border-none"
             type="text"
-            value={selectedValue !== null ? selectedValue : '...'}
-            readOnly
+            value={value}
+            onChange={(e) => setSelectedValue(e.target.value)}
             {...inputProps}
           />
 
@@ -82,7 +99,7 @@ export function DropdownInput({ itemLabel, defaultValue, ...inputProps }: Props 
           <ul>
             <li
               onClick={() => {
-                setSelectedValue(null);
+                setSelectedValue('');
                 setListIsOpen(false);
               }}
               className="bg-white hover:brightness-80 cursor-pointer px-[8px]"
