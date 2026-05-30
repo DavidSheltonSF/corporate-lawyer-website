@@ -32,7 +32,7 @@ export function UploadButton({ setUploadFileState }: Props) {
 
   return (
     <div className="flex size-full">
-      <input name="file" onChange={handleChange} ref={inputRef} className="hidden" type="file" />
+      <input name="file" accept='.pdf' onChange={handleChange} ref={inputRef} className="hidden" type="file" />
       <Button
         onClick={handleOpenFilePicker}
         variant={ButtonVariant.SECONDARY}
