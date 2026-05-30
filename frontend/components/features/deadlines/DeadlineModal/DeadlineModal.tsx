@@ -8,6 +8,7 @@ import { GlobalModalProps } from '@/types/GlobalModalProps';
 import { handleLogout } from '@/lib/handleLogout';
 import { DeadlineModalContent } from './DeadlineModalContent';
 import { DeadlineModalSkeleton } from './DeadlineModalSkeleton';
+import { CreateDeadlineModal } from '../CreateDeadlineModal/CreateDeadlineModal';
 
 interface Props {
   caseId: string;
@@ -21,6 +22,7 @@ export function DeadlineModal({ payload, close }: GlobalModalProps<Props>) {
   const [requestState, setRequestState] = useState<RequestState<WithId<Deadline>[]>>({
     status: 'idle',
   });
+  const [createModalIsOpen, setCreateModalIsOpen] = useState(false);
 
   async function fetchDeadlines() {
     setRequestState({ status: 'loading' });
@@ -59,8 +61,14 @@ export function DeadlineModal({ payload, close }: GlobalModalProps<Props>) {
 
       case 'ok':
         const { data } = requestState;
-        return <DeadlineModal.Content data={data} />;
+        return (
+          <DeadlineModal.Content data={data} openCreateModal={() => setCreateModalIsOpen(true)} />
+        );
     }
+  }
+
+  if (createModalIsOpen) {
+    return <CreateDeadlineModal caseId={caseId} close={close} />;
   }
 
   return <BaseModal {...BaseModalProps}>{renderContent()}</BaseModal>;

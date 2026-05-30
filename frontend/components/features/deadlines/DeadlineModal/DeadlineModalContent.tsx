@@ -5,9 +5,10 @@ import { DeadlineCard } from '../DeadLineCard/DeadlineCard';
 
 interface Props {
   data: WithId<Deadline>[];
+  openCreateModal: () => void;
 }
 
-export function DeadlineModalContent({ data }: Props) {
+export function DeadlineModalContent({ data, openCreateModal }: Props) {
   const renderDeadlines = data.map((deadline) => {
     return <DeadlineCard key={deadline.id} deadline={deadline} />;
   });
@@ -16,7 +17,10 @@ export function DeadlineModalContent({ data }: Props) {
     <div className="flex flex-col max-h-[58vh]">
       <div className="flex flex-col min-lg:flex-row min-lg:items-center p-[24px] border-divider gap-[16px] min-lg:gap-0">
         <span className="font-bold">Quantidade: {data.length}</span>
-        <Button className="border border-black bg-color-white hover:brightness-95 min-lg:ml-auto">
+        <Button
+          onClick={openCreateModal}
+          className="border border-black bg-color-white hover:brightness-95 min-lg:ml-auto"
+        >
           Adicionar Prazo
         </Button>
       </div>
