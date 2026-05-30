@@ -14,10 +14,10 @@ export function UploadedFileCard({ file, onClose }: Props) {
       <Button onClick={onClose} className="absolute top-[8px] right-[8px] p-[4px]">
         <CloseIcon className="size-[16px] " />
       </Button>
-      <div className="border size-[64px] rounded-sm">
-        <DocumentIcon className="fill-[var(--color-primary-light)]" />
+      <div className="flex justify-center items-center border size-[56px] min-md:size-[64px] rounded-sm">
+        <DocumentIcon className=" size-[90%] fill-[var(--color-primary-light)]" />
       </div>
-      <div className="flex flex-col items-start">
+      <div className="flex flex-col items-start text-start text-sm">
         <p>{file.name}</p>
         <p>{formatFileSize(file.size)}</p>
       </div>
