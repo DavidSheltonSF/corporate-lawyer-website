@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ArrowDropUpIcon } from '../../icons/ArrowDropUpIcon';
 import { Input } from './Input';
 import { InputProps } from './types';
+import { DropdownInput } from './DropdownInput';
 
 interface Props {
   label: string;
@@ -58,52 +59,7 @@ export function DropdownInputWithLabel({
       <label className="text-[1.3rem]" htmlFor={id}>
         {label}
       </label>
-      <div ref={dropRef} className="flex flex-col relative">
-        <div
-          className="flex jusfity-center items-center border h-fit w-full rounded-sm "
-          onClick={() => setListIsOpen(true)}
-        >
-          <Input
-            id={id}
-            className="w-full  border-none"
-            type="text"
-            value={selectedValue !== null ? selectedValue : '...'}
-            readOnly
-            {...inputProps}
-          />
-
-          <button
-            type="button"
-            className="flex items-center justify-center rounded-md size-[32px] bg-white hover:brightness-90 cursor-pointer"
-            onClick={() => setListIsOpen(!listIsOpen)}
-          >
-            <span className={`transition-[rotate] duration-300 ${!listIsOpen && 'rotate-180'}`}>
-              <ArrowDropUpIcon className="size-[24px]" />
-            </span>
-          </button>
-        </div>
-        <div
-          className={`transition-[height] duration-300 absolute z-1 w-full bg-white overflow-hidden w-full top-[100%]  ${
-            listIsOpen && 'border py-[8px]'
-          }`}
-          style={{
-            height: listIsOpen ? (items.length + 1) * 32 : 0,
-          }}
-        >
-          <ul>
-            <li
-              onClick={() => {
-                setSelectedValue(null);
-                setListIsOpen(false);
-              }}
-              className="bg-white hover:brightness-80 cursor-pointer px-[8px]"
-            >
-              ...
-            </li>
-            {renderItems}
-          </ul>
-        </div>
-      </div>
+      <DropdownInput id={id} itemLabel={itemLabel} {...inputProps} />
     </div>
   );
 }
