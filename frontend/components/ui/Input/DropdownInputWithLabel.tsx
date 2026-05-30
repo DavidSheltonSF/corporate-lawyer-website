@@ -7,6 +7,7 @@ import { DropdownInput } from './DropdownInput';
 interface Props {
   label: string;
   itemLabel: Record<string, string>;
+  onSelectValue?: (value: string) => void
 }
 
 export function DropdownInputWithLabel({
@@ -14,6 +15,7 @@ export function DropdownInputWithLabel({
   label,
   itemLabel,
   defaultValue,
+  onSelectValue,
   ...inputProps
 }: Props & InputProps) {
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
@@ -59,7 +61,7 @@ export function DropdownInputWithLabel({
       <label className="text-[1.3rem]" htmlFor={id}>
         {label}
       </label>
-      <DropdownInput id={id} itemLabel={itemLabel} {...inputProps} />
+      <DropdownInput id={id} itemLabel={itemLabel} onSelectValue={onSelectValue} {...inputProps} />
     </div>
   );
 }
