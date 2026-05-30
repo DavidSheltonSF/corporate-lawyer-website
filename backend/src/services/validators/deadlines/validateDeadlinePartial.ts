@@ -8,7 +8,7 @@ import { isValidDeadlineType } from './isValidDeadlineType';
 export function validateDeadlinePartial(data: UpdateDeadlineDTO) {
   const { type, priority, intimationDate, countingType } = data;
 
-  const invalidFields: Record<string, string> = {};
+  const invalidFields: Partial<Record<keyof UpdateDeadlineDTO, string>> = {};
 
   if (type && !isValidDeadlineType(type)) {
     invalidFields.type = 'Invalid deadline type';
