@@ -6,7 +6,7 @@ import { isValidDeadlinePriority } from './isValidDeadlinePriority';
 import { isValidDeadlineType } from './isValidDeadlineType';
 
 export function validateDeadline(data: CreateDeadlineDTO) {
-  const { type, priority, intimationDate, countingType } = data;
+  const { type, priority, intimationDate, countingType, days } = data;
 
   const invalidFields: Record<string, string> = {};
 
@@ -24,6 +24,10 @@ export function validateDeadline(data: CreateDeadlineDTO) {
 
   if (!isValidDateString(intimationDate)) {
     invalidFields.intimationDate = 'Invalid date';
+  }
+
+  if (days <= 0) {
+    invalidFields.days = 'Days should be greater than 0'
   }
 
   if (Object.keys(invalidFields).length > 0) {
