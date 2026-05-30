@@ -3,6 +3,7 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { CaseSearchEnum } from '../types/CaseSearchEnum';
 import { reduceString } from '@/lib/reduceString';
+import { ChevronDownIcon } from './icons/ChevronDownIcon';
 
 interface Props {
   listItems: any[];
@@ -82,11 +83,7 @@ export function DropDownButton({
           {reduceString(itemLabel(selectedItem) || defaultValue, 10)}
         </span>
         <span>
-          <img
-            className={`${!darkTheme ? 'invert' : ''}`}
-            src="icons/arrow-drop-down-white.svg"
-            alt=""
-          />
+          <ChevronDownIcon className="size-[24px] " />
         </span>
       </button>
       <div
