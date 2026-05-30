@@ -52,7 +52,11 @@ export class DeadlineService implements Partial<IDeadlineService> {
     return await this.deadlineRepository.create(
       data,
       toDateOnlyString(startDate),
-      toDateOnlyString(dueDate)
+      toDateOnlyString(dueDate),
+      {
+        state: state,
+        city: city,
+      }
     );
   }
 
