@@ -17,33 +17,61 @@ interface Props {
 
 export function CreateDeadlineModalForm({ formId, caseId }: Props) {
   const [requestState, setRequestState] = useState<RequestState<WithId<Deadline>>>();
+  const [formData, setFormData] = useState({
+    type: '',
+    countingType: '',
+    intimationDate: '',
+    days: '1',
+    priority: '',
+  });
 
   const { userData } = useAuthenticatedUserContext();
 
-  async function handleCreateDeadline(formData: FormData) {
+  function updateField(name: string, value: string) {
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  }
+
+  function resetForm() {
+    setFormData({
+      type: '',
+      countingType: '',
+      intimationDate: '',
+      days: '1',
+      priority: '',
+    });
+  }
+
+  async function handleCreateDeadline(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
     const response = await createDeadline(caseId, userData.id, formData);
 
     if (!response.success) {
       return setRequestState({ ...response, status: 'error' });
     }
 
+    resetForm();
     setRequestState({ status: 'ok', data: response.data });
   }
 
   return (
-    <form id={formId} action={handleCreateDeadline} className="flex flex-col gap-[24px]">
+    <form id={formId} onSubmit={handleCreateDeadline} className="flex flex-col gap-[24px]">
       <div className="flex flex-col min-lg:flex-row gap-[24px]">
         <DropdownInputWithLabel
           id="type-input"
           itemLabel={DeadlineTypeLabel}
           label="Tipo"
           name="type"
+          value={formData.type}
+          onSelectValue={(value) => updateField('type', value)}
         />
         <DropdownInputWithLabel
           id="countint-type-input"
           itemLabel={DeadlineCountingTypeLabel}
           label="Tipo de Contagem"
           name="countingType"
+          value={formData.countingType}
+          onSelectValue={(value) => updateField('countingType', value)}
         />
       </div>
       <div className="flex flex-col min-lg:flex-row gap-[24px]">
@@ -52,8 +80,18 @@ export function CreateDeadlineModalForm({ formId, caseId }: Props) {
           id="intimation-date-input"
           name="intimationDate"
           label="Data de intimação"
+          value={formData.intimationDate}
+          onChange={(e: any) => updateField('intimationDate', e.target.value)}
         />
-        <InputWithLabel type="number" min={1} id="days-input" name="days" label="Dias" />
+        <InputWithLabel
+          type="number"
+          min={1}
+          id="days-input"
+          name="days"
+          label="Dias"
+          value={formData.days}
+          onChange={(e: any) => updateField('days', e.target.value)}
+        />
       </div>
 
       <DropdownInputWithLabel
@@ -61,6 +99,8 @@ export function CreateDeadlineModalForm({ formId, caseId }: Props) {
         itemLabel={DeadlinePriorityLabel}
         label="Prioridade"
         name="priority"
+        value={formData.priority}
+        onSelectValue={(value) => updateField('priority', value)}
       />
     </form>
   );
