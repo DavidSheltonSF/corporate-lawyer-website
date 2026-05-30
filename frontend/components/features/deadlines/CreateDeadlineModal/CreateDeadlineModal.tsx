@@ -11,25 +11,16 @@ import { DeadlineCountingType } from '@/types/DeadlineCountingType';
 import { RequestState } from '@/types/RequestState';
 import { WithId } from '@/types/WithId';
 import { useState } from 'react';
+import { CreateDeadlineModalForm } from './CreateDeadlineModalForm';
 
 interface Props {
   caseId: string;
   close: () => void;
 }
 
+CreateDeadlineModal.Form = CreateDeadlineModalForm;
 export function CreateDeadlineModal({ caseId, close }: Props) {
-  const [requestState, setRequestState] = useState<RequestState<WithId<Deadline>>>();
   const formId = 'create-deadline';
-  const { userData } = useAuthenticatedUserContext();
-  async function handleCreateDeadline(formData: FormData) {
-    const response = await createDeadline(caseId, userData.id, formData);
-
-    if (!response.success) {
-      return setRequestState({ ...response, status: 'error' });
-    }
-
-    setRequestState({ status: 'ok', data: response.data });
-  }
 
   return (
     <BaseModal
@@ -39,38 +30,7 @@ export function CreateDeadlineModal({ caseId, close }: Props) {
       onClose={close}
     >
       <div className="h-fit p-[24px] overflow-y-auto min-lg:overflow-visible">
-        <form id={formId} action={handleCreateDeadline} className="flex flex-col gap-[24px]">
-          <div className="flex flex-col min-lg:flex-row gap-[24px]">
-            <DropdownInputWithLabel
-              id="type-input"
-              itemLabel={DeadlineTypeLabel}
-              label="Tipo"
-              name="type"
-            />
-            <DropdownInputWithLabel
-              id="countint-type-input"
-              itemLabel={DeadlineCountingTypeLabel}
-              label="Tipo de Contagem"
-              name="countingType"
-            />
-          </div>
-          <div className="flex flex-col min-lg:flex-row gap-[24px]">
-            <InputWithLabel
-              type="date"
-              id="intimation-date-input"
-              name="intimationDate"
-              label="Data de intimação"
-            />
-            <InputWithLabel type="number" min={1} id="days-input" name="days" label="Dias" />
-          </div>
-
-          <DropdownInputWithLabel
-            id="priority-input"
-            itemLabel={DeadlinePriorityLabel}
-            label="Prioridade"
-            name="priority"
-          />
-        </form>
+        <CreateDeadlineModal.Form formId={formId} caseId={caseId} />
       </div>
     </BaseModal>
   );
