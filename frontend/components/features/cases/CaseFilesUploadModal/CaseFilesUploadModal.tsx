@@ -7,6 +7,8 @@ import { RequestFeedback } from '../../../ui/Feedback/RequestFeedback';
 import { handleLogout } from '@/lib/handleLogout';
 import { UploadButton } from '../../../ui/UploadButton';
 import { UploadedFileCard } from '@/components/ui/UploadedFileCard';
+import { UploadFileState } from '@/types/UploadFileState';
+import { FeedbackMessage } from '@/components/ui/Feedback/FeedbackMessage';
 
 interface Props {
   caseId: string;
@@ -16,7 +18,7 @@ interface Props {
 
 export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
   const [requestState, setRequestState] = useState<null | RequestState>(null);
-  const [file, setFile] = useState<File | null>(null);
+  const [uploadFileState, setUploadFileState] = useState<UploadFileState>({ status: 'idle' });
 
   function onClose() {
     if (requestState?.status === 'loading') return;
@@ -25,10 +27,10 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
   }
 
   async function handleUploadFile() {
-    if (!file) return;
+    if (uploadFileState?.status !== 'ok') return;
 
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('file', uploadFileState.file);
     setRequestState({ status: 'loading' });
     const response = await uploadCaseFile(formData, caseId);
 
@@ -49,12 +51,12 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
   }, [requestState]);
 
   function renderFileCard() {
-    if (!file) return;
+    if (uploadFileState.status !== 'ok') return;
     return (
       <UploadedFileCard
-        file={file}
+        file={uploadFileState.file}
         onClose={() => {
-          setFile(null);
+          setUploadFileState({ status: 'idle' });
           setRequestState(null);
         }}
       />
@@ -68,6 +70,12 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
     return <RequestFeedback requestState={requestState} />;
   }
 
+  function renderUploadFeedback() {
+    if (uploadFileState.status !== 'error') return;
+
+    return <FeedbackMessage status={uploadFileState.status} message={uploadFileState.message} />;
+  }
+
   return (
     <BaseModal
       className="w-[90%] min-md:w-[60%] min-lg:w-[520px]"
@@ -79,7 +87,10 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
     >
       <div className="flex gap-[24px] size-full flex flex-col text-center items-center p-[24px]">
         {renderFeedback()}
-        {!file && <UploadButton setFile={setFile} />}
+        {renderUploadFeedback()}
+        {uploadFileState.status !== 'ok' && (
+          <UploadButton setUploadFileState={setUploadFileState} />
+        )}
         {renderFileCard()}
         <p className="text-start text-size-sm">Apenas PDFs de tamanho máximo de 10 MB</p>
       </div>
