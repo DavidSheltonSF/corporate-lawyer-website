@@ -7,6 +7,6 @@ export interface InputProps {
   value?: string;
   readOnly?: boolean;
   defaultValue?: string;
-  min?: number
-  onChange?: () => void;
+  min?: number;
+  onChange?: Function;
 }
