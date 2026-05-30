@@ -76,7 +76,7 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
 
   return (
     <BaseModal
-      className="w-[30vw]"
+      className="w-[90%] min-md:w-[60%] min-lg:w-[520px]"
       title="Envie um arquivo"
       onConfirm={handleUploadFile}
       onClose={() => {
