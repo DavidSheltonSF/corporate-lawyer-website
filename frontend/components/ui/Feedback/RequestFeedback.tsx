@@ -1,4 +1,5 @@
 import { RequestState } from '@/types/RequestState';
+import { FeedbackMessage } from './FeedbackMessage';
 
 interface Props {
   requestState: RequestState | null;
@@ -9,31 +10,17 @@ export function RequestFeedback({ requestState }: Props) {
     return null;
   }
 
-  const { status, message } = requestState;
+  switch (requestState?.status) {
+    case 'loading':
+      return <FeedbackMessage status="other" message="Carregando..." />;
 
-  let color = '';
-  switch (status) {
     case 'ok':
-      color = 'var(--color-green)';
-      break;
+      return <FeedbackMessage status="ok" message={requestState.message} />;
 
     case 'error':
-      color = 'var(--color-red)';
-      break;
+      return <FeedbackMessage status="error" message={requestState.message} />;
 
     default:
-      color = 'black';
-      break;
+      return null;
   }
-
-  return (
-    <span
-      className="text-[1.2rem] font-bold text-center"
-      style={{
-        color,
-      }}
-    >
-      {status === 'loading' ? 'Loading...' : message}
-    </span>
-  );
 }
