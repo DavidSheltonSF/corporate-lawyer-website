@@ -1,9 +1,7 @@
 import { InvalidDeadlinePriorityError } from '../../../errors/domain/InvalidDeadlinePriorityError';
 import { DeadlinePriority } from '../../../types/DeadLinePriority';
 
-export function validateDeadlinePriority(priority: string) {
+export function validateDeadlinePriority(priority: string): boolean {
   const validPrioritys = Object.values(DeadlinePriority) as string[];
-  if (!validPrioritys.includes(priority)) {
-    throw new InvalidDeadlinePriorityError(priority);
-  }
+  return validPrioritys.includes(priority);
 }

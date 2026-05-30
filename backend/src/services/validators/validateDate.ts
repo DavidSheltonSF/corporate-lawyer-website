@@ -1,11 +1,11 @@
 import { InvalidDateError } from '../../errors/domain/InvalidDateError';
 
-export function validateDate(dateString: string) {
+export function validateDate(dateString: string): boolean {
   const formattedDate = dateString.split('T')[0] as string;
 
   const regex = /^\d{4}-\d{2}-\d{2}$/;
   if (!regex.test(formattedDate)) {
-    throw new InvalidDateError(formattedDate);
+    false;
   }
 
   const [year, month, day] = formattedDate.split('-').map(Number);
@@ -17,11 +17,11 @@ export function validateDate(dateString: string) {
     isNaN(Number(month)) ||
     isNaN(Number(day))
   ) {
-    throw new InvalidDateError(formattedDate);
+    return false;
   }
 
   if (day < 1 || day > 31 || month < 1 || month > 12) {
-    throw new InvalidDateError(formattedDate);
+    return false;
   }
 
   // Decreace 1 from month for local-safe parsing
@@ -32,6 +32,8 @@ export function validateDate(dateString: string) {
   // will silently fix the data, so the data string and the Data object will not match
   // throwig the error bellow
   if (year !== date.getFullYear() || month !== date.getMonth() + 1 || day !== date.getDate()) {
-    throw new InvalidDateError(formattedDate);
+    return false;
   }
+
+  return true;
 }

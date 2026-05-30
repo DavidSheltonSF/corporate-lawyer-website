@@ -1,9 +1,6 @@
-import { InvalidDeadlineTypeError } from '../../../errors/domain/InvalidDeadlineTypeError';
 import { DeadlineType } from '../../../types/DeadLineType';
 
-export function validateDeadlineType(type: string) {
+export function validateDeadlineType(type: string): boolean {
   const validTypes = Object.values(DeadlineType) as string[];
-  if (!validTypes.includes(type)) {
-    throw new InvalidDeadlineTypeError(type);
-  }
+  return validTypes.includes(type);
 }
