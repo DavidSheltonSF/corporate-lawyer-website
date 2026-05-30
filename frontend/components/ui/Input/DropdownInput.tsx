@@ -75,6 +75,7 @@ export function DropdownInput({
             type="text"
             value={value}
             onChange={(e) => setSelectedValue(e.target.value)}
+            readOnly
             {...inputProps}
           />
 
