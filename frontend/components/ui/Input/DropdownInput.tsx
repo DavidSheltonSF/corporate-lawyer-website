@@ -90,10 +90,10 @@ export function DropdownInput({
         </div>
         <div
           className={`transition-[height] duration-300 absolute z-1 w-full bg-white overflow-hidden w-full top-[100%]  ${
-            listIsOpen && 'border py-[8px]'
+            listIsOpen && 'border py-[8px] overflow-y-auto'
           }`}
           style={{
-            height: listIsOpen ? (items.length + 1) * 32 : 0,
+            maxHeight: listIsOpen ? 5 * 32 : 0,
           }}
         >
           <ul>
