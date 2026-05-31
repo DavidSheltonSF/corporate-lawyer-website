@@ -1,7 +1,6 @@
 import { BaseModal } from '@/components/ui/Modal/BaseModal';
 import { CreateDeadlineModalForm } from './CreateDeadlineModalForm';
 import { useState } from 'react';
-import { ButtonVariant } from '@/components/ui/Button/ButtonVariant';
 
 interface Props {
   caseId: string;
