@@ -17,13 +17,11 @@ export class DeadlineController implements Partial<IDeadlineController> {
     await requireAutheticatedLawyer(httpRequest, this.userService);
 
     const body = httpRequest.body;
-    console.log(body);
     if (!body) {
       throw new BadRequestError('Missing request body');
     }
 
-    const { caseId, lawyerId, type, priority, intimationDate, days, countingType } =
-      body;
+    const { caseId, lawyerId, type, priority, intimationDate, days, countingType } = body;
 
     const response = await this.deadlineService.create({
       caseId,
