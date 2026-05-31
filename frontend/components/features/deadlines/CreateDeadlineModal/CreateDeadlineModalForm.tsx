@@ -69,7 +69,7 @@ export function CreateDeadlineModalForm({
     }
 
     resetForm();
-    setRequestState({ status: 'ok', data: response.data });
+    setRequestState({ status: 'ok', data: response.data, message: 'Prazo criado com sucesso!' });
   }
 
   useEffect(() => {
