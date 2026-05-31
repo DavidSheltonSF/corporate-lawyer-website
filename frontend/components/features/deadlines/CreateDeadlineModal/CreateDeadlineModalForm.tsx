@@ -9,15 +9,24 @@ import { createDeadline } from '@/services/cases/createDeadline';
 import { Deadline } from '@/types/Deadline';
 import { RequestState } from '@/types/RequestState';
 import { WithId } from '@/types/WithId';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 interface Props {
   formId: string;
   caseId: string;
+  isReadyToSubmit: boolean;
+  setIsreadyToSubmit: Dispatch<SetStateAction<boolean>>;
 }
 
-export function CreateDeadlineModalForm({ formId, caseId }: Props) {
-  const [requestState, setRequestState] = useState<RequestState<WithId<Deadline>>>({status: 'idle'});
+export function CreateDeadlineModalForm({
+  formId,
+  caseId,
+  isReadyToSubmit,
+  setIsreadyToSubmit,
+}: Props) {
+  const [requestState, setRequestState] = useState<RequestState<WithId<Deadline>>>({
+    status: 'idle',
+  });
   const [formData, setFormData] = useState({
     type: '',
     countingType: '',
@@ -42,8 +51,16 @@ export function CreateDeadlineModalForm({ formId, caseId }: Props) {
     });
   }
 
+  function checkFields() {
+    const emptyFields = Object.values(formData).filter((value) => value.trim() === '');
+    console.log(emptyFields);
+    setIsreadyToSubmit(emptyFields.length === 0 ? true : false);
+  }
+
   async function handleCreateDeadline(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    if (!isReadyToSubmit) return;
 
     const response = await createDeadline(caseId, userData.id, formData);
 
@@ -55,6 +72,10 @@ export function CreateDeadlineModalForm({ formId, caseId }: Props) {
     setRequestState({ status: 'ok', data: response.data });
   }
 
+  useEffect(() => {
+    checkFields();
+  }, [formData]);
+
   return (
     <form id={formId} onSubmit={handleCreateDeadline} className="flex flex-col gap-[24px]">
       <RequestFeedback requestState={requestState} />
@@ -65,6 +86,7 @@ export function CreateDeadlineModalForm({ formId, caseId }: Props) {
           label="Tipo"
           name="type"
           value={formData.type}
+          required
           onSelectValue={(value) => updateField('type', value)}
         />
         <DropdownInputWithLabel
@@ -73,6 +95,7 @@ export function CreateDeadlineModalForm({ formId, caseId }: Props) {
           label="Tipo de Contagem"
           name="countingType"
           value={formData.countingType}
+          required
           onSelectValue={(value) => updateField('countingType', value)}
         />
       </div>
@@ -83,6 +106,7 @@ export function CreateDeadlineModalForm({ formId, caseId }: Props) {
           name="intimationDate"
           label="Data de intimação"
           value={formData.intimationDate}
+          required
           onChange={(e: any) => updateField('intimationDate', e.target.value)}
         />
         <InputWithLabel
@@ -92,6 +116,7 @@ export function CreateDeadlineModalForm({ formId, caseId }: Props) {
           name="days"
           label="Dias"
           value={formData.days}
+          required
           onChange={(e: any) => updateField('days', e.target.value)}
         />
       </div>
@@ -102,6 +127,7 @@ export function CreateDeadlineModalForm({ formId, caseId }: Props) {
         label="Prioridade"
         name="priority"
         value={formData.priority}
+        required
         onSelectValue={(value) => updateField('priority', value)}
       />
     </form>
