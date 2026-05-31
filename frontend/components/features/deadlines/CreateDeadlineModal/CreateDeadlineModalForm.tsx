@@ -5,6 +5,7 @@ import { useAuthenticatedUserContext } from '@/hooks/useAuthenticatedUserContext
 import { DeadlineCountingTypeLabel } from '@/lib/DeadlineCountingTypeLabel';
 import { DeadlinePriorityLabel } from '@/lib/DeadlinePriorityLabel';
 import { DeadlineTypeLabel } from '@/lib/DeadlineTypeLabel';
+import { hasEmptyFields } from '@/lib/form';
 import { createDeadline } from '@/services/cases/createDeadline';
 import { Deadline } from '@/types/Deadline';
 import { RequestState } from '@/types/RequestState';
@@ -52,9 +53,7 @@ export function CreateDeadlineModalForm({
   }
 
   function checkFields() {
-    const emptyFields = Object.values(formData).filter((value) => value.trim() === '');
-    console.log(emptyFields);
-    setIsreadyToSubmit(emptyFields.length === 0 ? true : false);
+    setIsreadyToSubmit(!hasEmptyFields(formData));
   }
 
   async function handleCreateDeadline(e: React.FormEvent<HTMLFormElement>) {
