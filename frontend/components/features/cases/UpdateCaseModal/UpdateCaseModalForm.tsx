@@ -30,7 +30,7 @@ export function UpdateCaseModalForm({ formId, caseId, refetchCases }: Props) {
   const { openModal } = useModal();
 
   function openConfirmDialog(message: string, onCloseGoBack: boolean = false) {
-    openModal<ConfirmModalProps>('confirm', {
+    openModal('confirm', {
       message,
       onConfirm: () => {
         if (onCloseGoBack) {
@@ -122,8 +122,7 @@ export function UpdateCaseModalForm({ formId, caseId, refetchCases }: Props) {
             id="status-input"
             name="status"
             label="Status"
-            itemsRecord={CaseStatusEnum}
-            itemLabel={(item: CaseStatusEnum) => CaseStatusLabel[item]}
+            itemLabel={CaseStatusLabel}
             defaultValue={caseData?.status}
           />
         </div>
@@ -132,16 +131,14 @@ export function UpdateCaseModalForm({ formId, caseId, refetchCases }: Props) {
             id="estado-input"
             name="state"
             label="Estado"
-            itemsRecord={BrazilState}
-            itemLabel={(item: BrazilState) => BrazilStateLabel[item]}
+            itemLabel={BrazilStateLabel}
             defaultValue={caseData?.location.state}
           />
           <DropdownInputWithLabel
             id="city-input"
             name="city"
             label="Cidade"
-            itemsRecord={City}
-            itemLabel={(item: City) => CityLabel[item]}
+            itemLabel={CityLabel}
             defaultValue={caseData?.location.city}
           />
         </div>
