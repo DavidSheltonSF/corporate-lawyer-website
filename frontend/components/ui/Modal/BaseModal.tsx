@@ -10,6 +10,7 @@ import { BaseModalFooter } from './BaseModalFooter';
 
 interface Props {
   confirmButtonVariant?: ButtonVariant;
+  confirmDisabled?: boolean;
   title?: string;
   formId?: string;
   onConfirm?: () => void;
@@ -25,6 +26,7 @@ BaseModal.Footer = BaseModalFooter;
 export function BaseModal(props: PropsWithClassName<Props>) {
   const {
     confirmButtonVariant = ButtonVariant.PRIMARY,
+    confirmDisabled = false,
     formId,
     onConfirm,
     onClose,
@@ -80,6 +82,7 @@ export function BaseModal(props: PropsWithClassName<Props>) {
           confirmText={confirmText}
           formId={formId}
           confirmButtonVariant={confirmButtonVariant}
+          confirmDisabled={confirmDisabled}
         />
       )}
     </div>

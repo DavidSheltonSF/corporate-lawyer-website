@@ -8,10 +8,19 @@ interface Props {
   closeText: string;
   confirmText: string;
   confirmButtonVariant: ButtonVariant;
+  confirmDisabled: boolean;
 }
 
 export function BaseModalFooter(props: Props) {
-  const { formId, onConfirm, onClose, confirmText, closeText, confirmButtonVariant } = props;
+  const {
+    formId,
+    onConfirm,
+    onClose,
+    confirmText,
+    closeText,
+    confirmButtonVariant,
+    confirmDisabled,
+  } = props;
 
   const showConfirmButton = onConfirm || formId;
 
@@ -27,11 +36,11 @@ export function BaseModalFooter(props: Props) {
         </Button>
         {showConfirmButton && (
           <Button
-            disabled={confirmButtonVariant === ButtonVariant.DISABLED}
+            disabled={confirmDisabled}
             className="w-full min-lg:w-fit h-fit"
             form={formId}
             type={formId ? 'submit' : 'button'}
-            variant={confirmButtonVariant}
+            variant={confirmDisabled ? ButtonVariant.DISABLED : confirmButtonVariant}
             onClick={onConfirm}
           >
             {confirmText}
