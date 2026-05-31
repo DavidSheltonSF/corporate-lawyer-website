@@ -1,3 +1,4 @@
+import { RequestFeedback } from '@/components/ui/Feedback/RequestFeedback';
 import { DropdownInputWithLabel } from '@/components/ui/Input/DropdownInputWithLabel';
 import { InputWithLabel } from '@/components/ui/Input/InputWithLabel';
 import { useAuthenticatedUserContext } from '@/hooks/useAuthenticatedUserContext';
@@ -16,7 +17,7 @@ interface Props {
 }
 
 export function CreateDeadlineModalForm({ formId, caseId }: Props) {
-  const [requestState, setRequestState] = useState<RequestState<WithId<Deadline>>>();
+  const [requestState, setRequestState] = useState<RequestState<WithId<Deadline>>>({status: 'idle'});
   const [formData, setFormData] = useState({
     type: '',
     countingType: '',
@@ -56,6 +57,7 @@ export function CreateDeadlineModalForm({ formId, caseId }: Props) {
 
   return (
     <form id={formId} onSubmit={handleCreateDeadline} className="flex flex-col gap-[24px]">
+      <RequestFeedback requestState={requestState} />
       <div className="flex flex-col min-lg:flex-row gap-[24px]">
         <DropdownInputWithLabel
           id="type-input"
