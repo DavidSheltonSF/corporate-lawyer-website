@@ -68,7 +68,13 @@ export function DeadlineModal({ payload, close }: GlobalModalProps<Props>) {
   }
 
   if (createModalIsOpen) {
-    return <CreateDeadlineModal caseId={caseId} close={() => setCreateModalIsOpen(false)} />;
+    return (
+      <CreateDeadlineModal
+        caseId={caseId}
+        close={() => setCreateModalIsOpen(false)}
+        refetchDeadlines={fetchDeadlines}
+      />
+    );
   }
 
   return <BaseModal {...BaseModalProps}>{renderContent()}</BaseModal>;
