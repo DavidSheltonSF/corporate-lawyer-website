@@ -15,7 +15,7 @@ export function CreateDeadlineModal({ caseId, close }: Props) {
 
   return (
     <BaseModal
-      confirmButtonVariant={isReadyToSobmit ? ButtonVariant.PRIMARY : ButtonVariant.DISABLED}
+      confirmDisabled={!isReadyToSobmit}
       className="w-[90%] min-md:w-[60%] min-lg:w-fit"
       formId="create-deadline"
       title="Criar novo prazo"
