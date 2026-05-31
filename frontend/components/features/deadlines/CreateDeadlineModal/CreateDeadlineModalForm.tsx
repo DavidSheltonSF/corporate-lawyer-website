@@ -17,6 +17,7 @@ interface Props {
   caseId: string;
   isReadyToSubmit: boolean;
   setIsreadyToSubmit: Dispatch<SetStateAction<boolean>>;
+  refetchDeadlines: () => void;
 }
 
 export function CreateDeadlineModalForm({
@@ -24,6 +25,7 @@ export function CreateDeadlineModalForm({
   caseId,
   isReadyToSubmit,
   setIsreadyToSubmit,
+  refetchDeadlines,
 }: Props) {
   const [requestState, setRequestState] = useState<RequestState<WithId<Deadline>>>({
     status: 'idle',
@@ -68,6 +70,7 @@ export function CreateDeadlineModalForm({
     }
 
     resetForm();
+    refetchDeadlines();
     setRequestState({ status: 'ok', data: response.data, message: 'Prazo criado com sucesso!' });
   }
 

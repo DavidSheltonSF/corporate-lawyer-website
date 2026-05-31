@@ -4,11 +4,12 @@ import { useState } from 'react';
 
 interface Props {
   caseId: string;
+  refetchDeadlines: () => void;
   close: () => void;
 }
 
 CreateDeadlineModal.Form = CreateDeadlineModalForm;
-export function CreateDeadlineModal({ caseId, close }: Props) {
+export function CreateDeadlineModal({ caseId, close, refetchDeadlines }: Props) {
   const formId = 'create-deadline';
   const [isReadyToSobmit, setIsreadyToSubmit] = useState(false);
 
@@ -22,6 +23,7 @@ export function CreateDeadlineModal({ caseId, close }: Props) {
     >
       <div className="h-fit p-[24px] overflow-y-auto min-lg:overflow-visible">
         <CreateDeadlineModal.Form
+          refetchDeadlines={refetchDeadlines}
           isReadyToSubmit={isReadyToSobmit}
           setIsreadyToSubmit={setIsreadyToSubmit}
           formId={formId}
