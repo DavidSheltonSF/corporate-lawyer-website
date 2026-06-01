@@ -178,7 +178,7 @@ export function UpdateCaseModalForm({
               name="status"
               label="Status"
               itemLabel={CaseStatusLabel}
-              selectedValue={status}
+              value={status}
               setSelectedValue={(value) => updateField('status', value)}
             />
           </div>
@@ -188,7 +188,7 @@ export function UpdateCaseModalForm({
               name="state"
               label="Estado"
               itemLabel={BrazilStateLabel}
-              selectedValue={state}
+              value={state}
               setSelectedValue={(value) => updateField('state', value)}
             />
             <DropdownInputWithLabel
@@ -196,7 +196,7 @@ export function UpdateCaseModalForm({
               name="city"
               label="Cidade"
               itemLabel={CityLabel}
-              selectedValue={city}
+              value={city}
               setSelectedValue={(value) => updateField('city', value)}
             />
           </div>

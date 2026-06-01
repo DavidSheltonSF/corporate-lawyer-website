@@ -4,14 +4,13 @@ import { Input } from './Input';
 import { InputProps } from './types';
 
 interface Props {
-  selectedValue: string;
   setSelectedValue: (value: string) => void;
   itemLabel: Record<string, string>;
 }
 
 export function DropdownInput({
   itemLabel,
-  selectedValue,
+  value,
   setSelectedValue,
   ...inputProps
 }: Props & InputProps) {
@@ -29,7 +28,7 @@ export function DropdownInput({
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [selectedValue]);
+  }, [value]);
 
   const items = Object.entries(itemLabel);
   const renderItems = items.map(([key, label]) => {
@@ -57,7 +56,7 @@ export function DropdownInput({
           <Input
             className="w-full  border-none"
             type="text"
-            value={itemLabel[selectedValue] ?? ''}
+            value={itemLabel[value || ''] ?? ''}
             readOnly
             {...inputProps}
           />

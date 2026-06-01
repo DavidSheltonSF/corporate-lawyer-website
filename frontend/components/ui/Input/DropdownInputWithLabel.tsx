@@ -1,11 +1,9 @@
 import { InputProps } from './types';
 import { DropdownInput } from './DropdownInput';
-import { Dispatch, SetStateAction } from 'react';
 
 interface Props {
   label: string;
   itemLabel: Record<string, string>;
-  selectedValue: string;
   setSelectedValue: (value: string) => void;
 }
 
@@ -14,7 +12,6 @@ export function DropdownInputWithLabel({
   label,
   itemLabel,
   defaultValue,
-  selectedValue,
   setSelectedValue,
   ...inputProps
 }: Props & InputProps) {
@@ -26,7 +23,6 @@ export function DropdownInputWithLabel({
       <DropdownInput
         id={id}
         itemLabel={itemLabel}
-        selectedValue={selectedValue}
         setSelectedValue={setSelectedValue}
         {...inputProps}
       />
