@@ -31,18 +31,18 @@ export function DropdownInput({
     };
   }, [selectedValue]);
 
-  const items = Object.values(itemLabel);
-  const renderItems = items.map((item, index) => {
+  const items = Object.entries(itemLabel);
+  const renderItems = items.map(([key, label]) => {
     return (
       <li
         onClick={() => {
-          setSelectedValue(item);
+          setSelectedValue(key);
           setListIsOpen(false);
         }}
         className="bg-white hover:brightness-80 cursor-pointer px-[8px] h-[32px]"
-        key={index}
+        key={key}
       >
-        {item}
+        {label}
       </li>
     );
   });
