@@ -6,7 +6,12 @@ import { City } from '../../../types/City';
 
 export class CaseFieldsMocker {
   static mockProcessNumber(): string {
-    return casual.random_element(['00888845620248260100', '01458111120248158587']);
+    let processNumber = '';
+    for (let i = 0; i < 20; i++) {
+      processNumber += casual.integer(0, 9).toString();
+    }
+
+    return processNumber;
   }
 
   static mockCaseTitle(): string {
