@@ -28,7 +28,7 @@ export function UpdateCaseModalForm({ formId, caseId, refetchCases }: Props) {
   const [updateRequestState, setUpdateRequestState] = useState<RequestState<WithId<Case>>>({
     status: 'idle',
   });
-  const [formData, setFormData] = useState({
+  const INITIAL_FORM_DATA = {
     title: '',
     processNumber: '',
     court: '',
@@ -37,23 +37,16 @@ export function UpdateCaseModalForm({ formId, caseId, refetchCases }: Props) {
     state: '',
     city: '',
     description: '',
-  });
+  };
+
+  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 
   function updateField(name: string, value: string) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
   function resetForm() {
-    setFormData({
-      title: '',
-      processNumber: '',
-      court: '',
-      courtDivision: '',
-      status: '',
-      state: '',
-      city: '',
-      description: '',
-    });
+    setFormData(INITIAL_FORM_DATA);
   }
 
   async function getUser() {
