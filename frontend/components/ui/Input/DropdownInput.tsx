@@ -73,7 +73,7 @@ export function DropdownInput({
             ref={inputRef}
             className="w-full  border-none"
             type="text"
-            value={value}
+            value={value ? itemLabel[value] : ''}
             onChange={(e) => setSelectedValue(e.target.value)}
             readOnly
             {...inputProps}
