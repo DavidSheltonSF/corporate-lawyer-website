@@ -14,10 +14,10 @@ import { LoadingModalScreeen } from '@/components/ui/Modal/LoadingModalScreen';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '@/components/ui/Feedback/RequestFeedback';
-import { hasEmptyFields } from '@/lib/form';
 import { mapLabelToCaseStatus } from '@/mapper/mapLabelToCaseStatus';
 import { mapLabelToBrazilState } from '@/mapper/mapLabelToBrazilState';
 import { mapLabelToCity } from '@/mapper/mapLabelToCity';
+import { useForm } from '@/hooks/useForm';
 
 interface Props {
   formId: string;
@@ -40,7 +40,8 @@ export function UpdateCaseModalForm({
   const [updateRequestState, setUpdateRequestState] = useState<RequestState<WithId<Case>>>({
     status: 'idle',
   });
-  const INITIAL_FORM_DATA = {
+
+  const { formState, setFormState, clearForm, hasEmptyFields } = useForm({
     title: '',
     processNumber: '',
     court: '',
@@ -49,22 +50,16 @@ export function UpdateCaseModalForm({
     state: '',
     city: '',
     description: '',
-  };
-
-  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
+  });
 
   function checkFields() {
     if (getRequestState.status === 'ok') {
-      setIsReadyToSubmit(!hasEmptyFields(formData));
+      setIsReadyToSubmit(!hasEmptyFields());
     }
   }
 
   function updateField(name: string, value: string) {
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  }
-
-  function resetForm() {
-    setFormData(INITIAL_FORM_DATA);
+    setFormState((prev) => ({ ...prev, [name]: value }));
   }
 
   async function getUser() {
@@ -87,7 +82,7 @@ export function UpdateCaseModalForm({
     e.preventDefault();
 
     setUpdateRequestState({ status: 'loading' });
-    const response = await updateCaseById(caseId || '', formData);
+    const response = await updateCaseById(caseId || '', formState);
 
     if (!response.success) {
       if (response.code === 'UNAUTHORIZED') {
@@ -97,14 +92,14 @@ export function UpdateCaseModalForm({
     }
 
     refetchCases();
-    resetForm();
+    clearForm();
     setUpdateRequestState({ status: 'ok', data: response.data });
   }
 
   function fillForm(data: WithId<Case>) {
     const { title, processNumber, court, courtDivision, status, location, description } = data;
 
-    setFormData({
+    setFormState({
       title: title ?? '',
       processNumber: processNumber ?? '',
       court: court ?? '',
@@ -127,7 +122,7 @@ export function UpdateCaseModalForm({
 
   useEffect(() => {
     checkFields();
-  }, [formData]);
+  }, [formState]);
 
   switch (getRequestState.status) {
     case 'loading':
@@ -135,7 +130,7 @@ export function UpdateCaseModalForm({
 
     case 'ok':
       const { title, processNumber, court, courtDivision, status, city, state, description } =
-        formData;
+        formState;
 
       return (
         <form
