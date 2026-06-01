@@ -49,6 +49,7 @@ export function CreateDeadlineModalForm({
     e.preventDefault();
 
     if (!isReadyToSubmit) return;
+    setRequestState({ status: 'loading' });
 
     const response = await createDeadline(caseId, userData.id, formState);
 
