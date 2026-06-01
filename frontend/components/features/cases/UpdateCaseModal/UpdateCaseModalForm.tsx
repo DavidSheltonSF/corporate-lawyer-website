@@ -11,17 +11,26 @@ import { updateCaseById } from '@/services/cases/updateCaseById';
 import { Case } from '@/types/Case';
 import { WithId } from '@/types/WithId';
 import { LoadingModalScreeen } from '@/components/ui/Modal/LoadingModalScreen';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '@/components/ui/Feedback/RequestFeedback';
+import { hasEmptyFields } from '@/lib/form';
 
 interface Props {
   formId: string;
   caseId: string;
+  isReadyToSubmit: boolean;
+  setIsReadyToSubmit: Dispatch<SetStateAction<boolean>>;
   refetchCases: () => void;
 }
 
-export function UpdateCaseModalForm({ formId, caseId, refetchCases }: Props) {
+export function UpdateCaseModalForm({
+  formId,
+  caseId,
+  refetchCases,
+  isReadyToSubmit,
+  setIsReadyToSubmit,
+}: Props) {
   const [getRequestState, setGetRequestState] = useState<RequestState<WithId<Case>>>({
     status: 'idle',
   });
@@ -40,6 +49,12 @@ export function UpdateCaseModalForm({ formId, caseId, refetchCases }: Props) {
   };
 
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
+
+  function checkFields() {
+    if (getRequestState.status === 'ok') {
+      setIsReadyToSubmit(!hasEmptyFields(formData));
+    }
+  }
 
   function updateField(name: string, value: string) {
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -64,6 +79,8 @@ export function UpdateCaseModalForm({ formId, caseId, refetchCases }: Props) {
   }
 
   async function alterCase(formData: FormData) {
+    if (!isReadyToSubmit) return;
+
     setUpdateRequestState({ status: 'loading' });
     const response = await updateCaseById(caseId || '', formData);
 
@@ -102,6 +119,10 @@ export function UpdateCaseModalForm({ formId, caseId, refetchCases }: Props) {
       setUpdateRequestState({ status: 'idle' });
     };
   }, []);
+
+  useEffect(() => {
+    checkFields();
+  }, [formData]);
 
   switch (getRequestState.status) {
     case 'loading':
@@ -155,7 +176,7 @@ export function UpdateCaseModalForm({ formId, caseId, refetchCases }: Props) {
               label="Status"
               itemLabel={CaseStatusLabel}
               value={status}
-              onChange={(e) => updateField('status', e.target.value)}
+              onSelectValue={(value) => updateField('status', value)}
             />
           </div>
           <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
@@ -165,7 +186,7 @@ export function UpdateCaseModalForm({ formId, caseId, refetchCases }: Props) {
               label="Estado"
               itemLabel={BrazilStateLabel}
               value={state}
-              onChange={(e) => updateField('state', e.target.value)}
+              onSelectValue={(value) => updateField('state', value)}
             />
             <DropdownInputWithLabel
               id="city-input"
@@ -173,7 +194,7 @@ export function UpdateCaseModalForm({ formId, caseId, refetchCases }: Props) {
               label="Cidade"
               itemLabel={CityLabel}
               value={city}
-              onChange={(e) => updateField('city', e.target.value)}
+              onSelectValue={(value) => updateField('city', value)}
             />
           </div>
 
