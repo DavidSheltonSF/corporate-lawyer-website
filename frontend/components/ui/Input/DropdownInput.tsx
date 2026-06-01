@@ -4,21 +4,18 @@ import { Input } from './Input';
 import { InputProps } from './types';
 
 interface Props {
+  selectedValue: string;
+  setSelectedValue: (value: string) => void;
   itemLabel: Record<string, string>;
-  value?: string;
-  onSelectValue?: (value: string) => void;
 }
 
 export function DropdownInput({
-  value,
   itemLabel,
-  defaultValue,
-  onSelectValue,
+  selectedValue,
+  setSelectedValue,
   ...inputProps
 }: Props & InputProps) {
-  const [selectedValue, setSelectedValue] = useState<string>(value || '');
   const [listIsOpen, setListIsOpen] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
   const dropRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -28,22 +25,10 @@ export function DropdownInput({
       }
     }
 
-    if (defaultValue) {
-      setSelectedValue(defaultValue);
-    }
-
     document.addEventListener('click', handleClickOutside);
-
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [defaultValue]);
-
-  useEffect(() => {
-    onSelectValue && onSelectValue(selectedValue);
-    if (inputRef.current) {
-      inputRef.current.value = selectedValue;
-    }
   }, [selectedValue]);
 
   const items = Object.values(itemLabel);
@@ -70,11 +55,9 @@ export function DropdownInput({
           onClick={() => setListIsOpen(true)}
         >
           <Input
-            ref={inputRef}
             className="w-full  border-none"
             type="text"
-            value={value ? itemLabel[value] : ''}
-            onChange={(e) => setSelectedValue(e.target.value)}
+            value={itemLabel[selectedValue] ?? ''}
             readOnly
             {...inputProps}
           />
