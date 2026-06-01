@@ -81,8 +81,10 @@ export function UpdateCaseModalForm({
     setGetRequestState({ status: 'ok', data: response.data });
   }
 
-  async function alterCase(formData: FormData) {
+  async function alterCase(e: React.FormEvent<HTMLFormElement>) {
     if (!isReadyToSubmit) return;
+
+    e.preventDefault();
 
     setUpdateRequestState({ status: 'loading' });
     const response = await updateCaseById(caseId || '', formData);
@@ -139,7 +141,7 @@ export function UpdateCaseModalForm({
         <form
           id={formId}
           className="flex flex-col gap-[16px] size-full p-[24px]"
-          action={alterCase}
+          onSubmit={alterCase}
         >
           <RequestFeedback requestState={updateRequestState} />
           <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
