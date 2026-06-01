@@ -1,6 +1,6 @@
 import { City } from '@/types/City';
 
-export function mapLabelToCity(label: string): City {
+export function mapLabelToCity(label: string): City | null {
   switch (label.toLowerCase()) {
     case 'rio de janeiro':
       return City.RIO_DE_JANEIRO;
@@ -12,6 +12,6 @@ export function mapLabelToCity(label: string): City {
       return City.BELFORD_ROXO;
 
     default:
-      throw Error(`Invalid case status ${label}`);
+      return null;
   }
 }

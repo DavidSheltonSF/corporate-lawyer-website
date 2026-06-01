@@ -1,6 +1,6 @@
 import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 
-export function mapLabelToCaseStatus(label: string): CaseStatusEnum {
+export function mapLabelToCaseStatus(label: string): CaseStatusEnum | null {
   switch (label.toLowerCase()) {
     case 'aberto':
       return CaseStatusEnum.open;
@@ -9,6 +9,6 @@ export function mapLabelToCaseStatus(label: string): CaseStatusEnum {
       return CaseStatusEnum.closed;
 
     default:
-      throw Error(`Invalid case status ${label}`);
+      return null;
   }
 }
