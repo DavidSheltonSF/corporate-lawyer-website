@@ -15,7 +15,7 @@ export function UpdateCaseModal({ payload, close }: GlobalModalProps<Props>) {
   const formId = 'update-case-form';
 
   return (
-    <FormModal title='Alterar processo' formId={formId}  close={close}>
+    <FormModal title="Alterar processo" formId={formId} onClose={close}>
       <UpdateCaseModal.Form formId={formId} caseId={caseId} refetchCases={refetchCases} />
     </FormModal>
   );
