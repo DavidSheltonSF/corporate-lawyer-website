@@ -1,7 +1,5 @@
 import { DropdownInputWithLabel } from '@/components/ui/Input/DropdownInputWithLabel';
 import { InputWithLabel } from '@/components/ui/Input/InputWithLabel';
-import { ShowSkeletonOnLoading } from '@/components/ui/ShowSkeletonOnLoading';
-import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { BrazilStateLabel } from '@/lib/BrazilStateLabel';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { CityLabel } from '@/lib/CityLabel';
@@ -14,9 +12,6 @@ import { LoadingModalScreeen } from '@/components/ui/Modal/LoadingModalScreen';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '@/components/ui/Feedback/RequestFeedback';
-import { mapLabelToCaseStatus } from '@/mapper/mapLabelToCaseStatus';
-import { mapLabelToBrazilState } from '@/mapper/mapLabelToBrazilState';
-import { mapLabelToCity } from '@/mapper/mapLabelToCity';
 import { useForm } from '@/hooks/useForm';
 
 interface Props {
