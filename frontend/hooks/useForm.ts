@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 interface UseFormReturn {
   formState: Record<string, string>;
+  setFormState: Dispatch<SetStateAction<Record<string, string>>>;
   clearForm: () => void;
   updateField: (name: string, value: string) => void;
   hasEmptyFields: () => boolean;
@@ -24,5 +25,5 @@ export function useForm(formData: Record<string, string>): UseFormReturn {
     return Object.entries(formState).some(([, value]) => value.trim() === '');
   }
 
-  return { formState, clearForm, updateField, hasEmptyFields };
+  return { formState, setFormState, clearForm, updateField, hasEmptyFields };
 }
