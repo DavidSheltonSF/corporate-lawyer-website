@@ -1,9 +1,6 @@
 import { API_URL } from '@/config/api';
 import { WithId } from '@/types/WithId';
 import { apiFetch } from '../apiFetch';
-import { mapLabelToDeadlineType } from '@/mapper/mapLabelToDeadlineType';
-import { mapLabelToDeadlineCountintType } from '@/mapper/mapLabelToDeadlineCountingType';
-import { mapLabelToDeadlinePriority } from '@/mapper/mapLabelToDeadlinePriority';
 import { Deadline } from '@/types/Deadline';
 import { ActionResponse } from '@/types/ActionResponse';
 import { makeActionResponse } from '@/factories/makeActionResponse';
@@ -18,10 +15,6 @@ export async function createDeadline(
   const intimationDate = formData.intimationDate;
   const days = formData.days;
   const priority = formData.priority;
-  const mappedCountingType = mapLabelToDeadlineCountintType(countingType?.toString() || '');
-  const mappedType = mapLabelToDeadlineType(type?.toString() || '');
-
-  const mappedPriority = mapLabelToDeadlinePriority(priority?.toString() || '');
 
   const response = await apiFetch(`${API_URL}/deadlines`, {
     headers: {
@@ -31,11 +24,11 @@ export async function createDeadline(
     body: JSON.stringify({
       caseId,
       lawyerId,
-      type: mappedType,
-      countingType: mappedCountingType,
+      type,
+      countingType,
       intimationDate,
       days,
-      priority: mappedPriority,
+      priority,
     }),
   });
 
