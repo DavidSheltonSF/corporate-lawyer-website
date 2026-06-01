@@ -15,6 +15,9 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '@/components/ui/Feedback/RequestFeedback';
 import { hasEmptyFields } from '@/lib/form';
+import { mapLabelToCaseStatus } from '@/mapper/mapLabelToCaseStatus';
+import { mapLabelToBrazilState } from '@/mapper/mapLabelToBrazilState';
+import { mapLabelToCity } from '@/mapper/mapLabelToCity';
 
 interface Props {
   formId: string;
@@ -96,18 +99,18 @@ export function UpdateCaseModalForm({
     setUpdateRequestState({ status: 'ok', data: response.data });
   }
 
-  function fillForm(data: any) {
+  function fillForm(data: WithId<Case>) {
     const { title, processNumber, court, courtDivision, status, location, description } = data;
 
     setFormData({
-      title,
-      processNumber,
-      court,
-      courtDivision,
-      status,
-      state: location.state,
-      city: location.city,
-      description,
+      title: title ?? '',
+      processNumber: processNumber ?? '',
+      court: court ?? '',
+      courtDivision: courtDivision ?? '',
+      status: status ?? '',
+      state: location.state ?? '',
+      city: location.city ?? '',
+      description: description ?? '',
     });
   }
 
@@ -175,8 +178,8 @@ export function UpdateCaseModalForm({
               name="status"
               label="Status"
               itemLabel={CaseStatusLabel}
-              value={status}
-              onSelectValue={(value) => updateField('status', value)}
+              selectedValue={status}
+              setSelectedValue={(value) => updateField('status', mapLabelToCaseStatus(value) || '')}
             />
           </div>
           <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
@@ -185,16 +188,16 @@ export function UpdateCaseModalForm({
               name="state"
               label="Estado"
               itemLabel={BrazilStateLabel}
-              value={state}
-              onSelectValue={(value) => updateField('state', value)}
+              selectedValue={state}
+              setSelectedValue={(value) => updateField('state', mapLabelToBrazilState(value) || '')}
             />
             <DropdownInputWithLabel
               id="city-input"
               name="city"
               label="Cidade"
               itemLabel={CityLabel}
-              value={city}
-              onSelectValue={(value) => updateField('city', value)}
+              selectedValue={city}
+              setSelectedValue={(value) => updateField('city', mapLabelToCity(value) || '')}
             />
           </div>
 
