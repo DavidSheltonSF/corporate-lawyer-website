@@ -11,11 +11,11 @@ interface Props {
 CreateDeadlineModal.Form = CreateDeadlineModalForm;
 export function CreateDeadlineModal({ caseId, close, refetchDeadlines }: Props) {
   const formId = 'create-deadline';
-  const [isReadyToSobmit, setIsreadyToSubmit] = useState(false);
+  const [isReadyToSubmit, setIsreadyToSubmit] = useState(false);
 
   return (
     <BaseModal
-      confirmDisabled={!isReadyToSobmit}
+      confirmDisabled={!isReadyToSubmit}
       className="w-[90%] min-md:w-[60%] min-lg:w-fit"
       formId="create-deadline"
       title="Criar novo prazo"
@@ -24,7 +24,7 @@ export function CreateDeadlineModal({ caseId, close, refetchDeadlines }: Props) 
       <div className="h-fit p-[24px] overflow-y-auto min-lg:overflow-visible">
         <CreateDeadlineModal.Form
           refetchDeadlines={refetchDeadlines}
-          isReadyToSubmit={isReadyToSobmit}
+          isReadyToSubmit={isReadyToSubmit}
           setIsreadyToSubmit={setIsreadyToSubmit}
           formId={formId}
           caseId={caseId}
