@@ -179,7 +179,7 @@ export function UpdateCaseModalForm({
               label="Status"
               itemLabel={CaseStatusLabel}
               selectedValue={status}
-              setSelectedValue={(value) => updateField('status', mapLabelToCaseStatus(value) || '')}
+              setSelectedValue={(value) => updateField('status', value)}
             />
           </div>
           <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
@@ -189,7 +189,7 @@ export function UpdateCaseModalForm({
               label="Estado"
               itemLabel={BrazilStateLabel}
               selectedValue={state}
-              setSelectedValue={(value) => updateField('state', mapLabelToBrazilState(value) || '')}
+              setSelectedValue={(value) => updateField('state', value)}
             />
             <DropdownInputWithLabel
               id="city-input"
@@ -197,7 +197,7 @@ export function UpdateCaseModalForm({
               label="Cidade"
               itemLabel={CityLabel}
               selectedValue={city}
-              setSelectedValue={(value) => updateField('city', mapLabelToCity(value) || '')}
+              setSelectedValue={(value) => updateField('city', value)}
             />
           </div>
 
