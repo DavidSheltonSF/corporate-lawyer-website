@@ -1,29 +1,23 @@
 import { API_URL } from '@/config/api';
 import { Case } from '@/types/Case';
 import { WithId } from '@/types/WithId';
-import { mapLabelToCaseStatus } from '@/mapper/mapLabelToCaseStatus';
 import { apiFetch } from '../apiFetch';
-import { mapLabelToBrazilState } from '@/mapper/mapLabelToBrazilState';
-import { mapLabelToCity } from '@/mapper/mapLabelToCity';
 import { ActionResponse } from '@/types/ActionResponse';
 import { makeActionResponse } from '@/factories/makeActionResponse';
 
 export async function updateCaseById(
   id: string,
-  formData: FormData
+  formData: Record<string, string>
 ): Promise<ActionResponse<WithId<Case>>> {
-  const title = formData.get('title');
-  const description = formData.get('description');
-  const processNumber = formData.get('processNumber');
-  const court = formData.get('court');
-  const courtDivision = formData.get('courtDivision');
-  const status = formData.get('status');
-  const state = formData.get('state');
-  const city = formData.get('city');
+  const title = formData.title;
+  const description = formData.description;
+  const processNumber = formData.processNumber;
+  const court = formData.court;
+  const courtDivision = formData.courtDivision;
+  const status = formData.status;
+  const state = formData.state;
+  const city = formData.city;
 
-  const mappedStatus = mapLabelToCaseStatus(status?.toString() || '');
-  const mappedState = mapLabelToBrazilState(state?.toString() || '');
-  const mappedCity = mapLabelToCity(city?.toString() || '');
 
   const response = await apiFetch(`${API_URL}/cases/${id}`, {
     headers: {
@@ -36,10 +30,10 @@ export async function updateCaseById(
       processNumber,
       court,
       courtDivision,
-      status: mappedStatus,
+      status,
       location: {
-        state: mappedState,
-        city: mappedCity,
+        state,
+        city,
       },
     }),
   });
