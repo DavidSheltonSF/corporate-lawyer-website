@@ -3,12 +3,13 @@ import { CasesStatus } from '../../types/CasesStatus';
 import { ICaseModel } from '../../models/CaseModel';
 import { BrazilState } from '../../types/BrazilState';
 import { City } from '../../types/City';
+import { CaseFieldsMocker } from '../mocks/fields/CaseFieldsMocker';
 
 export const fakeCases: ICaseModel[] = [
   {
     client: fakeUserDatabase[3]!._id,
     lawyers: [fakeUserDatabase[1]!._id],
-    processNumber: '01119418441616-44156',
+    processNumber: CaseFieldsMocker.mockProcessNumber(),
     title: 'Ação de indenização por danos morais',
     description:
       'O cliente busca reparação por danos morais decorrentes de uma cobrança indevida realizada pela empresa X. O processo está em fase de instrução, aguardando audiência para oitiva de testemunhas.',
@@ -27,7 +28,7 @@ export const fakeCases: ICaseModel[] = [
   {
     client: fakeUserDatabase[3]!._id,
     lawyers: [fakeUserDatabase[1]!._id],
-    processNumber: '55329184722017-11422',
+    processNumber: CaseFieldsMocker.mockProcessNumber(),
     title: 'Ação de usucapião urbano',
     description:
       'O cliente busca o reconhecimento de posse prolongada de um imóvel urbano utilizado há mais de 15 anos ininterruptos.',
@@ -46,7 +47,7 @@ export const fakeCases: ICaseModel[] = [
   {
     client: fakeUserDatabase[3]!._id,
     lawyers: [fakeUserDatabase[0]!._id],
-    processNumber: '77193840255120-66821',
+    processNumber: CaseFieldsMocker.mockProcessNumber(),
     title: 'Ação de cobrança por inadimplência contratual',
     description:
       'A parte autora busca receber valores devidos referentes a um contrato de prestação de serviços não pago.',
@@ -65,7 +66,7 @@ export const fakeCases: ICaseModel[] = [
   {
     client: fakeUserDatabase[3]!._id,
     lawyers: [fakeUserDatabase[1]!._id],
-    processNumber: '91283746501923-44177',
+    processNumber: CaseFieldsMocker.mockProcessNumber(),
     title: 'Ação de danos materiais por acidente de trânsito',
     description:
       'O cliente busca ressarcimento pelos danos causados ao seu veículo após colisão envolvendo terceiro.',
@@ -84,7 +85,7 @@ export const fakeCases: ICaseModel[] = [
   {
     client: fakeUserDatabase[3]!._id,
     lawyers: [fakeUserDatabase[1]!._id],
-    processNumber: '91283747777923-44177',
+    processNumber: CaseFieldsMocker.mockProcessNumber(),
     title: 'Ação de danos morais',
     description: 'O cliente busca ressarcimento pelos danos morais.',
     court: 'TJ-SP',
@@ -102,7 +103,7 @@ export const fakeCases: ICaseModel[] = [
   {
     client: fakeUserDatabase[2]!._id,
     lawyers: [fakeUserDatabase[0]!._id],
-    processNumber: '91244458777923-44177',
+    processNumber: CaseFieldsMocker.mockProcessNumber(),
     title: 'Ação de danos à imagem',
     description: 'O cliente busca ressarcimento pelos danos causados à sua imagem publica.',
     court: 'TJ-SP',
@@ -120,7 +121,7 @@ export const fakeCases: ICaseModel[] = [
   {
     client: fakeUserDatabase[2]!._id,
     lawyers: [fakeUserDatabase[0]!._id],
-    processNumber: '91283585877923-44177',
+    processNumber: CaseFieldsMocker.mockProcessNumber(),
     title: 'Ação de pensão por morte',
     description: 'O cliente busca pensão pela morte do marido',
     court: 'TJ-SP',
@@ -138,7 +139,7 @@ export const fakeCases: ICaseModel[] = [
   {
     client: fakeUserDatabase[4]!._id,
     lawyers: [fakeUserDatabase[0]!._id],
-    processNumber: '12345678901234-56789',
+    processNumber: CaseFieldsMocker.mockProcessNumber(),
     title: 'Ação de revisão contratual',
     description:
       'O cliente solicita revisão das cláusulas de um contrato de financiamento devido a juros abusivos.',
@@ -157,7 +158,7 @@ export const fakeCases: ICaseModel[] = [
   {
     client: fakeUserDatabase[5]!._id,
     lawyers: [fakeUserDatabase[1]!._id],
-    processNumber: '98765432109876-54321',
+    processNumber: CaseFieldsMocker.mockProcessNumber(),
     title: 'Ação de despejo por falta de pagamento',
     description:
       'O cliente busca a retomada de imóvel alugado devido à inadimplência do locatário.',
@@ -176,7 +177,7 @@ export const fakeCases: ICaseModel[] = [
   {
     client: fakeUserDatabase[6]!._id,
     lawyers: [fakeUserDatabase[1]!._id],
-    processNumber: '11223344556677-88990',
+    processNumber: CaseFieldsMocker.mockProcessNumber(),
     title: 'Ação de guarda compartilhada',
     description: 'O cliente busca a guarda compartilhada do filho menor após separação.',
     court: 'TJ-RJ',
@@ -194,7 +195,7 @@ export const fakeCases: ICaseModel[] = [
   {
     client: fakeUserDatabase[7]!._id,
     lawyers: [fakeUserDatabase[0]!._id],
-    processNumber: '99887766554433-22110',
+    processNumber: CaseFieldsMocker.mockProcessNumber(),
     title: 'Ação de inventário',
     description:
       'O cliente solicita abertura de inventário para partilha de bens após falecimento de parente.',
@@ -213,7 +214,7 @@ export const fakeCases: ICaseModel[] = [
   {
     client: fakeUserDatabase[8]!._id,
     lawyers: [fakeUserDatabase[0]!._id],
-    processNumber: '55667788990011-22334',
+    processNumber: CaseFieldsMocker.mockProcessNumber(),
     title: 'Ação de alimentos',
     description: 'O cliente busca fixação de pensão alimentícia para o filho menor.',
     court: 'TJ-SP',
@@ -231,7 +232,7 @@ export const fakeCases: ICaseModel[] = [
   {
     client: fakeUserDatabase[9]!._id,
     lawyers: [fakeUserDatabase[0]!._id],
-    processNumber: '33445566778899-00112',
+    processNumber: CaseFieldsMocker.mockProcessNumber(),
     title: 'Ação de rescisão contratual',
     description:
       'O cliente deseja rescindir contrato de compra e venda de imóvel por descumprimento de cláusulas.',
@@ -250,7 +251,7 @@ export const fakeCases: ICaseModel[] = [
   {
     client: fakeUserDatabase[10]!._id,
     lawyers: [fakeUserDatabase[1]!._id],
-    processNumber: '22113344556677-88990',
+    processNumber: CaseFieldsMocker.mockProcessNumber(),
     title: 'Ação de reconhecimento de união estável',
     description:
       'O cliente busca reconhecimento judicial de união estável para fins de partilha de bens.',
@@ -269,7 +270,7 @@ export const fakeCases: ICaseModel[] = [
   {
     client: fakeUserDatabase[11]!._id,
     lawyers: [fakeUserDatabase[0]!._id],
-    processNumber: '77889900112233-44556',
+    processNumber: CaseFieldsMocker.mockProcessNumber(),
     title: 'Ação de indenização por erro médico',
     description:
       'O cliente busca indenização por danos decorrentes de erro médico em procedimento cirúrgico.',
