@@ -1,6 +1,6 @@
-import { BaseModal } from '@/components/ui/Modal/BaseModal';
 import { CreateDeadlineModalForm } from './CreateDeadlineModalForm';
 import { useState } from 'react';
+import { FormModal } from '@/components/ui/FormModal/FormModal';
 
 interface Props {
   caseId: string;
@@ -14,9 +14,8 @@ export function CreateDeadlineModal({ caseId, close, refetchDeadlines }: Props) 
   const [isReadyToSubmit, setIsreadyToSubmit] = useState(false);
 
   return (
-    <BaseModal
+    <FormModal
       confirmDisabled={!isReadyToSubmit}
-      className="w-[90%] min-md:w-[60%] min-lg:w-fit"
       formId="create-deadline"
       title="Criar novo prazo"
       onClose={close}
@@ -30,6 +29,6 @@ export function CreateDeadlineModal({ caseId, close, refetchDeadlines }: Props) 
           caseId={caseId}
         />
       </div>
-    </BaseModal>
+    </FormModal>
   );
 }
