@@ -89,7 +89,7 @@ export function CreateDeadlineModalForm({
           name="type"
           value={formData.type}
           required
-          onSelectValue={(value) => updateField('type', value)}
+          setSelectedValue={(value) => updateField('type', value)}
         />
         <DropdownInputWithLabel
           id="countint-type-input"
@@ -98,7 +98,7 @@ export function CreateDeadlineModalForm({
           name="countingType"
           value={formData.countingType}
           required
-          onSelectValue={(value) => updateField('countingType', value)}
+          setSelectedValue={(value) => updateField('countingType', value)}
         />
       </div>
       <div className="flex flex-col min-lg:flex-row gap-[24px]">
@@ -130,7 +130,7 @@ export function CreateDeadlineModalForm({
         name="priority"
         value={formData.priority}
         required
-        onSelectValue={(value) => updateField('priority', value)}
+        setSelectedValue={(value) => updateField('priority', value)}
       />
     </form>
   );
