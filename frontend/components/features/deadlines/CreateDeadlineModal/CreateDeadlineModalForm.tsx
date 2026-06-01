@@ -2,10 +2,10 @@ import { RequestFeedback } from '@/components/ui/Feedback/RequestFeedback';
 import { DropdownInputWithLabel } from '@/components/ui/Input/DropdownInputWithLabel';
 import { InputWithLabel } from '@/components/ui/Input/InputWithLabel';
 import { useAuthenticatedUserContext } from '@/hooks/useAuthenticatedUserContext';
+import { useForm } from '@/hooks/useForm';
 import { DeadlineCountingTypeLabel } from '@/lib/DeadlineCountingTypeLabel';
 import { DeadlinePriorityLabel } from '@/lib/DeadlinePriorityLabel';
 import { DeadlineTypeLabel } from '@/lib/DeadlineTypeLabel';
-import { hasEmptyFields } from '@/lib/form';
 import { createDeadline } from '@/services/cases/createDeadline';
 import { Deadline } from '@/types/Deadline';
 import { RequestState } from '@/types/RequestState';
@@ -30,7 +30,10 @@ export function CreateDeadlineModalForm({
   const [requestState, setRequestState] = useState<RequestState<WithId<Deadline>>>({
     status: 'idle',
   });
-  const [formData, setFormData] = useState({
+
+  const { userData } = useAuthenticatedUserContext();
+
+  const { formState, clearForm, hasEmptyFields, updateField } = useForm({
     type: '',
     countingType: '',
     intimationDate: '',
@@ -38,24 +41,8 @@ export function CreateDeadlineModalForm({
     priority: '',
   });
 
-  const { userData } = useAuthenticatedUserContext();
-
-  function updateField(name: string, value: string) {
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  }
-
-  function resetForm() {
-    setFormData({
-      type: '',
-      countingType: '',
-      intimationDate: '',
-      days: '1',
-      priority: '',
-    });
-  }
-
   function checkFields() {
-    setIsreadyToSubmit(!hasEmptyFields(formData));
+    setIsreadyToSubmit(!hasEmptyFields());
   }
 
   async function handleCreateDeadline(e: React.FormEvent<HTMLFormElement>) {
@@ -63,20 +50,20 @@ export function CreateDeadlineModalForm({
 
     if (!isReadyToSubmit) return;
 
-    const response = await createDeadline(caseId, userData.id, formData);
+    const response = await createDeadline(caseId, userData.id, formState);
 
     if (!response.success) {
       return setRequestState({ ...response, status: 'error' });
     }
 
-    resetForm();
+    clearForm();
     refetchDeadlines();
     setRequestState({ status: 'ok', data: response.data, message: 'Prazo criado com sucesso!' });
   }
 
   useEffect(() => {
     checkFields();
-  }, [formData]);
+  }, [formState]);
 
   return (
     <form id={formId} onSubmit={handleCreateDeadline} className="flex flex-col gap-[24px]">
@@ -87,7 +74,7 @@ export function CreateDeadlineModalForm({
           itemLabel={DeadlineTypeLabel}
           label="Tipo"
           name="type"
-          value={formData.type}
+          value={formState.type}
           required
           setSelectedValue={(value) => updateField('type', value)}
         />
@@ -96,7 +83,7 @@ export function CreateDeadlineModalForm({
           itemLabel={DeadlineCountingTypeLabel}
           label="Tipo de Contagem"
           name="countingType"
-          value={formData.countingType}
+          value={formState.countingType}
           required
           setSelectedValue={(value) => updateField('countingType', value)}
         />
@@ -107,7 +94,7 @@ export function CreateDeadlineModalForm({
           id="intimation-date-input"
           name="intimationDate"
           label="Data de intimação"
-          value={formData.intimationDate}
+          value={formState.intimationDate}
           required
           onChange={(e: any) => updateField('intimationDate', e.target.value)}
         />
@@ -117,7 +104,7 @@ export function CreateDeadlineModalForm({
           id="days-input"
           name="days"
           label="Dias"
-          value={formData.days}
+          value={formState.days}
           required
           onChange={(e: any) => updateField('days', e.target.value)}
         />
@@ -128,7 +115,7 @@ export function CreateDeadlineModalForm({
         itemLabel={DeadlinePriorityLabel}
         label="Prioridade"
         name="priority"
-        value={formData.priority}
+        value={formState.priority}
         required
         setSelectedValue={(value) => updateField('priority', value)}
       />
