@@ -5,12 +5,14 @@ import { apiFetch } from '../apiFetch';
 import { mapLabelToCaseStatus } from '@/mapper/mapLabelToCaseStatus';
 import { mapLabelToBrazilState } from '@/mapper/mapLabelToBrazilState';
 import { mapLabelToCity } from '@/mapper/mapLabelToCity';
+import { ActionResponse } from '@/types/ActionResponse';
+import { makeActionResponse } from '@/factories/makeActionResponse';
 
 export async function createCase(
   clientId: string,
   lawyerId: string,
   formData: FormData
-): Promise<WithId<Case>> {
+): Promise<ActionResponse<WithId<Case>>> {
   const title = formData.get('title');
   const description = formData.get('description');
   const processNumber = formData.get('processNumber');
@@ -43,8 +45,5 @@ export async function createCase(
       },
     }),
   });
-
-  const json = await response.json();
-
-  return json.data;
+  return makeActionResponse(response);
 }
