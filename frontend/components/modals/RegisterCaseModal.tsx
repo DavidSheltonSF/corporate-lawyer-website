@@ -1,5 +1,5 @@
 'use client';
-import { BaseModal } from '../ui/Modal/BaseModal';
+import { FormModal } from '../ui/FormModal/FormModal';
 import { RegisterCaseModalForm } from './RegisterCaseModalForm';
 
 interface Props {
@@ -14,16 +14,15 @@ export function RegisterCaseModal({ isOpen, close, clientId }: Props) {
 
   return (
     isOpen && (
-      <BaseModal
+      <FormModal
         formId={formId}
         title="Novo Processo"
-        className={'w-[90%] min-md:w-[60%] min-lg:w-[678px] h-[90%] h-fit'}
         onClose={() => {
           close();
         }}
       >
         <RegisterCaseModal.Form formId={formId} clientId={clientId} />
-      </BaseModal>
+      </FormModal>
     )
   );
 }
