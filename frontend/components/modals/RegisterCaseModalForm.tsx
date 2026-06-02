@@ -2,7 +2,7 @@ import { useCurrentUserId } from '@/hooks/auth/useCurrentUserId';
 import { DropdownInputWithLabel } from '../ui/Input/DropdownInputWithLabel';
 import { InputWithLabel } from '../ui/Input/InputWithLabel';
 import { RequestState } from '@/types/RequestState';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { createCase } from '@/services/cases/createCase';
 import { useForm } from '@/hooks/useForm';
 import { WithId } from '@/types/WithId';
@@ -32,8 +32,10 @@ export function RegisterCaseModalForm({ formId, clientId }: Props) {
 
   const userId = useCurrentUserId();
 
-  async function registerCase(formData: FormData) {
-    const response = await createCase(clientId || '', userId, formData);
+  async function registerCase(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const response = await createCase(clientId || '', userId, formState);
 
     if (!response.success) {
       setRequestState({ ...response, status: 'error' });
@@ -53,7 +55,7 @@ export function RegisterCaseModalForm({ formId, clientId }: Props) {
       return (
         <div className="flex flex-col overflow-y-auto p-[24px] h-[56vh]">
           <RequestFeedback requestState={requestState} />
-          <form id={formId} className="flex flex-col gap-[16px] w-ful]" action={registerCase}>
+          <form id={formId} className="flex flex-col gap-[16px] w-ful]" onSubmit={registerCase}>
             <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
               <InputWithLabel
                 id="title-input"
