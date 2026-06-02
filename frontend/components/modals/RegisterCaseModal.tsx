@@ -18,6 +18,7 @@ import { BrazilStateLabel } from '@/lib/BrazilStateLabel';
 import { City } from '@/types/City';
 import { CityLabel } from '@/lib/CityLabel';
 import { ButtonVariant } from '../ui/Button/ButtonVariant';
+import { useCurrentUserId } from '@/hooks/auth/useCurrentUserId';
 
 interface Props {
   selectedClientId: string | null;
@@ -27,16 +28,11 @@ interface Props {
 export function RegisterCaseModal({ isOpen, close, selectedClientId }: Props) {
   const [requestState, setRequestState] = useState<RequestState | null>(null);
 
-  const context = useAuthenticatedUserContext();
-  if (!context) {
-    throw new MissingContextError('AuthenticatedUserContext');
-  }
-
-  const { userData } = context;
+  const userId = useCurrentUserId();
 
   async function registerCase(formData: FormData) {
     try {
-      const data = await createCase(selectedClientId || '', userData.id, formData);
+      const data = await createCase(selectedClientId || '', userId, formData);
       setRequestState({ status: 'ok', message: `Processo registrado com sucesso` });
     } catch (error: any) {
       console.log(error);
