@@ -1,9 +1,5 @@
 'use client';
-import { DashboardCard } from './DashboardCard';
-import { DashboardCardInfo } from './DashboardCardInfo';
 import { useEffect, useState } from 'react';
-import { mockPromise } from '@/test/mockPromise';
-import { DashboardCardSkeleton } from './DashboardCardSkeleton';
 import { getMyCasesStats } from '@/services/cases/getMyCasesStats';
 import { UserRole } from '@/types/UserRole';
 import { getCasesStats } from '@/services/cases/getCasesStats';
@@ -16,7 +12,6 @@ import { useAuthStore } from '@/stores/useAuthStore';
 
 export function DashboardSection() {
   const [requestState, setRequestState] = useState<RequestState<CasesStats>>({ status: 'loading' });
-  const isLoading = requestState?.status === 'loading';
   const user = useAuthStore((state) => state.user);
 
   useEffect(() => {
@@ -67,6 +62,7 @@ export function DashboardSection() {
     case 'idle':
     case 'loading':
       return <DashboardSkeleton />;
+
     case 'ok':
       return <Dashboard data={requestState.data} />;
 
