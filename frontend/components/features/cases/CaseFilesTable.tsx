@@ -1,7 +1,7 @@
 import { formatDate } from '@/lib/formatDate';
 import { CaseFile } from '@/types/CaseFile';
-import { useAuthenticatedUserContext } from '@/hooks/useAuthenticatedUserContext';
 import { CaseFilesTableButton } from '@/components/features/cases/CaseFilesTableButton';
+import { useCurrentUser } from '@/hooks/auth/useCurrentUser';
 
 interface Props {
   documents: CaseFile[];
@@ -10,9 +10,7 @@ interface Props {
 CaseFilesTable.Button = CaseFilesTableButton;
 
 export function CaseFilesTable({ documents }: Props) {
-  const userContext = useAuthenticatedUserContext();
-
-  const userId = userContext.userData.id;
+  const user = useCurrentUser();
   return (
     <div className="table w-full h-fit">
       <div className="header">
@@ -22,7 +20,7 @@ export function CaseFilesTable({ documents }: Props) {
       </div>
 
       {documents.map((document, index) => {
-        const uploadedByMe = document.uploadedBy.id === userId;
+        const uploadedByMe = document.uploadedBy.id === user.id;
 
         return (
           <div key={index} className="row">
