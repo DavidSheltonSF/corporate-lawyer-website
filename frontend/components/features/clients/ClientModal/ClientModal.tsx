@@ -65,7 +65,7 @@ export function ClientModal({ payload, close }: GlobalModalProps<Props>) {
   if (registerCaseModalIsOpen) {
     return (
       <RegisterCaseModal
-        selectedClientId={clientId}
+        clientId={clientId}
         isOpen={registerCaseModalIsOpen}
         close={() => {
           setRegisterCaseModalIsOpen(false);
