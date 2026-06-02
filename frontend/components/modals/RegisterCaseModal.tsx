@@ -3,7 +3,7 @@ import { BaseModal } from '../ui/Modal/BaseModal';
 import { RegisterCaseModalForm } from './RegisterCaseModalForm';
 
 interface Props {
-  selectedClientId: string | null;
+  selectedClientId: string;
   isOpen: boolean;
   close: () => void;
 }
@@ -22,7 +22,7 @@ export function RegisterCaseModal({ isOpen, close, selectedClientId }: Props) {
           close();
         }}
       >
-        <RegisterCaseModal.Form formId={formId} clientId={selectedClientId || ''} />
+        <RegisterCaseModal.Form formId={formId} clientId={selectedClientId} />
       </BaseModal>
     )
   );
