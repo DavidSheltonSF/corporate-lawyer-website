@@ -9,7 +9,7 @@ import { SubmitButton } from './SubmitButton';
 import { useRouter } from 'next/navigation';
 
 export function LoginForm() {
-  const [requestState, setRequestState] = useState<RequestState>({status: 'idle'});
+  const [requestState, setRequestState] = useState<RequestState>({ status: 'idle' });
   const router = useRouter();
   const errors = requestState?.status === 'error' ? requestState?.details?.fields : null;
 
@@ -66,7 +66,7 @@ export function LoginForm() {
         />
         {errors?.password && <InputFeedback label={errors?.password} />}
       </div>
-      <SubmitButton />
+      <SubmitButton label='Entrar' loadingLabel='Entrando'/>
     </form>
   );
 }
