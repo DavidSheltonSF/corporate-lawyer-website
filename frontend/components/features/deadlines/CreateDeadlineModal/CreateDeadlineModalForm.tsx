@@ -1,7 +1,7 @@
 import { RequestFeedback } from '@/components/ui/Feedback/RequestFeedback';
 import { DropdownInputWithLabel } from '@/components/ui/Input/DropdownInputWithLabel';
 import { InputWithLabel } from '@/components/ui/Input/InputWithLabel';
-import { useAuthenticatedUserContext } from '@/hooks/useAuthenticatedUserContext';
+import { useCurrentUserId } from '@/hooks/auth/useCurrentUserId';
 import { useForm } from '@/hooks/useForm';
 import { DeadlineCountingTypeLabel } from '@/lib/DeadlineCountingTypeLabel';
 import { DeadlinePriorityLabel } from '@/lib/DeadlinePriorityLabel';
@@ -31,7 +31,7 @@ export function CreateDeadlineModalForm({
     status: 'idle',
   });
 
-  const { userData } = useAuthenticatedUserContext();
+  const userId = useCurrentUserId()
 
   const { formState, clearForm, hasEmptyFields, updateField } = useForm({
     type: '',
@@ -51,7 +51,7 @@ export function CreateDeadlineModalForm({
     if (!isReadyToSubmit) return;
     setRequestState({ status: 'loading' });
 
-    const response = await createDeadline(caseId, userData.id, formState);
+    const response = await createDeadline(caseId, userId, formState);
 
     if (!response.success) {
       return setRequestState({ ...response, status: 'error' });
