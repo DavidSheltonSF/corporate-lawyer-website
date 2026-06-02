@@ -16,7 +16,6 @@ export function CaseFilesTable({ documents }: Props) {
       <div className="header">
         <div>Name</div>
         <div className="hidden min-md:block">Upload</div>
-        <div></div>
       </div>
 
       {documents.map((document, index) => {
