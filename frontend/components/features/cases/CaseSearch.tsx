@@ -9,13 +9,12 @@ import { CaseStatusEnum } from '@/types/CaseStatusEnum';
 import { DropDownButton } from '../../DropdownButton';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
-import { useAuthenticatedUserContext } from '@/hooks/useAuthenticatedUserContext';
-import { MissingContextError } from '@/errors/MissingContextError';
 import { UserRole } from '@/types/UserRole';
 import { getCases } from '@/services/cases/getCases';
 import { handleLogout } from '@/lib/handleLogout';
 import { RequestState } from '@/types/RequestState';
 import { Page } from '@/types/Page';
+import { useUserRole } from '@/hooks/auth/useUserRole';
 
 export default function CaseSearch() {
   const [query, setQuery] = useState('');
@@ -26,19 +25,14 @@ export default function CaseSearch() {
     status: 'idle',
   });
 
-  const authUserContext = useAuthenticatedUserContext();
-  if (!authUserContext) {
-    throw new MissingContextError('AuthenticatedUserContext');
-  }
-
-  const { userData } = authUserContext;
+  const userRole = useUserRole();
 
   async function fetchCases() {
     try {
       setRequestState({ status: 'loading' });
       let response = null;
 
-      switch (userData.role) {
+      switch (userRole) {
         case UserRole.lawyer:
           response = await getCases({
             page,
