@@ -1,5 +1,5 @@
 'use client';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { BaseModal } from '../ui/Modal/BaseModal';
 import { InputWithLabel } from '../ui/Input/InputWithLabel';
 import { Button } from '../ui/Button/Button';
@@ -9,6 +9,7 @@ import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
 import { ButtonVariant } from '../ui/Button/ButtonVariant';
 import { WithId } from '@/types/WithId';
 import { User } from '@/types/User';
+import { handleLogout } from '@/lib/handleLogout';
 interface Props {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -25,6 +26,14 @@ export function RegisterClientModal({ isOpen, setIsOpen }: Props) {
 
     setRequestState({ status: 'ok', data: response.data });
   }
+
+  useEffect(() => {
+    if (requestState.status === 'error') {
+      if (requestState.code === 'UNAUTHORIZED') {
+        handleLogout();
+      }
+    }
+  }, [requestState]);
 
   return (
     isOpen && (
