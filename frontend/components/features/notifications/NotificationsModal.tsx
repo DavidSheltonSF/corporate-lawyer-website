@@ -70,14 +70,12 @@ export function NotificationsModal() {
       <BaseModal
         title="Notificações"
         omitFooter={true}
-        className={'w-[90%] min-md:w-[70%] min-lg:w-[560px] h-[82vh] min-lg:h-[65vh]'}
+        className={'w-[90%] min-md:w-[70%] min-lg:w-[560px]'}
         onClose={() => {
           setIsOpen(false);
         }}
       >
-        <div className="flex size-full overflow">
-          <div className="w-full max-h-[55vh] overflow-auto">
-            <div className="flex flex-col w-full h-full gap-[24px] overflow-auto p-[24px]">
+            <div className="flex flex-col w-full h-[56vh] gap-[24px] overflow-auto p-[24px]">
               <div className="flex items-center gap-[16px] w-full">
                 <h3>Não lidas:</h3>
                 <div className="flex justify-center items-center size-[32px] bg-color-primary-light rounded-md ">
@@ -96,8 +94,7 @@ export function NotificationsModal() {
                 Carregar Mais
               </Button>
             </div>
-          </div>
-        </div>
+
       </BaseModal>
     )
   );
