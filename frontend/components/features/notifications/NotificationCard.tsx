@@ -71,22 +71,20 @@ export function NotificationCard({ notificationData, decreaceUnreadCount }: Prop
           <NotificationIconSelector notificationType={notification.type} />
         </div>
         <div className="flex flex-col size-full gap-[8px]">
-          <p className="text-[14px] min-lg:text-[16px]">{message}</p>
+          <p className="text-sm min-md:text-base">{message}</p>
           <Button
             variant={ButtonVariant.SECONDARY}
             onClick={(e) => {
               e.stopPropagation();
               handleOpenRelatedModal();
             }}
-            className="w-fit text-blue-500 hover:text-blue-400 cursor-pointer text-md"
+            className="w-fit text-blue-500 hover:text-blue-400 cursor-pointer text-sm"
           >
             Conferir
           </Button>
         </div>
-        <div className="flex h-full w-[10%] justify-end items-start">
-          <span className=" text-gray-500 text-[14px] text-[16px]">
-            {formatRelativeTime(new Date(createdAt))}
-          </span>
+        <div className="flex h-full shrink-0  justify-end items-start">
+          <span className=" text-gray-500 text-sm">{formatRelativeTime(new Date(createdAt))}</span>
         </div>
       </div>
     </article>
