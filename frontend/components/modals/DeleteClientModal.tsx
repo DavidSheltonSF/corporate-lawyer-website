@@ -19,6 +19,7 @@ export function DeleteClientModal({ payload, close }: GlobalModalProps<Props>) {
   const [requestState, setRequestState] = useState<RequestState<WithId<SafeUser>>>({
     status: 'idle',
   });
+
   const [confirmInputText, setConfrimInputText] = useState('');
   const { clientSlice, refetchClients } = payload;
   const { id, firstName, lastName } = clientSlice;
@@ -39,6 +40,7 @@ export function DeleteClientModal({ payload, close }: GlobalModalProps<Props>) {
 
   useEffect(() => {
     return () => {
+      setRequestState({ status: 'idle' });
       setRequestState({ status: 'idle' });
       setConfrimInputText('');
     };
