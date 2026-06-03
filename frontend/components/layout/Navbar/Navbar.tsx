@@ -28,13 +28,13 @@ export function Navbar() {
   return (
     <nav
       ref={navbarRef}
-      className="absolute top-0 flex justify-between items-center bg-[var(--color-black)]/48 w-full h-auto py-[4px] px-[24px] lg:px-[40px]"
+      className="flex relative justify-between items-center bg-color-primary w-full h-auto py-[4px] px-[24px] lg:px-[40px]"
     >
       <div>
         <Link href="/">
           <img
             className="size-[56px]"
-            src="/website-logo-with-circle-72px.webp"
+            src="/website-logo.webp"
             alt="Medeiros e Santiago"
           />
         </Link>
