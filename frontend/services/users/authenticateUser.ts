@@ -1,6 +1,7 @@
 import { API_URL } from '@/config/api';
 import { apiFetch } from '../apiFetch';
 import { ActionResponse } from '@/types/ActionResponse';
+import { makeActionResponse } from '@/factories/makeActionResponse';
 
 export async function authenticateUser(formData: FormData): Promise<ActionResponse<string>> {
   const email = formData.get('email');
@@ -12,11 +13,5 @@ export async function authenticateUser(formData: FormData): Promise<ActionRespon
     headers: { 'Content-Type': 'application/json' },
   });
 
-  const json = await response.json();
-
-  if (!response.ok) {
-    return { success: false, message: json.message, code: json.code, details: json.details };
-  }
-
-  return { success: true, data: json.data };
+  return makeActionResponse(response);
 }
