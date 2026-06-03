@@ -67,6 +67,14 @@ export function RegisterCaseModalForm({
     checkFields();
   }, [formState]);
 
+  useEffect(() => {
+    if (requestState.status === 'error') {
+      if (requestState.code === 'UNAUTHORIZED') {
+        handleLogout();
+      }
+    }
+  }, [requestState]);
+
   return (
     <div className="flex flex-col overflow-y-auto p-[24px] h-[56vh]">
       <RequestFeedback requestState={requestState} />
