@@ -2,8 +2,13 @@ import { API_URL } from '@/config/api';
 import { SafeUser } from '@/types/SafeUser';
 import { WithId } from '@/types/WithId';
 import { apiFetch } from '../apiFetch';
+import { ActionResponse } from '@/types/ActionResponse';
+import { makeActionResponse } from '@/factories/makeActionResponse';
 
-export async function updateUser(id: string, formData: FormData): Promise<WithId<SafeUser>> {
+export async function updateUser(
+  id: string,
+  formData: FormData
+): Promise<ActionResponse<WithId<SafeUser>>> {
   const firstName = formData.get('firstName');
   const lastName = formData.get('lastName');
   const email = formData.get('email');
@@ -20,11 +25,9 @@ export async function updateUser(id: string, formData: FormData): Promise<WithId
       lastName,
       email,
       cpf,
-      phone
+      phone,
     }),
   });
 
-  const json = await response.json();
-
-  return json.data;
+  return makeActionResponse(response);
 }
