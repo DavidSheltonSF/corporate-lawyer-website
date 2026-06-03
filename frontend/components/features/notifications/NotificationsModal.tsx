@@ -75,26 +75,27 @@ export function NotificationsModal() {
           setIsOpen(false);
         }}
       >
-            <div className="flex flex-col w-full h-[56vh] gap-[24px] overflow-auto p-[24px]">
-              <div className="flex items-center gap-[16px] w-full">
-                <h3>Não lidas:</h3>
-                <div className="flex justify-center items-center size-[32px] bg-color-primary-light rounded-md ">
-                  <span className="text-color-white">{unreadCount}</span>
-                </div>
-              </div>
-              <NotificationsList
-                notifications={notifications}
-                unreadCount={unreadCount}
-                setUnreadCount={setUnreadCount}
-              />
-              <Button
-                className="bg-color-primary text-color-white w-full py-[8px]"
-                onClick={loadMore}
-              >
-                Carregar Mais
-              </Button>
+        <div className="flex flex-col w-full h-[56vh] gap-[24px] overflow-auto">
+          <div className="flex items-center gap-[16px] w-full pl-[16px] pt-[16px]">
+            <h3>Não lidas:</h3>
+            <div className="flex justify-center items-center size-[32px] bg-color-primary-light rounded-md ">
+              <span className="text-color-white">{unreadCount}</span>
             </div>
-
+          </div>
+          <NotificationsList
+            notifications={notifications}
+            unreadCount={unreadCount}
+            setUnreadCount={setUnreadCount}
+          />
+          <div className='px-[16px] pb-[16px]'>
+            <Button
+              className="bg-color-primary text-color-white w-full py-[8px]"
+              onClick={loadMore}
+            >
+              Carregar Mais
+            </Button>
+          </div>
+        </div>
       </BaseModal>
     )
   );
