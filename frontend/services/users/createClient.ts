@@ -2,8 +2,10 @@ import { API_URL } from '@/config/api';
 import { User } from '@/types/User';
 import { WithId } from '@/types/WithId';
 import { apiFetch } from '../apiFetch';
+import { makeActionResponse } from '@/factories/makeActionResponse';
+import { ActionResponse } from '@/types/ActionResponse';
 
-export async function createClient(formData: FormData): Promise<WithId<User>> {
+export async function createClient(formData: FormData): Promise<ActionResponse<WithId<User>>> {
   const firstName = formData.get('firstName');
   const lastName = formData.get('lastName');
   const email = formData.get('email');
@@ -22,7 +24,5 @@ export async function createClient(formData: FormData): Promise<WithId<User>> {
     }),
   });
 
-  const json = await response.json();
-
-  return json.data;
+  return makeActionResponse(response);
 }
