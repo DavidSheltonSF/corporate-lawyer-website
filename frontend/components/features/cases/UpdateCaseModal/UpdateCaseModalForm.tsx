@@ -57,7 +57,7 @@ export function UpdateCaseModalForm({
     setFormState((prev) => ({ ...prev, [name]: value }));
   }
 
-  async function getUser() {
+  async function handleGetCase() {
     setGetRequestState({ status: 'loading' });
     const response = await getCaseById(caseId || '');
 
@@ -107,7 +107,7 @@ export function UpdateCaseModalForm({
   }
 
   useEffect(() => {
-    getUser();
+    handleGetCase();
 
     return () => {
       setGetRequestState({ status: 'idle' });
