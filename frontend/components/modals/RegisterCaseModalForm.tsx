@@ -2,7 +2,7 @@ import { useCurrentUserId } from '@/hooks/auth/useCurrentUserId';
 import { DropdownInputWithLabel } from '../ui/Input/DropdownInputWithLabel';
 import { InputWithLabel } from '../ui/Input/InputWithLabel';
 import { RequestState } from '@/types/RequestState';
-import { FormEvent, useState } from 'react';
+import { Dispatch, FormEvent, SetStateAction, useEffect, useState } from 'react';
 import { createCase } from '@/services/cases/createCase';
 import { useForm } from '@/hooks/useForm';
 import { WithId } from '@/types/WithId';
@@ -14,10 +14,17 @@ import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
 
 interface Props {
   formId: string;
+  isReadyToSubmit: boolean;
+  setIsReadyToSubmit: Dispatch<SetStateAction<boolean>>;
   clientId: string;
 }
 
-export function RegisterCaseModalForm({ formId, clientId }: Props) {
+export function RegisterCaseModalForm({
+  formId,
+  isReadyToSubmit,
+  setIsReadyToSubmit,
+  clientId,
+}: Props) {
   const [requestState, setRequestState] = useState<RequestState<WithId<Case>>>({ status: 'idle' });
   const { formState, clearForm, hasEmptyFields, updateField } = useForm({
     title: '',
@@ -33,6 +40,7 @@ export function RegisterCaseModalForm({ formId, clientId }: Props) {
   const userId = useCurrentUserId();
 
   async function registerCase(e: FormEvent<HTMLFormElement>) {
+    if (!isReadyToSubmit) return;
     e.preventDefault();
 
     const response = await createCase(clientId || '', userId, formState);
@@ -48,6 +56,14 @@ export function RegisterCaseModalForm({ formId, clientId }: Props) {
       message: `Processo criado com sucesso`,
     });
   }
+
+  function checkFields() {
+    setIsReadyToSubmit(!hasEmptyFields());
+  }
+
+  useEffect(() => {
+    checkFields();
+  }, [formState]);
 
   return (
     <div className="flex flex-col overflow-y-auto p-[24px] h-[56vh]">
