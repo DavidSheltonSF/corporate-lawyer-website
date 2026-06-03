@@ -6,11 +6,11 @@ import { SafeUser } from '@/types/SafeUser';
 import { RequestState } from '@/types/RequestState';
 
 interface Props {
-  loadClients: () => void;
+  fetchClients: () => void;
   requestState: RequestState<WithId<SafeUser>[]>;
 }
 
-export function ClientsList({ requestState, loadClients }: Props) {
+export function ClientsList({ requestState, fetchClients }: Props) {
   function renderContent() {
     switch (requestState?.status) {
       case 'loading':
@@ -27,7 +27,7 @@ export function ClientsList({ requestState, loadClients }: Props) {
         }
 
         const renderCases = data.map((client, index) => {
-          return <ClientCard loadClients={loadClients} key={index} clientData={client} />;
+          return <ClientCard fetchClients={fetchClients} key={index} clientData={client} />;
         });
         return renderCases;
 

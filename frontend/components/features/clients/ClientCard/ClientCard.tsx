@@ -10,27 +10,27 @@ import { ButtonVariant } from '@/components/ui/Button/ButtonVariant';
 
 interface Props {
   clientData: WithId<SafeUser>;
-  loadClients: () => void;
+  fetchClients: () => void;
 }
 
 ClientCard.Header = ClientCardHeader;
 ClientCard.Footer = ClientCardFooter;
 
-export function ClientCard({ clientData, loadClients }: Props) {
+export function ClientCard({ clientData, fetchClients }: Props) {
   const { id, firstName, lastName, email, phone, cpf } = clientData;
   const { openModal } = useModal();
 
   function openEditModal() {
     openModal('update-client', {
       clientId: id,
-      loadClients,
+      fetchClients,
     });
   }
 
   function openDeleteModal() {
     openModal('delete-client', {
       clientSlice: { id, firstName, lastName },
-      loadClients,
+      fetchClients,
       variant: ButtonVariant.DANGER,
     });
   }

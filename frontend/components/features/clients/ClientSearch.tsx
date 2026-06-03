@@ -21,7 +21,7 @@ export default function ClientSearch() {
   const [totalPage, setTotalPage] = useState(0);
   const [registerUserModalIsOpen, setRegisterUserModalIsOpen] = useState(false);
 
-  async function loadClients() {
+  async function fetchClients() {
     setRequestState({ status: 'loading' });
     const response = await getClients({
       page,
@@ -41,7 +41,7 @@ export default function ClientSearch() {
   }
 
   useEffect(() => {
-    loadClients();
+    fetchClients();
   }, [page]);
 
   return (
@@ -51,7 +51,7 @@ export default function ClientSearch() {
         setIsOpen={setRegisterUserModalIsOpen}
       />
       <div className="flex flex-col lg:flex-row gap-[40px] size-full">
-        <SearchBar query={query} action={loadClients} setQuery={setQuery} />
+        <SearchBar query={query} action={fetchClients} setQuery={setQuery} />
         <div className="w-full min-lg:min-w-[200px]">
           <Button
             className="p-[16px] bg-color-white text-color-black w-full min-lg:w-fit"
@@ -61,7 +61,7 @@ export default function ClientSearch() {
           </Button>
         </div>
       </div>
-      <ClientsList requestState={requestState} loadClients={loadClients} />
+      <ClientsList requestState={requestState} fetchClients={fetchClients} />
       <Pagination page={page} setPage={setPage} totalPage={totalPage} />
     </section>
   );
