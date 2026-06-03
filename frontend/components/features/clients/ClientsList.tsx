@@ -1,46 +1,43 @@
 'use client';
 import { WithId } from '@/types/WithId';
-import { Activity, useState } from 'react';
 import { CardSkeleton } from '../../ui/Card/CardSkeleton';
 import { ClientCard } from './ClientCard/ClientCard';
 import { SafeUser } from '@/types/SafeUser';
 import { RequestState } from '@/types/RequestState';
 
 interface Props {
-  clients: WithId<SafeUser>[];
   loadClients: () => void;
-  requestState: RequestState | null;
+  requestState: RequestState<WithId<SafeUser>[]>;
 }
 
-export function ClientsList({ clients, requestState, loadClients }: Props) {
-  const renderCases = clients?.map((client, index) => {
-    return <ClientCard loadClients={loadClients} key={index} clientData={client} />;
-  });
+export function ClientsList({ requestState, loadClients }: Props) {
+  function renderContent() {
+    switch (requestState?.status) {
+      case 'loading':
+        const renderCaseSkeletons = Array.from({ length: 4 }).map((page, index) => {
+          return <CardSkeleton key={index} />;
+        });
+        return renderCaseSkeletons;
 
-  const renderCaseSkeletons = Array.from({ length: 4 }).map((page, index) => {
-    return <CardSkeleton key={index} />;
-  });
+      case 'ok':
+        const { data } = requestState;
 
-  let message = '';
+        if (data.length === 0) {
+          return <h1 className="text-3xl">Nenhum cliente foi encontrado</h1>;
+        }
 
-  const errorMessage = requestState?.status === 'error' ? requestState.message : null;
-  if (errorMessage) {
-    message = errorMessage;
+        const renderCases = data.map((client, index) => {
+          return <ClientCard loadClients={loadClients} key={index} clientData={client} />;
+        });
+        return renderCases;
+
+      case 'error':
+        <h1>{requestState.message}</h1>;
+
+      default:
+        return null;
+    }
   }
 
-  const noClients = clients.length === 0;
-  if (!errorMessage && noClients) {
-    message = 'Nenhum cliente encontrado';
-  }
-
-  const isLoading = requestState?.status === 'loading';
-
-  return (
-    <div className="flex flex-col gap-[32px] mt-[88px] w-full">
-      <Activity mode={!isLoading ? 'visible' : 'hidden'}>
-        <h1 className="text-3xl">{message}</h1>
-      </Activity>
-      {isLoading ? renderCaseSkeletons : renderCases}
-    </div>
-  );
+  return <div className="flex flex-col gap-[32px] mt-[88px] w-full">{renderContent()}</div>;
 }
