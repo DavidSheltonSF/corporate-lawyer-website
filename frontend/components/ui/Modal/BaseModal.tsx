@@ -62,7 +62,7 @@ export function BaseModal(props: PropsWithClassName<Props>) {
 
   return (
     <div ref={modalRef} className={twMerge(baseStyles, positionStyles, sizeStyles, className)}>
-      <div className="flex w-full border-divider bg-color-white px-[24px] py-[20px]">
+      <div className="flex w-full border-divider bg-color-white px-[24px] py-[20px] rounded-t-[inherit]">
         <h3 className="font-bold">{title}</h3>
         <Button
           className="bg-color-white ml-auto p-[4px] brightness-95 hover:brightness-90"
