@@ -17,15 +17,15 @@ import { error } from 'console';
 
 interface Props {
   formId: string;
-  // isReadyToSubmit: boolean;
-  // setIsReadyToSubmit: Dispatch<SetStateAction<boolean>>;
+  isReadyToSubmit: boolean;
+  setIsReadyToSubmit: Dispatch<SetStateAction<boolean>>;
   clientId: string;
 }
 
 export function UpdateClientModalForm({
   formId,
-  // isReadyToSubmit,
-  // setIsReadyToSubmit,
+  isReadyToSubmit,
+  setIsReadyToSubmit,
   clientId,
 }: Props) {
   const [getRequestState, setGetRequestState] = useState<RequestState<WithId<SafeUser>>>({
@@ -89,16 +89,16 @@ export function UpdateClientModalForm({
     };
   }, []);
 
-  // function checkFields() {
-  //   setIsReadyToSubmit(!hasEmptyFields());
-  // }
+  function checkFields() {
+    setIsReadyToSubmit(!hasEmptyFields());
+  }
+
+  useEffect(() => {
+    checkFields();
+  }, [formState]);
 
   // useEffect(() => {
-  //   checkFields();
-  // }, [formState]);
-
-  // useEffect(() => {
-  //   if (requestState.status === 'error') {
+  //   if (updater.status === 'error' || ) {
   //     if (requestState.code === 'UNAUTHORIZED') {
   //       handleLogout();
   //     }
