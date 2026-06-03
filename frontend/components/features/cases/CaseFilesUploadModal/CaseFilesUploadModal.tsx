@@ -65,6 +65,7 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
   }
 
   function renderUploadFeedback() {
+    if (requestState.status !== 'idle') return;
     switch (uploadFileState?.status) {
       case 'ok':
         return <FeedbackMessage status="ok" message={uploadFileState.message} />;
