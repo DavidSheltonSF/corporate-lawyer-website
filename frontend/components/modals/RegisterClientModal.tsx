@@ -6,30 +6,24 @@ import { Button } from '../ui/Button/Button';
 import { createClient } from '@/services/users/createClient';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
-import { handleLogout } from '@/lib/handleLogout';
-import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { ButtonVariant } from '../ui/Button/ButtonVariant';
+import { WithId } from '@/types/WithId';
+import { User } from '@/types/User';
 interface Props {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 export function RegisterClientModal({ isOpen, setIsOpen }: Props) {
-  const [requestState, setRequestState] = useState<RequestState | null>(null);
+  const [requestState, setRequestState] = useState<RequestState<WithId<User>>>({ status: 'idle' });
 
   async function registerClient(formData: FormData) {
-    try {
-      const data = await createClient(formData);
-      setRequestState({
-        status: 'ok',
-        message: `Cliente registrado com sucesso. Senha: ${data.password}`,
-      });
-    } catch (error: any) {
-      console.log(error);
-      setRequestState({ status: 'error', message: error.message });
-      if (error instanceof UnauthorizedError) {
-        handleLogout();
-      }
+    const response = await createClient(formData);
+    if (!response.success) {
+      setRequestState({ ...response, status: 'error' });
+      return;
     }
+
+    setRequestState({ status: 'ok', data: response.data });
   }
 
   return (
