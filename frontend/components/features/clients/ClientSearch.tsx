@@ -10,38 +10,34 @@ import { SafeUser } from '@/types/SafeUser';
 import { RegisterClientModal } from '../../modals/RegisterClientModal';
 import { Button } from '../../ui/Button/Button';
 import { RequestState } from '@/types/RequestState';
-import { UnauthorizedError } from '@/errors/UnauthorizedError';
-import { handleLogout } from '@/lib/handleLogout';
+import { Page } from '@/types/Page';
 
 export default function ClientSearch() {
-  const [requestState, setRequestState] = useState<RequestState | null>(null);
+  const [requestState, setRequestState] = useState<RequestState<WithId<SafeUser>[]>>({
+    status: 'idle',
+  });
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
-  const [clients, setClients] = useState<WithId<SafeUser>[]>([]);
   const [registerUserModalIsOpen, setRegisterUserModalIsOpen] = useState(false);
 
   async function loadClients() {
-    try {
-      setRequestState({ status: 'loading' });
-      const clientsPagination = await getClients({
-        page,
-        limit: 4,
-        query,
-      });
+    setRequestState({ status: 'loading' });
+    const response = await getClients({
+      page,
+      limit: 4,
+      query,
+    });
 
-      const casesData = clientsPagination.data;
-      setTotalPage(clientsPagination.meta.totalPages);
-
-      setClients(casesData);
-      setRequestState({ status: 'ok' });
-    } catch (error: any) {
-      console.log(error);
-      setRequestState({ status: 'error', message: error.message });
-      if (error instanceof UnauthorizedError) {
-        handleLogout();
-      }
+    if (!response.success) {
+      setRequestState({ ...response, status: 'error' });
+      return;
     }
+
+    const { data } = response;
+
+    setTotalPage(data.meta.totalPages);
+    setRequestState({ status: 'ok', data: data.data });
   }
 
   useEffect(() => {
@@ -65,7 +61,7 @@ export default function ClientSearch() {
           </Button>
         </div>
       </div>
-      <ClientsList requestState={requestState} clients={clients} loadClients={loadClients} />
+      <ClientsList requestState={requestState} loadClients={loadClients} />
       <Pagination page={page} setPage={setPage} totalPage={totalPage} />
     </section>
   );
