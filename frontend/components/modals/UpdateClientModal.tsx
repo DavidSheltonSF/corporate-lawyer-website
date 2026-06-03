@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 interface Props {
   clientId: string;
-  loadClients: () => void;
+  refetchClients: () => void;
 }
 
 UpdateClientModal.Form = UpdateClientModalForm;

@@ -23,14 +23,14 @@ export function ClientCard({ clientData, fetchClients }: Props) {
   function openEditModal() {
     openModal('update-client', {
       clientId: id,
-      fetchClients,
+      refetchClients: fetchClients,
     });
   }
 
   function openDeleteModal() {
     openModal('delete-client', {
       clientSlice: { id, firstName, lastName },
-      fetchClients,
+      refetchClients: fetchClients,
       variant: ButtonVariant.DANGER,
     });
   }
