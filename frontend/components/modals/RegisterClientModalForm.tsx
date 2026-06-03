@@ -3,16 +3,18 @@ import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
 import { InputWithLabel } from '../ui/Input/InputWithLabel';
 import { WithId } from '@/types/WithId';
 import { User } from '@/types/User';
-import { FormEvent, useEffect, useState } from 'react';
+import { Dispatch, FormEvent, SetStateAction, useEffect, useState } from 'react';
 import { useForm } from '@/hooks/useForm';
 import { createClient } from '@/services/users/createClient';
 import { handleLogout } from '@/lib/handleLogout';
 
 interface Props {
   formId: string;
+  isReadyToSubmit: boolean;
+  setIsReadyToSubmit: Dispatch<SetStateAction<boolean>>;
 }
 
-export function RegisterClientModalForm({ formId }: Props) {
+export function RegisterClientModalForm({ formId, isReadyToSubmit, setIsReadyToSubmit }: Props) {
   const [requestState, setRequestState] = useState<RequestState<WithId<User>>>({ status: 'idle' });
   const { formState, updateField, clearForm, hasEmptyFields } = useForm({
     firstName: '',
@@ -23,7 +25,10 @@ export function RegisterClientModalForm({ formId }: Props) {
   });
 
   async function registerClient(e: FormEvent<HTMLFormElement>) {
+    if (!isReadyToSubmit) return;
+
     e.preventDefault();
+
     const response = await createClient(formState);
     if (!response.success) {
       setRequestState({ ...response, status: 'error' });
@@ -34,6 +39,10 @@ export function RegisterClientModalForm({ formId }: Props) {
     setRequestState({ status: 'ok', data: response.data });
   }
 
+  function checkFields() {
+    setIsReadyToSubmit(!hasEmptyFields());
+  }
+
   useEffect(() => {
     if (requestState.status === 'error') {
       if (requestState.code === 'UNAUTHORIZED') {
@@ -41,6 +50,10 @@ export function RegisterClientModalForm({ formId }: Props) {
       }
     }
   }, [requestState]);
+
+  useEffect(() => {
+    checkFields();
+  }, [formState]);
 
   return (
     <form id={formId} className="flex flex-col gap-[16px] w-full h-full" onSubmit={registerClient}>
