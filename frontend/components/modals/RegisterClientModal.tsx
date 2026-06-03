@@ -1,5 +1,5 @@
 'use client';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, FormEvent, FormEventHandler, SetStateAction, useEffect, useState } from 'react';
 import { BaseModal } from '../ui/Modal/BaseModal';
 import { InputWithLabel } from '../ui/Input/InputWithLabel';
 import { Button } from '../ui/Button/Button';
@@ -25,7 +25,8 @@ export function RegisterClientModal({ isOpen, setIsOpen }: Props) {
     phone: '',
   });
 
-  async function registerClient() {
+  async function registerClient(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     const response = await createClient(formState);
     if (!response.success) {
       setRequestState({ ...response, status: 'error' });
@@ -65,7 +66,7 @@ export function RegisterClientModal({ isOpen, setIsOpen }: Props) {
           <form
             id={formId}
             className="flex flex-col gap-[16px] w-full h-full"
-            action={registerClient}
+            onSubmit={registerClient}
           >
             <RequestFeedback requestState={requestState} />
             <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
