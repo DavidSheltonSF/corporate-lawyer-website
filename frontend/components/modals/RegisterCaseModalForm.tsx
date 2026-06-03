@@ -11,6 +11,7 @@ import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { BrazilStateLabel } from '@/lib/BrazilStateLabel';
 import { CityLabel } from '@/lib/CityLabel';
 import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
+import { handleLogout } from '@/lib/handleLogout';
 
 interface Props {
   formId: string;
@@ -42,6 +43,7 @@ export function RegisterCaseModalForm({
   async function registerCase(e: FormEvent<HTMLFormElement>) {
     if (!isReadyToSubmit) return;
     e.preventDefault();
+    setRequestState({ status: 'loading' });
 
     const response = await createCase(clientId || '', userId, formState);
 
