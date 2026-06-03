@@ -97,13 +97,19 @@ export function UpdateClientModalForm({
     checkFields();
   }, [formState]);
 
-  // useEffect(() => {
-  //   if (updater.status === 'error' || ) {
-  //     if (requestState.code === 'UNAUTHORIZED') {
-  //       handleLogout();
-  //     }
-  //   }
-  // }, [requestState]);
+  useEffect(() => {
+    if (updateRequestState.status === 'error') {
+      if (updateRequestState.code === 'UNAUTHORIZED') {
+        handleLogout();
+      }
+    }
+
+    if (getRequestState.status === 'error') {
+      if (getRequestState.code === 'UNAUTHORIZED') {
+        handleLogout();
+      }
+    }
+  }, [updateRequestState, getRequestState]);
 
   switch (getRequestState.status) {
     case 'loading':
