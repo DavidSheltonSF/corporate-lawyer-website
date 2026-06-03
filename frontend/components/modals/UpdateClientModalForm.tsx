@@ -1,19 +1,14 @@
-import { useCurrentUserId } from '@/hooks/auth/useCurrentUserId';
-import { DropdownInputWithLabel } from '../ui/Input/DropdownInputWithLabel';
 import { InputWithLabel } from '../ui/Input/InputWithLabel';
 import { RequestState } from '@/types/RequestState';
 import { Dispatch, FormEvent, SetStateAction, useEffect, useState } from 'react';
-import { createCase } from '@/services/cases/createCase';
 import { useForm } from '@/hooks/useForm';
 import { WithId } from '@/types/WithId';
 import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
 import { handleLogout } from '@/lib/handleLogout';
 import { SafeUser } from '@/types/SafeUser';
 import { updateUser } from '@/services/users/updateUser';
-import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { getUserById } from '@/services/users/getUserById';
 import { LoadingModalScreeen } from '../ui/Modal/LoadingModalScreen';
-import { error } from 'console';
 
 interface Props {
   formId: string;
@@ -41,8 +36,6 @@ export function UpdateClientModalForm({
     email: '',
     phone: '',
   });
-
-  const userId = useCurrentUserId();
 
   async function handleGetUser() {
     setGetRequestState({ status: 'loading' });
