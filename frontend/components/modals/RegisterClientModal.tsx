@@ -1,7 +1,7 @@
 'use client';
 import { Dispatch, SetStateAction } from 'react';
-import { BaseModal } from '../ui/Modal/BaseModal';
 import { RegisterClientModalForm } from './RegisterClientModalForm';
+import { FormModal } from '../ui/FormModal/FormModal';
 
 interface Props {
   isOpen: boolean;
@@ -14,17 +14,15 @@ export function RegisterClientModal({ isOpen, setIsOpen }: Props) {
 
   return (
     isOpen && (
-      <BaseModal
+      <FormModal
         formId={formId}
-        className={
-          'top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-md:w-[678px] h-fit'
-        }
+
         onClose={() => {
           setIsOpen(false);
         }}
       >
         <RegisterClientModal.Form formId={formId} />
-      </BaseModal>
+      </FormModal>
     )
   );
 }
