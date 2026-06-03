@@ -67,7 +67,10 @@ export function UpdateClientModalForm({
   }
 
   async function handleUpdateClient(e: FormEvent<HTMLFormElement>) {
+    if (!isReadyToSubmit) return;
+
     e.preventDefault();
+
     setUpdateRequestState({ status: 'loading' });
 
     const response = await updateUser(clientId, formState);
