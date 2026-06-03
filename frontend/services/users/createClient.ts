@@ -5,11 +5,14 @@ import { apiFetch } from '../apiFetch';
 import { makeActionResponse } from '@/factories/makeActionResponse';
 import { ActionResponse } from '@/types/ActionResponse';
 
-export async function createClient(formData: Record<string, string>): Promise<ActionResponse<WithId<User>>> {
+export async function createClient(
+  formData: Record<string, string>
+): Promise<ActionResponse<WithId<User>>> {
   const firstName = formData.firstName;
   const lastName = formData.lastName;
   const email = formData.email;
   const cpf = formData.cpf;
+  const phone = formData.phone;
 
   const response = await apiFetch(`${API_URL}/clients`, {
     headers: {
@@ -21,6 +24,7 @@ export async function createClient(formData: Record<string, string>): Promise<Ac
       lastName,
       email,
       cpf,
+      phone,
     }),
   });
 

@@ -76,6 +76,13 @@ export function RegisterClientModalForm({ formId }: Props) {
           value={formState.cpf}
           onChange={(e) => updateField('cpf', e.target.value)}
         />
+        <InputWithLabel
+          id="cpf-input"
+          name="phone"
+          label="Telefone"
+          value={formState.phone}
+          onChange={(e) => updateField('phone', e.target.value)}
+        />
       </div>
     </form>
   );
