@@ -15,6 +15,7 @@ export function RegisterClientModal({ isOpen, setIsOpen }: Props) {
   return (
     isOpen && (
       <FormModal
+      title='Criar novo cliente'
         formId={formId}
 
         onClose={() => {
