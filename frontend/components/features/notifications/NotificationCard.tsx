@@ -10,6 +10,8 @@ import { EntityType } from '@/types/EntityType';
 import { NotificationIconSelector } from './NotificationIconSelector';
 import { useModal } from '@/hooks/useModal';
 import { NotificationType } from '@/types/NotificationType';
+import { Button } from '@/components/ui/Button/Button';
+import { ButtonVariant } from '@/components/ui/Button/ButtonVariant';
 
 interface Props {
   notificationData: WithId<Notification>;
@@ -54,34 +56,39 @@ export function NotificationCard({ notificationData, decreaceUnreadCount }: Prop
   }
 
   const baseStyles =
-    'relative flex flex-col border w-full min-h-fit rounded-md p-[16px] shadow-lg fade-in-animation';
-  const isReadStyles =
-    'cursor-pointer border-color-primary-light inner-shadow-primary-soft hover:-translate-y-0.5 transition-all duration-300';
+    'relative flex flex-col w-full min-h-fit fade-in-animation transition-[background] duration-300 border-divider';
+  const readStyles = 'cursor-pointer  hover:bg-gray-200';
+
+  const unReadStyles = 'cursor-pointer bg-blue-100 hover:bg-blue-200';
 
   return (
     <article
       onClick={handleNotificationClick}
-      className={`${baseStyles} ${!isRead ? isReadStyles : ''}`}
+      className={`${baseStyles} ${!isRead ? unReadStyles : readStyles}`}
     >
-      <div className="flex size-full items-center gap-[16px]">
+      <div className="flex size-full items-center gap-[16px] p-[16px]">
         <div className="flex justify-center items-center min-h-[56px] min-w-[56px] size-[56px] border rounded-md">
           <NotificationIconSelector notificationType={notification.type} />
         </div>
-        <div className="flex flex-col h-full w-full">
-          <h3 className="font-bold">{title}</h3>
-          <p>{message}</p>
-          <p className="text-gray-500 small-text">{formatRelativeTime(new Date(createdAt))}</p>
+        <div className="flex flex-col size-full gap-[8px]">
+          <p className="text-[14px] min-lg:text-[16px]">{message}</p>
+          <Button
+            variant={ButtonVariant.SECONDARY}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleOpenRelatedModal();
+            }}
+            className="w-fit text-blue-500 hover:text-blue-400 cursor-pointer text-md"
+          >
+            Conferir
+          </Button>
+        </div>
+        <div className="flex h-full w-[10%] justify-end items-start">
+          <span className=" text-gray-500 text-[14px] text-[16px]">
+            {formatRelativeTime(new Date(createdAt))}
+          </span>
         </div>
       </div>
-      <span
-        onClick={(e) => {
-          e.stopPropagation();
-          handleOpenRelatedModal()
-        }}
-        className="ml-auto text-blue-500 hover:text-blue-400 cursor-pointer text-md"
-      >
-        Conferir
-      </span>
     </article>
   );
 }
