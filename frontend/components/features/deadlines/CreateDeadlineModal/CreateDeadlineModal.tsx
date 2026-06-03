@@ -20,15 +20,13 @@ export function CreateDeadlineModal({ caseId, close, refetchDeadlines }: Props) 
       title="Criar novo prazo"
       onClose={close}
     >
-      <div className="h-fit p-[24px] overflow-y-auto min-lg:overflow-visible">
-        <CreateDeadlineModal.Form
-          refetchDeadlines={refetchDeadlines}
-          isReadyToSubmit={isReadyToSubmit}
-          setIsreadyToSubmit={setIsreadyToSubmit}
-          formId={formId}
-          caseId={caseId}
-        />
-      </div>
+      <CreateDeadlineModal.Form
+        refetchDeadlines={refetchDeadlines}
+        isReadyToSubmit={isReadyToSubmit}
+        setIsreadyToSubmit={setIsreadyToSubmit}
+        formId={formId}
+        caseId={caseId}
+      />
     </FormModal>
   );
 }

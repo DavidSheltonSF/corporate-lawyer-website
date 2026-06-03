@@ -24,7 +24,9 @@ export function FormModal({
       confirmDisabled={confirmDisabled}
       onClose={onClose}
     >
-      <div className="flex flex-col h-[500px] min-lg:h-fit overflow-visible">{children}</div>
+      <div className="flex flex-col h-[520px] min-lg:h-fit overflow-visible">
+        <div className="flex flex-col overflow-y-auto p-[24px] h-fit">{children}</div>
+      </div>
     </BaseModal>
   );
 }

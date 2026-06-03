@@ -130,7 +130,7 @@ export function UpdateCaseModalForm({
       return (
         <form
           id={formId}
-          className="flex flex-col gap-[16px] size-full p-[24px]"
+          className="flex flex-col gap-[16px] size-full"
           onSubmit={alterCase}
         >
           <RequestFeedback requestState={updateRequestState} />
