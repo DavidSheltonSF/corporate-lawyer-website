@@ -12,7 +12,7 @@ export default function ClientPageLogin() {
         additionalStyles="h-[280px]"
       />
       <main>
-        <section className="flex items-center justify-center h-[90vh] lg:h-[60vh]">
+        <section className="flex items-center justify-center h-[60vh] lg:h-[60vh]">
           <LoginForm />
         </section>
       </main>
