@@ -10,20 +10,29 @@ import { ButtonVariant } from '../ui/Button/ButtonVariant';
 import { WithId } from '@/types/WithId';
 import { User } from '@/types/User';
 import { handleLogout } from '@/lib/handleLogout';
+import { useForm } from '@/hooks/useForm';
 interface Props {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 export function RegisterClientModal({ isOpen, setIsOpen }: Props) {
   const [requestState, setRequestState] = useState<RequestState<WithId<User>>>({ status: 'idle' });
+  const { formState, updateField, clearForm, hasEmptyFields } = useForm({
+    firstName: '',
+    lastName: '',
+    email: '',
+    cpf: '',
+    phone: '',
+  });
 
-  async function registerClient(formData: FormData) {
-    const response = await createClient(formData);
+  async function registerClient() {
+    const response = await createClient(formState);
     if (!response.success) {
       setRequestState({ ...response, status: 'error' });
       return;
     }
 
+    clearForm();
     setRequestState({ status: 'ok', data: response.data });
   }
 
@@ -54,12 +63,36 @@ export function RegisterClientModal({ isOpen, setIsOpen }: Props) {
           </div>
           <form className="flex flex-col gap-[16px] w-full h-full" action={registerClient}>
             <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
-              <InputWithLabel id="first-name-input" name="firstName" label="Nome" />
-              <InputWithLabel id="last-name-input" name="lastName" label="Sobrenome" />
+              <InputWithLabel
+                id="first-name-input"
+                name="firstName"
+                label="Nome"
+                value={formState.firstName}
+                onChange={(e) => updateField('firstName', e.target.value)}
+              />
+              <InputWithLabel
+                id="last-name-input"
+                name="lastName"
+                label="Sobrenome"
+                value={formState.lastName}
+                onChange={(e) => updateField('lastName', e.target.value)}
+              />
             </div>
             <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
-              <InputWithLabel id="email-input" name="email" label="Email" />
-              <InputWithLabel id="cpf-input" name="cpf" label="CPF" />
+              <InputWithLabel
+                id="email-input"
+                name="email"
+                label="Email"
+                value={formState.email}
+                onChange={(e) => updateField('email', e.target.value)}
+              />
+              <InputWithLabel
+                id="cpf-input"
+                name="cpf"
+                label="CPF"
+                value={formState.cpf}
+                onChange={(e) => updateField('cpf', e.target.value)}
+              />
             </div>
             <div className="flex justify-end "></div>
             <Button variant={ButtonVariant.PRIMARY} className="w-full min-md:w-fit min-md:ml-auto">
