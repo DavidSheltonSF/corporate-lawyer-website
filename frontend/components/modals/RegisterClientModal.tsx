@@ -44,9 +44,12 @@ export function RegisterClientModal({ isOpen, setIsOpen }: Props) {
     }
   }, [requestState]);
 
+  const formId = 'create-client-form';
+
   return (
     isOpen && (
       <BaseModal
+        formId={formId}
         className={
           'top-[2%] min-lg:top-[10%] left-1/2 translate-x-[-50%] w-[90%] min-md:w-[678px] h-fit'
         }
@@ -58,10 +61,13 @@ export function RegisterClientModal({ isOpen, setIsOpen }: Props) {
           <div className="flex w-full justify-center items-center text-center font-bold">
             <h2 className="text-2xl">Cadastrar novo cliente</h2>
           </div>
-          <div className="flex justify-center items-center h-[40px] w-full">
+          <div className="flex justify-center items-center h-[40px] w-full"></div>
+          <form
+            id={formId}
+            className="flex flex-col gap-[16px] w-full h-full"
+            action={registerClient}
+          >
             <RequestFeedback requestState={requestState} />
-          </div>
-          <form className="flex flex-col gap-[16px] w-full h-full" action={registerClient}>
             <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
               <InputWithLabel
                 id="first-name-input"
@@ -95,9 +101,6 @@ export function RegisterClientModal({ isOpen, setIsOpen }: Props) {
               />
             </div>
             <div className="flex justify-end "></div>
-            <Button variant={ButtonVariant.PRIMARY} className="w-full min-md:w-fit min-md:ml-auto">
-              Salvar
-            </Button>
           </form>
         </div>
       </BaseModal>
