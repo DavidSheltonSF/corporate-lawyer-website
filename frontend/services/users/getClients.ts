@@ -4,13 +4,15 @@ import { Page } from '@/types/Page';
 import { SafeUser } from '@/types/SafeUser';
 import { WithId } from '@/types/WithId';
 import { apiFetch } from '../apiFetch';
+import { ActionResponse } from '@/types/ActionResponse';
+import { makeActionResponse } from '@/factories/makeActionResponse';
 
 export async function getClients(queryParams: {
   query?: string;
   page: number;
   limit: number;
   status?: string;
-}): Promise<Page<WithId<SafeUser>>> {
+}): Promise<ActionResponse<Page<WithId<SafeUser>>>> {
   if (!queryParams) {
     throw new MissingRequiredArgumentError(getClients.name, 'queryParams');
   }
@@ -25,7 +27,5 @@ export async function getClients(queryParams: {
 
   const response = await apiFetch(`${baseRoute}/${queryString}`);
 
-  const responseJson = await response.json();
-
-  return responseJson.data;
+  return makeActionResponse(response);
 }
