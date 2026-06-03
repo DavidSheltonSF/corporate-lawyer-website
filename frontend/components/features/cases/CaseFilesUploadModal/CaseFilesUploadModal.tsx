@@ -18,13 +18,13 @@ interface Props {
 }
 
 export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
-  const [requestState, setRequestState] = useState<null | RequestState>(null);
+  const [requestState, setRequestState] = useState<RequestState>({ status: 'idle' });
   const [uploadFileState, setUploadFileState] = useState<UploadFileState>({ status: 'idle' });
 
   function onClose() {
     if (requestState?.status === 'loading') return;
     close();
-    setRequestState(null);
+    setRequestState({ status: 'idle' });
   }
 
   async function handleUploadFile() {
@@ -58,7 +58,7 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
         file={uploadFileState.file}
         onClose={() => {
           setUploadFileState({ status: 'idle' });
-          setRequestState(null);
+          setRequestState({ status: 'idle' });
         }}
       />
     );
