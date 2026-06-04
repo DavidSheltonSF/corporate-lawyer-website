@@ -1,7 +1,6 @@
 import { HeroSection } from '@/components/HeroSection';
 import { ClientView } from '@/components/views/ClientView';
 import { LawyerView } from '@/components/views/LawyerView';
-import { AuthenticatedUserProvider } from '@/contexts/AuthenticatedUserProvider';
 import { getMe } from '@/services/users/getMe';
 import { redirect } from 'next/navigation';
 import { Notifications } from '@/components/features/notifications/Notifications';
@@ -22,23 +21,21 @@ export default async function ClientPage() {
     const user = response.data;
 
     return (
-      <AuthenticatedUserProvider userData={user}>
-        <AuthHydrator user={user}>
-          <ModalProvider>
-            <ModalRenderer />
-            <div className="bg-color-black min-h-[100vh]">
-              <HeroSection
-                background="var(--blue-gradient)"
-                title={`Bem vinda(a) ${user?.role === 'lawyer' ? 'Dra' : ''} ${user?.firstName}`}
-                additionalStyles="h-[280px]"
-              />
-              {user.role === 'lawyer' ? <LawyerView /> : <ClientView />}
+      <AuthHydrator user={user}>
+        <ModalProvider>
+          <ModalRenderer />
+          <div className="bg-color-black min-h-[100vh]">
+            <HeroSection
+              background="var(--blue-gradient)"
+              title={`Bem vinda(a) ${user?.role === 'lawyer' ? 'Dra' : ''} ${user?.firstName}`}
+              additionalStyles="h-[280px]"
+            />
+            {user.role === 'lawyer' ? <LawyerView /> : <ClientView />}
 
-              <Notifications />
-            </div>
-          </ModalProvider>
-        </AuthHydrator>
-      </AuthenticatedUserProvider>
+            <Notifications />
+          </div>
+        </ModalProvider>
+      </AuthHydrator>
     );
   } catch (error) {
     console.log(error);
