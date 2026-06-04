@@ -10,4 +10,5 @@ export function deadlineRoutes(router: Router, deadlineController: IDeadlineCont
     requireAuth,
     expressHttpAdapter(deadlineController.findByCaseId)
   );
+  router.delete('/api/deadlines/:id', expressHttpAdapter(deadlineController.deleteById));
 }
