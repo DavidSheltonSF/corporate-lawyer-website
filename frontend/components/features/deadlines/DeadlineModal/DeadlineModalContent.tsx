@@ -14,7 +14,7 @@ export function DeadlineModalContent({ data, openCreateModal }: Props) {
   });
 
   return (
-    <div className="flex flex-col max-h-[58vh]">
+    <div className="flex flex-col h-full">
       <div className="flex flex-col min-lg:flex-row min-lg:items-center p-[24px] border-divider gap-[16px] min-lg:gap-0">
         <span className="font-bold">Quantidade: {data.length}</span>
         <Button
