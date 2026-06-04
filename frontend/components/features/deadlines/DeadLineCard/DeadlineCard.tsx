@@ -11,10 +11,10 @@ interface Props {
 
 export function DeadlineCard({ deadline }: Props) {
   return (
-    <Card key={deadline.id} className="shadow-soft w-full p-[8px]">
+    <Card key={deadline.id} className="border-divider rounded-none w-full p-[24px]">
       <div className="flex flex-col min-md:flex-row min-md:justify-between min-md:items-end gap-[16px] text-sm min-md:text-md">
         <div className="flex flex-col gap-[8px]">
-          <p className="font-bold">{deadline.type}</p>
+          <p className="font-bold text-base">{deadline.type}</p>
           <p className="text-muted">
             {formatDate(deadline.startDate)} - {formatDate(deadline.dueDate)}
           </p>
