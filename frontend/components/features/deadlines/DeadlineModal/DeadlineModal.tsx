@@ -9,11 +9,13 @@ import { handleLogout } from '@/lib/handleLogout';
 import { DeadlineModalContent } from './DeadlineModalContent';
 import { DeadlineModalSkeleton } from './DeadlineModalSkeleton';
 import { CreateDeadlineModal } from '../CreateDeadlineModal/CreateDeadlineModal';
+import { DeadlineModalHeader } from './DeadlineModalHeader';
 
 interface Props {
   caseId: string;
 }
 
+DeadlineModal.Header = DeadlineModalHeader;
 DeadlineModal.Content = DeadlineModalContent;
 DeadlineModal.Skeleton = DeadlineModalSkeleton;
 
@@ -62,8 +64,14 @@ export function DeadlineModal({ payload, close }: GlobalModalProps<Props>) {
       case 'ok':
         const { data } = requestState;
         return (
-          <div className="h-[90vh] min-lg:h-[60vh]">
-            <DeadlineModal.Content data={data} openCreateModal={() => setCreateModalIsOpen(true)} />
+          <div className="size-full">
+            <DeadlineModal.Header
+              deadlinesCount={data.length}
+              openCreateModal={() => setCreateModalIsOpen(true)}
+            />
+            <div className="h-[90vh] min-lg:h-[60vh]">
+              <DeadlineModal.Content data={data} />
+            </div>
           </div>
         );
     }
