@@ -9,8 +9,13 @@ import { Notification } from '@/types/Notification';
 import { NotificationsList } from './NotificationsList';
 import { Button } from '@/components/ui/Button/Button';
 import { useNotificationsModalContext } from '@/hooks/useNotificationsModalContext';
+import { Page } from '@/types/Page';
+import { RequestState } from '@/types/RequestState';
 
 export function NotificationsModal() {
+  const [requestState, setRequestState] = useState<RequestState<Page<WithId<Notification>>>>({
+    status: 'idle',
+  });
   const [notifications, setNotifications] = useState<WithId<Notification>[]>([]);
   const [nextPage, setNextPage] = useState(2);
   const [totalPages, setTotalPages] = useState(0);
@@ -18,19 +23,20 @@ export function NotificationsModal() {
 
   useEffect(() => {
     async function loadNotifications() {
-      try {
-        setNotifications([]);
-        const response = await getMyNotifications(1, 4);
-        const data = response.data;
-        setNotifications(data);
-        setTotalPages(response.meta.totalPages);
-        setUnreadCount(data.filter((notification) => !notification.isRead).length);
-      } catch (error: any) {
-        console.log(error);
-        if (error instanceof UnauthorizedError) {
-          handleLogout();
-        }
+      const response = await getMyNotifications(1, 4);
+
+      if (!response.success) {
+        setRequestState({ ...response, status: 'error' });
+        return;
       }
+
+      const { data } = response;
+      setNotifications(data.data);
+      setTotalPages(data.meta.totalPages);
+      setUnreadCount(
+        (prev) => data.data.filter((notification) => !notification.isRead).length + prev
+      );
+      setRequestState({ status: 'ok', data: response.data });
     }
 
     loadNotifications();
@@ -43,26 +49,25 @@ export function NotificationsModal() {
 
     return () => {
       clearInterval(interval);
-      setNotifications([]);
+      setRequestState({ status: 'idle' });
+      setUnreadCount(0);
       setNextPage(2);
     };
   }, [isOpen]);
 
   async function loadMore() {
-    try {
-      if (nextPage > totalPages) return;
-      const response = await getMyNotifications(nextPage, 4);
-      const data = response.data;
-      setNotifications((prev) => [...prev, ...data]);
-
-      setUnreadCount((prev) => data.filter((notification) => !notification.isRead).length + prev);
-      setNextPage((prev) => prev + 1);
-    } catch (error: any) {
-      console.log(error);
-      if (error instanceof UnauthorizedError) {
-        handleLogout();
-      }
+    if (nextPage > totalPages) return;
+    const response = await getMyNotifications(nextPage, 4);
+    if (!response.success) {
+      setRequestState({ ...response, status: 'error' });
+      return;
     }
+
+    const { data } = response.data;
+    setNotifications((prev) => [...prev, ...data]);
+    setRequestState({ status: 'ok', data: response.data });
+    setUnreadCount((prev) => data.filter((notification) => !notification.isRead).length + prev);
+    setNextPage((prev) => prev + 1);
   }
 
   return (
@@ -87,7 +92,7 @@ export function NotificationsModal() {
             unreadCount={unreadCount}
             setUnreadCount={setUnreadCount}
           />
-          <div className='px-[16px] pb-[16px]'>
+          <div className="px-[16px] pb-[16px]">
             <Button
               className="bg-color-primary text-color-white w-full py-[8px]"
               onClick={loadMore}
