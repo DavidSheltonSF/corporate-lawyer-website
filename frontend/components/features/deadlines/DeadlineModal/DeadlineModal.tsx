@@ -69,7 +69,7 @@ export function DeadlineModal({ payload, close }: GlobalModalProps<Props>) {
               deadlinesCount={data.length}
               openCreateModal={() => setCreateModalIsOpen(true)}
             />
-            <div className="h-[90vh] min-lg:max-h-[55vh]">
+            <div className="h-[65vh] min-lg:max-h-[55vh] ">
               <DeadlineModal.List data={data} />
             </div>
           </div>
