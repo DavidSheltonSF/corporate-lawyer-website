@@ -49,7 +49,7 @@ export function DeadlineModal({ payload, close }: GlobalModalProps<Props>) {
   }, [requestState]);
 
   const BaseModalProps = {
-    className: 'w-[90%] h-[90vh] min-lg:h-[60vh] min-md:w-[60%] min-lg:w-[640px] overflow-hidden',
+    className: 'w-[90%] min-md:w-[60%] min-lg:w-[640px] overflow-hidden',
     title: 'Prazos',
     onClose: close,
   };
@@ -62,7 +62,9 @@ export function DeadlineModal({ payload, close }: GlobalModalProps<Props>) {
       case 'ok':
         const { data } = requestState;
         return (
-          <DeadlineModal.Content data={data} openCreateModal={() => setCreateModalIsOpen(true)} />
+          <div className="h-[90vh] min-lg:h-[60vh]">
+            <DeadlineModal.Content data={data} openCreateModal={() => setCreateModalIsOpen(true)} />
+          </div>
         );
     }
   }
