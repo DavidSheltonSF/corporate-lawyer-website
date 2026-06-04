@@ -94,7 +94,7 @@ export class MongodbCaseRepository implements CaseRepository {
     const mappedCases = cases.map(CaseMapper.persistenceToPopulatedPresentation);
 
     return {
-      data: mappedCases,
+      items: mappedCases,
       meta: {
         totalItems,
         totalPages: Math.ceil(totalItems / Number(limit)),
@@ -145,7 +145,7 @@ export class MongodbCaseRepository implements CaseRepository {
     const mappedCases = cases.map(CaseMapper.persistenceToPopulatedPresentation);
 
     return {
-      data: mappedCases,
+      items: mappedCases,
       meta: {
         totalItems,
         totalPages: Math.ceil(totalItems / Number(limit)),

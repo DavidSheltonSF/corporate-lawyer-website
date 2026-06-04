@@ -59,14 +59,14 @@ export class UserService implements IUserService {
   async findClients(userQuery: UserQuery): Promise<Page<WithId<UserResponseDTO>>> {
     let page = await this.userRepository.findClients(userQuery);
 
-    const users = page.data;
+    const users = page.items;
 
     const mappedUsers = users.map((user) => {
       const { password, ...userWithoutPassword } = user;
       return userWithoutPassword;
     });
 
-    return { data: mappedUsers, meta: page.meta };
+    return { items: mappedUsers, meta: page.meta };
   }
 
   async findById(id: string): Promise<WithId<UserResponseDTO> | null> {

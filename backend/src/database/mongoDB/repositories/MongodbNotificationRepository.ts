@@ -39,7 +39,7 @@ export class MongodbNotificationRepository implements Partial<NotificationReposi
     const mappedNotifications = notifications.map(NotificationeMapper.persistenceToPresentation);
 
     return {
-      data: mappedNotifications,
+      items: mappedNotifications,
       meta: {
         currentPage: page,
         totalItems,
