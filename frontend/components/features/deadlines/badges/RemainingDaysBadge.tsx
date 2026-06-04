@@ -33,7 +33,7 @@ export function RemainingDaysBadge({ remainingDays }: Props) {
 
   const current = config[urgency];
 
-  const baseStyles = `w-fit p-[8px] rounded-md text-xs min-md:text-sm font-bold text-nowrap`;
+  const baseStyles = `flex items-center w-fit p-[8px] rounded-md text-xs min-md:text-sm font-bold text-nowrap`;
   const dynamicStyles = `${current.className}`;
 
   return <div className={twMerge(baseStyles, dynamicStyles)}>{current.label}</div>;
