@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/Button/Button';
 import { useNotificationsModalContext } from '@/hooks/useNotificationsModalContext';
 import { Page } from '@/types/Page';
 import { RequestState } from '@/types/RequestState';
+import { ButtonWithLoadingEffect } from '@/components/ui/ButtonWithLoadingEffect';
 
 export function NotificationsModal() {
   const [requestState, setRequestState] = useState<RequestState<Page<WithId<Notification>>>>({
@@ -57,6 +58,8 @@ export function NotificationsModal() {
 
   async function loadMore() {
     if (nextPage > totalPages) return;
+    setRequestState({ status: 'loading' });
+
     const response = await getMyNotifications(nextPage, 4);
     if (!response.success) {
       setRequestState({ ...response, status: 'error' });
@@ -93,12 +96,13 @@ export function NotificationsModal() {
             setUnreadCount={setUnreadCount}
           />
           <div className="px-[16px] pb-[16px]">
-            <Button
-              className="bg-color-primary text-color-white w-full py-[8px]"
+            <ButtonWithLoadingEffect
+              className="w-full"
               onClick={loadMore}
-            >
-              Carregar Mais
-            </Button>
+              isLoading={requestState.status === 'loading'}
+              label="Carregar mais"
+              loadingLabel="Carregando"
+            />
           </div>
         </div>
       </BaseModal>
