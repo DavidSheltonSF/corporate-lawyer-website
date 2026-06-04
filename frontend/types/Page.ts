@@ -1,5 +1,5 @@
 export interface Page<T> {
-  data: T[];
+  items: T[];
   meta: {
     totalItems: number;
     totalPages: number;

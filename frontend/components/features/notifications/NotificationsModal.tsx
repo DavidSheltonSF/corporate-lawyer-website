@@ -32,10 +32,10 @@ export function NotificationsModal() {
       }
 
       const { data } = response;
-      setNotifications(data.data);
+      setNotifications(data.items);
       setTotalPages(data.meta.totalPages);
       setUnreadCount(
-        (prev) => data.data.filter((notification) => !notification.isRead).length + prev
+        (prev) => data.items.filter((notification) => !notification.isRead).length + prev
       );
       setRequestState({ status: 'ok', data: response.data });
     }
@@ -66,10 +66,10 @@ export function NotificationsModal() {
       return;
     }
 
-    const { data } = response.data;
-    setNotifications((prev) => [...prev, ...data]);
+    const { items } = response.data;
+    setNotifications((prev) => [...prev, ...items]);
     setRequestState({ status: 'ok', data: response.data });
-    setUnreadCount((prev) => data.filter((notification) => !notification.isRead).length + prev);
+    setUnreadCount((prev) => items.filter((notification) => !notification.isRead).length + prev);
     setNextPage((prev) => prev + 1);
   }
 

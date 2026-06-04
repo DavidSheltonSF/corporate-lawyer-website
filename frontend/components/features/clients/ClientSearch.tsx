@@ -37,7 +37,7 @@ export default function ClientSearch() {
     const { data } = response;
 
     setTotalPage(data.meta.totalPages);
-    setRequestState({ status: 'ok', data: data.data });
+    setRequestState({ status: 'ok', data: data.items });
   }
 
   useEffect(() => {
