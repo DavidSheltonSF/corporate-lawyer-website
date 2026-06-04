@@ -24,7 +24,7 @@ export function DeadlineModalContent({ data, openCreateModal }: Props) {
           Adicionar Prazo
         </Button>
       </div>
-      <div className="flex flex-col gap-[16px] border-divider p-[24px] overflow-y-auto">
+      <div className="flex flex-col border-divider overflow-y-auto">
         {renderDeadlines}
       </div>
     </div>
