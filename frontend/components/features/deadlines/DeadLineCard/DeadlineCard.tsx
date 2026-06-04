@@ -11,7 +11,7 @@ interface Props {
 
 export function DeadlineCard({ deadline }: Props) {
   return (
-    <Card key={deadline.id} className="shadow-soft w-full p-[24px]">
+    <Card key={deadline.id} className="shadow-soft w-full p-[8px]">
       <div className="flex flex-col min-md:flex-row min-md:justify-between min-md:items-end gap-[16px] text-sm min-md:text-md">
         <div className="flex flex-col gap-[8px]">
           <p className="font-bold">{deadline.type}</p>
@@ -20,7 +20,7 @@ export function DeadlineCard({ deadline }: Props) {
           </p>
           <p className="text-muted">Prazo final</p>
         </div>
-        <div className="flex flex-col min-lg:flex-row gap-[8px]">
+        <div className="flex gap-[8px]">
           <RemainingDaysBadge remainingDays={deadline.remainingDays} />
           <PriorityBadge priority={deadline.priority} />
         </div>
