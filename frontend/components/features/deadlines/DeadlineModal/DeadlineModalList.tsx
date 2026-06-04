@@ -14,7 +14,7 @@ export function DeadlineModalList({ data }: Props) {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="flex flex-col border-divider overflow-y-auto">{renderDeadlines}</div>
+      <div className="flex flex-col overflow-y-auto">{renderDeadlines}</div>
     </div>
   );
 }
