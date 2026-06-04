@@ -4,7 +4,7 @@ import { SkeletonLine } from '@/components/ui/SkeletonLine';
 import { DeadlineCardSkeleton } from '../DeadLineCard/DeadlineCardSkeleton';
 
 export function DeadlineModalSkeleton() {
-  const skeletons = Array.from({length: 4}).map((deadline, index) => {
+  const skeletons = Array.from({length: 5}).map((deadline, index) => {
     return <DeadlineCardSkeleton key={index}/>;
   });
 
