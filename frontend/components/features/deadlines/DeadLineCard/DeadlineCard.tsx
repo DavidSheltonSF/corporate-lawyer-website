@@ -16,9 +16,8 @@ export function DeadlineCard({ deadline }: Props) {
         <div className="flex flex-col gap-[8px]">
           <p className="font-bold text-base">{deadline.type}</p>
           <p className="text-muted">
-            {formatDate(deadline.startDate)} - {formatDate(deadline.dueDate)}
+            Período: {formatDate(deadline.startDate)} - {formatDate(deadline.dueDate)}
           </p>
-          <p className="text-muted">Prazo final</p>
         </div>
         <div className="flex gap-[8px]">
           <RemainingDaysBadge remainingDays={deadline.remainingDays} />
