@@ -7,7 +7,7 @@ interface Props {
   data: WithId<Deadline>[];
 }
 
-export function DeadlineModalContent({ data }: Props) {
+export function DeadlineModalList({ data }: Props) {
   const renderDeadlines = data.map((deadline) => {
     return <DeadlineCard key={deadline.id} deadline={deadline} />;
   });

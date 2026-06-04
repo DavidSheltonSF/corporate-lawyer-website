@@ -6,7 +6,7 @@ import { getCaseDeadlines } from '@/services/cases/getCaseDeadlines';
 import { Deadline } from '@/types/Deadline';
 import { GlobalModalProps } from '@/types/GlobalModalProps';
 import { handleLogout } from '@/lib/handleLogout';
-import { DeadlineModalContent } from './DeadlineModalContent';
+import { DeadlineModalList } from './DeadlineModalList';
 import { DeadlineModalSkeleton } from './DeadlineModalSkeleton';
 import { CreateDeadlineModal } from '../CreateDeadlineModal/CreateDeadlineModal';
 import { DeadlineModalHeader } from './DeadlineModalHeader';
@@ -16,7 +16,7 @@ interface Props {
 }
 
 DeadlineModal.Header = DeadlineModalHeader;
-DeadlineModal.Content = DeadlineModalContent;
+DeadlineModal.List = DeadlineModalList;
 DeadlineModal.Skeleton = DeadlineModalSkeleton;
 
 export function DeadlineModal({ payload, close }: GlobalModalProps<Props>) {
@@ -70,7 +70,7 @@ export function DeadlineModal({ payload, close }: GlobalModalProps<Props>) {
               openCreateModal={() => setCreateModalIsOpen(true)}
             />
             <div className="h-[90vh] min-lg:h-[60vh]">
-              <DeadlineModal.Content data={data} />
+              <DeadlineModal.List data={data} />
             </div>
           </div>
         );
