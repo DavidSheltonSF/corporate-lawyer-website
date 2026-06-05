@@ -1,5 +1,4 @@
 import { Card } from '@/components/ui/Card/Card';
-import { useModal } from '@/hooks/useModal';
 import { Case } from '@/types/Case';
 import { WithId } from '@/types/WithId';
 
@@ -8,8 +7,6 @@ interface Props {
 }
 export function ClientCaseCard({ caseData }: Props) {
   const { id, title, description } = caseData;
-
-  const { openModal } = useModal();
 
   return (
     <Card key={id} className="w-full h-fit">
