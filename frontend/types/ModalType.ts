@@ -11,5 +11,6 @@ export type ModalType =
   | 'success'
   | 'error'
   | 'deadlines'
+  | 'create-deadline'
   | 'case-files'
   | null;

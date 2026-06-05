@@ -1,15 +1,16 @@
 import { CreateDeadlineModalForm } from './CreateDeadlineModalForm';
 import { useState } from 'react';
 import { FormModal } from '@/components/ui/FormModal/FormModal';
+import { GlobalModalProps } from '@/types/GlobalModalProps';
 
 interface Props {
   caseId: string;
   refetchDeadlines: () => void;
-  close: () => void;
 }
 
 CreateDeadlineModal.Form = CreateDeadlineModalForm;
-export function CreateDeadlineModal({ caseId, close, refetchDeadlines }: Props) {
+export function CreateDeadlineModal({ payload, close }: GlobalModalProps<Props>) {
+  const { caseId, refetchDeadlines } = payload;
   const formId = 'create-deadline';
   const [isReadyToSubmit, setIsreadyToSubmit] = useState(false);
 

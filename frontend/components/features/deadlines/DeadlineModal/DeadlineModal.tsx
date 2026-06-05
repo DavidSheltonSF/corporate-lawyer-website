@@ -8,8 +8,8 @@ import { GlobalModalProps } from '@/types/GlobalModalProps';
 import { handleLogout } from '@/lib/handleLogout';
 import { DeadlineModalList } from './DeadlineModalList';
 import { DeadlineModalSkeleton } from './DeadlineModalSkeleton';
-import { CreateDeadlineModal } from '../CreateDeadlineModal/CreateDeadlineModal';
 import { DeadlineModalHeader } from './DeadlineModalHeader';
+import { useModalWithReturn } from '@/hooks/useModalWithReturn';
 
 interface Props {
   caseId: string;
@@ -24,7 +24,8 @@ export function DeadlineModal({ payload, close }: GlobalModalProps<Props>) {
   const [requestState, setRequestState] = useState<RequestState<WithId<Deadline>[]>>({
     status: 'idle',
   });
-  const [createModalIsOpen, setCreateModalIsOpen] = useState(false);
+
+  const openModalWithReturn = useModalWithReturn({ type: 'deadlines', payload });
 
   async function fetchDeadlines() {
     setRequestState({ status: 'loading' });
@@ -50,6 +51,10 @@ export function DeadlineModal({ payload, close }: GlobalModalProps<Props>) {
     }
   }, [requestState]);
 
+  function openCreateModal() {
+    openModalWithReturn('create-deadline', payload);
+  }
+
   const BaseModalProps = {
     className: 'w-[90%] min-md:w-[60%] min-lg:w-[640px] overflow-hidden',
     title: 'Prazos',
@@ -65,26 +70,13 @@ export function DeadlineModal({ payload, close }: GlobalModalProps<Props>) {
         const { data } = requestState;
         return (
           <div className="size-full">
-            <DeadlineModal.Header
-              deadlinesCount={data.length}
-              openCreateModal={() => setCreateModalIsOpen(true)}
-            />
+            <DeadlineModal.Header deadlinesCount={data.length} openCreateModal={openCreateModal} />
             <div className="h-[65vh] min-lg:max-h-[55vh] ">
               <DeadlineModal.List data={data} />
             </div>
           </div>
         );
     }
-  }
-
-  if (createModalIsOpen) {
-    return (
-      <CreateDeadlineModal
-        caseId={caseId}
-        close={() => setCreateModalIsOpen(false)}
-        refetchDeadlines={fetchDeadlines}
-      />
-    );
   }
 
   return (
