@@ -31,7 +31,7 @@ export function ClientCard({ clientData, fetchClients }: Props) {
       actions={[
         makeCardAction(CardActionType.EDIT, () => openUpdateClientModal(id, fetchClients)),
         makeCardAction(CardActionType.DELETE, () =>
-          openDeleteClientModal({ id, firstName, lastName })
+          openDeleteClientModal({ id, firstName, lastName }, fetchClients)
         ),
       ]}
       onClick={() => openClientModal(id)}
