@@ -4,7 +4,6 @@ import { LawyerView } from '@/components/views/LawyerView';
 import { getMe } from '@/services/users/getMe';
 import { redirect } from 'next/navigation';
 import { Notifications } from '@/components/features/notifications/Notifications';
-import { ModalProvider } from '@/contexts/modals/ModalProvider';
 import { ModalRenderer } from '@/components/renderer/ModalRenderer';
 import { AuthHydrator } from '@/components/AuthHydrator';
 
@@ -22,19 +21,17 @@ export default async function ClientPage() {
 
     return (
       <AuthHydrator user={user}>
-        <ModalProvider>
-          <ModalRenderer />
-          <div className="bg-color-black min-h-[100vh]">
-            <HeroSection
-              background="var(--blue-gradient)"
-              title={`Bem vinda(a) ${user?.role === 'lawyer' ? 'Dra' : ''} ${user?.firstName}`}
-              additionalStyles="h-[280px]"
-            />
-            {user.role === 'lawyer' ? <LawyerView /> : <ClientView />}
+        <ModalRenderer />
+        <div className="bg-color-black min-h-[100vh]">
+          <HeroSection
+            background="var(--blue-gradient)"
+            title={`Bem vinda(a) ${user?.role === 'lawyer' ? 'Dra' : ''} ${user?.firstName}`}
+            additionalStyles="h-[280px]"
+          />
+          {user.role === 'lawyer' ? <LawyerView /> : <ClientView />}
 
-            <Notifications />
-          </div>
-        </ModalProvider>
+          <Notifications />
+        </div>
       </AuthHydrator>
     );
   } catch (error) {
