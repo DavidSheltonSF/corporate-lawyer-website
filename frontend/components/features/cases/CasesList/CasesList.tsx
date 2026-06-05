@@ -4,9 +4,10 @@ import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { RequestState } from '@/types/RequestState';
 import { deleteCaseById } from '@/services/users/deleteCaseById';
 import { Page } from '@/types/Page';
-import { useModal } from '@/hooks/useModal';
 import { CasesListSkeleton } from './CasesListSkeleton';
 import { CasesListData } from './CasesListData';
+import { useErrorModal } from '@/hooks/modals/useErrorModal';
+import { useSuccessModal } from '@/hooks/modals/useSuccessModal';
 
 interface Props {
   requestState: RequestState<Page<WithId<CaseWithRelations>>>;
@@ -17,22 +18,19 @@ CasesList.Skeleton = CasesListSkeleton;
 CasesList.Data = CasesListData;
 
 export function CasesList({ requestState, loadCases }: Props) {
-  const { openModal } = useModal();
+  const { openSuccessModal } = useSuccessModal();
+  const { openErrorModal } = useErrorModal();
 
   async function handleDeleteCase(id: string) {
     const response = await deleteCaseById(id);
 
     if (!response.success) {
-      return openModal('confirm', {
-        message: response.message,
-        onConfirm: () => openModal(null),
-      });
+      openErrorModal(response.message);
+      return;
     }
 
-    openModal('success', {
-      message: 'Processo removido com sucesso',
-      onConfirm: () => openModal(null),
-    });
+    openSuccessModal('rocesso removido com sucesso');
+
     loadCases();
   }
 
@@ -42,7 +40,7 @@ export function CasesList({ requestState, loadCases }: Props) {
         return <CasesList.Skeleton />;
 
       case 'ok':
-        const {items} = requestState.data;
+        const { items } = requestState.data;
         if (items.length === 0) {
           return <h1>Nenhum processo encontrado</h1>;
         }
