@@ -68,7 +68,7 @@ export function DeadlineModal({ payload, close }: GlobalModalProps<Props>) {
           <div className="size-full">
             <DeadlineModal.Header
               deadlinesCount={data.length}
-              openCreateModal={() => openCreateDeadlineModal(caseId)}
+              openCreateModal={() => openCreateDeadlineModal(caseId, fetchDeadlines)}
             />
             <div className="h-[65vh] min-lg:max-h-[55vh] ">
               <DeadlineModal.List data={data} />
