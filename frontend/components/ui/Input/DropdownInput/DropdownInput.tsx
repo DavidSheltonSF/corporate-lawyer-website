@@ -4,6 +4,7 @@ import { Input } from '../Input';
 import { InputProps } from '../types';
 import { useFloating, size, offset, autoUpdate } from '@floating-ui/react';
 import { DropdownInputMenu } from './DropdownInputMenu';
+import { Button } from '../../Button/Button';
 
 interface Props {
   setSelectedValue: (value: string) => void;
@@ -71,7 +72,7 @@ export function DropdownInput({
           {...inputProps}
         />
 
-        <button
+        <Button
           type="button"
           className="flex items-center justify-center rounded-md size-[32px] bg-white hover:brightness-90 cursor-pointer"
           onClick={() => setListIsOpen(!listIsOpen)}
@@ -79,7 +80,7 @@ export function DropdownInput({
           <span className={`transition-[rotate] duration-300 ${!listIsOpen && 'rotate-180'}`}>
             <ArrowDropUpIcon className="size-[24px]" />
           </span>
-        </button>
+        </Button>
       </div>
       <DropdownInput.Menu
         ref={refs.setFloating}
