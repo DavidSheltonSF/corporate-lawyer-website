@@ -3,11 +3,14 @@ import { ArrowDropUpIcon } from '../../../icons/ArrowDropUpIcon';
 import { Input } from '../Input';
 import { InputProps } from '../types';
 import { useFloating, size, offset, autoUpdate } from '@floating-ui/react';
+import { DropdownInputMenu } from './DropdownInputMenu';
 
 interface Props {
   setSelectedValue: (value: string) => void;
   itemLabel: Record<string, string>;
 }
+
+DropdownInput.Menu = DropdownInputMenu;
 
 export function DropdownInput({
   itemLabel,
@@ -45,21 +48,13 @@ export function DropdownInput({
     };
   }, [value]);
 
-  const items = Object.entries(itemLabel);
-  const renderItems = items.map(([key, label]) => {
-    return (
-      <li
-        onClick={() => {
-          setSelectedValue(key);
-          setListIsOpen(false);
-        }}
-        className="bg-white hover:brightness-80 cursor-pointer px-[8px] h-[32px]"
-        key={key}
-      >
-        {label}
-      </li>
-    );
-  });
+  function closeDropdown() {
+    setListIsOpen(false);
+  }
+
+  function selectValue(value: string) {
+    setSelectedValue(value);
+  }
 
   return (
     <div ref={dropRef}>
@@ -86,29 +81,14 @@ export function DropdownInput({
           </span>
         </button>
       </div>
-      <div
+      <DropdownInput.Menu
         ref={refs.setFloating}
-        className={`transition-[max-height] transition-[padding] duration-300 bg-white overflow-hidden rounded-sm ${
-          listIsOpen && 'overflow-y-auto shadow-soft py-[8px] z-10'
-        }`}
-        style={{
-          maxHeight: listIsOpen ? 5 * 32 : 0,
-          ...floatingStyles,
-        }}
-      >
-        <ul>
-          <li
-            onClick={() => {
-              setSelectedValue('');
-              setListIsOpen(false);
-            }}
-            className="bg-white hover:brightness-80 cursor-pointer px-[8px]"
-          >
-            ...
-          </li>
-          {renderItems}
-        </ul>
-      </div>
+        items={Object.entries(itemLabel)}
+        selectValue={selectValue}
+        closeDropdown={closeDropdown}
+        isOpen={listIsOpen}
+        floatingStyles={floatingStyles}
+      />
     </div>
   );
 }
