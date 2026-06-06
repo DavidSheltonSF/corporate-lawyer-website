@@ -1,16 +1,28 @@
 'use client';
 import { Button } from '@/components/ui/Button/Button';
 import { CardAction } from '@/components/ui/CardDropdown/types';
-import { useEffect, useRef } from 'react';
+import { useElementFullyVisible } from '@/hooks/modals/useElementFullyVisible';
+import { CSSProperties, useEffect, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 interface Props {
+  reference?: any;
+  floatingReference: any;
+  floatingStyles: CSSProperties;
   close: Function;
   className?: string;
   actions: CardAction[];
 }
 
-export function CardDropdown({ close, className, actions }: Props) {
+export function CardDropdown({
+  reference,
+  floatingReference,
+  floatingStyles,
+  close,
+  className,
+  actions,
+}: Props) {
+  const { elementIsFullyVisible } = useElementFullyVisible(reference, { threshold: 1 });
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -44,19 +56,22 @@ export function CardDropdown({ close, className, actions }: Props) {
     );
   });
 
-  const positionStyles =
-    'z-60 absolute top-[10px] min-lg:top-[-8px] right-1/2  min-lg:right-0 translate-x-1/2 min-lg:translate-x-[100%]';
-  const sizeStyles = `w-[70%] min-lg:w-[300px] h-fit`;
+  const sizeStyles = `w-[70%] min-lg:w-[300px] h-fit z-[99999]`;
   const transitionStyles = 'fade-in-animation-fast';
   const baseStyles = `bg-color-white py-[8px] rounded-[8px] text-color-black shadow-soft`;
 
   return (
-    <div
-      className={twMerge(positionStyles, sizeStyles, transitionStyles, baseStyles, className)}
-      ref={dropdownRef}
-      onClick={(e) => e.stopPropagation()}
-    >
-      <ul className="flex flex-col">{renderItems}</ul>
-    </div>
+    elementIsFullyVisible && (
+      <div
+        className={twMerge(sizeStyles, transitionStyles, baseStyles, className)}
+        style={{ ...floatingStyles }}
+        ref={floatingReference}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div ref={dropdownRef}>
+          <ul className="flex flex-col">{renderItems}</ul>
+        </div>
+      </div>
+    )
   );
 }
