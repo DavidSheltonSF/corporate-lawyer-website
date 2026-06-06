@@ -1,10 +1,9 @@
 import { PropsWithClassName } from '@/types/PropsWithClassName';
 import { twMerge } from 'tailwind-merge';
 import { InputProps } from './types';
-import { RefObject } from 'react';
 
 interface Props {
-  ref?: RefObject<HTMLInputElement | null>;
+  ref?: any
 }
 
 export function Input(props: PropsWithClassName<Props & InputProps>) {
