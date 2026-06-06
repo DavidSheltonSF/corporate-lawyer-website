@@ -1,7 +1,8 @@
 import { CSSProperties } from 'react';
 
 interface Props {
-  ref: any;
+  reference: any;
+  floatingReference: any;
   items: [string, string][];
   isOpen: boolean;
   closeDropdown: () => void;
@@ -10,7 +11,8 @@ interface Props {
 }
 
 export function DropdownInputMenu({
-  ref,
+  reference,
+  floatingReference,
   items,
   isOpen,
   floatingStyles,
@@ -34,7 +36,7 @@ export function DropdownInputMenu({
 
   return (
     <ul
-      ref={ref}
+      ref={floatingReference}
       className={`transition-[max-height] transition-[padding] duration-300 bg-white overflow-hidden rounded-sm ${
         isOpen && 'overflow-y-auto shadow-soft py-[8px] z-10'
       }`}

@@ -83,7 +83,8 @@ export function DropdownInput({
         </Button>
       </div>
       <DropdownInput.Menu
-        ref={refs.setFloating}
+        reference={refs.reference.current}
+        floatingReference={refs.setFloating}
         items={Object.entries(itemLabel)}
         selectValue={selectValue}
         closeDropdown={closeDropdown}
