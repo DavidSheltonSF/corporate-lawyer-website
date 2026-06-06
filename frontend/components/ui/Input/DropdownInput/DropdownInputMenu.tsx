@@ -33,7 +33,7 @@ export function DropdownInputMenu({
   });
 
   return (
-    <div
+    <ul
       ref={ref}
       className={`transition-[max-height] transition-[padding] duration-300 bg-white overflow-hidden rounded-sm ${
         isOpen && 'overflow-y-auto shadow-soft py-[8px] z-10'
@@ -43,18 +43,16 @@ export function DropdownInputMenu({
         ...floatingStyles,
       }}
     >
-      <ul>
-        <li
-          onClick={() => {
-            selectValue('');
-            closeDropdown();
-          }}
-          className="bg-white hover:brightness-80 cursor-pointer px-[8px]"
-        >
-          ...
-        </li>
-        {renderItems}
-      </ul>
-    </div>
+      <li
+        onClick={() => {
+          selectValue('');
+          closeDropdown();
+        }}
+        className="bg-white hover:brightness-80 cursor-pointer px-[8px]"
+      >
+        ...
+      </li>
+      {renderItems}
+    </ul>
   );
 }
