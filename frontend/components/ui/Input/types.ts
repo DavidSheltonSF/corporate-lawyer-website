@@ -1,4 +1,4 @@
-import { ChangeEventHandler } from 'react';
+import { ChangeEventHandler, MouseEventHandler } from 'react';
 
 export interface InputProps {
   id: string;
@@ -11,4 +11,5 @@ export interface InputProps {
   defaultValue?: string;
   min?: number;
   onChange?: ChangeEventHandler<HTMLInputElement>;
+  onClick?: MouseEventHandler<HTMLInputElement>;
 }
