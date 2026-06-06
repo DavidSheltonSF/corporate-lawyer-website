@@ -1,3 +1,4 @@
+import { useElementFullyVisible } from '@/hooks/modals/useElementFullyVisible';
 import { CSSProperties } from 'react';
 
 interface Props {
@@ -19,6 +20,8 @@ export function DropdownInputMenu({
   closeDropdown,
   selectValue,
 }: Props) {
+  const { elementIsFullyVisible } = useElementFullyVisible(reference, { threshold: 1 });
+
   const renderItems = items.map(([key, label]) => {
     return (
       <li
@@ -35,26 +38,28 @@ export function DropdownInputMenu({
   });
 
   return (
-    <ul
-      ref={floatingReference}
-      className={`transition-[max-height] transition-[padding] duration-300 bg-white overflow-hidden rounded-sm ${
-        isOpen && 'overflow-y-auto shadow-soft py-[8px] z-10'
-      }`}
-      style={{
-        maxHeight: isOpen ? 5 * 32 : 0,
-        ...floatingStyles,
-      }}
-    >
-      <li
-        onClick={() => {
-          selectValue('');
-          closeDropdown();
+    elementIsFullyVisible && (
+      <ul
+        ref={floatingReference}
+        className={`transition-[max-height] transition-[padding] duration-300 bg-white overflow-hidden rounded-sm ${
+          isOpen && 'overflow-y-auto shadow-soft py-[8px] z-10'
+        }`}
+        style={{
+          maxHeight: isOpen ? 5 * 32 : 0,
+          ...floatingStyles,
         }}
-        className="bg-white hover:brightness-80 cursor-pointer px-[8px]"
       >
-        ...
-      </li>
-      {renderItems}
-    </ul>
+        <li
+          onClick={() => {
+            selectValue('');
+            closeDropdown();
+          }}
+          className="bg-white hover:brightness-80 cursor-pointer px-[8px]"
+        >
+          ...
+        </li>
+        {renderItems}
+      </ul>
+    )
   );
 }
