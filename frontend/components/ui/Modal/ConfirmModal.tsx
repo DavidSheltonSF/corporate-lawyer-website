@@ -18,6 +18,7 @@ export function ConfirmModal({ payload, close }: GlobalModalProps<ConfirmModalPr
       title={title}
       onConfirm={() => {
         onConfirm();
+        close()
       }}
       className={'w-[90%] min-md:w-[60%] min-lg:w-[400px] h-fit'}
       onClose={close}
