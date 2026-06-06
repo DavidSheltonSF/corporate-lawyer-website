@@ -19,7 +19,7 @@ export function Card({ actions, onClick, children, className }: Props) {
   const { refs, floatingStyles } = useFloating({
     placement: 'left-start',
     whileElementsMounted: autoUpdate,
-    middleware: [offset(8), shift()],
+    middleware: [offset(8), shift(), flip()],
   });
 
   function handleOpenDropdown(e: MouseEvent<HTMLButtonElement>) {
