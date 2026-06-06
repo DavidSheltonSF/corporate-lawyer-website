@@ -61,9 +61,9 @@ export function DropdownInput({
       <div
         ref={refs.setReference}
         className="flex jusfity-center items-center border h-fit w-full rounded-sm "
-        onClick={() => setListIsOpen(true)}
       >
         <Input
+          onClick={() => setListIsOpen(true)}
           className="w-full  border-none"
           type="text"
           value={itemLabel[value || ''] ?? ''}
