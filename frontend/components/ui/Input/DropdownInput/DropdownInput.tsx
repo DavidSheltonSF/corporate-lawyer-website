@@ -61,11 +61,11 @@ export function DropdownInput({
     <div ref={dropRef}>
       <div
         ref={refs.setReference}
-        className="flex jusfity-center items-center border h-fit w-full rounded-sm "
+        className="flex jusfity-center items-center border h-fit w-full rounded-sm pr-[8px]"
       >
         <Input
           onClick={() => setListIsOpen(true)}
-          className="w-full  border-none"
+          className="w-full border-none"
           type="text"
           value={itemLabel[value || ''] ?? ''}
           readOnly
@@ -74,7 +74,7 @@ export function DropdownInput({
 
         <Button
           type="button"
-          className="flex items-center justify-center rounded-md size-[32px] bg-white hover:brightness-90 cursor-pointer"
+          className="flex items-center justify-center size-[32px] bg-color-white brightness-95 hover:brightness-90"
           onClick={() => setListIsOpen(!listIsOpen)}
         >
           <span className={`transition-[rotate] duration-300 ${!listIsOpen && 'rotate-180'}`}>
