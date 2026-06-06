@@ -1,9 +1,10 @@
 'use client';
-import { ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes, Ref } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { ButtonVariant } from './ButtonVariant';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  ref?: Ref<HTMLButtonElement>;
   variant?: ButtonVariant;
 }
 
