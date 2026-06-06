@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowDropUpIcon } from '../../icons/ArrowDropUpIcon';
-import { Input } from './Input';
-import { InputProps } from './types';
+import { ArrowDropUpIcon } from '../../../icons/ArrowDropUpIcon';
+import { Input } from '../Input';
+import { InputProps } from '../types';
 import { useFloating, size, offset, autoUpdate } from '@floating-ui/react';
 
 interface Props {

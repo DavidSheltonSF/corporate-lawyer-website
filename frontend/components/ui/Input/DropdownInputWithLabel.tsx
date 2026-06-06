@@ -1,5 +1,5 @@
 import { InputProps } from './types';
-import { DropdownInput } from './DropdownInput';
+import { DropdownInput } from './DropdownInput/DropdownInput';
 
 interface Props {
   label: string;
