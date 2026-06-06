@@ -6,7 +6,7 @@ import { WithId } from '@/types/WithId';
 import { Deadline } from '@/types/Deadline';
 
 export async function deleteDeadline(id: string): Promise<ActionResponse<WithId<Deadline>>> {
-  const response = await apiFetch(`${API_URL}/deadline/${id}`, {
+  const response = await apiFetch(`${API_URL}/deadlines/${id}`, {
     method: 'DELETE',
   });
 
