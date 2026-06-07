@@ -130,7 +130,7 @@ describe('Test CaseRepository', () => {
     await CaseModel.create(newCase);
 
     const response = await caseRepository.findAll();
-    const cases = response.data;
+    const cases = response.items;
     const case1 = cases[0];
 
     expect(case1?.client.id).toBe(clientId.toString());
@@ -199,6 +199,7 @@ describe('Test CaseRepository', () => {
       size: 80,
       uploadedBy: clientId.toString(),
       url: 't4est-url',
+      publicId: 'sdagsdgdg'
     };
 
     let errorHasBeenThrown = false;
@@ -240,6 +241,7 @@ describe('Test CaseRepository', () => {
       size: 80,
       uploadedBy: clientId.toString(),
       url: 't4est-url',
+      publicId: 'test-publid-id'
     };
 
     let errorHasBeenThrown = false;
