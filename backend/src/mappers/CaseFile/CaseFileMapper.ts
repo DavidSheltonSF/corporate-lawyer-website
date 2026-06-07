@@ -15,6 +15,7 @@ export class CaseFileMapper {
       size: caseFile.size,
       mimeType: caseFile.mimeType,
       url: caseFile.url,
+      publicId: caseFile.publicId,
       uploadedBy: uploadedBy,
       uploadedAt: caseFile.uploadedAt.toISOString(),
     };
