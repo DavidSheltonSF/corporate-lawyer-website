@@ -6,7 +6,6 @@ import { UserRole } from '../../../types/UserRole';
 import { Types } from 'mongoose';
 import { MongodbTestConnector } from '../MongodbTestConnector';
 import { IUserModel, UserModel } from '../../../models/UserModel';
-import { CaseFile } from '../../../entities/CaseFile';
 import { BrazilState } from '../../../types/BrazilState';
 import { City } from '../../../types/City';
 import { UserMocker } from '../../../tests/mocks/entities/UserMocker';
@@ -192,14 +191,14 @@ describe('Test CaseRepository', () => {
 
     const caseId = (await CaseModel.create(newCase))._id.toString();
 
-    const newFile: CaseFile = {
+    const newFile = {
       caseId,
       mimeType: 'pdf',
       name: 'Document',
       size: 80,
       uploadedBy: clientId.toString(),
       url: 't4est-url',
-      publicId: 'sdagsdgdg'
+      publicId: 'sdagsdgdg',
     };
 
     let errorHasBeenThrown = false;
@@ -234,14 +233,14 @@ describe('Test CaseRepository', () => {
 
     const caseId = (await CaseModel.create(newCase))._id.toString();
 
-    const newFile: CaseFile = {
+    const newFile = {
       caseId,
       mimeType: 'pdf',
       name: 'Document',
       size: 80,
       uploadedBy: clientId.toString(),
       url: 't4est-url',
-      publicId: 'test-publid-id'
+      publicId: 'test-publid-id',
     };
 
     let errorHasBeenThrown = false;
