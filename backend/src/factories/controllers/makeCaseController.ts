@@ -8,6 +8,7 @@ import { registerCaseEvents } from '../../events/registerCaseEvents';
 import { CaseService } from '../../services/case/CaseService';
 import { NotificationService } from '../../services/notification/NotificationService';
 import { UserService } from '../../services/user/UserService';
+import { CloudinaryUploadService } from '../../services/uṕload/CloudinaryUploadService';
 
 export function makeCaseController(): ICaseController {
   const eventBus = new InMemoryEventBus();
@@ -19,5 +20,6 @@ export function makeCaseController(): ICaseController {
   const caseService = new CaseService(caseRepository, eventBus);
   const userRepository = new MongodbUserRepository();
   const userService = new UserService(userRepository, caseRepository);
-  return new CaseController(caseService, userService);
+  const uploadService = new CloudinaryUploadService();
+  return new CaseController(caseService, userService, uploadService);
 }

@@ -9,9 +9,14 @@ import { ForbiddenError } from '../../errors/presentation/ForbiddenError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { requireAutheticatedLawyer } from '../helpers/requireAutheticatedLawyer';
 import { checkMissingFields } from '../../utils/checkMissingFields';
+import { UploadService } from '../../services/uṕload/UploadService';
 
 export class CaseController implements ICaseController {
-  constructor(private caseService: ICaseService, private userService: IUserService) {}
+  constructor(
+    private caseService: ICaseService,
+    private userService: IUserService,
+    private uploadService: UploadService
+  ) {}
 
   create = async (httpRequest: HttpRequest) => {
     await requireAutheticatedLawyer(httpRequest, this.userService);
@@ -162,6 +167,8 @@ export class CaseController implements ICaseController {
 
     const file = httpRequest.file;
 
+    const uploadResult = await this.uploadService.upload(file.buffer);
+
     if (!file) {
       throw new BadRequestError('Missing file');
     }
@@ -170,7 +177,8 @@ export class CaseController implements ICaseController {
 
     const response = await this.caseService.addFile(caseId, {
       name: fixedName,
-      url: 'www.fakeUrl/' + Number(new Date()).toString(),
+      url: uploadResult.url,
+      publicId: uploadResult.publicId,
       size: file.size,
       mimeType: file.mimetype,
       uploadedBy: String(userId),
