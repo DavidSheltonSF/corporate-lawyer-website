@@ -6,12 +6,12 @@ import { InvalidCaseTitleError } from '../../errors/domain/InvalidCaseTitleError
 import { InvalidCaseStatusError } from '../../errors/domain/InvalidCaseStatusError';
 import { BrazilState } from '../../types/BrazilState';
 import { City } from '../../types/City';
-import { EventBus } from '../../events/EventBust';
+import { InMemoryEventBus } from '../../events/InMemoryEventBus';
 
 describe('Test CaseService', () => {
   function makeSut() {
     const caseRepository = mockCaseRepository();
-    const eventBus = new EventBus()
+    const eventBus = new InMemoryEventBus()
     const caseService = new CaseService(caseRepository, eventBus);
 
     return {
