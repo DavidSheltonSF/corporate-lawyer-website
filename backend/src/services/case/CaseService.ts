@@ -111,6 +111,7 @@ export class CaseService implements ICaseService {
     await this.caseRepository.addFile(caseId, {
       name: file.name,
       url: file.url,
+      publicId: file.publicId,
       size: file.size,
       mimeType: file.mimeType,
       uploadedBy: file.uploadedBy,
