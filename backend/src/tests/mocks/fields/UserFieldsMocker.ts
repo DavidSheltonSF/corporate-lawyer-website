@@ -14,10 +14,12 @@ export class UserFieldsMocker {
   }
 
   static mockCpf(): string {
-    const firstSlice = casual.random_element([1000, 9999]);
-    const secondSlice = casual.random_element([10000, 99999]);
-    const thirdSlice = casual.random_element([10000, 99999]);
-    return `${firstSlice}${secondSlice}${thirdSlice}`;
+      let cpf = '';
+      for (let i = 0; i < 11; i++) {
+        cpf += casual.integer(0, 9).toString();
+      }
+
+      return cpf;
   }
 
   static mockPassword(): string {
