@@ -37,6 +37,7 @@ export function CaseFilesUploadModal({ caseId, close, refetchCase }: Props) {
 
     if (!response.success) {
       setRequestState({ ...response, status: 'error' });
+      return;
     }
 
     setRequestState({ status: 'ok', data: null });
