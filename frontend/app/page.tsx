@@ -8,10 +8,12 @@ import { Carousel } from '../components/ui/Carousel/Carousel';
 import { DynamicSections } from '@/components/layout/DynamicSections/DynamicSections';
 import { DynamicSection } from '@/components/layout/DynamicSections/DynamicSection';
 import { LawAreaServicesModal } from '@/components/features/marketing/services/LawAreaServicesModal';
+import { Navbar } from '@/components/layout/Navbar/Navbar';
 
 export default function Home() {
   return (
     <div>
+       <Navbar />
       <LawAreaServicesModal />
 
       <HeroSection
