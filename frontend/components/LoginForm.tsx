@@ -27,7 +27,7 @@ export function LoginForm() {
         return;
       }
       setRequestState({ status: 'ok', data: null });
-      router.push('/clientPage');
+      router.push('/client/dashboard');
     } catch (error: any) {
       console.log(error);
       setRequestState({ status: 'error', message: 'Erro inesperado' });
