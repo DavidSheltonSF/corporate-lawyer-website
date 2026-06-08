@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import '@/styles/globals.css';
 import '@/styles/animations.css';
-import { Navbar } from '../components/layout/Navbar/Navbar';
 import { Footer } from '../components/layout/Footer/Footer';
 import { WhatsAppButton } from '../components/WhatsAppButton';
 import { ServicesModalProvider } from '@/contexts/modals/ServicesModalProvider';
@@ -59,11 +58,7 @@ export default function RootLayout({
         className={`flex flex-col ${geistSans.variable} ${geistMono.variable} antialiased relative min-h-screen bg-color-black text-color-white relative`}
       >
         <ServicesModalProvider>
-          <header>
-            <Navbar />
-          </header>
           <main className="flex-1">{children}</main>
-          <WhatsAppButton whatsAppNumber="#" />
           <Footer />
         </ServicesModalProvider>
       </body>
