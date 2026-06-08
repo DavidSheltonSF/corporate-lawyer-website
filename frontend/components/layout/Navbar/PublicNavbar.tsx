@@ -37,7 +37,7 @@ export function PublicNavbar() {
       </div>
       <PublicNavbar.List menuIsOpen={menuIsOpen}>
         <PublicNavbar.Item name="Início" link="/" />
-        <PublicNavbar.Item name="Página do Cliente" link="/clientPageLogin" />
+        <PublicNavbar.Item name="Página do Cliente" link="/login" />
       </PublicNavbar.List>
       <NavbarMobileMenuButton menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen} />
     </nav>
