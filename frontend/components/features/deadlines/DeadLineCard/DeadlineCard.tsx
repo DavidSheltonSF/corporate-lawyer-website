@@ -4,14 +4,15 @@ import { Deadline } from '@/types/Deadline';
 import { WithId } from '@/types/WithId';
 import { RemainingDaysBadge } from '../badges/RemainingDaysBadge';
 import { PriorityBadge } from '../badges/PriorityBadge';
-import { makeCardAction } from '@/components/ui/CardDropdown/makeCardAction';
-import { CardActionType } from '@/components/ui/CardDropdown/types';
+import { CardAction } from '@/components/ui/CardDropdown/types';
 import { deleteDeadline } from '@/services/cases/deleteDeadline';
 import { useErrorModal } from '@/hooks/modals/useErrorModal';
 import { useSuccessModal } from '@/hooks/modals/useSuccessModal';
 import { useConfirmModal } from '@/hooks/modals/useConfirmModal';
 import { ButtonVariant } from '@/components/ui/Button/ButtonVariant';
 import { handleLogout } from '@/lib/handleLogout';
+import { DeleteIcon } from '@/components/icons/DeleteIcon';
+import { usePermissions } from '@/hooks/auth/usePermissions';
 
 interface Props {
   deadline: WithId<Deadline>;
@@ -21,6 +22,7 @@ export function DeadlineCard({ deadline }: Props) {
   const { openErrorModal } = useErrorModal();
   const { openSuccessModal } = useSuccessModal();
   const { openConfirmModal } = useConfirmModal();
+
   async function handleDeleteDeadline() {
     const response = await deleteDeadline(deadline.id);
 
@@ -35,20 +37,31 @@ export function DeadlineCard({ deadline }: Props) {
     openSuccessModal('Prazo removido com sucesso!');
   }
 
+  function handleOpenConfirmModal() {
+    openConfirmModal({
+      title: 'Remover prazo',
+      message: 'Deseja realmente remover este prazo? Esta ação não poderá ser desfeita',
+      onConfirm: handleDeleteDeadline,
+      confirmButtonVariant: ButtonVariant.DANGER,
+    });
+  }
+
+  const permissions = usePermissions();
+
+  const ACTIONS: CardAction[] = [
+    {
+      label: 'Remover',
+      Icon: DeleteIcon,
+      visible: permissions.canDeleteCase,
+      action: handleOpenConfirmModal,
+    },
+  ].filter((action) => action.visible);
+
   return (
     <Card
       key={deadline.id}
       className="border-divider rounded-none w-full p-[24px]"
-      actions={[
-        makeCardAction(CardActionType.DELETE, () =>
-          openConfirmModal({
-            title: 'Remover prazo',
-            message: 'Deseja realmente remover este prazo? Esta ação não poderá ser desfeita',
-            onConfirm: handleDeleteDeadline,
-            confirmButtonVariant: ButtonVariant.DANGER,
-          })
-        ),
-      ]}
+      actions={ACTIONS}
     >
       <div className="flex flex-col min-md:flex-row min-md:justify-between min-md:items-end gap-[16px] text-sm min-md:text-md">
         <div className="flex flex-col gap-[8px]">
