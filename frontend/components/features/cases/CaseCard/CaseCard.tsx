@@ -4,18 +4,13 @@ import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { Card } from '../../../ui/Card/Card';
 import { CaseCardHeader } from './CaseCardHeader';
 import { CaseCardFooter } from './CaseCardFooter';
-import { EditIcon } from '@/components/icons/EditIcon';
-import { DeleteIcon } from '@/components/icons/DeleteIcon';
-import { CardAction } from '@/components/ui/CardDropdown/types';
 import { ButtonVariant } from '@/components/ui/Button/ButtonVariant';
 import { useCaseModal } from '@/hooks/modals/useCaseModal';
 import { useDeadlinesModal } from '@/hooks/modals/useDeadlinesModal';
 import { useCaseFilesModal } from '@/hooks/modals/useCaseFilesModal';
 import { useConfirmModal } from '@/hooks/modals/useConfirmModal';
 import { useUpdateCaseModal } from '@/hooks/modals/useUpdateCaseModal';
-import { usePermissions } from '@/hooks/auth/usePermissions';
-import { CalendarIcon } from '@/components/icons/CalendarIcon';
-import { DocumentIcon } from '@/components/icons/DocumentIcon';
+import { useCaseCardActions } from '@/hooks/cards/useCaseCardActions';
 
 interface Props {
   caseData: WithId<CaseWithRelations>;
@@ -39,8 +34,6 @@ export function CaseCard({ caseData, deleteCase, refetchCases }: Props) {
   const lawyersNames = caseData.lawyers?.map((lawyer) => {
     return `${lawyer.firstName} ${lawyer.lastName}`;
   });
-
-  const permissions = usePermissions();
 
   function handleUpdate() {
     openUpdateCaseModal(id, refetchCases);
@@ -66,31 +59,16 @@ export function CaseCard({ caseData, deleteCase, refetchCases }: Props) {
     openCaseFilesModal(id);
   }
 
-  const action: CardAction[] = [
-    {
-      label: 'Alterar',
-      Icon: EditIcon,
-      visible: permissions.canUpdateCase,
-      action: handleUpdate,
-    },
-    {
-      label: 'Remover',
-      Icon: DeleteIcon,
-      visible: permissions.canDeleteCase,
-      action: handleDelete,
-    },
-    {
-      label: 'Ver prazos',
-      Icon: CalendarIcon,
-      visible: permissions.canSeeDeadlines,
-      action: handleOpenDeadlines,
-    },
-    { label: 'Ver arquivos', Icon: DocumentIcon, visible: true, action: handleOpenCaseFiles },
-  ].filter((action) => action.visible);
+  const actions = useCaseCardActions({
+    onUpdate: handleUpdate,
+    onDelete: handleDelete,
+    onOpenDeadlines: handleOpenDeadlines,
+    onOpenFiles: handleOpenCaseFiles,
+  });
 
   return (
     <Card
-      actions={action}
+      actions={actions}
       className="relative w-full h-fit min-md:w-[720px]"
       onClick={() => openCaseModal(id)}
     >
