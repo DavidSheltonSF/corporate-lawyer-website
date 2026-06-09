@@ -6,8 +6,8 @@ export function usePermissions(): UserPermissions {
 
   const permittionsByRole: Record<string, UserPermissions> = {
     admin: {
-      canDeleteCase: true,
-      canUpdateCase: true,
+      canDeleteCase: false,
+      canUpdateCase: false,
       canSeeDeadlines: true,
     },
 
