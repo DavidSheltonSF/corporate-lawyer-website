@@ -2,17 +2,37 @@ import '@/styles/globals.css';
 import '@/styles/animations.css';
 import { ClientNavbar } from '@/components/layout/Navbar/ClientNavbar';
 import { ModalRenderer } from '@/components/renderer/ModalRenderer';
+import { getMe } from '@/services/users/getMe';
+import { redirect } from 'next/navigation';
+import { AuthHydrator } from '@/components/AuthHydrator';
 
-export default function ClientLayout({
+export default async function ClientLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <>
-      <ClientNavbar />
-      <ModalRenderer/>
-      <main className="flex-1 p-[40px]">{children}</main>
-    </>
-  );
+  try {
+    const response = await getMe();
+    if (!response.success) {
+      redirect('/login');
+    }
+
+    if (!response.data) {
+      throw new Error('Response was successful but user data was not provided');
+    }
+    const user = response.data;
+
+    return (
+      <>
+        <AuthHydrator user={user}>
+          <ClientNavbar />
+          <ModalRenderer />
+          <main className="flex-1 p-[40px] min-h-[90vh]">{children}</main>
+        </AuthHydrator>
+      </>
+    );
+  } catch (error) {
+    console.log(error);
+    redirect('/login');
+  }
 }
