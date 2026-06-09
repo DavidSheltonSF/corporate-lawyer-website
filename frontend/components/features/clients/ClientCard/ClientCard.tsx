@@ -3,12 +3,13 @@ import { SafeUser } from '@/types/SafeUser';
 import { Card } from '../../../ui/Card/Card';
 import { ClientCardHeader } from './ClientCardHeader';
 import { ClientCardFooter } from './ClientCardFooter';
-import { makeCardAction } from '@/components/ui/CardDropdown/makeCardAction';
-import { CardActionType } from '@/components/ui/CardDropdown/types';
-import { ButtonVariant } from '@/components/ui/Button/ButtonVariant';
+import { CardAction } from '@/components/ui/CardDropdown/types';
 import { useUpdateClientModal } from '@/hooks/modals/useUpdateClientModal';
 import { useDeleteClientModal } from '@/hooks/modals/useDeleteClientModal';
 import { useClientModal } from '@/hooks/modals/useClientModal';
+import { EditIcon } from '@/components/icons/EditIcon';
+import { DeleteIcon } from '@/components/icons/DeleteIcon';
+import { usePermissions } from '@/hooks/auth/usePermissions';
 
 interface Props {
   clientData: WithId<SafeUser>;
@@ -25,15 +26,35 @@ export function ClientCard({ clientData, fetchClients }: Props) {
   const { openDeleteClientModal } = useDeleteClientModal();
   const { openClientModal } = useClientModal();
 
+  function handleUpdate() {
+    openUpdateClientModal(id, fetchClients);
+  }
+
+  function handleDelete() {
+    openDeleteClientModal({ id, firstName, lastName }, fetchClients);
+  }
+
+  const permissions = usePermissions();
+
+  const ACTIONS: CardAction[] = [
+    {
+      label: 'Alterar',
+      Icon: EditIcon,
+      visible: permissions.canUpdateCase,
+      action: handleUpdate,
+    },
+    {
+      label: 'Remover',
+      Icon: DeleteIcon,
+      visible: permissions.canDeleteCase,
+      action: handleDelete,
+    },
+  ].filter((action) => action.visible);
+
   return (
     <Card
       className="w-full h-fit min-md:w-[720px]"
-      actions={[
-        makeCardAction(CardActionType.EDIT, () => openUpdateClientModal(id, fetchClients)),
-        makeCardAction(CardActionType.DELETE, () =>
-          openDeleteClientModal({ id, firstName, lastName }, fetchClients)
-        ),
-      ]}
+      actions={ACTIONS}
       onClick={() => openClientModal(id)}
     >
       <div className="flex flex-col text-color-black p-[24px] gap-[32px]">
