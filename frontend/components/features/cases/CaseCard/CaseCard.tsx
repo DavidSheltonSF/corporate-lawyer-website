@@ -66,7 +66,7 @@ export function CaseCard({ caseData, deleteCase, refetchCases }: Props) {
     openCaseFilesModal(id);
   }
 
-  const ACTIONS: CardAction[] = [
+  const action: CardAction[] = [
     {
       label: 'Alterar',
       Icon: EditIcon,
@@ -90,7 +90,7 @@ export function CaseCard({ caseData, deleteCase, refetchCases }: Props) {
 
   return (
     <Card
-      actions={ACTIONS}
+      actions={action}
       className="relative w-full h-fit min-md:w-[720px]"
       onClick={() => openCaseModal(id)}
     >

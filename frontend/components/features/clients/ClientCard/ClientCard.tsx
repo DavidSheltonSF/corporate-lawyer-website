@@ -36,7 +36,7 @@ export function ClientCard({ clientData, fetchClients }: Props) {
 
   const permissions = usePermissions();
 
-  const ACTIONS: CardAction[] = [
+  const action: CardAction[] = [
     {
       label: 'Alterar',
       Icon: EditIcon,
@@ -54,7 +54,7 @@ export function ClientCard({ clientData, fetchClients }: Props) {
   return (
     <Card
       className="w-full h-fit min-md:w-[720px]"
-      actions={ACTIONS}
+      actions={action}
       onClick={() => openClientModal(id)}
     >
       <div className="flex flex-col text-color-black p-[24px] gap-[32px]">

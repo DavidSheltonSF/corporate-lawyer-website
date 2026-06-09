@@ -48,7 +48,7 @@ export function DeadlineCard({ deadline }: Props) {
 
   const permissions = usePermissions();
 
-  const ACTIONS: CardAction[] = [
+  const action: CardAction[] = [
     {
       label: 'Remover',
       Icon: DeleteIcon,
@@ -58,7 +58,7 @@ export function DeadlineCard({ deadline }: Props) {
   ].filter((action) => action.visible);
 
   return (
-    <Card className="border-divider rounded-none w-full p-[24px]" actions={ACTIONS}>
+    <Card className="border-divider rounded-none w-full p-[24px]" actions={action}>
       <div className="flex flex-col min-md:flex-row min-md:justify-between min-md:items-end gap-[16px] text-sm min-md:text-md">
         <div className="flex flex-col gap-[8px]">
           <p className="font-bold text-base">{deadline.type}</p>
