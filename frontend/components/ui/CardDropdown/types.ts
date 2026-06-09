@@ -10,5 +10,6 @@ export enum CardActionType {
 export interface CardAction {
   Icon: React.ComponentType<PropsWithClassName>;
   label: string;
+  visible: boolean;
   action: () => void;
 }
