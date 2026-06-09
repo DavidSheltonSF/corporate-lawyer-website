@@ -13,6 +13,7 @@ import { ButtonVariant } from '@/components/ui/Button/ButtonVariant';
 import { handleLogout } from '@/lib/handleLogout';
 import { DeleteIcon } from '@/components/icons/DeleteIcon';
 import { usePermissions } from '@/hooks/auth/usePermissions';
+import { useDeadlineCardActions } from '@/hooks/cards/useDeadlineCardAction';
 
 interface Props {
   deadline: WithId<Deadline>;
@@ -46,19 +47,10 @@ export function DeadlineCard({ deadline }: Props) {
     });
   }
 
-  const permissions = usePermissions();
-
-  const action: CardAction[] = [
-    {
-      label: 'Remover',
-      Icon: DeleteIcon,
-      visible: permissions.canSeeDeadlines,
-      action: handleOpenConfirmModal,
-    },
-  ].filter((action) => action.visible);
+  const actions = useDeadlineCardActions({ onDelete: handleOpenConfirmModal });
 
   return (
-    <Card className="border-divider rounded-none w-full p-[24px]" actions={action}>
+    <Card className="border-divider rounded-none w-full p-[24px]" actions={actions}>
       <div className="flex flex-col min-md:flex-row min-md:justify-between min-md:items-end gap-[16px] text-sm min-md:text-md">
         <div className="flex flex-col gap-[8px]">
           <p className="font-bold text-base">{deadline.type}</p>
