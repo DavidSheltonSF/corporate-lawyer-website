@@ -9,7 +9,7 @@ interface Props {
 export function Dashboard({ data }: Props) {
   return (
     <div className="flex flex-wrap gap-[40px]">
-      <DashboardCard title="Processos" sectionIndex={1}>
+      <DashboardCard title="Processos">
         <DashboardCardInfo name="Em andamento" value={data?.open || 0} />
         <DashboardCardInfo name="Encerrados" value={data?.closed || 0} />
       </DashboardCard>
