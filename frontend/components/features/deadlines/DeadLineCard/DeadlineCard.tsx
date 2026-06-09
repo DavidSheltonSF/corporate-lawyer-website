@@ -58,11 +58,7 @@ export function DeadlineCard({ deadline }: Props) {
   ].filter((action) => action.visible);
 
   return (
-    <Card
-      key={deadline.id}
-      className="border-divider rounded-none w-full p-[24px]"
-      actions={ACTIONS}
-    >
+    <Card className="border-divider rounded-none w-full p-[24px]" actions={ACTIONS}>
       <div className="flex flex-col min-md:flex-row min-md:justify-between min-md:items-end gap-[16px] text-sm min-md:text-md">
         <div className="flex flex-col gap-[8px]">
           <p className="font-bold text-base">{deadline.type}</p>
