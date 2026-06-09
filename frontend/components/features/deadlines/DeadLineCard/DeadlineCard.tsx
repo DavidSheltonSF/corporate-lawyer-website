@@ -52,7 +52,7 @@ export function DeadlineCard({ deadline }: Props) {
     {
       label: 'Remover',
       Icon: DeleteIcon,
-      visible: permissions.canDeleteCase,
+      visible: permissions.canSeeDeadlines,
       action: handleOpenConfirmModal,
     },
   ].filter((action) => action.visible);
