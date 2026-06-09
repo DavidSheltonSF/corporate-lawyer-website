@@ -36,7 +36,7 @@ export function CaseModalContent({ caseData }: Props) {
 
   return (
     <div className="flex flex-col font-size-md overflow-y-auto h-[50vh]">
-      <div className="flex flex-col items-center min-md:flex-row min-md:items-start min-md:gap-[40px] p-[24px] border-divider">
+      <div className="flex flex-col min-md:flex-row min-md:items-start min-md:gap-[40px] p-[24px] border-divider">
         <InfoItem Icon={UserIcon} value={`${firstName} ${lastName}`} />
         <InfoItem Icon={BalanceIcon} value={`${lawyer.firstName} ${lawyer.lastName}`} />
         <InfoItem valueColor={statusColor} Icon={FolderIcon} value={CaseStatusLabel[status]} />
