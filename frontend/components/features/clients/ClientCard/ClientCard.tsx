@@ -10,6 +10,7 @@ import { useClientModal } from '@/hooks/modals/useClientModal';
 import { EditIcon } from '@/components/icons/EditIcon';
 import { DeleteIcon } from '@/components/icons/DeleteIcon';
 import { usePermissions } from '@/hooks/auth/usePermissions';
+import { useClientCardActions } from '@/hooks/cards/useClientCardActions';
 
 interface Props {
   clientData: WithId<SafeUser>;
@@ -34,27 +35,12 @@ export function ClientCard({ clientData, fetchClients }: Props) {
     openDeleteClientModal({ id, firstName, lastName }, fetchClients);
   }
 
-  const permissions = usePermissions();
-
-  const action: CardAction[] = [
-    {
-      label: 'Alterar',
-      Icon: EditIcon,
-      visible: permissions.canUpdateCase,
-      action: handleUpdate,
-    },
-    {
-      label: 'Remover',
-      Icon: DeleteIcon,
-      visible: permissions.canDeleteCase,
-      action: handleDelete,
-    },
-  ].filter((action) => action.visible);
+  const actions = useClientCardActions({ onUpdate: handleUpdate, onDelete: handleDelete });
 
   return (
     <Card
       className="w-full h-fit min-md:w-[720px]"
-      actions={action}
+      actions={actions}
       onClick={() => openClientModal(id)}
     >
       <div className="flex flex-col text-color-black p-[24px] gap-[32px]">
