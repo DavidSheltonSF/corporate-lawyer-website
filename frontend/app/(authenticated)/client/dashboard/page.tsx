@@ -4,7 +4,6 @@ import { LawyerView } from '@/components/views/LawyerView';
 import { getMe } from '@/services/users/getMe';
 import { redirect } from 'next/navigation';
 import { Notifications } from '@/components/features/notifications/Notifications';
-import { ModalRenderer } from '@/components/renderer/ModalRenderer';
 import { AuthHydrator } from '@/components/AuthHydrator';
 
 export default async function ClientPage() {
@@ -21,7 +20,6 @@ export default async function ClientPage() {
 
     return (
       <AuthHydrator user={user}>
-        <ModalRenderer />
         <div className="bg-color-black min-h-[100vh]">
           <HeroSection
             background="var(--blue-gradient)"
