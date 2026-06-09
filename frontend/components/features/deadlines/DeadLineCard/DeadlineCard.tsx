@@ -4,15 +4,12 @@ import { Deadline } from '@/types/Deadline';
 import { WithId } from '@/types/WithId';
 import { RemainingDaysBadge } from '../badges/RemainingDaysBadge';
 import { PriorityBadge } from '../badges/PriorityBadge';
-import { CardAction } from '@/components/ui/CardDropdown/types';
 import { deleteDeadline } from '@/services/cases/deleteDeadline';
 import { useErrorModal } from '@/hooks/modals/useErrorModal';
 import { useSuccessModal } from '@/hooks/modals/useSuccessModal';
 import { useConfirmModal } from '@/hooks/modals/useConfirmModal';
 import { ButtonVariant } from '@/components/ui/Button/ButtonVariant';
 import { handleLogout } from '@/lib/handleLogout';
-import { DeleteIcon } from '@/components/icons/DeleteIcon';
-import { usePermissions } from '@/hooks/auth/usePermissions';
 import { useDeadlineCardActions } from '@/hooks/cards/useDeadlineCardAction';
 
 interface Props {

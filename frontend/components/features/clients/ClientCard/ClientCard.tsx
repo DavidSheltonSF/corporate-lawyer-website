@@ -3,13 +3,9 @@ import { SafeUser } from '@/types/SafeUser';
 import { Card } from '../../../ui/Card/Card';
 import { ClientCardHeader } from './ClientCardHeader';
 import { ClientCardFooter } from './ClientCardFooter';
-import { CardAction } from '@/components/ui/CardDropdown/types';
 import { useUpdateClientModal } from '@/hooks/modals/useUpdateClientModal';
 import { useDeleteClientModal } from '@/hooks/modals/useDeleteClientModal';
 import { useClientModal } from '@/hooks/modals/useClientModal';
-import { EditIcon } from '@/components/icons/EditIcon';
-import { DeleteIcon } from '@/components/icons/DeleteIcon';
-import { usePermissions } from '@/hooks/auth/usePermissions';
 import { useClientCardActions } from '@/hooks/cards/useClientCardActions';
 
 interface Props {
