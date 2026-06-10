@@ -78,7 +78,7 @@ export function NotificationsModal() {
       <BaseModal
         title="Notificações"
         omitFooter={true}
-        className={'w-[90%] min-md:w-[70%] min-lg:w-[560px]'}
+        className={'w-[90%] min-md:w-[70%] min-lg:w-[560px] overflow-hidden'}
         onClose={() => {
           setIsOpen(false);
         }}
