@@ -5,6 +5,7 @@ import { ModalRenderer } from '@/components/renderer/ModalRenderer';
 import { getMe } from '@/services/users/getMe';
 import { redirect } from 'next/navigation';
 import { AuthHydrator } from '@/components/AuthHydrator';
+import { Notifications } from '@/components/features/notifications/Notifications';
 
 export default async function ClientLayout({
   children,
@@ -28,6 +29,7 @@ export default async function ClientLayout({
           <ClientNavbar />
           <ModalRenderer />
           <main className="flex-1 p-[40px] min-h-[90vh]">{children}</main>
+          <Notifications/>
         </AuthHydrator>
       </>
     );
