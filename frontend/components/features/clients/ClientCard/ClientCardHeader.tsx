@@ -1,4 +1,5 @@
 import { UserIcon } from '@/components/icons/UserIcon';
+import { Text } from '@/components/ui/Text';
 
 interface Props {
   clientName: string;
@@ -10,12 +11,14 @@ export function ClientCardHeader({ clientName, cpf }: Props) {
     <header className="flex flex-col  gap-[8px] ">
       <div className="flex items-center gap-[32px]">
         <div className="flex justify-center items-center size-[5rem] border rounded-[8px]">
-          <UserIcon className='size-[40px]' />
+          <UserIcon className="size-[40px]" />
         </div>
-        <h2>{clientName}</h2>
+        <Text as={'h2'} variant="h2">
+          {clientName}
+        </Text>
       </div>
       <div>
-        <span className='text-muted'>CPF: {cpf}</span>
+        <Text variant="muted">CPF: {cpf}</Text>
       </div>
     </header>
   );
