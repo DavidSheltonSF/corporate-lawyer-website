@@ -19,12 +19,15 @@ export const useModalStore = create<ModalStore>((set, get) => ({
 
   openModal: (modal: ModalMeta) => {
     set((state) => {
+      console.log(state.modalStack);
       const openModal = {
         type: modal.type,
         payload: modal.payload,
       };
       return {
-        modalStack: [...state.modalStack, openModal],
+        modalStack: state.modalStack.some((modal) => modal.type === openModal.type)
+          ? state.modalStack
+          : [...state.modalStack, openModal],
       };
     });
   },
