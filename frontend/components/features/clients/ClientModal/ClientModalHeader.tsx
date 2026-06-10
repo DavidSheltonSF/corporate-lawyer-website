@@ -1,4 +1,5 @@
 import { FieldValue } from "@/components/FieldValue";
+import { Text } from "@/components/ui/Text";
 
 interface Props {
   firstName: string;
@@ -9,11 +10,11 @@ interface Props {
 export function ClientModalHeader({ firstName, lastName, cpf }: Props) {
   return (
     <header className="flex flex-col gap-[8px] w-full p-[24px] border-divider">
-      <h1 className="text-3xl font-bold ">
+      <Text as={'h1'} variant="h1" className="text-3xl font-bold ">
         {firstName} {lastName}
-      </h1>
+      </Text>
       <div className="flex flex-1">
-       <span className="text-muted">CPF {cpf}</span>
+        <Text variant="muted" className="text-muted">CPF {cpf}</Text>
       </div>
     </header>
   );

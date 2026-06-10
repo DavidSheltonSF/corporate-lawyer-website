@@ -3,6 +3,7 @@ import { Button } from '../../../ui/Button/Button';
 import { AddIcon } from '@/components/icons/AddIcon';
 import { WithId } from '@/types/WithId';
 import { ClientCaseCard } from './ClientCaseCard';
+import { Text } from '@/components/ui/Text';
 
 interface Props {
   cases: WithId<Case>[];
@@ -17,7 +18,7 @@ export function ClientModalCases({ cases, openRegisterCaseModal }: Props) {
   return (
     <div className="flex flex-col gap-[24px] p-[24px]">
       <div className="flex flex-col min-lg:flex-row gap-[16px] min-lg:gap-[0] min-lg:items-center  min-lg:justify-between w-full">
-        <h1 className="text-2xl font-bold">Processos</h1>
+        <Text as={'h2'} variant='h2' className="text-2xl font-bold">Processos</Text>
         <Button
           onClick={openRegisterCaseModal}
           className="flex justify-center gap-[8px] px-[16px] py-[8px] bg-color-white hover:brightness-95 border border-black/40"
