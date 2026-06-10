@@ -1,3 +1,4 @@
+import { Text } from '@/components/ui/Text';
 import { ReactNode } from 'react';
 
 interface Props {
@@ -13,7 +14,9 @@ export function DynamicSectionWrapper({ index, title, selectedSection, children 
   return (
     isSelected && (
       <section className="flex flex-col fade-in-animation w-full h-full">
-        <h1 className="font-bold my-[40px]">{title}</h1>
+        <Text as={'h2'} variant="h2" className="my-[40px]">
+          {title}
+        </Text>
         {children}
       </section>
     )
