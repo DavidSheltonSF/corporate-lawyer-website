@@ -3,6 +3,7 @@ import { BalanceIcon } from '@/components/icons/BalanceIcon';
 import { FolderIcon } from '@/components/icons/FolderIcon';
 import { UserIcon } from '@/components/icons/UserIcon';
 import { InfoItem } from '@/components/ui/InfoItem';
+import { Text } from '@/components/ui/Text';
 import { BrazilStateLabel } from '@/lib/BrazilStateLabel';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { CityLabel } from '@/lib/CityLabel';
@@ -48,8 +49,8 @@ export function CaseModalContent({ caseData }: Props) {
         <FieldValue field="cidade" value={CityLabel[location.city]} />
       </div>
       <div className="flex flex-col gap-[8px] p-[24px]">
-        <h1 className="text-2xl font-bold">Resumo</h1>
-        <p>{caseData.description}</p>
+        <Text as={'h2'} variant='h2' className="text-2xl font-bold">Resumo</Text>
+        <Text>{caseData.description}</Text>
       </div>
     </div>
   );

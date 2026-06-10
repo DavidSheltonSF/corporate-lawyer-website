@@ -1,3 +1,5 @@
+import { Text } from '@/components/ui/Text';
+
 interface Props {
   title?: string;
   processNumber?: string;
@@ -6,9 +8,11 @@ interface Props {
 export function CaseModalHeader({ title, processNumber }: Props) {
   return (
     <header className="flex flex-col gap-[8px] w-full p-[24px] border-divider">
-      <h1 className="text-3xl font-bold ">{title}</h1>
+      <Text as={'h1'} variant="h1">
+        {title}
+      </Text>
       <div className="flex flex-1">
-        <span className="text-muted">nº {processNumber}</span>
+        <Text variant='muted'>nº {processNumber}</Text>
       </div>
     </header>
   );
