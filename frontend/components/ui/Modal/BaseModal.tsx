@@ -55,7 +55,7 @@ export function BaseModal(props: PropsWithClassName<Props>) {
     };
   }, []);
 
-  const positionStyles = 'fixed top-[4vh] left-1/2 translate-x-[-50%] z-20';
+  const positionStyles = 'fixed top-[4vh] left-1/2 translate-x-[-50%] z-30';
 
   const baseStyles =
     'flex flex-col bg-color-white fade-in-animation-fast rounded-lg shadow-[0px_0px__3px_black] text-color-black';
