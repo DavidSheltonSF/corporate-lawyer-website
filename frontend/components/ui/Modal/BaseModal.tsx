@@ -7,6 +7,7 @@ import { twMerge } from 'tailwind-merge';
 import { ButtonVariant } from '../Button/ButtonVariant';
 import { PropsWithClassName } from '@/types/PropsWithClassName';
 import { BaseModalFooter } from './BaseModalFooter';
+import { Text } from '../Text';
 
 interface Props {
   confirmButtonVariant?: ButtonVariant;
@@ -67,7 +68,7 @@ export function BaseModal(props: PropsWithClassName<Props>) {
       style={{ height: 'fit-content' }}
     >
       <div className="flex w-full border-divider bg-color-white px-[24px] py-[20px] rounded-t-[inherit]">
-        <h3 className="font-bold">{title}</h3>
+        <Text as={'h2'} variant='h2' className="font-bold">{title}</Text>
         <Button
           className="bg-color-white ml-auto p-[4px] brightness-95 hover:brightness-90"
           onClick={() => {
