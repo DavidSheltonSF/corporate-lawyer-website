@@ -10,7 +10,7 @@ export function NotificationButton() {
   return (
     <Button
       onClick={() => setIsOpen(true)}
-      className="flex justify-center items-center fixed bottom-[112px] right-[24px] size-[64px] rounded-full bg-color-primary-light inner-shadow-soft-white p-0"
+      className="flex justify-center items-center fixed bottom-[24px] right-[24px] size-[64px] rounded-full bg-color-primary-light inner-shadow-soft-white p-0"
     >
       <NotificationIcon className="size-[65%] stroke-color-white" />
       <Activity mode={unreadCount > 0 ? 'visible' : 'hidden'}>
