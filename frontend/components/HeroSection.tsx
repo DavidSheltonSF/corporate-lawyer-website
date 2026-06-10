@@ -1,4 +1,5 @@
 import { Activity } from 'react';
+import { Text } from './ui/Text';
 
 interface Props {
   title: string;
@@ -27,9 +28,13 @@ export function HeroSection({
     >
       <div className="w-full  mb-[40px]" style={{ backgroundColor: textBackgroundColor }}>
         <div className="flex flex-col gap-[16px] justify-end px-[24px] lg:pl-[160px] h-fit text-color-white">
-          <h1 className="font-bold lg:w-[50%]">{title}</h1>
+          <Text as={'h1'} variant="h1" className="font-bold lg:w-[50%]">
+            {title}
+          </Text>
           <Activity mode={description !== undefined ? 'visible' : 'hidden'}>
-            <h2 className="lg:w-[50%]">{description}</h2>
+            <Text as={'h2'} variant="h2" className="lg:w-[50%]">
+              {description}
+            </Text>
           </Activity>
         </div>
       </div>
