@@ -9,6 +9,7 @@ import { DynamicSections } from '@/components/layout/DynamicSections/DynamicSect
 import { DynamicSection } from '@/components/layout/DynamicSections/DynamicSection';
 import { LawAreaServicesModal } from '@/components/features/marketing/services/LawAreaServicesModal';
 import { PublicNavbar } from '@/components/layout/Navbar/PublicNavbar';
+import { Text } from '@/components/ui/Text';
 
 export default function Home() {
   return (
@@ -27,28 +28,34 @@ export default function Home() {
           <DynamicSection>
             <div className="flex flex-col gap-[32px] lg:w-[70%]">
               <div className="flex flex-col gap-[16px]">
-                <h2 className="text-color-secondary font-bold">Somos experientes</h2>
-                <p>
+                <Text as={'h3'} variant="h3" className="text-color-secondary font-bold">
+                  Somos experientes
+                </Text>
+                <Text variant="body">
                   Com mais de 5 anos prestando atendimento com empatia, ética e dedicação, somos um
                   escritório de advocacia comprometido em oferecer soluções jurídicas eficazes e
                   humanizadas.
-                </p>
+                </Text>
               </div>
               <div className="flex flex-col gap-[16px]">
-                <h2 className="text-color-secondary font-bold">Diversificados</h2>
-                <p>
+                <Text as={'h3'} variant="h3" className="text-color-secondary font-bold">
+                  Diversificados
+                </Text>
+                <Text variant="body">
                   Atuamos em diversas áreas do Direito, com destaque para Direito de Família,
                   Previdenciário, Trabalhista e Civil, sempre buscando garantir os melhores
                   resultados para cada cliente, de forma personalizada e transparente.
-                </p>
+                </Text>
               </div>
               <div className="flex flex-col gap-[16px]">
-                <h2 className="text-color-secondary font-bold">Também somos adaptáveis</h2>
-                <p>
+                <Text as={'h3'} variant="h3" className="text-color-secondary font-bold">
+                  Também somos adaptáveis
+                </Text>
+                <Text variant="body">
                   Além disso, somos um escritório moderno e adaptável, que utiliza tecnologias
                   inovadoras para agilizar atendimentos, acompanhar processos e oferecer suporte
                   jurídico de excelência, onde quer que você esteja.
-                </p>
+                </Text>
               </div>
             </div>
           </DynamicSection>
