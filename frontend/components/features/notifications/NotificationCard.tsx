@@ -12,6 +12,7 @@ import { NotificationType } from '@/types/NotificationType';
 import { Button } from '@/components/ui/Button/Button';
 import { ButtonVariant } from '@/components/ui/Button/ButtonVariant';
 import { useCaseModal } from '@/hooks/modals/useCaseModal';
+import { Text } from '@/components/ui/Text';
 
 interface Props {
   notificationData: WithId<Notification>;
@@ -72,7 +73,7 @@ export function NotificationCard({ notificationData, decreaceUnreadCount }: Prop
           <NotificationIconSelector notificationType={notification.type} />
         </div>
         <div className="flex flex-col size-full gap-[8px]">
-          <p className="text-sm min-md:text-base">{message}</p>
+          <Text className="text-sm min-md:text-base">{message}</Text>
           <Button
             variant={ButtonVariant.SECONDARY}
             onClick={(e) => {
