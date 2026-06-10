@@ -24,7 +24,7 @@ export function NotificationsModal() {
 
   useEffect(() => {
     async function loadNotifications() {
-      const response = await getMyNotifications(1, 4);
+      const response = await getMyNotifications(1, 3);
 
       if (!response.success) {
         setRequestState({ ...response, status: 'error' });
@@ -60,7 +60,7 @@ export function NotificationsModal() {
     if (nextPage > totalPages) return;
     setRequestState({ status: 'loading' });
 
-    const response = await getMyNotifications(nextPage, 4);
+    const response = await getMyNotifications(nextPage, 3);
     if (!response.success) {
       setRequestState({ ...response, status: 'error' });
       return;
