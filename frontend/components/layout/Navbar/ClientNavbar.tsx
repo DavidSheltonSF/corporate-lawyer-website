@@ -28,7 +28,7 @@ export function ClientNavbar() {
   return (
     <nav
       ref={navbarRef}
-      className="flex relative justify-between items-center bg-color-primary w-full h-auto py-[4px] px-[24px] lg:px-[40px]"
+      className="flex z-30 relative justify-between items-center bg-color-primary w-full h-auto py-[4px] px-[24px] lg:px-[40px]"
     >
       <div>
         <Link href="/">
