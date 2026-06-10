@@ -1,4 +1,5 @@
 import { IconProps } from '../icons/types';
+import { Text } from './Text';
 
 interface Props {
   Icon: React.ComponentType<IconProps>;
@@ -15,7 +16,7 @@ export function InfoItem({ Icon, value, valueColor }: Props) {
           color: valueColor,
         }}
       >
-        {value}
+        <Text>{value}</Text>
       </span>
     </div>
   );
