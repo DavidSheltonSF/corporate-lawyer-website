@@ -11,6 +11,7 @@ import { useConfirmModal } from '@/hooks/modals/useConfirmModal';
 import { ButtonVariant } from '@/components/ui/Button/ButtonVariant';
 import { handleLogout } from '@/lib/handleLogout';
 import { useDeadlineCardActions } from '@/hooks/cards/useDeadlineCardAction';
+import { Text } from '@/components/ui/Text';
 
 interface Props {
   deadline: WithId<Deadline>;
@@ -50,10 +51,12 @@ export function DeadlineCard({ deadline }: Props) {
     <Card className="border-divider rounded-none w-full p-[24px]" actions={actions}>
       <div className="flex flex-col min-md:flex-row min-md:justify-between min-md:items-end gap-[16px] text-sm min-md:text-md">
         <div className="flex flex-col gap-[8px]">
-          <p className="font-bold text-base">{deadline.type}</p>
-          <p className="text-muted">
+          <Text as={'h3'} variant="h3">
+            {deadline.type}
+          </Text>
+          <Text variant='muted'>
             Período: {formatDate(deadline.startDate)} - {formatDate(deadline.dueDate)}
-          </p>
+          </Text>
         </div>
         <div className="flex gap-[8px]">
           <RemainingDaysBadge remainingDays={deadline.remainingDays} />
