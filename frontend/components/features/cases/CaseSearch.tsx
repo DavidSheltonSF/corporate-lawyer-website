@@ -29,42 +29,37 @@ export default function CaseSearch() {
   const userRole = useUserRole();
 
   async function fetchCases() {
-    try {
-      setRequestState({ status: 'loading' });
-      if (!userRole) return;
+    setRequestState({ status: 'loading' });
+    if (!userRole) return;
 
-      let casesFetcher: Record<string, CasesFetcher> = {
-        admin: getCases,
-        lawyer: getCases,
-        client: getMyCases,
-      };
+    let casesFetcher: Record<string, CasesFetcher> = {
+      admin: getCases,
+      lawyer: getCases,
+      client: getMyCases,
+    };
 
-      const response = await casesFetcher[userRole]({
-        page,
-        limit: 4,
-        search,
-        status: statusFilder || '',
+    const response = await casesFetcher[userRole]({
+      page,
+      limit: 4,
+      search,
+      status: statusFilder || '',
+    });
+
+    if (!response.success) {
+      const { message, code, details } = response;
+      return setRequestState({
+        status: 'error',
+        message: message || 'Unespected error',
+        code,
+        details,
       });
-
-      if (!response.success) {
-        const { message, code, details } = response;
-        return setRequestState({
-          status: 'error',
-          message: message || 'Unespected error',
-          code,
-          details,
-        });
-      }
-
-      const { data } = response;
-
-      setRequestState({ status: 'ok', data: response.data });
-      setPage(data?.meta.currentPage || 1);
-      setTotalPage(data?.meta.totalPages || 1);
-    } catch (error: any) {
-      console.log(error);
-      handleLogout();
     }
+
+    const { data } = response;
+
+    setRequestState({ status: 'ok', data: response.data });
+    setPage(data?.meta.currentPage || 1);
+    setTotalPage(data?.meta.totalPages || 1);
   }
 
   useEffect(() => {
