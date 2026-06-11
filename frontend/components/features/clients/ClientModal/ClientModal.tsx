@@ -7,11 +7,15 @@ import { getClientWithCases } from '@/services/users/getClientWithCases';
 import { Case } from '@/types/Case';
 import { ClientModalHeader } from './ClientModalHeader';
 import { ClientModalInfo } from './ClientModalInfo';
-import { ClientModalCases } from './ClientModalCases';
 import { RequestState } from '@/types/RequestState';
 import { WithId } from '@/types/WithId';
 import { RegisterCaseModal } from '@/components/modals/RegisterCaseModal';
 import { GlobalModalProps } from '@/types/GlobalModalProps';
+import { ClientModalFooter } from './ClientModalFooter';
+import { useClientCasesModal } from '@/hooks/modals/useClientCasesModal';
+import { Button } from '@/components/ui/Button/Button';
+import { ButtonVariant } from '@/components/ui/Button/ButtonVariant';
+import { OpenUploadModalButton } from '@/components/OpenUploadModalButton';
 
 interface Props {
   clientId: string;
@@ -19,13 +23,14 @@ interface Props {
 
 ClientModal.Header = ClientModalHeader;
 ClientModal.Info = ClientModalInfo;
-ClientModal.Cases = ClientModalCases;
+ClientModal.Footer = ClientModalFooter;
 
 export function ClientModal({ payload, close }: GlobalModalProps<Props>) {
   const [registerCaseModalIsOpen, setRegisterCaseModalIsOpen] = useState(false);
   const [requestState, setRequestState] = useState<
     RequestState<SafeUser & { cases: WithId<Case>[] }>
   >({ status: 'idle' });
+  const { openClientCasesModal } = useClientCasesModal();
   const isLoading = requestState?.status === 'loading';
   const error = requestState?.status === 'error';
   const { clientId } = payload;
@@ -75,12 +80,12 @@ export function ClientModal({ payload, close }: GlobalModalProps<Props>) {
               cpf={data.cpf}
             />
             <ClientModal.Info clientData={data} />
-            <ClientModal.Cases
-              cases={data.cases}
-              openRegisterCaseModal={() => {
-                setRegisterCaseModalIsOpen(true);
-              }}
-            />
+            <Button
+              onClick={() => openClientCasesModal(clientId)}
+              variant={ButtonVariant.SECONDARY}
+            >
+              Ver processos
+            </Button>
           </div>
         );
 
@@ -99,7 +104,10 @@ export function ClientModal({ payload, close }: GlobalModalProps<Props>) {
 
   return (
     <BaseModal
-      className={'top-[2%] left-1/2 translate-x-[-50%] w-[90%] min-lg:w-[880px] h-[90%]'}
+      omitFooter={true}
+      className={
+        'top-[2%] left-1/2 translate-x-[-50%] min-w-[90%] md:min-w-[60%] lg:min-w-[400px] min-h-[40vh]'
+      }
       onClose={close}
     >
       {renderContent()}
