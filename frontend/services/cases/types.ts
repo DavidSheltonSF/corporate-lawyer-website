@@ -12,3 +12,4 @@ export interface GetCasesParams {
   status?: string;
   populate?: string[];
 }
+export type CasesFetcher = (params: GetCasesParams) => Promise<GetCasesResponse>;
