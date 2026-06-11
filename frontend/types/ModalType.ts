@@ -1,5 +1,4 @@
 export type ModalType =
-  | 'client'
   | 'client-cases'
   | 'register-client'
   | 'case'

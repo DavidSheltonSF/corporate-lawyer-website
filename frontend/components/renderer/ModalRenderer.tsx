@@ -1,6 +1,4 @@
 'use client';
-
-import { ClientModal } from '../features/clients/ClientModal/ClientModal';
 import { CaseModal } from '../features/cases/CaseModal/CaseModal';
 import { UpdateCaseModal } from '../features/cases/UpdateCaseModal/UpdateCaseModal';
 import { ConfirmModal } from '../ui/Modal/ConfirmModal';
@@ -19,9 +17,6 @@ export function ModalRenderer() {
   const currentModal = getCurrentModal();
 
   switch (currentModal?.type) {
-    case 'client':
-      return <ClientModal payload={currentModal.payload} close={closeModal} />;
-
     case 'client-cases':
       return <ClientCasesModal payload={currentModal.payload} close={closeModal} />;
 
