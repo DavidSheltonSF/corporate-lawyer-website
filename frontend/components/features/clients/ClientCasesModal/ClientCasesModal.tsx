@@ -7,7 +7,7 @@ import { Page } from '@/types/Page';
 import { RequestState } from '@/types/RequestState';
 import { WithId } from '@/types/WithId';
 import { useEffect, useState } from 'react';
-import { ClientCaseCard } from '../ClientModal/ClientCaseCard';
+import { ClientCaseCard } from './ClientCaseCard';
 import { Case } from '@/types/Case';
 import { handleLogout } from '@/lib/handleLogout';
 
