@@ -16,9 +16,10 @@ import { RequestState } from '@/types/RequestState';
 import { Page } from '@/types/Page';
 import { useUserRole } from '@/hooks/auth/useUserRole';
 import { CasesFetcher } from '@/services/cases/types';
+import { useCaseFilters } from '@/hooks/url/useCaseFilters';
 
 export default function CaseSearch() {
-  const [search, setSearch] = useState('');
+  const { search, setSearch } = useCaseFilters();
   const [statusFilder, setStatusFilter] = useState<CaseStatusEnum | null>(null);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
@@ -75,11 +76,14 @@ export default function CaseSearch() {
   return (
     <section className="flex flex-col items-center size-full">
       <div className="flex flex-col lg:flex-row gap-[40px] size-full">
-        <SearchBar
-          search={search}
-          onChange={(e) => setSearch(e.target.value)}
-          action={fetchCases}
-        />
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            fetchCases();
+          }}
+        >
+          <SearchBar defaultValue={search} onChange={(e) => setSearch(e.target.value)} />
+        </form>
         <div className="h-[48px] rounded-full w-[180px]">
           <DropDownButton
             selectedItem={statusFilder}
