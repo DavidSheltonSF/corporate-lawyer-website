@@ -7,6 +7,7 @@ import { useUpdateClientModal } from '@/hooks/modals/useUpdateClientModal';
 import { useDeleteClientModal } from '@/hooks/modals/useDeleteClientModal';
 import { useClientCardActions } from '@/hooks/cards/useClientCardActions';
 import { useClientCasesModal } from '@/hooks/modals/useClientCasesModal';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   clientData: WithId<SafeUser>;
@@ -17,6 +18,7 @@ ClientCard.Header = ClientCardHeader;
 ClientCard.Footer = ClientCardFooter;
 
 export function ClientCard({ clientData, fetchClients }: Props) {
+  const router = useRouter();
   const { id, firstName, lastName, email, phone, cpf } = clientData;
 
   const { openUpdateClientModal } = useUpdateClientModal();
@@ -30,14 +32,14 @@ export function ClientCard({ clientData, fetchClients }: Props) {
   function handleDelete() {
     openDeleteClientModal({ id, firstName, lastName }, fetchClients);
   }
-  function handleOpenClientCasesModal() {
-    openClientCasesModal(id);
+  function handleSeeCases() {
+    router.push(`processos?clientId=${id}`);
   }
 
   const actions = useClientCardActions({
     onUpdate: handleUpdate,
     onDelete: handleDelete,
-    onOpenClientCasesModal: handleOpenClientCasesModal,
+    onRedirectToCases: handleSeeCases,
   });
 
   return (

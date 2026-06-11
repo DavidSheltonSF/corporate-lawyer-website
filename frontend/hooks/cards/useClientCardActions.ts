@@ -7,13 +7,13 @@ import { BalanceIcon } from '@/components/icons/BalanceIcon';
 interface Props {
   onUpdate: () => void;
   onDelete: () => void;
-  onOpenClientCasesModal: () => void;
+  onRedirectToCases: () => void;
 }
 
 export function useClientCardActions({
   onUpdate,
   onDelete,
-  onOpenClientCasesModal,
+  onRedirectToCases,
 }: Props): CardAction[] {
   const permissions = usePermissions();
 
@@ -34,7 +34,7 @@ export function useClientCardActions({
       label: 'Ver processos',
       Icon: BalanceIcon,
       visible: true,
-      action: onOpenClientCasesModal,
+      action: onRedirectToCases,
     },
   ].filter((action) => action.visible);
 }
