@@ -5,8 +5,8 @@ import { ClientCardHeader } from './ClientCardHeader';
 import { ClientCardFooter } from './ClientCardFooter';
 import { useUpdateClientModal } from '@/hooks/modals/useUpdateClientModal';
 import { useDeleteClientModal } from '@/hooks/modals/useDeleteClientModal';
-import { useClientModal } from '@/hooks/modals/useClientModal';
 import { useClientCardActions } from '@/hooks/cards/useClientCardActions';
+import { useClientCasesModal } from '@/hooks/modals/useClientCasesModal';
 
 interface Props {
   clientData: WithId<SafeUser>;
@@ -21,7 +21,7 @@ export function ClientCard({ clientData, fetchClients }: Props) {
 
   const { openUpdateClientModal } = useUpdateClientModal();
   const { openDeleteClientModal } = useDeleteClientModal();
-  const { openClientModal } = useClientModal();
+  const { openClientCasesModal } = useClientCasesModal();
 
   function handleUpdate() {
     openUpdateClientModal(id, fetchClients);
@@ -30,15 +30,18 @@ export function ClientCard({ clientData, fetchClients }: Props) {
   function handleDelete() {
     openDeleteClientModal({ id, firstName, lastName }, fetchClients);
   }
+  function handleOpenClientCasesModal() {
+    openClientCasesModal(id);
+  }
 
-  const actions = useClientCardActions({ onUpdate: handleUpdate, onDelete: handleDelete });
+  const actions = useClientCardActions({
+    onUpdate: handleUpdate,
+    onDelete: handleDelete,
+    onOpenClientCasesModal: handleOpenClientCasesModal,
+  });
 
   return (
-    <Card
-      className="w-full h-fit min-md:w-[720px]"
-      actions={actions}
-      onClick={() => openClientModal(id)}
-    >
+    <Card className="w-full h-fit min-md:w-[720px]" actions={actions}>
       <div className="flex flex-col text-color-black p-[24px] gap-[32px]">
         <ClientCard.Header clientName={`${firstName} ${lastName}`} cpf={cpf} />
         <ClientCard.Footer email={email} phone={phone} />
