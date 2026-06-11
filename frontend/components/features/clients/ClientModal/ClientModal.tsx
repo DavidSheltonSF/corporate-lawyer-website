@@ -48,9 +48,6 @@ export function ClientModal({ payload, close }: GlobalModalProps<Props>) {
     }
 
     fetchClientData();
-    return () => {
-      setRequestState({ status: 'idle' });
-    };
   }, []);
 
   if (registerCaseModalIsOpen) {
