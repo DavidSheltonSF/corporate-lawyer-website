@@ -16,10 +16,6 @@ export async function getCases(
   },
   populate?: string[]
 ): Promise<ActionResponse<Page<WithId<CaseWithRelations>>>> {
-  if (!queryParams) {
-    throw new MissingRequiredArgumentError(getCases.name, 'queryParams');
-  }
-
   const { page, limit, search, status } = queryParams;
 
   const baseRoute = `${API_URL}/cases`;
