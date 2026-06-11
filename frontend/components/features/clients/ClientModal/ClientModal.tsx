@@ -11,7 +11,6 @@ import { RequestState } from '@/types/RequestState';
 import { WithId } from '@/types/WithId';
 import { RegisterCaseModal } from '@/components/modals/RegisterCaseModal';
 import { GlobalModalProps } from '@/types/GlobalModalProps';
-import { ClientModalFooter } from './ClientModalFooter';
 import { useClientCasesModal } from '@/hooks/modals/useClientCasesModal';
 import { Button } from '@/components/ui/Button/Button';
 import { ButtonVariant } from '@/components/ui/Button/ButtonVariant';
@@ -24,7 +23,6 @@ interface Props {
 
 ClientModal.Header = ClientModalHeader;
 ClientModal.Info = ClientModalInfo;
-ClientModal.Footer = ClientModalFooter;
 
 export function ClientModal({ payload, close }: GlobalModalProps<Props>) {
   const [registerCaseModalIsOpen, setRegisterCaseModalIsOpen] = useState(false);
