@@ -15,6 +15,7 @@ import { handleLogout } from '@/lib/handleLogout';
 import { RequestState } from '@/types/RequestState';
 import { Page } from '@/types/Page';
 import { useUserRole } from '@/hooks/auth/useUserRole';
+import { CasesFetcher } from '@/services/cases/types';
 
 export default function CaseSearch() {
   const [search, setSearch] = useState('');
@@ -30,31 +31,20 @@ export default function CaseSearch() {
   async function fetchCases() {
     try {
       setRequestState({ status: 'loading' });
-      let response = null;
+      if (!userRole) return;
 
-      switch (userRole) {
-        case UserRole.lawyer:
-          response = await getCases({
-            page,
-            limit: 4,
-            search,
-            status: statusFilder || '',
-          });
-          break;
+      let casesFetcher: Record<string, CasesFetcher> = {
+        admin: getCases,
+        lawyer: getCases,
+        client: getMyCases,
+      };
 
-        case UserRole.client:
-          response = await getMyCases({
-            page,
-            limit: 4,
-            search,
-            status: statusFilder || '',
-          });
-          break;
-      }
-
-      if (!response) {
-        throw new Error('Invalid role');
-      }
+      const response = await casesFetcher[userRole]({
+        page,
+        limit: 4,
+        search,
+        status: statusFilder || '',
+      });
 
       if (!response.success) {
         const { message, code, details } = response;
@@ -79,7 +69,7 @@ export default function CaseSearch() {
 
   useEffect(() => {
     fetchCases();
-  }, [page]);
+  }, [page, userRole]);
 
   useEffect(() => {
     if (requestState?.status === 'error') {
@@ -90,7 +80,11 @@ export default function CaseSearch() {
   return (
     <section className="flex flex-col items-center size-full">
       <div className="flex flex-col lg:flex-row gap-[40px] size-full">
-        <SearchBar search={search} onChange={(e) => setSearch(e.target.value)} action={fetchCases} />
+        <SearchBar
+          search={search}
+          onChange={(e) => setSearch(e.target.value)}
+          action={fetchCases}
+        />
         <div className="h-[48px] rounded-full w-[180px]">
           <DropDownButton
             selectedItem={statusFilder}
