@@ -20,6 +20,7 @@ import { useCaseFilters } from '@/hooks/url/useCaseFilters';
 
 export default function CaseSearch() {
   const { search, setSearch } = useCaseFilters();
+  const [searchText, setSearchText] = useState(search);
   const [statusFilder, setStatusFilter] = useState<CaseStatusEnum | null>(null);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
@@ -65,7 +66,7 @@ export default function CaseSearch() {
 
   useEffect(() => {
     fetchCases();
-  }, [page, userRole]);
+  }, [page, userRole, search]);
 
   useEffect(() => {
     if (requestState?.status === 'error') {
@@ -79,10 +80,10 @@ export default function CaseSearch() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            fetchCases();
+            setSearch(searchText);
           }}
         >
-          <SearchBar defaultValue={search} onChange={(e) => setSearch(e.target.value)} />
+          <SearchBar value={searchText} onChange={(e) => setSearchText(e.target.value)} />
         </form>
         <div className="h-[48px] rounded-full w-[180px]">
           <DropDownButton
