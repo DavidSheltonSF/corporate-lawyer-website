@@ -2,13 +2,19 @@ import { DeleteIcon } from '@/components/icons/DeleteIcon';
 import { EditIcon } from '@/components/icons/EditIcon';
 import { CardAction } from '@/components/ui/CardDropdown/types';
 import { usePermissions } from '../auth/usePermissions';
+import { BalanceIcon } from '@/components/icons/BalanceIcon';
 
 interface Props {
   onUpdate: () => void;
   onDelete: () => void;
+  onOpenClientCasesModal: () => void;
 }
 
-export function useClientCardActions({ onUpdate, onDelete }: Props): CardAction[] {
+export function useClientCardActions({
+  onUpdate,
+  onDelete,
+  onOpenClientCasesModal,
+}: Props): CardAction[] {
   const permissions = usePermissions();
 
   return [
@@ -23,6 +29,12 @@ export function useClientCardActions({ onUpdate, onDelete }: Props): CardAction[
       Icon: DeleteIcon,
       visible: permissions.canDeleteCase,
       action: onDelete,
+    },
+    {
+      label: 'Ver processos',
+      Icon: BalanceIcon,
+      visible: true,
+      action: onOpenClientCasesModal,
     },
   ].filter((action) => action.visible);
 }
