@@ -17,7 +17,7 @@ import { Page } from '@/types/Page';
 import { useUserRole } from '@/hooks/auth/useUserRole';
 
 export default function CaseSearch() {
-  const [query, setQuery] = useState('');
+  const [search, setSearch] = useState('');
   const [statusFilder, setStatusFilter] = useState<CaseStatusEnum | null>(null);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
@@ -37,7 +37,7 @@ export default function CaseSearch() {
           response = await getCases({
             page,
             limit: 4,
-            query,
+            search,
             status: statusFilder || '',
           });
           break;
@@ -46,7 +46,7 @@ export default function CaseSearch() {
           response = await getMyCases({
             page,
             limit: 4,
-            query,
+            search,
             status: statusFilder || '',
           });
           break;
@@ -90,7 +90,7 @@ export default function CaseSearch() {
   return (
     <section className="flex flex-col items-center size-full">
       <div className="flex flex-col lg:flex-row gap-[40px] size-full">
-        <SearchBar query={query} onChange={(e) => setQuery(e.target.value)} action={fetchCases} />
+        <SearchBar search={search} onChange={(e) => setSearch(e.target.value)} action={fetchCases} />
         <div className="h-[48px] rounded-full w-[180px]">
           <DropDownButton
             selectedItem={statusFilder}

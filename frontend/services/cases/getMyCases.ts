@@ -9,7 +9,7 @@ import { makeActionResponse } from '@/factories/makeActionResponse';
 
 export async function getMyCases(
   queryParams: {
-    query?: string;
+    search?: string;
     page: number;
     limit: number;
     status?: string;
@@ -20,11 +20,11 @@ export async function getMyCases(
     throw new MissingRequiredArgumentError(getMyCases.name, 'queryParams');
   }
 
-  const { page, limit, query, status } = queryParams;
+  const { page, limit, search, status } = queryParams;
 
   const baseRoute = `${API_URL}/my/cases`;
 
-  const queryString = `?page=${page}&limit=${limit || ''}&query=${query || ''}&status=${
+  const queryString = `?page=${page}&limit=${limit || ''}&query=${search || ''}&status=${
     status || ''
   }&populate=${populate || ''}`;
 

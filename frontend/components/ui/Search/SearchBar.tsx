@@ -3,14 +3,14 @@ import { SearchInput } from './SearchInput';
 import { SearchIcon } from '@/components/icons/SearchIcon';
 
 interface Props {
-  query: string;
+  search: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
   action: () => void;
 }
 
 SearchBar.Input = SearchInput;
 
-export function SearchBar({ query, onChange, action }: Props) {
+export function SearchBar({ search, onChange, action }: Props) {
   function handleKeyDown(e: KeyboardEvent) {
     if (e.key === 'Enter') {
       action();
@@ -21,7 +21,7 @@ export function SearchBar({ query, onChange, action }: Props) {
     <div className="flex items-center gap-[8px] bg-color-white w-full min-md:w-[70%] min-lg:w-[520px] h-[48px] rounded-full px-[8px]">
       <SearchIcon className="size-[32px] stroke-color-black" />
       <SearchBar.Input
-        value={query}
+        value={search}
         placeholder="Pesquisar processo..."
         onChange={onChange}
         onKeyDown={handleKeyDown}
