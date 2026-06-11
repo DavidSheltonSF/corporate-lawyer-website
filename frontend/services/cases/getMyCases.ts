@@ -1,23 +1,10 @@
 import { API_URL } from '@/config/api';
-import { MissingRequiredArgumentError } from '@/errors/MissingRequiredArgumentError';
-import { CaseWithRelations } from '@/types/CaseWithRelations';
-import { Page } from '@/types/Page';
-import { WithId } from '@/types/WithId';
 import { apiFetch } from '../apiFetch';
-import { ActionResponse } from '@/types/ActionResponse';
 import { makeActionResponse } from '@/factories/makeActionResponse';
+import { GetCasesParams, GetCasesResponse } from './types';
 
-export async function getMyCases(
-  queryParams: {
-    search?: string;
-    page: number;
-    limit: number;
-    status?: string;
-  },
-  populate?: string[]
-): Promise<ActionResponse<Page<WithId<CaseWithRelations>>>> {
-
-  const { page, limit, search, status } = queryParams;
+export async function getMyCases(params: GetCasesParams): Promise<GetCasesResponse> {
+  const { page, limit, search, status, populate } = params;
 
   const baseRoute = `${API_URL}/my/cases`;
 
