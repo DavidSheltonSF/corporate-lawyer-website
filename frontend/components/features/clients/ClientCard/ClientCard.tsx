@@ -6,7 +6,6 @@ import { ClientCardFooter } from './ClientCardFooter';
 import { useUpdateClientModal } from '@/hooks/modals/useUpdateClientModal';
 import { useDeleteClientModal } from '@/hooks/modals/useDeleteClientModal';
 import { useClientCardActions } from '@/hooks/cards/useClientCardActions';
-import { useClientCasesModal } from '@/hooks/modals/useClientCasesModal';
 import { useRouter } from 'next/navigation';
 
 interface Props {
@@ -23,7 +22,6 @@ export function ClientCard({ clientData, fetchClients }: Props) {
 
   const { openUpdateClientModal } = useUpdateClientModal();
   const { openDeleteClientModal } = useDeleteClientModal();
-  const { openClientCasesModal } = useClientCasesModal();
 
   function handleUpdate() {
     openUpdateClientModal(id, fetchClients);
