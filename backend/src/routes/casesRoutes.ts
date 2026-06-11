@@ -11,6 +11,7 @@ export function casesRoutes(router: Router, caseController: ICaseController) {
   router.get('/api/cases/stats', requireAuth, expressHttpAdapter(caseController.getStats));
   router.get('/api/cases', requireAuth, expressHttpAdapter(caseController.findAll));
   router.get('/api/cases/:id', expressHttpAdapter(caseController.findById));
+  router.get('/api/client/:id/cases', expressHttpAdapter(caseController.findByClientId));
   router.get('/api/my/cases', requireAuth, expressHttpAdapter(caseController.findMyCases));
   router.get(
     '/api/cases/:id/files',
