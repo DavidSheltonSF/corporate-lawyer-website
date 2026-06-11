@@ -12,6 +12,7 @@ import { SuccessModal } from '../ui/Modal/SuccessModal';
 import { ErrorModal } from '../ui/Modal/ErrorModal';
 import { CreateDeadlineModal } from '../features/deadlines/CreateDeadlineModal/CreateDeadlineModal';
 import { useModalStore } from '@/stores/useModalStore';
+import { ClientCasesModal } from '../features/clients/ClientCasesModal/ClientCasesModal';
 
 export function ModalRenderer() {
   const { getCurrentModal, closeModal } = useModalStore();
@@ -20,6 +21,9 @@ export function ModalRenderer() {
   switch (currentModal?.type) {
     case 'client':
       return <ClientModal payload={currentModal.payload} close={closeModal} />;
+
+    case 'client-cases':
+      return <ClientCasesModal payload={currentModal.payload} close={closeModal} />;
 
     case 'case':
       return <CaseModal payload={currentModal.payload} close={closeModal} />;
