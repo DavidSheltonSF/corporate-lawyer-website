@@ -1,10 +1,11 @@
 import { Card } from '@/components/ui/Card/Card';
 import { Text } from '@/components/ui/Text';
 import { Case } from '@/types/Case';
+import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { WithId } from '@/types/WithId';
 
 interface Props {
-  caseData: WithId<Case>;
+  caseData: WithId<CaseWithRelations>;
 }
 export function ClientCaseCard({ caseData }: Props) {
   const { id, title, description } = caseData;
