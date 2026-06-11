@@ -16,6 +16,7 @@ import { useClientCasesModal } from '@/hooks/modals/useClientCasesModal';
 import { Button } from '@/components/ui/Button/Button';
 import { ButtonVariant } from '@/components/ui/Button/ButtonVariant';
 import { OpenUploadModalButton } from '@/components/OpenUploadModalButton';
+import { LoadingModalScreeen } from '@/components/ui/Modal/LoadingModalScreen';
 
 interface Props {
   clientId: string;
@@ -37,6 +38,8 @@ export function ClientModal({ payload, close }: GlobalModalProps<Props>) {
 
   useEffect(() => {
     async function fetchClientData() {
+      setRequestState({ status: 'loading' });
+
       const response = await getClientWithCases(clientId);
 
       if (!response.success) {
@@ -65,7 +68,7 @@ export function ClientModal({ payload, close }: GlobalModalProps<Props>) {
   function renderContent() {
     switch (requestState.status) {
       case 'loading':
-        return <CaseModalSkeleton />;
+        return <LoadingModalScreeen />;
 
       case 'ok':
         const { data } = requestState;
