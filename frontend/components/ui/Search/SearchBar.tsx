@@ -1,29 +1,16 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  KeyboardEvent,
-  MouseEvent,
-  useEffect,
-  useState,
-} from 'react';
+import { KeyboardEvent, ChangeEventHandler } from 'react';
 import { SearchInput } from './SearchInput';
 import { SearchIcon } from '@/components/icons/SearchIcon';
 
 interface Props {
   query: string;
-  setQuery: Dispatch<SetStateAction<string>>;
+  onChange: ChangeEventHandler<HTMLInputElement>;
   action: () => void;
 }
 
 SearchBar.Input = SearchInput;
 
-export function SearchBar({ query, setQuery, action }: Props) {
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    const searchBar = e.target;
-    setQuery(searchBar.value);
-  }
-
+export function SearchBar({ query, onChange, action }: Props) {
   function handleKeyDown(e: KeyboardEvent) {
     if (e.key === 'Enter') {
       action();
@@ -36,7 +23,7 @@ export function SearchBar({ query, setQuery, action }: Props) {
       <SearchBar.Input
         value={query}
         placeholder="Pesquisar processo..."
-        onChange={handleChange}
+        onChange={onChange}
         onKeyDown={handleKeyDown}
       />
     </div>

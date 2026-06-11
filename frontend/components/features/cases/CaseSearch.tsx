@@ -90,7 +90,7 @@ export default function CaseSearch() {
   return (
     <section className="flex flex-col items-center size-full">
       <div className="flex flex-col lg:flex-row gap-[40px] size-full">
-        <SearchBar query={query} setQuery={setQuery} action={fetchCases} />
+        <SearchBar query={query} onChange={(e) => setQuery(e.target.value)} action={fetchCases} />
         <div className="h-[48px] rounded-full w-[180px]">
           <DropDownButton
             selectedItem={statusFilder}
