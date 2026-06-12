@@ -5,11 +5,8 @@ import { CasesList } from './CasesList/CasesList';
 import { getMyCases } from '@/services/cases/getMyCases';
 import { WithId } from '@/types/WithId';
 import { Pagination } from '../../Pagination';
-import { CaseStatusEnum } from '@/types/CaseStatusEnum';
-import { DropDownButton } from '../../DropdownButton';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
-import { UserRole } from '@/types/UserRole';
 import { getCases } from '@/services/cases/getCases';
 import { handleLogout } from '@/lib/handleLogout';
 import { RequestState } from '@/types/RequestState';
@@ -17,11 +14,13 @@ import { Page } from '@/types/Page';
 import { useUserRole } from '@/hooks/auth/useUserRole';
 import { CasesFetcher } from '@/services/cases/types';
 import { useCaseFilters } from '@/hooks/url/useCaseFilters';
+import { SearchFilter } from './SearchFilter';
+import { FilterTag } from '@/components/ui/FilterTag';
 
 export default function CaseSearch() {
-  const { search, setSearch, clientId } = useCaseFilters();
+  const { search, setSearch, clientId, clearClientFilter, clientName } = useCaseFilters();
   const [searchText, setSearchText] = useState(search);
-  const [statusFilder, setStatusFilter] = useState<CaseStatusEnum | null>(null);
+  const [statusFilder, setStatusFilter] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const [requestState, setRequestState] = useState<RequestState<Page<WithId<CaseWithRelations>>>>({
@@ -67,7 +66,7 @@ export default function CaseSearch() {
 
   useEffect(() => {
     fetchCases();
-  }, [page, userRole, search]);
+  }, [page, userRole, search, clientId]);
 
   useEffect(() => {
     if (requestState?.status === 'error') {
@@ -86,14 +85,15 @@ export default function CaseSearch() {
         >
           <SearchBar value={searchText} onChange={(e) => setSearchText(e.target.value)} />
         </form>
-        <div className="h-[48px] rounded-full w-[180px]">
-          <DropDownButton
-            selectedItem={statusFilder}
-            defaultValue="Status"
-            setSelectedItem={setStatusFilter}
-            itemLabel={(status: CaseStatusEnum) => CaseStatusLabel[status]}
-            listItems={Object.values(CaseStatusEnum)}
+        <div className="flex flex-col md:flex-row gap-[24px] md:items-center">
+          <SearchFilter
+            label="Status"
+            itemLabel={CaseStatusLabel}
+            setSelectedValue={setStatusFilter}
+            selectedValue={statusFilder}
           />
+
+          {clientId && <FilterTag label={clientName} onClear={clearClientFilter} />}
         </div>
       </div>
       <CasesList loadCases={fetchCases} requestState={requestState} />
