@@ -69,6 +69,10 @@ export default function CaseSearch() {
   }, [page, userRole, search, clientId, status]);
 
   useEffect(() => {
+    setPage(1)
+  }, [search, clientId, status]);
+
+  useEffect(() => {
     if (requestState?.status === 'error') {
       requestState.code === 'UNAUTHORIZED' && handleLogout();
     }
