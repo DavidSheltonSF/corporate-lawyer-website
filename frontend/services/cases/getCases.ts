@@ -4,11 +4,11 @@ import { makeActionResponse } from '@/factories/makeActionResponse';
 import { GetCasesParams, GetCasesResponse } from './types';
 
 export async function getCases(params: GetCasesParams): Promise<GetCasesResponse> {
-  const { page, limit, search, status, populate } = params;
+  const { page, limit, search, status, populate, clientId } = params;
 
   const baseRoute = `${API_URL}/cases`;
 
-  const queryString = `?page=${page}&limit=${limit || ''}&query=${search || ''}&status=${
+  const queryString = `?page=${page}&limit=${limit || ''}&clientId=${clientId}&query=${search || ''}&status=${
     status || ''
   }&populate=${populate || ''}`;
 
