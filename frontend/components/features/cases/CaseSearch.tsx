@@ -20,7 +20,7 @@ import { FilterTag } from '@/components/ui/FilterTag';
 export default function CaseSearch() {
   const { search, setSearch, clientId, clearClientFilter, clientName } = useCaseFilters();
   const [searchText, setSearchText] = useState(search);
-  const [statusFilder, setStatusFilter] = useState<string | null>(null);
+  const [status, setStatusFilter] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const [requestState, setRequestState] = useState<RequestState<Page<WithId<CaseWithRelations>>>>({
@@ -43,7 +43,7 @@ export default function CaseSearch() {
       page,
       limit: 4,
       search,
-      status: statusFilder || '',
+      status: status || '',
       clientId,
     });
 
@@ -66,7 +66,7 @@ export default function CaseSearch() {
 
   useEffect(() => {
     fetchCases();
-  }, [page, userRole, search, clientId, statusFilder]);
+  }, [page, userRole, search, clientId, status]);
 
   useEffect(() => {
     if (requestState?.status === 'error') {
@@ -90,7 +90,7 @@ export default function CaseSearch() {
             label="Status"
             itemLabel={CaseStatusLabel}
             setSelectedValue={setStatusFilter}
-            selectedValue={statusFilder}
+            selectedValue={status}
           />
 
           {clientId && <FilterTag label={clientName} onClear={clearClientFilter} />}
