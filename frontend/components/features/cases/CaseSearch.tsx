@@ -66,7 +66,7 @@ export default function CaseSearch() {
 
   useEffect(() => {
     fetchCases();
-  }, [page, userRole, search, clientId]);
+  }, [page, userRole, search, clientId, statusFilder]);
 
   useEffect(() => {
     if (requestState?.status === 'error') {
