@@ -66,10 +66,10 @@ export default function CaseSearch() {
 
   useEffect(() => {
     fetchCases();
-  }, [page, userRole, search, clientId, status]);
+  }, [page, userRole, search, clientId, status, fetchCases]);
 
   useEffect(() => {
-    setPage(1)
+    setPage(1);
   }, [search, clientId, status]);
 
   useEffect(() => {
