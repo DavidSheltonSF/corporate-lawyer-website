@@ -19,7 +19,7 @@ import { CasesFetcher } from '@/services/cases/types';
 import { useCaseFilters } from '@/hooks/url/useCaseFilters';
 
 export default function CaseSearch() {
-  const { search, setSearch } = useCaseFilters();
+  const { search, setSearch, clientId } = useCaseFilters();
   const [searchText, setSearchText] = useState(search);
   const [statusFilder, setStatusFilter] = useState<CaseStatusEnum | null>(null);
   const [page, setPage] = useState(1);
@@ -45,6 +45,7 @@ export default function CaseSearch() {
       limit: 4,
       search,
       status: statusFilder || '',
+      clientId,
     });
 
     if (!response.success) {
