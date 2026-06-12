@@ -1,25 +1,10 @@
-import { usePathname, useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
+import { useUrlParams } from './useUrlParams';
 
 export function useCaseFilters() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const { searchParams, updateParam } = useUrlParams();
 
   const search = searchParams.get('search') ?? '';
   const clientId = searchParams.get('clientId') ?? '';
-
-  function updateParam(key: string, value: string) {
-    const params = new URLSearchParams(searchParams);
-
-    if (value) {
-      params.set(key, value);
-    } else {
-      params.delete(key);
-    }
-
-    router.replace(`${pathname}?${params.toString()}`);
-  }
 
   return {
     search,
