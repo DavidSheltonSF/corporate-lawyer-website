@@ -31,7 +31,8 @@ export function ClientCard({ clientData, fetchClients }: Props) {
     openDeleteClientModal({ id, firstName, lastName }, fetchClients);
   }
   function handleSeeCases() {
-    router.push(`processos?clientId=${id}`);
+    const clientName = `${firstName} ${lastName}`;
+    router.push(`processos?clientId=${id}&clientName=${encodeURIComponent(clientName)}`);
   }
 
   const actions = useClientCardActions({
