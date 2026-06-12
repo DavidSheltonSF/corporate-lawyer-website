@@ -11,12 +11,14 @@ import { RegisterClientModal } from '../../modals/RegisterClientModal';
 import { Button } from '../../ui/Button/Button';
 import { RequestState } from '@/types/RequestState';
 import { Page } from '@/types/Page';
+import { useClientFilters } from '@/hooks/url/useClientFilters';
 
 export default function ClientSearch() {
   const [requestState, setRequestState] = useState<RequestState<WithId<SafeUser>[]>>({
     status: 'idle',
   });
-  const [searchText, setSearchText] = useState('');
+  const { search, setSearch } = useClientFilters();
+  const [searchText, setSearchText] = useState(search);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const [registerUserModalIsOpen, setRegisterUserModalIsOpen] = useState(false);
@@ -26,7 +28,7 @@ export default function ClientSearch() {
     const response = await getClients({
       page,
       limit: 4,
-      query: searchText,
+      query: search,
     });
 
     if (!response.success) {
@@ -42,7 +44,7 @@ export default function ClientSearch() {
 
   useEffect(() => {
     fetchClients();
-  }, [page]);
+  }, [page, search]);
 
   return (
     <section className="flex flex-col items-center size-full">
@@ -54,7 +56,7 @@ export default function ClientSearch() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            fetchClients();
+            setSearch(searchText)
           }}
         >
           <SearchBar value={searchText} onChange={(e) => setSearchText(e.target.value)} />
