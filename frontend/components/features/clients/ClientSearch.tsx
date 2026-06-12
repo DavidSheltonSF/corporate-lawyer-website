@@ -16,7 +16,7 @@ export default function ClientSearch() {
   const [requestState, setRequestState] = useState<RequestState<WithId<SafeUser>[]>>({
     status: 'idle',
   });
-  const [query, setQuery] = useState('');
+  const [searchText, setSearchText] = useState('');
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const [registerUserModalIsOpen, setRegisterUserModalIsOpen] = useState(false);
@@ -26,7 +26,7 @@ export default function ClientSearch() {
     const response = await getClients({
       page,
       limit: 4,
-      query,
+      query: searchText,
     });
 
     if (!response.success) {
@@ -51,11 +51,13 @@ export default function ClientSearch() {
         setIsOpen={setRegisterUserModalIsOpen}
       />
       <div className="flex flex-col lg:flex-row gap-[40px] size-full">
-        <form onSubmit={(e) => {
-          e.preventDefault();
-          fetchClients()
-        }}>
-          <SearchBar value={query} onChange={(e) => setQuery(e.target.value)} />
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            fetchClients();
+          }}
+        >
+          <SearchBar value={searchText} onChange={(e) => setSearchText(e.target.value)} />
         </form>
         <div className="w-full min-lg:min-w-[200px]">
           <Button
