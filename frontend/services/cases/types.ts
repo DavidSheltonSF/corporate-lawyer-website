@@ -10,6 +10,7 @@ export interface GetCasesParams {
   page: number;
   limit: number;
   status?: string;
+  clientId?: string;
   populate?: string[];
 }
 export type CasesFetcher = (params: GetCasesParams) => Promise<GetCasesResponse>;
