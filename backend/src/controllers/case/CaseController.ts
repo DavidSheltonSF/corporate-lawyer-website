@@ -141,7 +141,7 @@ export class CaseController implements ICaseController {
   findAll = async (httpRequest: HttpRequest) => {
     await requireAutheticatedLawyer(httpRequest, this.userService);
 
-    const { status, query } = httpRequest.query;
+    const { status, query, clientId } = httpRequest.query;
     const page = httpRequest.query.page || 1;
     const limit = httpRequest.query.limit || 4;
 
@@ -150,6 +150,7 @@ export class CaseController implements ICaseController {
       status: status ? String(status) : undefined,
       limit: limit ? Number(limit) : undefined,
       page: page ? Number(page) : undefined,
+      clientId,
     });
 
     const pagination = {
