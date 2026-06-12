@@ -51,7 +51,9 @@ export default function ClientSearch() {
         setIsOpen={setRegisterUserModalIsOpen}
       />
       <div className="flex flex-col lg:flex-row gap-[40px] size-full">
-        <SearchBar query={query} action={fetchClients} setQuery={setQuery} />
+
+          <SearchBar value={query} onChange={(e) => setQuery(e.target.value)} />
+       
         <div className="w-full min-lg:min-w-[200px]">
           <Button
             className="p-[16px] bg-color-white text-color-black w-full min-lg:w-fit"
