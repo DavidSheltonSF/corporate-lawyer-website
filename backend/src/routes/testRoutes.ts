@@ -24,7 +24,7 @@ export function testRoutes(router: Router) {
     const response = await NotificationModel.create(fakeNotifications);
     res.status(200).json({ data: response });
   });
-  router.delete('/api/notifications/clean', async (req: Request, res: Response) => {
+  router.delete('/api/test/notifications/clean', async (req: Request, res: Response) => {
     await NotificationModel.deleteMany({});
     res.sendStatus(200);
   });
