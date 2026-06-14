@@ -4,16 +4,16 @@ import { NotificationModel } from '../models/NotificationModel';
 import { NotificationType } from '../types/NotificationType';
 
 export function testRoutes(router: Router) {
-  router.get('/api/users/', async (req: Request, res: Response) => {
+  router.get('/api/test/users/', async (req: Request, res: Response) => {
     const response = await UserModel.find();
     res.status(200).json({ data: response });
   });
-  router.get('/api/notifications/', async (req: Request, res: Response) => {
+  router.get('/api/test/notifications/', async (req: Request, res: Response) => {
     const response = await NotificationModel.find();
     res.status(200).json({ data: response });
   });
 
-  router.post('/api/notifications/', async (req: Request, res: Response) => {
+  router.post('/api/test/notifications/', async (req: Request, res: Response) => {
     const response = await NotificationModel.create([
       {
         userId: 'a3f9c1e70d4b8a2fff12ac90',
