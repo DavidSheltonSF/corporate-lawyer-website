@@ -9,7 +9,7 @@ import { UserRole } from '@/types/UserRole';
 export async function getCases(
   userRole: string,
   params: GetCasesParams
-): Promise<Page<WithId<CaseWithRelations[]>>> {
+): Promise<Page<WithId<CaseWithRelations>>> {
   const { page, limit, search, status, populate, clientId } = params;
 
   let baseRoute = `${API_URL}/cases`;
