@@ -15,6 +15,13 @@ export function testRoutes(router: Router) {
     res.status(200).json({ data: response });
   });
 
+  router.put('/api/test/cases/:id', async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const body = req.body;
+    const response = await CaseModel.findByIdAndUpdate(id, body);
+    res.status(200).json({ data: response });
+  });
+
   router.get('/api/test/notifications/', async (req: Request, res: Response) => {
     const response = await NotificationModel.find();
     res.status(200).json({ data: response });
