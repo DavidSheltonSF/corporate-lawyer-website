@@ -1,9 +1,11 @@
 import { API_URL } from '@/config/api';
 import { apiFetch } from '../apiFetch';
-import { makeActionResponse } from '@/factories/makeActionResponse';
-import { GetCasesParams, GetCasesResponse } from './types';
+import { GetCasesParams } from './types';
+import { CaseWithRelations } from '@/types/CaseWithRelations';
+import { WithId } from '@/types/WithId';
+import { Page } from '@/types/Page';
 
-export async function getCases(params: GetCasesParams): Promise<GetCasesResponse> {
+export async function getCases(params: GetCasesParams): Promise<Page<WithId<CaseWithRelations[]>>> {
   const { page, limit, search, status, populate, clientId } = params;
 
   const baseRoute = `${API_URL}/cases`;
@@ -16,5 +18,6 @@ export async function getCases(params: GetCasesParams): Promise<GetCasesResponse
     method: 'GET',
   });
 
-  return makeActionResponse(response);
+  const json = await response.json();
+  return json.data;
 }
