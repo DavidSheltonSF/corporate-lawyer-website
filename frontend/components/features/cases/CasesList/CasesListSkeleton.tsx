@@ -4,5 +4,5 @@ export function CasesListSkeleton() {
   const renderCaseSkeletons = Array.from({ length: 4 }).map((page, index) => {
     return <CardSkeleton key={index} />;
   });
-  return <>{renderCaseSkeletons}</>;
+  return <div className="flex flex-col gap-[32px] mt-[88px] w-full">{renderCaseSkeletons}</div>;
 }
