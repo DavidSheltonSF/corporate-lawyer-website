@@ -6,6 +6,7 @@ import { getMe } from '@/services/users/getMe';
 import { redirect } from 'next/navigation';
 import { AuthHydrator } from '@/components/AuthHydrator';
 import { Notifications } from '@/components/features/notifications/Notifications';
+import { QueryProvider } from '@/components/providers/QueryProvider';
 
 export default async function ClientLayout({
   children,
@@ -25,12 +26,14 @@ export default async function ClientLayout({
 
     return (
       <>
-        <AuthHydrator user={user}>
-          <ClientNavbar />
-          <ModalRenderer />
-          <main className="flex-1 p-[40px] min-h-[90vh]">{children}</main>
-          <Notifications/>
-        </AuthHydrator>
+        <QueryProvider>
+          <AuthHydrator user={user}>
+            <ClientNavbar />
+            <ModalRenderer />
+            <main className="flex-1 p-[40px] min-h-[90vh]">{children}</main>
+            <Notifications />
+          </AuthHydrator>
+        </QueryProvider>
       </>
     );
   } catch (error) {
