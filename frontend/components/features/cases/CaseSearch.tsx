@@ -9,14 +9,20 @@ import { useCaseFilters } from '@/hooks/url/useCaseFilters';
 import { SearchFilter } from './SearchFilter';
 import { FilterTag } from '@/components/ui/FilterTag';
 import { useCases } from '@/hooks/fetching/cases/useCases';
+import { useDeleteCase } from '@/hooks/fetching/cases/useDeleteCase';
+import { useErrorModal } from '@/hooks/modals/useErrorModal';
+import { useSuccessModal } from '@/hooks/modals/useSuccessModal';
 
 export default function CaseSearch() {
   const { search, setSearch, clientId, clearClientFilter, clientName } = useCaseFilters();
   const [searchText, setSearchText] = useState(search);
   const [status, setStatusFilter] = useState<string | null>(null);
   const [page, setPage] = useState(1);
+  const { openErrorModal } = useErrorModal();
+  const { openSuccessModal } = useSuccessModal();
 
   const userRole = useUserRole();
+  const deleteCaseMutation = useDeleteCase();
 
   const { data, error, isLoading } = useCases(userRole, {
     page,
@@ -28,6 +34,16 @@ export default function CaseSearch() {
 
   if (error) {
     return null;
+  }
+
+  async function handleDeleteCase(caseId: string) {
+    try {
+      await deleteCaseMutation.mutateAsync(caseId);
+      openSuccessModal('rocesso removido com sucesso');
+    } catch (error: any) {
+      console.log(error);
+      openErrorModal(error.message);
+    }
   }
 
   return (
@@ -55,7 +71,7 @@ export default function CaseSearch() {
       {isLoading || !data ? (
         <CasesList.Skeleton />
       ) : (
-        <CasesList loadCases={() => {}} cases={data.items} />
+        <CasesList loadCases={() => {}} cases={data.items} onDelete={handleDeleteCase}/>
       )}
       <Pagination page={page} setPage={setPage} totalPage={data?.meta.totalPages || 0} />
     </section>
