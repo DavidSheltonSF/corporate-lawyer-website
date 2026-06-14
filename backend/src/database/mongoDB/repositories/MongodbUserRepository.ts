@@ -10,7 +10,6 @@ import { UpdateUserDTO } from '../../../dtos/user/UpdateUserDTO';
 import { UserDTO } from '../../../dtos/user/UserDTO';
 import { CaseMapper } from '../../../mappers/Case/CaseMapper';
 import { CaseModel } from '../../../models/CaseModel';
-import { UserWithCasesDTO } from '../../../dtos/user/UserWithCasesDTO';
 
 export class MongodbUserRepository implements UserRepository {
   async create(data: UserDTO): Promise<WithId<UserDTO>> {
@@ -60,29 +59,6 @@ export class MongodbUserRepository implements UserRepository {
       return null;
     }
     return UserMapper.persistenceToPresentation(user);
-  }
-
-  async findByIdWithCases(id: string): Promise<WithId<UserWithCasesDTO> | null> {
-    const user = await UserModel.findById(id).lean();
-    const cases = await CaseModel.find({ client: id }).lean();
-
-    if (!user) {
-      return null;
-    }
-
-    const mappedCases = cases.map(CaseMapper.persistenceToPresentation);
-
-    return {
-      id: user._id.toString(),
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      phone: user.phone,
-      cpf: user.cpf,
-      password: user.password,
-      role: user.role,
-      cases: mappedCases,
-    };
   }
 
   async findByEmail(email: string): Promise<WithId<UserDTO> | null> {

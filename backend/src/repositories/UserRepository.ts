@@ -1,6 +1,5 @@
 import { UpdateUserDTO } from '../dtos/user/UpdateUserDTO';
 import { UserDTO } from '../dtos/user/UserDTO';
-import { UserWithCasesDTO } from '../dtos/user/UserWithCasesDTO';
 import { Page } from '../types/Page';
 import { UserQuery } from '../types/UserQuery';
 import { WithId } from '../types/WithId';
@@ -10,7 +9,6 @@ export interface UserRepository {
   findAll(): Promise<WithId<UserDTO>[]>;
   findClients(userQuery: UserQuery): Promise<Page<WithId<UserDTO>>>;
   findById(id: string): Promise<WithId<UserDTO> | null>;
-  findByIdWithCases(id: string): Promise<WithId<UserWithCasesDTO> | null>;
   findByEmail(email: string): Promise<WithId<UserDTO> | null>;
   deleteById(id: string): Promise<WithId<UserDTO> | null>;
   updateById(id: string, data: Partial<UpdateUserDTO>): Promise<WithId<UserDTO> | null>;
