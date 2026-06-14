@@ -4,11 +4,19 @@ import { GetCasesParams } from './types';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { WithId } from '@/types/WithId';
 import { Page } from '@/types/Page';
+import { UserRole } from '@/types/UserRole';
 
-export async function getCases(params: GetCasesParams): Promise<Page<WithId<CaseWithRelations[]>>> {
+export async function getCases(
+  userRole: string,
+  params: GetCasesParams
+): Promise<Page<WithId<CaseWithRelations[]>>> {
   const { page, limit, search, status, populate, clientId } = params;
 
-  const baseRoute = `${API_URL}/cases`;
+  let baseRoute = `${API_URL}/cases`;
+
+  if (userRole === UserRole.client) {
+    baseRoute = `${API_URL}/my/cases`;
+  }
 
   const queryString = `?page=${page}&limit=${limit || ''}&clientId=${clientId}&query=${search || ''}&status=${
     status || ''
