@@ -18,14 +18,23 @@ export async function getCases(
     baseRoute = `${API_URL}/my/cases`;
   }
 
-  const queryString = `?page=${page}&limit=${limit || ''}&clientId=${clientId}&query=${search || ''}&status=${
-    status || ''
-  }&populate=${populate || ''}`;
+  console.log('ROLE');
+  console.log(userRole);
 
-  const response = await apiFetch(`${baseRoute}/${queryString}`, {
+  const queryString = new URLSearchParams({
+    page: String(page),
+    limit: String(limit ?? ''),
+    clientId: clientId ?? '',
+    query: search ?? '',
+    status: status ?? '',
+    populate: populate?.toString() ?? '',
+  });
+
+  const response = await apiFetch(`${baseRoute}?${queryString}`, {
     method: 'GET',
   });
 
   const json = await response.json();
+  console.log(json.data);
   return json.data;
 }
