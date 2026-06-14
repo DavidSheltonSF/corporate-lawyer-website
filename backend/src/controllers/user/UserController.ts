@@ -96,42 +96,6 @@ export class UserController implements IUserController {
     return HttpResponseFactory.makeOk(foundUser);
   };
 
-  findClientById = async (httpRequest: HttpRequest) => {
-    const authUser = httpRequest.user;
-    if (!authUser) {
-      throw new MissingAuthenticatedUserError();
-    }
-
-    const authUserData = await this.userService.findById(authUser.id);
-    if (!authUserData) {
-      throw new ForbiddenError(
-        `Could not execute operation. User with id ${authUser.id} was not found`
-      );
-    }
-
-    if (authUserData.role !== UserRole.lawyer) {
-      throw new ForbiddenError(
-        `Could not execute operation. User with id ${authUser.id} is not a lawyer`
-      );
-    }
-
-    const { id } = httpRequest.params;
-    const { include } = httpRequest.query;
-
-    if (!id) {
-      throw new BadRequestError('Missing id param');
-    }
-
-    let foundUserPromise =
-      include === 'cases'
-        ? this.userService.findByIdWithCases(id)
-        : this.userService.findById(id);
-
-    const foundUser = await foundUserPromise;
-
-    return HttpResponseFactory.makeOk(foundUser);
-  };
-
   updateById = async (httpRequest: HttpRequest) => {
     const authUser = httpRequest.user;
     if (!authUser) {
