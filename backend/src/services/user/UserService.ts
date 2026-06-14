@@ -14,7 +14,6 @@ import { validateEmail } from '../validators/users/validateEmail';
 import { validateUserPartial } from '../validators/users/validateUserPartial';
 import { IUserService } from './IUserService';
 import { UserIncludeOptions } from '../../types/UserincludeOptions';
-import { UserWithCasesResponseDTO } from '../../dtos/user/UserWithCasesResponseDTO';
 
 export class UserService implements IUserService {
   constructor(
@@ -78,15 +77,6 @@ export class UserService implements IUserService {
     return userWithoutPassword;
   }
 
-  async findByIdWithCases(id: string): Promise<WithId<UserWithCasesResponseDTO> | null> {
-    const user = await this.userRepository.findByIdWithCases(id);
-    if (!user) {
-      return null;
-    }
-    const { password, ...userWithoutPassword } = user;
-    return userWithoutPassword;
-  }
-
   async findByEmail(email: string): Promise<WithId<UserResponseDTO> | null> {
     validateEmail(email);
     const user = await this.userRepository.findByEmail(email);
@@ -98,7 +88,10 @@ export class UserService implements IUserService {
     return userWithoutPassword;
   }
 
-  async updateById(id: string, data: Partial<UpdateUserDTO>): Promise<WithId<UserResponseDTO> | null> {
+  async updateById(
+    id: string,
+    data: Partial<UpdateUserDTO>
+  ): Promise<WithId<UserResponseDTO> | null> {
     validateUserPartial(data);
     const result = await this.userRepository.updateById(id, data);
     if (!result) {
