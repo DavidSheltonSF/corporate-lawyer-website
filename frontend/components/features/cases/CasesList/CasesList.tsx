@@ -3,9 +3,9 @@ import { WithId } from '@/types/WithId';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { deleteCaseById } from '@/services/users/deleteCaseById';
 import { CasesListSkeleton } from './CasesListSkeleton';
-import { CasesListData } from './CasesListData';
 import { useErrorModal } from '@/hooks/modals/useErrorModal';
 import { useSuccessModal } from '@/hooks/modals/useSuccessModal';
+import { CaseCard } from '../CaseCard/CaseCard';
 
 interface Props {
   cases: WithId<CaseWithRelations>[];
@@ -13,7 +13,6 @@ interface Props {
 }
 
 CasesList.Skeleton = CasesListSkeleton;
-CasesList.Data = CasesListData;
 
 export function CasesList({ cases, loadCases }: Props) {
   const { openSuccessModal } = useSuccessModal();
@@ -32,9 +31,16 @@ export function CasesList({ cases, loadCases }: Props) {
     loadCases();
   }
 
-  return (
-    <div className="flex flex-col gap-[32px] mt-[88px] w-full">
-      <CasesList.Data data={cases} refetchCases={loadCases} handleDeleteCase={handleDeleteCase} />
-    </div>
-  );
+  const renderCases = cases?.map((cas, index) => {
+    return (
+      <CaseCard
+        refetchCases={loadCases}
+        deleteCase={handleDeleteCase}
+        key={cas.id}
+        caseData={cas}
+      />
+    );
+  });
+
+  return <div className="flex flex-col gap-[32px] mt-[88px] w-full">{renderCases}</div>;
 }
