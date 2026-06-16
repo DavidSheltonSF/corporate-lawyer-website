@@ -16,9 +16,9 @@ import { useUpdateCase } from '@/hooks/fetching/cases/useUpdateCase';
 import { useUpdateCaseModal } from '@/hooks/modals/useUpdateCaseModal';
 
 export default function CaseSearch() {
-  const { search, setSearch, clientId, clearClientFilter, clientName } = useCaseFilters();
+  const { search, setSearch, clientId, clearClientFilter, clientName, status, setStatus } =
+    useCaseFilters();
   const [searchText, setSearchText] = useState(search);
-  const [status, setStatusFilter] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const { openErrorModal } = useErrorModal();
   const { openSuccessModal } = useSuccessModal();
@@ -79,7 +79,7 @@ export default function CaseSearch() {
           <SearchFilter
             label="Status"
             itemLabel={CaseStatusLabel}
-            setSelectedValue={setStatusFilter}
+            setSelectedValue={setStatus}
             selectedValue={status}
           />
 
