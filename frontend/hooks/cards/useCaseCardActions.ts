@@ -17,8 +17,12 @@ export function useCaseCardActions({
   onDelete,
   onOpenDeadlines,
   onOpenFiles,
-}: Props): CardAction[] {
+}: Props): CardAction[] | null {
   const permissions = usePermissions();
+
+  if(!permissions) {
+    return null
+  }
 
   return [
     {
