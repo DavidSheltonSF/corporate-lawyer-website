@@ -1,8 +1,12 @@
 import { API_URL } from '@/config/api';
 import { apiFetch } from '../apiFetch';
 
-export async function updateCaseById( id: string,
-  formData: Record<string, string>): Promise<void> {
+interface UpdateCaseParams {
+  id: string;
+  formData: Record<string, string>;
+}
+
+export async function updateCaseById({ id, formData }: UpdateCaseParams): Promise<void> {
   const title = formData.title;
   const description = formData.description;
   const processNumber = formData.processNumber;
