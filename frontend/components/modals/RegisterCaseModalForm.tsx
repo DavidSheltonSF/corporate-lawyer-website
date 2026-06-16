@@ -42,6 +42,10 @@ export function RegisterCaseModalForm({
 
   async function registerCase(e: FormEvent<HTMLFormElement>) {
     if (!isReadyToSubmit) return;
+    if (!userId) {
+      throw Error('User id was not provided');
+    }
+    
     e.preventDefault();
     setRequestState({ status: 'loading' });
 
