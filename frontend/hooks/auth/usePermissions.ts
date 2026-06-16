@@ -1,8 +1,11 @@
 import { UserPermissions } from '@/types/UserPermissions';
 import { useUserRole } from './useUserRole';
 
-export function usePermissions(): UserPermissions {
+export function usePermissions(): UserPermissions | null {
   const role = useUserRole();
+  if (!role) {
+    return null;
+  }
 
   const permittionsByRole: Record<string, UserPermissions> = {
     admin: {
