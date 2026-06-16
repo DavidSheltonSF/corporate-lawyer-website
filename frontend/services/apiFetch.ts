@@ -1,3 +1,4 @@
+import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 
 interface RequestInit {
@@ -19,6 +20,10 @@ export async function apiFetch(url: string, options?: RequestInit): Promise<Resp
       Authorization: token || '',
     },
   });
+
+  if (response.status === 401) {
+    throw new UnauthorizedError();
+  }
 
   return response;
 }
