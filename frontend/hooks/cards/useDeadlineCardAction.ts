@@ -6,8 +6,12 @@ interface Props {
   onDelete: () => void;
 }
 
-export function useDeadlineCardActions({ onDelete }: Props): CardAction[] {
+export function useDeadlineCardActions({ onDelete }: Props): CardAction[] | null {
   const permissions = usePermissions();
+
+  if (!permissions) {
+    return null;
+  }
 
   return [
     {
