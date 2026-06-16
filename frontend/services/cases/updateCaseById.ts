@@ -2,21 +2,14 @@ import { API_URL } from '@/config/api';
 import { apiFetch } from '../apiFetch';
 
 interface UpdateCaseParams {
-  id: string;
-  formData: Record<string, string>;
+  caseId: string;
+  data: Record<string, string>;
 }
 
-export async function updateCaseById({ id, formData }: UpdateCaseParams): Promise<void> {
-  const title = formData.title;
-  const description = formData.description;
-  const processNumber = formData.processNumber;
-  const court = formData.court;
-  const courtDivision = formData.courtDivision;
-  const status = formData.status;
-  const state = formData.state;
-  const city = formData.city;
+export async function updateCaseById({ caseId, data }: UpdateCaseParams): Promise<void> {
+  const { title, description, processNumber, court, courtDivision, status, state, city } = data;
 
-  await apiFetch(`${API_URL}/cases/${id}`, {
+  await apiFetch(`${API_URL}/cases/${caseId}`, {
     headers: {
       'Content-Type': 'application/json',
     },
