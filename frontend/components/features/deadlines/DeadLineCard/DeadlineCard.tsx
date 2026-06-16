@@ -47,6 +47,10 @@ export function DeadlineCard({ deadline }: Props) {
 
   const actions = useDeadlineCardActions({ onDelete: handleOpenConfirmModal });
 
+  if (!actions) {
+    return null;
+  }
+
   return (
     <Card className="border-divider rounded-none w-full p-[24px]" actions={actions}>
       <div className="flex flex-col min-md:flex-row min-md:justify-between min-md:items-end gap-[16px] text-sm min-md:text-md">
@@ -54,7 +58,7 @@ export function DeadlineCard({ deadline }: Props) {
           <Text as={'h3'} variant="h3">
             {deadline.type}
           </Text>
-          <Text variant='muted'>
+          <Text variant="muted">
             Período: {formatDate(deadline.startDate)} - {formatDate(deadline.dueDate)}
           </Text>
         </div>
