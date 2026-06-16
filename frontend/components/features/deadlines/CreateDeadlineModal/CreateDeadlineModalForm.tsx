@@ -32,7 +32,7 @@ export function CreateDeadlineModalForm({
   });
 
   const userId = useCurrentUserId()
-
+ 
   const { formState, clearForm, hasEmptyFields, updateField } = useForm({
     type: '',
     countingType: '',
@@ -47,10 +47,14 @@ export function CreateDeadlineModalForm({
 
   async function handleCreateDeadline(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+     if (!userId) {
+       throw Error('User id was not provided');
+     }
 
     if (!isReadyToSubmit) return;
     setRequestState({ status: 'loading' });
 
+    
     const response = await createDeadline(caseId, userId, formState);
 
     if (!response.success) {
