@@ -1,14 +1,14 @@
 import { ChevronDownIcon } from '@/components/icons/ChevronDownIcon';
 import { Dropdown } from '@/components/ui/Dropdown/Dropdown';
 import { autoUpdate, FloatingPortal, offset, size, useFloating } from '@floating-ui/react';
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/Button/Button';
 import { CloseIcon } from '@/components/icons/CloseIcon';
 
 interface Props {
   label: string;
   selectedValue: string | null;
-  setSelectedValue: Dispatch<SetStateAction<string | null>>;
+  setSelectedValue: (value: string) => void;
   itemLabel?: Record<string, string>;
 }
 
@@ -59,7 +59,7 @@ export function SearchFilter({ selectedValue, label, itemLabel, setSelectedValue
             className="p-0 bg-color-white hover:brightness-95"
             onClick={(e) => {
               e.stopPropagation();
-              setSelectedValue(null);
+              setSelectedValue('');
             }}
           >
             <CloseIcon className="size-[24px]" />
