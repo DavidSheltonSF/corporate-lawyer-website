@@ -6,19 +6,18 @@ import { CaseCard } from '../CaseCard/CaseCard';
 
 interface Props {
   cases: WithId<CaseWithRelations>[];
-  loadCases: () => void;
   onDelete: (caseId: string) => void;
+  openUpdateModal: (caseId: string) => void;
 }
 
 CasesList.Skeleton = CasesListSkeleton;
 
-export function CasesList({ cases, loadCases, onDelete }: Props) {
-
+export function CasesList({ cases, onDelete, openUpdateModal }: Props) {
   const renderCases = cases?.map((cas, index) => {
     return (
       <CaseCard
-        refetchCases={loadCases}
         deleteCase={onDelete}
+        openUpdateModal={openUpdateModal}
         key={cas.id}
         caseData={cas}
       />

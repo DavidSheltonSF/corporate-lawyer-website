@@ -9,19 +9,18 @@ import { useCaseModal } from '@/hooks/modals/useCaseModal';
 import { useDeadlinesModal } from '@/hooks/modals/useDeadlinesModal';
 import { useCaseFilesModal } from '@/hooks/modals/useCaseFilesModal';
 import { useConfirmModal } from '@/hooks/modals/useConfirmModal';
-import { useUpdateCaseModal } from '@/hooks/modals/useUpdateCaseModal';
 import { useCaseCardActions } from '@/hooks/cards/useCaseCardActions';
 
 interface Props {
   caseData: WithId<CaseWithRelations>;
   deleteCase: (id: string) => void;
-  refetchCases: () => void;
+  openUpdateModal: (caseId: string) => any;
 }
 
 CaseCard.Header = CaseCardHeader;
 CaseCard.Footer = CaseCardFooter;
 
-export function CaseCard({ caseData, deleteCase, refetchCases }: Props) {
+export function CaseCard({ caseData, deleteCase, openUpdateModal }: Props) {
   const clientData = caseData.client;
   const { firstName, lastName } = clientData;
   const { id, status } = caseData;
@@ -29,14 +28,13 @@ export function CaseCard({ caseData, deleteCase, refetchCases }: Props) {
   const { openDeadlinesModal } = useDeadlinesModal();
   const { openCaseFilesModal } = useCaseFilesModal();
   const { openConfirmModal } = useConfirmModal();
-  const { openUpdateCaseModal } = useUpdateCaseModal();
 
   const lawyersNames = caseData.lawyers?.map((lawyer) => {
     return `${lawyer.firstName} ${lawyer.lastName}`;
   });
 
   function handleUpdate() {
-    openUpdateCaseModal(id, refetchCases);
+    openUpdateModal(id);
   }
 
   function handleDelete() {
@@ -46,7 +44,6 @@ export function CaseCard({ caseData, deleteCase, refetchCases }: Props) {
       confirmButtonVariant: ButtonVariant.DANGER,
       onConfirm: async () => {
         deleteCase(id);
-        refetchCases();
       },
     });
   }

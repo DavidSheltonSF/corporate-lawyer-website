@@ -3,15 +3,12 @@ import { InputWithLabel } from '@/components/ui/Input/InputWithLabel';
 import { BrazilStateLabel } from '@/lib/BrazilStateLabel';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { CityLabel } from '@/lib/CityLabel';
-import { handleLogout } from '@/lib/handleLogout';
 import { getCaseById } from '@/services/cases/getCaseById';
-import { updateCaseById } from '@/services/cases/updateCaseById';
 import { Case } from '@/types/Case';
 import { WithId } from '@/types/WithId';
 import { LoadingModalScreeen } from '@/components/ui/Modal/LoadingModalScreen';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { RequestState } from '@/types/RequestState';
-import { RequestFeedback } from '@/components/ui/Feedback/RequestFeedback';
 import { useForm } from '@/hooks/useForm';
 
 interface Props {
@@ -19,24 +16,21 @@ interface Props {
   caseId: string;
   isReadyToSubmit: boolean;
   setIsReadyToSubmit: Dispatch<SetStateAction<boolean>>;
-  refetchCases: () => void;
+  onSubmit: (caseId: string, data: Record<string, string>) => any;
 }
 
 export function UpdateCaseModalForm({
   formId,
   caseId,
-  refetchCases,
   isReadyToSubmit,
   setIsReadyToSubmit,
+  onSubmit,
 }: Props) {
   const [getRequestState, setGetRequestState] = useState<RequestState<WithId<Case>>>({
     status: 'idle',
   });
-  const [updateRequestState, setUpdateRequestState] = useState<RequestState<WithId<Case>>>({
-    status: 'idle',
-  });
 
-  const { formState, setFormState, clearForm, hasEmptyFields } = useForm({
+  const { formState, setFormState, hasEmptyFields } = useForm({
     title: '',
     processNumber: '',
     court: '',
@@ -73,22 +67,9 @@ export function UpdateCaseModalForm({
 
   async function alterCase(e: React.FormEvent<HTMLFormElement>) {
     if (!isReadyToSubmit) return;
-
     e.preventDefault();
 
-    setUpdateRequestState({ status: 'loading' });
-    const response = await updateCaseById(caseId || '', formState);
-
-    if (!response.success) {
-      if (response.code === 'UNAUTHORIZED') {
-        handleLogout();
-      }
-      return setUpdateRequestState({ ...response, status: 'error' });
-    }
-
-    refetchCases();
-    clearForm();
-    setUpdateRequestState({ status: 'ok', data: response.data });
+    await onSubmit(caseId, formState);
   }
 
   function fillForm(data: WithId<Case>) {
@@ -111,7 +92,6 @@ export function UpdateCaseModalForm({
 
     return () => {
       setGetRequestState({ status: 'idle' });
-      setUpdateRequestState({ status: 'idle' });
     };
   }, []);
 
@@ -128,12 +108,7 @@ export function UpdateCaseModalForm({
         formState;
 
       return (
-        <form
-          id={formId}
-          className="flex flex-col gap-[16px] size-full"
-          onSubmit={alterCase}
-        >
-          <RequestFeedback requestState={updateRequestState} />
+        <form id={formId} className="flex flex-col gap-[16px] size-full" onSubmit={alterCase}>
           <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
             <InputWithLabel
               id="title-input"

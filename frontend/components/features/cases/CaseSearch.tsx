@@ -12,6 +12,8 @@ import { useCases } from '@/hooks/fetching/cases/useCases';
 import { useDeleteCase } from '@/hooks/fetching/cases/useDeleteCase';
 import { useErrorModal } from '@/hooks/modals/useErrorModal';
 import { useSuccessModal } from '@/hooks/modals/useSuccessModal';
+import { useUpdateCase } from '@/hooks/fetching/cases/useUpdateCase';
+import { useUpdateCaseModal } from '@/hooks/modals/useUpdateCaseModal';
 
 export default function CaseSearch() {
   const { search, setSearch, clientId, clearClientFilter, clientName } = useCaseFilters();
@@ -20,9 +22,11 @@ export default function CaseSearch() {
   const [page, setPage] = useState(1);
   const { openErrorModal } = useErrorModal();
   const { openSuccessModal } = useSuccessModal();
+  const { openUpdateCaseModal } = useUpdateCaseModal();
 
   const userRole = useUserRole();
   const deleteCaseMutation = useDeleteCase();
+  const updateCaseMutation = useUpdateCase();
 
   const { data, error, isLoading } = useCases(userRole, {
     page,
@@ -44,6 +48,20 @@ export default function CaseSearch() {
       console.log(error);
       openErrorModal(error.message);
     }
+  }
+
+  async function handleUpdateCase(caseId: string, data: Record<string, string>) {
+    try {
+      await updateCaseMutation.mutateAsync({ caseId, data });
+      openSuccessModal('Processo atualizado com sucesso');
+    } catch (error: any) {
+      console.log(error);
+      openErrorModal(error.message);
+    }
+  }
+
+  function handleOpenUpdateModal(caseId: string) {
+    openUpdateCaseModal(caseId, handleUpdateCase);
   }
 
   return (
@@ -71,7 +89,11 @@ export default function CaseSearch() {
       {isLoading || !data ? (
         <CasesList.Skeleton />
       ) : (
-        <CasesList loadCases={() => {}} cases={data.items} onDelete={handleDeleteCase}/>
+        <CasesList
+          cases={data.items}
+          onDelete={handleDeleteCase}
+          openUpdateModal={handleOpenUpdateModal}
+        />
       )}
       <Pagination page={page} setPage={setPage} totalPage={data?.meta.totalPages || 0} />
     </section>
