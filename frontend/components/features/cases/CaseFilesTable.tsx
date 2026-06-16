@@ -19,7 +19,7 @@ export function CaseFilesTable({ documents }: Props) {
       </div>
 
       {documents.map((document, index) => {
-        const uploadedByMe = document.uploadedBy.id === user.id;
+        const uploadedByMe = document.uploadedBy.id === user?.id;
 
         return (
           <div key={index} className="row">
