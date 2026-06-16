@@ -3,6 +3,7 @@ import { WithId } from '@/types/WithId';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { CasesListSkeleton } from './CasesListSkeleton';
 import { CaseCard } from '../CaseCard/CaseCard';
+import { Text } from '@/components/ui/Text';
 
 interface Props {
   cases: WithId<CaseWithRelations>[];
@@ -24,5 +25,15 @@ export function CasesList({ cases, onDelete, openUpdateModal }: Props) {
     );
   });
 
-  return <div className="flex flex-col gap-[32px] mt-[88px] w-full">{renderCases}</div>;
+  return (
+    <div className="flex flex-col gap-[32px] mt-[88px] w-full">
+      {cases.length > 0 ? (
+        renderCases
+      ) : (
+        <Text as={'h2'} variant="h2">
+          Nenhum processo encontrado
+        </Text>
+      )}
+    </div>
+  );
 }
