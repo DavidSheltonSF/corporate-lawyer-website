@@ -63,6 +63,10 @@ export function CaseCard({ caseData, deleteCase, openUpdateModal }: Props) {
     onOpenFiles: handleOpenCaseFiles,
   });
 
+  if (!actions) {
+    return null;
+  }
+
   return (
     <Card
       actions={actions}

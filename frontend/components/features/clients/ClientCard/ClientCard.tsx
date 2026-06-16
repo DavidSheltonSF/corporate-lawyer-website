@@ -41,6 +41,10 @@ export function ClientCard({ clientData, fetchClients }: Props) {
     onRedirectToCases: handleSeeCases,
   });
 
+  if (!actions) {
+    return null;
+  }
+
   return (
     <Card className="w-full h-fit min-md:w-[720px]" actions={actions}>
       <div className="flex flex-col text-color-black p-[24px] gap-[32px]">
