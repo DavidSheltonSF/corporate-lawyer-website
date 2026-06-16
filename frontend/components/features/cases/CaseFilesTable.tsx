@@ -1,7 +1,7 @@
 import { formatDate } from '@/lib/formatDate';
 import { CaseFile } from '@/types/CaseFile';
 import { CaseFilesTableButton } from '@/components/features/cases/CaseFilesTableButton';
-import { useCurrentUser } from '@/hooks/auth/useCurrentUser';
+import { useCurrentUserId } from '@/hooks/auth/useCurrentUserId';
 
 interface Props {
   documents: CaseFile[];
@@ -10,7 +10,7 @@ interface Props {
 CaseFilesTable.Button = CaseFilesTableButton;
 
 export function CaseFilesTable({ documents }: Props) {
-  const user = useCurrentUser();
+  const userId = useCurrentUserId();
   return (
     <div className="table w-full h-fit">
       <div className="header">
@@ -19,7 +19,7 @@ export function CaseFilesTable({ documents }: Props) {
       </div>
 
       {documents.map((document, index) => {
-        const uploadedByMe = document.uploadedBy.id === user?.id;
+        const uploadedByMe = document.uploadedBy.id === userId;
 
         return (
           <div key={index} className="row">
