@@ -36,7 +36,8 @@ export default function CaseSearch() {
     limit: 4,
   });
 
-  if (error) {
+  if (error || !data) {
+    console.log(error);
     return null;
   }
 
@@ -86,7 +87,7 @@ export default function CaseSearch() {
           {clientId && <FilterTag label={clientName} onClear={clearClientFilter} />}
         </div>
       </div>
-      {isLoading || !data ? (
+      {isLoading ? (
         <CasesList.Skeleton />
       ) : (
         <CasesList
@@ -95,7 +96,7 @@ export default function CaseSearch() {
           openUpdateModal={handleOpenUpdateModal}
         />
       )}
-      <Pagination page={page} setPage={setPage} totalPage={data?.meta.totalPages || 0} />
+      <Pagination page={page} setPage={setPage} totalPage={data.meta.totalPages} />
     </section>
   );
 }
