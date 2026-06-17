@@ -30,7 +30,7 @@ export default function CaseSearch() {
   const deleteCaseMutation = useDeleteCase();
   const updateCaseMutation = useUpdateCase();
 
-  const { data, error, isLoading, isFetchingNextPage, fetchNextPage } = useCases(userRole, {
+  const { data, error, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } = useCases(userRole, {
     page,
     status: status || '',
     search,
@@ -97,15 +97,18 @@ export default function CaseSearch() {
           openUpdateModal={handleOpenUpdateModal}
         />
       )}
-      <ButtonWithLoadingEffect
-        className="py-[8px] text-[16px]"
-        label="Carregar Mais"
-        loadingLabel="Carregando"
-        isLoading={isLoading || isFetchingNextPage}
-        onClick={() => {
-          fetchNextPage();
-        }}
-      />
+
+      {hasNextPage && (
+        <ButtonWithLoadingEffect
+          className="py-[8px] text-[16px]"
+          label="Carregar Mais"
+          loadingLabel="Carregando"
+          isLoading={isLoading || isFetchingNextPage}
+          onClick={() => {
+            fetchNextPage();
+          }}
+        />
+      )}
     </section>
   );
 }
