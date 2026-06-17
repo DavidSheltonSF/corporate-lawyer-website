@@ -12,6 +12,7 @@ import { Button } from '../../ui/Button/Button';
 import { RequestState } from '@/types/RequestState';
 import { Page } from '@/types/Page';
 import { useClientFilters } from '@/hooks/url/useClientFilters';
+import { ClientsListSkeleton } from './ClientsListSkeleton';
 
 export default function ClientSearch() {
   const [requestState, setRequestState] = useState<RequestState<WithId<SafeUser>[]>>({
@@ -56,7 +57,7 @@ export default function ClientSearch() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            setSearch(searchText)
+            setSearch(searchText);
           }}
         >
           <SearchBar value={searchText} onChange={(e) => setSearchText(e.target.value)} />
@@ -70,7 +71,11 @@ export default function ClientSearch() {
           </Button>
         </div>
       </div>
-      <ClientsList requestState={requestState} fetchClients={fetchClients} />
+      {requestState.status === 'loading' ? (
+        <ClientsListSkeleton />
+      ) : (
+        <ClientsList requestState={requestState} fetchClients={fetchClients} />
+      )}
       <Pagination page={page} setPage={setPage} totalPage={totalPage} />
     </section>
   );
