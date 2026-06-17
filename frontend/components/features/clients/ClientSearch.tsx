@@ -12,7 +12,6 @@ import { Button } from '../../ui/Button/Button';
 import { RequestState } from '@/types/RequestState';
 import { Page } from '@/types/Page';
 import { useClientFilters } from '@/hooks/url/useClientFilters';
-import { ClientsListSkeleton } from './ClientsListSkeleton';
 
 export default function ClientSearch() {
   const [requestState, setRequestState] = useState<RequestState<WithId<SafeUser>[]>>({
@@ -72,7 +71,7 @@ export default function ClientSearch() {
         </div>
       </div>
       {requestState.status === 'loading' ? (
-        <ClientsListSkeleton />
+        <ClientsList.Skeleton />
       ) : (
         <ClientsList requestState={requestState} fetchClients={fetchClients} />
       )}
