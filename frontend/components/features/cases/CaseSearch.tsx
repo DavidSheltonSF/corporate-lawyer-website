@@ -14,6 +14,8 @@ import { useErrorModal } from '@/hooks/modals/useErrorModal';
 import { useSuccessModal } from '@/hooks/modals/useSuccessModal';
 import { useUpdateCase } from '@/hooks/fetching/cases/useUpdateCase';
 import { useUpdateCaseModal } from '@/hooks/modals/useUpdateCaseModal';
+import { ButtonWithLoadingEffect } from '@/components/ui/ButtonWithLoadingEffect';
+import { WithId } from '@/types/WithId';
 
 export default function CaseSearch() {
   const { search, setSearch, clientId, clearClientFilter, clientName, status, setStatus } =
@@ -28,7 +30,7 @@ export default function CaseSearch() {
   const deleteCaseMutation = useDeleteCase();
   const updateCaseMutation = useUpdateCase();
 
-  const { data, error, isLoading } = useCases(userRole, {
+  const { data, error, isLoading, isFetchingNextPage, fetchNextPage } = useCases(userRole, {
     page,
     status: status || '',
     search,
@@ -66,7 +68,7 @@ export default function CaseSearch() {
   }
 
   return (
-    <section className="flex flex-col items-center size-full">
+    <section className="flex flex-col size-full">
       <div className="flex flex-col lg:flex-row gap-[40px] size-full">
         <form
           onSubmit={(e) => {
@@ -91,12 +93,20 @@ export default function CaseSearch() {
         <CasesList.Skeleton />
       ) : (
         <CasesList
-          cases={data?.items || []}
+          cases={data?.pages.flatMap((page) => page.items) || []}
           onDelete={handleDeleteCase}
           openUpdateModal={handleOpenUpdateModal}
         />
       )}
-      <Pagination page={page} setPage={setPage} totalPage={data?.meta.totalPages || 0} />
+      <ButtonWithLoadingEffect
+      className='mt-[40px] w-[700px]'
+        label="Carregar Mais"
+        loadingLabel="Carregando"
+        isLoading={isLoading || isFetchingNextPage}
+        onClick={() => {
+          fetchNextPage();
+        }}
+      />
     </section>
   );
 }
