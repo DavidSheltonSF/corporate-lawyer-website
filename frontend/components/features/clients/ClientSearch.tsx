@@ -31,7 +31,7 @@ export default function ClientSearch() {
   const deleteClientMutation = useDeleteClient();
   const updateClientMutation = useUpdateClient();
 
-  if (error || !data) {
+  if (error) {
     console.log(error);
     return null;
   }
@@ -91,13 +91,13 @@ export default function ClientSearch() {
         <ClientsList.Skeleton />
       ) : (
         <ClientsList
-          clients={data?.items}
+          clients={data?.items || []}
           openDeleteModal={handleOpenDeleteModal}
           openUpdateModal={handleOpenUpdateModal}
           fetchClients={() => {}}
         />
       )}
-      <Pagination page={page} setPage={setPage} totalPage={data?.meta.totalPages} />
+      <Pagination page={page} setPage={setPage} totalPage={data?.meta.totalPages || 0} />
     </section>
   );
 }
