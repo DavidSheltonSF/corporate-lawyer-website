@@ -97,12 +97,14 @@ export class MongodbCaseRepository implements CaseRepository {
     const [cases, totalItems] = await Promise.all([casesPageQuery, casesTotalQuery]);
     const mappedCases = cases.map(CaseMapper.persistenceToPopulatedPresentation);
 
+    const totalPages = Math.ceil(totalItems / Number(limit));
     return {
       items: mappedCases,
       meta: {
         totalItems,
-        totalPages: Math.ceil(totalItems / Number(limit)),
+        totalPages,
         currentPage: page,
+        nextPage: page < totalPages ? page + 1 : null
       },
     };
   }
