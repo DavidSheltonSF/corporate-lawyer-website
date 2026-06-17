@@ -68,8 +68,8 @@ export default function CaseSearch() {
   }
 
   return (
-    <section className="flex flex-col size-full">
-      <div className="flex flex-col lg:flex-row gap-[40px] size-full">
+    <section className="flex flex-col w-full md:w-[720px] gap-[40px]">
+      <div className="flex flex-col gap-[40px] size-full">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -85,7 +85,6 @@ export default function CaseSearch() {
             setSelectedValue={setStatus}
             selectedValue={status}
           />
-
           {clientId && <FilterTag label={clientName} onClear={clearClientFilter} />}
         </div>
       </div>
@@ -99,7 +98,7 @@ export default function CaseSearch() {
         />
       )}
       <ButtonWithLoadingEffect
-      className='mt-[40px] w-[700px]'
+        className="py-[8px] text-[16px]"
         label="Carregar Mais"
         loadingLabel="Carregando"
         isLoading={isLoading || isFetchingNextPage}
