@@ -18,9 +18,6 @@ export async function getCases(
     baseRoute = `${API_URL}/my/cases`;
   }
 
-  console.log('ROLE');
-  console.log(userRole);
-
   const queryString = new URLSearchParams({
     page: String(page),
     limit: String(limit ?? ''),
