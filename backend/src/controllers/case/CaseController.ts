@@ -91,7 +91,7 @@ export class CaseController implements ICaseController {
       throw new BadRequestError('Missing id param');
     }
 
-    const casesPaginated = await this.caseService.findPopulatedByClientId(id, {
+    const casesPaginated = await this.caseService.findAll({
       query: query ? String(query) : undefined,
       status: status ? String(status) : undefined,
       limit: limit ? Number(limit) : undefined,
