@@ -1,65 +1,41 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SearchBar } from '../../ui/Search/SearchBar';
 import { WithId } from '@/types/WithId';
 import { Pagination } from '../../Pagination';
-import { CaseModal } from '../cases/CaseModal/CaseModal';
 import { ClientsList } from './ClientsList';
-import { getClients } from '@/services/users/getClients';
-import { SafeUser } from '@/types/SafeUser';
 import { RegisterClientModal } from '../../modals/RegisterClientModal';
 import { Button } from '../../ui/Button/Button';
-import { RequestState } from '@/types/RequestState';
-import { Page } from '@/types/Page';
 import { useClientFilters } from '@/hooks/url/useClientFilters';
 import { useUpdateClientModal } from '@/hooks/modals/useUpdateClientModal';
 import { useDeleteClientModal } from '@/hooks/modals/useDeleteClientModal';
 import { UserSlice } from '@/types/UserSlice';
+import { useClients } from '@/hooks/fetching/users/useClients';
 
 export default function ClientSearch() {
-  const [requestState, setRequestState] = useState<RequestState<WithId<SafeUser>[]>>({
-    status: 'idle',
-  });
   const { search, setSearch } = useClientFilters();
   const [searchText, setSearchText] = useState(search);
   const [page, setPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(0);
   const [registerUserModalIsOpen, setRegisterUserModalIsOpen] = useState(false);
 
   const { openUpdateClientModal } = useUpdateClientModal();
   const { openDeleteClientModal } = useDeleteClientModal();
 
+  const { data, isLoading, error } = useClients({ search, page, limit: 4 });
+
+  if (error || !data) {
+    console.log(error);
+    return null;
+  }
+
   function handleUpdate(clientId: string) {
-    openUpdateClientModal(clientId, fetchClients);
+    openUpdateClientModal(clientId, () => {});
   }
 
   function handleDelete(clientSlice: WithId<UserSlice>) {
     const { id, firstName, lastName } = clientSlice;
-    openDeleteClientModal({ id, firstName, lastName }, fetchClients);
+    openDeleteClientModal({ id, firstName, lastName }, () => {});
   }
-
-  async function fetchClients() {
-    setRequestState({ status: 'loading' });
-    const response = await getClients({
-      page,
-      limit: 4,
-      query: search,
-    });
-
-    if (!response.success) {
-      setRequestState({ ...response, status: 'error' });
-      return;
-    }
-
-    const { data } = response;
-
-    setTotalPage(data.meta.totalPages);
-    setRequestState({ status: 'ok', data: data.items });
-  }
-
-  useEffect(() => {
-    fetchClients();
-  }, [page, search]);
 
   return (
     <section className="flex flex-col items-center size-full">
@@ -85,17 +61,17 @@ export default function ClientSearch() {
           </Button>
         </div>
       </div>
-      {requestState.status === 'loading' ? (
+      {isLoading ? (
         <ClientsList.Skeleton />
       ) : (
         <ClientsList
+          clients={data?.items}
           openDeleteModal={handleDelete}
           openUpdateModal={handleUpdate}
-          requestState={requestState}
-          fetchClients={fetchClients}
+          fetchClients={() => {}}
         />
       )}
-      <Pagination page={page} setPage={setPage} totalPage={totalPage} />
+      <Pagination page={page} setPage={setPage} totalPage={data?.meta.totalPages} />
     </section>
   );
 }
