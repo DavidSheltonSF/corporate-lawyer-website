@@ -1,25 +1,11 @@
 import { API_URL } from '@/config/api';
-import { MissingRequiredArgumentError } from '@/errors/MissingRequiredArgumentError';
 import { apiFetch } from '../apiFetch';
-import { SafeUserPage } from './types';
+import { GetUsersParams, SafeUserPage } from './types';
 
-export async function getClients(queryParams: {
-  query?: string;
-  page: number;
-  limit: number;
-  status?: string;
-}): Promise<SafeUserPage> {
-  if (!queryParams) {
-    throw new MissingRequiredArgumentError(getClients.name, 'queryParams');
-  }
-
-  const { page, limit, query, status } = queryParams;
-
+export async function getClients({ search, limit, page }: GetUsersParams): Promise<SafeUserPage> {
   const baseRoute = `${API_URL}/clients`;
 
-  const queryString = `?page=${page}&limit=${limit || ''}&query=${query || ''}&status=${
-    status || ''
-  }`;
+  const queryString = `?page=${page}&limit=${limit || ''}&query=${search || ''}`;
 
   const response = await apiFetch(`${baseRoute}/${queryString}`);
 
