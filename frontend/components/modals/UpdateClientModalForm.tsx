@@ -15,6 +15,7 @@ interface Props {
   isReadyToSubmit: boolean;
   setIsReadyToSubmit: Dispatch<SetStateAction<boolean>>;
   clientId: string;
+  onSubmit: (clientId: string, data: Record<string, string>) => void;
 }
 
 export function UpdateClientModalForm({
@@ -22,6 +23,7 @@ export function UpdateClientModalForm({
   isReadyToSubmit,
   setIsReadyToSubmit,
   clientId,
+  onSubmit,
 }: Props) {
   const [getRequestState, setGetRequestState] = useState<RequestState<WithId<SafeUser>>>({
     status: 'idle',
@@ -59,21 +61,10 @@ export function UpdateClientModalForm({
     setGetRequestState({ status: 'ok', data: response.data });
   }
 
-  async function handleUpdateClient(e: FormEvent<HTMLFormElement>) {
-    if (!isReadyToSubmit) return;
-
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
-    setUpdateRequestState({ status: 'loading' });
-
-    const response = await updateUser(clientId, formState);
-
-    if (!response.success) {
-      setUpdateRequestState({ ...response, status: 'error' });
-      return;
-    }
-
-    setUpdateRequestState({ status: 'ok', data: response.data });
+    if (!isReadyToSubmit) return;
+    onSubmit(clientId, formState);
   }
 
   useEffect(() => {
@@ -113,7 +104,7 @@ export function UpdateClientModalForm({
 
     case 'ok':
       return (
-        <form id={formId} className="flex flex-col gap-[16px] w-ful]" onSubmit={handleUpdateClient}>
+        <form id={formId} className="flex flex-col gap-[16px] w-ful]" onSubmit={handleSubmit}>
           <RequestFeedback requestState={updateRequestState} />
           <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
             <InputWithLabel

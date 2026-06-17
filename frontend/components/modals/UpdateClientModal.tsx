@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 interface Props {
   clientId: string;
-  refetchClients: () => void;
+  onUpdate: (clientId: string, data: Record<string, string>) => void;
 }
 
 UpdateClientModal.Form = UpdateClientModalForm;
@@ -14,7 +14,7 @@ UpdateClientModal.Form = UpdateClientModalForm;
 export function UpdateClientModal({ payload, close }: GlobalModalProps<Props>) {
   const [isReadyToSubmit, setIsReadyToSubmit] = useState(false);
 
-  const { clientId } = payload;
+  const { clientId, onUpdate } = payload;
 
   const formId = 'update-client-form';
   return (
@@ -25,6 +25,7 @@ export function UpdateClientModal({ payload, close }: GlobalModalProps<Props>) {
       onClose={close}
     >
       <UpdateClientModal.Form
+      onSubmit={onUpdate}
         isReadyToSubmit={isReadyToSubmit}
         setIsReadyToSubmit={setIsReadyToSubmit}
         clientId={clientId}

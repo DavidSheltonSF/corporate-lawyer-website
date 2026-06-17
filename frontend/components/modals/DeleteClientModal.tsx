@@ -1,6 +1,5 @@
 'use client';
 import { BaseModal } from '../ui/Modal/BaseModal';
-import { deleteUser } from '@/services/users/deleteUser';
 import { useEffect, useState } from 'react';
 import { RequestState } from '@/types/RequestState';
 import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
@@ -12,7 +11,7 @@ import { SafeUser } from '@/types/SafeUser';
 
 interface Props {
   clientSlice: WithId<UserSlice>;
-  refetchClients: () => void;
+  onDelete: (clientId: string) => void;
 }
 
 export function DeleteClientModal({ payload, close }: GlobalModalProps<Props>) {
@@ -21,22 +20,10 @@ export function DeleteClientModal({ payload, close }: GlobalModalProps<Props>) {
   });
 
   const [confirmInputText, setConfrimInputText] = useState('');
-  const { clientSlice, refetchClients } = payload;
+  const { clientSlice, onDelete } = payload;
   const { id, firstName, lastName } = clientSlice;
   const confirmDeletionString = `DELETAR ${firstName} ${lastName}`.toUpperCase();
   const confirmInputIsValid = confirmInputText == confirmDeletionString;
-
-  async function onDeleteClick() {
-    const response = await deleteUser(id);
-
-    if (!response.success) {
-      setRequestState({ ...response, status: 'error' });
-      return;
-    }
-
-    refetchClients();
-    setRequestState({ status: 'ok', data: response.data });
-  }
 
   useEffect(() => {
     return () => {
@@ -49,7 +36,7 @@ export function DeleteClientModal({ payload, close }: GlobalModalProps<Props>) {
   return (
     <BaseModal
       title="Excluir cliente"
-      onConfirm={onDeleteClick}
+      onConfirm={() => onDelete(id)}
       confirmButtonVariant={confirmInputIsValid ? ButtonVariant.DANGER : ButtonVariant.DISABLED}
       className="h-fit w-[90%] min-md:w-[356px]"
       onClose={close}
