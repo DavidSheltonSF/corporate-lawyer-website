@@ -1,15 +1,15 @@
 import { getCases } from '@/services/cases/getCases';
 import { GetCasesParams } from '@/services/cases/types';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 export function useCases(userRole: string | null, params: GetCasesParams) {
   const { page, status, search, clientId } = params;
 
-  return useQuery({
+  return useInfiniteQuery({
     queryKey: ['cases', page, status, search, clientId],
-    queryFn: () => {
-      return getCases(userRole!, params);
-    },
+    queryFn: ({ pageParam = 1 }) => getCases(userRole!, { ...params, page: pageParam }),
+    getNextPageParam: (lastPage, allPages) => lastPage.meta.currentPage + 1,
+    initialPageParam: 1,
     staleTime: 1000 * 60,
     enabled: !!userRole,
   });
