@@ -36,7 +36,7 @@ export default function CaseSearch() {
     limit: 4,
   });
 
-  if (error || !data) {
+  if (error) {
     console.log(error);
     return null;
   }
@@ -91,12 +91,12 @@ export default function CaseSearch() {
         <CasesList.Skeleton />
       ) : (
         <CasesList
-          cases={data.items}
+          cases={data?.items || []}
           onDelete={handleDeleteCase}
           openUpdateModal={handleOpenUpdateModal}
         />
       )}
-      <Pagination page={page} setPage={setPage} totalPage={data.meta.totalPages} />
+      <Pagination page={page} setPage={setPage} totalPage={data?.meta.totalPages || 0} />
     </section>
   );
 }
