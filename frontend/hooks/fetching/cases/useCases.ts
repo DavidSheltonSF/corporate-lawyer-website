@@ -8,7 +8,7 @@ export function useCases(userRole: string | null, params: GetCasesParams) {
   return useInfiniteQuery({
     queryKey: ['cases', page, status, search, clientId],
     queryFn: ({ pageParam = 1 }) => getCases(userRole!, { ...params, page: pageParam }),
-    getNextPageParam: (lastPage, allPages) => lastPage.meta.currentPage + 1,
+    getNextPageParam: (lastPage) => lastPage.meta.nextPage,
     initialPageParam: 1,
     staleTime: 1000 * 60,
     enabled: !!userRole,
