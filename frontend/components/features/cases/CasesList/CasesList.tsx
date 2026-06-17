@@ -26,7 +26,7 @@ export function CasesList({ cases, onDelete, openUpdateModal }: Props) {
   });
 
   return (
-    <div className="flex flex-col gap-[32px] mt-[88px] w-full">
+    <div className="flex flex-col gap-[32px] w-full">
       {cases.length > 0 ? (
         renderCases
       ) : (
