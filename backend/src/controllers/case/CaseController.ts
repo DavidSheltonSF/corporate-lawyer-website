@@ -79,37 +79,6 @@ export class CaseController implements ICaseController {
     return HttpResponseFactory.makeOk(foundCase);
   };
 
-  findByClientId = async (httpRequest: HttpRequest) => {
-    const { id } = httpRequest.params;
-    if (!id) {
-      throw new BadRequestError('Missing id param');
-    }
-
-    const { status, query } = httpRequest.query;
-
-    const page = httpRequest.query.page || 1;
-    const limit = httpRequest.query.limit || 4;
-
-    if (!id) {
-      throw new BadRequestError('Missing id param');
-    }
-
-    const casesPaginated = await this.caseService.findPopulatedByClientId(id, {
-      query: query ? String(query) : undefined,
-      status: status ? String(status) : undefined,
-      limit: limit ? Number(limit) : undefined,
-      page: page ? Number(page) : undefined,
-    });
-
-    const pagination = {
-      ...casesPaginated,
-      page,
-      limit,
-    };
-
-    return HttpResponseFactory.makeOk(pagination);
-  };
-
   findMyCases = async (httpRequest: HttpRequest) => {
     const id = httpRequest.user?.id;
 
@@ -127,6 +96,7 @@ export class CaseController implements ICaseController {
       status: status ? String(status) : undefined,
       limit: limit ? Number(limit) : undefined,
       page: page ? Number(page) : undefined,
+      clientId: id,
     });
 
     const pagination = {
