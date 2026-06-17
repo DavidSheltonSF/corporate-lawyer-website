@@ -14,10 +14,7 @@ export function ClientsList({ requestState, fetchClients }: Props) {
   function renderContent() {
     switch (requestState?.status) {
       case 'loading':
-        const renderCaseSkeletons = Array.from({ length: 4 }).map((page, index) => {
-          return <CardSkeleton key={index} />;
-        });
-        return renderCaseSkeletons;
+        return null
 
       case 'ok':
         const { data } = requestState;
