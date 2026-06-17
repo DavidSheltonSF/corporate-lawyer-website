@@ -4,5 +4,6 @@ export interface Page<T> {
     totalItems: number;
     totalPages: number;
     currentPage: number;
+    nextPage?: number | null;
   };
 }
