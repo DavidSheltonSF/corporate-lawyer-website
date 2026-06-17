@@ -3,41 +3,32 @@ import { SafeUser } from '@/types/SafeUser';
 import { Card } from '../../../ui/Card/Card';
 import { ClientCardHeader } from './ClientCardHeader';
 import { ClientCardFooter } from './ClientCardFooter';
-import { useUpdateClientModal } from '@/hooks/modals/useUpdateClientModal';
-import { useDeleteClientModal } from '@/hooks/modals/useDeleteClientModal';
 import { useClientCardActions } from '@/hooks/cards/useClientCardActions';
 import { useRouter } from 'next/navigation';
+import { UserSlice } from '@/types/UserSlice';
 
 interface Props {
   clientData: WithId<SafeUser>;
+  openDeleteModal: (clientSlice: WithId<UserSlice>) => void;
+  openUpdateModal: (clientId: string) => void;
   fetchClients: () => void;
 }
 
 ClientCard.Header = ClientCardHeader;
 ClientCard.Footer = ClientCardFooter;
 
-export function ClientCard({ clientData, fetchClients }: Props) {
+export function ClientCard({ clientData, openDeleteModal, openUpdateModal, fetchClients }: Props) {
   const router = useRouter();
   const { id, firstName, lastName, email, phone, cpf } = clientData;
 
-  const { openUpdateClientModal } = useUpdateClientModal();
-  const { openDeleteClientModal } = useDeleteClientModal();
-
-  function handleUpdate() {
-    openUpdateClientModal(id, fetchClients);
-  }
-
-  function handleDelete() {
-    openDeleteClientModal({ id, firstName, lastName }, fetchClients);
-  }
   function handleSeeCases() {
     const clientName = `${firstName} ${lastName}`;
     router.push(`processos?clientId=${id}&clientName=${encodeURIComponent(clientName)}`);
   }
 
   const actions = useClientCardActions({
-    onUpdate: handleUpdate,
-    onDelete: handleDelete,
+    onDelete: () => openDeleteModal({ id, firstName, lastName }),
+    onUpdate: () => openUpdateModal(id),
     onRedirectToCases: handleSeeCases,
   });
 

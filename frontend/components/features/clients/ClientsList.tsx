@@ -5,15 +5,23 @@ import { ClientCard } from './ClientCard/ClientCard';
 import { SafeUser } from '@/types/SafeUser';
 import { RequestState } from '@/types/RequestState';
 import { ClientsListSkeleton } from './ClientsListSkeleton';
+import { UserSlice } from '@/types/UserSlice';
 
 interface Props {
   fetchClients: () => void;
+  openDeleteModal: (clientSlice: WithId<UserSlice>) => void;
+  openUpdateModal: (clientId: string) => void;
   requestState: RequestState<WithId<SafeUser>[]>;
 }
 
 ClientsList.Skeleton = ClientsListSkeleton;
 
-export function ClientsList({ requestState, fetchClients }: Props) {
+export function ClientsList({
+  requestState,
+  openDeleteModal,
+  openUpdateModal,
+  fetchClients,
+}: Props) {
   function renderContent() {
     switch (requestState?.status) {
       case 'loading':
@@ -27,7 +35,15 @@ export function ClientsList({ requestState, fetchClients }: Props) {
         }
 
         const renderCases = data.map((client, index) => {
-          return <ClientCard fetchClients={fetchClients} key={index} clientData={client} />;
+          return (
+            <ClientCard
+              openDeleteModal={openDeleteModal}
+              openUpdateModal={openUpdateModal}
+              fetchClients={fetchClients}
+              key={index}
+              clientData={client}
+            />
+          );
         });
         return renderCases;
 

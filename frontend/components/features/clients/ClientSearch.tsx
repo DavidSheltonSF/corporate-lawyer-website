@@ -12,6 +12,9 @@ import { Button } from '../../ui/Button/Button';
 import { RequestState } from '@/types/RequestState';
 import { Page } from '@/types/Page';
 import { useClientFilters } from '@/hooks/url/useClientFilters';
+import { useUpdateClientModal } from '@/hooks/modals/useUpdateClientModal';
+import { useDeleteClientModal } from '@/hooks/modals/useDeleteClientModal';
+import { UserSlice } from '@/types/UserSlice';
 
 export default function ClientSearch() {
   const [requestState, setRequestState] = useState<RequestState<WithId<SafeUser>[]>>({
@@ -22,6 +25,18 @@ export default function ClientSearch() {
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const [registerUserModalIsOpen, setRegisterUserModalIsOpen] = useState(false);
+
+  const { openUpdateClientModal } = useUpdateClientModal();
+  const { openDeleteClientModal } = useDeleteClientModal();
+
+  function handleUpdate(clientId: string) {
+    openUpdateClientModal(clientId, fetchClients);
+  }
+
+  function handleDelete(clientSlice: WithId<UserSlice>) {
+    const { id, firstName, lastName } = clientSlice;
+    openDeleteClientModal({ id, firstName, lastName }, fetchClients);
+  }
 
   async function fetchClients() {
     setRequestState({ status: 'loading' });
@@ -73,7 +88,12 @@ export default function ClientSearch() {
       {requestState.status === 'loading' ? (
         <ClientsList.Skeleton />
       ) : (
-        <ClientsList requestState={requestState} fetchClients={fetchClients} />
+        <ClientsList
+          openDeleteModal={handleDelete}
+          openUpdateModal={handleUpdate}
+          requestState={requestState}
+          fetchClients={fetchClients}
+        />
       )}
       <Pagination page={page} setPage={setPage} totalPage={totalPage} />
     </section>
