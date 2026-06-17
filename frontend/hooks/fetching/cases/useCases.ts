@@ -2,9 +2,7 @@ import { getCases } from '@/services/cases/getCases';
 import { GetCasesParams } from '@/services/cases/types';
 import { useQuery } from '@tanstack/react-query';
 
-
 export function useCases(userRole: string | null, params: GetCasesParams) {
-  console.log(userRole)
   const { page, status, search, clientId } = params;
 
   return useQuery({
