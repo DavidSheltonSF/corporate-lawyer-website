@@ -11,49 +11,23 @@ interface Props {
   fetchClients: () => void;
   openDeleteModal: (clientSlice: WithId<UserSlice>) => void;
   openUpdateModal: (clientId: string) => void;
-  requestState: RequestState<WithId<SafeUser>[]>;
+  clients: WithId<SafeUser>[];
 }
 
 ClientsList.Skeleton = ClientsListSkeleton;
 
-export function ClientsList({
-  requestState,
-  openDeleteModal,
-  openUpdateModal,
-  fetchClients,
-}: Props) {
-  function renderContent() {
-    switch (requestState?.status) {
-      case 'loading':
-        return null;
+export function ClientsList({ clients, openDeleteModal, openUpdateModal, fetchClients }: Props) {
+  const renderCases = clients.map((client, index) => {
+    return (
+      <ClientCard
+        openDeleteModal={openDeleteModal}
+        openUpdateModal={openUpdateModal}
+        fetchClients={fetchClients}
+        key={index}
+        clientData={client}
+      />
+    );
+  });
 
-      case 'ok':
-        const { data } = requestState;
-
-        if (data.length === 0) {
-          return <h1 className="text-3xl">Nenhum cliente foi encontrado</h1>;
-        }
-
-        const renderCases = data.map((client, index) => {
-          return (
-            <ClientCard
-              openDeleteModal={openDeleteModal}
-              openUpdateModal={openUpdateModal}
-              fetchClients={fetchClients}
-              key={index}
-              clientData={client}
-            />
-          );
-        });
-        return renderCases;
-
-      case 'error':
-        <h1>{requestState.message}</h1>;
-
-      default:
-        return null;
-    }
-  }
-
-  return <div className="flex flex-col gap-[32px] mt-[88px] w-full">{renderContent()}</div>;
+  return <div className="flex flex-col gap-[32px] mt-[88px] w-full">{renderCases}</div>;
 }
