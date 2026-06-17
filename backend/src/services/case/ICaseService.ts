@@ -12,10 +12,6 @@ export interface ICaseService {
   create(data: CreateCaseDTO): Promise<WithId<CaseDTO>>;
   updateById(id: string, data: CreateCaseDTO): Promise<WithId<CaseDTO> | null>;
   findAll(queryParams?: CaseQuery): Promise<Page<WithId<CasePopulatedResponseDTO>>>;
-  findPopulatedByClientId(
-    id: string,
-    queryParams?: CaseQuery
-  ): Promise<Page<WithId<CasePopulatedResponseDTO>>>;
   findById(
     id: string,
     populate?: boolean

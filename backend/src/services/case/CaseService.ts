@@ -77,13 +77,6 @@ export class CaseService implements ICaseService {
     };
   }
 
-  async findPopulatedByClientId(
-    id: string,
-    queryParams?: CaseQuery
-  ): Promise<Page<WithId<CasePopulatedResponseDTO>>> {
-    return await this.caseRepository.findPopulatedByClientId(id, queryParams);
-  }
-
   async findById(
     id: string,
     populate?: boolean
