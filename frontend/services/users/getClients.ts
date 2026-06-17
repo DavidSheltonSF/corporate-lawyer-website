@@ -6,12 +6,12 @@ export async function getClients({ search, limit, page }: GetUsersParams): Promi
   const baseRoute = `${API_URL}/clients`;
 
   const queryString = new URLSearchParams({
-    search: search ?? '',
+    query: search ?? '',
     limit: String(limit) ?? '',
     page: String(page) ?? '',
   });
 
-  const response = await apiFetch(`${baseRoute}/${queryString}`);
+  const response = await apiFetch(`${baseRoute}?${queryString}`);
 
   const json = await response.json();
 
