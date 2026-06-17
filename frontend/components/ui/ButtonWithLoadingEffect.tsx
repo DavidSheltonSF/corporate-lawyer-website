@@ -18,7 +18,7 @@ export function ButtonWithLoadingEffect({
 }: PropsWithClassName<Props>) {
   return (
     <Button onClick={onClick} variant={ButtonVariant.PRIMARY} type="submit" className={className}>
-      {isLoading ? <LoadingMessage message={loadingLabel} /> : label}
+      {isLoading ? <LoadingMessage message={`${loadingLabel}...`} /> : label}
     </Button>
   );
 }
