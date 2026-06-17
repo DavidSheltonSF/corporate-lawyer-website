@@ -9,5 +9,4 @@ export interface GetUsersParams {
   search?: string;
   page: number;
   limit: number;
-  status?: string;
 }
