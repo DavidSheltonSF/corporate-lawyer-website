@@ -11,6 +11,10 @@ import { useUpdateClientModal } from '@/hooks/modals/useUpdateClientModal';
 import { useDeleteClientModal } from '@/hooks/modals/useDeleteClientModal';
 import { UserSlice } from '@/types/UserSlice';
 import { useClients } from '@/hooks/fetching/users/useClients';
+import { useDeleteClient } from '@/hooks/fetching/users/useDeleteClient';
+import { useErrorModal } from '@/hooks/modals/useErrorModal';
+import { useSuccessModal } from '@/hooks/modals/useSuccessModal';
+import { useUpdateClient } from '@/hooks/fetching/users/useUpdateClient';
 
 export default function ClientSearch() {
   const { search, setSearch } = useClientFilters();
@@ -20,21 +24,43 @@ export default function ClientSearch() {
 
   const { openUpdateClientModal } = useUpdateClientModal();
   const { openDeleteClientModal } = useDeleteClientModal();
+  const { openErrorModal } = useErrorModal();
+  const { openSuccessModal } = useSuccessModal();
 
   const { data, isLoading, error } = useClients({ search, page, limit: 4 });
+  const deleteClientMutation = useDeleteClient();
+  const updateClientMutation = useUpdateClient();
 
   if (error || !data) {
     console.log(error);
     return null;
   }
 
-  function handleUpdate(clientId: string) {
-    openUpdateClientModal(clientId, () => {});
+  async function handleUpdate(clientId: string, data: Record<string, string>) {
+    try {
+      await updateClientMutation.mutateAsync({ userId: clientId, data });
+      openSuccessModal('Cliente atualizado com sucesso!');
+    } catch (error: any) {
+      openErrorModal(error.message);
+    }
   }
 
-  function handleDelete(clientSlice: WithId<UserSlice>) {
+  function handleOpenUpdateModal(clientId: string) {
+    openUpdateClientModal(clientId, handleUpdate);
+  }
+
+  async function handleDelete(clientId: string) {
+    try {
+      await deleteClientMutation.mutateAsync(clientId);
+      openSuccessModal('Cliente removido com sucesso!');
+    } catch (error: any) {
+      openErrorModal(error.message);
+    }
+  }
+
+  function handleOpenDeleteModal(clientSlice: WithId<UserSlice>) {
     const { id, firstName, lastName } = clientSlice;
-    openDeleteClientModal({ id, firstName, lastName }, () => {});
+    openDeleteClientModal({ id, firstName, lastName }, handleDelete);
   }
 
   return (
@@ -66,8 +92,8 @@ export default function ClientSearch() {
       ) : (
         <ClientsList
           clients={data?.items}
-          openDeleteModal={handleDelete}
-          openUpdateModal={handleUpdate}
+          openDeleteModal={handleOpenDeleteModal}
+          openUpdateModal={handleOpenUpdateModal}
           fetchClients={() => {}}
         />
       )}
