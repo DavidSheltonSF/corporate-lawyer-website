@@ -5,17 +5,22 @@ import { apiFetch } from '../apiFetch';
 import { ActionResponse } from '@/types/ActionResponse';
 import { makeActionResponse } from '@/factories/makeActionResponse';
 
-export async function updateUser(
-  id: string,
-  formData: Record<string, string>
-): Promise<ActionResponse<WithId<SafeUser>>> {
-  const firstName = formData.firstName;
-  const lastName = formData.lastName;
-  const email = formData.email;
-  const cpf = formData.cpf;
-  const phone = formData.phone;
+interface UpdateUserParams {
+  userId: string;
+  data: Record<string, string>;
+}
 
-  const response = await apiFetch(`${API_URL}/users/${id}`, {
+export async function updateUser({
+  userId,
+  data,
+}: UpdateUserParams): Promise<ActionResponse<WithId<SafeUser>>> {
+  const firstName = data.firstName;
+  const lastName = data.lastName;
+  const email = data.email;
+  const cpf = data.cpf;
+  const phone = data.phone;
+
+  const response = await apiFetch(`${API_URL}/users/${userId}`, {
     headers: {
       'Content-Type': 'application/json',
     },
