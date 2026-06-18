@@ -64,8 +64,6 @@ export default function ClientSearch() {
     openDeleteClientModal({ id, firstName, lastName }, handleDelete);
   }
 
-  console.log(data?.pages);
-
   return (
     <section className="flex flex-col w-full gap-[40px] md:w-[720px]">
       <RegisterClientModal
