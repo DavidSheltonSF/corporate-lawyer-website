@@ -71,12 +71,12 @@ export default function ClientSearch() {
   console.log(data?.pages);
 
   return (
-    <section className="flex flex-col items-center size-full">
+    <section className="flex flex-col items-center w-full md:w-[720px]">
       <RegisterClientModal
         isOpen={registerUserModalIsOpen}
         setIsOpen={setRegisterUserModalIsOpen}
       />
-      <div className="flex flex-col lg:flex-row gap-[40px] size-full">
+      <div className="flex flex-col gap-[40px] size-full">
         <form
           onSubmit={(e) => {
             e.preventDefault();
