@@ -22,7 +22,6 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
     status: 'idle',
   });
   const { caseId } = payload;
-  const isLoading = requestState?.status === 'loading';
 
   async function fetchCaseFiles() {
     setRequestState({ status: 'loading' });
