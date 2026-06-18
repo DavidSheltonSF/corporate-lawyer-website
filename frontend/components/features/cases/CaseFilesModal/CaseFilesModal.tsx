@@ -74,7 +74,7 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
                 handleClick={() => setUploadModalIsOpen(true)}
               />
             </div>
-            <div className="flex px-[24px] overflow-y-scroll">
+            <div className="flex overflow-y-scroll">
               {caseFiles.length > 0 ? (
                 <FilesList files={caseFiles}/>
               ) : (
