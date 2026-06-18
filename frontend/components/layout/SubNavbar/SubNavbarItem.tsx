@@ -1,5 +1,6 @@
 'use client';
 
+import { Text } from '@/components/ui/Text';
 import { useState } from 'react';
 
 interface Props {
@@ -33,7 +34,9 @@ export function SubNavbarItem(props: Props) {
       onMouseOver={handleMouseEnter}
       onMouseOut={handleMouseOut}
     >
-      <span className="text-nowrap text-color-white large-text ">{label}</span>
+      <Text variant="h3" className="text-nowrap text-color-white large-text ">
+        {label}
+      </Text>
       <span
         className={`absolute bottom-0 bg-color-secondary h-[2px] transition-all ${
           isOver || isSelected ? 'left-0 w-full' : 'right-0 w-0'
