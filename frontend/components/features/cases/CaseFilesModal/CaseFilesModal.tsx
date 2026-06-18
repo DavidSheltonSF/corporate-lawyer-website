@@ -1,7 +1,6 @@
 import { BaseModal } from '@/components/ui/Modal/BaseModal';
 import { useEffect, useState } from 'react';
 import { CaseFilesUploadModal } from '../CaseFilesUploadModal/CaseFilesUploadModal';
-import { CaseFilesTable } from '../CaseFilesTable';
 import { OpenUploadModalButton } from '@/components/OpenUploadModalButton';
 import { ModalFeedback } from '@/components/ui/Feedback/ModalFeedback';
 import { GlobalModalProps } from '@/types/GlobalModalProps';
@@ -11,6 +10,7 @@ import { RequestState } from '@/types/RequestState';
 import { handleLogout } from '@/lib/handleLogout';
 import { getCaseFiles } from '@/services/cases/getCaseFiles';
 import { LoadingModalScreeen } from '@/components/ui/Modal/LoadingModalScreen';
+import { FilesList } from '../../files/FilesList/FilesList';
 
 interface Props {
   caseId: string;
@@ -76,7 +76,7 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
             </div>
             <div className="flex px-[24px] overflow-y-scroll">
               {caseFiles.length > 0 ? (
-                <CaseFilesTable documents={caseFiles} />
+                <FilesList files={caseFiles}/>
               ) : (
                 <ModalFeedback title="Nenhum arquivo encontrado" />
               )}
