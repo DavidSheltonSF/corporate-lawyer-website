@@ -57,7 +57,7 @@ export function Card({ actions, onClick, children, className }: Props) {
   return (
     <article className={twMerge(baseStyles, hoverStyles, className)} onClick={onClick}>
       <div className="absolute top-[8px] right-[8px]">{renderMoreButton()}</div>
-      <div>{children}</div>
+      <div className='size-full'>{children}</div>
       <FloatingPortal>{renderDropdown()}</FloatingPortal>
     </article>
   );
