@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { SearchBar } from '../../ui/Search/SearchBar';
 import { CasesList } from './CasesList/CasesList';
-import { Pagination } from '../../Pagination';
 import { CaseStatusLabel } from '@/lib/CaseStatusLabel';
 import { useUserRole } from '@/hooks/auth/useUserRole';
 import { useCaseFilters } from '@/hooks/url/useCaseFilters';
@@ -15,7 +14,6 @@ import { useSuccessModal } from '@/hooks/modals/useSuccessModal';
 import { useUpdateCase } from '@/hooks/fetching/cases/useUpdateCase';
 import { useUpdateCaseModal } from '@/hooks/modals/useUpdateCaseModal';
 import { ButtonWithLoadingEffect } from '@/components/ui/ButtonWithLoadingEffect';
-import { WithId } from '@/types/WithId';
 
 export default function CaseSearch() {
   const { search, setSearch, clientId, clearClientFilter, clientName, status, setStatus } =
