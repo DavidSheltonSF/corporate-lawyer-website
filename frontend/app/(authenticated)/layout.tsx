@@ -4,9 +4,9 @@ import { ClientNavbar } from '@/components/layout/Navbar/ClientNavbar';
 import { ModalRenderer } from '@/components/renderer/ModalRenderer';
 import { getMe } from '@/services/users/getMe';
 import { redirect } from 'next/navigation';
-import { AuthHydrator } from '@/components/AuthHydrator';
 import { Notifications } from '@/components/features/notifications/Notifications';
 import { QueryProvider } from '@/components/providers/QueryProvider';
+import { AuthContextProvider } from '@/contexts/auth/AuthContextProvider';
 
 export default async function ClientLayout({
   children,
@@ -27,12 +27,12 @@ export default async function ClientLayout({
     return (
       <>
         <QueryProvider>
-          <AuthHydrator user={user}>
+          <AuthContextProvider user={user}>
             <ClientNavbar />
             <ModalRenderer />
             <main className="flex-1 p-[40px] min-h-[90vh]">{children}</main>
             <Notifications />
-          </AuthHydrator>
+          </AuthContextProvider>
         </QueryProvider>
       </>
     );

@@ -1,11 +1,6 @@
 import { useCurrentUser } from './useCurrentUser';
 
-export function useUserRole(): string | null {
+export function useUserRole(): string {
   const user = useCurrentUser();
-
-  if (!user) {
-    return null;
-  }
-
   return user.role;
 }

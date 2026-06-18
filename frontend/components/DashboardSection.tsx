@@ -8,11 +8,11 @@ import { handleLogout } from '@/lib/handleLogout';
 import { CasesStats } from '@/types/CasesStats';
 import { DashboardSkeleton } from './features/deashboard/DashboardSkeleton';
 import { Dashboard } from './features/deashboard/Dashboard';
-import { useAuthStore } from '@/stores/useAuthStore';
+import { useCurrentUser } from '@/hooks/auth/useCurrentUser';
 
 export function DashboardSection() {
   const [requestState, setRequestState] = useState<RequestState<CasesStats>>({ status: 'loading' });
-  const user = useAuthStore((state) => state.user);
+  const user = useCurrentUser();
 
   useEffect(() => {
     async function fetchCases() {
