@@ -32,6 +32,5 @@ export async function getCases(
   });
 
   const json = await response.json();
-  console.log(json.data);
   return json.data;
 }
