@@ -42,12 +42,15 @@ export class MongodbUserRepository implements UserRepository {
 
     const mappedUsers = clients.map(UserMapper.persistenceToPresentation);
 
+    const totalPages = Math.ceil(totalItems / limit);
+
     return {
       items: mappedUsers,
       meta: {
         totalItems,
-        totalPages: Math.ceil(totalItems / limit),
+        totalPages,
         currentPage: page,
+        nextPage: page < totalItems ? page + 1 : null,
       },
     };
   }
