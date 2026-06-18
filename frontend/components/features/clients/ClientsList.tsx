@@ -1,9 +1,7 @@
 'use client';
 import { WithId } from '@/types/WithId';
-import { CardSkeleton } from '../../ui/Card/CardSkeleton';
 import { ClientCard } from './ClientCard/ClientCard';
 import { SafeUser } from '@/types/SafeUser';
-import { RequestState } from '@/types/RequestState';
 import { ClientsListSkeleton } from './ClientsListSkeleton';
 import { UserSlice } from '@/types/UserSlice';
 
