@@ -50,7 +50,7 @@ export class MongodbUserRepository implements UserRepository {
         totalItems,
         totalPages,
         currentPage: page,
-        nextPage: page < totalItems ? page + 1 : null,
+        nextPage: page < totalPages ? page + 1 : null,
       },
     };
   }
