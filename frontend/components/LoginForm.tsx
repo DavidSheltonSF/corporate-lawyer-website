@@ -7,6 +7,7 @@ import { RequestFeedback } from './ui/Feedback/RequestFeedback';
 import { InputFeedback } from './ui/Input/InputFeedback';
 import { SubmitButton } from './SubmitButton';
 import { useRouter } from 'next/navigation';
+import { Text } from './ui/Text';
 
 export function LoginForm() {
   const [requestState, setRequestState] = useState<RequestState>({ status: 'idle' });
@@ -39,7 +40,9 @@ export function LoginForm() {
       className="flex flex-col w-[90%] min-md:w-[50%] min-lg:w-[480px] rounded-md p-[24px] gap-[24px] text-color-black text-center"
       action={handleSubmit}
     >
-      <h1 className="text-color-white">Acessar plataforma</h1>
+      <Text as={'h2'} variant="h2" className="text-color-white">
+        Acessar plataforma
+      </Text>
       <RequestFeedback requestState={requestState} />
 
       <div className="flex flex-col gap-[4px] items-start">
@@ -66,7 +69,7 @@ export function LoginForm() {
         />
         {errors?.password && <InputFeedback label={errors?.password} />}
       </div>
-      <SubmitButton label='Entrar' loadingLabel='Entrando'/>
+      <SubmitButton label="Entrar" loadingLabel="Entrando" />
     </form>
   );
 }
