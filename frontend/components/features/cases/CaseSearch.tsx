@@ -21,7 +21,6 @@ export default function CaseSearch() {
   const { search, setSearch, clientId, clearClientFilter, clientName, status, setStatus } =
     useCaseFilters();
   const [searchText, setSearchText] = useState(search);
-  const [page, setPage] = useState(1);
   const { openErrorModal } = useErrorModal();
   const { openSuccessModal } = useSuccessModal();
   const { openUpdateCaseModal } = useUpdateCaseModal();
@@ -31,7 +30,6 @@ export default function CaseSearch() {
   const updateCaseMutation = useUpdateCase();
 
   const { data, error, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } = useCases(userRole, {
-    page,
     status: status || '',
     search,
     clientId,

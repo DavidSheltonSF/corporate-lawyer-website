@@ -19,7 +19,6 @@ import { ButtonWithLoadingEffect } from '@/components/ui/ButtonWithLoadingEffect
 export default function ClientSearch() {
   const { search, setSearch } = useClientFilters();
   const [searchText, setSearchText] = useState(search);
-  const [page, setPage] = useState(1);
   const [registerUserModalIsOpen, setRegisterUserModalIsOpen] = useState(false);
 
   const { openUpdateClientModal } = useUpdateClientModal();
@@ -29,7 +28,6 @@ export default function ClientSearch() {
 
   const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useClients({
     search,
-    page,
     limit: 4,
   });
   const deleteClientMutation = useDeleteClient();
@@ -39,7 +37,6 @@ export default function ClientSearch() {
     console.log(error);
     return null;
   }
-
   async function handleUpdate(clientId: string, data: Record<string, string>) {
     try {
       await updateClientMutation.mutateAsync({ userId: clientId, data });
