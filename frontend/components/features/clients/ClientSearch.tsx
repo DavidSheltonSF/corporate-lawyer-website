@@ -15,6 +15,7 @@ import { useDeleteClient } from '@/hooks/fetching/users/useDeleteClient';
 import { useErrorModal } from '@/hooks/modals/useErrorModal';
 import { useSuccessModal } from '@/hooks/modals/useSuccessModal';
 import { useUpdateClient } from '@/hooks/fetching/users/useUpdateClient';
+import { ButtonWithLoadingEffect } from '@/components/ui/ButtonWithLoadingEffect';
 
 export default function ClientSearch() {
   const { search, setSearch } = useClientFilters();
@@ -27,7 +28,11 @@ export default function ClientSearch() {
   const { openErrorModal } = useErrorModal();
   const { openSuccessModal } = useSuccessModal();
 
-  const { data, isLoading, error } = useClients({ search, page, limit: 4 });
+  const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useClients({
+    search,
+    page,
+    limit: 4,
+  });
   const deleteClientMutation = useDeleteClient();
   const updateClientMutation = useUpdateClient();
 
@@ -63,6 +68,8 @@ export default function ClientSearch() {
     openDeleteClientModal({ id, firstName, lastName }, handleDelete);
   }
 
+  console.log(data?.pages);
+
   return (
     <section className="flex flex-col items-center size-full">
       <RegisterClientModal
@@ -91,13 +98,23 @@ export default function ClientSearch() {
         <ClientsList.Skeleton />
       ) : (
         <ClientsList
-          clients={data?.items || []}
+          clients={data?.pages.flatMap((page) => page.items) || []}
           openDeleteModal={handleOpenDeleteModal}
           openUpdateModal={handleOpenUpdateModal}
           fetchClients={() => {}}
         />
       )}
-      <Pagination page={page} setPage={setPage} totalPage={data?.meta.totalPages || 0} />
+      {hasNextPage && (
+        <ButtonWithLoadingEffect
+          className="py-[8px] text-[16px]"
+          label="Carregar Mais"
+          loadingLabel="Carregando"
+          isLoading={isLoading || isFetchingNextPage}
+          onClick={() => {
+            fetchNextPage();
+          }}
+        />
+      )}
     </section>
   );
 }
