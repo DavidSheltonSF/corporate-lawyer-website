@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { SearchBar } from '../../ui/Search/SearchBar';
 import { WithId } from '@/types/WithId';
-import { Pagination } from '../../Pagination';
 import { ClientsList } from './ClientsList';
 import { RegisterClientModal } from '../../modals/RegisterClientModal';
 import { Button } from '../../ui/Button/Button';
