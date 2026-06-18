@@ -29,5 +29,5 @@ export function ClientsList({ clients, openDeleteModal, openUpdateModal, fetchCl
     );
   });
 
-  return <div className="flex flex-col gap-[32px] mt-[88px] w-full">{renderCases}</div>;
+  return <div className="flex flex-col gap-[32px] w-full">{renderCases}</div>;
 }
