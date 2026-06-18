@@ -71,7 +71,7 @@ export default function ClientSearch() {
   console.log(data?.pages);
 
   return (
-    <section className="flex flex-col items-center w-full md:w-[720px]">
+    <section className="flex flex-col w-full gap-[40px] md:w-[720px]">
       <RegisterClientModal
         isOpen={registerUserModalIsOpen}
         setIsOpen={setRegisterUserModalIsOpen}
