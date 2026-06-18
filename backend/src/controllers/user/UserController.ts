@@ -76,7 +76,11 @@ export class UserController implements IUserController {
     }
 
     const { query = '', limit = 4, page = 1 } = httpRequest.query;
-    const data = await this.userService.findClients({ query, limit, page });
+    const data = await this.userService.findClients({
+      query,
+      limit: Number(limit),
+      page: Number(page),
+    });
     return HttpResponseFactory.makeOk(data);
   };
 
