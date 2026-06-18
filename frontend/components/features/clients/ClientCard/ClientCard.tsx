@@ -37,7 +37,7 @@ export function ClientCard({ clientData, openDeleteModal, openUpdateModal, fetch
   }
 
   return (
-    <Card className="w-full h-fit min-md:w-[720px]" actions={actions}>
+    <Card className="w-full h-fit" actions={actions}>
       <div className="flex flex-col text-color-black p-[24px] gap-[32px]">
         <ClientCard.Header clientName={`${firstName} ${lastName}`} cpf={cpf} />
         <ClientCard.Footer email={email} phone={phone} />
