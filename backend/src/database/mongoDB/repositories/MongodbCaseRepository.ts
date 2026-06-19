@@ -11,7 +11,7 @@ import { CasePopulatedResponseDTO } from '../../../dtos/case/CasePopulatedRespon
 import { CaseMapper } from '../../../mappers/Case/CaseMapper';
 import { CreateFileDTO } from '../../../dtos/caseFile/CreateFileDTO';
 import { FileDTO } from '../../../dtos/caseFile/FileDTO';
-import { CaseFileMapper } from '../../../mappers/CaseFile/CaseFileMapper';
+import { FileMapper } from '../../../mappers/CaseFile/FileMapper';
 import { UpdateCaseDTO } from '../../../dtos/case/UpdateCaseDTO';
 import { CaseDTO } from '../../../dtos/case/CaseDTO';
 
@@ -184,7 +184,7 @@ export class MongodbCaseRepository implements CaseRepository {
     if (!foundCase) return null;
 
     const caseFiles = foundCase.files;
-    return caseFiles.map(CaseFileMapper.persistenceToPresentation);
+    return caseFiles.map(FileMapper.persistenceToPresentation);
   }
 
   async deleteById(id: string): Promise<WithId<CaseDTO> | null> {
