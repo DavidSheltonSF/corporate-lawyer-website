@@ -14,8 +14,13 @@ export class CloudinaryUploadService implements UploadService {
             return Error('Invalid upload response');
           }
 
+          const download_url = cloudinary.url(uploadResult.public_id, {
+            flags: 'attachment',
+          });
+
           return resolve({
             url: uploadResult.secure_url,
+            download_url,
             publicId: uploadResult.public_id,
           });
         })
