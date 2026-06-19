@@ -23,25 +23,28 @@ export function FileCard({ onDelete, file }: Props) {
     return null;
   }
 
-  const mapFileType: Record<string, { label: string; backgroundColor: string }> = {
+  const mapFileType: Record<string, { label: string; type: string; backgroundColor: string }> = {
     'application/pdf': {
       label: 'pdf',
+      type: 'pdf',
       backgroundColor: 'bg-red-600',
     },
-    png: {
-      label: 'pdf',
-      backgroundColor: 'bg-blue-600',
+    'image/png': {
+      label: 'img',
+      type: 'png',
+      backgroundColor: 'bg-blue-700',
     },
   };
 
   const fileColor = mapFileType[file.mimeType].backgroundColor;
   const fileLabel = mapFileType[file.mimeType].label.toUpperCase();
+  const fileType = mapFileType[file.mimeType].type.toUpperCase();
 
   return (
     <Card className="border  overflow-hidden w-full" actions={actions}>
       <div className="flex juftify-center size-full">
         <div
-          className={`flex items-center justify-center bg-red-600 text-white h-auto w-fit px-[8px] ${fileColor}`}
+          className={`flex items-center justify-center text-white h-auto w-fit px-[8px] ${fileColor}`}
         >
           <Text as={'strong'}>{fileLabel}</Text>
         </div>
@@ -53,7 +56,9 @@ export function FileCard({ onDelete, file }: Props) {
             <Text variant="muted">
               {file.uploadedBy.firstName} {file.uploadedBy.lastName} • {formatDate(file.uploadedAt)}
             </Text>
-            <Text variant="muted">{formatFileSize(Number(file.size))}</Text>
+            <Text variant="muted">
+              {fileType} {formatFileSize(Number(file.size))}
+            </Text>
           </div>
         </div>
       </div>
