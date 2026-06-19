@@ -10,6 +10,8 @@ import { useFiles } from '@/hooks/fetching/files/useFiles';
 import { useUpload } from '@/hooks/fetching/files/useUpload';
 import { useSuccessModal } from '@/hooks/modals/useSuccessModal';
 import { useErrorModal } from '@/hooks/modals/useErrorModal';
+import { useDeleteFile } from '@/hooks/fetching/files/useDeleteFile';
+import { useConfirmModal } from '@/hooks/modals/useConfirmModal';
 
 interface Props {
   caseId: string;
@@ -19,8 +21,10 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
   const [uploadModalIsOpen, setUploadModalIsOpen] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const uploadMutation = useUpload();
+  const deleteMutation = useDeleteFile();
   const { openSuccessModal } = useSuccessModal();
   const { openErrorModal } = useErrorModal();
+  const { openConfirmModal } = useConfirmModal();
 
   const { caseId } = payload;
 
@@ -35,6 +39,25 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
     } catch (error: any) {
       openErrorModal(error.message);
     }
+  }
+
+  async function handleDelete(fileId: string) {
+    try {
+      setIsUploading(true);
+      await deleteMutation.mutateAsync(fileId);
+      setIsUploading(false);
+      openSuccessModal('Arquivo excluido com sucesso!');
+    } catch (error: any) {
+      openErrorModal(error.message);
+    }
+  }
+
+  function handleOpenConfirmModal(fileId: string, fileName: string) {
+    openConfirmModal({
+      message: 'Tem certeza que quer excluir esse arquivo? Essa ação não poderá ser revertida.',
+      title: `Excluir ${fileName}`,
+      onConfirm: () => handleDelete(fileId),
+    });
   }
 
   if (uploadModalIsOpen) {
@@ -66,7 +89,7 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
         </div>
         <div className="flex overflow-y-scroll">
           {caseFiles && caseFiles.length > 0 ? (
-            <FilesList files={caseFiles} />
+            <FilesList onDelete={handleOpenConfirmModal} files={caseFiles} />
           ) : (
             <ModalFeedback title="Nenhum arquivo encontrado" />
           )}
