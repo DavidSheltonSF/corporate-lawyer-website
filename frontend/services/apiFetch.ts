@@ -1,3 +1,4 @@
+import { ServerError } from '@/errors/ServerError';
 import { UnauthorizedError } from '@/errors/UnauthorizedError';
 import { getTokenFromCookies } from '@/lib/getTokenFromCookies';
 
@@ -23,6 +24,10 @@ export async function apiFetch(url: string, options?: RequestInit): Promise<Resp
 
   if (response.status === 401) {
     throw new UnauthorizedError();
+  }
+
+  if (response.status === 500) {
+    throw new ServerError();
   }
 
   return response;
