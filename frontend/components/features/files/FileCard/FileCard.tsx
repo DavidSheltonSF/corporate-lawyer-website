@@ -52,6 +52,7 @@ export function FileCard({ onDelete, file }: Props) {
 
   return (
     <Card
+      onClick={() => window.open(file.url, '_blank')}
       className="border  overflow-hidden w-full"
       actions={actions}
     >
