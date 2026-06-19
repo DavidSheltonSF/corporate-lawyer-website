@@ -11,6 +11,10 @@ import { handleLogout } from '@/lib/handleLogout';
 import { getCaseFiles } from '@/services/cases/getCaseFiles';
 import { LoadingModalScreeen } from '@/components/ui/Modal/LoadingModalScreen';
 import { FilesList } from '../../files/FilesList/FilesList';
+import { useFiles } from '@/hooks/fetching/files/useFiles';
+import { useUpload } from '@/hooks/fetching/files/useUpload';
+import { useSuccessModal } from '@/hooks/modals/useSuccessModal';
+import { useErrorModal } from '@/hooks/modals/useErrorModal';
 
 interface Props {
   caseId: string;
@@ -18,74 +22,62 @@ interface Props {
 
 export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
   const [uploadModalIsOpen, setUploadModalIsOpen] = useState(false);
-  const [requestState, setRequestState] = useState<RequestState<WithId<CaseFile>[]>>({
-    status: 'idle',
-  });
+  const [isUploading, setIsUploading] = useState(false);
+  const uploadMutation = useUpload();
+  const { openSuccessModal } = useSuccessModal();
+  const { openErrorModal } = useErrorModal();
+
   const { caseId } = payload;
 
-  async function fetchCaseFiles() {
-    setRequestState({ status: 'loading' });
-    const response = await getCaseFiles(caseId);
+  const { data, fetchNextPage, isLoading, error } = useFiles({ ownerId: caseId, limit: 4 });
 
-    if (!response.success) {
-      const { code, message, details } = response;
-      return setRequestState({ status: 'error', code, message, details });
+  async function handleUpload(ownerId: string, formData: FormData) {
+    try {
+      setIsUploading(true);
+      const response = await uploadMutation.mutateAsync({ ownerId, formData });
+      setIsUploading(false);
+      openSuccessModal('Arquivo enviado com sucesso!');
+    } catch (error: any) {
+      openErrorModal(error.message);
     }
-
-    setRequestState({ status: 'ok', data: response.data });
   }
-
-  useEffect(() => {
-    fetchCaseFiles();
-  }, []);
-
-  useEffect(() => {
-    if (requestState.status === 'error') {
-      if (requestState.code === 'UNAUTHORIZED') {
-        handleLogout();
-      }
-    }
-  }, []);
 
   if (uploadModalIsOpen) {
     return (
       <CaseFilesUploadModal
-        refetchCase={fetchCaseFiles}
+        isUploading={isUploading}
+        onUpload={handleUpload}
         caseId={caseId}
         close={() => setUploadModalIsOpen(false)}
       />
     );
   }
 
+  const caseFiles = data?.pages.flatMap((page) => page.items);
+
   function renderContent() {
-    switch (requestState.status) {
-      case 'loading':
-        return <LoadingModalScreeen />;
-
-      case 'ok':
-        const caseFiles = requestState.data;
-        return (
-          <div className="flex flex-col max-h-[40vh] pb-[24px]">
-            <div className="flex items-center border-divider px-[24px] py-[8px]">
-              <p className="font-bold">Arquivos enviados: {caseFiles.length}</p>
-              <OpenUploadModalButton
-                className="ml-auto"
-                handleClick={() => setUploadModalIsOpen(true)}
-              />
-            </div>
-            <div className="flex overflow-y-scroll">
-              {caseFiles.length > 0 ? (
-                <FilesList files={caseFiles}/>
-              ) : (
-                <ModalFeedback title="Nenhum arquivo encontrado" />
-              )}
-            </div>
-          </div>
-        );
-
-      default:
-        break;
+    if (isLoading) {
+      return <LoadingModalScreeen />;
     }
+
+    return (
+      <div className="flex flex-col max-h-[40vh] pb-[24px]">
+        <div className="flex items-center border-divider px-[24px] py-[8px]">
+          <p className="font-bold">Arquivos enviados: {caseFiles?.length}</p>
+          <OpenUploadModalButton
+            className="ml-auto"
+            handleClick={() => setUploadModalIsOpen(true)}
+          />
+        </div>
+        <div className="flex overflow-y-scroll">
+          {caseFiles && caseFiles.length > 0 ? (
+            <FilesList files={caseFiles} />
+          ) : (
+            <ModalFeedback title="Nenhum arquivo encontrado" />
+          )}
+        </div>
+      </div>
+    );
   }
 
   const BaseModalProps = {
