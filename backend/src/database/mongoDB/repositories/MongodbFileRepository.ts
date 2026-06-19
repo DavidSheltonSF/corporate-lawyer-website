@@ -19,6 +19,7 @@ export class MongodbFileRepository implements FileRepository {
       .sort({ uploadedAt: -1 })
       .limit(limit)
       .skip((page - 1) * limit)
+      .populate({path: 'uploadedBy', select: 'firstName lastName'})
       .lean();
 
     const totalItemsQuery = FileModel.countDocuments({ ownerId });
