@@ -30,6 +30,5 @@ export class CloudinaryUploadService implements UploadService {
 
   async delete(publicId: string): Promise<void> {
     const result = await cloudinary.uploader.destroy(publicId);
-    console.log(result);
   }
 }
