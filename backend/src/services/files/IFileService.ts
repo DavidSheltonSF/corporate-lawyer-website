@@ -6,6 +6,7 @@ import { WithId } from '../../types/WithId';
 
 export interface IFileService {
   create(data: CreateFileDTO, buffer: Buffer): Promise<WithId<FileDTO>>;
+  findAllByOwnerId(ownerId: string): Promise<WithId<FileDTO>[]>;
   findById(fileId: string): Promise<WithId<FileDTO>>;
   findByOwnerId(ownerId: string, pageParams: PageParams): Promise<Page<WithId<FileDTO>>>;
   rename(fileId: string, name: string): Promise<WithId<FileDTO> | null>;

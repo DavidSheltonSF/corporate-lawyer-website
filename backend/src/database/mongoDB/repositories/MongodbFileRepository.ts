@@ -12,6 +12,10 @@ export class MongodbFileRepository implements FileRepository {
     const file = await FileModel.create(data);
     return FileMapper.persistenceToPresentation(file);
   }
+  async findAllByOwnerId(ownerId: string): Promise<WithId<FileDTO>[]> {
+    const files = await FileModel.find({ ownerId });
+    return files.map(FileMapper.persistenceToPresentation);
+  }
 
   async findByOwnerId(ownerId: string, pageParams: PageParams): Promise<Page<WithId<FileDTO>>> {
     const { limit = 1, page = 1 } = pageParams;
