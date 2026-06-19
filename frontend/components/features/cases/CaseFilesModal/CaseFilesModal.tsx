@@ -33,7 +33,7 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
   async function handleUpload(ownerId: string, formData: FormData) {
     try {
       setIsUploading(true);
-      const response = await uploadMutation.mutateAsync({ ownerId, formData });
+      await uploadMutation.mutateAsync({ ownerId, formData });
       setIsUploading(false);
       openSuccessModal('Arquivo enviado com sucesso!');
     } catch (error: any) {
