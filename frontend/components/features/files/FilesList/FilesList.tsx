@@ -4,11 +4,12 @@ import { FileCard } from '../FileCard/FileCard';
 
 interface Props {
   files: WithId<CaseFile>[];
+  onDelete: (fileId: string, fileName: string) => void
 }
 
-export function FilesList({ files }: Props) {
+export function FilesList({ files, onDelete }: Props) {
   const renderFiles = files.map((file) => {
-    return <FileCard key={file.id} file={file} onDelete={() => {}} />;
+    return <FileCard key={file.id} file={file} onDelete={onDelete} />;
   });
 
   return <div className='flex flex-col size-full p-[24px] gap-[16px]'>{renderFiles}</div>;
