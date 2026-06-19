@@ -1,3 +1,4 @@
+import { DeleteResult } from 'mongoose';
 import { CreateFileDTO } from '../../../dtos/caseFile/CreateFileDTO';
 import { FileDTO } from '../../../dtos/caseFile/FileDTO';
 import { FileMapper } from '../../../mappers/CaseFile/FileMapper';
@@ -6,6 +7,7 @@ import { FileRepository } from '../../../repositories/FileRepository';
 import { Page } from '../../../types/Page';
 import { PageParams } from '../../../types/PageParams';
 import { WithId } from '../../../types/WithId';
+import { DeleteManyResult } from '../../../types/DeleteManyResult';
 
 export class MongodbFileRepository implements FileRepository {
   async create(data: CreateFileDTO): Promise<WithId<FileDTO>> {
@@ -62,5 +64,11 @@ export class MongodbFileRepository implements FileRepository {
       return null;
     }
     return FileMapper.persistenceToPresentation(file);
+  }
+
+  async deleteByOwnerId(ownerId: string): Promise<DeleteManyResult> {
+    const result = await FileModel.deleteMany({ ownerId });
+
+    return { success: result.acknowledged, deletedCount: result.deletedCount };
   }
 }

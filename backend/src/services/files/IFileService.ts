@@ -1,5 +1,6 @@
 import { CreateFileDTO } from '../../dtos/caseFile/CreateFileDTO';
 import { FileDTO } from '../../dtos/caseFile/FileDTO';
+import { DeleteManyResult } from '../../types/DeleteManyResult';
 import { Page } from '../../types/Page';
 import { PageParams } from '../../types/PageParams';
 import { WithId } from '../../types/WithId';
@@ -11,4 +12,5 @@ export interface IFileService {
   findByOwnerId(ownerId: string, pageParams: PageParams): Promise<Page<WithId<FileDTO>>>;
   rename(fileId: string, name: string): Promise<WithId<FileDTO> | null>;
   deleteById(id: string): Promise<WithId<FileDTO> | null>;
+  deleteByOwnerId: (ownerId: string) => Promise<DeleteManyResult>;
 }

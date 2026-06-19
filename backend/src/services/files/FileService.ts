@@ -6,6 +6,7 @@ import { FileDTO } from '../../dtos/caseFile/FileDTO';
 import { validateFile } from '../validators/files/validateFile';
 import { Page } from '../../types/Page';
 import { PageParams } from '../../types/PageParams';
+import { DeleteManyResult } from '../../types/DeleteManyResult';
 
 export class FileService implements IFileService {
   constructor(private fileRepository: FileRepository) {}
@@ -32,5 +33,9 @@ export class FileService implements IFileService {
 
   async deleteById(fileId: string): Promise<WithId<FileDTO> | null> {
     return await this.fileRepository.deleteById(fileId);
+  }
+
+  async deleteByOwnerId(ownerId: string): Promise<DeleteManyResult> {
+    return await this.fileRepository.deleteByOwnerId(ownerId);
   }
 }
