@@ -10,5 +10,9 @@ export function useFiles(params: Omit<GetFilesParams, 'page'>) {
     getNextPageParam: (lastPage) => lastPage.meta.nextPage,
     initialPageParam: 1,
     staleTime: 1000 * 60,
+    select: (data) => ({
+      items: data.pages.flatMap((page) => page.items),
+      totalItems: data.pages[0].meta.totalItems,
+    }),
   });
 }
