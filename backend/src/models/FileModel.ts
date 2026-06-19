@@ -1,6 +1,6 @@
 import { Document, model, Schema, Types } from 'mongoose';
 
-export interface ICaseFileModel {
+export interface IFileModel {
   name: string;
   url: string;
   publicId: string;
@@ -10,9 +10,9 @@ export interface ICaseFileModel {
   uploadedAt: Date;
 }
 
-interface CaseFileMongoDocument extends ICaseFileModel, Document {}
+interface FileMongoDocument extends IFileModel, Document {}
 
-export const CaseFileSchema = new Schema<CaseFileMongoDocument>({
+export const FileSchema = new Schema<FileMongoDocument>({
   name: { type: String, required: true },
   url: { type: String, required: true },
   publicId: { type: String, required: true },
@@ -22,4 +22,4 @@ export const CaseFileSchema = new Schema<CaseFileMongoDocument>({
   uploadedAt: { type: Date, default: Date.now },
 });
 
-export const CaseFileModel = model<CaseFileMongoDocument>('CaseFiles', CaseFileSchema);
+export const FileModel = model<FileMongoDocument>('CaseFiles', FileSchema);

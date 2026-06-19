@@ -1,6 +1,6 @@
 import { Schema, model, Document, Types } from 'mongoose';
 import { CasesStatus } from '../types/CasesStatus';
-import { CaseFileSchema, ICaseFileModel } from './CaseFileModel';
+import { FileSchema, IFileModel } from './FileModel';
 import { WithMongoId } from '../database/mongoDB/types/WithMongoId';
 import { CaseLocation } from '../types/CaseLocation';
 
@@ -12,7 +12,7 @@ export interface ICaseModel {
   description: string;
   court: string; //tribunal
   courtDivision: string; //vara
-  files: WithMongoId<ICaseFileModel>[];
+  files: WithMongoId<IFileModel>[];
   hearings: Types.ObjectId[];
   status: CasesStatus;
   location: CaseLocation;
@@ -31,7 +31,7 @@ const CaseSchema = new Schema<CaseMongoDocument>(
     description: { type: String, required: true },
     court: { type: String, required: true },
     courtDivision: { type: String, required: true },
-    files: { type: [CaseFileSchema], default: [] },
+    files: { type: [FileSchema], default: [] },
     hearings: [{ type: Types.ObjectId, ref: 'Hearings', index: true }],
     status: {
       type: String,
