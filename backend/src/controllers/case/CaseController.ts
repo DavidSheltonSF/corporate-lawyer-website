@@ -10,10 +10,12 @@ import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { requireAutheticatedLawyer } from '../helpers/requireAutheticatedLawyer';
 import { checkMissingFields } from '../../utils/checkMissingFields';
 import { UploadService } from '../../services/uṕload/UploadService';
+import { IFileService } from '../../services/files/IFileService';
 
 export class CaseController implements ICaseController {
   constructor(
     private caseService: ICaseService,
+    private fileService: IFileService,
     private userService: IUserService,
     private uploadService: UploadService
   ) {}
@@ -177,14 +179,18 @@ export class CaseController implements ICaseController {
 
     const fixedName = Buffer.from(file.originalname, 'latin1').toString('utf8');
 
-    const response = await this.caseService.addFile(caseId, {
-      name: fixedName,
-      url: uploadResult.url,
-      publicId: uploadResult.publicId,
-      size: file.size,
-      mimeType: file.mimetype,
-      uploadedBy: String(userId),
-    });
+    const response = await this.fileService.create(
+      {
+        ownerId: caseId,
+        name: fixedName,
+        url: uploadResult.url,
+        publicId: uploadResult.publicId,
+        size: file.size,
+        mimeType: file.mimetype,
+        uploadedBy: String(userId),
+      },
+      file.buffer
+    );
 
     return HttpResponseFactory.makeOk(response);
   };
@@ -195,7 +201,12 @@ export class CaseController implements ICaseController {
       throw new BadRequestError('Missing case id');
     }
 
-    const foundCaseFiles = await this.caseService.findFilesByCaseId(String(caseId));
+    const {limit = 1, page = 1} = httpRequest.query;
+
+    const foundCaseFiles = await this.fileService.findByOwnerId(String(caseId), {
+      limit: Number(limit),
+      page: Number(page),
+    });
 
     if (!foundCaseFiles) {
       throw new NotFoundError(`Case with id '${caseId} not found`);
