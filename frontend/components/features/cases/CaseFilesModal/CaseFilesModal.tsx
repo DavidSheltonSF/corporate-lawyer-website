@@ -1,14 +1,9 @@
 import { BaseModal } from '@/components/ui/Modal/BaseModal';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CaseFilesUploadModal } from '../CaseFilesUploadModal/CaseFilesUploadModal';
 import { OpenUploadModalButton } from '@/components/OpenUploadModalButton';
 import { ModalFeedback } from '@/components/ui/Feedback/ModalFeedback';
 import { GlobalModalProps } from '@/types/GlobalModalProps';
-import { WithId } from '@/types/WithId';
-import { CaseFile } from '@/types/CaseFile';
-import { RequestState } from '@/types/RequestState';
-import { handleLogout } from '@/lib/handleLogout';
-import { getCaseFiles } from '@/services/cases/getCaseFiles';
 import { LoadingModalScreeen } from '@/components/ui/Modal/LoadingModalScreen';
 import { FilesList } from '../../files/FilesList/FilesList';
 import { useFiles } from '@/hooks/fetching/files/useFiles';
