@@ -31,11 +31,10 @@ export class CloudinaryUploadService implements UploadService {
   async delete(publicId: string): Promise<void> {
     const result = await cloudinary.uploader.destroy(publicId);
   }
-  async deleteMany(publicIds: string[]): Promise<void> {
+  async deleteMany(publicIds: string[]): Promise<{ failedCount: number }> {
     const result = await cloudinary.api.delete_resources(publicIds);
     const failed = Object.entries(result).filter(([_, status]) => status !== 'deleted');
-    if (failed.length > 0) {
-      throw Error('Some files could not be deleted');
-    }
+
+    return { failedCount: failed.length };
   }
 }
