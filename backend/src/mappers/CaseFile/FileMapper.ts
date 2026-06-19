@@ -10,6 +10,7 @@ export class FileMapper {
     };
 
     return {
+      ownerId: caseFile.ownerId,
       id: caseFile._id.toString(),
       name: caseFile.name,
       size: caseFile.size,
