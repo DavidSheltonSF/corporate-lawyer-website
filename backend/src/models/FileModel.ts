@@ -4,6 +4,7 @@ export interface IFileModel {
   ownerId: string;
   name: string;
   url: string;
+  download_url: string;
   publicId: string;
   size: number;
   mimeType: string;
@@ -17,6 +18,7 @@ export const FileSchema = new Schema<FileMongoDocument>({
   ownerId: { type: String, required: true },
   name: { type: String, required: true },
   url: { type: String, required: true },
+  download_url: { type: String, required: true },
   publicId: { type: String, required: true },
   size: { type: Number, required: true },
   mimeType: { type: String, required: true },

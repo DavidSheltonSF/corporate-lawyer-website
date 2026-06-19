@@ -1,5 +1,6 @@
 export interface UploadResult {
   url: string;
+  download_url: string;
   publicId: string;
 }
 

@@ -5,6 +5,7 @@ export interface FileDTO {
   ownerId: string;
   name: string;
   url: string;
+  download_url: string;
   publicId: string;
   size: number;
   mimeType: string;
