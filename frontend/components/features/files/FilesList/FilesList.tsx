@@ -12,5 +12,5 @@ export function FilesList({ files, onDelete }: Props) {
     return <FileCard key={file.id} file={file} onDelete={onDelete} />;
   });
 
-  return <div className='flex flex-col size-full p-[24px] gap-[16px]'>{renderFiles}</div>;
+  return <div className='flex flex-col size-full gap-[16px]'>{renderFiles}</div>;
 }

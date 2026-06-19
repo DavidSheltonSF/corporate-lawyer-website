@@ -90,7 +90,7 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
             handleClick={() => setUploadModalIsOpen(true)}
           />
         </div>
-        <div className="flex flex-col overflow-y-scroll">
+        <div className="flex flex-col gap-[24px] overflow-y-scroll p-[24px]">
           {caseFiles && caseFiles.length > 0 ? (
             <FilesList onDelete={handleOpenConfirmModal} files={caseFiles} />
           ) : (
