@@ -14,6 +14,10 @@ export class FileService implements IFileService {
     return await this.fileRepository.create(data);
   }
 
+  async findById(fileId: string): Promise<WithId<FileDTO>> {
+    return await this.fileRepository.findById(fileId);
+  }
+
   async findByOwnerId(ownerId: string, pageParams: PageParams): Promise<Page<WithId<FileDTO>>> {
     return await this.fileRepository.findByOwnerId(ownerId, pageParams);
   }

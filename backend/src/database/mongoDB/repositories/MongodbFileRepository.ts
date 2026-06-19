@@ -19,7 +19,7 @@ export class MongodbFileRepository implements FileRepository {
       .sort({ uploadedAt: -1 })
       .limit(limit)
       .skip((page - 1) * limit)
-      .populate({path: 'uploadedBy', select: 'firstName lastName'})
+      .populate({ path: 'uploadedBy', select: 'firstName lastName' })
       .lean();
 
     const totalItemsQuery = FileModel.countDocuments({ ownerId });
@@ -37,6 +37,11 @@ export class MongodbFileRepository implements FileRepository {
         nextPage: page < totalPages ? page + 1 : null,
       },
     };
+  }
+
+  async findById(fileId: string): Promise<WithId<FileDTO>> {
+    const file = await FileModel.findById(fileId);
+    return FileMapper.persistenceToPresentation(file);
   }
 
   async rename(fileId: string, name: string): Promise<WithId<FileDTO> | null> {
