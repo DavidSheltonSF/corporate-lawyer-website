@@ -7,4 +7,5 @@ export interface UploadResult {
 export interface UploadService {
   upload: (buffer: Buffer) => Promise<UploadResult>;
   delete: (publicId: string) => Promise<void>;
+  deleteMany: (publicIdS: string[]) => Promise<void>;
 }
