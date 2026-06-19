@@ -34,6 +34,16 @@ export function FileCard({ onDelete, file }: Props) {
       type: 'png',
       backgroundColor: 'bg-blue-700',
     },
+    'image/jpeg': {
+      label: 'img',
+      type: 'jpeg',
+      backgroundColor: 'bg-blue-700',
+    },
+    'image/jpg': {
+      label: 'img',
+      type: 'jpg',
+      backgroundColor: 'bg-blue-700',
+    },
   };
 
   const fileColor = mapFileType[file.mimeType].backgroundColor;
