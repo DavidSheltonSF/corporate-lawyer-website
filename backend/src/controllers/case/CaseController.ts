@@ -239,6 +239,19 @@ export class CaseController implements ICaseController {
     if (!id) {
       throw new BadRequestError('Missing case id');
     }
+
+    const files = await this.fileService.findAllByOwnerId(id);
+    const filesPublicIds = files.map((file) => file.publicId);
+
+    const deleteUploadedResult = await this.uploadService.deleteMany(filesPublicIds);
+    if (deleteUploadedResult.failedCount > 0) {
+      console.log(
+        `Warning: ${deleteUploadedResult.failedCount} files could not be deleted from the storage`
+      );
+    }
+
+    await this.fileService.deleteByOwnerId(id);
+
     const deleted = await this.caseService.deleteById(id);
     if (!deleted) {
       throw new NotFoundError(`Case with id '${id} not found`);
