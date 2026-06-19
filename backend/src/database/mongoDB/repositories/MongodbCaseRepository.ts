@@ -9,8 +9,8 @@ import { CaseQuery } from '../../../types/CaseQuery';
 import { Page } from '../../../types/Page';
 import { CasePopulatedResponseDTO } from '../../../dtos/case/CasePopulatedResponseDTO';
 import { CaseMapper } from '../../../mappers/Case/CaseMapper';
-import { CreateCaseFileDTO } from '../../../dtos/caseFile/CreateCaseFileDTO';
-import { CaseFileDTO } from '../../../dtos/caseFile/CaseFileDTO';
+import { CreateFileDTO } from '../../../dtos/caseFile/CreateFileDTO';
+import { FileDTO } from '../../../dtos/caseFile/FileDTO';
 import { CaseFileMapper } from '../../../mappers/CaseFile/CaseFileMapper';
 import { UpdateCaseDTO } from '../../../dtos/case/UpdateCaseDTO';
 import { CaseDTO } from '../../../dtos/case/CaseDTO';
@@ -41,7 +41,7 @@ export class MongodbCaseRepository implements CaseRepository {
     return CaseMapper.persistenceToPresentation(cas);
   }
 
-  async addFile(caseId: string, file: CreateCaseFileDTO): Promise<boolean> {
+  async addFile(caseId: string, file: CreateFileDTO): Promise<boolean> {
     const updated = await CaseModel.findByIdAndUpdate(
       {
         _id: caseId,
@@ -176,7 +176,7 @@ export class MongodbCaseRepository implements CaseRepository {
     };
   }
 
-  async findFilesByCaseId(caseId: string): Promise<WithId<CaseFileDTO>[] | null> {
+  async findFilesByCaseId(caseId: string): Promise<WithId<FileDTO>[] | null> {
     const foundCase = await CaseModel.findById(caseId)
       .select('files')
       .populate('files.uploadedBy')

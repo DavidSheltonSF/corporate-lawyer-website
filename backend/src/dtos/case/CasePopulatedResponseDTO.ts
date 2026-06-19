@@ -1,6 +1,6 @@
 import { UserName } from '../../types/UserName';
 import { WithId } from '../../types/WithId';
-import { CaseFileDTO } from '../caseFile/CaseFileDTO';
+import { FileDTO } from '../caseFile/FileDTO';
 import { HearingDTO } from '../hearing/HearingDTO';
 import { CaseLocationDTO } from './CaseLocationDTO';
 
@@ -12,7 +12,7 @@ export interface CasePopulatedResponseDTO {
   description: string;
   court: string; //tribunal
   courtDivision: string; //vara
-  files: WithId<CaseFileDTO>[];
+  files: WithId<FileDTO>[];
   hearings: WithId<HearingDTO>[];
   status: string;
   location: CaseLocationDTO;

@@ -1,6 +1,6 @@
 import { CasePopulatedResponseDTO } from '../../dtos/case/CasePopulatedResponseDTO';
-import { CaseFileDTO } from '../../dtos/caseFile/CaseFileDTO';
-import { CreateCaseFileDTO } from '../../dtos/caseFile/CreateCaseFileDTO';
+import { FileDTO } from '../../dtos/caseFile/FileDTO';
+import { CreateFileDTO } from '../../dtos/caseFile/CreateFileDTO';
 import { CreateCaseDTO } from '../../dtos/case/CreateCaseDTO';
 import { CaseRepository } from '../../repositories/CaseRepository';
 import { CaseQuery } from '../../types/CaseQuery';
@@ -100,7 +100,7 @@ export class CaseService implements ICaseService {
     return this.caseRepository.getStats();
   }
 
-  async addFile(caseId: string, file: CreateCaseFileDTO): Promise<void> {
+  async addFile(caseId: string, file: CreateFileDTO): Promise<void> {
     await this.caseRepository.addFile(caseId, {
       name: file.name,
       url: file.url,
@@ -111,7 +111,7 @@ export class CaseService implements ICaseService {
     });
   }
 
-  async findFilesByCaseId(id: string): Promise<WithId<CaseFileDTO>[] | null> {
+  async findFilesByCaseId(id: string): Promise<WithId<FileDTO>[] | null> {
     return await this.caseRepository.findFilesByCaseId(id);
   }
 

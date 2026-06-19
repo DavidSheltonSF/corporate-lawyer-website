@@ -1,8 +1,8 @@
-import { CaseFileDTO } from '../../dtos/caseFile/CaseFileDTO';
+import { FileDTO } from '../../dtos/caseFile/FileDTO';
 import { WithId } from '../../types/WithId';
 
 export class CaseFileMapper {
-  static persistenceToPresentation(caseFile: any): WithId<CaseFileDTO> {
+  static persistenceToPresentation(caseFile: any): WithId<FileDTO> {
     const uploadedBy = {
       id: caseFile.uploadedBy._id.toString(),
       firstName: caseFile.uploadedBy.firstName,

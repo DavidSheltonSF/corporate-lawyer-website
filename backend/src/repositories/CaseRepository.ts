@@ -1,6 +1,6 @@
 import { CasePopulatedResponseDTO } from '../dtos/case/CasePopulatedResponseDTO';
-import { CaseFileDTO } from '../dtos/caseFile/CaseFileDTO';
-import { CreateCaseFileDTO } from '../dtos/caseFile/CreateCaseFileDTO';
+import { FileDTO } from '../dtos/caseFile/FileDTO';
+import { CreateFileDTO } from '../dtos/caseFile/CreateFileDTO';
 import { CreateCaseDTO } from '../dtos/case/CreateCaseDTO';
 import { CaseQuery } from '../types/CaseQuery';
 import { CasesStats } from '../types/CasesStats';
@@ -12,13 +12,13 @@ import { CaseDTO } from '../dtos/case/CaseDTO';
 export interface CaseRepository {
   create(user: CreateCaseDTO): Promise<WithId<CaseDTO>>;
   updateById(id: string, user: UpdateCaseDTO): Promise<WithId<CaseDTO> | null>;
-  addFile(caseId: string, file: CreateCaseFileDTO): Promise<boolean>;
+  addFile(caseId: string, file: CreateFileDTO): Promise<boolean>;
   findAll(queryParams?: CaseQuery): Promise<Page<WithId<CasePopulatedResponseDTO>>>;
   findById(id: string): Promise<WithId<CaseDTO> | null>;
   findPopulatedById(id: string): Promise<WithId<CasePopulatedResponseDTO> | null>;
   getStatsByClientId(clientId: string): Promise<CasesStats | null>;
   getStats(): Promise<CasesStats>;
-  findFilesByCaseId(caseId: string): Promise<WithId<CaseFileDTO>[] | null>;
+  findFilesByCaseId(caseId: string): Promise<WithId<FileDTO>[] | null>;
   exists(id: string): Promise<boolean>;
   deleteById(id: string): Promise<WithId<CaseDTO> | null>;
   deleteByUserId(id: string): Promise<{

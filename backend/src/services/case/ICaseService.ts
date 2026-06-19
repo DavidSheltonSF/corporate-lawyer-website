@@ -1,6 +1,6 @@
 import { CasePopulatedResponseDTO } from '../../dtos/case/CasePopulatedResponseDTO';
-import { CaseFileDTO } from '../../dtos/caseFile/CaseFileDTO';
-import { CreateCaseFileDTO } from '../../dtos/caseFile/CreateCaseFileDTO';
+import { FileDTO } from '../../dtos/caseFile/FileDTO';
+import { CreateFileDTO } from '../../dtos/caseFile/CreateFileDTO';
 import { CreateCaseDTO } from '../../dtos/case/CreateCaseDTO';
 import { CaseQuery } from '../../types/CaseQuery';
 import { CasesStats } from '../../types/CasesStats';
@@ -18,7 +18,7 @@ export interface ICaseService {
   ): Promise<WithId<CaseDTO | CasePopulatedResponseDTO> | null>;
   getStatsByClientId(clientId: string): Promise<CasesStats | null>;
   getStats(): Promise<CasesStats | null>;
-  addFile(caseId: string, file: CreateCaseFileDTO): Promise<void>;
-  findFilesByCaseId(id: string): Promise<WithId<CaseFileDTO>[] | null>;
+  addFile(caseId: string, file: CreateFileDTO): Promise<void>;
+  findFilesByCaseId(id: string): Promise<WithId<FileDTO>[] | null>;
   deleteById(id: string): Promise<WithId<CaseDTO> | null>;
 }
