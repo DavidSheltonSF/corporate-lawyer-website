@@ -8,12 +8,12 @@ import { formatFileSize } from '@/lib/formatFileSize';
 
 interface Props {
   file: WithId<CaseFile>;
-  onDelete: (fileId: string) => void;
+  onDelete: (fileId: string, fileName: string) => void;
 }
 
 export function FileCard({ onDelete, file }: Props) {
   const actions = useFileCardActions({
-    onDelete: () => onDelete(file.id),
+    onDelete: () => onDelete(file.id, file.name),
     onDownload: () => {
       window.open(file.url, '_blank');
     },
