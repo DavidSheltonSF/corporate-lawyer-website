@@ -184,7 +184,7 @@ export class CaseController implements ICaseController {
         ownerId: caseId,
         name: fixedName,
         url: uploadResult.url,
-        download_url: uploadResult.download_url,
+        downloadUrl: uploadResult.downloadUrl,
         publicId: uploadResult.publicId,
         size: file.size,
         mimeType: file.mimetype,
