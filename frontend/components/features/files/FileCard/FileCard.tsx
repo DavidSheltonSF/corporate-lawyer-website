@@ -15,7 +15,7 @@ export function FileCard({ onDelete, file }: Props) {
   const actions = useFileCardActions({
     onDelete: () => onDelete(file.id, file.name),
     onDownload: () => {
-      window.open(file.url, '_blank');
+      window.open(file.downloadUrl, '_blank');
     },
   });
 
@@ -51,7 +51,10 @@ export function FileCard({ onDelete, file }: Props) {
   const fileType = mapFileType[file.mimeType].type.toUpperCase();
 
   return (
-    <Card className="border  overflow-hidden w-full" actions={actions}>
+    <Card
+      className="border  overflow-hidden w-full"
+      actions={actions}
+    >
       <div className="flex juftify-center size-full">
         <div
           className={`flex items-center justify-center text-white h-auto w-fit px-[8px] ${fileColor}`}
