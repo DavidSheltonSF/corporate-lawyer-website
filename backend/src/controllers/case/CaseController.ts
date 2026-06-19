@@ -202,11 +202,13 @@ export class CaseController implements ICaseController {
       throw new BadRequestError('Missing file id');
     }
 
-    const response = this.fileService.deleteById(fileId);
-    if (!response) {
+    const file = await this.fileService.findById(fileId);
+    if (!file) {
       throw new NotFoundError(`File with id '${fileId}' was not found`);
     }
 
+    await this.uploadService.delete(file.publicId);
+    await this.fileService.deleteById(fileId);
     return HttpResponseFactory.makeNoContent();
   };
 
