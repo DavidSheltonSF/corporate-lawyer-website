@@ -12,6 +12,7 @@ import { useSuccessModal } from '@/hooks/modals/useSuccessModal';
 import { useErrorModal } from '@/hooks/modals/useErrorModal';
 import { useDeleteFile } from '@/hooks/fetching/files/useDeleteFile';
 import { useConfirmModal } from '@/hooks/modals/useConfirmModal';
+import { ButtonWithLoadingEffect } from '@/components/ui/ButtonWithLoadingEffect';
 
 interface Props {
   caseId: string;
@@ -28,7 +29,10 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
 
   const { caseId } = payload;
 
-  const { data, fetchNextPage, isLoading, error } = useFiles({ ownerId: caseId, limit: 4 });
+  const { data, fetchNextPage, hasNextPage, isLoading, error } = useFiles({
+    ownerId: caseId,
+    limit: 4,
+  });
 
   async function handleUpload(ownerId: string, formData: FormData) {
     try {
@@ -86,11 +90,20 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
             handleClick={() => setUploadModalIsOpen(true)}
           />
         </div>
-        <div className="flex overflow-y-scroll">
+        <div className="flex flex-col overflow-y-scroll">
           {caseFiles && caseFiles.length > 0 ? (
             <FilesList onDelete={handleOpenConfirmModal} files={caseFiles} />
           ) : (
             <ModalFeedback title="Nenhum arquivo encontrado" />
+          )}
+
+          {hasNextPage && (
+            <ButtonWithLoadingEffect
+              label="Mostrar mais"
+              loadingLabel="Carregando"
+              isLoading={isLoading}
+              onClick={() => fetchNextPage()}
+            />
           )}
         </div>
       </div>
