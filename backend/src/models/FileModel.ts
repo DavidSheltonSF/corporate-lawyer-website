@@ -22,4 +22,4 @@ export const FileSchema = new Schema<FileMongoDocument>({
   uploadedAt: { type: Date, default: Date.now },
 });
 
-export const FileModel = model<FileMongoDocument>('CaseFiles', FileSchema);
+export const FileModel = model<FileMongoDocument>('Files', FileSchema);
