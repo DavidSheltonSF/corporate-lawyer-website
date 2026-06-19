@@ -9,9 +9,6 @@ import { CaseQuery } from '../../../types/CaseQuery';
 import { Page } from '../../../types/Page';
 import { CasePopulatedResponseDTO } from '../../../dtos/case/CasePopulatedResponseDTO';
 import { CaseMapper } from '../../../mappers/Case/CaseMapper';
-import { CreateFileDTO } from '../../../dtos/caseFile/CreateFileDTO';
-import { FileDTO } from '../../../dtos/caseFile/FileDTO';
-import { FileMapper } from '../../../mappers/CaseFile/FileMapper';
 import { UpdateCaseDTO } from '../../../dtos/case/UpdateCaseDTO';
 import { CaseDTO } from '../../../dtos/case/CaseDTO';
 
@@ -40,26 +37,6 @@ export class MongodbCaseRepository implements CaseRepository {
     if (!cas) return null;
     return CaseMapper.persistenceToPresentation(cas);
   }
-
-  async addFile(caseId: string, file: CreateFileDTO): Promise<boolean> {
-    const updated = await CaseModel.findByIdAndUpdate(
-      {
-        _id: caseId,
-      },
-      {
-        $push: {
-          files: file,
-        },
-      },
-      {
-        returnDocument: 'after',
-        runValidators: true,
-      }
-    ).lean();
-
-    return updated !== null;
-  }
-
   async findAll(queryParams: CaseQuery = {}): Promise<Page<WithId<CasePopulatedResponseDTO>>> {
     const { query, status, limit = 10, page = 1, clientId } = queryParams;
 
@@ -175,18 +152,6 @@ export class MongodbCaseRepository implements CaseRepository {
       closed,
     };
   }
-
-  async findFilesByCaseId(caseId: string): Promise<WithId<FileDTO>[] | null> {
-    const foundCase = await CaseModel.findById(caseId)
-      .select('files')
-      .populate('files.uploadedBy')
-      .lean();
-    if (!foundCase) return null;
-
-    const caseFiles = foundCase.files;
-    return caseFiles.map(FileMapper.persistenceToPresentation);
-  }
-
   async deleteById(id: string): Promise<WithId<CaseDTO> | null> {
     const deletedCase = await CaseModel.findByIdAndDelete(id);
     return CaseMapper.persistenceToPresentation(deletedCase);

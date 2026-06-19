@@ -12,13 +12,11 @@ import { CaseDTO } from '../dtos/case/CaseDTO';
 export interface CaseRepository {
   create(user: CreateCaseDTO): Promise<WithId<CaseDTO>>;
   updateById(id: string, user: UpdateCaseDTO): Promise<WithId<CaseDTO> | null>;
-  addFile(caseId: string, file: CreateFileDTO): Promise<boolean>;
   findAll(queryParams?: CaseQuery): Promise<Page<WithId<CasePopulatedResponseDTO>>>;
   findById(id: string): Promise<WithId<CaseDTO> | null>;
   findPopulatedById(id: string): Promise<WithId<CasePopulatedResponseDTO> | null>;
   getStatsByClientId(clientId: string): Promise<CasesStats | null>;
   getStats(): Promise<CasesStats>;
-  findFilesByCaseId(caseId: string): Promise<WithId<FileDTO>[] | null>;
   exists(id: string): Promise<boolean>;
   deleteById(id: string): Promise<WithId<CaseDTO> | null>;
   deleteByUserId(id: string): Promise<{
