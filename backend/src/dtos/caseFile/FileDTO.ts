@@ -2,6 +2,7 @@ import { UserSlice } from '../../types/UserSlice';
 import { WithId } from '../../types/WithId';
 
 export interface FileDTO {
+  ownerId: string;
   name: string;
   url: string;
   publicId: string;

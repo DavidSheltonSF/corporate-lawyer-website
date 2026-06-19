@@ -1,6 +1,7 @@
 import { Document, model, Schema, Types } from 'mongoose';
 
 export interface IFileModel {
+  ownerId: string;
   name: string;
   url: string;
   publicId: string;
@@ -13,6 +14,7 @@ export interface IFileModel {
 interface FileMongoDocument extends IFileModel, Document {}
 
 export const FileSchema = new Schema<FileMongoDocument>({
+  ownerId: { type: String, required: true },
   name: { type: String, required: true },
   url: { type: String, required: true },
   publicId: { type: String, required: true },
