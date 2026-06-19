@@ -82,7 +82,7 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
     }
 
     return (
-      <div className="flex flex-col max-h-[40vh] pb-[24px]">
+      <div className="flex flex-col max-h-[55vh] pb-[24px]">
         <div className="flex items-center border-divider px-[24px] py-[8px]">
           <p className="font-bold">Arquivos enviados: {data?.totalItems}</p>
           <OpenUploadModalButton
