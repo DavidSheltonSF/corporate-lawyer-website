@@ -58,8 +58,8 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
 
   function handleOpenConfirmModal(fileId: string, fileName: string) {
     openConfirmModal({
-      message: 'Tem certeza que quer excluir esse arquivo? Essa ação não poderá ser revertida.',
-      title: `Excluir ${fileName}`,
+      message: `Tem certeza que quer excluir '${fileName}'? Essa ação não poderá ser revertida.`,
+      title: 'Excluir arquivo',
       onConfirm: () => handleDelete(fileId),
     });
   }
