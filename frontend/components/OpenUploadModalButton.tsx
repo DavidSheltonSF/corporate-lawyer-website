@@ -14,7 +14,7 @@ export function OpenUploadModalButton({
   className,
 }: PropsWithClassName<Props>) {
   const baseStyles =
-    'flex items-center px-[16px] py-[8px] gap-[8px] bg-color-white hover:brightness-95 border';
+    'flex items-center justify-center px-[16px] py-[8px] gap-[8px] bg-color-white hover:brightness-95 border';
   return (
     <Button
       className={twMerge(baseStyles, className)}
@@ -22,7 +22,7 @@ export function OpenUploadModalButton({
       disabled={disabled}
     >
       <UploadIcon className="size-[24px]" />
-      <span className="hidden min-md:block">Anexar arquivo</span>
+      <span>Anexar arquivo</span>
     </Button>
   );
 }
