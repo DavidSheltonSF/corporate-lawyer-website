@@ -60,7 +60,7 @@ export class DeadlineController implements Partial<IDeadlineController> {
   };
 
   findByCaseId = async (httpRequest: HttpRequest) => {
-    // await requireAutheticatedLawyer(httpRequest, this.userService);
+    await requireLawyer(httpRequest, this.userService);
 
     const { id } = httpRequest.params;
 
