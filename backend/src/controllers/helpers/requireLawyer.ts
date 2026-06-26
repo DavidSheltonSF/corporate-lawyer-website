@@ -4,10 +4,7 @@ import { UserRole } from '../../types/UserRole';
 import { HttpRequest } from '../types/HttpRequest';
 import { getAuthenticatedUser } from './getAuthenticatedUser';
 
-export async function requireAutheticatedLawyer(
-  httpRequest: HttpRequest,
-  userService: IUserService
-) {
+export async function requireLawyer(httpRequest: HttpRequest, userService: IUserService) {
   const authUser = getAuthenticatedUser(httpRequest);
   const { id } = authUser;
 

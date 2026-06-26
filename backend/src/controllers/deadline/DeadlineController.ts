@@ -5,7 +5,7 @@ import { HttpRequest } from '../types/HttpRequest';
 import { NotFoundError } from '../../errors/presentation/NotFoundError';
 import { IUserService } from '../../services/user/IUserService';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
-import { requireAutheticatedLawyer } from '../helpers/requireAutheticatedLawyer';
+import { requireLawyer } from '../helpers/requireLawyer';
 
 export class DeadlineController implements Partial<IDeadlineController> {
   constructor(
@@ -14,7 +14,7 @@ export class DeadlineController implements Partial<IDeadlineController> {
   ) {}
 
   create = async (httpRequest: HttpRequest) => {
-    await requireAutheticatedLawyer(httpRequest, this.userService);
+    await requireLawyer(httpRequest, this.userService);
 
     const body = httpRequest.body;
     if (!body) {
@@ -37,14 +37,14 @@ export class DeadlineController implements Partial<IDeadlineController> {
   };
 
   findAll = async (httpRequest: HttpRequest) => {
-    await requireAutheticatedLawyer(httpRequest, this.userService);
+    await requireLawyer(httpRequest, this.userService);
 
     const data = await this.deadlineService.findAll();
     return HttpResponseFactory.makeOk(data);
   };
 
   findById = async (httpRequest: HttpRequest) => {
-    await requireAutheticatedLawyer(httpRequest, this.userService);
+    await requireLawyer(httpRequest, this.userService);
 
     const { id } = httpRequest.params;
 
@@ -79,7 +79,7 @@ export class DeadlineController implements Partial<IDeadlineController> {
   };
 
   updateById = async (httpRequest: HttpRequest) => {
-    await requireAutheticatedLawyer(httpRequest, this.userService);
+    await requireLawyer(httpRequest, this.userService);
 
     const { id } = httpRequest.params;
     if (!id) {
@@ -101,7 +101,7 @@ export class DeadlineController implements Partial<IDeadlineController> {
   };
 
   deleteById = async (httpRequest: HttpRequest) => {
-    await requireAutheticatedLawyer(httpRequest, this.userService);
+    await requireLawyer(httpRequest, this.userService);
 
     const { id } = httpRequest.params;
     if (!id) {

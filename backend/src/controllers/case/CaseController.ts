@@ -7,7 +7,7 @@ import { MissingAuthenticatedUserError } from '../../errors/presentation/Missing
 import { NotFoundError } from '../../errors/presentation/NotFoundError';
 import { ForbiddenError } from '../../errors/presentation/ForbiddenError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
-import { requireAutheticatedLawyer } from '../helpers/requireAutheticatedLawyer';
+import { requireLawyer } from '../helpers/requireLawyer';
 import { checkMissingFields } from '../../utils/checkMissingFields';
 import { UploadService } from '../../services/uṕload/UploadService';
 import { IFileService } from '../../services/files/IFileService';
@@ -21,7 +21,7 @@ export class CaseController implements ICaseController {
   ) {}
 
   create = async (httpRequest: HttpRequest) => {
-    await requireAutheticatedLawyer(httpRequest, this.userService);
+    await requireLawyer(httpRequest, this.userService);
 
     const { body } = httpRequest;
     if (!body) {
@@ -44,7 +44,7 @@ export class CaseController implements ICaseController {
   };
 
   updateById = async (httpRequest: HttpRequest) => {
-    await requireAutheticatedLawyer(httpRequest, this.userService);
+    await requireLawyer(httpRequest, this.userService);
 
     const { id } = httpRequest.params;
     if (!id) {
@@ -111,7 +111,7 @@ export class CaseController implements ICaseController {
   };
 
   findAll = async (httpRequest: HttpRequest) => {
-    await requireAutheticatedLawyer(httpRequest, this.userService);
+    await requireLawyer(httpRequest, this.userService);
 
     const { status, query, clientId } = httpRequest.query;
     const page = httpRequest.query.page || 1;
@@ -153,7 +153,7 @@ export class CaseController implements ICaseController {
   };
 
   getStats = async (httpRequest: HttpRequest) => {
-    await requireAutheticatedLawyer(httpRequest, this.userService);
+    await requireLawyer(httpRequest, this.userService);
     const caseStats = await this.caseService.getStats();
     return HttpResponseFactory.makeOk(caseStats);
   };
@@ -233,7 +233,7 @@ export class CaseController implements ICaseController {
   };
 
   deleteById = async (httpRequest: HttpRequest) => {
-    await requireAutheticatedLawyer(httpRequest, this.userService);
+    await requireLawyer(httpRequest, this.userService);
 
     const { id } = httpRequest.params;
     if (!id) {

@@ -8,13 +8,13 @@ import { NotFoundError } from '../../errors/presentation/NotFoundError';
 import { ForbiddenError } from '../../errors/presentation/ForbiddenError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { checkMissingFields } from '../../utils/checkMissingFields';
-import { requireAutheticatedLawyer } from '../helpers/requireAutheticatedLawyer';
+import { requireLawyer } from '../helpers/requireLawyer';
 
 export class UserController implements IUserController {
   constructor(private userService: IUserService) {}
 
   createClient = async (httpRequest: HttpRequest) => {
-    await requireAutheticatedLawyer(httpRequest, this.userService);
+    await requireLawyer(httpRequest, this.userService);
 
     const body = httpRequest.body;
     if (!body) {
@@ -86,7 +86,7 @@ export class UserController implements IUserController {
   };
 
   updateById = async (httpRequest: HttpRequest) => {
-    requireAutheticatedLawyer(httpRequest, this.userService);
+    requireLawyer(httpRequest, this.userService);
 
     const { id } = httpRequest.params;
     if (!id) {
@@ -108,7 +108,7 @@ export class UserController implements IUserController {
   };
 
   deleteById = async (httpRequest: HttpRequest) => {
-    requireAutheticatedLawyer(httpRequest, this.userService);
+    requireLawyer(httpRequest, this.userService);
 
     const { id } = httpRequest.params;
     if (!id) {
