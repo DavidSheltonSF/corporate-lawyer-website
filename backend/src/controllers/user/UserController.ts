@@ -86,7 +86,7 @@ export class UserController implements IUserController {
   };
 
   updateById = async (httpRequest: HttpRequest) => {
-    requireLawyer(httpRequest, this.userService);
+    await requireLawyer(httpRequest, this.userService);
 
     const { id } = httpRequest.params;
     if (!id) {
@@ -108,7 +108,7 @@ export class UserController implements IUserController {
   };
 
   deleteById = async (httpRequest: HttpRequest) => {
-    requireLawyer(httpRequest, this.userService);
+    await requireLawyer(httpRequest, this.userService);
 
     const { id } = httpRequest.params;
     if (!id) {
