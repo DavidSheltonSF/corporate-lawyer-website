@@ -8,6 +8,7 @@ import { UserRole } from '../../types/UserRole';
 import { HttpRequest } from '../types/HttpRequest';
 import { HttpStatusCode } from '../types/HttpStatusCode';
 import { UserController } from './UserController';
+import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
 
 describe(`Test ${UserController.name}`, () => {
   function makeSut() {
@@ -52,6 +53,21 @@ describe(`Test ${UserController.name}`, () => {
 
     expect(userRepository.create).toHaveBeenCalled();
     expect(response.status).toBe(HttpStatusCode.created);
+  });
+
+  test('should throw MissingAuthenticatedUserError', async () => {
+    const { userController } = makeSut();
+
+    const httpRequest: HttpRequest = {
+      body: {},
+    };
+
+    const createClientDTO = UserMocker.mockCreateClientDTO();
+    httpRequest.body = createClientDTO;
+
+    await expect(userController.createClient(httpRequest)).rejects.toThrow(
+      MissingAuthenticatedUserError
+    );
   });
 
   test('should throw BadRequestError if there is any missing required field', async () => {
