@@ -1,4 +1,4 @@
 export interface PageParams {
-  limit?: number | undefined;
-  page?: number | undefined;
+  limit: number;
+  page: number;
 }
