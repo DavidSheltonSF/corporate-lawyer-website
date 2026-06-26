@@ -11,6 +11,7 @@ import { requireLawyer } from '../helpers/requireLawyer';
 import { checkMissingFields } from '../../utils/checkMissingFields';
 import { UploadService } from '../../services/uṕload/UploadService';
 import { IFileService } from '../../services/files/IFileService';
+import { requireBody } from '../helpers/requireBody';
 
 export class CaseController implements ICaseController {
   constructor(
@@ -23,10 +24,7 @@ export class CaseController implements ICaseController {
   create = async (httpRequest: HttpRequest) => {
     await requireLawyer(httpRequest, this.userService);
 
-    const { body } = httpRequest;
-    if (!body) {
-      throw new BadRequestError('Missing request body');
-    }
+    const body  = requireBody(httpRequest);
 
     checkMissingFields(body, [
       'title',
@@ -51,10 +49,7 @@ export class CaseController implements ICaseController {
       throw new BadRequestError('Missing case id');
     }
 
-    const { body } = httpRequest;
-    if (!body) {
-      return HttpResponseFactory.makeBadRequest('Missing request body');
-    }
+    const body = requireBody(httpRequest);
 
     const updatedCase = await this.caseService.updateById(id, body);
     if (!updatedCase) {

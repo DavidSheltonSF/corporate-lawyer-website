@@ -9,6 +9,7 @@ import { ForbiddenError } from '../../errors/presentation/ForbiddenError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { checkMissingFields } from '../../utils/checkMissingFields';
 import { requireLawyer } from '../helpers/requireLawyer';
+import { requireBody } from '../helpers/requireBody';
 
 export class UserController implements IUserController {
   constructor(private userService: IUserService) {}
@@ -16,10 +17,7 @@ export class UserController implements IUserController {
   createClient = async (httpRequest: HttpRequest) => {
     await requireLawyer(httpRequest, this.userService);
 
-    const body = httpRequest.body;
-    if (!body) {
-      throw new BadRequestError('Missing request body');
-    }
+    const body = requireBody(httpRequest);
 
     checkMissingFields(body, ['firstName', 'lastName', 'email', 'cpf']);
 
@@ -93,10 +91,7 @@ export class UserController implements IUserController {
       throw new BadRequestError('Missing user id');
     }
 
-    const body = httpRequest.body;
-    if (!body) {
-      throw new BadRequestError('Missing request body');
-    }
+    const body = requireBody(httpRequest);
 
     const result = await this.userService.updateById(id, body);
 

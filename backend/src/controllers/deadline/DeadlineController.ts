@@ -6,6 +6,7 @@ import { NotFoundError } from '../../errors/presentation/NotFoundError';
 import { IUserService } from '../../services/user/IUserService';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { requireLawyer } from '../helpers/requireLawyer';
+import { requireBody } from '../helpers/requireBody';
 
 export class DeadlineController implements Partial<IDeadlineController> {
   constructor(
@@ -16,10 +17,7 @@ export class DeadlineController implements Partial<IDeadlineController> {
   create = async (httpRequest: HttpRequest) => {
     await requireLawyer(httpRequest, this.userService);
 
-    const body = httpRequest.body;
-    if (!body) {
-      throw new BadRequestError('Missing request body');
-    }
+    const body = requireBody(httpRequest);
 
     const { caseId, lawyerId, type, priority, intimationDate, days, countingType } = body;
 
@@ -86,10 +84,7 @@ export class DeadlineController implements Partial<IDeadlineController> {
       throw new BadRequestError('Missing deadline id');
     }
 
-    const body = httpRequest.body;
-    if (!body) {
-      throw new BadRequestError('Missing request body');
-    }
+    const body = requireBody(httpRequest);
 
     const result = await this.deadlineService.updateById(id, body);
 
