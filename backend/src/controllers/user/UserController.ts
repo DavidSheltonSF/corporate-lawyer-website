@@ -10,6 +10,7 @@ import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { checkMissingFields } from '../../utils/checkMissingFields';
 import { requireLawyer } from '../helpers/requireLawyer';
 import { requireBody } from '../helpers/requireBody';
+import { getPagination } from '../helpers/getPagination';
 
 export class UserController implements IUserController {
   constructor(private userService: IUserService) {}
@@ -42,11 +43,13 @@ export class UserController implements IUserController {
   findClients = async (httpRequest: HttpRequest) => {
     await requireLawyer(httpRequest, this.userService);
 
-    const { query = '', limit = 4, page = 1 } = httpRequest.query;
+    const { query = '' } = httpRequest.query;
+    const { limit, page } = getPagination(httpRequest.query);
+
     const data = await this.userService.findClients({
       query,
-      limit: Number(limit),
-      page: Number(page),
+      limit,
+      page,
     });
     return HttpResponseFactory.makeOk(data);
   };

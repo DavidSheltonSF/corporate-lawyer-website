@@ -12,6 +12,7 @@ import { checkMissingFields } from '../../utils/checkMissingFields';
 import { UploadService } from '../../services/uṕload/UploadService';
 import { IFileService } from '../../services/files/IFileService';
 import { requireBody } from '../helpers/requireBody';
+import { getPagination } from '../helpers/getPagination';
 
 export class CaseController implements ICaseController {
   constructor(
@@ -24,7 +25,7 @@ export class CaseController implements ICaseController {
   create = async (httpRequest: HttpRequest) => {
     await requireLawyer(httpRequest, this.userService);
 
-    const body  = requireBody(httpRequest);
+    const body = requireBody(httpRequest);
 
     checkMissingFields(body, [
       'title',
@@ -81,8 +82,7 @@ export class CaseController implements ICaseController {
 
     const { status, query } = httpRequest.query;
 
-    const page = httpRequest.query.page || 1;
-    const limit = httpRequest.query.limit || 4;
+    const { limit, page } = getPagination(httpRequest.query);
 
     if (!id) {
       throw new BadRequestError('Missing id param');
@@ -91,8 +91,8 @@ export class CaseController implements ICaseController {
     const casesPaginated = await this.caseService.findAll({
       query: query ? String(query) : undefined,
       status: status ? String(status) : undefined,
-      limit: limit ? Number(limit) : undefined,
-      page: page ? Number(page) : undefined,
+      limit,
+      page,
       clientId: id,
     });
 
@@ -109,14 +109,13 @@ export class CaseController implements ICaseController {
     await requireLawyer(httpRequest, this.userService);
 
     const { status, query, clientId } = httpRequest.query;
-    const page = httpRequest.query.page || 1;
-    const limit = httpRequest.query.limit || 4;
+    const { limit, page } = getPagination(httpRequest.query);
 
     const casesPaginated = await this.caseService.findAll({
       query: query ? String(query) : undefined,
       status: status ? String(status) : undefined,
-      limit: limit ? Number(limit) : undefined,
-      page: page ? Number(page) : undefined,
+      limit,
+      page,
       clientId,
     });
 
@@ -213,7 +212,7 @@ export class CaseController implements ICaseController {
       throw new BadRequestError('Missing case id');
     }
 
-    const { limit = 1, page = 1 } = httpRequest.query;
+    const { limit, page } = getPagination(httpRequest.query);
 
     const foundCaseFiles = await this.fileService.findByOwnerId(String(caseId), {
       limit: Number(limit),
