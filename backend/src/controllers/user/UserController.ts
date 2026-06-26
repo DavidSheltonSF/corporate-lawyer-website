@@ -86,23 +86,7 @@ export class UserController implements IUserController {
   };
 
   updateById = async (httpRequest: HttpRequest) => {
-    const authUser = httpRequest.user;
-    if (!authUser) {
-      throw new MissingAuthenticatedUserError();
-    }
-
-    const authUserData = await this.userService.findById(authUser.id);
-    if (!authUserData) {
-      throw new ForbiddenError(
-        `Could not execute operation. User with id ${authUser.id} was not found`
-      );
-    }
-
-    if (authUserData.role !== UserRole.lawyer) {
-      throw new ForbiddenError(
-        `Could not execute operation. User with id ${authUser.id} is not a lawyer`
-      );
-    }
+    requireAutheticatedLawyer(httpRequest, this.userService);
 
     const { id } = httpRequest.params;
     if (!id) {
