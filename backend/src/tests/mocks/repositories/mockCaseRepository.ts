@@ -7,9 +7,6 @@ export const mockCaseRepository = (): CaseRepository => {
     findAll: jest
       .fn()
       .mockResolvedValue([CaseMocker.mockCaseDTOWithId(), CaseMocker.mockCaseDTOWithId()]),
-    findPopulatedByClientId: jest
-      .fn()
-      .mockResolvedValue([CaseMocker.mockCaseDTOWithId(), CaseMocker.mockCaseDTOWithId()]),
     findPopulatedById: jest.fn().mockResolvedValue(CaseMocker.mockCaseDTOWithId()),
     create: jest.fn().mockResolvedValue(CaseMocker.mockCaseDTOWithId()),
     updateById: jest.fn().mockResolvedValue(CaseMocker.mockCaseDTOWithId()),
@@ -21,17 +18,5 @@ export const mockCaseRepository = (): CaseRepository => {
       deletedCount: 3,
     }),
     exists: jest.fn().mockResolvedValue(true),
-    addFile: jest.fn().mockResolvedValue(undefined),
-    findFilesByCaseId: jest.fn().mockResolvedValue([
-      {
-        _id: 'ffdsfsfa',
-        name: 'File',
-        url: 'www.url.com',
-        mimeType: 'application/pdf',
-        size: 200,
-        uploadedBy: 'sdfdsfdsgrsgadsf',
-        uploadedAt: new Date(),
-      },
-    ]),
   };
 };
