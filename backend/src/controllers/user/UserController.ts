@@ -8,28 +8,13 @@ import { NotFoundError } from '../../errors/presentation/NotFoundError';
 import { ForbiddenError } from '../../errors/presentation/ForbiddenError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { checkMissingFields } from '../../utils/checkMissingFields';
+import { requireAutheticatedLawyer } from '../helpers/requireAutheticatedLawyer';
 
 export class UserController implements IUserController {
   constructor(private userService: IUserService) {}
 
   createClient = async (httpRequest: HttpRequest) => {
-    const authUser = httpRequest.user;
-    if (!authUser) {
-      throw new MissingAuthenticatedUserError();
-    }
-
-    const authUserData = await this.userService.findById(authUser.id);
-
-    if (!authUserData) {
-      throw new ForbiddenError(
-        `Could not execute operation. User with id '${authUser.id}' was not found`
-      );
-    }
-    if (authUserData.role !== UserRole.lawyer) {
-      throw new ForbiddenError(
-        `Could not execute operation. User with id '${authUserData.id}' is not a lawyer`
-      );
-    }
+    await requireAutheticatedLawyer(httpRequest, this.userService);
 
     const body = httpRequest.body;
     if (!body) {
