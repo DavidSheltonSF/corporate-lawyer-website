@@ -21,9 +21,10 @@ export function makeCaseController(): ICaseController {
   const caseRepository = new MongodbCaseRepository();
   const fileRepository = new MongodbFileRepository();
   const caseService = new CaseService(caseRepository, eventBus);
-  const fileService = new FileService(fileRepository);
+  const uploadService = new CloudinaryUploadService();
+  const fileService = new FileService(fileRepository, uploadService);
   const userRepository = new MongodbUserRepository();
   const userService = new UserService(userRepository, caseRepository);
-  const uploadService = new CloudinaryUploadService();
-  return new CaseController(caseService, fileService, userService, uploadService);
+ 
+  return new CaseController(caseService, fileService, userService);
 }
