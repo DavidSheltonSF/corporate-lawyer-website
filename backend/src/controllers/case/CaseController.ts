@@ -172,11 +172,12 @@ export class CaseController implements ICaseController {
     }
 
     const fixedName = Buffer.from(file.originalname, 'latin1').toString('utf8');
+    const formatedName = fixedName.split(".")[0];
 
     const response = await this.fileService.create(
       {
         ownerId: caseId,
-        name: fixedName,
+        name: formatedName || fixedName,
         url: uploadResult.url,
         downloadUrl: uploadResult.downloadUrl,
         publicId: uploadResult.publicId,
