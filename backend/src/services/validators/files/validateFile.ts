@@ -7,17 +7,20 @@ const MIN_NAME_LENGTH = 2;
 const MAX_NAME_LENGTH = 50;
 const allowedFileTypes = ['application/pdf', 'image/png', 'image/jpeg'];
 
-export async function validateFile(data: CreateFileDTO, buffer: Buffer) {
-  const { name, size, mimeType } = data;
+export async function validateFile(file: any) {
+  const { originalname, size, mimetype } = file;
   const invalidFields: Partial<Record<keyof CreateFileDTO, string>> = {};
 
-  const type = await fileTypeFromBuffer(buffer);
+  const type = await fileTypeFromBuffer(file.buffer);
 
-  if (!type || !allowedFileTypes.includes(mimeType)) {
+  if (!type || !allowedFileTypes.includes(mimetype)) {
     invalidFields.mimeType = 'Invalid file type';
   }
 
-  if (name.trim().length < MIN_NAME_LENGTH || name.trim().length > MAX_NAME_LENGTH) {
+  if (
+    originalname.trim().length < MIN_NAME_LENGTH ||
+    originalname.trim().length > MAX_NAME_LENGTH
+  ) {
     invalidFields.name = 'Invalid file name';
   }
 
