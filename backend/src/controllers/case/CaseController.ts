@@ -9,18 +9,15 @@ import { ForbiddenError } from '../../errors/presentation/ForbiddenError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { requireLawyer } from '../helpers/requireLawyer';
 import { checkMissingFields } from '../../utils/checkMissingFields';
-import { UploadService } from '../../services/uṕload/UploadService';
 import { IFileService } from '../../services/files/IFileService';
 import { requireBody } from '../helpers/requireBody';
 import { getPagination } from '../helpers/getPagination';
-import { getFormatedFileName } from '../../utils/getFormatedFileName';
 
 export class CaseController implements ICaseController {
   constructor(
     private caseService: ICaseService,
     private fileService: IFileService,
-    private userService: IUserService,
-    private uploadService: UploadService
+    private userService: IUserService
   ) {}
 
   create = async (httpRequest: HttpRequest) => {
@@ -166,26 +163,11 @@ export class CaseController implements ICaseController {
 
     const file = httpRequest.file;
 
-    const uploadResult = await this.uploadService.upload(file.buffer);
-
     if (!file) {
       throw new BadRequestError('Missing file');
     }
-    const fileName = getFormatedFileName(file.originalname);
 
-    const response = await this.fileService.create(
-      {
-        ownerId: caseId,
-        name: fileName,
-        url: uploadResult.url,
-        downloadUrl: uploadResult.downloadUrl,
-        publicId: uploadResult.publicId,
-        size: file.size,
-        mimeType: file.mimetype,
-        uploadedBy: String(userId),
-      },
-      file.buffer
-    );
+    const response = await this.fileService.create(userId, caseId, file);
 
     return HttpResponseFactory.makeOk(response);
   };
@@ -196,13 +178,12 @@ export class CaseController implements ICaseController {
       throw new BadRequestError('Missing file id');
     }
 
-    const file = await this.fileService.findById(fileId);
-    if (!file) {
+    const deletedFile = await this.fileService.deleteById(fileId);
+
+    if (!deletedFile) {
       throw new NotFoundError(`File with id '${fileId}' was not found`);
     }
 
-    await this.uploadService.delete(file.publicId);
-    await this.fileService.deleteById(fileId);
     return HttpResponseFactory.makeNoContent();
   };
 
@@ -232,16 +213,6 @@ export class CaseController implements ICaseController {
     const { id } = httpRequest.params;
     if (!id) {
       throw new BadRequestError('Missing case id');
-    }
-
-    const files = await this.fileService.findAllByOwnerId(id);
-    const filesPublicIds = files.map((file) => file.publicId);
-
-    const deleteUploadedResult = await this.uploadService.deleteMany(filesPublicIds);
-    if (deleteUploadedResult.failedCount > 0) {
-      console.log(
-        `Warning: ${deleteUploadedResult.failedCount} files could not be deleted from the storage`
-      );
     }
 
     await this.fileService.deleteByOwnerId(id);
