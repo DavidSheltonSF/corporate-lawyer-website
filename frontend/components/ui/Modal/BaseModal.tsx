@@ -8,6 +8,8 @@ import { ButtonVariant } from '../Button/ButtonVariant';
 import { PropsWithClassName } from '@/types/PropsWithClassName';
 import { BaseModalFooter } from './BaseModalFooter';
 import { Text } from '../Text';
+import { Backdrop } from '@/components/ui/Backdrop';
+import { useModalStore } from '@/stores/useModalStore';
 
 interface Props {
   confirmButtonVariant?: ButtonVariant;
@@ -62,34 +64,38 @@ export function BaseModal(props: PropsWithClassName<Props>) {
     'flex flex-col bg-color-white fade-in-animation-fast rounded-lg shadow-[0px_0px__3px_black] text-color-black';
 
   return (
-    <div
-      ref={modalRef}
-      className={twMerge(baseStyles, positionStyles, className)}
-      style={{ height: 'fit-content' }}
-    >
-      <div className="flex w-full border-divider bg-color-white px-[24px] py-[20px] rounded-t-[inherit]">
-        <Text as={'h2'} variant='h2' className="font-bold">{title}</Text>
-        <Button
-          className="bg-color-white ml-auto p-[4px] brightness-95 hover:brightness-90"
-          onClick={() => {
-            close();
-          }}
-        >
-          <CloseIcon className="w-[32px] h-[32px]" />
-        </Button>
+    <Backdrop ref={modalRef}>
+      <div
+        ref={modalRef}
+        className={twMerge(baseStyles, positionStyles, className)}
+        style={{ height: 'fit-content' }}
+      >
+        <div className="flex w-full border-divider bg-color-white px-[24px] py-[20px] rounded-t-[inherit]">
+          <Text as={'h2'} variant="h2" className="font-bold">
+            {title}
+          </Text>
+          <Button
+            className="bg-color-white ml-auto p-[4px] brightness-95 hover:brightness-90"
+            onClick={() => {
+              close();
+            }}
+          >
+            <CloseIcon className="w-[32px] h-[32px]" />
+          </Button>
+        </div>
+        <div className="size-full border-divider">{children}</div>
+        {!omitFooter && (
+          <BaseModal.Footer
+            onClose={onClose}
+            onConfirm={onConfirm}
+            closeText={closeText}
+            confirmText={confirmText}
+            formId={formId}
+            confirmButtonVariant={confirmButtonVariant}
+            confirmDisabled={confirmDisabled}
+          />
+        )}
       </div>
-      <div className="size-full border-divider">{children}</div>
-      {!omitFooter && (
-        <BaseModal.Footer
-          onClose={onClose}
-          onConfirm={onConfirm}
-          closeText={closeText}
-          confirmText={confirmText}
-          formId={formId}
-          confirmButtonVariant={confirmButtonVariant}
-          confirmDisabled={confirmDisabled}
-        />
-      )}
-    </div>
+    </Backdrop>
   );
 }
