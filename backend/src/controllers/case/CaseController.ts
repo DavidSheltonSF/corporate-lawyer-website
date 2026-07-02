@@ -13,6 +13,7 @@ import { UploadService } from '../../services/uṕload/UploadService';
 import { IFileService } from '../../services/files/IFileService';
 import { requireBody } from '../helpers/requireBody';
 import { getPagination } from '../helpers/getPagination';
+import { getFormatedFileName } from '../../utils/getFormatedFileName';
 
 export class CaseController implements ICaseController {
   constructor(
@@ -170,14 +171,12 @@ export class CaseController implements ICaseController {
     if (!file) {
       throw new BadRequestError('Missing file');
     }
-
-    const fixedName = Buffer.from(file.originalname, 'latin1').toString('utf8');
-    const formatedName = fixedName.split(".")[0];
+    const fileName = getFormatedFileName(file.originalname);
 
     const response = await this.fileService.create(
       {
         ownerId: caseId,
-        name: formatedName || fixedName,
+        name: fileName,
         url: uploadResult.url,
         downloadUrl: uploadResult.downloadUrl,
         publicId: uploadResult.publicId,
