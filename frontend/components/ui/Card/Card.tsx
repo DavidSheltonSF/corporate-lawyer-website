@@ -8,13 +8,13 @@ import { autoUpdate, flip, FloatingPortal, offset, shift, useFloating } from '@f
 interface Props {
   className?: string;
   onClick?: () => void;
-  actions?: MenuItem[];
+  menuItems?: MenuItem[];
   children: React.ReactNode;
 }
 
 Card.MoreButton = CardMoreButton;
 
-export function Card({ actions, onClick, children, className }: Props) {
+export function Card({ menuItems: actions, onClick, children, className }: Props) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { refs, floatingStyles } = useFloating({
     placement: 'left-start',

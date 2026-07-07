@@ -68,11 +68,7 @@ export function CaseCard({ caseData, deleteCase, openUpdateModal }: Props) {
   }
 
   return (
-    <Card
-      actions={actions}
-      className="relative w-full h-fit"
-      onClick={() => openCaseModal(id)}
-    >
+    <Card menuItems={actions} className="relative w-full h-fit" onClick={() => openCaseModal(id)}>
       <div className="flex flex-col text-color-black p-[24px] gap-[32px]">
         <CaseCard.Header title={caseData.title} processNumber={caseData.processNumber} />
         <CaseCard.Footer

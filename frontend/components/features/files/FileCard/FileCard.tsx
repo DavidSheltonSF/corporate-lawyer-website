@@ -54,7 +54,7 @@ export function FileCard({ onDelete, file }: Props) {
     <Card
       onClick={() => window.open(file.url, '_blank')}
       className="border  overflow-hidden w-full"
-      actions={actions}
+      menuItems={actions}
     >
       <div className="flex juftify-center size-full">
         <div
