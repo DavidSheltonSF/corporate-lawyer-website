@@ -23,6 +23,5 @@ export function casesRoutes(router: Router, caseController: ICaseController) {
     upload.single('file'),
     expressHttpAdapter(caseController.uploadMyFile)
   );
-  router.delete('/api/files/:id', requireAuth, expressHttpAdapter(caseController.deleteFile));
   router.delete('/api/cases/:id', requireAuth, expressHttpAdapter(caseController.deleteById));
 }
