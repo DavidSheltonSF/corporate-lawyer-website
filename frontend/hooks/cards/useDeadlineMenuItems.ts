@@ -6,19 +6,18 @@ interface Props {
   onDelete: () => void;
 }
 
-export function useDeadlineMenuItems({ onDelete }: Props): MenuItem[] | null {
+export function useDeadlineMenuItems({ onDelete }: Props): MenuItem[] {
   const permissions = usePermissions();
+  const items = [];
 
-  if (!permissions) {
-    return null;
-  }
-
-  return [
-    {
+  if (permissions?.canDeleteCase) {
+    items.push({
       label: 'Remover',
       Icon: DeleteIcon,
       visible: permissions.canDeleteCase,
       action: onDelete,
-    },
-  ].filter((action) => action.visible);
+    });
+  }
+
+  return items;
 }
