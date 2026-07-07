@@ -8,7 +8,7 @@ interface Props {
   onDownload: () => void;
 }
 
-export function useFileCardActions({ onDelete, onDownload }: Props): MenuItem[] | null {
+export function useFileMenuItems({ onDelete, onDownload }: Props): MenuItem[] | null {
   const permissions = usePermissions();
 
   if (!permissions) {

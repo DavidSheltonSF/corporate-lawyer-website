@@ -3,7 +3,7 @@ import { formatDate } from '@/lib/formatDate';
 import { WithId } from '@/types/WithId';
 import { Text } from '@/components/ui/Text';
 import { CaseFile } from '@/types/CaseFile';
-import { useFileCardActions } from '@/hooks/cards/useFilleCardActions';
+import { useFileMenuItems } from '@/hooks/cards/useFileMenuItems';
 import { formatFileSize } from '@/lib/formatFileSize';
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export function FileCard({ onDelete, file }: Props) {
-  const actions = useFileCardActions({
+  const actions = useFileMenuItems({
     onDelete: () => onDelete(file.id, file.name),
     onDownload: () => {
       window.open(file.downloadUrl, '_blank');
