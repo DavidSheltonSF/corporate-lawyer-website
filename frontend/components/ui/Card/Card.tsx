@@ -28,7 +28,7 @@ export function Card({ menuItems, onClick, children, className }: Props) {
   }
 
   function renderMoreButton() {
-    if (!actions) return;
+    if (menuItems?.length === 0) return;
     return (
       <Card.MoreButton
         ref={refs.setReference}
