@@ -8,7 +8,7 @@ interface RequestInit {
     Authorization?: string;
   };
   body?: any;
-  method?: 'PUT' | 'POST' | 'GET' | 'DELETE';
+  method?: 'PUT' | 'POST' | 'GET' | 'DELETE' | 'PATCH';
 }
 
 export async function apiFetch(url: string, options?: RequestInit): Promise<Response> {
