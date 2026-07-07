@@ -19,10 +19,6 @@ export function FileCard({ onDelete, file }: Props) {
     },
   });
 
-  if (!actions) {
-    return null;
-  }
-
   const mapFileType: Record<string, { label: string; type: string; backgroundColor: string }> = {
     'application/pdf': {
       label: 'pdf',

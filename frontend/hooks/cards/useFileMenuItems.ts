@@ -8,25 +8,28 @@ interface Props {
   onDownload: () => void;
 }
 
-export function useFileMenuItems({ onDelete, onDownload }: Props): MenuItem[] | null {
+export function useFileMenuItems({ onDelete, onDownload }: Props): MenuItem[] {
   const permissions = usePermissions();
 
-  if (!permissions) {
-    return null;
-  }
+  const items = [];
 
-  return [
-    {
+  if (permissions?.canDeleteCase) {
+    items.push({
       label: 'Remover',
       Icon: DeleteIcon,
       visible: permissions.canDeleteCase,
       action: onDelete,
-    },
-    {
+    });
+  }
+
+  if (permissions?.canDeleteCase) {
+    items.push({
       label: 'Download',
       Icon: DownloadIcon,
       visible: permissions.canDeleteCase,
       action: onDownload,
-    },
-  ].filter((action) => action.visible);
+    });
+  }
+
+  return items;
 }
