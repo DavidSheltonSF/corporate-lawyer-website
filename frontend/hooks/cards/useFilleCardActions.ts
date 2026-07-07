@@ -1,5 +1,5 @@
 import { DeleteIcon } from '@/components/icons/DeleteIcon';
-import { CardAction } from '@/components/ui/CardDropdown/types';
+import { MenuItem } from '@/components/ui/CardDropdown/types';
 import { usePermissions } from '../auth/usePermissions';
 import { DownloadIcon } from '@/components/icons/DownloadIcon';
 
@@ -8,7 +8,7 @@ interface Props {
   onDownload: () => void;
 }
 
-export function useFileCardActions({ onDelete, onDownload }: Props): CardAction[] | null {
+export function useFileCardActions({ onDelete, onDownload }: Props): MenuItem[] | null {
   const permissions = usePermissions();
 
   if (!permissions) {

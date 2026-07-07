@@ -1,5 +1,5 @@
 import { CardDropdown } from '../CardDropdown/CardDropdown';
-import { CardAction } from '@/components/ui/CardDropdown/types';
+import { MenuItem } from '@/components/ui/CardDropdown/types';
 import { twMerge } from 'tailwind-merge';
 import { MouseEvent, useState } from 'react';
 import { CardMoreButton } from './CardMoreButton';
@@ -8,7 +8,7 @@ import { autoUpdate, flip, FloatingPortal, offset, shift, useFloating } from '@f
 interface Props {
   className?: string;
   onClick?: () => void;
-  actions?: CardAction[];
+  actions?: MenuItem[];
   children: React.ReactNode;
 }
 
@@ -57,7 +57,7 @@ export function Card({ actions, onClick, children, className }: Props) {
   return (
     <article className={twMerge(baseStyles, hoverStyles, className)} onClick={onClick}>
       <div className="absolute top-[8px] right-[8px]">{renderMoreButton()}</div>
-      <div className='size-full'>{children}</div>
+      <div className="size-full">{children}</div>
       <FloatingPortal>{renderDropdown()}</FloatingPortal>
     </article>
   );

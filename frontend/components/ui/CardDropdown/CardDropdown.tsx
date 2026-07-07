@@ -1,6 +1,6 @@
 'use client';
 import { Button } from '@/components/ui/Button/Button';
-import { CardAction } from '@/components/ui/CardDropdown/types';
+import { MenuItem } from '@/components/ui/CardDropdown/types';
 import { useElementFullyVisible } from '@/hooks/modals/useElementFullyVisible';
 import { CSSProperties, useEffect, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
@@ -11,7 +11,7 @@ interface Props {
   floatingStyles: CSSProperties;
   close: Function;
   className?: string;
-  actions: CardAction[];
+  actions: MenuItem[];
 }
 
 export function CardDropdown({

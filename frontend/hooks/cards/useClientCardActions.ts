@@ -1,6 +1,6 @@
 import { DeleteIcon } from '@/components/icons/DeleteIcon';
 import { EditIcon } from '@/components/icons/EditIcon';
-import { CardAction } from '@/components/ui/CardDropdown/types';
+import { MenuItem } from '@/components/ui/CardDropdown/types';
 import { usePermissions } from '../auth/usePermissions';
 import { BalanceIcon } from '@/components/icons/BalanceIcon';
 
@@ -14,7 +14,7 @@ export function useClientCardActions({
   onUpdate,
   onDelete,
   onRedirectToCases,
-}: Props): CardAction[] | null {
+}: Props): MenuItem[] | null {
   const permissions = usePermissions();
 
   if (!permissions) {

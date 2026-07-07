@@ -2,7 +2,7 @@ import { CalendarIcon } from '@/components/icons/CalendarIcon';
 import { DeleteIcon } from '@/components/icons/DeleteIcon';
 import { DocumentIcon } from '@/components/icons/DocumentIcon';
 import { EditIcon } from '@/components/icons/EditIcon';
-import { CardAction } from '@/components/ui/CardDropdown/types';
+import { MenuItem } from '@/components/ui/CardDropdown/types';
 import { usePermissions } from '../auth/usePermissions';
 
 interface Props {
@@ -17,11 +17,11 @@ export function useCaseCardActions({
   onDelete,
   onOpenDeadlines,
   onOpenFiles,
-}: Props): CardAction[] | null {
+}: Props): MenuItem[] | null {
   const permissions = usePermissions();
 
-  if(!permissions) {
-    return null
+  if (!permissions) {
+    return null;
   }
 
   return [

@@ -1,12 +1,12 @@
 import { DeleteIcon } from '@/components/icons/DeleteIcon';
-import { CardAction } from '@/components/ui/CardDropdown/types';
+import { MenuItem } from '@/components/ui/CardDropdown/types';
 import { usePermissions } from '../auth/usePermissions';
 
 interface Props {
   onDelete: () => void;
 }
 
-export function useDeadlineCardActions({ onDelete }: Props): CardAction[] | null {
+export function useDeadlineCardActions({ onDelete }: Props): MenuItem[] | null {
   const permissions = usePermissions();
 
   if (!permissions) {
