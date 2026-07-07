@@ -19,7 +19,6 @@ export interface ICaseController {
   getMyStats: (httpRequest: HttpRequest) => Promise<GetMyStatsResponse>;
   getStats: (httpRequest: HttpRequest) => Promise<GetMyStatsResponse>;
   uploadMyFile: (httpRequest: HttpRequest) => Promise<AddFileResponse>;
-  deleteFile: (httpRequest: HttpRequest) => Promise<DeleteFileResponse>;
   findFilesByCaseId: (httpRequest: HttpRequest) => Promise<FindFilesByCaseId>;
   deleteById: (httpRequest: HttpRequest) => Promise<DeleteByIdResponse>;
 }

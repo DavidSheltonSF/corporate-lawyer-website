@@ -172,21 +172,6 @@ export class CaseController implements ICaseController {
     return HttpResponseFactory.makeOk(response);
   };
 
-  deleteFile = async (httpRequest: HttpRequest) => {
-    const fileId = httpRequest.params.id;
-    if (!fileId) {
-      throw new BadRequestError('Missing file id');
-    }
-
-    const deletedFile = await this.fileService.deleteById(fileId);
-
-    if (!deletedFile) {
-      throw new NotFoundError(`File with id '${fileId}' was not found`);
-    }
-
-    return HttpResponseFactory.makeNoContent();
-  };
-
   findFilesByCaseId = async (httpRequest: HttpRequest) => {
     const caseId = httpRequest.params.id;
     if (!caseId) {
