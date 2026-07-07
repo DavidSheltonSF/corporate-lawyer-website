@@ -45,7 +45,7 @@ export function useCaseMenuItems({
     });
   }
 
-  if (permissions?.canDownloadFiles) {
+  if (permissions?.canSeeFiles) {
     items.push({ label: 'Ver arquivos', Icon: DocumentIcon, visible: true, action: onOpenFiles });
   }
   return items
