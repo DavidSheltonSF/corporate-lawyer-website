@@ -6,7 +6,7 @@ interface Props {
   onDelete: () => void;
 }
 
-export function useDeadlineCardActions({ onDelete }: Props): MenuItem[] | null {
+export function useDeadlineMenuItems({ onDelete }: Props): MenuItem[] | null {
   const permissions = usePermissions();
 
   if (!permissions) {

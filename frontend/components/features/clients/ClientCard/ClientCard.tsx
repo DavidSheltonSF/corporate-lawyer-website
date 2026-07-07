@@ -3,7 +3,7 @@ import { SafeUser } from '@/types/SafeUser';
 import { Card } from '../../../ui/Card/Card';
 import { ClientCardHeader } from './ClientCardHeader';
 import { ClientCardFooter } from './ClientCardFooter';
-import { useClientCardActions } from '@/hooks/cards/useClientCardActions';
+import { useClientMenuItems } from '@/hooks/cards/useClientMenuItems';
 import { useRouter } from 'next/navigation';
 import { UserSlice } from '@/types/UserSlice';
 
@@ -26,7 +26,7 @@ export function ClientCard({ clientData, openDeleteModal, openUpdateModal, fetch
     router.push(`processos?clientId=${id}&clientName=${encodeURIComponent(clientName)}`);
   }
 
-  const actions = useClientCardActions({
+  const actions = useClientMenuItems({
     onDelete: () => openDeleteModal({ id, firstName, lastName }),
     onUpdate: () => openUpdateModal(id),
     onRedirectToCases: handleSeeCases,

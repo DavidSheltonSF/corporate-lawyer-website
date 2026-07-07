@@ -10,7 +10,7 @@ import { useSuccessModal } from '@/hooks/modals/useSuccessModal';
 import { useConfirmModal } from '@/hooks/modals/useConfirmModal';
 import { ButtonVariant } from '@/components/ui/Button/ButtonVariant';
 import { handleLogout } from '@/lib/handleLogout';
-import { useDeadlineCardActions } from '@/hooks/cards/useDeadlineCardAction';
+import { useDeadlineMenuItems } from '@/hooks/cards/useDeadlineMenuItems';
 import { Text } from '@/components/ui/Text';
 
 interface Props {
@@ -45,7 +45,7 @@ export function DeadlineCard({ deadline }: Props) {
     });
   }
 
-  const actions = useDeadlineCardActions({ onDelete: handleOpenConfirmModal });
+  const actions = useDeadlineMenuItems({ onDelete: handleOpenConfirmModal });
 
   if (!actions) {
     return null;

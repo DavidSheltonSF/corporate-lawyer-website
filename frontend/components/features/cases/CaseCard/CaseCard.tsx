@@ -9,7 +9,7 @@ import { useCaseModal } from '@/hooks/modals/useCaseModal';
 import { useDeadlinesModal } from '@/hooks/modals/useDeadlinesModal';
 import { useCaseFilesModal } from '@/hooks/modals/useCaseFilesModal';
 import { useConfirmModal } from '@/hooks/modals/useConfirmModal';
-import { useCaseCardActions } from '@/hooks/cards/useCaseCardActions';
+import { useCaseMenuItems } from '@/hooks/cards/useCaseMenuItems';
 
 interface Props {
   caseData: WithId<CaseWithRelations>;
@@ -56,7 +56,7 @@ export function CaseCard({ caseData, deleteCase, openUpdateModal }: Props) {
     openCaseFilesModal(id);
   }
 
-  const actions = useCaseCardActions({
+  const actions = useCaseMenuItems({
     onUpdate: handleUpdate,
     onDelete: handleDelete,
     onOpenDeadlines: handleOpenDeadlines,

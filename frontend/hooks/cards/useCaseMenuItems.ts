@@ -1,19 +1,22 @@
+import { CalendarIcon } from '@/components/icons/CalendarIcon';
 import { DeleteIcon } from '@/components/icons/DeleteIcon';
+import { DocumentIcon } from '@/components/icons/DocumentIcon';
 import { EditIcon } from '@/components/icons/EditIcon';
 import { MenuItem } from '@/types/MenuItem';
 import { usePermissions } from '../auth/usePermissions';
-import { BalanceIcon } from '@/components/icons/BalanceIcon';
 
 interface Props {
   onUpdate: () => void;
   onDelete: () => void;
-  onRedirectToCases: () => void;
+  onOpenDeadlines: () => void;
+  onOpenFiles: () => void;
 }
 
-export function useClientCardActions({
+export function useCaseMenuItems({
   onUpdate,
   onDelete,
-  onRedirectToCases,
+  onOpenDeadlines,
+  onOpenFiles,
 }: Props): MenuItem[] | null {
   const permissions = usePermissions();
 
@@ -35,10 +38,11 @@ export function useClientCardActions({
       action: onDelete,
     },
     {
-      label: 'Ver processos',
-      Icon: BalanceIcon,
-      visible: true,
-      action: onRedirectToCases,
+      label: 'Ver prazos',
+      Icon: CalendarIcon,
+      visible: permissions.canSeeDeadlines,
+      action: onOpenDeadlines,
     },
+    { label: 'Ver arquivos', Icon: DocumentIcon, visible: true, action: onOpenFiles },
   ].filter((action) => action.visible);
 }
