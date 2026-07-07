@@ -13,7 +13,7 @@ export function useFileMenuItems({ onDelete, onDownload }: Props): MenuItem[] {
 
   const items = [];
 
-  if (permissions?.canDeleteCase) {
+  if (permissions?.canDeleteFiles) {
     items.push({
       label: 'Remover',
       Icon: DeleteIcon,
@@ -22,7 +22,7 @@ export function useFileMenuItems({ onDelete, onDownload }: Props): MenuItem[] {
     });
   }
 
-  if (permissions?.canDeleteCase) {
+  if (permissions?.canDownloadFiles) {
     items.push({
       label: 'Download',
       Icon: DownloadIcon,
