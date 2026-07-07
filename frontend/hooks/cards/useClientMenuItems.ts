@@ -10,35 +10,32 @@ interface Props {
   onRedirectToCases: () => void;
 }
 
-export function useClientMenuItems({
-  onUpdate,
-  onDelete,
-  onRedirectToCases,
-}: Props): MenuItem[] | null {
+export function useClientMenuItems({ onUpdate, onDelete, onRedirectToCases }: Props): MenuItem[] {
   const permissions = usePermissions();
+  const items = [];
 
-  if (!permissions) {
-    return null;
-  }
-
-  return [
-    {
+  if (permissions?.canUpdateClients) {
+    items.push({
       label: 'Alterar',
       Icon: EditIcon,
-      visible: permissions.canUpdateCase,
       action: onUpdate,
-    },
-    {
+    });
+  }
+
+  if (permissions?.canDeleteClients) {
+    items.push({
       label: 'Remover',
       Icon: DeleteIcon,
-      visible: permissions.canDeleteCase,
       action: onDelete,
-    },
-    {
-      label: 'Ver processos',
-      Icon: BalanceIcon,
-      visible: true,
-      action: onRedirectToCases,
-    },
-  ].filter((action) => action.visible);
+    });
+  }
+
+  items.push({
+    label: 'Ver processos',
+    Icon: BalanceIcon,
+    visible: true,
+    action: onRedirectToCases,
+  });
+
+  return items;
 }
