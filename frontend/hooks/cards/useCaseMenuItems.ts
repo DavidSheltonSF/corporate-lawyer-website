@@ -17,32 +17,36 @@ export function useCaseMenuItems({
   onDelete,
   onOpenDeadlines,
   onOpenFiles,
-}: Props): MenuItem[] | null {
+}: Props): MenuItem[] {
   const permissions = usePermissions();
+  const items = [];
 
-  if (!permissions) {
-    return null;
+  if (permissions?.canUpdateCase) {
+   items.push({
+     label: 'Alterar',
+     Icon: EditIcon,
+     action: onUpdate,
+   });
   }
 
-  return [
-    {
-      label: 'Alterar',
-      Icon: EditIcon,
-      visible: permissions.canUpdateCase,
-      action: onUpdate,
-    },
-    {
+  if (permissions?.canDeleteCase) {
+    items.push({
       label: 'Remover',
       Icon: DeleteIcon,
-      visible: permissions.canDeleteCase,
       action: onDelete,
-    },
-    {
+    });
+  }
+
+  if (permissions?.canSeeDeadlines) {
+    items.push({
       label: 'Ver prazos',
       Icon: CalendarIcon,
-      visible: permissions.canSeeDeadlines,
       action: onOpenDeadlines,
-    },
-    { label: 'Ver arquivos', Icon: DocumentIcon, visible: true, action: onOpenFiles },
-  ].filter((action) => action.visible);
+    });
+  }
+
+  if (permissions?.canDownloadFiles) {
+    items.push({ label: 'Ver arquivos', Icon: DocumentIcon, visible: true, action: onOpenFiles });
+  }
+  return items
 }
