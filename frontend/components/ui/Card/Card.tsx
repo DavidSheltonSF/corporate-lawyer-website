@@ -14,7 +14,7 @@ interface Props {
 
 Card.MoreButton = CardMoreButton;
 
-export function Card({ menuItems: actions, onClick, children, className }: Props) {
+export function Card({ menuItems, onClick, children, className }: Props) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { refs, floatingStyles } = useFloating({
     placement: 'left-start',
@@ -39,13 +39,13 @@ export function Card({ menuItems: actions, onClick, children, className }: Props
   }
 
   function renderDropdown() {
-    if (!isDropdownOpen || !actions) return;
+    if (!isDropdownOpen || !menuItems) return;
     return (
       <CardDropdown
         reference={refs.reference.current}
         floatingReference={refs.setFloating}
         floatingStyles={floatingStyles}
-        actions={actions}
+        actions={menuItems}
         close={() => setIsDropdownOpen(false)}
       />
     );
