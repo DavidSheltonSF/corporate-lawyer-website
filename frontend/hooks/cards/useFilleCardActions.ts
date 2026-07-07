@@ -1,5 +1,5 @@
 import { DeleteIcon } from '@/components/icons/DeleteIcon';
-import { MenuItem } from '@/components/ui/CardDropdown/types';
+import { MenuItem } from '@/types/MenuItem';
 import { usePermissions } from '../auth/usePermissions';
 import { DownloadIcon } from '@/components/icons/DownloadIcon';
 

@@ -1,4 +1,4 @@
-import { PropsWithClassName } from '../../../types/PropsWithClassName';
+import { PropsWithClassName } from './PropsWithClassName';
 
 export interface MenuItem {
   Icon: React.ComponentType<PropsWithClassName>;

@@ -1,5 +1,5 @@
 import { CardDropdown } from '../CardDropdown/CardDropdown';
-import { MenuItem } from '@/components/ui/CardDropdown/types';
+import { MenuItem } from '@/types/MenuItem';
 import { twMerge } from 'tailwind-merge';
 import { MouseEvent, useState } from 'react';
 import { CardMoreButton } from './CardMoreButton';

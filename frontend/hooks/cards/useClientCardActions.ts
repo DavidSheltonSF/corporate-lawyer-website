@@ -1,6 +1,6 @@
 import { DeleteIcon } from '@/components/icons/DeleteIcon';
 import { EditIcon } from '@/components/icons/EditIcon';
-import { MenuItem } from '@/components/ui/CardDropdown/types';
+import { MenuItem } from '@/types/MenuItem';
 import { usePermissions } from '../auth/usePermissions';
 import { BalanceIcon } from '@/components/icons/BalanceIcon';
 

@@ -1,6 +1,6 @@
 'use client';
 import { Button } from '@/components/ui/Button/Button';
-import { MenuItem } from '@/components/ui/CardDropdown/types';
+import { MenuItem } from '@/types/MenuItem';
 import { useElementFullyVisible } from '@/hooks/modals/useElementFullyVisible';
 import { CSSProperties, useEffect, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';

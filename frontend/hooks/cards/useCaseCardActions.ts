@@ -2,7 +2,7 @@ import { CalendarIcon } from '@/components/icons/CalendarIcon';
 import { DeleteIcon } from '@/components/icons/DeleteIcon';
 import { DocumentIcon } from '@/components/icons/DocumentIcon';
 import { EditIcon } from '@/components/icons/EditIcon';
-import { MenuItem } from '@/components/ui/CardDropdown/types';
+import { MenuItem } from '@/types/MenuItem';
 import { usePermissions } from '../auth/usePermissions';
 
 interface Props {
