@@ -9,6 +9,8 @@ export function usePermissions(): UserPermissions | null {
 
   const permittionsByRole: Record<string, UserPermissions> = {
     admin: {
+      canDeleteClients: false,
+      canUpdateClients: false,
       canDeleteCase: false,
       canUpdateCase: false,
       canSeeDeadlines: true,
@@ -19,6 +21,8 @@ export function usePermissions(): UserPermissions | null {
     },
 
     lawyer: {
+      canDeleteClients: true,
+      canUpdateClients: true,
       canDeleteCase: true,
       canUpdateCase: true,
       canSeeDeadlines: true,
@@ -29,6 +33,8 @@ export function usePermissions(): UserPermissions | null {
     },
 
     client: {
+      canDeleteClients: false,
+      canUpdateClients: false,
       canDeleteCase: false,
       canUpdateCase: false,
       canSeeDeadlines: false,
