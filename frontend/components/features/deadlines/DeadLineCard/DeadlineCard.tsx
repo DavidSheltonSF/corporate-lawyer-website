@@ -47,10 +47,6 @@ export function DeadlineCard({ deadline }: Props) {
 
   const actions = useDeadlineMenuItems({ onDelete: handleOpenConfirmModal });
 
-  if (!actions) {
-    return null;
-  }
-
   return (
     <Card className="border-divider rounded-none w-full p-[24px]" menuItems={actions}>
       <div className="flex flex-col min-md:flex-row min-md:justify-between min-md:items-end gap-[16px] text-sm min-md:text-md">
