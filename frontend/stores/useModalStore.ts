@@ -26,14 +26,12 @@ export const useModalStore = create<ModalStore>((set, get) => ({
   modalStack: [],
 
   openModal: (params: OpenModalParams) => {
-    const {modal, config} = params
+    const { modal, config } = params;
 
     set((state) => {
       if (config?.replace) {
         state.modalStack.pop();
       }
-
-      console.log(state.modalStack);
       const openModal = {
         type: modal.type,
         payload: modal.payload,
