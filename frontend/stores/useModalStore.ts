@@ -6,10 +6,14 @@ interface ModalMeta {
   payload?: any;
 }
 
+export interface OpenModalConfig {
+  replace?: boolean;
+}
+
 interface ModalStore {
   modalStack: ModalMeta[];
 
-  openModal: (modal: ModalMeta) => void;
+  openModal: (modal: ModalMeta, config?: OpenModalConfig) => void;
   closeModal: () => void;
   getCurrentModal: () => ModalMeta | null;
 }
@@ -17,8 +21,9 @@ interface ModalStore {
 export const useModalStore = create<ModalStore>((set, get) => ({
   modalStack: [],
 
-  openModal: (modal: ModalMeta) => {
+  openModal: (modal: ModalMeta, config?: OpenModalConfig) => {
     set((state) => {
+     
       console.log(state.modalStack);
       const openModal = {
         type: modal.type,
