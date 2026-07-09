@@ -10,6 +10,7 @@ import { SuccessModal } from '../ui/Modal/SuccessModal';
 import { ErrorModal } from '../ui/Modal/ErrorModal';
 import { CreateDeadlineModal } from '../features/deadlines/CreateDeadlineModal/CreateDeadlineModal';
 import { useModalStore } from '@/stores/useModalStore';
+import { RenameFileModal } from '../features/files/RenameFileModal/RenameFileModal';
 
 export function ModalRenderer() {
   const { getCurrentModal, closeModal } = useModalStore();
@@ -45,6 +46,9 @@ export function ModalRenderer() {
 
     case 'case-files':
       return <CaseFilesModal payload={currentModal.payload} close={closeModal} />;
+
+    case 'rename-file':
+      return <RenameFileModal payload={currentModal.payload} close={closeModal}/>
 
     default:
       return null;
