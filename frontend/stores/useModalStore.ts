@@ -6,9 +6,12 @@ interface ModalMeta {
   payload?: any;
 }
 
+export interface OpenModalConfig {
+  replace?: boolean;
+}
 export interface OpenModalParams {
   modal: ModalMeta;
-  replace?: boolean;
+  config?: OpenModalConfig;
 }
 
 interface ModalStore {
@@ -23,9 +26,10 @@ export const useModalStore = create<ModalStore>((set, get) => ({
   modalStack: [],
 
   openModal: (params: OpenModalParams) => {
-    const { modal, replace } = params;
+    const {modal, config} = params
+
     set((state) => {
-      if (replace) {
+      if (config?.replace) {
         state.modalStack.pop();
       }
 

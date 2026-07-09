@@ -14,7 +14,7 @@ import { useDeleteFile } from '@/hooks/fetching/files/useDeleteFile';
 import { useConfirmModal } from '@/hooks/modals/useConfirmModal';
 import { ButtonWithLoadingEffect } from '@/components/ui/ButtonWithLoadingEffect';
 import { useRenameFile } from '@/hooks/fetching/files/useRenameFile';
-import { useRenameFileModal } from '@/hooks/modals/useRenameFileModal';  
+import { useRenameFileModal } from '@/hooks/modals/useRenameFileModal';
 
 interface Props {
   caseId: string;
@@ -25,11 +25,11 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
   const [isUploading, setIsUploading] = useState(false);
   const uploadMutation = useUpload();
   const deleteMutation = useDeleteFile();
-  const renameMutation = useRenameFile()
+  const renameMutation = useRenameFile();
   const { openSuccessModal } = useSuccessModal();
   const { openErrorModal } = useErrorModal();
   const { openConfirmModal } = useConfirmModal();
-  const { openRenameFileModal} = useRenameFileModal()
+  const { openRenameFileModal } = useRenameFileModal();
 
   const { caseId } = payload;
 
@@ -71,7 +71,7 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
   async function handleRename(fileId: string, fileName: string) {
     try {
       await renameMutation.mutateAsync({ fileId, fileName });
-      openSuccessModal("Arquivo renomeado com sucesso", {replace: true});
+      openSuccessModal('Arquivo renomeado com sucesso', { replace: true });
     } catch (error: any) {
       openErrorModal(error.message);
     }
@@ -80,8 +80,8 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
   async function handleOpenRenameModal(fileId: string, fileName: string) {
     openRenameFileModal({
       fileName,
-      onConfirm: (newName: string) => handleRename(fileId, newName)
-    })
+      onConfirm: (newName: string) => handleRename(fileId, newName),
+    });
   }
 
   if (uploadModalIsOpen) {
