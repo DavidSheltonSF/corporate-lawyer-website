@@ -13,6 +13,8 @@ import { useErrorModal } from '@/hooks/modals/useErrorModal';
 import { useDeleteFile } from '@/hooks/fetching/files/useDeleteFile';
 import { useConfirmModal } from '@/hooks/modals/useConfirmModal';
 import { ButtonWithLoadingEffect } from '@/components/ui/ButtonWithLoadingEffect';
+import { useRenameFile } from '@/hooks/fetching/files/useRenameFile';
+import { useRenameFileModal } from '@/hooks/modals/useRenameFileModal';  
 
 interface Props {
   caseId: string;
@@ -23,9 +25,11 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
   const [isUploading, setIsUploading] = useState(false);
   const uploadMutation = useUpload();
   const deleteMutation = useDeleteFile();
+  const renameMutation = useRenameFile()
   const { openSuccessModal } = useSuccessModal();
   const { openErrorModal } = useErrorModal();
   const { openConfirmModal } = useConfirmModal();
+  const { openRenameFileModal} = useRenameFileModal()
 
   const { caseId } = payload;
 
@@ -64,6 +68,22 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
     });
   }
 
+  async function handleRename(fileId: string, fileName: string) {
+    try {
+      await renameMutation.mutateAsync({ fileId, fileName });
+      openSuccessModal("Arquivo renomeado com sucesso", {replace: true});
+    } catch (error: any) {
+      openErrorModal(error.message);
+    }
+  }
+
+  async function handleOpenRenameModal(fileId: string, fileName: string) {
+    openRenameFileModal({
+      fileName,
+      onConfirm: (newName: string) => handleRename(fileId, newName)
+    })
+  }
+
   if (uploadModalIsOpen) {
     return (
       <CaseFilesUploadModal
@@ -74,6 +94,7 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
       />
     );
   }
+
   const caseFiles = data?.items;
 
   function renderContent() {
@@ -92,7 +113,11 @@ export function CaseFilesModal({ payload, close }: GlobalModalProps<Props>) {
         </div>
         <div className="flex flex-col gap-[24px] overflow-y-scroll p-[24px]">
           {caseFiles && caseFiles.length > 0 ? (
-            <FilesList onDelete={handleOpenConfirmModal} files={caseFiles} />
+            <FilesList
+              onDelete={handleOpenConfirmModal}
+              files={caseFiles}
+              onRename={handleOpenRenameModal}
+            />
           ) : (
             <ModalFeedback title="Nenhum arquivo encontrado" />
           )}
