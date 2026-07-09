@@ -3,7 +3,7 @@ import { WithId } from '@/types/WithId';
 import { apiFetch } from '../apiFetch';
 import { API_URL } from '@/config/api';
 
-interface RenameFileParams {
+export interface RenameFileParams {
   fileName: string;
   fileId: string;
 }
