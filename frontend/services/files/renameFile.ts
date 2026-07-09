@@ -10,7 +10,9 @@ interface RenameFileParams {
 
 export async function renameFile(params: RenameFileParams): Promise<WithId<CaseFile>> {
   const response = await apiFetch(`${API_URL}/files/${params.fileId}`, {
-
+    headers: {
+      'Content-Type': 'application/json',
+    },
     method: 'PATCH',
     body: JSON.stringify({
       name: params.fileName,
