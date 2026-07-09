@@ -8,11 +8,13 @@ import { formatFileSize } from '@/lib/formatFileSize';
 
 interface Props {
   file: WithId<CaseFile>;
+  onRename: (filId: string, fileNeme: string) => void
   onDelete: (fileId: string, fileName: string) => void;
 }
 
-export function FileCard({ onDelete, file }: Props) {
+export function FileCard({onRename, onDelete, file }: Props) {
   const actions = useFileMenuItems({
+    onRename: () => onRename(file.id, file.name),
     onDelete: () => onDelete(file.id, file.name),
     onDownload: () => {
       window.open(file.downloadUrl, '_blank');
