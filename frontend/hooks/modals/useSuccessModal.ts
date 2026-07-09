@@ -1,9 +1,9 @@
-import { useModalStore } from '@/stores/useModalStore';
+import { OpenModalConfig, useModalStore } from '@/stores/useModalStore';
 
 export function useSuccessModal() {
   const { openModal } = useModalStore();
-  function openSuccessModal(message: string) {
-    openModal({ type: 'success', payload: { message } });
+  function openSuccessModal(message: string, config?: OpenModalConfig) {
+    openModal({ type: 'success', payload: { message } }, config);
   }
 
   return { openSuccessModal };
