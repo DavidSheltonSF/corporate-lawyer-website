@@ -1,5 +1,5 @@
-import { renameFile } from "@/services/files/renameFile";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { renameFile } from '@/services/files/renameFile';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export function useRenameFile() {
   const queryClint = useQueryClient();
@@ -7,10 +7,8 @@ export function useRenameFile() {
     mutationFn: renameFile,
     onSuccess: () => {
       queryClint.invalidateQueries({
-        queryKey: ['files']
-      })
-    }
+        queryKey: ['files'],
+      });
+    },
   });
-
-
 }
