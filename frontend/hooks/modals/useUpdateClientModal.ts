@@ -6,7 +6,9 @@ export function useUpdateClientModal() {
     clientId: string,
     onUpdate: (clientId: string, data: Record<string, string>) => void
   ) {
-    openModal({ type: 'update-client', payload: { clientId, onUpdate } });
+    openModal({
+      modal: { type: 'update-client', payload: { clientId, onUpdate } },
+    });
   }
 
   return { openUpdateClientModal };

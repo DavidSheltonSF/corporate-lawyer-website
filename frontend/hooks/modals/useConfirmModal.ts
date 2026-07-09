@@ -4,7 +4,7 @@ import { useModalStore } from '@/stores/useModalStore';
 export function useConfirmModal() {
   const { openModal } = useModalStore();
   function openConfirmModal(confirmModalProps: ConfirmModalProps) {
-    openModal({ type: 'confirm', payload: confirmModalProps });
+    openModal({ modal: { type: 'confirm', payload: confirmModalProps } });
   }
   return { openConfirmModal };
 }

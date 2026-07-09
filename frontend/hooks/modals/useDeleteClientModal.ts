@@ -5,7 +5,9 @@ import { WithId } from '@/types/WithId';
 export function useDeleteClientModal() {
   const { openModal } = useModalStore();
   function openDeleteClientModal(clientSlice: WithId<UserSlice>, onDelete: (clientId: string) => void) {
-    openModal({ type: 'delete-client', payload: { clientSlice, onDelete } });
+    openModal({
+      modal: { type: 'delete-client', payload: { clientSlice, onDelete } },
+    });
   }
 
   return { openDeleteClientModal };

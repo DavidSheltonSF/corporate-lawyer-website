@@ -5,7 +5,9 @@ export function useRenameFileModal() {
   const { openModal } = useModalStore();
 
   function openRenameFileModal(payload: RenameFileModalPayload) {
-    openModal({ type: 'rename-file', payload });
+    openModal({
+      modal: { type: 'rename-file', payload },
+    });
   }
 
   return { openRenameFileModal };
