@@ -6,6 +6,7 @@ export type ModalType =
   | 'update-client'
   | 'delete-client'
   | 'upload-case-files'
+  | 'rename-file'
   | 'confirm'
   | 'success'
   | 'error'
