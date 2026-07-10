@@ -42,7 +42,6 @@ export function Card({ menuItems, onClick, children, className }: Props) {
     if (!isDropdownOpen || !menuItems) return;
     return (
       <CardDropdown
-        reference={refs.reference.current}
         floatingReference={refs.setFloating}
         floatingStyles={floatingStyles}
         actions={menuItems}

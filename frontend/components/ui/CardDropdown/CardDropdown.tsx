@@ -14,7 +14,6 @@ interface Props {
 }
 
 export function CardDropdown({
-  reference,
   floatingReference,
   floatingStyles,
   close,
