@@ -53,7 +53,7 @@ export default function ClientSearch() {
   async function handleDelete(clientId: string) {
     try {
       await deleteClientMutation.mutateAsync(clientId);
-      openSuccessModal('Cliente removido com sucesso!');
+      openSuccessModal('Cliente removido com sucesso!', { replace: true });
     } catch (error: any) {
       openErrorModal(error.message);
     }
