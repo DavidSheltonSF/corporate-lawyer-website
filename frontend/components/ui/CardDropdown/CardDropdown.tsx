@@ -1,7 +1,6 @@
 'use client';
 import { Button } from '@/components/ui/Button/Button';
 import { MenuItem } from '@/types/MenuItem';
-import { useElementFullyVisible } from '@/hooks/modals/useElementFullyVisible';
 import { CSSProperties, useEffect, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -22,7 +21,6 @@ export function CardDropdown({
   className,
   actions,
 }: Props) {
-  const { elementIsFullyVisible } = useElementFullyVisible(reference, { threshold: 1 });
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -61,17 +59,15 @@ export function CardDropdown({
   const baseStyles = `bg-color-white py-[8px] rounded-[8px] text-color-black shadow-soft`;
 
   return (
-    elementIsFullyVisible && (
-      <div
-        className={twMerge(sizeStyles, transitionStyles, baseStyles, className)}
-        style={{ ...floatingStyles }}
-        ref={floatingReference}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div ref={dropdownRef}>
-          <ul className="flex flex-col">{renderItems}</ul>
-        </div>
+    <div
+      className={twMerge(sizeStyles, transitionStyles, baseStyles, className)}
+      style={{ ...floatingStyles }}
+      ref={floatingReference}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <div ref={dropdownRef}>
+        <ul className="flex flex-col">{renderItems}</ul>
       </div>
-    )
+    </div>
   );
 }
