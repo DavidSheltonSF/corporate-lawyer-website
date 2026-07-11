@@ -33,10 +33,15 @@ export function DeleteClientModal({ payload, close }: GlobalModalProps<Props>) {
     };
   }, []);
 
+  function handleDelete() {
+    if (!confirmInputIsValid) return;
+    onDelete(id);
+  }
+
   return (
     <BaseModal
       title="Excluir cliente"
-      onConfirm={() => onDelete(id)}
+      onConfirm={handleDelete}
       confirmButtonVariant={confirmInputIsValid ? ButtonVariant.DANGER : ButtonVariant.DISABLED}
       className="h-fit w-[90%] min-md:w-[356px]"
       onClose={close}
