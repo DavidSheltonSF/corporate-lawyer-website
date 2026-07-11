@@ -31,7 +31,10 @@ export class CloudinaryUploadService implements UploadService {
   async delete(publicId: string): Promise<void> {
     const result = await cloudinary.uploader.destroy(publicId);
   }
-  async deleteMany(publicIds: string[]): Promise<{ failedCount: number }> {
+  async deleteMany(publicIds: string[]): Promise<{ failedCount: number } | null> {
+    if(publicIds.length === 0){
+      return null
+    }
     const result = await cloudinary.api.delete_resources(publicIds);
     const failed = Object.entries(result).filter(([_, status]) => status !== 'deleted');
 

@@ -62,7 +62,7 @@ export class FileService implements IFileService {
     const filesPublicIds = files.map((file) => file.publicId);
 
     const deleteUploadedResult = await this.uploadService.deleteMany(filesPublicIds);
-    if (deleteUploadedResult.failedCount > 0) {
+    if (deleteUploadedResult && deleteUploadedResult.failedCount > 0) {
       console.log(
         `Warning: ${deleteUploadedResult.failedCount} files could not be deleted from the storage`
       );
