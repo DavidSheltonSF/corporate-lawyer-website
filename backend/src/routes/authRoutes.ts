@@ -6,5 +6,5 @@ import { loginLimiter } from '../middlewares/loginLimiter';
 
 export function authRoutes(router: Router, authController: IAuthController) {
   router.get('/api/me', requireAuth, expressHttpAdapter(authController.getMe));
-  router.post('/api/auth', loginLimiter, expressHttpAdapter(authController.auth));
+  router.post('/api/auth', loginLimiter, expressHttpAdapter(authController.authenticate));
 }

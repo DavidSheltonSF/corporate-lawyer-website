@@ -32,7 +32,7 @@ export class AuthController implements IAuthController {
     return HttpResponseFactory.makeOk(user);
   };
 
-  auth = async (httpRequest: HttpRequest) => {
+  authenticate = async (httpRequest: HttpRequest) => {
     const body = requireBody(httpRequest);
     const missingFields = getMissingFields(body, ['email', 'password']);
 
