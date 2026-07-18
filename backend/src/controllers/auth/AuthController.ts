@@ -8,6 +8,7 @@ import { UnauthorizedError } from '../../errors/presentation/UnauthorizedError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { ValidationError } from '../../errors/presentation/ValidationError';
 import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
+import { requireBody } from '../helpers/requireBody';
 
 export class AuthController implements IAuthController {
   constructor(
@@ -32,12 +33,7 @@ export class AuthController implements IAuthController {
   };
 
   auth = async (httpRequest: HttpRequest) => {
-    const body = httpRequest.body;
-
-    if (!body) {
-      throw new BadRequestError('Body request is missing');
-    }
-
+    const body = requireBody(httpRequest);
     const missingFields = getMissingFields(body, ['email', 'password']);
 
     if (missingFields.length > 0) {
