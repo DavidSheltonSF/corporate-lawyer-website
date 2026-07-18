@@ -7,13 +7,13 @@ export function expressHttpAdapter<T>(
   controllerHandler: (httpRequest: HttpRequest) => Promise<HttpResponse<T>>
 ) {
   return async (req: Request, res: Response) => {
-    const authReq = req as Request & AuthenticatedUser;
+    const authReq = req as Request & { user: AuthenticatedUser };
     const httpRequest: HttpRequest = {
       body: authReq.body,
       params: authReq.params,
       headers: authReq.headers,
       query: authReq.query,
-      file: authReq.file,
+      file: authReq.file ?? null,
       user: authReq.user,
     };
 
