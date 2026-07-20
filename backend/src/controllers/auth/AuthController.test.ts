@@ -24,10 +24,7 @@ describe(`Test ${AuthController.name}`, () => {
     const { controller, findByEmail, user } = makeSut();
 
     const httpRequest: HttpRequest = {
-      user: {
-        id: 'user-id',
-        email: user.email,
-      },
+      user,
     };
 
     const response = await controller.getMe(httpRequest);
