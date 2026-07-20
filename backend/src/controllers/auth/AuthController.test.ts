@@ -1,3 +1,4 @@
+import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
 import { IAuthService } from '../../services/auth/IAuthService';
 import { IUserService } from '../../services/user/IUserService';
 import { HttpRequest } from '../types/HttpRequest';
@@ -6,7 +7,10 @@ import { AuthController } from './AuthController';
 
 describe(`Test ${AuthController.name}`, () => {
   function makeSut() {
-    const user = { id: 'user-id', email: 'user@example.com' };
+    const user = {
+      id: 'user-id',
+      email: 'user@example.com',
+    };
     const findByEmail = jest.fn().mockResolvedValue(user);
     const controller = new AuthController(
       {} as IAuthService,
@@ -34,5 +38,12 @@ describe(`Test ${AuthController.name}`, () => {
       status: HttpStatusCode.ok,
       data: user,
     });
+  });
+
+  test('throws MissingAuthenticatedUserError when no authenticated user is present', async () => {
+    const { controller } = makeSut();
+    const httpRequest: HttpRequest = {};
+
+    await expect(controller.getMe(httpRequest)).rejects.toThrow(MissingAuthenticatedUserError);
   });
 });
