@@ -25,6 +25,10 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
 
     const payload = jwt.verify(token, API_SECRET) as JwtPayload;
 
+    if (!payload.sub || !payload.email) {
+      throw new UnauthorizedError('Invalid token: Missing user id or email');
+    }
+
     req.user = {
       id: payload.sub,
       email: payload.email,
