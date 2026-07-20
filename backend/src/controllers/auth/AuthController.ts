@@ -23,9 +23,6 @@ export class AuthController implements IAuthController {
     }
 
     const email = requestUser.email;
-    if (!email) {
-      throw new UnauthorizedError('Token provided is invalid');
-    }
 
     const user = await this.userService.findByEmail(email);
 
