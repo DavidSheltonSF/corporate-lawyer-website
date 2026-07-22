@@ -7,7 +7,6 @@ import { MissingAuthenticatedUserError } from '../../errors/presentation/Missing
 import { NotFoundError } from '../../errors/presentation/NotFoundError';
 import { ForbiddenError } from '../../errors/presentation/ForbiddenError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
-import { requireLawyer } from '../helpers/requireLawyer';
 import { checkMissingFields } from '../../utils/checkMissingFields';
 import { IFileService } from '../../services/files/IFileService';
 import { requireBody } from '../helpers/requireBody';
@@ -21,8 +20,6 @@ export class CaseController implements ICaseController {
   ) {}
 
   create = async (httpRequest: HttpRequest) => {
-    await requireLawyer(httpRequest, this.userService);
-
     const body = requireBody(httpRequest);
 
     checkMissingFields(body, [
@@ -41,8 +38,6 @@ export class CaseController implements ICaseController {
   };
 
   updateById = async (httpRequest: HttpRequest) => {
-    await requireLawyer(httpRequest, this.userService);
-
     const { id } = httpRequest.params;
     if (!id) {
       throw new BadRequestError('Missing case id');
@@ -104,8 +99,6 @@ export class CaseController implements ICaseController {
   };
 
   findAll = async (httpRequest: HttpRequest) => {
-    await requireLawyer(httpRequest, this.userService);
-
     const { status, query, clientId } = httpRequest.query;
     const { limit, page } = getPagination(httpRequest.query);
 
@@ -145,7 +138,6 @@ export class CaseController implements ICaseController {
   };
 
   getStats = async (httpRequest: HttpRequest) => {
-    await requireLawyer(httpRequest, this.userService);
     const caseStats = await this.caseService.getStats();
     return HttpResponseFactory.makeOk(caseStats);
   };
@@ -193,8 +185,6 @@ export class CaseController implements ICaseController {
   };
 
   deleteById = async (httpRequest: HttpRequest) => {
-    await requireLawyer(httpRequest, this.userService);
-
     const { id } = httpRequest.params;
     if (!id) {
       throw new BadRequestError('Missing case id');
