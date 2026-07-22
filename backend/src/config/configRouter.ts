@@ -12,6 +12,7 @@ import { makeDeadlineController } from '../factories/controllers/makeDeadlineCon
 import { deadlineRoutes } from '../routes/deadlineRoutes';
 import { makeFileController } from '../factories/controllers/makeFileController';
 import { fileRoutes } from '../routes/fileRoutes';
+import { makeRequireLawyer } from '../factories/middlewares/makeRequireLawyer';
 import { makeUserService } from '../factories/services/makeUserService';
 
 export function configRouter(app: Application) {
@@ -22,10 +23,11 @@ export function configRouter(app: Application) {
   const notificationController = makeNotificationController();
   const deadlineController = makeDeadlineController(userService);
   const fileController = makeFileController();
+  const requireLawyer = makeRequireLawyer(userService);
 
   const router = Router();
   authRoutes(router, authController);
-  casesRoutes(router, caseController);
+  casesRoutes(router, caseController, requireLawyer);
   usersRoutes(router, userController);
   notificationsRoutes(router, notificationController);
   deadlineRoutes(router, deadlineController);
