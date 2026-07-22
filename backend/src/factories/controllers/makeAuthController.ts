@@ -3,12 +3,10 @@ import { IAuthController } from '../../controllers/auth/IAuthController';
 import { MongodbCaseRepository } from '../../database/mongoDB/repositories/MongodbCaseRepository';
 import { MongodbUserRepository } from '../../database/mongoDB/repositories/MongodbUserRepository';
 import { AuthService } from '../../services/auth/AuthService';
-import { UserService } from '../../services/user/UserService';
+import { IUserService } from '../../services/user/IUserService';
 
-export function makeAuthController(): IAuthController {
+export function makeAuthController(userService: IUserService): IAuthController {
   const userRepository = new MongodbUserRepository();
-  const caseRepository = new MongodbCaseRepository();
-  const userService = new UserService(userRepository, caseRepository);
   const authService = new AuthService(userRepository);
   return new AuthController(authService, userService);
 }

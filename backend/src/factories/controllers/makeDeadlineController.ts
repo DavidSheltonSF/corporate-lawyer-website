@@ -4,14 +4,11 @@ import { DeadlineService } from '../../services/deadline/DeadlineService';
 import { IDeadlineController } from '../../controllers/deadline/IDeadlineController';
 import { MongodbCaseRepository } from '../../database/mongoDB/repositories/MongodbCaseRepository';
 import { BrazilHolidaysProvider } from '../../services/BrazilHolidaysProvider';
-import { MongodbUserRepository } from '../../database/mongoDB/repositories/MongodbUserRepository';
-import { UserService } from '../../services/user/UserService';
+import { IUserService } from '../../services/user/IUserService';
 
-export function makeDeadlineController(): IDeadlineController {
+export function makeDeadlineController(userService: IUserService): IDeadlineController {
   const deadlineRepository = new MongodbDeadlineRepository();
   const caseRepository = new MongodbCaseRepository();
-  const userRepository = new MongodbUserRepository();
-  const userService = new UserService(userRepository, caseRepository);
   const holidaysProvider = new BrazilHolidaysProvider();
   const deadlineService = new DeadlineService(deadlineRepository, caseRepository, holidaysProvider);
   return new DeadlineController(deadlineService, userService);
