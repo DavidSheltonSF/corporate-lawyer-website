@@ -3,9 +3,9 @@ import { IAuthService } from '../../services/auth/IAuthService';
 import { IUserService } from '../../services/user/IUserService';
 import { UserMocker } from '../../tests/mocks/entities/UserMocker';
 import { createMockObject } from '../../tests/mocks/createMockObject';
-import { HttpRequest } from '../types/HttpRequest';
 import { HttpStatusCode } from '../types/HttpStatusCode';
 import { AuthController } from './AuthController';
+import { createMockHttpRequest } from '../../tests/mocks/createMockHttpRequest';
 
 describe(`Test ${AuthController.name}`, () => {
   function makeSut() {
@@ -27,9 +27,7 @@ describe(`Test ${AuthController.name}`, () => {
   test('returns the authenticated user for the request email', async () => {
     const { controller, mockUserService, authUser } = makeSut();
 
-    const httpRequest: HttpRequest = {
-      user: authUser,
-    };
+    const httpRequest = createMockHttpRequest({ user: authUser });
 
     const mockUser = UserMocker.mockUserDTOWithId();
 
@@ -46,7 +44,7 @@ describe(`Test ${AuthController.name}`, () => {
 
   test('throws MissingAuthenticatedUserError when no authenticated user is present', async () => {
     const { controller } = makeSut();
-    const httpRequest: HttpRequest = {};
+    const httpRequest = createMockHttpRequest();
 
     await expect(controller.getMe(httpRequest)).rejects.toThrow(MissingAuthenticatedUserError);
   });
