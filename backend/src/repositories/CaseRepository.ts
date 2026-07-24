@@ -15,7 +15,7 @@ export interface CaseRepository {
   findAll(queryParams?: CaseQuery): Promise<Page<WithId<CasePopulatedResponseDTO>>>;
   findById(id: string): Promise<WithId<CaseDTO> | null>;
   findPopulatedById(id: string): Promise<WithId<CasePopulatedResponseDTO> | null>;
-  getStatsByClientId(clientId: string): Promise<CasesStats | null>;
+  getStatsByClientId(clientId: string): Promise<CasesStats>;
   getStats(): Promise<CasesStats>;
   exists(id: string): Promise<boolean>;
   deleteById(id: string): Promise<WithId<CaseDTO> | null>;

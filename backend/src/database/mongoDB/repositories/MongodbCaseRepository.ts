@@ -123,7 +123,7 @@ export class MongodbCaseRepository implements CaseRepository {
     return CaseMapper.persistenceToPopulatedPresentation(foundCase);
   }
 
-  async getStatsByClientId(clientId: string): Promise<CasesStats | null> {
+  async getStatsByClientId(clientId: string): Promise<CasesStats> {
     const open = await CaseModel.countDocuments({
       client: clientId,
       status: CasesStatus.open,
