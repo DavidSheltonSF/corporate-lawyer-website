@@ -17,7 +17,7 @@ export interface CaseRepository {
   findPopulatedById(id: string): Promise<WithId<CasePopulatedResponseDTO> | null>;
   getStatsByClientId(clientId: string): Promise<CasesStats>;
   getStats(): Promise<CasesStats>;
-  exists(id: string): Promise<boolean>;
+  existsById(id: string): Promise<boolean>;
   deleteById(id: string): Promise<WithId<CaseDTO> | null>;
   deleteByUserId(id: string): Promise<{
     acknowledged: boolean;

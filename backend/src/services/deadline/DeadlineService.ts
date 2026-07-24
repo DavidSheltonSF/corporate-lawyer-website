@@ -85,7 +85,7 @@ export class DeadlineService implements Partial<IDeadlineService> {
   }
 
   async findByCaseId(id: string): Promise<WithId<DeadlineDTO>[] | null> {
-    const caseExists = await this.caseRepository.exists(id);
+    const caseExists = await this.caseRepository.existsById(id);
     if (!caseExists) return null;
 
     const deadlineCalculator = new DeadlineCalculator(this.holidaysProvider);

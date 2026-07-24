@@ -164,7 +164,7 @@ export class MongodbCaseRepository implements CaseRepository {
     return await CaseModel.deleteMany({ client: id });
   }
 
-  async exists(id: string): Promise<boolean> {
+  async existsById(id: string): Promise<boolean> {
     const result = await CaseModel.findById(id);
     return result !== null;
   }

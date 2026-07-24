@@ -162,8 +162,8 @@ describe('Test CaseRepository', () => {
 
     const newId = (await CaseModel.create(newCase))._id;
 
-    const existingCase = await caseRepository.exists(newId.toString());
-    const nonExistingCase = await caseRepository.exists(
+    const existingCase = await caseRepository.existsById(newId.toString());
+    const nonExistingCase = await caseRepository.existsById(
       Types.ObjectId.createFromTime(822211126141).toString()
     );
 

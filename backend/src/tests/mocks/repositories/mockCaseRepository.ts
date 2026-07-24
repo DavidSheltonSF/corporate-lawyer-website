@@ -17,6 +17,6 @@ export const mockCaseRepository = (): CaseRepository => {
       acknowledged: true,
       deletedCount: 3,
     }),
-    exists: jest.fn().mockResolvedValue(true),
+    existsById: jest.fn().mockResolvedValue(true),
   };
 };
