@@ -6,11 +6,16 @@ import { UnauthorizedError } from '../../errors/presentation/UnauthorizedError';
 export function makeRequireUser(userService: IUserService) {
   return async (req: Request, res: Response, next: NextFunction) => {
     const authUser = getAuthenticatedUser(req);
-
-    if (!(await userService.findById(authUser.id))) {
+    const existingUser = await userService.findById(authUser.id);
+    if (!existingUser) {
       throw new UnauthorizedError('User does not exist');
     }
 
+    req.user = {
+      id: existingUser.id,
+      email: existingUser.email,
+      role: existingUser.role,
+    };
     next();
   };
 }
