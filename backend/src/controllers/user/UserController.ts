@@ -5,7 +5,6 @@ import { HttpRequest } from '../types/HttpRequest';
 import { NotFoundError } from '../../errors/presentation/NotFoundError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { checkMissingFields } from '../../utils/checkMissingFields';
-import { requireLawyer } from '../helpers/requireLawyer';
 import { requireBody } from '../helpers/requireBody';
 import { getPagination } from '../helpers/getPagination';
 
@@ -13,8 +12,6 @@ export class UserController implements IUserController {
   constructor(private userService: IUserService) {}
 
   createClient = async (httpRequest: HttpRequest) => {
-    await requireLawyer(httpRequest, this.userService);
-
     const body = requireBody(httpRequest);
 
     checkMissingFields(body, ['firstName', 'lastName', 'email', 'cpf']);
@@ -38,8 +35,6 @@ export class UserController implements IUserController {
   };
 
   findClients = async (httpRequest: HttpRequest) => {
-    await requireLawyer(httpRequest, this.userService);
-
     const { query = '' } = httpRequest.query;
     const { limit, page } = getPagination(httpRequest.query);
 
@@ -68,8 +63,6 @@ export class UserController implements IUserController {
   };
 
   updateById = async (httpRequest: HttpRequest) => {
-    await requireLawyer(httpRequest, this.userService);
-
     const { id } = httpRequest.params;
     if (!id) {
       throw new BadRequestError('Missing user id');
@@ -87,8 +80,6 @@ export class UserController implements IUserController {
   };
 
   deleteById = async (httpRequest: HttpRequest) => {
-    await requireLawyer(httpRequest, this.userService);
-
     const { id } = httpRequest.params;
     if (!id) {
       throw new BadRequestError('Missing user id');
