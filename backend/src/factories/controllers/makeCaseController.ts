@@ -8,10 +8,9 @@ import { registerCaseEvents } from '../../events/registerCaseEvents';
 import { CaseService } from '../../services/case/CaseService';
 import { FileService } from '../../services/files/FileService';
 import { NotificationService } from '../../services/notification/NotificationService';
-import { IUserService } from '../../services/user/IUserService';
 import { CloudinaryUploadService } from '../../services/uṕload/CloudinaryUploadService';
 
-export function makeCaseController(userService: IUserService): ICaseController {
+export function makeCaseController(): ICaseController {
   const eventBus = new InMemoryEventBus();
   const notificationRepository = new MongodbNotificationRepository();
   const notificationService = new NotificationService(notificationRepository);
@@ -23,5 +22,5 @@ export function makeCaseController(userService: IUserService): ICaseController {
   const uploadService = new CloudinaryUploadService();
   const fileService = new FileService(fileRepository, uploadService);
 
-  return new CaseController(caseService, fileService, userService);
+  return new CaseController(caseService, fileService);
 }

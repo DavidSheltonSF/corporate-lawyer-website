@@ -15,8 +15,7 @@ import { getPagination } from '../helpers/getPagination';
 export class CaseController implements ICaseController {
   constructor(
     private caseService: ICaseService,
-    private fileService: IFileService,
-    private userService: IUserService
+    private fileService: IFileService
   ) {}
 
   create = async (httpRequest: HttpRequest) => {
@@ -125,14 +124,11 @@ export class CaseController implements ICaseController {
       throw new MissingAuthenticatedUserError();
     }
 
-    const authUserData = await this.userService.findById(authUser.id);
-    if (!authUserData) {
-      throw new ForbiddenError(
-        `Could not execute operation. User with id '${authUser.id}' was not found`
-      );
-    }
+    const caseStats = await this.caseService.getStatsByClientId(authUser.id);
 
-    const caseStats = await this.caseService.getStatsByClientId(authUserData.id);
+    if (!caseStats) {
+      throw new NotFoundError(`User with id '${authUser.id}' was not found.`);
+    }
 
     return HttpResponseFactory.makeOk(caseStats);
   };
