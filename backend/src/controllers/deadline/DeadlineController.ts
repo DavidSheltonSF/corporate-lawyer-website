@@ -3,20 +3,13 @@ import { IDeadlineController } from './IDeadlineController';
 import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
 import { HttpRequest } from '../types/HttpRequest';
 import { NotFoundError } from '../../errors/presentation/NotFoundError';
-import { IUserService } from '../../services/user/IUserService';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
-import { requireLawyer } from '../helpers/requireLawyer';
 import { requireBody } from '../helpers/requireBody';
 
 export class DeadlineController implements Partial<IDeadlineController> {
-  constructor(
-    private deadlineService: IDeadlineService,
-    private userService: IUserService
-  ) {}
+  constructor(private deadlineService: IDeadlineService) {}
 
   create = async (httpRequest: HttpRequest) => {
-    await requireLawyer(httpRequest, this.userService);
-
     const body = requireBody(httpRequest);
 
     const { caseId, lawyerId, type, priority, intimationDate, days, countingType } = body;
@@ -35,15 +28,11 @@ export class DeadlineController implements Partial<IDeadlineController> {
   };
 
   findAll = async (httpRequest: HttpRequest) => {
-    await requireLawyer(httpRequest, this.userService);
-
     const data = await this.deadlineService.findAll();
     return HttpResponseFactory.makeOk(data);
   };
 
   findById = async (httpRequest: HttpRequest) => {
-    await requireLawyer(httpRequest, this.userService);
-
     const { id } = httpRequest.params;
 
     if (!id) {
@@ -60,8 +49,6 @@ export class DeadlineController implements Partial<IDeadlineController> {
   };
 
   findByCaseId = async (httpRequest: HttpRequest) => {
-    await requireLawyer(httpRequest, this.userService);
-
     const { id } = httpRequest.params;
 
     if (!id) {
@@ -77,8 +64,6 @@ export class DeadlineController implements Partial<IDeadlineController> {
   };
 
   updateById = async (httpRequest: HttpRequest) => {
-    await requireLawyer(httpRequest, this.userService);
-
     const { id } = httpRequest.params;
     if (!id) {
       throw new BadRequestError('Missing deadline id');
@@ -96,8 +81,6 @@ export class DeadlineController implements Partial<IDeadlineController> {
   };
 
   deleteById = async (httpRequest: HttpRequest) => {
-    await requireLawyer(httpRequest, this.userService);
-
     const { id } = httpRequest.params;
     if (!id) {
       throw new BadRequestError('Missing deadline id');
