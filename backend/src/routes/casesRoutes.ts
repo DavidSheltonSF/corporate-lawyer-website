@@ -7,23 +7,23 @@ import { expressHttpAdapter } from './adapters/expressHttpAdapter';
 export function casesRoutes(
   router: Router,
   caseController: ICaseController,
-  requireLawyer: RequestHandler
+  requireUser: RequestHandler
 ) {
-  router.post('/api/cases', requireAuth, requireLawyer, expressHttpAdapter(caseController.create));
+  router.post('/api/cases', requireAuth, requireUser, expressHttpAdapter(caseController.create));
   router.put(
     '/api/cases/:id',
     requireAuth,
-    requireLawyer,
+    requireUser,
     expressHttpAdapter(caseController.updateById)
   );
   router.get('/api/my/cases/stats', requireAuth, expressHttpAdapter(caseController.getMyStats));
   router.get(
     '/api/cases/stats',
     requireAuth,
-    requireLawyer,
+    requireUser,
     expressHttpAdapter(caseController.getStats)
   );
-  router.get('/api/cases', requireAuth, requireLawyer, expressHttpAdapter(caseController.findAll));
+  router.get('/api/cases', requireAuth, requireUser, expressHttpAdapter(caseController.findAll));
   router.get('/api/cases/:id', expressHttpAdapter(caseController.findById));
   router.get('/api/my/cases', requireAuth, expressHttpAdapter(caseController.findMyCases));
   router.get(
@@ -40,7 +40,7 @@ export function casesRoutes(
   router.delete(
     '/api/cases/:id',
     requireAuth,
-    requireLawyer,
+    requireUser,
     expressHttpAdapter(caseController.deleteById)
   );
 }
