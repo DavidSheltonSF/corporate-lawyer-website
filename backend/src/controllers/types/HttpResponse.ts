@@ -1,14 +1,14 @@
-type SuccessResponse<T> = {
+export type SuccessResponse<T> = {
   status: number;
   data: T;
 };
 
-type ErrorResponse = {
+export type ErrorResponse = {
   status: number;
   message: string;
 };
 
-type EmptyResponse = {
+export type EmptyResponse = {
   status: number;
 };
 
