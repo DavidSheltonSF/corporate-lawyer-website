@@ -1,167 +1,174 @@
-import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO';
-import { CaseService } from '../../services/case/CaseService';
-import { UserService } from '../../services/user/UserService';
 import { CaseMocker } from '../../tests/mocks/entities/CaseMoker';
-import { mockCaseRepository } from '../../tests/mocks/repositories/mockCaseRepository';
-import { mockUserRepository } from '../../tests/mocks/repositories/mockUserRepository';
-import { UserMocker } from '../../tests/mocks/entities/UserMocker';
-import { UserRole } from '../../types/UserRole';
-
-import { HttpRequest } from '../types/HttpRequest';
 import { HttpStatusCode } from '../types/HttpStatusCode';
 import { CaseController } from './CaseController';
+import { createMockObject } from '../../tests/mocks/createMockObject';
+import { createMockHttpRequest } from '../../tests/mocks/createMockHttpRequest';
+import { ICaseService } from '../../services/case/ICaseService';
+import { IFileService } from '../../services/files/IFileService';
+import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO';
+import { EmptyResponse, SuccessResponse } from '../types/HttpResponse';
+import { CasePopulatedResponseDTO } from '../../dtos/case/CasePopulatedResponseDTO';
+import { UserRole } from '../../types/UserRole';
+import { CasesStats } from '../../types/CasesStats';
+import { createMockFileMulter } from '../../tests/mocks/createMockFileMulter';
+import { WithId } from '../../types/WithId';
+import { FileDTO } from '../../dtos/caseFile/FileDTO';
+import { FileMocker } from '../../tests/mocks/entities/FileMocker';
 
 describe(`Test ${CaseController.name}`, () => {
   function makeSut() {
-    const caseRepository = mockCaseRepository();
-    const userRepository = mockUserRepository();
-    const lawyerData = UserMocker.mockUserDTOWithId();
-    lawyerData.role = UserRole.lawyer;
-    userRepository.findById = jest.fn().mockResolvedValue(lawyerData);
-
-    const userService = new UserService(userRepository, caseRepository);
-    const caseService = new CaseService(caseRepository);
-
-    const caseController = new CaseController(caseService, userService);
-
-    const httpRequest: HttpRequest = {
-      params: {
-        id: 'fakeId',
-      },
-      query: {},
-      body: {},
-      headers: {},
-      user: {
-        id: lawyerData.id,
-        email: 'lawyer@email.com',
-      },
-    };
+    const fileService = createMockObject<IFileService>(['create', 'deleteByOwnerId']);
+    const caseService = createMockObject<ICaseService>([
+      'create',
+      'updateById',
+      'findById',
+      'findAll',
+      'getStatsByClientId',
+      'getStats',
+      'deleteById',
+    ]);
+    const caseController = new CaseController(caseService, fileService);
 
     return {
-      caseRepository,
-      userRepository,
       caseService,
+      fileService,
       caseController,
-      httpRequest,
     };
   }
 
-  test('should call CaseRepository.create and return 201', async () => {
-    const { caseController, caseRepository, userRepository, httpRequest } = makeSut();
+  test('should return the created case and return Created', async () => {
+    const { caseController, caseService } = makeSut();
 
     const createCaseDTO = CaseMocker.mockCreateCaseDTO();
 
-    httpRequest.body = createCaseDTO;
+    const httpRequest = createMockHttpRequest({
+      body: createCaseDTO,
+    });
 
     const response = await caseController.create(httpRequest);
-    expect(caseRepository.create).toHaveBeenCalledWith(createCaseDTO);
+    expect(caseService.create).toHaveBeenCalledWith(createCaseDTO);
     expect(response.status).toBe(HttpStatusCode.created);
+    expect(response.status);
   });
 
-  test('should call CaseRepository.updateById and return 200', async () => {
-    const { caseController, caseRepository, httpRequest } = makeSut();
+  test('should return the updated case and return Ok', async () => {
+    const { caseController, caseService } = makeSut();
+
+    const caseWithId = CaseMocker.mockCaseDTOWithId();
 
     const updatedData: UpdateCaseDTO = {
       title: 'Pedido de penção para menores',
       court: 'fakecourt',
     };
 
-    httpRequest.body = updatedData;
-    httpRequest.params = { id: 'fdsfafdfaffa' };
+    const updatedCase = { ...caseWithId, ...updatedData };
 
-    const response = await caseController.updateById(httpRequest);
+    const httpRequest = createMockHttpRequest({ body: updatedData, params: { id: caseWithId.id } });
 
-    expect(caseRepository.updateById).toHaveBeenCalledWith(httpRequest.params.id, httpRequest.body);
+    caseService.updateById.mockResolvedValue(updatedCase);
+    const response = (await caseController.updateById(httpRequest)) as SuccessResponse<
+      WithId<CasePopulatedResponseDTO>
+    >;
+
+    expect(caseService.updateById).toHaveBeenCalledWith(httpRequest.params.id, httpRequest.body);
     expect(response.status).toBe(HttpStatusCode.ok);
+    expect(response.data).toMatchObject(updatedCase);
   });
 
-  test('should call caseRepository.findById with the provided id and return OK (200)', async () => {
-    const { caseController, caseRepository, httpRequest } = makeSut();
+  test('should return the case by the provided id and return Ok', async () => {
+    const { caseController, caseService } = makeSut();
 
-    const response = await caseController.findById(httpRequest);
+    const caseWithId = CaseMocker.mockCaseDTOWithId();
 
-    expect(caseRepository.findById).toHaveBeenCalledWith(httpRequest.params.id);
-    expect(response.status).toBe(HttpStatusCode.ok);
-  });
-
-  test('should call caseRepository.findPopulatedById with the provided id and return OK (200)', async () => {
-    const { caseController, caseRepository, httpRequest } = makeSut();
-
-    httpRequest.query.populate = 'true';
-
-    const response = await caseController.findById(httpRequest);
-
-    expect(caseRepository.findPopulatedById).toHaveBeenCalledWith(httpRequest.params.id);
-    expect(response.status).toBe(HttpStatusCode.ok);
-  });
-
-  test('should call caseRepository.findCases with provided data and return OK (200)', async () => {
-    const { caseController, caseRepository, httpRequest } = makeSut();
-
-    const status = 'open';
-    const limit = 4;
-    const page = 1;
-    const query = 'Query string,';
-
-    httpRequest.query = {
-      status,
-      query,
-      page,
-      limit,
-    };
-
-    const response = await caseController.findMyCases(httpRequest);
-
-    expect(caseRepository.findPopulatedByClientId).toHaveBeenCalledWith(httpRequest.user?.id, {
-      status,
-      limit,
-      page,
-      query,
+    const httpRequest = createMockHttpRequest({
+      params: { id: caseWithId.id },
     });
+
+    caseService.findById.mockResolvedValue(caseWithId);
+
+    const response = (await caseController.findById(httpRequest)) as SuccessResponse<
+      WithId<CasePopulatedResponseDTO>
+    >;
+
+    expect(caseService.findById).toHaveBeenCalledWith(caseWithId.id, false);
     expect(response.status).toBe(HttpStatusCode.ok);
+    expect(response.data).toMatchObject(caseWithId);
   });
 
-  test('should call caseRepository.getStatsByClientId with provided data and return OK (200) ', async () => {
-    const { caseController, caseRepository, httpRequest } = makeSut();
+  test('should return case stats of the authenticated user and return Ok ', async () => {
+    const { caseController, caseService } = makeSut();
 
-    const response = await caseController.getMyStats(httpRequest);
+    const httpRequest = createMockHttpRequest({
+      user: { id: 'test-id', email: 'fake@email.com', role: UserRole.client },
+    });
 
-    expect(caseRepository.getStatsByClientId).toHaveBeenCalledWith(httpRequest.user?.id);
+    const expectedStats = { closed: 0, open: 0 };
+    caseService.getStatsByClientId.mockResolvedValue(expectedStats);
+    const response = (await caseController.getMyStats(httpRequest)) as SuccessResponse<CasesStats>;
+
+    expect(caseService.getStatsByClientId).toHaveBeenCalledWith(httpRequest.user?.id);
     expect(response.status).toBe(HttpStatusCode.ok);
+    expect(response.data).toMatchObject(expectedStats);
   });
 
-  test('should call caseRepository.addFile with provided data and return OK (200) ', async () => {
-    const { caseController, caseRepository, httpRequest } = makeSut();
+  test('should return the case stats and return Ok', async () => {
+    const { caseController, caseService } = makeSut();
 
-    const file = {
-      originalname: 'Document x',
-      size: 200,
-      mimeType: 'pdf',
-    };
+    const httpRequest = createMockHttpRequest();
 
-    httpRequest.file = file;
+    const expectedStats = { closed: 0, open: 0 };
+    caseService.getStats.mockResolvedValue(expectedStats);
+    const response = (await caseController.getStats(httpRequest)) as SuccessResponse<CasesStats>;
 
-    const response = await caseController.uploadMyFile(httpRequest);
+    expect(caseService.getStats).toHaveBeenCalled();
+    expect(response.status).toBe(HttpStatusCode.ok);
+    expect(response.data).toMatchObject(expectedStats);
+  });
 
-    expect(caseRepository.addFile).toHaveBeenCalled();
+  test('should should upload a file and return Ok ', async () => {
+    const { caseController, caseService, fileService } = makeSut();
+
+    const fileMock = FileMocker.mockFileDTOWithId();
+
+    const file = createMockFileMulter({ ...fileMock });
+    const httpRequest = createMockHttpRequest({
+      user: {
+        id: 'user-id',
+        email: 'fake@email.com',
+        role: UserRole.client,
+      },
+      params: { id: 'case-id' },
+      file,
+    });
+
+    fileService.create.mockResolvedValue(fileMock);
+    const response = (await caseController.uploadMyFile(httpRequest)) as SuccessResponse<
+      WithId<FileDTO>
+    >;
+
+    expect(fileService.create).toHaveBeenCalledWith(
+      httpRequest.user?.id,
+      httpRequest.params.id,
+      file
+    );
     expect(response?.status).toBe(HttpStatusCode.ok);
+    expect(response.data).toMatchObject(fileMock);
   });
 
-  test('should call caseRepository.findById with provided id and return OK (200) ', async () => {
-    const { caseController, caseRepository, httpRequest } = makeSut();
+  test('should delete a case and return No Content', async () => {
+    const { caseController, caseService } = makeSut();
 
-    const response = await caseController.findFilesByCaseId(httpRequest);
+    const caseMock = CaseMocker.mockCaseDTOWithId();
+    const httpRequest = createMockHttpRequest({
+      params: {
+        id: caseMock.id,
+      },
+    });
 
-    expect(caseRepository.findFilesByCaseId).toHaveBeenCalledWith(httpRequest.params?.id);
-    expect(response.status).toBe(HttpStatusCode.ok);
-  });
+    caseService.deleteById.mockResolvedValue(caseMock);
+    const response = (await caseController.deleteById(httpRequest)) as EmptyResponse;
 
-  test('should call caseRepository.deleteById with provided id and return OK (200) ', async () => {
-    const { caseController, caseRepository, httpRequest } = makeSut();
-
-    const response = await caseController.findFilesByCaseId(httpRequest);
-
-    expect(caseRepository.findFilesByCaseId).toHaveBeenCalledWith(httpRequest.params?.id);
-    expect(response.status).toBe(HttpStatusCode.ok);
+    expect(caseService.deleteById).toHaveBeenCalledWith(caseMock.id);
+    expect(response.status).toBe(HttpStatusCode.no_content);
   });
 });
