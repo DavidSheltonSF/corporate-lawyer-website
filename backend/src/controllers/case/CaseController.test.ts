@@ -14,6 +14,7 @@ import { createMockFileMulter } from '../../tests/mocks/createMockFileMulter';
 import { WithId } from '../../types/WithId';
 import { FileDTO } from '../../dtos/caseFile/FileDTO';
 import { FileMocker } from '../../tests/mocks/entities/FileMocker';
+import { BadRequestError } from '../../errors/presentation/BadRequestError';
 
 describe(`Test ${CaseController.name}`, () => {
   function makeSut() {
@@ -49,6 +50,28 @@ describe(`Test ${CaseController.name}`, () => {
     expect(caseService.create).toHaveBeenCalledWith(createCaseDTO);
     expect(response.status).toBe(HttpStatusCode.created);
     expect(response.status);
+  });
+
+  test('should throw BadRequestError if the request body is missing', async () => {
+    const { caseController, caseService } = makeSut();
+    const httpRequest = createMockHttpRequest();
+
+    await expect(caseController.create(httpRequest)).rejects.toThrow(BadRequestError);
+    expect(caseService.create).toHaveBeenCalledTimes(0);
+  });
+
+  test('should throw BadRequestError if any required field is missing', async () => {
+    const { caseController, caseService } = makeSut();
+
+    const createCaseDTO = CaseMocker.mockCreateCaseDTO();
+    const { processNumber, ...missingFieldsDTO } = createCaseDTO;
+
+    const httpRequest = createMockHttpRequest({
+      body: missingFieldsDTO,
+    });
+
+    await expect(caseController.create(httpRequest)).rejects.toThrow(BadRequestError);
+    expect(caseService.create).toHaveBeenCalledTimes(0);
   });
 
   test('should return the updated case and return Ok', async () => {
