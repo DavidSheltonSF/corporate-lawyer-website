@@ -1,11 +1,9 @@
 import { ICaseService } from '../../services/case/ICaseService';
-import { IUserService } from '../../services/user/IUserService';
 import { ICaseController } from './ICaseController';
 import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
 import { HttpRequest } from '../types/HttpRequest';
 import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
 import { NotFoundError } from '../../errors/presentation/NotFoundError';
-import { ForbiddenError } from '../../errors/presentation/ForbiddenError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { checkMissingFields } from '../../utils/checkMissingFields';
 import { IFileService } from '../../services/files/IFileService';
