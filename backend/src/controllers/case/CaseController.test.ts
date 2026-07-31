@@ -15,6 +15,8 @@ import { WithId } from '../../types/WithId';
 import { FileDTO } from '../../dtos/caseFile/FileDTO';
 import { FileMocker } from '../../tests/mocks/entities/FileMocker';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
+import { ValidationError } from '../../errors/presentation/ValidationError';
+import { NotFoundError } from '../../errors/presentation/NotFoundError';
 
 describe(`Test ${CaseController.name}`, () => {
   function makeSut() {
@@ -96,6 +98,55 @@ describe(`Test ${CaseController.name}`, () => {
     expect(caseService.updateById).toHaveBeenCalledWith(httpRequest.params.id, httpRequest.body);
     expect(response.status).toBe(HttpStatusCode.ok);
     expect(response.data).toMatchObject(updatedCase);
+  });
+
+  test('should throw BadRequestError if the case id is not provided', async () => {
+    const { caseController, caseService } = makeSut();
+
+    const caseWithId = CaseMocker.mockCaseDTOWithId();
+
+    const updatedData: UpdateCaseDTO = {
+      title: 'Pedido de penção para menores',
+      court: 'fakecourt',
+    };
+
+    const updatedCase = { ...caseWithId, ...updatedData };
+
+    const httpRequest = createMockHttpRequest({ body: updatedData });
+
+    caseService.updateById.mockResolvedValue(updatedCase);
+
+    await expect(caseController.updateById(httpRequest)).rejects.toThrow(BadRequestError);
+    expect(caseService.updateById).toHaveBeenCalledTimes(0);
+  });
+
+  test('should throw BadRequestError if an empty body is provided', async () => {
+    const { caseController, caseService } = makeSut();
+
+    const caseWithId = CaseMocker.mockCaseDTOWithId();
+
+    const httpRequest = createMockHttpRequest({ params: { id: caseWithId.id } });
+
+    await expect(caseController.updateById(httpRequest)).rejects.toThrow(BadRequestError);
+    expect(caseService.updateById).toHaveBeenCalledTimes(0);
+  });
+
+  test('should throw NotFoundError if the case is not found', async () => {
+    const { caseController, caseService } = makeSut();
+
+    const caseWithId = CaseMocker.mockCaseDTOWithId();
+
+    const updatedData: UpdateCaseDTO = {
+      title: 'Pedido de penção para menores',
+      court: 'fakecourt',
+    };
+
+    const httpRequest = createMockHttpRequest({ body: updatedData, params: { id: caseWithId.id } });
+
+    caseService.updateById.mockResolvedValue(null);
+
+    await expect(caseController.updateById(httpRequest)).rejects.toThrow(NotFoundError);
+    expect(caseService.updateById).toHaveBeenCalledTimes(1);
   });
 
   test('should return the case by the provided id and return Ok', async () => {
