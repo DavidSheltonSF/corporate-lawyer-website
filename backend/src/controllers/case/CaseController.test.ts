@@ -169,6 +169,30 @@ describe(`Test ${CaseController.name}`, () => {
     expect(response.data).toMatchObject(caseWithId);
   });
 
+  test('should throw error if the case id was not provided ', async () => {
+    const { caseController, caseService } = makeSut();
+
+    const httpRequest = createMockHttpRequest();
+
+    await expect(caseController.findById(httpRequest)).rejects.toThrow(BadRequestError);
+    expect(caseService.findById).toHaveBeenCalledTimes(0);
+  });
+
+  test('should throw NotFoundError if the case is not found', async () => {
+    const { caseController, caseService } = makeSut();
+
+    const caseWithId = CaseMocker.mockCaseDTOWithId();
+
+    const httpRequest = createMockHttpRequest({
+      params: { id: caseWithId.id },
+    });
+
+    caseService.findById.mockResolvedValue(null);
+
+   await expect(caseController.findById(httpRequest)).rejects.toThrow(NotFoundError);
+   expect(caseService.findById).toHaveBeenCalledTimes(1);
+  });
+
   test('should return case stats of the authenticated user and return Ok ', async () => {
     const { caseController, caseService } = makeSut();
 
