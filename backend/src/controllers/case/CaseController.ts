@@ -42,6 +42,10 @@ export class CaseController implements ICaseController {
 
     const body = requireBody(httpRequest);
 
+    if (Object.keys(body).length === 0) {
+      throw new BadRequestError('Request body must have at least one field to update');
+    }
+
     const updatedCase = await this.caseService.updateById(id, body);
     if (!updatedCase) {
       throw new NotFoundError(`Case with id '${id} not found`);
