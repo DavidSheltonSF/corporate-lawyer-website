@@ -15,6 +15,6 @@ export interface ICaseService {
     populate?: boolean
   ): Promise<WithId<CaseDTO | CasePopulatedResponseDTO> | null>;
   getStatsByClientId(clientId: string): Promise<CasesStats | null>;
-  getStats(): Promise<CasesStats | null>;
+  getStats(): Promise<CasesStats>;
   deleteById(id: string): Promise<WithId<CaseDTO> | null>;
 }
