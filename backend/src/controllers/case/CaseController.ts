@@ -164,10 +164,6 @@ export class CaseController implements ICaseController {
       page: Number(page),
     });
 
-    if (!foundCaseFiles) {
-      throw new NotFoundError(`Case with id '${caseId} not found`);
-    }
-
     return HttpResponseFactory.makeOk(foundCaseFiles);
   };
 
