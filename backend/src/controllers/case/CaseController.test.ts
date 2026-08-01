@@ -264,6 +264,57 @@ describe(`Test ${CaseController.name}`, () => {
     expect(response.data).toMatchObject(fileMock);
   });
 
+  test('should return MissingAuthenticatedUserError if the authenticated user is missing', async () => {
+    const { caseController, fileService } = makeSut();
+
+    const fileMock = FileMocker.mockFileDTOWithId();
+
+    const file = createMockFileMulter({ ...fileMock });
+    const httpRequest = createMockHttpRequest({
+      params: { id: 'case-id' },
+      file,
+    });
+
+    await expect(caseController.uploadMyFile(httpRequest)).rejects.toThrow(
+      MissingAuthenticatedUserError
+    );
+    expect(fileService.create).toHaveBeenCalledTimes(0);
+  });
+
+  test('should return BadRequestError if the case id  missing', async () => {
+    const { caseController, fileService } = makeSut();
+
+    const fileMock = FileMocker.mockFileDTOWithId();
+
+    const file = createMockFileMulter({ ...fileMock });
+    const httpRequest = createMockHttpRequest({
+      user: {
+        id: 'user-id',
+        email: 'fake@email.com',
+        role: UserRole.client,
+      },
+      file,
+    });
+
+    await expect(caseController.uploadMyFile(httpRequest)).rejects.toThrow(BadRequestError);
+    expect(fileService.create).toHaveBeenCalledTimes(0);
+  });
+
+  test('should return BadRequestError if request file is misssing', async () => {
+    const { caseController, fileService } = makeSut();
+    const httpRequest = createMockHttpRequest({
+      user: {
+        id: 'user-id',
+        email: 'fake@email.com',
+        role: UserRole.client,
+      },
+      params: { id: 'case-id' },
+    });
+
+    await expect(caseController.uploadMyFile(httpRequest)).rejects.toThrow(BadRequestError);
+    expect(fileService.create).toHaveBeenCalledTimes(0);
+  });
+
   test('should delete a case and return No Content', async () => {
     const { caseController, caseService } = makeSut();
 
