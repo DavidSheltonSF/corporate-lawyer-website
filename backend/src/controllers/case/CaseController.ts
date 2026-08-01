@@ -137,14 +137,14 @@ export class CaseController implements ICaseController {
   };
 
   uploadMyFile = async (httpRequest: HttpRequest) => {
-    const userId = httpRequest.user?.id;
+    const authUser = httpRequest.user;
     const caseId = httpRequest.params.id;
 
-    if (!userId) {
-      throw new BadRequestError('Missing userId');
+    if (!authUser) {
+      throw new MissingAuthenticatedUserError();
     }
     if (!caseId) {
-      throw new BadRequestError('Missing case');
+      throw new BadRequestError('Missing case id');
     }
 
     const file = httpRequest.file;
@@ -153,7 +153,7 @@ export class CaseController implements ICaseController {
       throw new BadRequestError('Missing file');
     }
 
-    const response = await this.fileService.create(userId, caseId, file);
+    const response = await this.fileService.create(authUser.id, caseId, file);
 
     return HttpResponseFactory.makeOk(response);
   };
