@@ -22,7 +22,11 @@ import { MissingAuthenticatedUserError } from '../../errors/presentation/Missing
 
 describe(`Test ${CaseController.name}`, () => {
   function makeSut() {
-    const fileService = createMockObject<IFileService>(['create', 'deleteByOwnerId']);
+    const fileService = createMockObject<IFileService>([
+      'create',
+      'deleteByOwnerId',
+      'findByOwnerId',
+    ]);
     const caseService = createMockObject<ICaseService>([
       'create',
       'updateById',
@@ -313,6 +317,25 @@ describe(`Test ${CaseController.name}`, () => {
 
     await expect(caseController.uploadMyFile(httpRequest)).rejects.toThrow(BadRequestError);
     expect(fileService.create).toHaveBeenCalledTimes(0);
+  });
+
+  test('should return BadRequestError if the case id is missing', async () => {
+    const { caseController, fileService } = makeSut();
+
+    const fileMock = FileMocker.mockFileDTOWithId();
+
+    const file = createMockFileMulter({ ...fileMock });
+    const httpRequest = createMockHttpRequest({
+      user: {
+        id: 'user-id',
+        email: 'fake@email.com',
+        role: UserRole.client,
+      },
+      file,
+    });
+
+    await expect(caseController.findFilesByCaseId(httpRequest)).rejects.toThrow(BadRequestError);
+    expect(fileService.findByOwnerId).toHaveBeenCalledTimes(0);
   });
 
   test('should delete a case and return No Content', async () => {
