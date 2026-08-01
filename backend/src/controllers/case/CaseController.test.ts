@@ -235,7 +235,7 @@ describe(`Test ${CaseController.name}`, () => {
   });
 
   test('should should upload a file and return Ok ', async () => {
-    const { caseController, caseService, fileService } = makeSut();
+    const { caseController, fileService } = makeSut();
 
     const fileMock = FileMocker.mockFileDTOWithId();
 
