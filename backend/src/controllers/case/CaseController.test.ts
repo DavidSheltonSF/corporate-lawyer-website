@@ -354,4 +354,24 @@ describe(`Test ${CaseController.name}`, () => {
     expect(caseService.deleteById).toHaveBeenCalledWith(caseMock.id);
     expect(response.status).toBe(HttpStatusCode.no_content);
   });
+
+  test('should throw BadRequestError if the case id is missing', async () => {
+    const { caseController } = makeSut();
+    const httpRequest = createMockHttpRequest();
+    await expect(caseController.deleteById(httpRequest)).rejects.toThrow(BadRequestError);
+  });
+
+  test('should throw NotFoundError if the case is not found', async () => {
+    const { caseController, caseService } = makeSut();
+
+    const httpRequest = createMockHttpRequest({
+      params: {
+        id: 'fake-id',
+      },
+    });
+
+    caseService.deleteById.mockResolvedValue(null);
+
+    await expect(caseController.deleteById(httpRequest)).rejects.toThrow(NotFoundError);
+  });
 });
