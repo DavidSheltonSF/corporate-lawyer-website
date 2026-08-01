@@ -9,6 +9,7 @@ import { checkMissingFields } from '../../utils/checkMissingFields';
 import { IFileService } from '../../services/files/IFileService';
 import { requireBody } from '../helpers/requireBody';
 import { getPagination } from '../helpers/getPagination';
+import { requireAuthenticatedUser } from '../helpers/requireAuthenticatedUser';
 
 export class CaseController implements ICaseController {
   constructor(
@@ -121,13 +122,8 @@ export class CaseController implements ICaseController {
   };
 
   getMyStats = async (httpRequest: HttpRequest) => {
-    const authUser = httpRequest.user;
-    if (!authUser) {
-      throw new MissingAuthenticatedUserError();
-    }
-
+    const authUser = requireAuthenticatedUser(httpRequest);
     const caseStats = await this.caseService.getStatsByClientId(authUser.id);
-
     return HttpResponseFactory.makeOk(caseStats);
   };
 
@@ -137,12 +133,9 @@ export class CaseController implements ICaseController {
   };
 
   uploadMyFile = async (httpRequest: HttpRequest) => {
-    const authUser = httpRequest.user;
+    const authUser = requireAuthenticatedUser(httpRequest);
     const caseId = httpRequest.params.id;
 
-    if (!authUser) {
-      throw new MissingAuthenticatedUserError();
-    }
     if (!caseId) {
       throw new BadRequestError('Missing case id');
     }
