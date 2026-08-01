@@ -2,7 +2,6 @@ import { ICaseService } from '../../services/case/ICaseService';
 import { ICaseController } from './ICaseController';
 import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
 import { HttpRequest } from '../types/HttpRequest';
-import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
 import { NotFoundError } from '../../errors/presentation/NotFoundError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { checkMissingFields } from '../../utils/checkMissingFields';
