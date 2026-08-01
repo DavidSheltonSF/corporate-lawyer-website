@@ -17,6 +17,8 @@ import { FileMocker } from '../../tests/mocks/entities/FileMocker';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { ValidationError } from '../../errors/presentation/ValidationError';
 import { NotFoundError } from '../../errors/presentation/NotFoundError';
+import { UserMocker } from '../../tests/mocks/entities/UserMocker';
+import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
 
 describe(`Test ${CaseController.name}`, () => {
   function makeSut() {
@@ -189,8 +191,8 @@ describe(`Test ${CaseController.name}`, () => {
 
     caseService.findById.mockResolvedValue(null);
 
-   await expect(caseController.findById(httpRequest)).rejects.toThrow(NotFoundError);
-   expect(caseService.findById).toHaveBeenCalledTimes(1);
+    await expect(caseController.findById(httpRequest)).rejects.toThrow(NotFoundError);
+    expect(caseService.findById).toHaveBeenCalledTimes(1);
   });
 
   test('should return case stats of the authenticated user and return Ok ', async () => {
@@ -207,6 +209,15 @@ describe(`Test ${CaseController.name}`, () => {
     expect(caseService.getStatsByClientId).toHaveBeenCalledWith(httpRequest.user?.id);
     expect(response.status).toBe(HttpStatusCode.ok);
     expect(response.data).toMatchObject(expectedStats);
+  });
+
+  test('should throw MissingAuthenticatedUserError if the authenticated user is not provided', async () => {
+    const { caseController, caseService } = makeSut();
+    const httpRequest = createMockHttpRequest({});
+    await expect(caseController.getMyStats(httpRequest)).rejects.toThrow(
+      MissingAuthenticatedUserError
+    );
+    expect(caseService.findAll).toHaveBeenCalledTimes(0);
   });
 
   test('should return the case stats and return Ok', async () => {
