@@ -234,7 +234,7 @@ describe(`Test ${CaseController.name}`, () => {
     expect(response.data).toMatchObject(expectedStats);
   });
 
-  test('should should upload a file and return Ok ', async () => {
+  test('should upload a file and return Ok ', async () => {
     const { caseController, fileService } = makeSut();
 
     const fileMock = FileMocker.mockFileDTOWithId();
