@@ -128,10 +128,6 @@ export class CaseController implements ICaseController {
 
     const caseStats = await this.caseService.getStatsByClientId(authUser.id);
 
-    if (!caseStats) {
-      throw new NotFoundError(`User with id '${authUser.id}' was not found.`);
-    }
-
     return HttpResponseFactory.makeOk(caseStats);
   };
 
