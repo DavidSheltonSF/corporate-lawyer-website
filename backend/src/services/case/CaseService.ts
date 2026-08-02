@@ -1,4 +1,3 @@
-import { CasePopulatedResponseDTO } from '../../dtos/case/CasePopulatedResponseDTO';
 import { CreateCaseDTO } from '../../dtos/case/CreateCaseDTO';
 import { CaseRepository } from '../../repositories/CaseRepository';
 import { CaseQuery } from '../../types/CaseQuery';
