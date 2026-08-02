@@ -9,11 +9,8 @@ import { CaseDTO } from '../../dtos/case/CaseDTO';
 export interface ICaseService {
   create(data: CreateCaseDTO): Promise<WithId<CaseDTO>>;
   updateById(id: string, data: CreateCaseDTO): Promise<WithId<CaseDTO> | null>;
-  findAll(queryParams?: CaseQuery): Promise<Page<WithId<CasePopulatedResponseDTO>>>;
-  findById(
-    id: string,
-    populate?: boolean
-  ): Promise<WithId<CaseDTO | CasePopulatedResponseDTO> | null>;
+  findAll(queryParams?: CaseQuery): Promise<Page<WithId<CaseDTO>>>;
+  findById(id: string, populate?: boolean): Promise<WithId<CaseDTO> | null>;
   getStatsByClientId(clientId: string): Promise<CasesStats | null>;
   getStats(): Promise<CasesStats>;
   deleteById(id: string): Promise<WithId<CaseDTO> | null>;

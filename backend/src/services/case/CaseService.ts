@@ -67,7 +67,7 @@ export class CaseService implements ICaseService {
     }
   }
 
-  async findAll(queryParams?: CaseQuery): Promise<Page<WithId<CasePopulatedResponseDTO>>> {
+  async findAll(queryParams?: CaseQuery): Promise<Page<WithId<CaseDTO>>> {
     const casesPage = await this.caseRepository.findAll(queryParams);
     return {
       items: casesPage.items,
@@ -78,7 +78,7 @@ export class CaseService implements ICaseService {
   async findById(
     id: string,
     populate?: boolean
-  ): Promise<WithId<CaseDTO | CasePopulatedResponseDTO> | null> {
+  ): Promise<WithId<CaseDTO> | null> {
     try {
       const findPromise = populate
         ? this.caseRepository.findPopulatedById(id)
