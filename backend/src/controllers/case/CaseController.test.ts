@@ -58,7 +58,6 @@ describe(`It ${CaseController.name}`, () => {
       const response = await caseController.create(httpRequest);
       expect(caseService.create).toHaveBeenCalledWith(createCaseDTO);
       expect(response.status).toBe(HttpStatusCode.created);
-      expect(response.status);
     });
 
     it('should throw BadRequestError if the request body is missing', async () => {
