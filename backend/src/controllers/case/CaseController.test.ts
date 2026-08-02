@@ -15,9 +15,7 @@ import { WithId } from '../../types/WithId';
 import { FileDTO } from '../../dtos/caseFile/FileDTO';
 import { FileMocker } from '../../tests/mocks/entities/FileMocker';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
-import { ValidationError } from '../../errors/presentation/ValidationError';
 import { NotFoundError } from '../../errors/presentation/NotFoundError';
-import { UserMocker } from '../../tests/mocks/entities/UserMocker';
 import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
 
 describe(`It ${CaseController.name}`, () => {
