@@ -1,11 +1,11 @@
-import { UserName } from '../../types/UserName';
+import { UserSlice } from '../../types/UserSlice';
 import { WithId } from '../../types/WithId';
 import { CaseLocationDTO } from './CaseLocationDTO';
 
 export type CaseDTOPopulated = {
   populated: true;
-  client: WithId<UserName>;
-  lawyers: WithId<UserName>[];
+  client: WithId<UserSlice>;
+  lawyers: WithId<UserSlice>[];
 };
 
 export type CaseDTONonPopulated = { populated: false; client: string; lawyers: string[] };
