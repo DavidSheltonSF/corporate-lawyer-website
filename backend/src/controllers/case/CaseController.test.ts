@@ -185,7 +185,7 @@ describe(`It ${CaseController.name}`, () => {
       expect(response.data).toMatchObject(caseWithId);
     });
 
-    it('should throw error if the case id was not provided ', async () => {
+    it('should throw BadRequestError if the case id is not provided ', async () => {
       const { caseController, caseService } = makeSut();
 
       const httpRequest = createMockHttpRequest();
@@ -211,7 +211,7 @@ describe(`It ${CaseController.name}`, () => {
   });
 
   describe('getMyStats', () => {
-    it('should return case stats of the authenticated user and return Ok ', async () => {
+    it('should return the case stats of the authenticated user and return Ok ', async () => {
       const { caseController, caseService } = makeSut();
 
       const httpRequest = createMockHttpRequest({
@@ -240,7 +240,7 @@ describe(`It ${CaseController.name}`, () => {
   });
 
   describe('getStats', () => {
-    it('should return the case stats and return Ok', async () => {
+    it('should return the global case stats and return Ok', async () => {
       const { caseController, caseService } = makeSut();
 
       const httpRequest = createMockHttpRequest();
@@ -303,7 +303,7 @@ describe(`It ${CaseController.name}`, () => {
       expect(fileService.create).not.toHaveBeenCalled();
     });
 
-    it('should return BadRequestError if the case id  missing', async () => {
+    it('should return BadRequestError if the case id missing', async () => {
       const { caseController, fileService } = makeSut();
 
       const fileMock = FileMocker.mockFileDTOWithId();
