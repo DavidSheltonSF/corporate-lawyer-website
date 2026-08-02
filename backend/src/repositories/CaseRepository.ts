@@ -1,4 +1,3 @@
-import { CasePopulatedResponseDTO } from '../dtos/case/CasePopulatedResponseDTO';
 import { FileDTO } from '../dtos/caseFile/FileDTO';
 import { CreateFileDTO } from '../dtos/caseFile/CreateFileDTO';
 import { CreateCaseDTO } from '../dtos/case/CreateCaseDTO';
@@ -12,9 +11,9 @@ import { CaseDTO } from '../dtos/case/CaseDTO';
 export interface CaseRepository {
   create(user: CreateCaseDTO): Promise<WithId<CaseDTO>>;
   updateById(id: string, user: UpdateCaseDTO): Promise<WithId<CaseDTO> | null>;
-  findAll(queryParams?: CaseQuery): Promise<Page<WithId<CasePopulatedResponseDTO>>>;
+  findAll(queryParams?: CaseQuery): Promise<Page<WithId<CaseDTO>>>;
   findById(id: string): Promise<WithId<CaseDTO> | null>;
-  findPopulatedById(id: string): Promise<WithId<CasePopulatedResponseDTO> | null>;
+  findPopulatedById(id: string): Promise<WithId<CaseDTO> | null>;
   getStatsByClientId(clientId: string): Promise<CasesStats>;
   getStats(): Promise<CasesStats>;
   existsById(id: string): Promise<boolean>;

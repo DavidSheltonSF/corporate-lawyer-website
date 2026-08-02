@@ -7,7 +7,6 @@ import { CasesStats } from '../../../types/CasesStats';
 import { CasesStatus } from '../../../types/CasesStatus';
 import { CaseQuery } from '../../../types/CaseQuery';
 import { Page } from '../../../types/Page';
-import { CasePopulatedResponseDTO } from '../../../dtos/case/CasePopulatedResponseDTO';
 import { CaseMapper } from '../../../mappers/Case/CaseMapper';
 import { UpdateCaseDTO } from '../../../dtos/case/UpdateCaseDTO';
 import { CaseDTO } from '../../../dtos/case/CaseDTO';
@@ -37,7 +36,7 @@ export class MongodbCaseRepository implements CaseRepository {
     if (!cas) return null;
     return CaseMapper.persistenceToPresentation(cas);
   }
-  async findAll(queryParams: CaseQuery = {}): Promise<Page<WithId<CasePopulatedResponseDTO>>> {
+  async findAll(queryParams: CaseQuery = {}): Promise<Page<WithId<CaseDTO>>> {
     const { query, status, limit = 10, page = 1, clientId } = queryParams;
 
     const regex = new RegExp(query || '', 'i');
@@ -97,7 +96,7 @@ export class MongodbCaseRepository implements CaseRepository {
     return CaseMapper.persistenceToPresentation(foundCase);
   }
 
-  async findPopulatedById(id: string): Promise<WithId<CasePopulatedResponseDTO> | null> {
+  async findPopulatedById(id: string): Promise<WithId<CaseDTO> | null> {
     const query = CaseModel.findById(id);
 
     query.populate({
