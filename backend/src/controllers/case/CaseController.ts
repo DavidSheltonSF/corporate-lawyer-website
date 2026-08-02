@@ -9,6 +9,7 @@ import { IFileService } from '../../services/files/IFileService';
 import { requireBody } from '../helpers/requireBody';
 import { getPagination } from '../helpers/getPagination';
 import { requireAuthenticatedUser } from '../helpers/requireAuthenticatedUser';
+import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
 
 export class CaseController implements ICaseController {
   constructor(
@@ -72,13 +73,17 @@ export class CaseController implements ICaseController {
   };
 
   findMyCases = async (httpRequest: HttpRequest) => {
-    const id = httpRequest.user?.id;
+    const authUser = httpRequest.user;
+
+    if (!authUser) {
+      throw new MissingAuthenticatedUserError();
+    }
 
     const { status, query } = httpRequest.query;
 
     const { limit, page } = getPagination(httpRequest.query);
 
-    if (!id) {
+    if (!authUser.id) {
       throw new BadRequestError('Missing id param');
     }
 
@@ -87,7 +92,7 @@ export class CaseController implements ICaseController {
       status: status ? String(status) : undefined,
       limit,
       page,
-      clientId: id,
+      clientId: authUser.id,
     });
 
     const pagination = {
