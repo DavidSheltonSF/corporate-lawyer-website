@@ -90,7 +90,7 @@ describe(`It ${CaseController.name}`, () => {
       const caseWithId = CaseMocker.mockCaseDTOWithId();
 
       const updatedData: UpdateCaseDTO = {
-        title: 'Pedido de penção para menores',
+        title: 'Pedido de pensão para menores',
         court: 'fakecourt',
       };
 
@@ -117,7 +117,7 @@ describe(`It ${CaseController.name}`, () => {
       const caseWithId = CaseMocker.mockCaseDTOWithId();
 
       const updatedData: UpdateCaseDTO = {
-        title: 'Pedido de penção para menores',
+        title: 'Pedido de pensão para menores',
         court: 'fakecourt',
       };
 
@@ -148,7 +148,7 @@ describe(`It ${CaseController.name}`, () => {
       const caseWithId = CaseMocker.mockCaseDTOWithId();
 
       const updatedData: UpdateCaseDTO = {
-        title: 'Pedido de penção para menores',
+        title: 'Pedido de pensão para menores',
         court: 'fakecourt',
       };
 
