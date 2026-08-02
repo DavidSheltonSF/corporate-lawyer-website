@@ -29,8 +29,6 @@ export class CaseMapper {
     const { title, processNumber, court, courtDivision, status, description, location } = cas;
 
     const lawyers = cas.lawyers.map((lawyer: any) => lawyer.toString());
-    const files = cas.files.map((document: any) => document.toString());
-    const hearings = cas.hearings.map((hearing: any) => hearing.toString());
 
     return {
       id: cas._id.toString(),
@@ -43,6 +41,7 @@ export class CaseMapper {
       client: cas.client.toString(),
       lawyers,
       location,
+      populated: false,
     };
   }
 }
