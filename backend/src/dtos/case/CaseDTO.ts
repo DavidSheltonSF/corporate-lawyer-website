@@ -1,15 +1,21 @@
+import { UserName } from '../../types/UserName';
+import { WithId } from '../../types/WithId';
 import { CaseLocationDTO } from './CaseLocationDTO';
 
-export interface CaseDTO {
-  client: string;
-  lawyers: string[];
+export type CaseDTOPopulated = {
+  populated: true;
+  client: WithId<UserName>;
+  lawyers: WithId<UserName>[];
+};
+
+export type CaseDTONonPopulated = { populated: false; client: string; lawyers: string[] };
+
+export type CaseDTO = {
   processNumber: string;
   title: string;
   description: string;
   court: string; //tribunal
   courtDivision: string; //vara
-  files?: string[] | undefined;
-  hearings?: string[] | undefined;
   status: string;
   location: CaseLocationDTO;
-}
+} & (CaseDTONonPopulated | CaseDTOPopulated);
