@@ -22,7 +22,7 @@ export class CaseMapper {
       client,
       lawyers,
       location,
-      populated: false,
+      populated,
     };
   }
 }
