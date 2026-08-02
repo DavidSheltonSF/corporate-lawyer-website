@@ -18,4 +18,6 @@ export type CaseDTO = {
   courtDivision: string; //vara
   status: string;
   location: CaseLocationDTO;
+  createdAt?: string;
+  updatedAt?: string;
 } & (CaseDTONonPopulated | CaseDTOPopulated);
