@@ -29,10 +29,9 @@ export class CaseMocker {
       description: CaseFieldsMocker.mockDescription(),
       court: CaseFieldsMocker.mockCaseTitle(),
       courtDivision: CaseFieldsMocker.mockCaseTitle(),
-      files: [],
-      hearings: [],
       status: GenericMocker.mockEnum(CasesStatus),
       location: CaseFieldsMocker.mockLocation(),
+      populated: false,
     };
   }
 
@@ -46,10 +45,9 @@ export class CaseMocker {
       description: CaseFieldsMocker.mockDescription(),
       court: CaseFieldsMocker.mockCaseTitle(),
       courtDivision: CaseFieldsMocker.mockCaseTitle(),
-      files: [],
-      hearings: [],
       status: GenericMocker.mockEnum(CasesStatus),
       location: CaseFieldsMocker.mockLocation(),
+      populated: false,
     };
   }
 }
