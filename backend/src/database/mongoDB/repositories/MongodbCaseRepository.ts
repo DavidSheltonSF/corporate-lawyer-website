@@ -71,7 +71,7 @@ export class MongodbCaseRepository implements CaseRepository {
       .lean();
 
     const [cases, totalItems] = await Promise.all([casesPageQuery, casesTotalQuery]);
-    const mappedCases = cases.map(CaseMapper.persistenceToPopulatedPresentation);
+    const mappedCases = cases.map((cas) => CaseMapper.persistenceToPresentation(cas, true));
 
     const totalPages = Math.ceil(totalItems / Number(limit));
     return {
@@ -119,7 +119,7 @@ export class MongodbCaseRepository implements CaseRepository {
     if (!foundCase) {
       return null;
     }
-    return CaseMapper.persistenceToPopulatedPresentation(foundCase);
+    return CaseMapper.persistenceToPresentation(foundCase, true);
   }
 
   async getStatsByClientId(clientId: string): Promise<CasesStats> {
