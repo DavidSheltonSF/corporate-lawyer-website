@@ -6,9 +6,7 @@ import { createMockHttpRequest } from '../../tests/mocks/createMockHttpRequest';
 import { ICaseService } from '../../services/case/ICaseService';
 import { IFileService } from '../../services/files/IFileService';
 import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO';
-import { EmptyResponse, SuccessResponse } from '../types/HttpResponse';
 import { UserRole } from '../../types/UserRole';
-import { CasesStats } from '../../types/CasesStats';
 import { createMockFileMulter } from '../../tests/mocks/createMockFileMulter';
 import { FileMocker } from '../../tests/mocks/entities/FileMocker';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
@@ -223,9 +221,9 @@ describe(`It ${CaseController.name}`, () => {
 
       const expectedStats = { closed: 0, open: 0 };
       caseService.getStatsByClientId.mockResolvedValue(expectedStats);
-      const response = (await caseController.getMyStats(
+      const response = await caseController.getMyStats(
         httpRequest
-      )) as SuccessResponse<CasesStats>;
+      )
 
       expect(caseService.getStatsByClientId).toHaveBeenCalledWith(httpRequest.user?.id);
       expect(response).toEqual(
