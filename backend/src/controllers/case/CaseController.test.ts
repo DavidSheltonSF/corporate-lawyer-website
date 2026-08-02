@@ -66,7 +66,7 @@ describe(`It ${CaseController.name}`, () => {
       const httpRequest = createMockHttpRequest();
 
       await expect(caseController.create(httpRequest)).rejects.toThrow(BadRequestError);
-      expect(caseService.create).toHaveBeenCalledTimes(0);
+      expect(caseService.create).not.toHaveBeenCalled();
     });
 
     it('should throw BadRequestError if any required field is missing', async () => {
@@ -80,7 +80,7 @@ describe(`It ${CaseController.name}`, () => {
       });
 
       await expect(caseController.create(httpRequest)).rejects.toThrow(BadRequestError);
-      expect(caseService.create).toHaveBeenCalledTimes(0);
+      expect(caseService.create).not.toHaveBeenCalled();
     });
   });
 
@@ -129,7 +129,7 @@ describe(`It ${CaseController.name}`, () => {
       caseService.updateById.mockResolvedValue(updatedCase);
 
       await expect(caseController.updateById(httpRequest)).rejects.toThrow(BadRequestError);
-      expect(caseService.updateById).toHaveBeenCalledTimes(0);
+      expect(caseService.updateById).not.toHaveBeenCalled();
     });
 
     it('should throw BadRequestError if an empty body is provided', async () => {
@@ -140,7 +140,7 @@ describe(`It ${CaseController.name}`, () => {
       const httpRequest = createMockHttpRequest({ params: { id: caseWithId.id } });
 
       await expect(caseController.updateById(httpRequest)).rejects.toThrow(BadRequestError);
-      expect(caseService.updateById).toHaveBeenCalledTimes(0);
+      expect(caseService.updateById).not.toHaveBeenCalled();
     });
 
     it('should throw NotFoundError if the case is not found', async () => {
@@ -192,7 +192,7 @@ describe(`It ${CaseController.name}`, () => {
       const httpRequest = createMockHttpRequest();
 
       await expect(caseController.findById(httpRequest)).rejects.toThrow(BadRequestError);
-      expect(caseService.findById).toHaveBeenCalledTimes(0);
+      expect(caseService.findById).not.toHaveBeenCalled();
     });
 
     it('should throw NotFoundError if the case is not found', async () => {
@@ -236,7 +236,7 @@ describe(`It ${CaseController.name}`, () => {
       await expect(caseController.getMyStats(httpRequest)).rejects.toThrow(
         MissingAuthenticatedUserError
       );
-      expect(caseService.findAll).toHaveBeenCalledTimes(0);
+      expect(caseService.findAll).not.toHaveBeenCalled();
     });
   });
 
@@ -301,7 +301,7 @@ describe(`It ${CaseController.name}`, () => {
       await expect(caseController.uploadMyFile(httpRequest)).rejects.toThrow(
         MissingAuthenticatedUserError
       );
-      expect(fileService.create).toHaveBeenCalledTimes(0);
+      expect(fileService.create).not.toHaveBeenCalled();
     });
 
     it('should return BadRequestError if the case id  missing', async () => {
@@ -320,7 +320,7 @@ describe(`It ${CaseController.name}`, () => {
       });
 
       await expect(caseController.uploadMyFile(httpRequest)).rejects.toThrow(BadRequestError);
-      expect(fileService.create).toHaveBeenCalledTimes(0);
+      expect(fileService.create).not.toHaveBeenCalled();
     });
 
     it('should return BadRequestError if request file is misssing', async () => {
@@ -335,7 +335,7 @@ describe(`It ${CaseController.name}`, () => {
       });
 
       await expect(caseController.uploadMyFile(httpRequest)).rejects.toThrow(BadRequestError);
-      expect(fileService.create).toHaveBeenCalledTimes(0);
+      expect(fileService.create).not.toHaveBeenCalled();
     });
   });
 
@@ -356,7 +356,7 @@ describe(`It ${CaseController.name}`, () => {
       });
 
       await expect(caseController.findFilesByCaseId(httpRequest)).rejects.toThrow(BadRequestError);
-      expect(fileService.findByOwnerId).toHaveBeenCalledTimes(0);
+      expect(fileService.findByOwnerId).not.toHaveBeenCalled();
     });
   });
 
