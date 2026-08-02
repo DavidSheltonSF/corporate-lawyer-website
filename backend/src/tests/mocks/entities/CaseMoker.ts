@@ -38,16 +38,7 @@ export class CaseMocker {
   static mockCaseDTOWithId(): WithId<CaseDTO> {
     return {
       id: GenericMocker.mockMongoId().toString(),
-      client: GenericMocker.mockMongoId().toString(),
-      lawyers: [GenericMocker.mockMongoId().toString()],
-      processNumber: CaseFieldsMocker.mockProcessNumber(),
-      title: CaseFieldsMocker.mockCaseTitle(),
-      description: CaseFieldsMocker.mockDescription(),
-      court: CaseFieldsMocker.mockCaseTitle(),
-      courtDivision: CaseFieldsMocker.mockCaseTitle(),
-      status: GenericMocker.mockEnum(CasesStatus),
-      location: CaseFieldsMocker.mockLocation(),
-      populated: false,
+      ...CaseMocker.mockCaseDTO(),
     };
   }
 }
