@@ -12,6 +12,7 @@ import { FileMocker } from '../../tests/mocks/entities/FileMocker';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { NotFoundError } from '../../errors/presentation/NotFoundError';
 import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
+import { createMockPage } from '../../tests/mocks/createMockPage';
 
 describe(`It ${CaseController.name}`, () => {
   function makeSut() {
@@ -221,9 +222,7 @@ describe(`It ${CaseController.name}`, () => {
 
       const expectedStats = { closed: 0, open: 0 };
       caseService.getStatsByClientId.mockResolvedValue(expectedStats);
-      const response = await caseController.getMyStats(
-        httpRequest
-      )
+      const response = await caseController.getMyStats(httpRequest);
 
       expect(caseService.getStatsByClientId).toHaveBeenCalledWith(httpRequest.user?.id);
       expect(response).toEqual(
@@ -350,6 +349,29 @@ describe(`It ${CaseController.name}`, () => {
   });
 
   describe('findFilesByCaseId', () => {
+    it('should return a list of files and return 200', async () => {
+      const { caseController, fileService } = makeSut();
+
+      const fileMock = FileMocker.mockFileDTOWithId();
+      const page = 1;
+      const limit = 4;
+      const filePageMock = createMockPage([fileMock], { page, limit });
+
+      fileService.findByOwnerId.mockResolvedValue(filePageMock);
+
+      const caseId = 'case-fake-id';
+      const httpRequest = createMockHttpRequest({ params: { id: caseId }, query: { limit, page } });
+      const response = await caseController.findFilesByCaseId(httpRequest);
+
+      expect(fileService.findByOwnerId).toHaveBeenCalledWith(caseId, { page, limit });
+      expect(response).toEqual(
+        expect.objectContaining({
+          data: filePageMock,
+          status: HttpStatusCode.ok,
+        })
+      );
+    });
+
     it('should return BadRequestError if the case id is missing', async () => {
       const { caseController, fileService } = makeSut();
 
