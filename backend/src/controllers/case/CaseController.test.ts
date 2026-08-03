@@ -49,10 +49,16 @@ describe(`Testing ${CaseController.name}`, () => {
         body: createCaseDTO,
       });
 
+      const caseMock = CaseMocker.mockCaseDTOWithId();
+
+      caseService.create.mockResolvedValue(caseMock);
+
       const response = await caseController.create(httpRequest);
+
       expect(caseService.create).toHaveBeenCalledWith(createCaseDTO);
       expect(response).toEqual(
         expect.objectContaining({
+          data: caseMock,
           status: HttpStatusCode.created,
         })
       );
