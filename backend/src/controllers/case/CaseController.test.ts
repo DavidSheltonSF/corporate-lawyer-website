@@ -14,7 +14,7 @@ import { NotFoundError } from '../../errors/presentation/NotFoundError';
 import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
 import { createMockPage } from '../../tests/mocks/createMockPage';
 
-describe(`It ${CaseController.name}`, () => {
+describe(`Testing ${CaseController.name}`, () => {
   function makeSut() {
     const fileService = createMockObject<IFileService>([
       'create',
