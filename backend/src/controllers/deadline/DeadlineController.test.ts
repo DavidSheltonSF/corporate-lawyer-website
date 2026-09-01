@@ -1,13 +1,12 @@
-import { DeadlineService } from '../../services/deadline/DeadlineService';
 import { mockCaseRepository } from '../../tests/mocks/repositories/mockCaseRepository';
 import { mockDeadlineRepository } from '../../tests/mocks/repositories/mockDeadlineRepository';
 import { HttpStatusCode } from '../types/HttpStatusCode';
 import { DeadlineController } from './DeadlineController';
 import { mockUserRepository } from '../../tests/mocks/repositories/mockUserRepository';
 import { UserRole } from '../../types/UserRole';
-import { BrazilHolidaysProvider } from '../../services/BrazilHolidaysProvider';
 import { DeadlineMocker } from '../../tests/mocks/entities/DeadlineMocker';
 import { UserMocker } from '../../tests/mocks/entities/UserMocker';
+import { createMockDeadlineService } from '../../tests/mocks/services/createMockDeadlineService';
 
 describe(`Test ${DeadlineController.name}`, () => {
   function makeSut() {
@@ -17,13 +16,8 @@ describe(`Test ${DeadlineController.name}`, () => {
     const lawyerData = UserMocker.mockUserDTOWithId();
     lawyerData.role = UserRole.lawyer;
     userRepository.findById = jest.fn().mockResolvedValue(lawyerData);
-    const holidaysProvider = new BrazilHolidaysProvider();
 
-    const deadlineService = new DeadlineService(
-      deadlineRepository,
-      caseRepository,
-      holidaysProvider
-    );
+    const deadlineService = createMockDeadlineService();
     const deadlineController = new DeadlineController(deadlineService);
 
     return {
@@ -45,7 +39,7 @@ describe(`Test ${DeadlineController.name}`, () => {
         email: 'fake@email.com',
       },
       body: deadlineData,
-    };
+    };;
 
     const response = await deadlineController.create(httpRequest);
 
