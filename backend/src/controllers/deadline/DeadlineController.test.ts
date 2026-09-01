@@ -30,9 +30,9 @@ describe(`Test ${DeadlineController.name}`, () => {
       });
 
       deadlineService.create.mockResolvedValue(expectedDTO);
-      const response = (await deadlineController.create(
-        httpRequest
-      )) as SuccessResponse<DeadlineDTO>;
+      const response = (await deadlineController.create(httpRequest)) as SuccessResponse<
+        WithId<DeadlineDTO>
+      >;
       expect(deadlineService.create).toHaveBeenCalledWith(deadlineData);
       expect(response.status).toBe(HttpStatusCode.created);
       expect(response.data).toEqual(expect.objectContaining(expectedDTO));
