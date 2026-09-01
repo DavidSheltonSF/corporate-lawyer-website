@@ -5,6 +5,7 @@ import { createMockDeadlineService } from '../../tests/mocks/services/createMock
 import { createMockHttpRequest } from '../../tests/mocks/createMockHttpRequest';
 import { SuccessResponse } from '../types/HttpResponse';
 import { DeadlineDTO } from '../../dtos/deadLine/DeadlineDTO';
+import { WithId } from '../../types/WithId';
 
 describe(`Test ${DeadlineController.name}`, () => {
   function makeSut() {
@@ -31,13 +32,19 @@ describe(`Test ${DeadlineController.name}`, () => {
     const response = (await deadlineController.create(httpRequest)) as SuccessResponse<DeadlineDTO>;
     expect(deadlineService.create).toHaveBeenCalledWith(deadlineData);
     expect(response.status).toBe(HttpStatusCode.created);
+    expect(response.data).toEqual(expect.objectContaining(expectedDTO));
   });
 
   test('should find all deadlines', async () => {
     const { deadlineController, deadlineService } = makeSut();
     const httpRequest = createMockHttpRequest();
 
-    const response = await deadlineController.findAll(httpRequest);
+    const expectedDeadlineList = [DeadlineMocker.mockDeadlineDTOWithId()];
+    deadlineService.findAll.mockResolvedValue(expectedDeadlineList);
+
+    const response = (await deadlineController.findAll(httpRequest)) as SuccessResponse<
+      WithId<DeadlineDTO>[]
+    >;
     expect(deadlineService.findAll).toHaveBeenCalled();
     expect(response.status).toBe(HttpStatusCode.ok);
   });
@@ -57,10 +64,13 @@ describe(`Test ${DeadlineController.name}`, () => {
 
     deadlineService.findById.mockResolvedValue(expectedDeadline);
 
-    const response = await deadlineController.findById(httpRequest);
+    const response = (await deadlineController.findById(httpRequest)) as SuccessResponse<
+      WithId<DeadlineDTO>
+    >;
 
     expect(deadlineService.findById).toHaveBeenCalledWith(id);
     expect(response.status).toBe(HttpStatusCode.ok);
+    expect(response.data).toEqual(expect.objectContaining(expectedDeadline));
   });
 
   test('should update the deadline and return OK', async () => {
@@ -81,10 +91,13 @@ describe(`Test ${DeadlineController.name}`, () => {
 
     deadlineService.updateById.mockResolvedValue(expectedDeadline);
 
-    const response = await deadlineController.updateById(httpRequest);
+    const response = (await deadlineController.updateById(httpRequest)) as SuccessResponse<
+      WithId<DeadlineDTO>
+    >;
 
     expect(deadlineService.updateById).toHaveBeenCalledWith(id, updateData);
     expect(response.status).toBe(HttpStatusCode.ok);
+    expect(response.data).toEqual(expect.objectContaining(expectedDeadline));
   });
 
   test('should delete a deadline and return OK', async () => {
