@@ -1,5 +1,3 @@
-import { mockCaseRepository } from '../../tests/mocks/repositories/mockCaseRepository';
-import { mockDeadlineRepository } from '../../tests/mocks/repositories/mockDeadlineRepository';
 import { HttpStatusCode } from '../types/HttpStatusCode';
 import { DeadlineController } from './DeadlineController';
 import { mockUserRepository } from '../../tests/mocks/repositories/mockUserRepository';
@@ -7,11 +5,12 @@ import { UserRole } from '../../types/UserRole';
 import { DeadlineMocker } from '../../tests/mocks/entities/DeadlineMocker';
 import { UserMocker } from '../../tests/mocks/entities/UserMocker';
 import { createMockDeadlineService } from '../../tests/mocks/services/createMockDeadlineService';
+import { createMockHttpRequest } from '../../tests/mocks/createMockHttpRequest';
+import { SuccessResponse } from '../types/HttpResponse';
+import { DeadlineDTO } from '../../dtos/deadLine/DeadlineDTO';
 
 describe(`Test ${DeadlineController.name}`, () => {
   function makeSut() {
-    const deadlineRepository = mockDeadlineRepository();
-    const caseRepository = mockCaseRepository();
     const userRepository = mockUserRepository();
     const lawyerData = UserMocker.mockUserDTOWithId();
     lawyerData.role = UserRole.lawyer;
@@ -21,97 +20,98 @@ describe(`Test ${DeadlineController.name}`, () => {
     const deadlineController = new DeadlineController(deadlineService);
 
     return {
-      userRepository,
-      deadlineRepository,
-      caseRepository,
       deadlineService,
       deadlineController,
     };
   }
 
-  test('should retun CREATED (201) and call DeadlineRepository.create', async () => {
-    const { deadlineController, deadlineRepository } = makeSut();
+  test('should retun the created deadline and return CREATED', async () => {
+    const { deadlineController, deadlineService } = makeSut();
 
     const deadlineData = DeadlineMocker.mockCreateDeadlineDTO();
-    const httpRequest = {
-      user: {
-        id: 'dsfdfa',
-        email: 'fake@email.com',
-      },
+    const expectedDTO = { ...DeadlineMocker.mockDeadlineDTOWithId(), ...deadlineData };
+
+    const httpRequest = createMockHttpRequest({
       body: deadlineData,
-    };;
+    });
 
-    const response = await deadlineController.create(httpRequest);
-
-    expect(deadlineRepository.create).toHaveBeenCalled();
+    deadlineService.create.mockResolvedValue(expectedDTO);
+    const response = (await deadlineController.create(httpRequest)) as SuccessResponse<DeadlineDTO>;
+    expect(deadlineService.create).toHaveBeenCalledWith(deadlineData);
     expect(response.status).toBe(HttpStatusCode.created);
   });
 
   test('should find all deadlines', async () => {
-    const { deadlineController, deadlineRepository, userRepository } = makeSut();
-    const httpRequest = {
-      user: {
-        id: 'dsfdfa',
-        email: 'fake@email.com',
-      },
-    };
+    const { deadlineController, deadlineService } = makeSut();
+    const httpRequest = createMockHttpRequest();
 
     const response = await deadlineController.findAll(httpRequest);
-    expect(deadlineRepository.findAll).toHaveBeenCalled();
+    expect(deadlineService.findAll).toHaveBeenCalled();
     expect(response.status).toBe(HttpStatusCode.ok);
   });
 
   test('should find a deadline by id', async () => {
-    const { deadlineController, deadlineRepository, userRepository } = makeSut();
-    const httpRequest = {
-      user: {
-        id: 'dsfdfa',
-        email: 'fake@email.com',
-      },
-      params: { id: 'rdsfafd' },
+    const { deadlineController, deadlineService } = makeSut();
+    const id = 'fakeId';
+    const expectedDeadline = {
+      ...DeadlineMocker.mockDeadlineDTOWithId(),
+      ...{ id },
     };
+    const httpRequest = createMockHttpRequest({
+      params: {
+        id,
+      },
+    });
+
+    deadlineService.findById.mockResolvedValue(expectedDeadline);
 
     const response = await deadlineController.findById(httpRequest);
-    expect(deadlineRepository.findById).toHaveBeenCalledWith(httpRequest.params.id);
+
+    expect(deadlineService.findById).toHaveBeenCalledWith(id);
     expect(response.status).toBe(HttpStatusCode.ok);
   });
 
-  test('should call DeadlineRepository.updatById with the provided data and return OK (200)', async () => {
-    const { deadlineRepository, deadlineController } = makeSut();
+  test('should update the deadline and return OK', async () => {
+    const { deadlineController, deadlineService } = makeSut();
 
-    const deadlineId = 'dfsadfggsfasga';
-
-    const deadlineData = DeadlineMocker.mockUpateDeadlineDTO();
-
-    const httpRequest = {
-      user: {
-        id: 'dfsafdfafff',
-        email: 'fake@email.comn',
-      },
-      params: { id: deadlineId },
-      body: deadlineData,
+    const id = 'dfsadfggsfasga';
+    const updateData = DeadlineMocker.mockUpateDeadlineDTO();
+    const expectedDeadline = {
+      ...DeadlineMocker.mockDeadlineDTOWithId(),
+      ...{ id },
+      ...updateData,
     };
+
+    const httpRequest = createMockHttpRequest({
+      params: { id },
+      body: updateData,
+    });
+
+    deadlineService.updateById.mockResolvedValue(expectedDeadline);
 
     const response = await deadlineController.updateById(httpRequest);
-    expect(deadlineRepository.updateById).toHaveBeenCalledWith(deadlineId, deadlineData);
+
+    expect(deadlineService.updateById).toHaveBeenCalledWith(id, updateData);
     expect(response.status).toBe(HttpStatusCode.ok);
   });
 
-  test('should call DeadlineRepository.deleteById with the provided id and return OK (200)', async () => {
-    const { deadlineRepository, deadlineController } = makeSut();
+  test('should delete a deadline and return OK', async () => {
+    const { deadlineController, deadlineService } = makeSut();
 
-    const deadlineId = 'dfsadfggsfasga';
-
-    const httpRequest = {
-      user: {
-        id: 'dfsafdfafff',
-        email: 'fake@email.comn',
-      },
-      params: { id: deadlineId },
+    const id = 'dfsadfggsfasga';
+    const expectedDeadline = {
+      ...DeadlineMocker.mockDeadlineDTOWithId(),
+      ...{ id },
     };
 
+    const httpRequest = createMockHttpRequest({
+      params: { id },
+    });
+
+    deadlineService.deleteById.mockResolvedValue(expectedDeadline);
+
     const response = await deadlineController.deleteById(httpRequest);
-    expect(deadlineRepository.deleteById).toHaveBeenCalledWith(deadlineId);
+    expect(deadlineService.deleteById).toHaveBeenCalledWith(id);
     expect(response.status).toBe(HttpStatusCode.ok);
   });
 });
