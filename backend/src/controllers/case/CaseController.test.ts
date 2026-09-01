@@ -13,6 +13,7 @@ import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { NotFoundError } from '../../errors/presentation/NotFoundError';
 import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
 import { createMockPage } from '../../tests/mocks/createMockPage';
+import { createMockCaseService } from '../../tests/mocks/services/createMockCaseServiceTest';
 
 describe(`Testing ${CaseController.name}`, () => {
   function makeSut() {
@@ -21,15 +22,7 @@ describe(`Testing ${CaseController.name}`, () => {
       'deleteByOwnerId',
       'findByOwnerId',
     ]);
-    const caseService = createMockObject<ICaseService>([
-      'create',
-      'updateById',
-      'findById',
-      'findAll',
-      'getStatsByClientId',
-      'getStats',
-      'deleteById',
-    ]);
+    const caseService = createMockCaseService();
     const caseController = new CaseController(caseService, fileService);
 
     return {
