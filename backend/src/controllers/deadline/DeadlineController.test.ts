@@ -1,9 +1,6 @@
 import { HttpStatusCode } from '../types/HttpStatusCode';
 import { DeadlineController } from './DeadlineController';
-import { mockUserRepository } from '../../tests/mocks/repositories/mockUserRepository';
-import { UserRole } from '../../types/UserRole';
 import { DeadlineMocker } from '../../tests/mocks/entities/DeadlineMocker';
-import { UserMocker } from '../../tests/mocks/entities/UserMocker';
 import { createMockDeadlineService } from '../../tests/mocks/services/createMockDeadlineService';
 import { createMockHttpRequest } from '../../tests/mocks/createMockHttpRequest';
 import { SuccessResponse } from '../types/HttpResponse';
@@ -11,11 +8,6 @@ import { DeadlineDTO } from '../../dtos/deadLine/DeadlineDTO';
 
 describe(`Test ${DeadlineController.name}`, () => {
   function makeSut() {
-    const userRepository = mockUserRepository();
-    const lawyerData = UserMocker.mockUserDTOWithId();
-    lawyerData.role = UserRole.lawyer;
-    userRepository.findById = jest.fn().mockResolvedValue(lawyerData);
-
     const deadlineService = createMockDeadlineService();
     const deadlineController = new DeadlineController(deadlineService);
 
