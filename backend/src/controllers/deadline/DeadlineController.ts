@@ -6,7 +6,7 @@ import { NotFoundError } from '../../errors/presentation/NotFoundError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { requireBody } from '../helpers/requireBody';
 
-export class DeadlineController implements Partial<IDeadlineController> {
+export class DeadlineController implements IDeadlineController {
   constructor(private deadlineService: IDeadlineService) {}
 
   create = async (httpRequest: HttpRequest) => {
