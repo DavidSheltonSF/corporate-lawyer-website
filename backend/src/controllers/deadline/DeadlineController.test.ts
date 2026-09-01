@@ -4,7 +4,6 @@ import { mockDeadlineRepository } from '../../tests/mocks/repositories/mockDeadl
 import { HttpStatusCode } from '../types/HttpStatusCode';
 import { DeadlineController } from './DeadlineController';
 import { mockUserRepository } from '../../tests/mocks/repositories/mockUserRepository';
-import { UserService } from '../../services/user/UserService';
 import { UserRole } from '../../types/UserRole';
 import { BrazilHolidaysProvider } from '../../services/BrazilHolidaysProvider';
 import { DeadlineMocker } from '../../tests/mocks/entities/DeadlineMocker';
@@ -20,13 +19,12 @@ describe(`Test ${DeadlineController.name}`, () => {
     userRepository.findById = jest.fn().mockResolvedValue(lawyerData);
     const holidaysProvider = new BrazilHolidaysProvider();
 
-    const userService = new UserService(userRepository, caseRepository);
     const deadlineService = new DeadlineService(
       deadlineRepository,
       caseRepository,
       holidaysProvider
     );
-    const deadlineController = new DeadlineController(deadlineService, userService);
+    const deadlineController = new DeadlineController(deadlineService);
 
     return {
       userRepository,
