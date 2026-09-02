@@ -5,7 +5,6 @@ import { IFileService } from '../../services/files/IFileService';
 import { requireBody } from '../helpers/requireBody';
 import { HttpRequest } from '../types/HttpRequest';
 import { IFileController } from './IFileController';
-import { DeleteByIdResponse } from './responses';
 
 export class FileController implements IFileController {
   constructor(private readonly fileService: IFileService) {}
@@ -52,7 +51,7 @@ export class FileController implements IFileController {
     }
 
     const deletedFile = await this.fileService.deleteById(fileId);
-    console.log('deleting in file controller')
+    console.log('deleting in file controller');
     if (!deletedFile) {
       throw new NotFoundError(`File with id '${fileId}' was not found`);
     }
