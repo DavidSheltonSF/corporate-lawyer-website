@@ -45,8 +45,11 @@ export class MongodbFileRepository implements FileRepository {
     };
   }
 
-  async findById(fileId: string): Promise<WithId<FileDTO>> {
+  async findById(fileId: string): Promise<WithId<FileDTO> | null> {
     const file = await FileModel.findById(fileId);
+    if (!file) {
+      return null;
+    }
     return FileMapper.persistenceToPresentation(file);
   }
 

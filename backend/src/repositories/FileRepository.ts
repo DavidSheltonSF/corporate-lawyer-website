@@ -8,7 +8,7 @@ import { WithId } from '../types/WithId';
 export interface FileRepository {
   create: (data: CreateFileDTO) => Promise<WithId<FileDTO>>;
   findAllByOwnerId: (id: string) => Promise<WithId<FileDTO>[]>;
-  findById: (id: string) => Promise<WithId<FileDTO>>;
+  findById: (id: string) => Promise<WithId<FileDTO> | null>;
   findByOwnerId: (id: string, pageParams: PageParams) => Promise<Page<WithId<FileDTO>>>;
   rename: (id: string, name: string) => Promise<WithId<FileDTO> | null>;
   deleteById: (id: string) => Promise<WithId<FileDTO> | null>;
