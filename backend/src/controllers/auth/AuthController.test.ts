@@ -16,13 +16,13 @@ describe(`Test ${AuthController.name}`, () => {
       email: 'user@example.com',
       role: UserRole.lawyer,
     };
-    const mockAuthService = createMockObject<IAuthService>(['authenticate']);
-    const mockUserService = createMockObject<IUserService>(['findByEmail']);
-    const authController = new AuthController(mockAuthService, mockUserService);
+    const authSevice = createMockObject<IAuthService>(['authenticate']);
+    const userService = createMockObject<IUserService>(['findByEmail']);
+    const authController = new AuthController(authSevice, userService);
 
     return {
-      mockUserService,
-      mockAuthService,
+      authSevice,
+      userService,
       authUser,
       authController,
     };
@@ -30,17 +30,17 @@ describe(`Test ${AuthController.name}`, () => {
 
   describe('getMe', () => {
     it('should return the authenticated user for the request email', async () => {
-      const { authController, mockUserService, authUser } = makeSut();
+      const { authController, userService, authUser } = makeSut();
 
       const httpRequest = createMockHttpRequest({ user: authUser });
 
       const mockUser = UserMocker.mockUserDTOWithId();
 
-      mockUserService.findByEmail.mockResolvedValue(mockUser);
+      userService.findByEmail.mockResolvedValue(mockUser);
 
       const response = await authController.getMe(httpRequest);
 
-      expect(mockUserService.findByEmail).toHaveBeenCalledWith(authUser.email);
+      expect(userService.findByEmail).toHaveBeenCalledWith(authUser.email);
       expect(response).toMatchObject({
         status: HttpStatusCode.ok,
         data: mockUser,
@@ -59,9 +59,9 @@ describe(`Test ${AuthController.name}`, () => {
 
   describe('authenticate', () => {
     it('should throw ValidationError when invalid credentials are provided', async () => {
-      const { authController, mockAuthService } = makeSut();
+      const { authController, authSevice } = makeSut();
 
-      mockAuthService.authenticate.mockResolvedValue({
+      authSevice.authenticate.mockResolvedValue({
         token: null,
         invalidFields: { email: 'invalid email', password: 'invalid password' },
       });
