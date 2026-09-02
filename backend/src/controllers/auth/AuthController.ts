@@ -4,7 +4,6 @@ import { IAuthController } from './IAuthController';
 import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
 import { getMissingFields } from '../../utils/getMissingFields';
 import { HttpRequest } from '../types/HttpRequest';
-import { UnauthorizedError } from '../../errors/presentation/UnauthorizedError';
 import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { ValidationError } from '../../errors/presentation/ValidationError';
 import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
