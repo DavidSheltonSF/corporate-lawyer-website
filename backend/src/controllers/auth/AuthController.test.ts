@@ -7,13 +7,14 @@ import { HttpStatusCode } from '../types/HttpStatusCode';
 import { AuthController } from './AuthController';
 import { createMockHttpRequest } from '../../tests/mocks/createMockHttpRequest';
 import { UserRole } from '../../types/UserRole';
+import { ValidationError } from '../../errors/presentation/ValidationError';
 
 describe(`Test ${AuthController.name}`, () => {
   function makeSut() {
     const authUser = {
       id: 'user-id',
       email: 'user@example.com',
-      role: UserRole.lawyer
+      role: UserRole.lawyer,
     };
     const mockAuthService = createMockObject<IAuthService>(['authenticate']);
     const mockUserService = createMockObject<IUserService>(['findByEmail']);
@@ -22,6 +23,7 @@ describe(`Test ${AuthController.name}`, () => {
     return {
       controller,
       mockUserService,
+      mockAuthService,
       authUser,
     };
   }
@@ -49,5 +51,23 @@ describe(`Test ${AuthController.name}`, () => {
     const httpRequest = createMockHttpRequest();
 
     await expect(controller.getMe(httpRequest)).rejects.toThrow(MissingAuthenticatedUserError);
+  });
+
+  test('should throw ValidationError when invalid credentials are provided', async () => {
+    const { controller, mockAuthService } = makeSut();
+
+    mockAuthService.authenticate.mockResolvedValue({
+      token: null,
+      invalidFields: { email: 'invalid email', password: 'invalid password' },
+    });
+
+    const httpRequest = createMockHttpRequest({
+      body: {
+        email: 'invalie@email.com',
+        password: 'invalidPassword',
+      },
+    });
+
+    await expect(controller.authenticate(httpRequest)).rejects.toThrow(ValidationError);
   });
 });
