@@ -28,46 +28,50 @@ describe(`Test ${AuthController.name}`, () => {
     };
   }
 
-  test('returns the authenticated user for the request email', async () => {
-    const { controller, mockUserService, authUser } = makeSut();
+  describe('getMe', () => {
+    it('should return the authenticated user for the request email', async () => {
+      const { controller, mockUserService, authUser } = makeSut();
 
-    const httpRequest = createMockHttpRequest({ user: authUser });
+      const httpRequest = createMockHttpRequest({ user: authUser });
 
-    const mockUser = UserMocker.mockUserDTOWithId();
+      const mockUser = UserMocker.mockUserDTOWithId();
 
-    mockUserService.findByEmail.mockResolvedValue(mockUser);
+      mockUserService.findByEmail.mockResolvedValue(mockUser);
 
-    const response = await controller.getMe(httpRequest);
+      const response = await controller.getMe(httpRequest);
 
-    expect(mockUserService.findByEmail).toHaveBeenCalledWith(authUser.email);
-    expect(response).toMatchObject({
-      status: HttpStatusCode.ok,
-      data: mockUser,
+      expect(mockUserService.findByEmail).toHaveBeenCalledWith(authUser.email);
+      expect(response).toMatchObject({
+        status: HttpStatusCode.ok,
+        data: mockUser,
+      });
+    });
+
+    it('should throw MissingAuthenticatedUserError when no authenticated user is present', async () => {
+      const { controller } = makeSut();
+      const httpRequest = createMockHttpRequest();
+
+      await expect(controller.getMe(httpRequest)).rejects.toThrow(MissingAuthenticatedUserError);
     });
   });
 
-  test('throws MissingAuthenticatedUserError when no authenticated user is present', async () => {
-    const { controller } = makeSut();
-    const httpRequest = createMockHttpRequest();
+  describe('authenticate', () => {
+    it('should throw ValidationError when invalid credentials are provided', async () => {
+      const { controller, mockAuthService } = makeSut();
 
-    await expect(controller.getMe(httpRequest)).rejects.toThrow(MissingAuthenticatedUserError);
-  });
+      mockAuthService.authenticate.mockResolvedValue({
+        token: null,
+        invalidFields: { email: 'invalid email', password: 'invalid password' },
+      });
 
-  test('should throw ValidationError when invalid credentials are provided', async () => {
-    const { controller, mockAuthService } = makeSut();
+      const httpRequest = createMockHttpRequest({
+        body: {
+          email: 'invalie@email.com',
+          password: 'invalidPassword',
+        },
+      });
 
-    mockAuthService.authenticate.mockResolvedValue({
-      token: null,
-      invalidFields: { email: 'invalid email', password: 'invalid password' },
+      await expect(controller.authenticate(httpRequest)).rejects.toThrow(ValidationError);
     });
-
-    const httpRequest = createMockHttpRequest({
-      body: {
-        email: 'invalie@email.com',
-        password: 'invalidPassword',
-      },
-    });
-
-    await expect(controller.authenticate(httpRequest)).rejects.toThrow(ValidationError);
   });
 });
