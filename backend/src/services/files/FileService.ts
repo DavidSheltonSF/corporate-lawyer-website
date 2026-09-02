@@ -32,7 +32,7 @@ export class FileService implements IFileService {
     });
   }
 
-  async findById(fileId: string): Promise<WithId<FileDTO>> {
+  async findById(fileId: string): Promise<WithId<FileDTO> | null> {
     return await this.fileRepository.findById(fileId);
   }
 
