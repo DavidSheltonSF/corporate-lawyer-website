@@ -21,16 +21,16 @@ describe(`Test ${AuthController.name}`, () => {
     const authController = new AuthController(mockAuthService, mockUserService);
 
     return {
-      controller: authController,
       mockUserService,
       mockAuthService,
       authUser,
+      authController,
     };
   }
 
   describe('getMe', () => {
     it('should return the authenticated user for the request email', async () => {
-      const { controller, mockUserService, authUser } = makeSut();
+      const { authController, mockUserService, authUser } = makeSut();
 
       const httpRequest = createMockHttpRequest({ user: authUser });
 
@@ -38,7 +38,7 @@ describe(`Test ${AuthController.name}`, () => {
 
       mockUserService.findByEmail.mockResolvedValue(mockUser);
 
-      const response = await controller.getMe(httpRequest);
+      const response = await authController.getMe(httpRequest);
 
       expect(mockUserService.findByEmail).toHaveBeenCalledWith(authUser.email);
       expect(response).toMatchObject({
@@ -48,16 +48,18 @@ describe(`Test ${AuthController.name}`, () => {
     });
 
     it('should throw MissingAuthenticatedUserError when no authenticated user is present', async () => {
-      const { controller } = makeSut();
+      const { authController } = makeSut();
       const httpRequest = createMockHttpRequest();
 
-      await expect(controller.getMe(httpRequest)).rejects.toThrow(MissingAuthenticatedUserError);
+      await expect(authController.getMe(httpRequest)).rejects.toThrow(
+        MissingAuthenticatedUserError
+      );
     });
   });
 
   describe('authenticate', () => {
     it('should throw ValidationError when invalid credentials are provided', async () => {
-      const { controller, mockAuthService } = makeSut();
+      const { authController, mockAuthService } = makeSut();
 
       mockAuthService.authenticate.mockResolvedValue({
         token: null,
@@ -71,7 +73,7 @@ describe(`Test ${AuthController.name}`, () => {
         },
       });
 
-      await expect(controller.authenticate(httpRequest)).rejects.toThrow(ValidationError);
+      await expect(authController.authenticate(httpRequest)).rejects.toThrow(ValidationError);
     });
   });
 });
