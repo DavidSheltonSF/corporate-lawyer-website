@@ -50,7 +50,6 @@ export class FileController implements IFileController {
     }
 
     const deletedFile = await this.fileService.deleteById(fileId);
-    console.log('deleting in file controller');
     if (!deletedFile) {
       throw new NotFoundError(`File with id '${fileId}' was not found`);
     }
