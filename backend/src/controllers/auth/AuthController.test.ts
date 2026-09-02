@@ -18,10 +18,10 @@ describe(`Test ${AuthController.name}`, () => {
     };
     const mockAuthService = createMockObject<IAuthService>(['authenticate']);
     const mockUserService = createMockObject<IUserService>(['findByEmail']);
-    const controller = new AuthController(mockAuthService, mockUserService);
+    const authController = new AuthController(mockAuthService, mockUserService);
 
     return {
-      controller,
+      controller: authController,
       mockUserService,
       mockAuthService,
       authUser,
