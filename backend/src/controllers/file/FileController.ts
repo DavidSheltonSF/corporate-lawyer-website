@@ -40,8 +40,7 @@ export class FileController implements IFileController {
     if (!file) {
       throw new NotFoundError(`File with id '${fileId}' was not found`);
     }
-
-    return HttpResponseFactory.makeOk(name);
+    return HttpResponseFactory.makeNoContent();
   };
 
   deleteById = async (httpRequest: HttpRequest) => {
