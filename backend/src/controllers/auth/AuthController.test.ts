@@ -58,6 +58,30 @@ describe(`Test ${AuthController.name}`, () => {
   });
 
   describe('authenticate', () => {
+    it('should return an authentication token', async () => {
+      const { authController, authSevice } = makeSut();
+
+      const email = 'valid@email.com';
+      const password = 'validPassWord';
+      const httpRequest = createMockHttpRequest({
+        body: {
+          email,
+          password,
+        },
+      });
+
+      const token = 'token-123';
+      authSevice.authenticate.mockResolvedValue({ token });
+
+      const response = await authController.authenticate(httpRequest);
+
+      expect(authSevice.authenticate).toHaveBeenCalledWith(email, password);
+      expect(response).toMatchObject({
+        status: HttpStatusCode.ok,
+        data: token,
+      });
+    });
+
     it('should throw ValidationError when invalid credentials are provided', async () => {
       const { authController, authSevice } = makeSut();
       const httpRequest = createMockHttpRequest({
