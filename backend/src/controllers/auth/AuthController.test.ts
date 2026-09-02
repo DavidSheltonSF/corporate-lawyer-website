@@ -6,12 +6,14 @@ import { createMockObject } from '../../tests/mocks/createMockObject';
 import { HttpStatusCode } from '../types/HttpStatusCode';
 import { AuthController } from './AuthController';
 import { createMockHttpRequest } from '../../tests/mocks/createMockHttpRequest';
+import { UserRole } from '../../types/UserRole';
 
 describe(`Test ${AuthController.name}`, () => {
   function makeSut() {
     const authUser = {
       id: 'user-id',
       email: 'user@example.com',
+      role: UserRole.lawyer
     };
     const mockAuthService = createMockObject<IAuthService>(['authenticate']);
     const mockUserService = createMockObject<IUserService>(['findByEmail']);
