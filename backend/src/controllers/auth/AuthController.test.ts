@@ -60,17 +60,16 @@ describe(`Test ${AuthController.name}`, () => {
   describe('authenticate', () => {
     it('should throw ValidationError when invalid credentials are provided', async () => {
       const { authController, authSevice } = makeSut();
-
-      authSevice.authenticate.mockResolvedValue({
-        token: null,
-        invalidFields: { email: 'invalid email', password: 'invalid password' },
-      });
-
       const httpRequest = createMockHttpRequest({
         body: {
           email: 'invalie@email.com',
           password: 'invalidPassword',
         },
+      });
+
+      authSevice.authenticate.mockResolvedValue({
+        token: null,
+        invalidFields: { email: 'invalid email', password: 'invalid password' },
       });
 
       await expect(authController.authenticate(httpRequest)).rejects.toThrow(ValidationError);
