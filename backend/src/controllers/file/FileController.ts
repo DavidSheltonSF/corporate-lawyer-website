@@ -36,8 +36,8 @@ export class FileController implements IFileController {
       throw new BadRequestError('Missing new file name');
     }
 
-    const file = await this.fileService.rename(fileId, name);
-    if (!file) {
+    const renamed = await this.fileService.rename(fileId, name);
+    if (!renamed) {
       throw new NotFoundError(`File with id '${fileId}' was not found`);
     }
     return HttpResponseFactory.makeNoContent();
