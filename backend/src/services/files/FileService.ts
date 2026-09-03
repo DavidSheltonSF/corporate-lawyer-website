@@ -44,7 +44,7 @@ export class FileService implements IFileService {
     return await this.fileRepository.findByOwnerId(ownerId, pageParams);
   }
 
-  async rename(fileId: string, name: string): Promise<WithId<FileDTO> | null> {
+  async rename(fileId: string, name: string): Promise<boolean> {
     return await this.fileRepository.rename(fileId, name);
   }
 

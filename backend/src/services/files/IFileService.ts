@@ -9,7 +9,7 @@ export interface IFileService {
   findAllByOwnerId(ownerId: string): Promise<WithId<FileDTO>[]>;
   findById(fileId: string): Promise<WithId<FileDTO> | null>;
   findByOwnerId(ownerId: string, pageParams: PageParams): Promise<Page<WithId<FileDTO>>>;
-  rename(fileId: string, name: string): Promise<WithId<FileDTO> | null>;
+  rename(fileId: string, name: string): Promise<boolean>;
   deleteById(id: string): Promise<WithId<FileDTO> | null>;
   deleteByOwnerId: (ownerId: string) => Promise<DeleteManyResult>;
 }
