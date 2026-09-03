@@ -1,8 +1,11 @@
+import { Mocked, vi } from 'vitest';
+
 export function createMockObject<T>(methods: (keyof T)[]) {
   const mock: any = {};
+
   methods.forEach((method) => {
-    mock[method] = jest.fn();
+    mock[method] = vi.fn();
   });
 
-  return mock as jest.Mocked<T>;
+  return mock as Mocked<T>;
 }
