@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
 import { IAuthService } from '../../services/auth/IAuthService';
 import { IUserService } from '../../services/user/IUserService';
