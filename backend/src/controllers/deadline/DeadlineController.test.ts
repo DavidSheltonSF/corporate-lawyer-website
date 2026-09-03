@@ -24,7 +24,7 @@ describe(`Test ${DeadlineController.name}`, () => {
       const { deadlineController, deadlineService } = makeSut();
 
       const deadlineData = DeadlineMocker.mockCreateDeadlineDTO();
-      const expectedDTO = { ...DeadlineMocker.mockDeadlineDTOWithId(), ...deadlineData };
+      const expectedDTO = DeadlineMocker.mockDeadlineDTOWithId();
 
       const httpRequest = createMockHttpRequest({
         body: deadlineData,
@@ -60,10 +60,8 @@ describe(`Test ${DeadlineController.name}`, () => {
     it('should find a deadline by id', async () => {
       const { deadlineController, deadlineService } = makeSut();
       const id = 'fakeId';
-      const expectedDeadline = {
-        ...DeadlineMocker.mockDeadlineDTOWithId(),
-        ...{ id },
-      };
+      const expectedDeadline = DeadlineMocker.mockDeadlineDTOWithId();
+
       const httpRequest = createMockHttpRequest({
         params: {
           id,
@@ -88,12 +86,7 @@ describe(`Test ${DeadlineController.name}`, () => {
 
       const id = 'dfsadfggsfasga';
       const updateData = DeadlineMocker.mockUpateDeadlineDTO();
-      const expectedDeadline = {
-        ...DeadlineMocker.mockDeadlineDTOWithId(),
-        ...{ id },
-        ...updateData,
-      };
-
+      const expectedDeadline = DeadlineMocker.mockDeadlineDTOWithId();
       const httpRequest = createMockHttpRequest({
         params: { id },
         body: updateData,
@@ -116,10 +109,7 @@ describe(`Test ${DeadlineController.name}`, () => {
       const { deadlineController, deadlineService } = makeSut();
 
       const id = 'dfsadfggsfasga';
-      const expectedDeadline = {
-        ...DeadlineMocker.mockDeadlineDTOWithId(),
-        ...{ id },
-      };
+      const expectedDeadline = DeadlineMocker.mockDeadlineDTOWithId();
 
       const httpRequest = createMockHttpRequest({
         params: { id },
