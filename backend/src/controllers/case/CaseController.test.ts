@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { CaseMocker } from '../../tests/mocks/entities/CaseMoker';
 import { HttpStatusCode } from '../types/HttpStatusCode';
 import { CaseController } from './CaseController';
