@@ -10,7 +10,7 @@ export interface FileRepository {
   findAllByOwnerId: (id: string) => Promise<WithId<FileDTO>[]>;
   findById: (id: string) => Promise<WithId<FileDTO> | null>;
   findByOwnerId: (id: string, pageParams: PageParams) => Promise<Page<WithId<FileDTO>>>;
-  rename: (id: string, name: string) => Promise<WithId<FileDTO> | null>;
+  rename: (id: string, name: string) => Promise<boolean>;
   deleteById: (id: string) => Promise<WithId<FileDTO> | null>;
   deleteByOwnerId: (ownerId: string) => Promise<DeleteManyResult>;
 }

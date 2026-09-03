@@ -53,12 +53,9 @@ export class MongodbFileRepository implements FileRepository {
     return FileMapper.persistenceToPresentation(file);
   }
 
-  async rename(fileId: string, name: string): Promise<WithId<FileDTO> | null> {
+  async rename(fileId: string, name: string): Promise<boolean> {
     const file = await FileModel.findByIdAndUpdate(fileId, { name }, { returnDocument: 'after' });
-    if (!file) {
-      return null;
-    }
-    return FileMapper.persistenceToPresentation(file);
+    return Boolean(file);
   }
 
   async deleteById(fileId: string): Promise<WithId<FileDTO> | null> {
