@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { HttpStatusCode } from '../types/HttpStatusCode';
 import { DeadlineController } from './DeadlineController';
 import { DeadlineMocker } from '../../tests/mocks/entities/DeadlineMocker';
