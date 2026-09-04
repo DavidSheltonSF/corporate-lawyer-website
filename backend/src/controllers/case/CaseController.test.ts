@@ -13,7 +13,7 @@ import { BadRequestError } from '../../errors/presentation/BadRequestError';
 import { NotFoundError } from '../../errors/presentation/NotFoundError';
 import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
 import { createMockPage } from '../../tests/mocks/createMockPage';
-import { createMockCaseService } from '../../tests/mocks/services/createMockCaseServiceTest';
+import { createMockCaseService } from '../../tests/mocks/services/createMockCaseService';
 
 describe(`Test ${CaseController.name}`, () => {
   function makeSut() {
