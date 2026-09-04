@@ -15,7 +15,7 @@ import { MissingAuthenticatedUserError } from '../../errors/presentation/Missing
 import { createMockPage } from '../../tests/mocks/createMockPage';
 import { createMockCaseService } from '../../tests/mocks/services/createMockCaseServiceTest';
 
-describe(`Testing ${CaseController.name}`, () => {
+describe(`Test ${CaseController.name}`, () => {
   function makeSut() {
     const fileService = createMockObject<IFileService>([
       'create',
@@ -33,28 +33,25 @@ describe(`Testing ${CaseController.name}`, () => {
   }
 
   describe('create', () => {
-    it('should return the created case and return Created', async () => {
+    it('should create a new case and return Created', async () => {
       const { caseController, caseService } = makeSut();
 
-      const createCaseDTO = CaseMocker.mockCreateCaseDTO();
+      const caseData = CaseMocker.mockCreateCaseDTO();
+
+      const expectedCase = CaseMocker.mockCaseDTOWithId();
+      caseService.create.mockResolvedValue(expectedCase);
 
       const httpRequest = createMockHttpRequest({
-        body: createCaseDTO,
+        body: caseData,
       });
-
-      const caseMock = CaseMocker.mockCaseDTOWithId();
-
-      caseService.create.mockResolvedValue(caseMock);
 
       const response = await caseController.create(httpRequest);
 
-      expect(caseService.create).toHaveBeenCalledWith(createCaseDTO);
-      expect(response).toEqual(
-        expect.objectContaining({
-          data: caseMock,
-          status: HttpStatusCode.created,
-        })
-      );
+      expect(caseService.create).toHaveBeenCalledWith(caseData);
+      expect(response).toMatchObject({
+        data: expectedCase,
+        status: HttpStatusCode.created,
+      });
     });
 
     it('should throw BadRequestError if the request body is missing', async () => {
@@ -81,50 +78,41 @@ describe(`Testing ${CaseController.name}`, () => {
   });
 
   describe('updateById', () => {
-    it('should return the updated case and return Ok', async () => {
+    it('should update a case by id and return OK', async () => {
       const { caseController, caseService } = makeSut();
 
-      const caseWithId = CaseMocker.mockCaseDTOWithId();
-
-      const updatedData: UpdateCaseDTO = {
+      const updateData: UpdateCaseDTO = {
         title: 'Pedido de pensão para menores',
         court: 'fakecourt',
       };
 
-      const updatedCase = { ...caseWithId, ...updatedData };
-
+      const id = 'fake-id';
       const httpRequest = createMockHttpRequest({
-        body: updatedData,
-        params: { id: caseWithId.id },
+        body: updateData,
+        params: { id },
       });
 
-      caseService.updateById.mockResolvedValue(updatedCase);
+      const expectedCase = CaseMocker.mockCaseDTOWithId();
+      caseService.updateById.mockResolvedValue(expectedCase);
+
       const response = await caseController.updateById(httpRequest);
 
-      expect(caseService.updateById).toHaveBeenCalledWith(httpRequest.params.id, httpRequest.body);
-      expect(response).toEqual(
-        expect.objectContaining({
-          data: updatedCase,
-          status: HttpStatusCode.ok,
-        })
-      );
+      expect(caseService.updateById).toHaveBeenCalledWith(id, updateData);
+      expect(response).toMatchObject({
+        data: expectedCase,
+        status: HttpStatusCode.ok,
+      });
     });
 
     it('should throw BadRequestError if the case id is not provided', async () => {
       const { caseController, caseService } = makeSut();
 
-      const caseWithId = CaseMocker.mockCaseDTOWithId();
-
-      const updatedData: UpdateCaseDTO = {
+      const updateData: UpdateCaseDTO = {
         title: 'Pedido de pensão para menores',
         court: 'fakecourt',
       };
 
-      const updatedCase = { ...caseWithId, ...updatedData };
-
-      const httpRequest = createMockHttpRequest({ body: updatedData });
-
-      caseService.updateById.mockResolvedValue(updatedCase);
+      const httpRequest = createMockHttpRequest({ body: updateData });
 
       await expect(caseController.updateById(httpRequest)).rejects.toThrow(BadRequestError);
       expect(caseService.updateById).not.toHaveBeenCalled();
@@ -133,9 +121,9 @@ describe(`Testing ${CaseController.name}`, () => {
     it('should throw BadRequestError if an empty body is provided', async () => {
       const { caseController, caseService } = makeSut();
 
-      const caseWithId = CaseMocker.mockCaseDTOWithId();
+      const id = 'fake-id';
 
-      const httpRequest = createMockHttpRequest({ params: { id: caseWithId.id } });
+      const httpRequest = createMockHttpRequest({ params: { id } });
 
       await expect(caseController.updateById(httpRequest)).rejects.toThrow(BadRequestError);
       expect(caseService.updateById).not.toHaveBeenCalled();
@@ -144,22 +132,22 @@ describe(`Testing ${CaseController.name}`, () => {
     it('should throw NotFoundError if the case is not found', async () => {
       const { caseController, caseService } = makeSut();
 
-      const caseWithId = CaseMocker.mockCaseDTOWithId();
+      const id = 'fakeid';
 
-      const updatedData: UpdateCaseDTO = {
+      const updateData: UpdateCaseDTO = {
         title: 'Pedido de pensão para menores',
         court: 'fakecourt',
       };
 
       const httpRequest = createMockHttpRequest({
-        body: updatedData,
-        params: { id: caseWithId.id },
+        body: updateData,
+        params: { id },
       });
 
       caseService.updateById.mockResolvedValue(null);
 
       await expect(caseController.updateById(httpRequest)).rejects.toThrow(NotFoundError);
-      expect(caseService.updateById).toHaveBeenCalledTimes(1);
+      expect(caseService.updateById).toHaveBeenCalledWith(id, updateData);
     });
   });
 
@@ -167,23 +155,22 @@ describe(`Testing ${CaseController.name}`, () => {
     it('should return the case by the provided id and return Ok', async () => {
       const { caseController, caseService } = makeSut();
 
-      const caseWithId = CaseMocker.mockCaseDTOWithId();
+      const id = 'fakeId';
 
       const httpRequest = createMockHttpRequest({
-        params: { id: caseWithId.id },
+        params: { id },
       });
 
-      caseService.findById.mockResolvedValue(caseWithId);
+      const expectedCase = CaseMocker.mockCaseDTOWithId();
+      caseService.findById.mockResolvedValue(expectedCase);
 
       const response = await caseController.findById(httpRequest);
 
-      expect(caseService.findById).toHaveBeenCalledWith(caseWithId.id, false);
-      expect(response).toEqual(
-        expect.objectContaining({
-          data: caseWithId,
-          status: HttpStatusCode.ok,
-        })
-      );
+      expect(caseService.findById).toHaveBeenCalledWith(id, false);
+      expect(response).toMatchObject({
+        data: expectedCase,
+        status: HttpStatusCode.ok,
+      });
     });
 
     it('should throw BadRequestError if the case id is not provided ', async () => {
@@ -198,16 +185,15 @@ describe(`Testing ${CaseController.name}`, () => {
     it('should throw NotFoundError if the case is not found', async () => {
       const { caseController, caseService } = makeSut();
 
-      const caseWithId = CaseMocker.mockCaseDTOWithId();
-
+      const id = 'fakeId';
       const httpRequest = createMockHttpRequest({
-        params: { id: caseWithId.id },
+        params: { id },
       });
 
       caseService.findById.mockResolvedValue(null);
 
       await expect(caseController.findById(httpRequest)).rejects.toThrow(NotFoundError);
-      expect(caseService.findById).toHaveBeenCalledTimes(1);
+      expect(caseService.findById).toHaveBeenCalledWith(id, false);
     });
   });
 
@@ -224,12 +210,10 @@ describe(`Testing ${CaseController.name}`, () => {
       const response = await caseController.getMyStats(httpRequest);
 
       expect(caseService.getStatsByClientId).toHaveBeenCalledWith(httpRequest.user?.id);
-      expect(response).toEqual(
-        expect.objectContaining({
-          data: expectedStats,
-          status: HttpStatusCode.ok,
-        })
-      );
+      expect(response).toMatchObject({
+        data: expectedStats,
+        status: HttpStatusCode.ok,
+      });
     });
 
     it('should throw MissingAuthenticatedUserError if the authenticated user is not provided', async () => {
@@ -238,7 +222,7 @@ describe(`Testing ${CaseController.name}`, () => {
       await expect(caseController.getMyStats(httpRequest)).rejects.toThrow(
         MissingAuthenticatedUserError
       );
-      expect(caseService.findAll).not.toHaveBeenCalled();
+      expect(caseService.getStatsByClientId).not.toHaveBeenCalled();
     });
   });
 
@@ -253,49 +237,43 @@ describe(`Testing ${CaseController.name}`, () => {
       const response = await caseController.getStats(httpRequest);
 
       expect(caseService.getStats).toHaveBeenCalled();
-      expect(response).toEqual(
-        expect.objectContaining({
-          data: expectedStats,
-          status: HttpStatusCode.ok,
-        })
-      );
+      expect(response).toMatchObject({
+        data: expectedStats,
+        status: HttpStatusCode.ok,
+      });
     });
   });
 
   describe('uploadMyFile', () => {
-    it('should upload a file and return Ok ', async () => {
+    it('should upload a file and return OK', async () => {
       const { caseController, fileService } = makeSut();
 
-      const fileMock = FileMocker.mockFileDTOWithId();
+      const expectedFile = FileMocker.mockFileDTOWithId();
 
-      const file = createMockFileMulter({ ...fileMock });
+      const file = createMockFileMulter({ ...expectedFile });
+      const id = 'fakeid';
+      const userId = 'fakeUserid';
       const httpRequest = createMockHttpRequest({
         user: {
-          id: 'user-id',
+          id: userId,
           email: 'fake@email.com',
           role: UserRole.client,
         },
-        params: { id: 'case-id' },
+        params: { id },
         file,
       });
 
-      fileService.create.mockResolvedValue(fileMock);
+      fileService.create.mockResolvedValue(expectedFile);
       const response = await caseController.uploadMyFile(httpRequest);
 
-      expect(fileService.create).toHaveBeenCalledWith(
-        httpRequest.user?.id,
-        httpRequest.params.id,
-        file
-      );
-      expect(response).toEqual(
-        expect.objectContaining({
-          data: fileMock,
-          status: HttpStatusCode.ok,
-        })
-      );
+      expect(fileService.create).toHaveBeenCalledWith(userId, id, file);
+      expect(response).toMatchObject({
+        data: expectedFile,
+        status: HttpStatusCode.ok,
+      });
     });
 
-    it('should return MissingAuthenticatedUserError if the authenticated user is missing', async () => {
+    it('should throw MissingAuthenticatedUserError if the authenticated user is missing', async () => {
       const { caseController, fileService } = makeSut();
 
       const fileMock = FileMocker.mockFileDTOWithId();
@@ -312,7 +290,7 @@ describe(`Testing ${CaseController.name}`, () => {
       expect(fileService.create).not.toHaveBeenCalled();
     });
 
-    it('should return BadRequestError if the case id missing', async () => {
+    it('should throw BadRequestError if the case id is missing', async () => {
       const { caseController, fileService } = makeSut();
 
       const fileMock = FileMocker.mockFileDTOWithId();
@@ -331,7 +309,7 @@ describe(`Testing ${CaseController.name}`, () => {
       expect(fileService.create).not.toHaveBeenCalled();
     });
 
-    it('should return BadRequestError if request file is misssing', async () => {
+    it('should throw BadRequestError if the request file is missing', async () => {
       const { caseController, fileService } = makeSut();
       const httpRequest = createMockHttpRequest({
         user: {
@@ -348,7 +326,7 @@ describe(`Testing ${CaseController.name}`, () => {
   });
 
   describe('findFilesByCaseId', () => {
-    it('should return a list of files and return 200', async () => {
+    it('should find case files and return OK', async () => {
       const { caseController, fileService } = makeSut();
 
       const fileMock = FileMocker.mockFileDTOWithId();
@@ -363,28 +341,16 @@ describe(`Testing ${CaseController.name}`, () => {
       const response = await caseController.findFilesByCaseId(httpRequest);
 
       expect(fileService.findByOwnerId).toHaveBeenCalledWith(caseId, { page, limit });
-      expect(response).toEqual(
-        expect.objectContaining({
-          data: filePageMock,
-          status: HttpStatusCode.ok,
-        })
-      );
+      expect(response).toMatchObject({
+        data: filePageMock,
+        status: HttpStatusCode.ok,
+      });
     });
 
     it('should return BadRequestError if the case id is missing', async () => {
       const { caseController, fileService } = makeSut();
 
-      const fileMock = FileMocker.mockFileDTOWithId();
-
-      const file = createMockFileMulter({ ...fileMock });
-      const httpRequest = createMockHttpRequest({
-        user: {
-          id: 'user-id',
-          email: 'fake@email.com',
-          role: UserRole.client,
-        },
-        file,
-      });
+      const httpRequest = createMockHttpRequest();
 
       await expect(caseController.findFilesByCaseId(httpRequest)).rejects.toThrow(BadRequestError);
       expect(fileService.findByOwnerId).not.toHaveBeenCalled();
@@ -406,18 +372,16 @@ describe(`Testing ${CaseController.name}`, () => {
       const response = await caseController.deleteById(httpRequest);
 
       expect(caseService.deleteById).toHaveBeenCalledWith(caseMock.id);
-      expect(response.status).toBe(HttpStatusCode.no_content);
-      expect(response).toEqual(
-        expect.objectContaining({
-          status: HttpStatusCode.no_content,
-        })
-      );
+      expect(response).toMatchObject({
+        status: HttpStatusCode.no_content,
+      });
     });
 
     it('should throw BadRequestError if the case id is missing', async () => {
-      const { caseController } = makeSut();
+      const { caseController, caseService } = makeSut();
       const httpRequest = createMockHttpRequest();
       await expect(caseController.deleteById(httpRequest)).rejects.toThrow(BadRequestError);
+      expect(caseService.deleteById).not.toHaveBeenCalled();
     });
 
     it('should throw NotFoundError if the case is not found', async () => {
@@ -432,6 +396,7 @@ describe(`Testing ${CaseController.name}`, () => {
       caseService.deleteById.mockResolvedValue(null);
 
       await expect(caseController.deleteById(httpRequest)).rejects.toThrow(NotFoundError);
+      expect(caseService.deleteById).toHaveBeenCalledWith('fake-id');
     });
   });
 });
