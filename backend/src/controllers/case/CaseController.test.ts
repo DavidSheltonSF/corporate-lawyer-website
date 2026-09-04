@@ -4,7 +4,6 @@ import { HttpStatusCode } from '../types/HttpStatusCode';
 import { CaseController } from './CaseController';
 import { createMockObject } from '../../tests/mocks/createMockObject';
 import { createMockHttpRequest } from '../../tests/mocks/createMockHttpRequest';
-import { ICaseService } from '../../services/case/ICaseService';
 import { IFileService } from '../../services/files/IFileService';
 import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO';
 import { UserRole } from '../../types/UserRole';
