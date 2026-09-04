@@ -67,11 +67,11 @@ describe(`Test ${CaseController.name}`, () => {
     it('should throw BadRequestError if any required field is missing', async () => {
       const { caseController, caseService } = makeSut();
 
-      const createCaseDTO = CaseMocker.mockCreateCaseDTO();
-      const { processNumber, ...missingFieldsDTO } = createCaseDTO;
+      const caseData = CaseMocker.mockCreateCaseDTO();
+      const { processNumber, ...missingFieldData } = caseData;
 
       const httpRequest = createMockHttpRequest({
-        body: missingFieldsDTO,
+        body: missingFieldData,
       });
 
       await expect(caseController.create(httpRequest)).rejects.toThrow(BadRequestError);
@@ -212,7 +212,7 @@ describe(`Test ${CaseController.name}`, () => {
 
     it('should throw MissingAuthenticatedUserError if the authenticated user is not provided', async () => {
       const { caseController, caseService } = makeSut();
-      const httpRequest = createMockHttpRequest({});
+      const httpRequest = createMockHttpRequest();
       await expect(caseController.getMyStats(httpRequest)).rejects.toThrow(
         MissingAuthenticatedUserError
       );
@@ -269,9 +269,9 @@ describe(`Test ${CaseController.name}`, () => {
     it('should throw MissingAuthenticatedUserError if the authenticated user is missing', async () => {
       const { caseController, fileService, fakeId } = makeSut();
 
-      const fileMock = FileMocker.mockFileDTOWithId();
+      const expectedFIle = FileMocker.mockFileDTOWithId();
 
-      const file = createMockFileMulter({ ...fileMock });
+      const file = createMockFileMulter({ ...expectedFIle });
       const httpRequest = createMockHttpRequest({
         params: { id: fakeId },
         file,
@@ -325,9 +325,9 @@ describe(`Test ${CaseController.name}`, () => {
       const fileMock = FileMocker.mockFileDTOWithId();
       const page = 1;
       const limit = 4;
-      const filePageMock = createMockPage([fileMock], { page, limit });
+      const expectedFilePage = createMockPage([fileMock], { page, limit });
 
-      fileService.findByOwnerId.mockResolvedValue(filePageMock);
+      fileService.findByOwnerId.mockResolvedValue(expectedFilePage);
 
       const httpRequest = createMockHttpRequest({
         params: { id: fakeId },
@@ -337,7 +337,7 @@ describe(`Test ${CaseController.name}`, () => {
 
       expect(fileService.findByOwnerId).toHaveBeenCalledWith(fakeId, { page, limit });
       expect(response).toMatchObject({
-        data: filePageMock,
+        data: expectedFilePage,
         status: HttpStatusCode.ok,
       });
     });
@@ -357,11 +357,11 @@ describe(`Test ${CaseController.name}`, () => {
       const { caseController, caseService, fakeId } = makeSut();
 
       const expectedCase = CaseMocker.mockCaseDTOWithId();
+      caseService.deleteById.mockResolvedValue(expectedCase);
+
       const httpRequest = createMockHttpRequest({
         params: { id: fakeId },
       });
-
-      caseService.deleteById.mockResolvedValue(expectedCase);
       const response = await caseController.deleteById(httpRequest);
 
       expect(caseService.deleteById).toHaveBeenCalledWith(fakeId);
@@ -372,7 +372,9 @@ describe(`Test ${CaseController.name}`, () => {
 
     it('should throw BadRequestError if the case id is missing', async () => {
       const { caseController, caseService } = makeSut();
+
       const httpRequest = createMockHttpRequest();
+
       await expect(caseController.deleteById(httpRequest)).rejects.toThrow(BadRequestError);
       expect(caseService.deleteById).not.toHaveBeenCalled();
     });
