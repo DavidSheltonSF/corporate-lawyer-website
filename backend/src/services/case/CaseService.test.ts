@@ -1,162 +1,209 @@
+import { describe, expect, it } from 'vitest';
 import { CaseService } from './CaseService';
-import { CasesStatus } from '../../types/CasesStatus';
-import { mockCaseRepository } from '../../tests/mocks/repositories/mockCaseRepository';
-import { InvalidProcessNumberError } from '../../errors/domain/InvalidProcessNumberError';
-import { InvalidCaseTitleError } from '../../errors/domain/InvalidCaseTitleError';
-import { InvalidCaseStatusError } from '../../errors/domain/InvalidCaseStatusError';
-import { BrazilState } from '../../types/BrazilState';
-import { City } from '../../types/City';
-import { InMemoryEventBus } from '../../events/InMemoryEventBus';
+import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
+import { CaseMocker } from '../../tests/mocks/entities/CaseMoker';
+import { createMockEventBus } from '../../tests/mocks/repositories/createMockEventBus';
+import { ValidationError } from '../../errors/presentation/ValidationError';
+import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO';
+import { CaseFieldsMocker } from '../../tests/mocks/fields/CaseFieldsMocker';
+import { createMockPage } from '../../tests/mocks/createMockPage';
+import { PageParams } from '../../types/PageParams';
 
-describe('Test CaseService', () => {
+describe(`Test ${CaseService.name}`, () => {
   function makeSut() {
-    const caseRepository = mockCaseRepository();
-    const eventBus = new InMemoryEventBus()
+    const caseRepository = createMockCaseRepository();
+    const eventBus = createMockEventBus();
     const caseService = new CaseService(caseRepository, eventBus);
+    const fakeId = 'fakeId';
 
     return {
-      caseService,
       caseRepository,
+      caseService,
+      fakeId,
     };
   }
 
-  test('should create a new case', async () => {
-    const { caseService, caseRepository } = makeSut();
+  describe('create', () => {
+    it('should create a new case', async () => {
+      const { caseRepository, caseService } = makeSut();
+      const caseData = CaseMocker.mockCreateCaseDTO();
 
-    const newCase = {
-      client: 'xfafdsfafsfasfffff',
-      lawyers: ['hhtshhhhhthtfsj'],
-      processNumber: '2158748-55.5558.5.87.8858',
-      title: 'Ação de Usucapião Urbano',
-      court: 'STJ',
-      courtDivision: 'Vara Cívil',
-      description: 'Case description',
-      status: CasesStatus.open,
-      location: {
-        state: BrazilState.RIO_DE_JANEIRO,
-        city: City.RIO_DE_JANEIRO,
-      },
-    };
+      const expectedCase = CaseMocker.mockCaseDTOWithId();
+      caseRepository.create.mockResolvedValue(expectedCase);
 
-    await caseService.create(newCase);
-    expect(caseRepository.create).toHaveBeenLastCalledWith(newCase);
+      const createdCase = await caseService.create(caseData);
+
+      expect(createdCase).toMatchObject(expectedCase);
+      expect(caseRepository.create).toHaveBeenCalledWith(caseData);
+    });
+
+    it('should throw ValidationError if any provided field is invalid', async () => {
+      const { caseRepository, caseService } = makeSut();
+      const caseData = CaseMocker.mockCreateCaseDTO();
+      caseData.processNumber = 'invalid process number';
+
+      await expect(caseService.create(caseData)).rejects.toThrow(ValidationError);
+      expect(caseRepository.create).not.toHaveBeenCalled();
+    });
   });
 
-  test('should throw InvalidProcessNumberError and not call CaseRepository.create if the process number provided is invalid', async () => {
-    const { caseService, caseRepository } = makeSut();
+  describe('updateById', () => {
+    it('should update a case', async () => {
+      const { caseRepository, caseService, fakeId } = makeSut();
 
-    const newCase = {
-      client: 'xfafdsfafsfasfffff',
-      lawyers: ['hhtshhhhhthtfsj'],
-      processNumber: '2158748',
-      title: 'Ação de Usucapião Urbano',
-      court: 'STJ',
-      courtDivision: 'Vara Cívil',
-      description: 'Case description',
-      status: CasesStatus.open,
-      location: {
-        state: BrazilState.RIO_DE_JANEIRO,
-        city: City.RIO_DE_JANEIRO,
-      },
-    };
+      const updateData: UpdateCaseDTO = {
+        title: CaseFieldsMocker.mockCaseTitle(),
+      };
 
-    await expect(caseService.create(newCase)).rejects.toThrow(InvalidProcessNumberError);
-    expect(caseRepository.create).toHaveBeenCalledTimes(0);
+      const expectedCase = CaseMocker.mockCaseDTOWithId();
+      caseRepository.updateById.mockResolvedValue(expectedCase);
+
+      const updatedCase = await caseService.updateById(fakeId, updateData);
+
+      expect(updatedCase).toMatchObject(expectedCase);
+      expect(caseRepository.updateById).toHaveBeenCalledWith(fakeId, updateData);
+    });
+
+    it('should throw ValidationError if any field is invalid', async () => {
+      const { caseRepository, caseService, fakeId } = makeSut();
+
+      const updateData: UpdateCaseDTO = {
+        title: '#81',
+      };
+
+      await expect(caseService.updateById(fakeId, updateData)).rejects.toThrow(ValidationError);
+      expect(caseRepository.updateById).not.toHaveBeenCalled();
+    });
+
+    it('should return null the case is not found', async () => {
+      const { caseRepository, caseService, fakeId } = makeSut();
+
+      const updateData: UpdateCaseDTO = {
+        title: 'Ação de Testes Com Título Válido',
+      };
+
+      caseRepository.findById.mockResolvedValue(null);
+
+      const updatedCase = await caseService.updateById(fakeId, updateData);
+
+      expect(updatedCase).toBeNull();
+      expect(caseRepository.updateById).toHaveBeenCalledWith(fakeId, updateData);
+    });
   });
 
-  test('should throw InvalidCaseTitleError and not call CaseRepository.create if the case title provided is invalid', async () => {
-    const { caseService, caseRepository } = makeSut();
+  describe('findAll', () => {
+    it('should find all cases with the provided page params', async () => {
+      const { caseRepository, caseService } = makeSut();
 
-    const newCase = {
-      client: 'xfafdsfafsfasfffff',
-      lawyers: ['hhtshhhhhthtfsj'],
-      processNumber: '2158748-55.5558.5.87.8858',
-      title: 'Ação d',
-      court: 'STJ',
-      courtDivision: 'Vara Cívil',
-      description: 'Case description',
-      status: CasesStatus.open,
-      location: {
-        state: BrazilState.RIO_DE_JANEIRO,
-        city: City.RIO_DE_JANEIRO,
-      },
-    };
-    await expect(caseService.create(newCase)).rejects.toThrow(InvalidCaseTitleError);
-    expect(caseRepository.create).toHaveBeenCalledTimes(0);
+      const limit = 4;
+      const page = 1;
+
+      const mockPage = createMockPage([], { limit, page });
+      caseRepository.findAll.mockResolvedValue(mockPage);
+
+      const pageParams: PageParams = {
+        limit,
+        page,
+      };
+      const cases = await caseService.findAll(pageParams);
+
+      expect(cases).toMatchObject(mockPage);
+      expect(caseRepository.findAll).toHaveBeenCalledWith(pageParams);
+    });
   });
 
-  test('should throw InvalidCaseStatusError and not call CaseRepository.create if the case status provided is invalid', async () => {
-    const { caseService, caseRepository } = makeSut();
+  describe('findById', () => {
+    it('should find a cases by id', async () => {
+      const { caseRepository, caseService, fakeId } = makeSut();
 
-    const newCase = {
-      client: 'xfafdsfafsfasfffff',
-      lawyers: ['hhtshhhhhthtfsj'],
-      processNumber: '2158748-55.5558.5.87.8858',
-      title: 'Ação de Usucapião Urbano',
-      court: 'STJ',
-      courtDivision: 'Vara Cívil',
-      description: 'Case description',
-      status: 'banana',
-      location: {
-        state: BrazilState.RIO_DE_JANEIRO,
-        city: City.RIO_DE_JANEIRO,
-      },
-    };
+      const expectedCase = CaseMocker.mockCaseDTOWithId();
+      caseRepository.findById.mockResolvedValue(expectedCase);
 
-    await expect(caseService.create(newCase)).rejects.toThrow(InvalidCaseStatusError);
-    expect(caseRepository.create).toHaveBeenCalledTimes(0);
+      const cas = await caseService.findById(fakeId);
+
+      expect(cas).toMatchObject(expectedCase);
+      expect(caseRepository.findById).toHaveBeenCalledWith(fakeId);
+    });
+
+    it('should find a populated case by id', async () => {
+      const { caseRepository, caseService, fakeId } = makeSut();
+
+      const expectedCase = CaseMocker.mockCaseDTOWithId();
+      caseRepository.findPopulatedById.mockResolvedValue(expectedCase);
+
+      const cas = await caseService.findById(fakeId, true);
+
+      console.log(cas);
+
+      expect(cas).toMatchObject(expectedCase);
+      expect(caseRepository.findPopulatedById).toHaveBeenCalledWith(fakeId);
+    });
+
+    it('should return null if case is not found', async () => {
+      const { caseRepository, caseService, fakeId } = makeSut();
+
+      caseRepository.findById.mockResolvedValue(null);
+
+      const cas = await caseService.findById(fakeId);
+
+      expect(cas).toBeNull();
+      expect(caseRepository.findById).toHaveBeenCalledWith(fakeId);
+    });
   });
 
-  test('should call caseRepository.updateById with the provided id and data', async () => {
-    const { caseService, caseRepository } = makeSut();
+  describe('getStatsByClientId', () => {
+    it('should return the case statistics by client id', async () => {
+      const { caseRepository, caseService, fakeId } = makeSut();
 
-    const caseId = 'fsdakfnitngnfaggfgg';
-    const updateData = {
-      processNumber: '2158748-55.5558.5.87.8858',
-      title: 'Ação de Usucapião Urbano',
-      court: 'STJ',
-      courtDivision: 'Vara Cívil',
-      description: 'Case description',
-      status: CasesStatus.open,
-    };
+      const expectedStats = { closed: 0, open: 0 };
 
-    await caseService.updateById(caseId, updateData);
-    expect(caseRepository.updateById).toHaveBeenLastCalledWith(caseId, updateData);
+      caseRepository.getStatsByClientId.mockResolvedValue(expectedStats);
+
+      const stats = await caseService.getStatsByClientId(fakeId);
+
+      expect(stats).toMatchObject(expectedStats);
+      expect(caseRepository.getStatsByClientId).toHaveBeenCalledWith(fakeId);
+    });
   });
 
-  test('should call caseRepository.findById with the provided id', async () => {
-    const { caseService, caseRepository } = makeSut();
+  describe('getStats', () => {
+    it('should return the global case statistics', async () => {
+      const { caseRepository, caseService, fakeId } = makeSut();
 
-    const caseId = 'fakeid';
+      const expectedStats = { closed: 0, open: 0 };
 
-    await caseService.findById(caseId);
-    expect(caseRepository.findById).toHaveBeenLastCalledWith(caseId);
+      caseRepository.getStats.mockResolvedValue(expectedStats);
+
+      const stats = await caseService.getStats();
+
+      expect(stats).toMatchObject(expectedStats);
+      expect(caseRepository.getStats).toHaveBeenCalled();
+    });
   });
 
-  test('should call caseRepository.getStatsByClientId with the provided id', async () => {
-    const { caseService, caseRepository } = makeSut();
+  describe('deleteById', () => {
+    it('should delete a case by id', async () => {
+      const { caseRepository, caseService, fakeId } = makeSut();
 
-    const caseId = 'fakeid';
+      const expectedCase = CaseMocker.mockCaseDTOWithId();
 
-    await caseService.getStatsByClientId(caseId);
-    expect(caseRepository.getStatsByClientId).toHaveBeenLastCalledWith(caseId);
-  });
+      caseRepository.deleteById.mockResolvedValue(expectedCase);
 
-  test('should call caseRepository.findFilesByCaseId with the provided id', async () => {
-    const { caseService, caseRepository } = makeSut();
+      const deletedCase = await caseService.deleteById(fakeId);
 
-    const caseId = 'fakeid';
+      expect(deletedCase).toMatchObject(expectedCase);
+      expect(caseRepository.deleteById).toHaveBeenCalledWith(fakeId);
+    });
 
-    await caseService.findFilesByCaseId(caseId);
-    expect(caseRepository.findFilesByCaseId).toHaveBeenLastCalledWith(caseId);
-  });
+    it('should return null if case is not found', async () => {
+      const { caseRepository, caseService, fakeId } = makeSut();
 
-  test('should call caseRepository.deleteById with the provided id', async () => {
-    const { caseService, caseRepository } = makeSut();
+      caseRepository.deleteById.mockResolvedValue(null);
 
-    const caseId = 'fakeid';
+      const deletedCase = await caseService.deleteById(fakeId);
 
-    await caseService.deleteById(caseId);
-    expect(caseRepository.deleteById).toHaveBeenLastCalledWith(caseId);
+      expect(deletedCase).toBeNull();
+      expect(caseRepository.deleteById).toHaveBeenCalledWith(fakeId);
+    });
   });
 });
