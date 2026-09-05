@@ -82,7 +82,7 @@ export class CaseService implements ICaseService {
     return await findPromise;
   }
 
-  async getStatsByClientId(clientId: string): Promise<CasesStats | null> {
+  async getStatsByClientId(clientId: string): Promise<CasesStats> {
     return this.caseRepository.getStatsByClientId(clientId);
   }
 
