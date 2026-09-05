@@ -23,7 +23,7 @@ export function casesRoutes(
     requireUser,
     expressHttpAdapter(caseController.updateById)
   );
-  router.get('/api/my/cases/stats', requireAuth, expressHttpAdapter(caseController.getMyStats));
+  router.get('/api/my/cases/stats', requireAuth, requireUser, expressHttpAdapter(caseController.getMyStats));
   router.get(
     '/api/cases/stats',
     requireAuth,
