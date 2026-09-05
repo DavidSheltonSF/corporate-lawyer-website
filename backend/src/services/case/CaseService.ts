@@ -74,19 +74,12 @@ export class CaseService implements ICaseService {
     };
   }
 
-  async findById(
-    id: string,
-    populate?: boolean
-  ): Promise<WithId<CaseDTO> | null> {
-    try {
-      const findPromise = populate
-        ? this.caseRepository.findPopulatedById(id)
-        : this.caseRepository.findById(id);
+  async findById(id: string, populate?: boolean): Promise<WithId<CaseDTO> | null> {
+    const findPromise = populate
+      ? this.caseRepository.findPopulatedById(id)
+      : this.caseRepository.findById(id);
 
-      return await findPromise;
-    } catch (error) {
-      throw error;
-    }
+    return await findPromise;
   }
 
   async getStatsByClientId(clientId: string): Promise<CasesStats | null> {
