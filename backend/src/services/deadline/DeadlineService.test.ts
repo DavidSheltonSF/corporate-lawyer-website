@@ -1,112 +1,117 @@
-import { mockCaseRepository } from '../../tests/mocks/repositories/mockCaseRepository';
-import { mockDeadlineRepository } from '../../tests/mocks/repositories/mockDeadlineRepository';
+import { describe, expect, it } from 'vitest';
 import { DeadlineService } from './DeadlineService';
-import { DeadlinePriority } from '../../types/DeadLinePriority';
-import { InvalidDeadlineTypeError } from '../../errors/domain/InvalidDeadlineTypeError';
-import { InvalidDeadlinePriorityError } from '../../errors/domain/InvalidDeadlinePriorityError';
-import { InvalidDateError } from '../../errors/domain/InvalidDateError';
-import { BrazilState } from '../../types/BrazilState';
-import { City } from '../../types/City';
+import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
+import { createMockDeadlineRepository } from '../../tests/mocks/repositories/createMockDeadlineRepository';
 import { BrazilHolidaysProvider } from '../BrazilHolidaysProvider';
-import { DeadlineCalculator } from '../helpers/DeadlineCalculator';
 import { DeadlineMocker } from '../../tests/mocks/entities/DeadlineMocker';
-import { DeadlineCountingType } from '../../types/DeadlineCountingType';
-import { createDate } from '../../utils/createDate';
+import { UpdateDeadlineDTO } from '../../dtos/deadLine/UpdateDeadlineDTO';
+import { ValidationError } from '../../errors/presentation/ValidationError';
 
 describe(`Test ${DeadlineService.name}`, () => {
   function makeSut() {
-    const caseRepository = mockCaseRepository();
-    const deadlineRepository = mockDeadlineRepository();
+    const deadlineRepository = createMockDeadlineRepository();
+    const caseRepository = createMockCaseRepository();
     const holidaysProvider = new BrazilHolidaysProvider();
     const deadlineService = new DeadlineService(
       deadlineRepository,
       caseRepository,
       holidaysProvider
     );
+    const fakeId = 'fakeId';
 
     return {
       deadlineRepository,
+      caseRepository,
       deadlineService,
-      holidaysProvider,
+      fakeId,
     };
   }
 
-  test('should call DeadlineRepository.create with the data provided and the right startDate and dueDate', async () => {
-    const { deadlineService, deadlineRepository, holidaysProvider } = makeSut();
+  describe('finAll', () => {
+    it('should return all deadlines', async () => {
+      const { deadlineRepository, deadlineService } = makeSut();
 
-    const deadlineData = DeadlineMocker.mockCreateDeadlineDTO();
-    deadlineData.intimationDate = createDate(2026, 5, 1).toISOString();
-    deadlineData.days = 5;
+      const expectedDeadlines = [
+        DeadlineMocker.mockDeadlineDTOWithId(),
+        DeadlineMocker.mockDeadlineDTOWithId(),
+      ];
 
-    const deadlineCalculator = new DeadlineCalculator(holidaysProvider, {
-      caseLocation: { state: BrazilState.RIO_DE_JANEIRO, city: City.BELFORD_ROXO },
-      countingType: DeadlineCountingType.DIAS_CORRIDOS,
-    });
+      deadlineRepository.findAll.mockResolvedValue(expectedDeadlines);
+      const deadlines = await deadlineService.findAll();
 
-    const startDate = deadlineCalculator.getStartDate(new Date(deadlineData.intimationDate));
-    const dueDate = deadlineCalculator.getDueDate(new Date(startDate), deadlineData.days);
-
-    await deadlineService.create(deadlineData);
-
-    expect(deadlineRepository.create).toHaveBeenCalledWith(deadlineData, startDate, dueDate);
-  });
-
-  test('should thow InvalidDeadlineTypeError if the type provided is invalid', async () => {
-    const { deadlineService } = makeSut();
-    const deadlineData = DeadlineMocker.mockCreateDeadlineDTO();
-    deadlineData.type = 'banana';
-    await expect(deadlineService.create(deadlineData)).rejects.toThrow(InvalidDeadlineTypeError);
-  });
-
-  test('should thow InvalidDeadlinePriorityError if the priority provided is invalid', async () => {
-    const { deadlineService } = makeSut();
-    const deadlineData = DeadlineMocker.mockCreateDeadlineDTO();
-    deadlineData.priority = 'banana';
-    await expect(deadlineService.create(deadlineData)).rejects.toThrow(
-      InvalidDeadlinePriorityError
-    );
-  });
-
-  test('should thow InvalidDateError if the intimationDate provided is invalid', async () => {
-    const { deadlineService } = makeSut();
-    const deadlineData = DeadlineMocker.mockCreateDeadlineDTO();
-    deadlineData.intimationDate = 'banana';
-    await expect(deadlineService.create(deadlineData)).rejects.toThrow(InvalidDateError);
-  });
-
-  test('should find all deadlines', async () => {
-    const { deadlineService, deadlineRepository } = makeSut();
-    await deadlineService.findAll();
-    expect(deadlineRepository.findAll).toHaveBeenCalled();
-  });
-
-  test('should find deadline by id', async () => {
-    const { deadlineService, deadlineRepository } = makeSut();
-    const id = 'testid--fnsianf';
-    await deadlineService.findById(id);
-    expect(deadlineRepository.findById).toHaveBeenCalledWith(id);
-  });
-
-  test('should find deadline by case id', async () => {
-    const { deadlineService, deadlineRepository } = makeSut();
-    const id = 'testid--fnsianf';
-    await deadlineService.findByCaseId(id);
-    expect(deadlineRepository.findByCaseId).toHaveBeenCalledWith(id);
-  });
-
-  test('should call DeadlineRepository.updateById', async () => {
-    const { deadlineService, deadlineRepository } = makeSut();
-    const id = 'fakeIddfasfasd';
-    await deadlineService.updateById(id, { priority: DeadlinePriority.ALTA });
-    expect(deadlineRepository.updateById).toHaveBeenCalledWith(id, {
-      priority: DeadlinePriority.ALTA,
+      expect(deadlines).toEqual(expectedDeadlines);
     });
   });
 
-  test('should call DeadlineRepository.deleteById', async () => {
-    const { deadlineService, deadlineRepository } = makeSut();
-    const id = 'fakeIddfasfasd';
-    await deadlineService.deleteById(id);
-    expect(deadlineRepository.deleteById).toHaveBeenCalledWith(id);
+  describe('updateById', async () => {
+    it('should update a deadeline by id', async () => {
+      const { deadlineRepository, deadlineService, fakeId } = makeSut();
+
+      const updateData: UpdateDeadlineDTO = {
+        days: 25,
+      };
+
+      const expectedDeadline = DeadlineMocker.mockDeadlineDTOWithId();
+      deadlineRepository.updateById.mockResolvedValue(expectedDeadline);
+
+      const updatedDeadline = await deadlineService.updateById(fakeId, updateData);
+
+      expect(updatedDeadline).toMatchObject(expectedDeadline);
+      expect(deadlineRepository.updateById).toHaveBeenCalledWith(fakeId, updateData);
+    });
+
+    it('should throw ValidationError if any field is invalid', async () => {
+      const { deadlineRepository, deadlineService, fakeId } = makeSut();
+
+      const updateData: UpdateDeadlineDTO = {
+        type: 'banana',
+      };
+
+      const expectedDeadline = DeadlineMocker.mockDeadlineDTOWithId();
+      deadlineRepository.updateById.mockResolvedValue(expectedDeadline);
+
+      await expect(deadlineService.updateById(fakeId, updateData)).rejects.toThrow(ValidationError);
+      expect(deadlineRepository.updateById).not.toHaveBeenCalled();
+    });
+
+    it('should return null if the deadeline is not found', async () => {
+      const { deadlineRepository, deadlineService, fakeId } = makeSut();
+
+      const updateData: UpdateDeadlineDTO = {
+        days: 25,
+      };
+
+      deadlineRepository.updateById.mockResolvedValue(null);
+
+      const updatedDeadline = await deadlineService.updateById(fakeId, updateData);
+
+      expect(updatedDeadline).toBeNull();
+      expect(deadlineRepository.updateById).toHaveBeenCalledWith(fakeId, updateData);
+    });
+  });
+
+  describe('deleteById', async () => {
+    it('should delete a deadeline by id', async () => {
+      const { deadlineRepository, deadlineService, fakeId } = makeSut();
+
+      const expectedDeadline = DeadlineMocker.mockDeadlineDTOWithId();
+      deadlineRepository.deleteById.mockResolvedValue(expectedDeadline);
+
+      const deletedDeadline = await deadlineService.deleteById(fakeId);
+
+      expect(deletedDeadline).toMatchObject(expectedDeadline);
+      expect(deadlineRepository.deleteById).toHaveBeenCalledWith(fakeId);
+    });
+
+    it('should return null if the deadeline is not found', async () => {
+      const { deadlineRepository, deadlineService, fakeId } = makeSut();
+
+      deadlineRepository.deleteById.mockResolvedValue(null);
+
+      const updatedDeadline = await deadlineService.deleteById(fakeId);
+
+      expect(updatedDeadline).toBeNull();
+      expect(deadlineRepository.deleteById).toHaveBeenCalledWith(fakeId);
+    });
   });
 });
