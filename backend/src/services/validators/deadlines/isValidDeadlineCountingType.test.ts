@@ -1,4 +1,4 @@
-import { describe, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { DeadlineCountingType } from '../../../types/DeadlineCountingType';
 import { isValidDeadlineCountingType } from './isValidDeadlineCountingType';
 
