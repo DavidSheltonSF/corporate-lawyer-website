@@ -1,8 +1,10 @@
+import { describe, expect, it } from 'vitest';
+import { UserRole } from '../../types/UserRole';
 import { createMockHttpRequest } from './createMockHttpRequest';
 
 describe('createMockHttpRequest', () => {
-  test('returns a request with default structure and merges overrides', () => {
-    const user = { id: 'user-id', email: 'user@example.com' };
+  it('returns a request with default structure and merges overrides', () => {
+    const user = { id: 'user-id', email: 'user@example.com', role: UserRole.client };
 
     const request = createMockHttpRequest({ user });
 
@@ -16,10 +18,11 @@ describe('createMockHttpRequest', () => {
     });
   });
 
-  test('allows overriding individual properties', () => {
-    const request = createMockHttpRequest({ headers: { authorization: 'Bearer token' } });
+  it('allows overriding individual properties', () => {
+    const authorization = 'Bearer token';
+    const request = createMockHttpRequest({ headers: { authorization } });
 
-    expect(request.headers).toEqual({ authorization: 'Bearer token' });
+    expect(request.headers).toEqual({ authorization});
     expect(request.body).toEqual({});
   });
 });
