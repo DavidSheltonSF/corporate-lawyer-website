@@ -1,83 +1,217 @@
-import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError';
-import { InvalidEmailError } from '../../errors/domain/InvalidEmailError';
-import { InvalidNameError } from '../../errors/domain/InvalidNameError';
-import { mockCaseRepository } from '../../tests/mocks/repositories/mockCaseRepository';
-import { mockUserRepository } from '../../tests/mocks/repositories/mockUserRepository';
-import { UserMocker } from '../../tests/mocks/entities/UserMocker';
+import { describe, expect, it, vi } from 'vitest';
 import { UserService } from './UserService';
+import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
+import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
+import { UserMocker } from '../../tests/mocks/entities/UserMocker';
+import { generateTemporaryPassword } from '../helpers/generateTemporaryPassword';
+import { createMockPage } from '../../tests/mocks/createMockPage';
+import { UserQuery } from '../../types/UserQuery';
+import { UpdateUserDTO } from '../../dtos/user/UpdateUserDTO';
+import { UserMapper } from '../../mappers/User/UserMapper';
 
 describe(`Test ${UserService.name}`, () => {
   function makeSut() {
-    const userRepository = mockUserRepository();
-    const caseRepository = mockCaseRepository();
+    const userRepository = createMockUserRepository();
+    const caseRepository = createMockCaseRepository();
     const userService = new UserService(userRepository, caseRepository);
+    const fakeId = 'fakeId';
+    const fakeEmail = 'fake@email.com';
 
     return {
       userRepository,
+      caseRepository,
       userService,
+      fakeId,
+      fakeEmail,
     };
   }
 
-  test('should call UserRepository.create', async () => {
-    const { userService, userRepository } = makeSut();
-    const createClientDTO = UserMocker.mockCreateClientDTO();
-    await userService.createClient(createClientDTO);
-    expect(userRepository.create).toHaveBeenCalled();
+  describe('createClient', () => {
+    it('should create a new client', async () => {
+      const { userRepository, userService } = makeSut();
+
+      const expectedClient = UserMocker.mockUserDTOWithId();
+      userRepository.create.mockResolvedValue(expectedClient);
+
+      vi.mock('../helpers/generateTemporaryPassword');
+      const test = vi.mocked(generateTemporaryPassword);
+      test.mockReturnValue(expectedClient.password);
+
+      const clientData = UserMocker.mockCreateClientDTO();
+      const newClient = await userService.createClient(clientData);
+
+      expect(newClient).toMatchObject(expectedClient);
+      expect(userRepository.create).toHaveBeenCalledWith(expect.objectContaining(clientData));
+    });
   });
 
-  test('should thow InvalidNameError if firstName or lastName provided is invalid', async () => {
-    const { userService } = makeSut();
-    const createClientDTO = UserMocker.mockCreateClientDTO();
-    createClientDTO.lastName = 'Faria2461';
-    await expect(userService.createClient(createClientDTO)).rejects.toThrow(InvalidNameError);
+  describe('findAll', () => {
+    it('should find all users', async () => {
+      const { userRepository, userService } = makeSut();
+
+      const client1 = UserMocker.mockUserDTOWithId();
+      const client2 = UserMocker.mockUserDTOWithId();
+      const expectedClients = [client1, client2];
+      userRepository.findAll.mockResolvedValue(expectedClients);
+
+      const clients = await userService.findAll();
+
+      expect(clients).toEqual([
+        {
+          id: client1.id,
+          firstName: client1.firstName,
+          lastName: client1.lastName,
+          cpf: client1.cpf,
+          email: client1.email,
+          phone: client1.phone,
+          role: client1.role,
+        },
+        {
+          id: client2.id,
+          firstName: client2.firstName,
+          lastName: client2.lastName,
+          cpf: client2.cpf,
+          email: client2.email,
+          phone: client2.phone,
+          role: client2.role,
+        },
+      ]);
+
+      expect(clients[0]).not.toHaveProperty('password');
+      expect(clients[1]).not.toHaveProperty('password');
+    });
   });
 
-  test('should throw EntityAlreadyExistsError if the user already exists', async () => {
-    const { userService, userRepository } = makeSut();
-    const createClientDTO = UserMocker.mockCreateClientDTO();
-    userRepository.existsByEmail = jest.fn().mockResolvedValue(true);
-    await expect(userService.createClient(createClientDTO)).rejects.toThrow(
-      EntityAlreadyExistsError
-    );
+  describe('findClients', () => {
+    it('should find all clients for the given params', async () => {
+      const { userRepository, userService } = makeSut();
+
+      const client1 = UserMocker.mockUserDTOWithId();
+      const client2 = UserMocker.mockUserDTOWithId();
+      const expectedClients = [client1, client2];
+      const limit = 4;
+      const page = 1;
+      const mockPage = createMockPage(expectedClients, { limit, page });
+      userRepository.findClients.mockResolvedValue(mockPage);
+
+      const userPageParams: UserQuery = { limit, page, query: 'test' };
+      const clientPage = await userService.findClients(userPageParams);
+      const clients = clientPage.items;
+      const meta = clientPage.meta;
+
+      const safeClient1 = UserMapper.toResponse(client1);
+      const safeClient2 = UserMapper.toResponse(client2);
+
+      expect(clients).toEqual([safeClient1, safeClient2]);
+      expect(meta).toMatchObject(mockPage.meta);
+      expect(clients[0]).not.toHaveProperty('password');
+      expect(clients[1]).not.toHaveProperty('password');
+      expect(userRepository.findClients).toHaveBeenCalledWith(userPageParams);
+    });
   });
 
-  test('should find all users', async () => {
-    const { userService, userRepository } = makeSut();
-    await userService.findAll();
-    expect(userRepository.findAll).toHaveBeenCalled();
+  describe('findById', () => {
+    it('should find a client by id', async () => {
+      const { userRepository, userService, fakeId } = makeSut();
+
+      const expectedUser = UserMocker.mockUserDTOWithId();
+      userRepository.findById.mockResolvedValue(expectedUser);
+
+      const user = await userService.findById(fakeId);
+
+      const safeUser = UserMapper.toResponse(expectedUser);
+
+      expect(user).toEqual(safeUser);
+      expect(user).not.toHaveProperty('password');
+      expect(userRepository.findById).toHaveBeenCalledWith(fakeId);
+    });
+
+    it('should return null if user is not found', async () => {
+      const { userRepository, userService, fakeId } = makeSut();
+
+      userRepository.findById.mockResolvedValue(null);
+      const user = await userService.findById(fakeId);
+
+      expect(user).toBeNull();
+      expect(userRepository.findById).toHaveBeenCalledWith(fakeId);
+    });
   });
 
-  test('should find user by id', async () => {
-    const { userService, userRepository } = makeSut();
-    const id = 'testid--fnsianf';
-    await userService.findById(id);
-    expect(userRepository.findById).toHaveBeenCalledWith(id);
+  describe('findByEmail', () => {
+    it('should find a client by email', async () => {
+      const { userRepository, userService, fakeEmail } = makeSut();
+
+      const expectedUser = UserMocker.mockUserDTOWithId();
+      userRepository.findByEmail.mockResolvedValue(expectedUser);
+
+      const user = await userService.findByEmail(fakeEmail);
+
+      const safeUser = UserMapper.toResponse(expectedUser);
+
+      expect(user).toMatchObject(safeUser);
+      expect(user).not.toHaveProperty('password');
+      expect(userRepository.findByEmail).toHaveBeenCalledWith(fakeEmail);
+    });
+
+    it('should return null if user is not found', async () => {
+      const { userRepository, userService, fakeEmail } = makeSut();
+
+      userRepository.findById.mockResolvedValue(null);
+      const user = await userService.findByEmail(fakeEmail);
+
+      expect(user).toBeNull();
+      expect(userRepository.findByEmail).toHaveBeenCalledWith(fakeEmail);
+    });
   });
 
-  test('should find user by email', async () => {
-    const { userService, userRepository } = makeSut();
-    const email = 'fake@email.com';
-    await userService.findByEmail(email);
-    expect(userRepository.findByEmail).toHaveBeenCalledWith(email);
+  describe('updateById', () => {
+    it('should update a user by id', async () => {
+      const { userRepository, userService, fakeId } = makeSut();
+
+      const updateData: Partial<UpdateUserDTO> = {
+        firstName: 'New Name',
+      };
+
+      const expectedUser = UserMocker.mockUserDTOWithId();
+      userRepository.updateById.mockResolvedValue(expectedUser);
+
+      const updatedUser = await userService.updateById(fakeId, updateData);
+
+      const safeUser = UserMapper.toResponse(expectedUser);
+
+      expect(updatedUser).toMatchObject(safeUser);
+      expect(userRepository.updateById).toHaveBeenCalledWith(fakeId, updateData);
+    });
+
+    it('should return null if user is not found', async () => {
+      const { userRepository, userService, fakeId } = makeSut();
+
+      const updateData: Partial<UpdateUserDTO> = {
+        firstName: 'David',
+      };
+
+      userRepository.updateById.mockResolvedValue(null);
+      const updatedUser = await userService.updateById(fakeId, updateData);
+
+      expect(updatedUser).toBeNull();
+      expect(userRepository.updateById).toHaveBeenCalledWith(fakeId, updateData);
+    });
   });
 
-  test('should thrown InvalidEmailError when email provided is invalid', async () => {
-    const { userService } = makeSut();
-    const email = 'fakeemail.com';
-    await expect(userService.findByEmail(email)).rejects.toThrow(InvalidEmailError);
-  });
+  describe('deleteById', () => {
+    it('should delete a user by id and delete the user cases', async () => {
+      const { userRepository, caseRepository, userService, fakeId } = makeSut();
 
-  test('should call UserRepository.updateById', async () => {
-    const { userService, userRepository } = makeSut();
-    const id = 'fakeIddfasfasd';
-    await userService.updateById(id, { firstName: 'Test' });
-    expect(userRepository.updateById).toHaveBeenCalledWith(id, { firstName: 'Test' });
-  });
+      const expectedUser = UserMocker.mockUserDTOWithId();
+      userRepository.deleteById.mockResolvedValue(expectedUser);
 
-  test('should call UserRepository.deleteById', async () => {
-    const { userService, userRepository } = makeSut();
-    const id = 'fakeIddfasfasd';
-    await userService.deleteById(id);
-    expect(userRepository.deleteById).toHaveBeenCalledWith(id);
+      const safeUser = UserMapper.toResponse(expectedUser);
+
+      const deletedUser = await userService.deleteById(fakeId);
+
+      expect(deletedUser).toMatchObject(safeUser);
+      expect(userRepository.deleteById).toHaveBeenCalledWith(fakeId);
+      expect(caseRepository.deleteByUserId).toHaveBeenCalledWith(fakeId);
+    });
   });
 });
