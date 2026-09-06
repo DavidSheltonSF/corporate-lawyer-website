@@ -1,4 +1,4 @@
-import { describe, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { isValidDateString } from './isValidDateString';
 
 describe(`Testing ${isValidDateString.name}`, () => {

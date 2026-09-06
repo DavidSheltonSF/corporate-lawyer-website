@@ -1,4 +1,4 @@
-import { describe, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { InvalidUserRoleError } from '../../../errors/domain/InvalidUserRoleError';
 import { getThrownError } from '../../../tests/helpers/getThrownError';
 import { validateUserRole } from './validateUserRole';

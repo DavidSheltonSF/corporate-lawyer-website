@@ -1,4 +1,4 @@
-import { describe, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { InvalidEmailError } from '../../../errors/domain/InvalidEmailError';
 import { getThrownError } from '../../../tests/helpers/getThrownError';
 import { validateEmail } from './validateEmail';

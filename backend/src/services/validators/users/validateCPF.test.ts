@@ -1,4 +1,4 @@
-import { describe, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { InvalidCPFError } from '../../../errors/domain/InvalidCPFError';
 import { getThrownError } from '../../../tests/helpers/getThrownError';
 import { validateCPF } from './validateCPF';
