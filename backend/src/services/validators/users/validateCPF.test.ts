@@ -1,9 +1,10 @@
+import { describe, it } from 'vitest';
 import { InvalidCPFError } from '../../../errors/domain/InvalidCPFError';
 import { getThrownError } from '../../../tests/helpers/getThrownError';
 import { validateCPF } from './validateCPF';
 
 describe(`Testing ${validateCPF.name}`, () => {
-  test('should not throw error when user CPF is valid', () => {
+  it('should not throw error when user CPF is valid', () => {
     const thrownError1 = getThrownError(() => validateCPF('158.555.555-88'));
     const thrownError2 = getThrownError(() => validateCPF('15855555588'));
     const thrownError3 = getThrownError(() => validateCPF('00288544788'));
@@ -12,7 +13,7 @@ describe(`Testing ${validateCPF.name}`, () => {
     expect(thrownError3).toBeNull();
   });
 
-  test('should throw InvalidCPFError if cpf provided is invalid', () => {
+  it('should throw InvalidCPFError if cpf provided is invalid', () => {
     const thrownError1 = getThrownError(() => validateCPF('jo.com'));
     const thrownError2 = getThrownError(() => validateCPF('5588844478'));
     const thrownError3 = getThrownError(() => validateCPF('111.558.777.77'));

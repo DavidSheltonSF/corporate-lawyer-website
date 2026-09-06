@@ -1,9 +1,10 @@
+import { describe, it } from 'vitest';
 import { InvalidEmailError } from '../../../errors/domain/InvalidEmailError';
 import { getThrownError } from '../../../tests/helpers/getThrownError';
 import { validateEmail } from './validateEmail';
 
 describe(`Testing ${validateEmail.name}`, () => {
-  test('should not throw error when user email is valid', () => {
+  it('should not throw error when user email is valid', () => {
     const thrownError1 = getThrownError(() => validateEmail('fulano@email.com'));
     const thrownError2 = getThrownError(() => validateEmail('beltrano22@email.org'));
     const thrownError3 = getThrownError(() => validateEmail('test888@email.com'));
@@ -12,7 +13,7 @@ describe(`Testing ${validateEmail.name}`, () => {
     expect(thrownError3).toBeNull();
   });
 
-  test('should throw InvalidEmailError if email provided is invalid', () => {
+  it('should throw InvalidEmailError if email provided is invalid', () => {
     const thrownError1 = getThrownError(() => validateEmail('jo.com'));
     const thrownError2 = getThrownError(() => validateEmail('vrauzera@email'));
     const thrownError3 = getThrownError(() => validateEmail('teste@.com'));

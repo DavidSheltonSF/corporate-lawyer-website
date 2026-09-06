@@ -1,9 +1,10 @@
+import { describe, it } from "vitest";
 import { InvalidPasswordError } from "../../../errors/domain/InvalidPasswordError";
 import { getThrownError } from "../../../tests/helpers/getThrownError";
 import { validatePassword } from './validatePassword';
 
 describe(`Testing ${validatePassword.name}`, () => {
-  test('should not throw error when password is valid', () => {
+  it('should not throw error when password is valid', () => {
     const thrownError1 = getThrownError(() => validatePassword('Mauro#123'));
     const thrownError2 = getThrownError(() => validatePassword('Vigo@123'));
     const thrownError3 = getThrownError(() => validatePassword('Tamiriocho123!'));
@@ -12,7 +13,7 @@ describe(`Testing ${validatePassword.name}`, () => {
     expect(thrownError3).toBeNull();
   });
 
-  test('should throw InvalidPasswordError if role provided is invalid', () => {
+  it('should throw InvalidPasswordError if role provided is invalid', () => {
     const thrownError1 = getThrownError(() => validatePassword('mario010203'));
     const thrownError2 = getThrownError(() => validatePassword('Tamiriocho123515160'));
     const thrownError3 = getThrownError(() => validatePassword('##Gdagnuenskalgafga'));
