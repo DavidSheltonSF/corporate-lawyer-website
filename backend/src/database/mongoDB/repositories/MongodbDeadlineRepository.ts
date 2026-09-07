@@ -16,8 +16,8 @@ export class MongodbDeadlineRepository implements DeadlineRepository {
   ): Promise<WithId<DeadlineDTO>> {
     const deadline = await DeadlineModel.create({
       ...data,
-      startDate: startDate.toString(),
-      dueDate: dueDate.toString(),
+      startDate: startDate,
+      dueDate: dueDate,
       caseLocation,
     });
     return DeadlineMapper.persistenceToPresentation(deadline);
