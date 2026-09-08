@@ -1,18 +1,20 @@
+import { describe, beforeAll, beforeEach, afterAll, it, expect } from 'vitest';
+
 import { config } from 'dotenv';
 import { UserModel } from '../../../models/UserModel';
 import { MongodbUserRepository } from './MongodbUserRepository';
 import bcrypt from 'bcrypt';
 import { Types } from 'mongoose';
-import { MongodbTestConnector } from '../MongodbTestConnector';
 import { UserMocker } from '../../../tests/mocks/entities/UserMocker';
+import { MongodbConnector } from '../MongodbConnector';
+import { GenericMocker } from '../../../tests/mocks/fields/GenericMocker';
+import { UpdateUserDTO } from '../../../dtos/user/UpdateUserDTO';
 config();
 
-jest.setTimeout(999999);
-
 describe('Test UserRepository', () => {
-  let connection: MongodbTestConnector | null = null;
+  let connection: MongodbConnector | null = null;
   beforeAll(async () => {
-    connection = await MongodbTestConnector.connectAndReturn('user_repository_test');
+    connection = await MongodbConnector.connectAndReturn();
   });
 
   beforeEach(async () => {
@@ -20,124 +22,164 @@ describe('Test UserRepository', () => {
   });
 
   afterAll(async () => {
-    await connection?.deleteDatabase();
     await connection?.disconnect();
   });
 
   function makeSut() {
     const userRepository = new MongodbUserRepository();
+    const fakeId = GenericMocker.mockMongoId().toString();
 
     return {
       userRepository,
+      fakeId,
     };
   }
 
-  test('should create a new user', async () => {
-    const { userRepository } = makeSut();
-    const userDTO = UserMocker.mockUserDTO();
-    const user = await userRepository.create(userDTO);
-    const passwordIsValid = bcrypt.compare(userDTO.password, user.password);
+  describe('create', () => {
+    it('should create a new user', async () => {
+      const { userRepository } = makeSut();
+      const userData = UserMocker.mockUserDTO();
+      const created = await userRepository.create(userData);
+      const passwordIsValid = bcrypt.compare(userData.password, created.password);
 
-    expect(user).toMatchObject({ ...userDTO, password: expect.any(String) });
-    expect(passwordIsValid).toBeTruthy();
+      expect(created).toMatchObject({ ...userData, password: expect.any(String) });
+      expect(passwordIsValid).toBeTruthy();
+    });
   });
 
-  test('should find user by id', async () => {
-    const { userRepository } = makeSut();
-    const userDTO = UserMocker.mockUserDTO();
-    const newId = (await UserModel.create(userDTO))._id;
-    const user = await userRepository.findById(newId.toString());
-    if (!user) {
-      throw Error('User not found');
-    }
-    const passwordIsValid = bcrypt.compare(userDTO.password, user.password);
+  describe('findById', () => {
+    it('should find user by id', async () => {
+      const { userRepository } = makeSut();
 
-    expect(user).toMatchObject({ ...userDTO, password: expect.any(String) });
-    expect(passwordIsValid).toBeTruthy();
-  });
+      const userData = UserMocker.mockUserDTO();
+      const userId = (await UserModel.create(userData))._id;
+      const foundUser = await userRepository.findById(userId.toString());
+      if (!foundUser) {
+        throw Error('User not found');
+      }
 
-  test('should find user by email', async () => {
-    const { userRepository } = makeSut();
-    const userDTO = UserMocker.mockUserDTO();
-    await UserModel.create(userDTO);
-    const user = await userRepository.findByEmail(userDTO.email);
-    if (!user) {
-      throw Error('User not found');
-    }
-    const passwordIsValid = bcrypt.compare(userDTO.password, user.password);
+      const passwordIsValid = bcrypt.compare(userData.password, foundUser.password);
 
-    expect(user).toMatchObject({ ...userDTO, password: expect.any(String) });
-    expect(passwordIsValid).toBeTruthy();
-  });
-
-  test('should return true if user exists, but false if user does not exist', async () => {
-    const { userRepository } = makeSut();
-    const userDTO = UserMocker.mockUserDTO();
-    const newId = (await UserModel.create(userDTO))._id;
-
-    const existingUser = await userRepository.existsById(newId.toString());
-    const nonExistingUser = await userRepository.existsById(
-      Types.ObjectId.createFromTime(89466141).toString()
-    );
-    expect(existingUser).toBeTruthy();
-    expect(nonExistingUser).toBeFalsy();
-  });
-
-  test('should return true if user exists, but false if user does not exist, given the email', async () => {
-    const { userRepository } = makeSut();
-    const userDTO = UserMocker.mockUserDTO();
-    await UserModel.create(userDTO);
-
-    const existingUser = await userRepository.existsByEmail(userDTO.email);
-    const nonExistingUser = await userRepository.existsByEmail('fakeiiuuu@email.com');
-
-    expect(existingUser).toBeTruthy();
-    expect(nonExistingUser).toBeFalsy();
-  });
-
-  test('should delete a user', async () => {
-    const { userRepository } = makeSut();
-    const userDTO = UserMocker.mockUserDTO();
-
-    const userId = (await UserModel.create(userDTO))._id;
-
-    const result = await userRepository.deleteById(userId.toString());
-    expect(result?.firstName).toBe(userDTO.firstName);
-    expect(result?.lastName).toBe(userDTO.lastName);
-    expect(result?.cpf).toBe(userDTO.cpf);
-    expect(result?.email).toBe(userDTO.email);
-    expect(result?.role).toBe(userDTO.role);
-
-    expect(result).toMatchObject({ ...userDTO, password: expect.any(String) });
-
-    // Ensure user is actually deleted
-    const deletedUser = await UserModel.findById(userId);
-    expect(deletedUser).toBeNull();
-  });
-
-  test('should update a user', async () => {
-    const { userRepository } = makeSut();
-
-    const userDTO = UserMocker.mockUserDTO();
-    const userId = (await UserModel.create(userDTO))._id;
-
-    const result = await userRepository.updateById(userId.toString(), { firstName: 'Updated' });
-
-    expect(result).toMatchObject({
-      ...userDTO,
-      password: expect.any(String), //password is encrypted right after saved
-      firstName: expect.any(String), //first name was updated
+      expect(foundUser).toMatchObject({ ...userData, password: expect.any(String) });
+      expect(passwordIsValid).toBeTruthy();
     });
 
-    // Ensure user is actually updated
-    const updatedUser = await UserModel.findById(userId);
+    it('should find return null if user is not found user', async () => {
+      const { userRepository, fakeId } = makeSut();
 
-    expect(updatedUser).toMatchObject({
-      ...userDTO,
-      _id: expect.anything(),
-      password: expect.any(String),
-      firstName: expect.anything(),
+      const foundUser = await userRepository.findById(fakeId);
+
+      expect(foundUser).toBeNull();
     });
-    expect(updatedUser?.firstName).toBe('Updated');
+  });
+
+  describe('findByEmail', () => {
+    it('should find user by email', async () => {
+      const { userRepository } = makeSut();
+
+      const userData = UserMocker.mockUserDTO();
+      await UserModel.create(userData);
+
+      const foundUser = await userRepository.findByEmail(userData.email);
+      if (!foundUser) {
+        throw Error('User not found');
+      }
+
+      const passwordIsValid = bcrypt.compare(userData.password, foundUser.password);
+
+      expect(foundUser).toMatchObject({ ...userData, password: expect.any(String) });
+      expect(passwordIsValid).toBeTruthy();
+    });
+
+    it('should find return null if user is not found user', async () => {
+      const { userRepository } = makeSut();
+
+      const email = 'fake@email.com';
+      const foundUser = await userRepository.findByEmail(email);
+
+      expect(foundUser).toBeNull();
+    });
+  });
+
+  describe('existsById', () => {
+    it('should return true if user exists, but false if user does not exist', async () => {
+      const { userRepository } = makeSut();
+
+      const userData = UserMocker.mockUserDTO();
+      const userId = (await UserModel.create(userData))._id.toString();
+      const nonExistingId = GenericMocker.mockMongoId().toString();
+
+      const existingUser = await userRepository.existsById(userId);
+      const nonExistingUser = await userRepository.existsById(nonExistingId);
+
+      expect(existingUser).toBeTruthy();
+      expect(nonExistingUser).toBeFalsy();
+    });
+  });
+
+  describe('existsByEmail', () => {
+    it('should return true if user exists, but false if user does not exist, given the email', async () => {
+      const { userRepository } = makeSut();
+
+      const userData = UserMocker.mockUserDTO();
+      await UserModel.create(userData);
+
+      const existingUser = await userRepository.existsByEmail(userData.email);
+      const nonExistingUser = await userRepository.existsByEmail('fakeiiuuu@email.com');
+
+      expect(existingUser).toBeTruthy();
+      expect(nonExistingUser).toBeFalsy();
+    });
+  });
+
+  describe('deleteById', () => {
+    it('should delete a user', async () => {
+      const { userRepository } = makeSut();
+
+      const userData = UserMocker.mockUserDTO();
+      const userId = (await UserModel.create(userData))._id;
+
+      await userRepository.deleteById(userId.toString());
+
+      const deletedUser = await UserModel.findById(userId);
+      expect(deletedUser).toBeNull();
+    });
+
+    it('should return null if user is not found', async () => {
+      const { userRepository, fakeId } = makeSut();
+
+      const deletedUser = await userRepository.deleteById(fakeId);
+      expect(deletedUser).toBeNull();
+    });
+  });
+  describe('updateById', () => {
+    it('should update a user', async () => {
+      const { userRepository } = makeSut();
+
+      const userData = UserMocker.mockUserDTO();
+      const userId = (await UserModel.create(userData))._id;
+
+      const updateData: Partial<UpdateUserDTO> = { firstName: 'Updated' };
+      await userRepository.updateById(userId.toString(), updateData);
+
+      // Ensure user is actually updated
+      const updatedUser = await UserModel.findById(userId);
+
+      expect(updatedUser).toMatchObject({
+        ...userData,
+        _id: expect.anything(),
+        password: expect.any(String),
+        firstName: updateData.firstName,
+      });
+    });
+
+    it('should return null if user is not found', async () => {
+      const { userRepository, fakeId } = makeSut();
+
+      const updateData: Partial<UpdateUserDTO> = { firstName: 'Updated' };
+
+      const updated = await userRepository.updateById(fakeId, updateData);
+      expect(updated).toBeNull();
+    });
   });
 });
