@@ -1,6 +1,5 @@
 import { config } from 'dotenv';
 import { MongodbCaseRepository } from './MongodbCaseRepository';
-import { CaseModel } from '../../../models/CaseModel';
 import { CasesStatus } from '../../../types/CasesStatus';
 import { UserRole } from '../../../types/UserRole';
 import { Types } from 'mongoose';
@@ -13,12 +12,15 @@ import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { WithId } from '../../../types/WithId';
 import { UserSlice } from '../../../types/UserSlice';
 import { GenericMocker } from '../../../tests/mocks/fields/GenericMocker';
+import { MongodbTestConnector } from '../MongodbTestConnector';
+import { CaseModel } from '../../../models/CaseModel';
 config();
 
 describe('Test CaseRepository', () => {
-  let connection: MongodbConnector | null = null;
+  let connection: MongodbTestConnector | null = null;
+
   beforeAll(async () => {
-    connection = await MongodbConnector.connectAndReturn();
+    connection = await MongodbTestConnector.connectAndReturn(MongodbCaseRepository.name);
   });
 
   beforeEach(async () => {
@@ -27,6 +29,7 @@ describe('Test CaseRepository', () => {
   });
 
   afterAll(async () => {
+    await connection?.deleteDatabase();
     await connection?.disconnect();
   });
 
@@ -259,15 +262,14 @@ describe('Test CaseRepository', () => {
   describe('getStats', () => {
     it('should return the global case statistics', async () => {
       const { caseRepository } = await makeSut();
-    
-      const expectedStatistics = {open: 0, closed: 0};
+
+      const expectedStatistics = { open: 0, closed: 0 };
 
       const stats = await caseRepository.getStats();
 
-      expect(stats).toMatchObject(expectedStatistics)
+      expect(stats).toMatchObject(expectedStatistics);
     });
   });
-
 
   describe('getStatsByClientId', () => {
     it('should return the case statistics by client id', async () => {
@@ -308,8 +310,8 @@ describe('Test CaseRepository', () => {
 
       expect(findCaseResult).toBeNull();
     });
-  })
-  
+  });
+
   describe('deleteByUserId', () => {
     it('should delete a case from the database', async () => {
       const { caseRepository, clientId, lawyerId } = await makeSut();
