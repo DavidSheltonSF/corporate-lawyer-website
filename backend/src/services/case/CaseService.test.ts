@@ -133,8 +133,6 @@ describe(`Test ${CaseService.name}`, () => {
 
       const cas = await caseService.findById(fakeId, true);
 
-      console.log(cas);
-
       expect(cas).toMatchObject(expectedCase);
       expect(caseRepository.findPopulatedById).toHaveBeenCalledWith(fakeId);
     });
