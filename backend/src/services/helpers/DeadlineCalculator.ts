@@ -83,7 +83,7 @@ export class DeadlineCalculator {
 
   getRemainingDays(dueDate: Date): number {
     let current = new Date();
-    current.setHours(0, 0, 0, 0); //normalize hours
+    current.setHours(23, 59, 59, 999); //the current day isn't included
 
     let targetDate = new Date(dueDate);
     targetDate.setHours(23, 59, 59, 999); // the deadline ends in the end of the day
