@@ -6,7 +6,6 @@ import { FileMocker } from '../../../tests/mocks/entities/FileMocker';
 import { GenericMocker } from '../../../tests/mocks/fields/GenericMocker';
 import { UserMocker } from '../../../tests/mocks/entities/UserMocker';
 import { UserModel } from '../../../models/UserModel';
-import { UserRole } from '../../../types/UserRole';
 
 describe(`Test ${MongodbFileRepository.name}`, () => {
   let connection: MongodbConnector | null;
