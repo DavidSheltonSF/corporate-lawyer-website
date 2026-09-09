@@ -6,15 +6,15 @@ import { MongodbUserRepository } from './MongodbUserRepository';
 import bcrypt from 'bcrypt';
 import { Types } from 'mongoose';
 import { UserMocker } from '../../../tests/mocks/entities/UserMocker';
-import { MongodbConnector } from '../MongodbConnector';
 import { GenericMocker } from '../../../tests/mocks/fields/GenericMocker';
 import { UpdateUserDTO } from '../../../dtos/user/UpdateUserDTO';
+import { MongodbTestConnector } from '../MongodbTestConnector';
 config();
 
 describe('Test UserRepository', () => {
-  let connection: MongodbConnector | null = null;
+  let connection: MongodbTestConnector | null = null;
   beforeAll(async () => {
-    connection = await MongodbConnector.connectAndReturn();
+    connection = await MongodbTestConnector.connectAndReturn(MongodbUserRepository.name);
   });
 
   beforeEach(async () => {
@@ -22,6 +22,7 @@ describe('Test UserRepository', () => {
   });
 
   afterAll(async () => {
+    await connection?.deleteDatabase();
     await connection?.disconnect();
   });
 
