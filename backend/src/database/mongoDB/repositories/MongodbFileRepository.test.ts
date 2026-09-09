@@ -1,16 +1,16 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { MongodbFileRepository } from './MongodbFileRepository';
-import { MongodbConnector } from '../MongodbConnector';
 import { FileModel } from '../../../models/FileModel';
 import { FileMocker } from '../../../tests/mocks/entities/FileMocker';
 import { GenericMocker } from '../../../tests/mocks/fields/GenericMocker';
 import { UserMocker } from '../../../tests/mocks/entities/UserMocker';
 import { UserModel } from '../../../models/UserModel';
+import { MongodbTestConnector } from '../MongodbTestConnector';
 
 describe(`Test ${MongodbFileRepository.name}`, () => {
-  let connection: MongodbConnector | null;
+  let connection: MongodbTestConnector | null;
   beforeAll(async () => {
-    connection = await MongodbConnector.connectAndReturn();
+    connection = await MongodbTestConnector.connectAndReturn(MongodbFileRepository.name);
   });
 
   beforeEach(async () => {
@@ -18,6 +18,7 @@ describe(`Test ${MongodbFileRepository.name}`, () => {
   });
 
   afterAll(async () => {
+    connection?.deleteDatabase();
     connection?.disconnect();
   });
 
