@@ -2,13 +2,13 @@ import { describe, beforeAll, beforeEach, afterAll, it, expect } from 'vitest';
 import { NotificationModel } from '../../../models/NotificationModel';
 import { NotificationMocker } from '../../../tests/mocks/entities/NotificationMocker';
 import { GenericMocker } from '../../../tests/mocks/fields/GenericMocker';
-import { MongodbConnector } from '../MongodbConnector';
 import { MongodbNotificationRepository } from './MongodbNotificationRepository';
+import { MongodbTestConnector } from '../MongodbTestConnector';
 
 describe(`Testing ${MongodbNotificationRepository.name}`, () => {
-  let connection: MongodbConnector | null = null;
+  let connection: MongodbTestConnector | null = null;
   beforeAll(async () => {
-    connection = await MongodbConnector.connectAndReturn();
+    connection = await MongodbTestConnector.connectAndReturn(MongodbNotificationRepository.name);
   });
 
   beforeEach(async () => {
@@ -16,6 +16,7 @@ describe(`Testing ${MongodbNotificationRepository.name}`, () => {
   });
 
   afterAll(async () => {
+    await connection?.deleteDatabase();
     await connection?.disconnect();
   });
 
