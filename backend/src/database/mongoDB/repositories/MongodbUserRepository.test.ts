@@ -1,10 +1,8 @@
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from 'vitest';
-
 import { config } from 'dotenv';
 import { UserModel } from '../../../models/UserModel';
 import { MongodbUserRepository } from './MongodbUserRepository';
 import bcrypt from 'bcrypt';
-import { Types } from 'mongoose';
 import { UserMocker } from '../../../tests/mocks/entities/UserMocker';
 import { GenericMocker } from '../../../tests/mocks/fields/GenericMocker';
 import { UpdateUserDTO } from '../../../dtos/user/UpdateUserDTO';
