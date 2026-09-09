@@ -162,7 +162,19 @@ describe(`Testing ${DeadlineCalculator.name}`, () => {
     it('should return the remaining days properly given a dueDate, considering only business days', () => {
       const { deadlineCalculator } = makeSut();
 
-      const dueDate = createDate(2026, 9, 12);
+      const today = new Date();
+      const normalizedToday = createDate(
+        today.getFullYear(),
+        today.getMonth() + 1,
+        today.getDate()
+      );
+
+      const dueDate = createDate(
+        normalizedToday.getFullYear(),
+        normalizedToday.getMonth() + 1,
+        normalizedToday.getDate()
+      );
+      dueDate.setDate(dueDate.getDate() + 7);
       const expectedRemainingDays = 7;
 
       const remainingDays = deadlineCalculator.getRemainingDays(dueDate);
