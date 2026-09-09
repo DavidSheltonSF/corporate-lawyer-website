@@ -30,6 +30,7 @@ export class MongodbConnector {
       if (!this.connection) return;
       await this.connection.close();
       this.connection = null;
+      MongodbConnector.instance = null;
     } catch (error) {
       console.log(error);
     }
