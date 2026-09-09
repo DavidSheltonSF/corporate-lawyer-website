@@ -4,18 +4,18 @@ import { DeadlineType } from '../../../types/DeadLineType';
 import { DeadlinePriority } from '../../../types/DeadLinePriority';
 import { DeadlineMocker } from '../../../tests/mocks/entities/DeadlineMocker';
 import { DeadlineStatus } from '../../../types/DeadLineStatus';
-import { MongodbConnector } from '../MongodbConnector';
 import { CaseLocationDTO } from '../../../dtos/case/CaseLocationDTO';
 import { BrazilState } from '../../../types/BrazilState';
 import { City } from '../../../types/City';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { GenericMocker } from '../../../tests/mocks/fields/GenericMocker';
 import { toDateOnlyString } from '../../../utils/toDateOnly';
+import { MongodbTestConnector } from '../MongodbTestConnector';
 
 describe('Test DeadlineRepository', () => {
-  let connection: MongodbConnector | null = null;
+  let connection: MongodbTestConnector | null = null;
   beforeAll(async () => {
-    connection = await MongodbConnector.connectAndReturn();
+    connection = await MongodbTestConnector.connectAndReturn(MongodbDeadlineRepository.name);
   });
 
   beforeEach(async () => {
@@ -23,6 +23,7 @@ describe('Test DeadlineRepository', () => {
   });
 
   afterAll(async () => {
+    await connection?.deleteDatabase();
     await connection?.disconnect();
   });
 
