@@ -18,8 +18,8 @@ describe(`Test ${MongodbFileRepository.name}`, () => {
   });
 
   afterAll(async () => {
-    connection?.deleteDatabase();
-    connection?.disconnect();
+    await connection?.deleteDatabase();
+    await connection?.disconnect();
   });
 
   async function makeSut() {
