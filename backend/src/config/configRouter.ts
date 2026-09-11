@@ -21,7 +21,7 @@ export function configRouter(app: Application) {
   const caseController = makeCaseController();
   const userController = makeUserController(userService);
   const notificationController = makeNotificationController();
-  const deadlineController = makeDeadlineController(userService);
+  const deadlineController = makeDeadlineController();
   const fileController = makeFileController();
   const requireUser = makeRequireUser(userService);
 
