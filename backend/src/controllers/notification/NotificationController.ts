@@ -4,6 +4,7 @@ import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFa
 import { HttpRequest } from '../types/HttpRequest.js';
 import { NotFoundError } from '../../errors/presentation/NotFoundError.js';
 import { BadRequestError } from '../../errors/presentation/BadRequestError.js';
+import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError.js';
 
 export class NotificationController implements INotificationsController {
   constructor(private notificationService: INotificationService) {}
@@ -23,7 +24,7 @@ export class NotificationController implements INotificationsController {
   findMy = async (httpRequest: HttpRequest) => {
     const authUser = httpRequest.user;
     if (!authUser) {
-      throw Error('User credentials were not provided, use the requireAuth middleware');
+      throw new MissingAuthenticatedUserError();
     }
 
     const { page = 1, limit = 5 } = httpRequest.query;
