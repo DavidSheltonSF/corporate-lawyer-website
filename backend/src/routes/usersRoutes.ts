@@ -1,8 +1,8 @@
 import { RequestHandler, Router } from 'express';
-import { IUserController } from '../controllers/user/IUserController';
-import { expressHttpAdapter } from './adapters/expressHttpAdapter';
-import { requireAuth } from '../middlewares/requireAuth';
-import { requireLawyer } from '../middlewares/requireLawyer';
+import { IUserController } from '../controllers/user/IUserController.js';
+import { expressHttpAdapter } from './adapters/expressHttpAdapter.js';
+import { requireAuth } from '../middlewares/requireAuth.js';
+import { requireLawyer } from '../middlewares/requireLawyer.js';
 
 export function usersRoutes(
   router: Router,

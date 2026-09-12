@@ -1,10 +1,10 @@
-import { CreateNotificationDTO } from '../../../dtos/notification/CreateNotificationDTO';
-import { NotificationDTO } from '../../../dtos/notification/NotificationDTO';
-import { NotificationChannel } from '../../../types/NotificationChannel';
-import { NotificationType } from '../../../types/NotificationType';
-import { WithId } from '../../../types/WithId';
-import { GenericMocker } from '../fields/GenericMocker';
-import { NotificationFieldsMocker } from '../fields/NotificationFieldsMoker';
+import { CreateNotificationDTO } from '../../../dtos/notification/CreateNotificationDTO.js';
+import { NotificationDTO } from '../../../dtos/notification/NotificationDTO.js';
+import { NotificationChannel } from '../../../types/NotificationChannel.js';
+import { NotificationType } from '../../../types/NotificationType.js';
+import { WithId } from '../../../types/WithId.js';
+import { GenericMocker } from '../fields/GenericMocker.js';
+import { NotificationFieldsMocker } from '../fields/NotificationFieldsMoker.js';
 
 export class NotificationMocker {
   static mockCreateNotificationDTO(): CreateNotificationDTO {

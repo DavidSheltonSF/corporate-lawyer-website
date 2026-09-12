@@ -1,5 +1,5 @@
-import { InvalidCityError } from '../../errors/domain/InvalidCityError';
-import { City } from '../../types/City';
+import { InvalidCityError } from '../../errors/domain/InvalidCityError.js';
+import { City } from '../../types/City.js';
 
 export function getCity(city: string): City {
   switch (city) {

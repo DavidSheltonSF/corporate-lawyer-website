@@ -1,4 +1,4 @@
-import { InvalidDateError } from '../../errors/domain/InvalidDateError';
+import { InvalidDateError } from '../../errors/domain/InvalidDateError.js';
 
 export function isValidDateString(dateString: string): boolean {
   const formattedDate = dateString.split('T')[0] as string;

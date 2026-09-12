@@ -1,12 +1,12 @@
-import { IUserService } from '../../services/user/IUserService';
-import { IUserController } from './IUserController';
-import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
-import { HttpRequest } from '../types/HttpRequest';
-import { NotFoundError } from '../../errors/presentation/NotFoundError';
-import { BadRequestError } from '../../errors/presentation/BadRequestError';
-import { checkMissingFields } from '../../utils/checkMissingFields';
-import { requireBody } from '../helpers/requireBody';
-import { getPagination } from '../helpers/getPagination';
+import { IUserService } from '../../services/user/IUserService.js';
+import { IUserController } from './IUserController.js';
+import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory.js';
+import { HttpRequest } from '../types/HttpRequest.js';
+import { NotFoundError } from '../../errors/presentation/NotFoundError.js';
+import { BadRequestError } from '../../errors/presentation/BadRequestError.js';
+import { checkMissingFields } from '../../utils/checkMissingFields.js';
+import { requireBody } from '../helpers/requireBody.js';
+import { getPagination } from '../helpers/getPagination.js';
 
 export class UserController implements IUserController {
   constructor(private userService: IUserService) {}

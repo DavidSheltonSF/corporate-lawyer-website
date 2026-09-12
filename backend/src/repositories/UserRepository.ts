@@ -1,8 +1,8 @@
-import { UpdateUserDTO } from '../dtos/user/UpdateUserDTO';
-import { UserDTO } from '../dtos/user/UserDTO';
-import { Page } from '../types/Page';
-import { UserQuery } from '../types/UserQuery';
-import { WithId } from '../types/WithId';
+import { UpdateUserDTO } from '../dtos/user/UpdateUserDTO.js';
+import { UserDTO } from '../dtos/user/UserDTO.js';
+import { Page } from '../types/Page.js';
+import { UserQuery } from '../types/UserQuery.js';
+import { WithId } from '../types/WithId.js';
 
 export interface UserRepository {
   create(user: UserDTO): Promise<WithId<UserDTO>>;

@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { DeadlineService } from './DeadlineService';
-import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
-import { createMockDeadlineRepository } from '../../tests/mocks/repositories/createMockDeadlineRepository';
-import { BrazilHolidaysProvider } from '../BrazilHolidaysProvider';
-import { DeadlineMocker } from '../../tests/mocks/entities/DeadlineMocker';
-import { UpdateDeadlineDTO } from '../../dtos/deadLine/UpdateDeadlineDTO';
-import { ValidationError } from '../../errors/presentation/ValidationError';
+import { DeadlineService } from './DeadlineService.js';
+import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository.js';
+import { createMockDeadlineRepository } from '../../tests/mocks/repositories/createMockDeadlineRepository.js';
+import { BrazilHolidaysProvider } from '../BrazilHolidaysProvider.js';
+import { DeadlineMocker } from '../../tests/mocks/entities/DeadlineMocker.js';
+import { UpdateDeadlineDTO } from '../../dtos/deadLine/UpdateDeadlineDTO.js';
+import { ValidationError } from '../../errors/presentation/ValidationError.js';
 
 describe(`Test ${DeadlineService.name}`, () => {
   function makeSut() {

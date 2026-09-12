@@ -1,4 +1,4 @@
-import { HttpRequest } from '../../controllers/types/HttpRequest';
+import { HttpRequest } from '../../controllers/types/HttpRequest.js';
 
 export function createMockHttpRequest(overrides: HttpRequest = {}): HttpRequest {
   return {

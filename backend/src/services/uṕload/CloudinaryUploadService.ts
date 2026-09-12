@@ -1,5 +1,5 @@
-import cloudinary from '../../config/cloudinary';
-import { UploadResult, UploadService } from './UploadService';
+import cloudinary from '../../config/cloudinary.js';
+import { UploadResult, UploadService } from './UploadService.js';
 
 export class CloudinaryUploadService implements UploadService {
   async upload(buffer: Buffer): Promise<UploadResult> {

@@ -1,5 +1,5 @@
-import { FileDTO } from '../../dtos/caseFile/FileDTO';
-import { WithId } from '../../types/WithId';
+import { FileDTO } from '../../dtos/caseFile/FileDTO.js';
+import { WithId } from '../../types/WithId.js';
 
 export class FileMapper {
   static persistenceToPresentation(caseFile: any): WithId<FileDTO> {

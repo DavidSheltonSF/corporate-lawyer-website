@@ -1,9 +1,9 @@
-import { UserDTO } from '../../../dtos/user/UserDTO';
-import { validateCPF } from './validateCPF';
-import { validateEmail } from './validateEmail';
-import { validatePassword } from './validatePassword';
-import { validateUserName } from './validateUserName';
-import { validateUserRole } from './validateUserRole';
+import { UserDTO } from '../../../dtos/user/UserDTO.js';
+import { validateCPF } from './validateCPF.js';
+import { validateEmail } from './validateEmail.js';
+import { validatePassword } from './validatePassword.js';
+import { validateUserName } from './validateUserName.js';
+import { validateUserRole } from './validateUserRole.js';
 
 export function validateUser(data: UserDTO) {
   const { firstName, lastName, email, cpf, password, role } = data;

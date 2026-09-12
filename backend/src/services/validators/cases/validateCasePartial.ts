@@ -1,9 +1,9 @@
-import { UpdateCaseDTO } from '../../../dtos/case/UpdateCaseDTO';
-import { ValidationError } from '../../../errors/presentation/ValidationError';
-import { CasesStatus } from '../../../types/CasesStatus';
-import { validateCaseStatus } from './validateCaseStatus';
-import { validateCaseTitle } from './validateCaseTitle';
-import { validateProcessNumber } from './validateProcessNumber';
+import { UpdateCaseDTO } from '../../../dtos/case/UpdateCaseDTO.js';
+import { ValidationError } from '../../../errors/presentation/ValidationError.js';
+import { CasesStatus } from '../../../types/CasesStatus.js';
+import { validateCaseStatus } from './validateCaseStatus.js';
+import { validateCaseTitle } from './validateCaseTitle.js';
+import { validateProcessNumber } from './validateProcessNumber.js';
 
 export function validateCasePartial(data: UpdateCaseDTO) {
   const { title, processNumber, status } = data;

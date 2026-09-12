@@ -1,4 +1,4 @@
-import { BaseHttpError } from './BaseHttpError';
+import { BaseHttpError } from './BaseHttpError.js';
 
 export class UnauthorizedError extends BaseHttpError {
   statusCode = 401;

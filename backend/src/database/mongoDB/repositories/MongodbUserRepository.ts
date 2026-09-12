@@ -1,15 +1,15 @@
-import { UserRepository } from '../../../repositories/UserRepository';
-import { WithId } from '../../../types/WithId';
-import { UserModel } from '../../../models/UserModel';
-import { User } from '../../../entities/User';
-import { UserQuery } from '../../../types/UserQuery';
-import { Page } from '../../../types/Page';
-import { UserRole } from '../../../types/UserRole';
-import { UserMapper } from '../../../mappers/User/UserMapper';
-import { UpdateUserDTO } from '../../../dtos/user/UpdateUserDTO';
-import { UserDTO } from '../../../dtos/user/UserDTO';
-import { CaseMapper } from '../../../mappers/Case/CaseMapper';
-import { CaseModel } from '../../../models/CaseModel';
+import { UserRepository } from '../../../repositories/UserRepository.js';
+import { WithId } from '../../../types/WithId.js';
+import { UserModel } from '../../../models/UserModel.js';
+import { User } from '../../../entities/User.js';
+import { UserQuery } from '../../../types/UserQuery.js';
+import { Page } from '../../../types/Page.js';
+import { UserRole } from '../../../types/UserRole.js';
+import { UserMapper } from '../../../mappers/User/UserMapper.js';
+import { UpdateUserDTO } from '../../../dtos/user/UpdateUserDTO.js';
+import { UserDTO } from '../../../dtos/user/UserDTO.js';
+import { CaseMapper } from '../../../mappers/Case/CaseMapper.js';
+import { CaseModel } from '../../../models/CaseModel.js';
 
 export class MongodbUserRepository implements UserRepository {
   async create(data: UserDTO): Promise<WithId<UserDTO>> {

@@ -1,5 +1,5 @@
-import { DeadlineCountingType } from '../../types/DeadlineCountingType';
-import { DomainError } from './DomainError';
+import { DeadlineCountingType } from '../../types/DeadlineCountingType.js';
+import { DomainError } from './DomainError.js';
 
 export class InvalidDeadlineCountingTypeError extends DomainError {
   constructor(type: string) {

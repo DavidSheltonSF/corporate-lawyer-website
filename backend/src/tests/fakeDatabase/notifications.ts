@@ -1,6 +1,6 @@
 import { Types } from 'mongoose';
-import { NotificationType } from '../../types/NotificationType';
-import { fakeUserDatabase } from './users';
+import { NotificationType } from '../../types/NotificationType.js';
+import { fakeUserDatabase } from './users.js';
 
 export const fakeNotifications = [
   {

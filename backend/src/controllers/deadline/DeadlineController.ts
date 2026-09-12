@@ -1,10 +1,10 @@
-import { IDeadlineService } from '../../services/deadline/IDeadlineService';
-import { IDeadlineController } from './IDeadlineController';
-import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
-import { HttpRequest } from '../types/HttpRequest';
-import { NotFoundError } from '../../errors/presentation/NotFoundError';
-import { BadRequestError } from '../../errors/presentation/BadRequestError';
-import { requireBody } from '../helpers/requireBody';
+import { IDeadlineService } from '../../services/deadline/IDeadlineService.js';
+import { IDeadlineController } from './IDeadlineController.js';
+import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory.js';
+import { HttpRequest } from '../types/HttpRequest.js';
+import { NotFoundError } from '../../errors/presentation/NotFoundError.js';
+import { BadRequestError } from '../../errors/presentation/BadRequestError.js';
+import { requireBody } from '../helpers/requireBody.js';
 
 export class DeadlineController implements IDeadlineController {
   constructor(private deadlineService: IDeadlineService) {}

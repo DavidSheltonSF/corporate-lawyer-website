@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { HttpRequest } from '../../controllers/types/HttpRequest';
-import { HttpResponse } from '../../controllers/types/HttpResponse';
-import { AuthenticatedUser } from '../../types/AuthenticatedUser';
+import { HttpRequest } from '../../controllers/types/HttpRequest.js';
+import { HttpResponse } from '../../controllers/types/HttpResponse.js';
+import { AuthenticatedUser } from '../../types/AuthenticatedUser.js';
 
 export function expressHttpAdapter<T>(
   controllerHandler: (httpRequest: HttpRequest) => Promise<HttpResponse<T>>

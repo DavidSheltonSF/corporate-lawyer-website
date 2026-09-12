@@ -4,8 +4,8 @@ import {
   FindAllResponse,
   FindByIdResponse,
   UpdateByIdResponse,
-} from './responses';
-import { HttpRequest } from '../types/HttpRequest';
+} from './responses.js';
+import { HttpRequest } from '../types/HttpRequest.js';
 
 export interface IDeadlineController {
   create: (httpRequest: HttpRequest) => Promise<CreateResponse>;

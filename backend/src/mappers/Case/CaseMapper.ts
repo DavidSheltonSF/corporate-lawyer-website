@@ -1,6 +1,6 @@
-import { CaseDTO } from '../../dtos/case/CaseDTO';
-import { WithId } from '../../types/WithId';
-import { toUserIdentity } from '../toUserIdentity';
+import { CaseDTO } from '../../dtos/case/CaseDTO.js';
+import { WithId } from '../../types/WithId.js';
+import { toUserIdentity } from '../toUserIdentity.js';
 
 export class CaseMapper {
   static persistenceToPresentation(cas: any, populated: boolean = false): WithId<CaseDTO> {

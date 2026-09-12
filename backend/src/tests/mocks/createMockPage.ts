@@ -1,5 +1,5 @@
-import { Page } from '../../types/Page';
-import { PageParams } from '../../types/PageParams';
+import { Page } from '../../types/Page.js';
+import { PageParams } from '../../types/PageParams.js';
 
 export function createMockPage<T>(items: T[], pageParams: PageParams): Page<T> {
   const { limit, page } = pageParams;

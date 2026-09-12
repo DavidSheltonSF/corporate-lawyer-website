@@ -1,9 +1,9 @@
-import { fakeCases } from './fakeDatabase/cases';
-import { fakeUserDatabase } from './fakeDatabase/users';
-import { CaseModel } from '../models/CaseModel';
-import { UserModel } from '../models/UserModel';
-import { NotificationModel } from '../models/NotificationModel';
-import { fakeNotifications } from './fakeDatabase/notifications';
+import { fakeCases } from './fakeDatabase/cases.js';
+import { fakeUserDatabase } from './fakeDatabase/users.js';
+import { CaseModel } from '../models/CaseModel.js';
+import { UserModel } from '../models/UserModel.js';
+import { NotificationModel } from '../models/NotificationModel.js';
+import { fakeNotifications } from './fakeDatabase/notifications.js';
 
 export async function populateDatabase() {
   await UserModel.create(fakeUserDatabase);

@@ -1,9 +1,9 @@
-import { INotificationService } from '../services/notification/INotificationService';
-import { CaseEvent } from './case/CaseEvents';
-import { IEventBus } from './IEventBus';
-import { NotifyCaseCreatedHandler } from './case/NotifyCaseCreatedHandler';
-import { NotifyCaseUpdatedHandler } from './case/NotifyCaseUpdatedHandler';
-import { NotifyCaseDeletedHandler } from './case/NotifyCaseDeletedHandler';
+import { INotificationService } from '../services/notification/INotificationService.js';
+import { CaseEvent } from './case/CaseEvents.js';
+import { IEventBus } from './IEventBus.js';
+import { NotifyCaseCreatedHandler } from './case/NotifyCaseCreatedHandler.js';
+import { NotifyCaseUpdatedHandler } from './case/NotifyCaseUpdatedHandler.js';
+import { NotifyCaseDeletedHandler } from './case/NotifyCaseDeletedHandler.js';
 
 export function registerCaseEvents(notificationService: INotificationService, eventBus: IEventBus) {
   const events = [

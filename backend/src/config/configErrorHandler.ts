@@ -1,6 +1,6 @@
 import { Application, NextFunction, Request, Response } from 'express';
-import { DomainError } from '../errors/domain/DomainError';
-import { BaseHttpError } from '../errors/presentation/BaseHttpError';
+import { DomainError } from '../errors/domain/DomainError.js';
+import { BaseHttpError } from '../errors/presentation/BaseHttpError.js';
 
 export function configErrorHandler(app: Application) {
   app.use((err: any, req: Request, res: Response, next: NextFunction) => {

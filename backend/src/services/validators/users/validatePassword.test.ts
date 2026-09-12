@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { InvalidPasswordError } from "../../../errors/domain/InvalidPasswordError";
-import { getThrownError } from "../../../tests/helpers/getThrownError";
-import { validatePassword } from './validatePassword';
+import { InvalidPasswordError } from "../../../errors/domain/InvalidPasswordError.js";
+import { getThrownError } from "../../../tests/helpers/getThrownError.js";
+import { validatePassword } from './validatePassword.js';
 
 describe(`Testing ${validatePassword.name}`, () => {
   it('should not throw error when password is valid', () => {

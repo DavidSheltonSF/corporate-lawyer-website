@@ -1,7 +1,7 @@
-import { FileModel } from '../models/FileModel';
-import { CaseModel } from '../models/CaseModel';
-import { NotificationModel } from '../models/NotificationModel';
-import { UserModel } from '../models/UserModel';
+import { FileModel } from '../models/FileModel.js';
+import { CaseModel } from '../models/CaseModel.js';
+import { NotificationModel } from '../models/NotificationModel.js';
+import { UserModel } from '../models/UserModel.js';
 
 export async function cleanDatabase() {
   await UserModel.deleteMany({});

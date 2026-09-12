@@ -1,9 +1,9 @@
 import { type NextFunction, type Request, type Response } from 'express';
 import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
-import { JwtPayload } from '../types/JwtPayload';
+import { JwtPayload } from '../types/JwtPayload.js';
 import dotenv from 'dotenv';
-import { HttpResponseFactory } from '../factories/HttpResponse/HttpResponseFactory';
-import { UnauthorizedError } from '../errors/presentation/UnauthorizedError';
+import { HttpResponseFactory } from '../factories/HttpResponse/HttpResponseFactory.js';
+import { UnauthorizedError } from '../errors/presentation/UnauthorizedError.js';
 
 dotenv.config();
 

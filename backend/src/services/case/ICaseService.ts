@@ -1,9 +1,9 @@
-import { CreateCaseDTO } from '../../dtos/case/CreateCaseDTO';
-import { CaseQuery } from '../../types/CaseQuery';
-import { CasesStats } from '../../types/CasesStats';
-import { Page } from '../../types/Page';
-import { WithId } from '../../types/WithId';
-import { CaseDTO } from '../../dtos/case/CaseDTO';
+import { CreateCaseDTO } from '../../dtos/case/CreateCaseDTO.js';
+import { CaseQuery } from '../../types/CaseQuery.js';
+import { CasesStats } from '../../types/CasesStats.js';
+import { Page } from '../../types/Page.js';
+import { WithId } from '../../types/WithId.js';
+import { CaseDTO } from '../../dtos/case/CaseDTO.js';
 
 export interface ICaseService {
   create(data: CreateCaseDTO): Promise<WithId<CaseDTO>>;

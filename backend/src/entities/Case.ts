@@ -1,4 +1,4 @@
-import { CasesStatus } from '../types/CasesStatus';
+import { CasesStatus } from '../types/CasesStatus.js';
 
 export interface Case {
   client: string;

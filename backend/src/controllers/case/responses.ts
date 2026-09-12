@@ -1,9 +1,9 @@
-import { CaseDTO } from '../../dtos/case/CaseDTO';
-import { FileDTO } from '../../dtos/caseFile/FileDTO';
-import { CasesStats } from '../../types/CasesStats';
-import { Page } from '../../types/Page';
-import { WithId } from '../../types/WithId';
-import { HttpResponse } from '../types/HttpResponse';
+import { CaseDTO } from '../../dtos/case/CaseDTO.js';
+import { FileDTO } from '../../dtos/caseFile/FileDTO.js';
+import { CasesStats } from '../../types/CasesStats.js';
+import { Page } from '../../types/Page.js';
+import { WithId } from '../../types/WithId.js';
+import { HttpResponse } from '../types/HttpResponse.js';
 
 export type FindAllResponse = HttpResponse<Page<WithId<CaseDTO>> | null>;
 export type FindByClientResponse = HttpResponse<Page<WithId<CaseDTO>> | null>;

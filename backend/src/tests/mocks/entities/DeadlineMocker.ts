@@ -1,17 +1,17 @@
-import { WithMongoId } from '../../../database/mongoDB/types/WithMongoId';
-import { CreateDeadlineDTO } from '../../../dtos/deadLine/CreateDeadlineDTO';
-import { DeadlineDTO } from '../../../dtos/deadLine/DeadlineDTO';
-import { UpdateDeadlineDTO } from '../../../dtos/deadLine/UpdateDeadlineDTO';
-import { IDeadlineModel } from '../../../models/DeadlineModel';
-import { BrazilState } from '../../../types/BrazilState';
-import { City } from '../../../types/City';
-import { DeadlineCountingType } from '../../../types/DeadlineCountingType';
-import { DeadlinePriority } from '../../../types/DeadLinePriority';
-import { DeadlineStatus } from '../../../types/DeadLineStatus';
-import { DeadlineType } from '../../../types/DeadLineType';
-import { WithId } from '../../../types/WithId';
-import { toDateOnlyString } from '../../../utils/toDateOnly';
-import { GenericMocker } from '../fields/GenericMocker';
+import { WithMongoId } from '../../../database/mongoDB/types/WithMongoId.js';
+import { CreateDeadlineDTO } from '../../../dtos/deadLine/CreateDeadlineDTO.js';
+import { DeadlineDTO } from '../../../dtos/deadLine/DeadlineDTO.js';
+import { UpdateDeadlineDTO } from '../../../dtos/deadLine/UpdateDeadlineDTO.js';
+import { IDeadlineModel } from '../../../models/DeadlineModel.js';
+import { BrazilState } from '../../../types/BrazilState.js';
+import { City } from '../../../types/City.js';
+import { DeadlineCountingType } from '../../../types/DeadlineCountingType.js';
+import { DeadlinePriority } from '../../../types/DeadLinePriority.js';
+import { DeadlineStatus } from '../../../types/DeadLineStatus.js';
+import { DeadlineType } from '../../../types/DeadLineType.js';
+import { WithId } from '../../../types/WithId.js';
+import { toDateOnlyString } from '../../../utils/toDateOnly.js';
+import { GenericMocker } from '../fields/GenericMocker.js';
 
 export class DeadlineMocker {
   static mockCreateDeadlineDTO(): CreateDeadlineDTO {

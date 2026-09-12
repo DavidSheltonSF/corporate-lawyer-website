@@ -1,12 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { HttpStatusCode } from '../types/HttpStatusCode';
-import { DeadlineController } from './DeadlineController';
-import { DeadlineMocker } from '../../tests/mocks/entities/DeadlineMocker';
-import { createMockDeadlineService } from '../../tests/mocks/services/createMockDeadlineService';
-import { createMockHttpRequest } from '../../tests/mocks/createMockHttpRequest';
-import { SuccessResponse } from '../types/HttpResponse';
-import { DeadlineDTO } from '../../dtos/deadLine/DeadlineDTO';
-import { WithId } from '../../types/WithId';
+import { HttpStatusCode } from '../types/HttpStatusCode.js';
+import { DeadlineController } from './DeadlineController.js';
+import { DeadlineMocker } from '../../tests/mocks/entities/DeadlineMocker.js';
+import { createMockDeadlineService } from '../../tests/mocks/services/createMockDeadlineService.js';
+import { createMockHttpRequest } from '../../tests/mocks/createMockHttpRequest.js';
+import { SuccessResponse } from '../types/HttpResponse.js';
+import { DeadlineDTO } from '../../dtos/deadLine/DeadlineDTO.js';
+import { WithId } from '../../types/WithId.js';
 
 describe(`Test ${DeadlineController.name}`, () => {
   function makeSut() {

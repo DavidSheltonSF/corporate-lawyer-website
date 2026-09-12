@@ -1,11 +1,11 @@
-import { DeadlineRepository } from '../../../repositories/DeadlineRepository';
-import { WithId } from '../../../types/WithId';
-import { DeadlineModel } from '../../../models/DeadlineModel';
-import { DeadlineMapper } from '../../../mappers/Deadline/DeadlineMapper';
-import { UpdateDeadlineDTO } from '../../../dtos/deadLine/UpdateDeadlineDTO';
-import { DeadlineDTO } from '../../../dtos/deadLine/DeadlineDTO';
-import { CreateDeadlineDTO } from '../../../dtos/deadLine/CreateDeadlineDTO';
-import { CaseLocationDTO } from '../../../dtos/case/CaseLocationDTO';
+import { DeadlineRepository } from '../../../repositories/DeadlineRepository.js';
+import { WithId } from '../../../types/WithId.js';
+import { DeadlineModel } from '../../../models/DeadlineModel.js';
+import { DeadlineMapper } from '../../../mappers/Deadline/DeadlineMapper.js';
+import { UpdateDeadlineDTO } from '../../../dtos/deadLine/UpdateDeadlineDTO.js';
+import { DeadlineDTO } from '../../../dtos/deadLine/DeadlineDTO.js';
+import { CreateDeadlineDTO } from '../../../dtos/deadLine/CreateDeadlineDTO.js';
+import { CaseLocationDTO } from '../../../dtos/case/CaseLocationDTO.js';
 
 export class MongodbDeadlineRepository implements DeadlineRepository {
   async create(

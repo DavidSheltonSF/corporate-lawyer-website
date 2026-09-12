@@ -1,5 +1,5 @@
-import { CreateFileDTO } from '../../../dtos/caseFile/CreateFileDTO';
-import { ValidationError } from '../../../errors/presentation/ValidationError';
+import { CreateFileDTO } from '../../../dtos/caseFile/CreateFileDTO.js';
+import { ValidationError } from '../../../errors/presentation/ValidationError.js';
 import { fileTypeFromBuffer } from 'file-type';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; //10 MB

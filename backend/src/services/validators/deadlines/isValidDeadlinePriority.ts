@@ -1,5 +1,5 @@
-import { InvalidDeadlinePriorityError } from '../../../errors/domain/InvalidDeadlinePriorityError';
-import { DeadlinePriority } from '../../../types/DeadLinePriority';
+import { InvalidDeadlinePriorityError } from '../../../errors/domain/InvalidDeadlinePriorityError.js';
+import { DeadlinePriority } from '../../../types/DeadLinePriority.js';
 
 export function isValidDeadlinePriority(priority: string): boolean {
   const validPrioritys = Object.values(DeadlinePriority) as string[];

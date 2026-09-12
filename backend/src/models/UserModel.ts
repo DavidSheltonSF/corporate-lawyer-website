@@ -1,6 +1,6 @@
 import { Schema, model, Document } from 'mongoose';
 import bcrypt from 'bcrypt';
-import { UserRole } from '../types/UserRole';
+import { UserRole } from '../types/UserRole.js';
 
 export interface IUserModel {
   firstName: string;

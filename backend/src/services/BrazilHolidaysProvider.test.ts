@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { BrazilState } from '../types/BrazilState';
-import { City } from '../types/City';
-import { BrazilHolidaysProvider, brazilHolidaysRecord } from './BrazilHolidaysProvider';
+import { BrazilState } from '../types/BrazilState.js';
+import { City } from '../types/City.js';
+import { BrazilHolidaysProvider, brazilHolidaysRecord } from './BrazilHolidaysProvider.js';
 
 describe(`Testing ${BrazilHolidaysProvider.name}`, () => {
   function makeSut() {

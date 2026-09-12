@@ -1,8 +1,8 @@
 import { Request, Response, Router } from 'express';
-import { UserModel } from '../models/UserModel';
-import { NotificationModel } from '../models/NotificationModel';
-import { CaseModel } from '../models/CaseModel';
-import { fakeNotifications } from '../tests/fakeDatabase/notifications';
+import { UserModel } from '../models/UserModel.js';
+import { NotificationModel } from '../models/NotificationModel.js';
+import { CaseModel } from '../models/CaseModel.js';
+import { fakeNotifications } from '../tests/fakeDatabase/notifications.js';
 
 export function testRoutes(router: Router) {
   router.get('/api/test/users/', async (req: Request, res: Response) => {

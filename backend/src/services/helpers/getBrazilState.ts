@@ -1,5 +1,5 @@
-import { InvalidStateError } from '../../errors/domain/InvalidStateError';
-import { BrazilState } from '../../types/BrazilState';
+import { InvalidStateError } from '../../errors/domain/InvalidStateError.js';
+import { BrazilState } from '../../types/BrazilState.js';
 
 export function getBrazilState(state: string): BrazilState {
   switch (state) {

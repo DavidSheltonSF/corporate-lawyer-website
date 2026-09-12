@@ -1,8 +1,8 @@
 import { RequestHandler, Router } from 'express';
-import { expressHttpAdapter } from './adapters/expressHttpAdapter';
-import { requireAuth } from '../middlewares/requireAuth';
-import { IDeadlineController } from '../controllers/deadline/IDeadlineController';
-import { requireLawyer } from '../middlewares/requireLawyer';
+import { expressHttpAdapter } from './adapters/expressHttpAdapter.js';
+import { requireAuth } from '../middlewares/requireAuth.js';
+import { IDeadlineController } from '../controllers/deadline/IDeadlineController.js';
+import { requireLawyer } from '../middlewares/requireLawyer.js';
 
 export function deadlineRoutes(
   router: Router,

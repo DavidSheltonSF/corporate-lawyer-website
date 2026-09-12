@@ -1,4 +1,4 @@
-import { DomainError } from "./DomainError";
+import { DomainError } from "./DomainError.js";
 
 export class EntityAlreadyExistsError extends DomainError {
   constructor(message: string = 'Entity aready exists') {

@@ -1,7 +1,7 @@
-import { CreateDeadlineDTO } from '../../dtos/deadLine/CreateDeadlineDTO';
-import { DeadlineDTO } from '../../dtos/deadLine/DeadlineDTO';
-import { UpdateDeadlineDTO } from '../../dtos/deadLine/UpdateDeadlineDTO';
-import { WithId } from '../../types/WithId';
+import { CreateDeadlineDTO } from '../../dtos/deadLine/CreateDeadlineDTO.js';
+import { DeadlineDTO } from '../../dtos/deadLine/DeadlineDTO.js';
+import { UpdateDeadlineDTO } from '../../dtos/deadLine/UpdateDeadlineDTO.js';
+import { WithId } from '../../types/WithId.js';
 
 export interface IDeadlineService {
   create(data: CreateDeadlineDTO): Promise<WithId<DeadlineDTO>>;

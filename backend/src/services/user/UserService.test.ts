@@ -1,13 +1,13 @@
 import { describe, expect, it, vi } from 'vitest';
-import { UserService } from './UserService';
-import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
-import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
-import { UserMocker } from '../../tests/mocks/entities/UserMocker';
-import { generateTemporaryPassword } from '../helpers/generateTemporaryPassword';
-import { createMockPage } from '../../tests/mocks/createMockPage';
-import { UserQuery } from '../../types/UserQuery';
-import { UpdateUserDTO } from '../../dtos/user/UpdateUserDTO';
-import { UserMapper } from '../../mappers/User/UserMapper';
+import { UserService } from './UserService.js';
+import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository.js';
+import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository.js';
+import { UserMocker } from '../../tests/mocks/entities/UserMocker.js';
+import { generateTemporaryPassword } from '../helpers/generateTemporaryPassword.js';
+import { createMockPage } from '../../tests/mocks/createMockPage.js';
+import { UserQuery } from '../../types/UserQuery.js';
+import { UpdateUserDTO } from '../../dtos/user/UpdateUserDTO.js';
+import { UserMapper } from '../../mappers/User/UserMapper.js';
 
 describe(`Test ${UserService.name}`, () => {
   function makeSut() {

@@ -1,6 +1,6 @@
-import { UserSlice } from '../../types/UserSlice';
-import { WithId } from '../../types/WithId';
-import { CaseLocationDTO } from './CaseLocationDTO';
+import { UserSlice } from '../../types/UserSlice.js';
+import { WithId } from '../../types/WithId.js';
+import { CaseLocationDTO } from './CaseLocationDTO.js';
 
 export type CaseDTOPopulated = {
   populated: true;

@@ -1,8 +1,8 @@
 import { Schema, model, Document, Types } from 'mongoose';
-import { CasesStatus } from '../types/CasesStatus';
-import { FileSchema, IFileModel } from './FileModel';
-import { WithMongoId } from '../database/mongoDB/types/WithMongoId';
-import { CaseLocation } from '../types/CaseLocation';
+import { CasesStatus } from '../types/CasesStatus.js';
+import { FileSchema, IFileModel } from './FileModel.js';
+import { WithMongoId } from '../database/mongoDB/types/WithMongoId.js';
+import { CaseLocation } from '../types/CaseLocation.js';
 
 export interface ICaseModel {
   client: Types.ObjectId;

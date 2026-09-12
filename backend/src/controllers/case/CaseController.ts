@@ -1,15 +1,15 @@
-import { ICaseService } from '../../services/case/ICaseService';
-import { ICaseController } from './ICaseController';
-import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
-import { HttpRequest } from '../types/HttpRequest';
-import { NotFoundError } from '../../errors/presentation/NotFoundError';
-import { BadRequestError } from '../../errors/presentation/BadRequestError';
-import { checkMissingFields } from '../../utils/checkMissingFields';
-import { IFileService } from '../../services/files/IFileService';
-import { requireBody } from '../helpers/requireBody';
-import { getPagination } from '../helpers/getPagination';
-import { requireAuthenticatedUser } from '../helpers/requireAuthenticatedUser';
-import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
+import { ICaseService } from '../../services/case/ICaseService.js';
+import { ICaseController } from './ICaseController.js';
+import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory.js';
+import { HttpRequest } from '../types/HttpRequest.js';
+import { NotFoundError } from '../../errors/presentation/NotFoundError.js';
+import { BadRequestError } from '../../errors/presentation/BadRequestError.js';
+import { checkMissingFields } from '../../utils/checkMissingFields.js';
+import { IFileService } from '../../services/files/IFileService.js';
+import { requireBody } from '../helpers/requireBody.js';
+import { getPagination } from '../helpers/getPagination.js';
+import { requireAuthenticatedUser } from '../helpers/requireAuthenticatedUser.js';
+import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError.js';
 
 export class CaseController implements ICaseController {
   constructor(

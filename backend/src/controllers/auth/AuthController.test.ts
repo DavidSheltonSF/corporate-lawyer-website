@@ -1,14 +1,14 @@
 import { describe, it, expect } from 'vitest';
-import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
-import { IAuthService } from '../../services/auth/IAuthService';
-import { IUserService } from '../../services/user/IUserService';
-import { UserMocker } from '../../tests/mocks/entities/UserMocker';
-import { createMockObject } from '../../tests/mocks/createMockObject';
-import { HttpStatusCode } from '../types/HttpStatusCode';
-import { AuthController } from './AuthController';
-import { createMockHttpRequest } from '../../tests/mocks/createMockHttpRequest';
-import { UserRole } from '../../types/UserRole';
-import { ValidationError } from '../../errors/presentation/ValidationError';
+import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError.js';
+import { IAuthService } from '../../services/auth/IAuthService.js';
+import { IUserService } from '../../services/user/IUserService.js';
+import { UserMocker } from '../../tests/mocks/entities/UserMocker.js';
+import { createMockObject } from '../../tests/mocks/createMockObject.js';
+import { HttpStatusCode } from '../types/HttpStatusCode.js';
+import { AuthController } from './AuthController.js';
+import { createMockHttpRequest } from '../../tests/mocks/createMockHttpRequest.js';
+import { UserRole } from '../../types/UserRole.js';
+import { ValidationError } from '../../errors/presentation/ValidationError.js';
 
 describe(`Test ${AuthController.name}`, () => {
   function makeSut() {

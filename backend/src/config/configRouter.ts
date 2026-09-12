@@ -1,19 +1,19 @@
 import { Application, Router } from 'express';
-import { makeAuthController } from '../factories/controllers/makeAuthController';
-import { makeCaseController } from '../factories/controllers/makeCaseController';
-import { casesRoutes } from '../routes/casesRoutes';
-import { usersRoutes } from '../routes/usersRoutes';
-import { makeUserController } from '../factories/controllers/makeUserController';
-import { testRoutes } from '../routes/testRoutes';
-import { authRoutes } from '../routes/authRoutes';
-import { notificationsRoutes } from '../routes/notificationsRoutes';
-import { makeNotificationController } from '../factories/controllers/makeNotificationController';
-import { makeDeadlineController } from '../factories/controllers/makeDeadlineController';
-import { deadlineRoutes } from '../routes/deadlineRoutes';
-import { makeFileController } from '../factories/controllers/makeFileController';
-import { fileRoutes } from '../routes/fileRoutes';
-import { makeUserService } from '../factories/services/makeUserService';
-import { makeRequireUser } from '../factories/middlewares/makeRequireUser';
+import { makeAuthController } from '../factories/controllers/makeAuthController.js';
+import { makeCaseController } from '../factories/controllers/makeCaseController.js';
+import { casesRoutes } from '../routes/casesRoutes.js';
+import { usersRoutes } from '../routes/usersRoutes.js';
+import { makeUserController } from '../factories/controllers/makeUserController.js';
+import { testRoutes } from '../routes/testRoutes.js';
+import { authRoutes } from '../routes/authRoutes.js';
+import { notificationsRoutes } from '../routes/notificationsRoutes.js';
+import { makeNotificationController } from '../factories/controllers/makeNotificationController.js';
+import { makeDeadlineController } from '../factories/controllers/makeDeadlineController.js';
+import { deadlineRoutes } from '../routes/deadlineRoutes.js';
+import { makeFileController } from '../factories/controllers/makeFileController.js';
+import { fileRoutes } from '../routes/fileRoutes.js';
+import { makeUserService } from '../factories/services/makeUserService.js';
+import { makeRequireUser } from '../factories/middlewares/makeRequireUser.js';
 
 export function configRouter(app: Application) {
   const userService = makeUserService();

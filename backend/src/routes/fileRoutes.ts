@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { requireAuth } from '../middlewares/requireAuth';
-import { expressHttpAdapter } from './adapters/expressHttpAdapter';
-import { IFileController } from '../controllers/file/IFileController';
+import { requireAuth } from '../middlewares/requireAuth.js';
+import { expressHttpAdapter } from './adapters/expressHttpAdapter.js';
+import { IFileController } from '../controllers/file/IFileController.js';
 
 export function fileRoutes(router: Router, fileController: IFileController) {
   router.get('/api/files/:id', requireAuth, expressHttpAdapter(fileController.findById));

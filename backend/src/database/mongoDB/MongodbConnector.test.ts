@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { MongodbConnector } from './MongodbConnector';
+import { MongodbConnector } from './MongodbConnector.js';
 
 describe('Testing MongodbConnector', () => {
   it('should be returned the same MongodbConnector instance', async () => {

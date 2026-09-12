@@ -1,12 +1,12 @@
-import { CreateNotificationDTO } from '../../../dtos/notification/CreateNotificationDTO';
-import { NotificationDTO } from '../../../dtos/notification/NotificationDTO';
-import { UpdateNotificationDTO } from '../../../dtos/notification/UpdateNotificationDTO';
-import { NotificationeMapper } from '../../../mappers/notification/NotificationMapper';
-import { NotificationModel } from '../../../models/NotificationModel';
-import { NotificationRepository } from '../../../repositories/NotificationRepository';
-import { NotificationQuery } from '../../../types/NotificationQuery';
-import { Page } from '../../../types/Page';
-import { WithId } from '../../../types/WithId';
+import { CreateNotificationDTO } from '../../../dtos/notification/CreateNotificationDTO.js';
+import { NotificationDTO } from '../../../dtos/notification/NotificationDTO.js';
+import { UpdateNotificationDTO } from '../../../dtos/notification/UpdateNotificationDTO.js';
+import { NotificationeMapper } from '../../../mappers/notification/NotificationMapper.js';
+import { NotificationModel } from '../../../models/NotificationModel.js';
+import { NotificationRepository } from '../../../repositories/NotificationRepository.js';
+import { NotificationQuery } from '../../../types/NotificationQuery.js';
+import { Page } from '../../../types/Page.js';
+import { WithId } from '../../../types/WithId.js';
 
 export class MongodbNotificationRepository implements Partial<NotificationRepository> {
   async create(data: CreateNotificationDTO): Promise<WithId<NotificationDTO>> {

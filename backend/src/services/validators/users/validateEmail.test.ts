@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { InvalidEmailError } from '../../../errors/domain/InvalidEmailError';
-import { getThrownError } from '../../../tests/helpers/getThrownError';
-import { validateEmail } from './validateEmail';
+import { InvalidEmailError } from '../../../errors/domain/InvalidEmailError.js';
+import { getThrownError } from '../../../tests/helpers/getThrownError.js';
+import { validateEmail } from './validateEmail.js';
 
 describe(`Testing ${validateEmail.name}`, () => {
   it('should not throw error when user email is valid', () => {

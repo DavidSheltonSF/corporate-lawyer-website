@@ -1,8 +1,8 @@
 import { Mocked } from 'vitest';
-import { getClassMethods } from '../../helpers/getClassMethods';
-import { createMockObject } from '../createMockObject';
-import { DeadlineRepository } from '../../../repositories/DeadlineRepository';
-import { MongodbDeadlineRepository } from '../../../database/mongoDB/repositories/MongodbDeadlineRepository';
+import { getClassMethods } from '../../helpers/getClassMethods.js';
+import { createMockObject } from '../createMockObject.js';
+import { DeadlineRepository } from '../../../repositories/DeadlineRepository.js';
+import { MongodbDeadlineRepository } from '../../../database/mongoDB/repositories/MongodbDeadlineRepository.js';
 
 export function createMockDeadlineRepository(): Mocked<DeadlineRepository> {
   const methods = getClassMethods(MongodbDeadlineRepository);

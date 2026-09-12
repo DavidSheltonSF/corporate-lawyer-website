@@ -5,8 +5,8 @@ import {
   FindByIdResponse,
   FindClientsResponse,
   UpdateByIdResponse,
-} from './responses';
-import { HttpRequest } from '../types/HttpRequest';
+} from './responses.js';
+import { HttpRequest } from '../types/HttpRequest.js';
 
 export interface IUserController {
   createClient: (httpRequest: HttpRequest) => Promise<CreateResponse>;

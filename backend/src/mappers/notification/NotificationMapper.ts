@@ -1,5 +1,5 @@
-import { NotificationDTO } from '../../dtos/notification/NotificationDTO';
-import { WithId } from '../../types/WithId';
+import { NotificationDTO } from '../../dtos/notification/NotificationDTO.js';
+import { WithId } from '../../types/WithId.js';
 
 export class NotificationeMapper {
   static persistenceToPresentation(notification: any): WithId<NotificationDTO> {

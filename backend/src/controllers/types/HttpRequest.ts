@@ -1,4 +1,4 @@
-import { AuthenticatedUser } from "../../types/AuthenticatedUser";
+import { AuthenticatedUser } from "../../types/AuthenticatedUser.js";
 
 export interface HttpRequest {
   body?: any;

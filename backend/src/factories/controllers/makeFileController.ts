@@ -1,8 +1,8 @@
-import { IFileController } from '../../controllers/file/IFileController';
-import { FileController } from '../../controllers/file/FileController';
-import { MongodbFileRepository } from '../../database/mongoDB/repositories/MongodbFileRepository';
-import { FileService } from '../../services/files/FileService';
-import { CloudinaryUploadService } from '../../services/uṕload/CloudinaryUploadService';
+import { IFileController } from '../../controllers/file/IFileController.js';
+import { FileController } from '../../controllers/file/FileController.js';
+import { MongodbFileRepository } from '../../database/mongoDB/repositories/MongodbFileRepository.js';
+import { FileService } from '../../services/files/FileService.js';
+import { CloudinaryUploadService } from '../../services/uṕload/CloudinaryUploadService.js';
 
 export function makeFileController(): IFileController {
   const fileRepository = new MongodbFileRepository();

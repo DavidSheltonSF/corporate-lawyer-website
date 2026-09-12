@@ -1,6 +1,6 @@
-import { HttpResponse } from '../../controllers/types/HttpResponse';
-import { HttpStatusCode } from '../../controllers/types/HttpStatusCode';
-import { HttpResponseParams } from './HttpResponseParams';
+import { HttpResponse } from '../../controllers/types/HttpResponse.js';
+import { HttpStatusCode } from '../../controllers/types/HttpStatusCode.js';
+import { HttpResponseParams } from './HttpResponseParams.js';
 
 export class HttpResponseFactory {
   private static make<T>(status: HttpStatusCode, params?: HttpResponseParams<T>): HttpResponse<T> {

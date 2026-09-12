@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { InvalidNameError } from '../../../errors/domain/InvalidNameError';
-import { getThrownError } from '../../../tests/helpers/getThrownError';
-import { validateUserName } from './validateUserName';
+import { InvalidNameError } from '../../../errors/domain/InvalidNameError.js';
+import { getThrownError } from '../../../tests/helpers/getThrownError.js';
+import { validateUserName } from './validateUserName.js';
 
 describe(`Testing ${validateUserName.name}`, () => {
   it('should not throw error when name is valid', () => {

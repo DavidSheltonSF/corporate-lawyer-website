@@ -1,5 +1,5 @@
-import { HttpRequest } from '../types/HttpRequest';
-import { DeleteByIdResponse, FindByIdResponse, RenameResponse } from './responses';
+import { HttpRequest } from '../types/HttpRequest.js';
+import { DeleteByIdResponse, FindByIdResponse, RenameResponse } from './responses.js';
 
 export interface IFileController {
   findById: (httpRequest: HttpRequest) => Promise<FindByIdResponse>;

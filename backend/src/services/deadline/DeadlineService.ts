@@ -1,20 +1,20 @@
-import { CreateDeadlineDTO } from '../../dtos/deadLine/CreateDeadlineDTO';
-import { DeadlineDTO } from '../../dtos/deadLine/DeadlineDTO';
-import { UpdateDeadlineDTO } from '../../dtos/deadLine/UpdateDeadlineDTO';
-import { CaseNotFoundError } from '../../errors/domain/CaseNotFoundError';
-import { CaseRepository } from '../../repositories/CaseRepository';
-import { DeadlineRepository } from '../../repositories/DeadlineRepository';
-import { DeadlineCountingType } from '../../types/DeadlineCountingType';
-import { WithId } from '../../types/WithId';
-import { toDateOnlyString } from '../../utils/toDateOnly';
-import { DeadlineCalculator } from '../helpers/DeadlineCalculator';
-import { getBrazilState } from '../helpers/getBrazilState';
-import { getCity } from '../helpers/getCity';
-import { getDeadlineCountingType } from '../helpers/getDeadlineCountingType';
-import { HolidaysProvider } from '../HolidaysProvider';
-import { validateDeadline } from '../validators/deadlines/validateDeadline';
-import { validateDeadlinePartial } from '../validators/deadlines/validateDeadlinePartial';
-import { IDeadlineService } from './IDeadlineService';
+import { CreateDeadlineDTO } from '../../dtos/deadLine/CreateDeadlineDTO.js';
+import { DeadlineDTO } from '../../dtos/deadLine/DeadlineDTO.js';
+import { UpdateDeadlineDTO } from '../../dtos/deadLine/UpdateDeadlineDTO.js';
+import { CaseNotFoundError } from '../../errors/domain/CaseNotFoundError.js';
+import { CaseRepository } from '../../repositories/CaseRepository.js';
+import { DeadlineRepository } from '../../repositories/DeadlineRepository.js';
+import { DeadlineCountingType } from '../../types/DeadlineCountingType.js';
+import { WithId } from '../../types/WithId.js';
+import { toDateOnlyString } from '../../utils/toDateOnly.js';
+import { DeadlineCalculator } from '../helpers/DeadlineCalculator.js';
+import { getBrazilState } from '../helpers/getBrazilState.js';
+import { getCity } from '../helpers/getCity.js';
+import { getDeadlineCountingType } from '../helpers/getDeadlineCountingType.js';
+import { HolidaysProvider } from '../HolidaysProvider.js';
+import { validateDeadline } from '../validators/deadlines/validateDeadline.js';
+import { validateDeadlinePartial } from '../validators/deadlines/validateDeadlinePartial.js';
+import { IDeadlineService } from './IDeadlineService.js';
 
 export class DeadlineService implements Partial<IDeadlineService> {
   constructor(

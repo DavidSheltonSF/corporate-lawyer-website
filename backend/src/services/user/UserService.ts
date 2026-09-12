@@ -1,19 +1,19 @@
-import { CreateClientDTO } from '../../dtos/user/CreateClientDTO';
-import { CreateClientResponseDTO } from '../../dtos/user/CreateClientResponseDTO';
-import { UpdateUserDTO } from '../../dtos/user/UpdateUserDTO';
-import { UserResponseDTO } from '../../dtos/user/UserResponseDTO';
-import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError';
-import { CaseRepository } from '../../repositories/CaseRepository';
-import { UserRepository } from '../../repositories/UserRepository';
-import { Page } from '../../types/Page';
-import { UserQuery } from '../../types/UserQuery';
-import { UserRole } from '../../types/UserRole';
-import { WithId } from '../../types/WithId';
-import { generateTemporaryPassword } from '../helpers/generateTemporaryPassword';
-import { validateEmail } from '../validators/users/validateEmail';
-import { validateUserPartial } from '../validators/users/validateUserPartial';
-import { IUserService } from './IUserService';
-import { UserIncludeOptions } from '../../types/UserincludeOptions';
+import { CreateClientDTO } from '../../dtos/user/CreateClientDTO.js';
+import { CreateClientResponseDTO } from '../../dtos/user/CreateClientResponseDTO.js';
+import { UpdateUserDTO } from '../../dtos/user/UpdateUserDTO.js';
+import { UserResponseDTO } from '../../dtos/user/UserResponseDTO.js';
+import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError.js';
+import { CaseRepository } from '../../repositories/CaseRepository.js';
+import { UserRepository } from '../../repositories/UserRepository.js';
+import { Page } from '../../types/Page.js';
+import { UserQuery } from '../../types/UserQuery.js';
+import { UserRole } from '../../types/UserRole.js';
+import { WithId } from '../../types/WithId.js';
+import { generateTemporaryPassword } from '../helpers/generateTemporaryPassword.js';
+import { validateEmail } from '../validators/users/validateEmail.js';
+import { validateUserPartial } from '../validators/users/validateUserPartial.js';
+import { IUserService } from './IUserService.js';
+import { UserIncludeOptions } from '../../types/UserincludeOptions.js';
 
 export class UserService implements IUserService {
   constructor(

@@ -1,9 +1,9 @@
-import { CreateFileDTO } from '../dtos/caseFile/CreateFileDTO';
-import { FileDTO } from '../dtos/caseFile/FileDTO';
-import { DeleteManyResult } from '../types/DeleteManyResult';
-import { Page } from '../types/Page';
-import { PageParams } from '../types/PageParams';
-import { WithId } from '../types/WithId';
+import { CreateFileDTO } from '../dtos/caseFile/CreateFileDTO.js';
+import { FileDTO } from '../dtos/caseFile/FileDTO.js';
+import { DeleteManyResult } from '../types/DeleteManyResult.js';
+import { Page } from '../types/Page.js';
+import { PageParams } from '../types/PageParams.js';
+import { WithId } from '../types/WithId.js';
 
 export interface FileRepository {
   create: (data: CreateFileDTO) => Promise<WithId<FileDTO>>;

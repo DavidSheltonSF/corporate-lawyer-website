@@ -1,5 +1,5 @@
-import { DeadlineType } from '../../types/DeadLineType';
-import { DomainError } from './DomainError';
+import { DeadlineType } from '../../types/DeadLineType.js';
+import { DomainError } from './DomainError.js';
 
 export class InvalidDeadlineTypeError extends DomainError {
   constructor(type: string) {

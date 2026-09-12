@@ -1,5 +1,5 @@
-import { InvalidDeadlineCountingTypeError } from '../../errors/domain/InvalidDeadlineCountingTypeError';
-import { DeadlineCountingType } from '../../types/DeadlineCountingType';
+import { InvalidDeadlineCountingTypeError } from '../../errors/domain/InvalidDeadlineCountingTypeError.js';
+import { DeadlineCountingType } from '../../types/DeadlineCountingType.js';
 
 export function getDeadlineCountingType(countingType: string): DeadlineCountingType {
   switch (countingType) {

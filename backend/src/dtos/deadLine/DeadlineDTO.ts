@@ -1,4 +1,4 @@
-import { CaseLocationDTO } from "../case/CaseLocationDTO";
+import { CaseLocationDTO } from "../case/CaseLocationDTO.js";
 
 export interface DeadlineDTO {
   caseId: string;

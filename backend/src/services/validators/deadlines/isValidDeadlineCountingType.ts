@@ -1,4 +1,4 @@
-import { DeadlineCountingType } from '../../../types/DeadlineCountingType';
+import { DeadlineCountingType } from '../../../types/DeadlineCountingType.js';
 
 export function isValidDeadlineCountingType(type: string): boolean {
   const validTypes = Object.values(DeadlineCountingType) as string[];

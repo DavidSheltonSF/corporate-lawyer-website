@@ -1,8 +1,8 @@
-import { CreateNotificationDTO } from '../../dtos/notification/CreateNotificationDTO';
-import { NotificationDTO } from '../../dtos/notification/NotificationDTO';
-import { NotificationQuery } from '../../types/NotificationQuery';
-import { Page } from '../../types/Page';
-import { WithId } from '../../types/WithId';
+import { CreateNotificationDTO } from '../../dtos/notification/CreateNotificationDTO.js';
+import { NotificationDTO } from '../../dtos/notification/NotificationDTO.js';
+import { NotificationQuery } from '../../types/NotificationQuery.js';
+import { Page } from '../../types/Page.js';
+import { WithId } from '../../types/WithId.js';
 
 export interface INotificationService {
   create(data: CreateNotificationDTO): Promise<WithId<NotificationDTO>>;

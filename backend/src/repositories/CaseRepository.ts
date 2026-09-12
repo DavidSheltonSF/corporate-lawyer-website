@@ -1,12 +1,12 @@
-import { FileDTO } from '../dtos/caseFile/FileDTO';
-import { CreateFileDTO } from '../dtos/caseFile/CreateFileDTO';
-import { CreateCaseDTO } from '../dtos/case/CreateCaseDTO';
-import { CaseQuery } from '../types/CaseQuery';
-import { CasesStats } from '../types/CasesStats';
-import { Page } from '../types/Page';
-import { WithId } from '../types/WithId';
-import { UpdateCaseDTO } from '../dtos/case/UpdateCaseDTO';
-import { CaseDTO } from '../dtos/case/CaseDTO';
+import { FileDTO } from '../dtos/caseFile/FileDTO.js';
+import { CreateFileDTO } from '../dtos/caseFile/CreateFileDTO.js';
+import { CreateCaseDTO } from '../dtos/case/CreateCaseDTO.js';
+import { CaseQuery } from '../types/CaseQuery.js';
+import { CasesStats } from '../types/CasesStats.js';
+import { Page } from '../types/Page.js';
+import { WithId } from '../types/WithId.js';
+import { UpdateCaseDTO } from '../dtos/case/UpdateCaseDTO.js';
+import { CaseDTO } from '../dtos/case/CaseDTO.js';
 
 export interface CaseRepository {
   create(user: CreateCaseDTO): Promise<WithId<CaseDTO>>;

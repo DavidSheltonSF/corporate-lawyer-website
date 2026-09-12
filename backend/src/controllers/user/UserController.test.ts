@@ -1,13 +1,13 @@
 import { describe, it, expect } from 'vitest';
-import { createMockUserService } from '../../tests/mocks/services/createMockUserService';
-import { UserController } from './UserController';
-import { createMockHttpRequest } from '../../tests/mocks/createMockHttpRequest';
-import { UserMocker } from '../../tests/mocks/entities/UserMocker';
-import { HttpStatusCode } from '../types/HttpStatusCode';
-import { BadRequestError } from '../../errors/presentation/BadRequestError';
-import { createMockPage } from '../../tests/mocks/createMockPage';
-import { NotFoundError } from '../../errors/presentation/NotFoundError';
-import { UpdateUserDTO } from '../../dtos/user/UpdateUserDTO';
+import { createMockUserService } from '../../tests/mocks/services/createMockUserService.js';
+import { UserController } from './UserController.js';
+import { createMockHttpRequest } from '../../tests/mocks/createMockHttpRequest.js';
+import { UserMocker } from '../../tests/mocks/entities/UserMocker.js';
+import { HttpStatusCode } from '../types/HttpStatusCode.js';
+import { BadRequestError } from '../../errors/presentation/BadRequestError.js';
+import { createMockPage } from '../../tests/mocks/createMockPage.js';
+import { NotFoundError } from '../../errors/presentation/NotFoundError.js';
+import { UpdateUserDTO } from '../../dtos/user/UpdateUserDTO.js';
 
 describe(`Test ${UserController.name}`, () => {
   function makeSut() {

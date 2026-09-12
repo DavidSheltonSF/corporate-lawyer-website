@@ -1,8 +1,8 @@
 import { Mocked } from 'vitest';
-import { CaseRepository } from '../../../repositories/CaseRepository';
-import { getClassMethods } from '../../helpers/getClassMethods';
-import { MongodbCaseRepository } from '../../../database/mongoDB/repositories/MongodbCaseRepository';
-import { createMockObject } from '../createMockObject';
+import { CaseRepository } from '../../../repositories/CaseRepository.js';
+import { getClassMethods } from '../../helpers/getClassMethods.js';
+import { MongodbCaseRepository } from '../../../database/mongoDB/repositories/MongodbCaseRepository.js';
+import { createMockObject } from '../createMockObject.js';
 
 export function createMockCaseRepository(): Mocked<CaseRepository> {
   const methods = getClassMethods(MongodbCaseRepository);

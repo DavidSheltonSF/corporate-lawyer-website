@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { CaseService } from './CaseService';
-import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository';
-import { CaseMocker } from '../../tests/mocks/entities/CaseMoker';
-import { createMockEventBus } from '../../tests/mocks/repositories/createMockEventBus';
-import { ValidationError } from '../../errors/presentation/ValidationError';
-import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO';
-import { CaseFieldsMocker } from '../../tests/mocks/fields/CaseFieldsMocker';
-import { createMockPage } from '../../tests/mocks/createMockPage';
-import { PageParams } from '../../types/PageParams';
+import { CaseService } from './CaseService.js';
+import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository.js';
+import { CaseMocker } from '../../tests/mocks/entities/CaseMoker.js';
+import { createMockEventBus } from '../../tests/mocks/repositories/createMockEventBus.js';
+import { ValidationError } from '../../errors/presentation/ValidationError.js';
+import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO.js';
+import { CaseFieldsMocker } from '../../tests/mocks/fields/CaseFieldsMocker.js';
+import { createMockPage } from '../../tests/mocks/createMockPage.js';
+import { PageParams } from '../../types/PageParams.js';
 
 describe(`Test ${CaseService.name}`, () => {
   function makeSut() {

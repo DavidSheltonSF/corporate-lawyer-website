@@ -1,4 +1,4 @@
-import { BaseHttpError } from './BaseHttpError';
+import { BaseHttpError } from './BaseHttpError.js';
 
 export class ForbiddenError extends BaseHttpError {
   statusCode = 403;

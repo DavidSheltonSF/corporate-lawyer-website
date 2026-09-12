@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { expressHttpAdapter } from './adapters/expressHttpAdapter';
-import { requireAuth } from '../middlewares/requireAuth';
-import { INotificationsController } from '../controllers/notification/INotificationController';
+import { expressHttpAdapter } from './adapters/expressHttpAdapter.js';
+import { requireAuth } from '../middlewares/requireAuth.js';
+import { INotificationsController } from '../controllers/notification/INotificationController.js';
 
 export function notificationsRoutes(
   router: Router,

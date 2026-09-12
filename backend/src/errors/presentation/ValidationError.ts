@@ -1,4 +1,4 @@
-import { BaseHttpError } from './BaseHttpError';
+import { BaseHttpError } from './BaseHttpError.js';
 
 export class ValidationError extends BaseHttpError {
   statusCode = 400;

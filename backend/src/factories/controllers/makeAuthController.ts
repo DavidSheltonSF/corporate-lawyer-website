@@ -1,9 +1,9 @@
-import { AuthController } from '../../controllers/auth/AuthController';
-import { IAuthController } from '../../controllers/auth/IAuthController';
-import { MongodbCaseRepository } from '../../database/mongoDB/repositories/MongodbCaseRepository';
-import { MongodbUserRepository } from '../../database/mongoDB/repositories/MongodbUserRepository';
-import { AuthService } from '../../services/auth/AuthService';
-import { IUserService } from '../../services/user/IUserService';
+import { AuthController } from '../../controllers/auth/AuthController.js';
+import { IAuthController } from '../../controllers/auth/IAuthController.js';
+import { MongodbCaseRepository } from '../../database/mongoDB/repositories/MongodbCaseRepository.js';
+import { MongodbUserRepository } from '../../database/mongoDB/repositories/MongodbUserRepository.js';
+import { AuthService } from '../../services/auth/AuthService.js';
+import { IUserService } from '../../services/user/IUserService.js';
 
 export function makeAuthController(userService: IUserService): IAuthController {
   const userRepository = new MongodbUserRepository();

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import { IUserService } from '../../services/user/IUserService';
-import { getAuthenticatedUser } from '../../controllers/helpers/getAuthenticatedUser';
-import { UnauthorizedError } from '../../errors/presentation/UnauthorizedError';
+import { IUserService } from '../../services/user/IUserService.js';
+import { getAuthenticatedUser } from '../../controllers/helpers/getAuthenticatedUser.js';
+import { UnauthorizedError } from '../../errors/presentation/UnauthorizedError.js';
 
 export function makeRequireUser(userService: IUserService) {
   return async (req: Request, res: Response, next: NextFunction) => {

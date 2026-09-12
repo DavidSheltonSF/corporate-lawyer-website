@@ -1,8 +1,8 @@
 import { Mocked } from 'vitest';
-import { IEventBus } from '../../../events/IEventBus';
-import { getClassMethods } from '../../helpers/getClassMethods';
-import { InMemoryEventBus } from '../../../events/InMemoryEventBus';
-import { createMockObject } from '../createMockObject';
+import { IEventBus } from '../../../events/IEventBus.js';
+import { getClassMethods } from '../../helpers/getClassMethods.js';
+import { InMemoryEventBus } from '../../../events/InMemoryEventBus.js';
+import { createMockObject } from '../createMockObject.js';
 
 export function createMockEventBus(): Mocked<IEventBus> {
   const methods = getClassMethods(InMemoryEventBus);

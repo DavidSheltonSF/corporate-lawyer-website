@@ -1,14 +1,14 @@
-import { CaseController } from '../../controllers/case/CaseController';
-import { ICaseController } from '../../controllers/case/ICaseController';
-import { MongodbCaseRepository } from '../../database/mongoDB/repositories/MongodbCaseRepository';
-import { MongodbFileRepository } from '../../database/mongoDB/repositories/MongodbFileRepository';
-import { MongodbNotificationRepository } from '../../database/mongoDB/repositories/MongodbNotificationRepository';
-import { InMemoryEventBus } from '../../events/InMemoryEventBus';
-import { registerCaseEvents } from '../../events/registerCaseEvents';
-import { CaseService } from '../../services/case/CaseService';
-import { FileService } from '../../services/files/FileService';
-import { NotificationService } from '../../services/notification/NotificationService';
-import { CloudinaryUploadService } from '../../services/uṕload/CloudinaryUploadService';
+import { CaseController } from '../../controllers/case/CaseController.js';
+import { ICaseController } from '../../controllers/case/ICaseController.js';
+import { MongodbCaseRepository } from '../../database/mongoDB/repositories/MongodbCaseRepository.js';
+import { MongodbFileRepository } from '../../database/mongoDB/repositories/MongodbFileRepository.js';
+import { MongodbNotificationRepository } from '../../database/mongoDB/repositories/MongodbNotificationRepository.js';
+import { InMemoryEventBus } from '../../events/InMemoryEventBus.js';
+import { registerCaseEvents } from '../../events/registerCaseEvents.js';
+import { CaseService } from '../../services/case/CaseService.js';
+import { FileService } from '../../services/files/FileService.js';
+import { NotificationService } from '../../services/notification/NotificationService.js';
+import { CloudinaryUploadService } from '../../services/uṕload/CloudinaryUploadService.js';
 
 export function makeCaseController(): ICaseController {
   const eventBus = new InMemoryEventBus();

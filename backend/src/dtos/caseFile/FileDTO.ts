@@ -1,5 +1,5 @@
-import { UserSlice } from '../../types/UserSlice';
-import { WithId } from '../../types/WithId';
+import { UserSlice } from '../../types/UserSlice.js';
+import { WithId } from '../../types/WithId.js';
 
 export interface FileDTO {
   ownerId: string;

@@ -1,5 +1,5 @@
 import { Types } from 'mongoose';
-import { UserRole } from '../../types/UserRole';
+import { UserRole } from '../../types/UserRole.js';
 
 export const fakeUserDatabase = [
   {

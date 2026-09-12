@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { NotificationMocker } from '../../tests/mocks/entities/NotificationMocker';
-import { HttpStatusCode } from '../types/HttpStatusCode';
-import { NotificationController } from './NotificationController';
-import { createMockHttpRequest } from '../../tests/mocks/createMockHttpRequest';
-import { createMockNotificationService } from '../../tests/mocks/services/createMockNotificationService';
-import { BadRequestError } from '../../errors/presentation/BadRequestError';
-import { NotFoundError } from '../../errors/presentation/NotFoundError';
-import { UserRole } from '../../types/UserRole';
-import { createMockPage } from '../../tests/mocks/createMockPage';
+import { NotificationMocker } from '../../tests/mocks/entities/NotificationMocker.js';
+import { HttpStatusCode } from '../types/HttpStatusCode.js';
+import { NotificationController } from './NotificationController.js';
+import { createMockHttpRequest } from '../../tests/mocks/createMockHttpRequest.js';
+import { createMockNotificationService } from '../../tests/mocks/services/createMockNotificationService.js';
+import { BadRequestError } from '../../errors/presentation/BadRequestError.js';
+import { NotFoundError } from '../../errors/presentation/NotFoundError.js';
+import { UserRole } from '../../types/UserRole.js';
+import { createMockPage } from '../../tests/mocks/createMockPage.js';
 
 describe(`Test ${NotificationController.name}`, () => {
   function makeSut() {

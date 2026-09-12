@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
-import { validateDeadlinePartial } from './validateDeadlinePartial';
-import { getThrownError } from '../../../tests/helpers/getThrownError';
-import { DeadlineMocker } from '../../../tests/mocks/entities/DeadlineMocker';
-import { ValidationError } from '../../../errors/presentation/ValidationError';
+import { validateDeadlinePartial } from './validateDeadlinePartial.js';
+import { getThrownError } from '../../../tests/helpers/getThrownError.js';
+import { DeadlineMocker } from '../../../tests/mocks/entities/DeadlineMocker.js';
+import { ValidationError } from '../../../errors/presentation/ValidationError.js';
 
 describe(`Testing ${validateDeadlinePartial.name}`, () => {
   it('should not throw error if all deadline fields are  valid', () => {

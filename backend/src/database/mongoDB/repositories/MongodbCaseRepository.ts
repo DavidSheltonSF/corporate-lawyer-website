@@ -1,15 +1,15 @@
-import { CaseRepository } from '../../../repositories/CaseRepository';
-import { WithId } from '../../../types/WithId';
-import { CaseModel } from '../../../models/CaseModel';
-import { CreateCaseDTO } from '../../../dtos/case/CreateCaseDTO';
+import { CaseRepository } from '../../../repositories/CaseRepository.js';
+import { WithId } from '../../../types/WithId.js';
+import { CaseModel } from '../../../models/CaseModel.js';
+import { CreateCaseDTO } from '../../../dtos/case/CreateCaseDTO.js';
 import { Types } from 'mongoose';
-import { CasesStats } from '../../../types/CasesStats';
-import { CasesStatus } from '../../../types/CasesStatus';
-import { CaseQuery } from '../../../types/CaseQuery';
-import { Page } from '../../../types/Page';
-import { CaseMapper } from '../../../mappers/Case/CaseMapper';
-import { UpdateCaseDTO } from '../../../dtos/case/UpdateCaseDTO';
-import { CaseDTO } from '../../../dtos/case/CaseDTO';
+import { CasesStats } from '../../../types/CasesStats.js';
+import { CasesStatus } from '../../../types/CasesStatus.js';
+import { CaseQuery } from '../../../types/CaseQuery.js';
+import { Page } from '../../../types/Page.js';
+import { CaseMapper } from '../../../mappers/Case/CaseMapper.js';
+import { UpdateCaseDTO } from '../../../dtos/case/UpdateCaseDTO.js';
+import { CaseDTO } from '../../../dtos/case/CaseDTO.js';
 
 export class MongodbCaseRepository implements CaseRepository {
   async create(data: CreateCaseDTO): Promise<WithId<CaseDTO>> {

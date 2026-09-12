@@ -1,9 +1,9 @@
-import { GenericMocker } from '../fields/GenericMocker';
-import { CaseFieldsMocker } from '../fields/CaseFieldsMocker';
-import { CasesStatus } from '../../../types/CasesStatus';
-import { CreateCaseDTO } from '../../../dtos/case/CreateCaseDTO';
-import { CaseDTO } from '../../../dtos/case/CaseDTO';
-import { WithId } from '../../../types/WithId';
+import { GenericMocker } from '../fields/GenericMocker.js';
+import { CaseFieldsMocker } from '../fields/CaseFieldsMocker.js';
+import { CasesStatus } from '../../../types/CasesStatus.js';
+import { CreateCaseDTO } from '../../../dtos/case/CreateCaseDTO.js';
+import { CaseDTO } from '../../../dtos/case/CaseDTO.js';
+import { WithId } from '../../../types/WithId.js';
 
 export class CaseMocker {
   static mockCreateCaseDTO(): CreateCaseDTO {

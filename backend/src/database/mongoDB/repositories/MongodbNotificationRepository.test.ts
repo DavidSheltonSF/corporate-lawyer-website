@@ -1,9 +1,9 @@
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from 'vitest';
-import { NotificationModel } from '../../../models/NotificationModel';
-import { NotificationMocker } from '../../../tests/mocks/entities/NotificationMocker';
-import { GenericMocker } from '../../../tests/mocks/fields/GenericMocker';
-import { MongodbNotificationRepository } from './MongodbNotificationRepository';
-import { MongodbTestConnector } from '../MongodbTestConnector';
+import { NotificationModel } from '../../../models/NotificationModel.js';
+import { NotificationMocker } from '../../../tests/mocks/entities/NotificationMocker.js';
+import { GenericMocker } from '../../../tests/mocks/fields/GenericMocker.js';
+import { MongodbNotificationRepository } from './MongodbNotificationRepository.js';
+import { MongodbTestConnector } from '../MongodbTestConnector.js';
 
 describe(`Testing ${MongodbNotificationRepository.name}`, () => {
   let connection: MongodbTestConnector | null = null;

@@ -1,10 +1,10 @@
-import { BadRequestError } from '../../errors/presentation/BadRequestError';
-import { NotFoundError } from '../../errors/presentation/NotFoundError';
-import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
-import { IFileService } from '../../services/files/IFileService';
-import { requireBody } from '../helpers/requireBody';
-import { HttpRequest } from '../types/HttpRequest';
-import { IFileController } from './IFileController';
+import { BadRequestError } from '../../errors/presentation/BadRequestError.js';
+import { NotFoundError } from '../../errors/presentation/NotFoundError.js';
+import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory.js';
+import { IFileService } from '../../services/files/IFileService.js';
+import { requireBody } from '../helpers/requireBody.js';
+import { HttpRequest } from '../types/HttpRequest.js';
+import { IFileController } from './IFileController.js';
 
 export class FileController implements IFileController {
   constructor(private readonly fileService: IFileService) {}

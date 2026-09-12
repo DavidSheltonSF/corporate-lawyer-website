@@ -1,5 +1,5 @@
-import { FindByIdResponse } from './responses';
-import { HttpRequest } from '../types/HttpRequest';
+import { FindByIdResponse } from './responses.js';
+import { HttpRequest } from '../types/HttpRequest.js';
 
 export interface INotificationsController {
   findById: (httpRequest: HttpRequest) => Promise<FindByIdResponse>;

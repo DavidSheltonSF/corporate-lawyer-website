@@ -1,7 +1,7 @@
-import { CaseLocation } from '../../types/CaseLocation';
-import { DeadlineCountingType } from '../../types/DeadlineCountingType';
-import { normalizeDate } from '../../utils/normalizeDate';
-import { HolidaysProvider } from '../HolidaysProvider';
+import { CaseLocation } from '../../types/CaseLocation.js';
+import { DeadlineCountingType } from '../../types/DeadlineCountingType.js';
+import { normalizeDate } from '../../utils/normalizeDate.js';
+import { HolidaysProvider } from '../HolidaysProvider.js';
 
 export class DeadlineCalculator {
   constructor(

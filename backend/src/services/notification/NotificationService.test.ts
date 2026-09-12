@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { NotificationMocker } from '../../tests/mocks/entities/NotificationMocker';
-import { NotificationService } from './NotificationService';
-import { createMockNotificationRepository } from '../../tests/mocks/repositories/createMockNotificationRepository';
+import { NotificationMocker } from '../../tests/mocks/entities/NotificationMocker.js';
+import { NotificationService } from './NotificationService.js';
+import { createMockNotificationRepository } from '../../tests/mocks/repositories/createMockNotificationRepository.js';
 
 describe(`Test ${NotificationService.name}`, () => {
   function makeSut() {

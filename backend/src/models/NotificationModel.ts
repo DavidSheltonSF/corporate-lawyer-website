@@ -1,6 +1,6 @@
 import { Document, model, Schema, Types } from 'mongoose';
-import { NotificationType } from '../types/NotificationType';
-import { NotificationChannel } from '../types/NotificationChannel';
+import { NotificationType } from '../types/NotificationType.js';
+import { NotificationChannel } from '../types/NotificationChannel.js';
 
 export interface INotificationModel {
   userId: Types.ObjectId;

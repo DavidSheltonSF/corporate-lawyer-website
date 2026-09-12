@@ -1,11 +1,11 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
-import { MongodbFileRepository } from './MongodbFileRepository';
-import { FileModel } from '../../../models/FileModel';
-import { FileMocker } from '../../../tests/mocks/entities/FileMocker';
-import { GenericMocker } from '../../../tests/mocks/fields/GenericMocker';
-import { UserMocker } from '../../../tests/mocks/entities/UserMocker';
-import { UserModel } from '../../../models/UserModel';
-import { MongodbTestConnector } from '../MongodbTestConnector';
+import { MongodbFileRepository } from './MongodbFileRepository.js';
+import { FileModel } from '../../../models/FileModel.js';
+import { FileMocker } from '../../../tests/mocks/entities/FileMocker.js';
+import { GenericMocker } from '../../../tests/mocks/fields/GenericMocker.js';
+import { UserMocker } from '../../../tests/mocks/entities/UserMocker.js';
+import { UserModel } from '../../../models/UserModel.js';
+import { MongodbTestConnector } from '../MongodbTestConnector.js';
 
 describe(`Test ${MongodbFileRepository.name}`, () => {
   let connection: MongodbTestConnector | null;

@@ -1,19 +1,19 @@
 import { describe, it, expect } from 'vitest';
-import { CaseMocker } from '../../tests/mocks/entities/CaseMoker';
-import { HttpStatusCode } from '../types/HttpStatusCode';
-import { CaseController } from './CaseController';
-import { createMockObject } from '../../tests/mocks/createMockObject';
-import { createMockHttpRequest } from '../../tests/mocks/createMockHttpRequest';
-import { IFileService } from '../../services/files/IFileService';
-import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO';
-import { UserRole } from '../../types/UserRole';
-import { createMockFileMulter } from '../../tests/mocks/createMockFileMulter';
-import { FileMocker } from '../../tests/mocks/entities/FileMocker';
-import { BadRequestError } from '../../errors/presentation/BadRequestError';
-import { NotFoundError } from '../../errors/presentation/NotFoundError';
-import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
-import { createMockPage } from '../../tests/mocks/createMockPage';
-import { createMockCaseService } from '../../tests/mocks/services/createMockCaseService';
+import { CaseMocker } from '../../tests/mocks/entities/CaseMoker.js';
+import { HttpStatusCode } from '../types/HttpStatusCode.js';
+import { CaseController } from './CaseController.js';
+import { createMockObject } from '../../tests/mocks/createMockObject.js';
+import { createMockHttpRequest } from '../../tests/mocks/createMockHttpRequest.js';
+import { IFileService } from '../../services/files/IFileService.js';
+import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO.js';
+import { UserRole } from '../../types/UserRole.js';
+import { createMockFileMulter } from '../../tests/mocks/createMockFileMulter.js';
+import { FileMocker } from '../../tests/mocks/entities/FileMocker.js';
+import { BadRequestError } from '../../errors/presentation/BadRequestError.js';
+import { NotFoundError } from '../../errors/presentation/NotFoundError.js';
+import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError.js';
+import { createMockPage } from '../../tests/mocks/createMockPage.js';
+import { createMockCaseService } from '../../tests/mocks/services/createMockCaseService.js';
 
 describe(`Test ${CaseController.name}`, () => {
   function makeSut() {

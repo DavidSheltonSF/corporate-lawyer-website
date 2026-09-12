@@ -1,5 +1,5 @@
-import { EventListener } from './EventListener';
-import { IEventBus } from './IEventBus';
+import { EventListener } from './EventListener.js';
+import { IEventBus } from './IEventBus.js';
 
 export class InMemoryEventBus implements IEventBus {
   private listeners = new Map();

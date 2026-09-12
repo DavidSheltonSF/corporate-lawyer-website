@@ -1,9 +1,9 @@
-import { DeadlineController } from '../../controllers/deadline/DeadlineController';
-import { MongodbDeadlineRepository } from '../../database/mongoDB/repositories/MongodbDeadlineRepository';
-import { DeadlineService } from '../../services/deadline/DeadlineService';
-import { IDeadlineController } from '../../controllers/deadline/IDeadlineController';
-import { MongodbCaseRepository } from '../../database/mongoDB/repositories/MongodbCaseRepository';
-import { BrazilHolidaysProvider } from '../../services/BrazilHolidaysProvider';
+import { DeadlineController } from '../../controllers/deadline/DeadlineController.js';
+import { MongodbDeadlineRepository } from '../../database/mongoDB/repositories/MongodbDeadlineRepository.js';
+import { DeadlineService } from '../../services/deadline/DeadlineService.js';
+import { IDeadlineController } from '../../controllers/deadline/IDeadlineController.js';
+import { MongodbCaseRepository } from '../../database/mongoDB/repositories/MongodbCaseRepository.js';
+import { BrazilHolidaysProvider } from '../../services/BrazilHolidaysProvider.js';
 
 export function makeDeadlineController(): IDeadlineController {
   const deadlineRepository = new MongodbDeadlineRepository();

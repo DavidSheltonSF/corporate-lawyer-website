@@ -1,5 +1,5 @@
-import { DeadlinePriority } from "../../types/DeadLinePriority";
-import { DomainError } from './DomainError';
+import { DeadlinePriority } from "../../types/DeadLinePriority.js";
+import { DomainError } from './DomainError.js';
 
 export class InvalidDeadlinePriorityError extends DomainError {
   constructor(priority: string) {

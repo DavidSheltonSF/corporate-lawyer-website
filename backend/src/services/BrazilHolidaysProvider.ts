@@ -1,7 +1,7 @@
-import { BrazilState } from '../types/BrazilState';
-import { City } from '../types/City';
-import { HolidaysRecord } from '../types/HolidaysRecord';
-import { HolidaysProvider } from './HolidaysProvider';
+import { BrazilState } from '../types/BrazilState.js';
+import { City } from '../types/City.js';
+import { HolidaysRecord } from '../types/HolidaysRecord.js';
+import { HolidaysProvider } from './HolidaysProvider.js';
 
 export const brazilHolidaysRecord: HolidaysRecord = {
   national: [

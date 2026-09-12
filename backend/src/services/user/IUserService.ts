@@ -1,10 +1,10 @@
-import { CreateClientDTO } from '../../dtos/user/CreateClientDTO';
-import { UpdateUserDTO } from '../../dtos/user/UpdateUserDTO';
-import { UserResponseDTO } from '../../dtos/user/UserResponseDTO';
-import { Page } from '../../types/Page';
-import { UserIncludeOptions } from '../../types/UserincludeOptions';
-import { UserQuery } from '../../types/UserQuery';
-import { WithId } from '../../types/WithId';
+import { CreateClientDTO } from '../../dtos/user/CreateClientDTO.js';
+import { UpdateUserDTO } from '../../dtos/user/UpdateUserDTO.js';
+import { UserResponseDTO } from '../../dtos/user/UserResponseDTO.js';
+import { Page } from '../../types/Page.js';
+import { UserIncludeOptions } from '../../types/UserincludeOptions.js';
+import { UserQuery } from '../../types/UserQuery.js';
+import { WithId } from '../../types/WithId.js';
 
 export interface IUserService {
   createClient(data: CreateClientDTO): Promise<WithId<UserResponseDTO>>;

@@ -1,6 +1,6 @@
-import { UserDTO } from '../../dtos/user/UserDTO';
-import { UserResponseDTO } from '../../dtos/user/UserResponseDTO';
-import { WithId } from '../../types/WithId';
+import { UserDTO } from '../../dtos/user/UserDTO.js';
+import { UserResponseDTO } from '../../dtos/user/UserResponseDTO.js';
+import { WithId } from '../../types/WithId.js';
 
 export class UserMapper {
   static persistenceToPresentation(data: any): WithId<UserDTO> {

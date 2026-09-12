@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { UserRole } from '../../types/UserRole';
-import { createMockHttpRequest } from './createMockHttpRequest';
+import { UserRole } from '../../types/UserRole.js';
+import { createMockHttpRequest } from './createMockHttpRequest.js';
 
 describe('createMockHttpRequest', () => {
   it('returns a request with default structure and merges overrides', () => {

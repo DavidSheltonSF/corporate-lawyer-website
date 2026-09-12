@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { DeadlineType } from '../../../types/DeadLineType';
-import { isValidDeadlineType } from './isValidDeadlineType';
+import { DeadlineType } from '../../../types/DeadLineType.js';
+import { isValidDeadlineType } from './isValidDeadlineType.js';
 
 describe(`Testing ${isValidDeadlineType.name}`, () => {
   it('should return true if valid deadline types if provided', () => {

@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository';
-import { AuthService } from './AuthService';
+import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository.js';
+import { AuthService } from './AuthService.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import { UserMocker } from '../../tests/mocks/entities/UserMocker';
+import { UserMocker } from '../../tests/mocks/entities/UserMocker.js';
 
 describe(`Test ${AuthService.name}`, () => {
   function makeSut() {

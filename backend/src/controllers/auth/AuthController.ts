@@ -1,13 +1,13 @@
-import { IUserService } from '../../services/user/IUserService';
-import { IAuthService } from '../../services/auth/IAuthService';
-import { IAuthController } from './IAuthController';
-import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
-import { getMissingFields } from '../../utils/getMissingFields';
-import { HttpRequest } from '../types/HttpRequest';
-import { BadRequestError } from '../../errors/presentation/BadRequestError';
-import { ValidationError } from '../../errors/presentation/ValidationError';
-import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
-import { requireBody } from '../helpers/requireBody';
+import { IUserService } from '../../services/user/IUserService.js';
+import { IAuthService } from '../../services/auth/IAuthService.js';
+import { IAuthController } from './IAuthController.js';
+import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory.js';
+import { getMissingFields } from '../../utils/getMissingFields.js';
+import { HttpRequest } from '../types/HttpRequest.js';
+import { BadRequestError } from '../../errors/presentation/BadRequestError.js';
+import { ValidationError } from '../../errors/presentation/ValidationError.js';
+import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError.js';
+import { requireBody } from '../helpers/requireBody.js';
 
 export class AuthController implements IAuthController {
   constructor(

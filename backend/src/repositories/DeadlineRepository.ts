@@ -1,8 +1,8 @@
-import { WithId } from '../types/WithId';
-import { UpdateDeadlineDTO } from '../dtos/deadLine/UpdateDeadlineDTO';
-import { DeadlineDTO } from '../dtos/deadLine/DeadlineDTO';
-import { CreateDeadlineDTO } from '../dtos/deadLine/CreateDeadlineDTO';
-import { CaseLocationDTO } from '../dtos/case/CaseLocationDTO';
+import { WithId } from '../types/WithId.js';
+import { UpdateDeadlineDTO } from '../dtos/deadLine/UpdateDeadlineDTO.js';
+import { DeadlineDTO } from '../dtos/deadLine/DeadlineDTO.js';
+import { CreateDeadlineDTO } from '../dtos/deadLine/CreateDeadlineDTO.js';
+import { CaseLocationDTO } from '../dtos/case/CaseLocationDTO.js';
 
 export interface DeadlineRepository {
   create(

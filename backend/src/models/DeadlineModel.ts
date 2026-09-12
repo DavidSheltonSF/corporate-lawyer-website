@@ -1,12 +1,12 @@
 import { Schema, model, Document, Types } from 'mongoose';
-import { DeadlineType } from '../types/DeadLineType';
-import { DeadlinePriority } from '../types/DeadLinePriority';
-import { DeadlineStatus } from '../types/DeadLineStatus';
-import { DeadlineCountingType } from '../types/DeadlineCountingType';
-import { CaseLocation } from '../types/CaseLocation';
-import { City } from '../types/City';
-import { BrazilState } from '../types/BrazilState';
-import { normalizeDate } from '../utils/normalizeDate';
+import { DeadlineType } from '../types/DeadLineType.js';
+import { DeadlinePriority } from '../types/DeadLinePriority.js';
+import { DeadlineStatus } from '../types/DeadLineStatus.js';
+import { DeadlineCountingType } from '../types/DeadlineCountingType.js';
+import { CaseLocation } from '../types/CaseLocation.js';
+import { City } from '../types/City.js';
+import { BrazilState } from '../types/BrazilState.js';
+import { normalizeDate } from '../utils/normalizeDate.js';
 
 export interface IDeadlineModel {
   caseId: Types.ObjectId;

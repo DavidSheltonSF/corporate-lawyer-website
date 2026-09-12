@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { BrazilState } from '../../types/BrazilState';
-import { City } from '../../types/City';
-import { DeadlineCountingType } from '../../types/DeadlineCountingType';
-import { createDate } from '../../utils/createDate';
-import { BrazilHolidaysProvider } from '../BrazilHolidaysProvider';
-import { DeadlineCalculator } from './DeadlineCalculator';
+import { BrazilState } from '../../types/BrazilState.js';
+import { City } from '../../types/City.js';
+import { DeadlineCountingType } from '../../types/DeadlineCountingType.js';
+import { createDate } from '../../utils/createDate.js';
+import { BrazilHolidaysProvider } from '../BrazilHolidaysProvider.js';
+import { DeadlineCalculator } from './DeadlineCalculator.js';
 
 describe(`Testing ${DeadlineCalculator.name}`, () => {
   function makeSut() {

@@ -1,13 +1,13 @@
 import { DeleteResult } from 'mongoose';
-import { CreateFileDTO } from '../../../dtos/caseFile/CreateFileDTO';
-import { FileDTO } from '../../../dtos/caseFile/FileDTO';
-import { FileMapper } from '../../../mappers/CaseFile/FileMapper';
-import { FileModel } from '../../../models/FileModel';
-import { FileRepository } from '../../../repositories/FileRepository';
-import { Page } from '../../../types/Page';
-import { PageParams } from '../../../types/PageParams';
-import { WithId } from '../../../types/WithId';
-import { DeleteManyResult } from '../../../types/DeleteManyResult';
+import { CreateFileDTO } from '../../../dtos/caseFile/CreateFileDTO.js';
+import { FileDTO } from '../../../dtos/caseFile/FileDTO.js';
+import { FileMapper } from '../../../mappers/CaseFile/FileMapper.js';
+import { FileModel } from '../../../models/FileModel.js';
+import { FileRepository } from '../../../repositories/FileRepository.js';
+import { Page } from '../../../types/Page.js';
+import { PageParams } from '../../../types/PageParams.js';
+import { WithId } from '../../../types/WithId.js';
+import { DeleteManyResult } from '../../../types/DeleteManyResult.js';
 
 export class MongodbFileRepository implements FileRepository {
   async create(data: CreateFileDTO): Promise<WithId<FileDTO>> {

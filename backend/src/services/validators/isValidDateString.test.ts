@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { isValidDateString } from './isValidDateString';
+import { isValidDateString } from './isValidDateString.js';
 
 describe(`Testing ${isValidDateString.name}`, () => {
   it('should return true if valid deadline types if provided', () => {

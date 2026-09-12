@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { InvalidCPFError } from '../../../errors/domain/InvalidCPFError';
-import { getThrownError } from '../../../tests/helpers/getThrownError';
-import { validateCPF } from './validateCPF';
+import { InvalidCPFError } from '../../../errors/domain/InvalidCPFError.js';
+import { getThrownError } from '../../../tests/helpers/getThrownError.js';
+import { validateCPF } from './validateCPF.js';
 
 describe(`Testing ${validateCPF.name}`, () => {
   it('should not throw error when user CPF is valid', () => {

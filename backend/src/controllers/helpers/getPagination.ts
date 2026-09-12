@@ -1,5 +1,5 @@
-import { BadRequestError } from '../../errors/presentation/BadRequestError';
-import { PageParams } from '../../types/PageParams';
+import { BadRequestError } from '../../errors/presentation/BadRequestError.js';
+import { PageParams } from '../../types/PageParams.js';
 
 export function getPagination(query: { limit?: string; page?: string }): PageParams {
   const { limit = 4, page = 1 } = query;

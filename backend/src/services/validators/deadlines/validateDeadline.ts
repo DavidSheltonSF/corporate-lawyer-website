@@ -1,9 +1,9 @@
-import { CreateDeadlineDTO } from '../../../dtos/deadLine/CreateDeadlineDTO';
-import { ValidationError } from '../../../errors/presentation/ValidationError';
-import { isValidDateString } from '../isValidDateString';
-import { isValidDeadlineCountingType } from './isValidDeadlineCountingType';
-import { isValidDeadlinePriority } from './isValidDeadlinePriority';
-import { isValidDeadlineType } from './isValidDeadlineType';
+import { CreateDeadlineDTO } from '../../../dtos/deadLine/CreateDeadlineDTO.js';
+import { ValidationError } from '../../../errors/presentation/ValidationError.js';
+import { isValidDateString } from '../isValidDateString.js';
+import { isValidDeadlineCountingType } from './isValidDeadlineCountingType.js';
+import { isValidDeadlinePriority } from './isValidDeadlinePriority.js';
+import { isValidDeadlineType } from './isValidDeadlineType.js';
 
 export function validateDeadline(data: CreateDeadlineDTO) {
   const { type, priority, intimationDate, countingType, days } = data;

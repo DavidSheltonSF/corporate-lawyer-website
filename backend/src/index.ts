@@ -1,9 +1,9 @@
 import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
-import { configApp } from './config/configApp';
-import { MongodbConnector } from './database/mongoDB/MongodbConnector';
-import { cleanDatabase } from './tests/cleanDatabase';
-import { populateDatabase } from './tests/populateDatabase';
+import { configApp } from './config/configApp.js';
+import { MongodbConnector } from './database/mongoDB/MongodbConnector.js';
+import { cleanDatabase } from './tests/cleanDatabase.js';
+import { populateDatabase } from './tests/populateDatabase.js';
 
 dotenv.config();
 

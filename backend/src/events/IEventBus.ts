@@ -1,4 +1,4 @@
-import { EventListener } from "./EventListener";
+import { EventListener } from "./EventListener.js";
 
 export interface IEventBus {
   subscribe: (eventName: string, listener: EventListener) => void;

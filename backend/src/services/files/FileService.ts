@@ -1,13 +1,13 @@
-import { FileRepository } from '../../repositories/FileRepository';
-import { WithId } from '../../types/WithId';
-import { IFileService } from './IFileService';
-import { FileDTO } from '../../dtos/caseFile/FileDTO';
-import { validateFile } from '../validators/files/validateFile';
-import { Page } from '../../types/Page';
-import { PageParams } from '../../types/PageParams';
-import { DeleteManyResult } from '../../types/DeleteManyResult';
-import { UploadService } from '../uṕload/UploadService';
-import { getFormatedFileName } from '../../utils/getFormatedFileName';
+import { FileRepository } from '../../repositories/FileRepository.js';
+import { WithId } from '../../types/WithId.js';
+import { IFileService } from './IFileService.js';
+import { FileDTO } from '../../dtos/caseFile/FileDTO.js';
+import { validateFile } from '../validators/files/validateFile.js';
+import { Page } from '../../types/Page.js';
+import { PageParams } from '../../types/PageParams.js';
+import { DeleteManyResult } from '../../types/DeleteManyResult.js';
+import { UploadService } from '../uṕload/UploadService.js';
+import { getFormatedFileName } from '../../utils/getFormatedFileName.js';
 
 export class FileService implements IFileService {
   constructor(

@@ -7,8 +7,8 @@ import {
   FindByIdResponse,
   FindFilesByCaseId,
   GetMyStatsResponse,
-} from './responses';
-import { HttpRequest } from '../types/HttpRequest';
+} from './responses.js';
+import { HttpRequest } from '../types/HttpRequest.js';
 
 export interface ICaseController {
   create: (httpRequest: HttpRequest) => Promise<CreateResponse>;

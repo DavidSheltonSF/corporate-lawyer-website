@@ -1,16 +1,16 @@
-import { DeadlineModel } from '../../../models/DeadlineModel';
-import { MongodbDeadlineRepository } from './MongodbDeadlineRepository';
-import { DeadlineType } from '../../../types/DeadLineType';
-import { DeadlinePriority } from '../../../types/DeadLinePriority';
-import { DeadlineMocker } from '../../../tests/mocks/entities/DeadlineMocker';
-import { DeadlineStatus } from '../../../types/DeadLineStatus';
-import { CaseLocationDTO } from '../../../dtos/case/CaseLocationDTO';
-import { BrazilState } from '../../../types/BrazilState';
-import { City } from '../../../types/City';
+import { DeadlineModel } from '../../../models/DeadlineModel.js';
+import { MongodbDeadlineRepository } from './MongodbDeadlineRepository.js';
+import { DeadlineType } from '../../../types/DeadLineType.js';
+import { DeadlinePriority } from '../../../types/DeadLinePriority.js';
+import { DeadlineMocker } from '../../../tests/mocks/entities/DeadlineMocker.js';
+import { DeadlineStatus } from '../../../types/DeadLineStatus.js';
+import { CaseLocationDTO } from '../../../dtos/case/CaseLocationDTO.js';
+import { BrazilState } from '../../../types/BrazilState.js';
+import { City } from '../../../types/City.js';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
-import { GenericMocker } from '../../../tests/mocks/fields/GenericMocker';
-import { toDateOnlyString } from '../../../utils/toDateOnly';
-import { MongodbTestConnector } from '../MongodbTestConnector';
+import { GenericMocker } from '../../../tests/mocks/fields/GenericMocker.js';
+import { toDateOnlyString } from '../../../utils/toDateOnly.js';
+import { MongodbTestConnector } from '../MongodbTestConnector.js';
 
 describe('Test DeadlineRepository', () => {
   let connection: MongodbTestConnector | null = null;

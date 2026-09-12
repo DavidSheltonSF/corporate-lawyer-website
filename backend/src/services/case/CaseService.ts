@@ -1,17 +1,17 @@
-import { CreateCaseDTO } from '../../dtos/case/CreateCaseDTO';
-import { CaseRepository } from '../../repositories/CaseRepository';
-import { CaseQuery } from '../../types/CaseQuery';
-import { CasesStats } from '../../types/CasesStats';
-import { Page } from '../../types/Page';
-import { WithId } from '../../types/WithId';
-import { ICaseService } from './ICaseService';
-import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO';
-import { validateCase } from '../validators/cases/validateCase';
-import { DuplicateUniqueFieldError } from '../../errors/domain/DuplicateUniqueFieldError';
-import { CaseDTO } from '../../dtos/case/CaseDTO';
-import { CaseEvent } from '../../events/case/CaseEvents';
-import { IEventBus } from '../../events/IEventBus';
-import { validateCasePartial } from '../validators/cases/validateCasePartial';
+import { CreateCaseDTO } from '../../dtos/case/CreateCaseDTO.js';
+import { CaseRepository } from '../../repositories/CaseRepository.js';
+import { CaseQuery } from '../../types/CaseQuery.js';
+import { CasesStats } from '../../types/CasesStats.js';
+import { Page } from '../../types/Page.js';
+import { WithId } from '../../types/WithId.js';
+import { ICaseService } from './ICaseService.js';
+import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO.js';
+import { validateCase } from '../validators/cases/validateCase.js';
+import { DuplicateUniqueFieldError } from '../../errors/domain/DuplicateUniqueFieldError.js';
+import { CaseDTO } from '../../dtos/case/CaseDTO.js';
+import { CaseEvent } from '../../events/case/CaseEvents.js';
+import { IEventBus } from '../../events/IEventBus.js';
+import { validateCasePartial } from '../validators/cases/validateCasePartial.js';
 
 export class CaseService implements ICaseService {
   constructor(

@@ -1,9 +1,9 @@
-import { fakeUserDatabase } from './users';
-import { CasesStatus } from '../../types/CasesStatus';
-import { ICaseModel } from '../../models/CaseModel';
-import { BrazilState } from '../../types/BrazilState';
-import { City } from '../../types/City';
-import { CaseFieldsMocker } from '../mocks/fields/CaseFieldsMocker';
+import { fakeUserDatabase } from './users.js';
+import { CasesStatus } from '../../types/CasesStatus.js';
+import { ICaseModel } from '../../models/CaseModel.js';
+import { BrazilState } from '../../types/BrazilState.js';
+import { City } from '../../types/City.js';
+import { CaseFieldsMocker } from '../mocks/fields/CaseFieldsMocker.js';
 
 export const fakeCases: ICaseModel[] = [
   {

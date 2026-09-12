@@ -1,9 +1,9 @@
-import { INotificationService } from '../../services/notification/INotificationService';
-import { EntityType } from '../../types/EntityType';
-import { NotificationChannel } from '../../types/NotificationChannel';
-import { NotificationType } from '../../types/NotificationType';
-import { CaseEventPayload } from './CaseEvents';
-import { EventListener } from '../EventListener';
+import { INotificationService } from '../../services/notification/INotificationService.js';
+import { EntityType } from '../../types/EntityType.js';
+import { NotificationChannel } from '../../types/NotificationChannel.js';
+import { NotificationType } from '../../types/NotificationType.js';
+import { CaseEventPayload } from './CaseEvents.js';
+import { EventListener } from '../EventListener.js';
 
 export class NotifyCaseUpdatedHandler implements EventListener {
   constructor(private readonly notificationService: INotificationService) {}

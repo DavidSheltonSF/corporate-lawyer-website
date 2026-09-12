@@ -1,12 +1,12 @@
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from 'vitest';
 import { config } from 'dotenv';
-import { UserModel } from '../../../models/UserModel';
-import { MongodbUserRepository } from './MongodbUserRepository';
+import { UserModel } from '../../../models/UserModel.js';
+import { MongodbUserRepository } from './MongodbUserRepository.js';
 import bcrypt from 'bcrypt';
-import { UserMocker } from '../../../tests/mocks/entities/UserMocker';
-import { GenericMocker } from '../../../tests/mocks/fields/GenericMocker';
-import { UpdateUserDTO } from '../../../dtos/user/UpdateUserDTO';
-import { MongodbTestConnector } from '../MongodbTestConnector';
+import { UserMocker } from '../../../tests/mocks/entities/UserMocker.js';
+import { GenericMocker } from '../../../tests/mocks/fields/GenericMocker.js';
+import { UpdateUserDTO } from '../../../dtos/user/UpdateUserDTO.js';
+import { MongodbTestConnector } from '../MongodbTestConnector.js';
 config();
 
 describe('Test UserRepository', () => {

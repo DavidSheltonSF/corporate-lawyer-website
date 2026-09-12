@@ -1,7 +1,7 @@
-import { CreateFileDTO } from '../../../dtos/caseFile/CreateFileDTO';
-import { FileDTO } from '../../../dtos/caseFile/FileDTO';
-import { WithId } from '../../../types/WithId';
-import { GenericMocker } from '../fields/GenericMocker';
+import { CreateFileDTO } from '../../../dtos/caseFile/CreateFileDTO.js';
+import { FileDTO } from '../../../dtos/caseFile/FileDTO.js';
+import { WithId } from '../../../types/WithId.js';
+import { GenericMocker } from '../fields/GenericMocker.js';
 
 export class FileMocker {
   static mockFileDTO(): CreateFileDTO {

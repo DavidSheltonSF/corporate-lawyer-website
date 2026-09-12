@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { UserRepository } from '../../repositories/UserRepository';
+import { UserRepository } from '../../repositories/UserRepository.js';
 import dotenv from 'dotenv';
-import { AuthTokenResponse } from './AuthTokenResponse';
+import { AuthTokenResponse } from './AuthTokenResponse.js';
 
 dotenv.config();
 

@@ -1,6 +1,6 @@
-import { NotificationDTO } from '../../dtos/notification/NotificationDTO';
-import { WithId } from '../../types/WithId';
-import { HttpResponse } from '../types/HttpResponse';
+import { NotificationDTO } from '../../dtos/notification/NotificationDTO.js';
+import { WithId } from '../../types/WithId.js';
+import { HttpResponse } from '../types/HttpResponse.js';
 
 export type FindByIdResponse = HttpResponse<WithId<NotificationDTO> | null>;
 export type FindMyResponse = HttpResponse<WithId<NotificationDTO>[] | null>;

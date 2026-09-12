@@ -1,9 +1,9 @@
 import { RequestHandler, Router } from 'express';
-import { ICaseController } from '../controllers/case/ICaseController';
-import { requireAuth } from '../middlewares/requireAuth';
-import { upload } from '../middlewares/uploadFile';
-import { expressHttpAdapter } from './adapters/expressHttpAdapter';
-import { requireLawyer } from '../middlewares/requireLawyer';
+import { ICaseController } from '../controllers/case/ICaseController.js';
+import { requireAuth } from '../middlewares/requireAuth.js';
+import { upload } from '../middlewares/uploadFile.js';
+import { expressHttpAdapter } from './adapters/expressHttpAdapter.js';
+import { requireLawyer } from '../middlewares/requireLawyer.js';
 
 export function casesRoutes(
   router: Router,

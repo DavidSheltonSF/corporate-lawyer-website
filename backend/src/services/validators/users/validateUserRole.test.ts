@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { InvalidUserRoleError } from '../../../errors/domain/InvalidUserRoleError';
-import { getThrownError } from '../../../tests/helpers/getThrownError';
-import { validateUserRole } from './validateUserRole';
+import { InvalidUserRoleError } from '../../../errors/domain/InvalidUserRoleError.js';
+import { getThrownError } from '../../../tests/helpers/getThrownError.js';
+import { validateUserRole } from './validateUserRole.js';
 
 describe(`Testing ${validateUserRole.name}`, () => {
   it('should not throw error when user role is valid', () => {

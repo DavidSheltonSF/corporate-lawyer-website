@@ -1,4 +1,4 @@
-import { CaseLocationDTO } from "./CaseLocationDTO";
+import { CaseLocationDTO } from "./CaseLocationDTO.js";
 
 export interface CreateCaseDTO {
   client: string;

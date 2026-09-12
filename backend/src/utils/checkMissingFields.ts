@@ -1,4 +1,4 @@
-import { BadRequestError } from '../errors/presentation/BadRequestError';
+import { BadRequestError } from '../errors/presentation/BadRequestError.js';
 
 export function checkMissingFields(object: Record<string, any>, requiredFields: string[]): void {
   const missingFields = requiredFields.filter(

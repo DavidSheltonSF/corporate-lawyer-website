@@ -1,6 +1,6 @@
-import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError';
-import { AuthenticatedUser } from '../../types/AuthenticatedUser';
-import { HttpRequest } from '../types/HttpRequest';
+import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError.js';
+import { AuthenticatedUser } from '../../types/AuthenticatedUser.js';
+import { HttpRequest } from '../types/HttpRequest.js';
 
 export function requireAuthenticatedUser(httpRequest: HttpRequest): AuthenticatedUser {
   const user = httpRequest.user;

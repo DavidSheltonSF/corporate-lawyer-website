@@ -1,16 +1,16 @@
 import { config } from 'dotenv';
-import { MongodbCaseRepository } from './MongodbCaseRepository';
-import { CasesStatus } from '../../../types/CasesStatus';
-import { UserRole } from '../../../types/UserRole';
+import { MongodbCaseRepository } from './MongodbCaseRepository.js';
+import { CasesStatus } from '../../../types/CasesStatus.js';
+import { UserRole } from '../../../types/UserRole.js';
 import { Types } from 'mongoose';
-import { IUserModel, UserModel } from '../../../models/UserModel';
-import { BrazilState } from '../../../types/BrazilState';
-import { City } from '../../../types/City';
-import { UserMocker } from '../../../tests/mocks/entities/UserMocker';
+import { IUserModel, UserModel } from '../../../models/UserModel.js';
+import { BrazilState } from '../../../types/BrazilState.js';
+import { City } from '../../../types/City.js';
+import { UserMocker } from '../../../tests/mocks/entities/UserMocker.js';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
-import { GenericMocker } from '../../../tests/mocks/fields/GenericMocker';
-import { MongodbTestConnector } from '../MongodbTestConnector';
-import { CaseModel } from '../../../models/CaseModel';
+import { GenericMocker } from '../../../tests/mocks/fields/GenericMocker.js';
+import { MongodbTestConnector } from '../MongodbTestConnector.js';
+import { CaseModel } from '../../../models/CaseModel.js';
 config();
 
 describe('Test CaseRepository', () => {

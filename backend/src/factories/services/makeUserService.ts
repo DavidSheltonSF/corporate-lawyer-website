@@ -1,6 +1,6 @@
-import { MongodbCaseRepository } from '../../database/mongoDB/repositories/MongodbCaseRepository';
-import { MongodbUserRepository } from '../../database/mongoDB/repositories/MongodbUserRepository';
-import { UserService } from '../../services/user/UserService';
+import { MongodbCaseRepository } from '../../database/mongoDB/repositories/MongodbCaseRepository.js';
+import { MongodbUserRepository } from '../../database/mongoDB/repositories/MongodbUserRepository.js';
+import { UserService } from '../../services/user/UserService.js';
 
 export function makeUserService() {
   const userRepository = new MongodbUserRepository();

@@ -1,9 +1,9 @@
-import { CreateCaseDTO } from '../../../dtos/case/CreateCaseDTO';
-import { ValidationError } from '../../../errors/presentation/ValidationError';
-import { CasesStatus } from '../../../types/CasesStatus';
-import { validateCaseStatus } from './validateCaseStatus';
-import { validateCaseTitle } from './validateCaseTitle';
-import { validateProcessNumber } from './validateProcessNumber';
+import { CreateCaseDTO } from '../../../dtos/case/CreateCaseDTO.js';
+import { ValidationError } from '../../../errors/presentation/ValidationError.js';
+import { CasesStatus } from '../../../types/CasesStatus.js';
+import { validateCaseStatus } from './validateCaseStatus.js';
+import { validateCaseTitle } from './validateCaseTitle.js';
+import { validateProcessNumber } from './validateProcessNumber.js';
 
 export function validateCase(data: CreateCaseDTO) {
   const { title, processNumber, status } = data;

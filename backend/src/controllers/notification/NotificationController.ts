@@ -1,9 +1,9 @@
-import { INotificationService } from '../../services/notification/INotificationService';
-import { INotificationsController } from './INotificationController';
-import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory';
-import { HttpRequest } from '../types/HttpRequest';
-import { NotFoundError } from '../../errors/presentation/NotFoundError';
-import { BadRequestError } from '../../errors/presentation/BadRequestError';
+import { INotificationService } from '../../services/notification/INotificationService.js';
+import { INotificationsController } from './INotificationController.js';
+import { HttpResponseFactory } from '../../factories/HttpResponse/HttpResponseFactory.js';
+import { HttpRequest } from '../types/HttpRequest.js';
+import { NotFoundError } from '../../errors/presentation/NotFoundError.js';
+import { BadRequestError } from '../../errors/presentation/BadRequestError.js';
 
 export class NotificationController implements INotificationsController {
   constructor(private notificationService: INotificationService) {}

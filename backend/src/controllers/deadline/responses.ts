@@ -1,7 +1,7 @@
-import { CaseDTO } from '../../dtos/case/CaseDTO';
-import { DeadlineDTO } from '../../dtos/deadLine/DeadlineDTO';
-import { WithId } from '../../types/WithId';
-import { HttpResponse } from '../types/HttpResponse';
+import { CaseDTO } from '../../dtos/case/CaseDTO.js';
+import { DeadlineDTO } from '../../dtos/deadLine/DeadlineDTO.js';
+import { WithId } from '../../types/WithId.js';
+import { HttpResponse } from '../types/HttpResponse.js';
 
 export type CreateResponse = HttpResponse<WithId<DeadlineDTO> | null>;
 export type FindAllResponse = HttpResponse<WithId<DeadlineDTO>[]>;
