@@ -8,6 +8,7 @@ import { BadRequestError } from '../../errors/presentation/BadRequestError.js';
 import { NotFoundError } from '../../errors/presentation/NotFoundError.js';
 import { UserRole } from '../../types/UserRole.js';
 import { createMockPage } from '../../tests/mocks/createMockPage.js';
+import { MissingAuthenticatedUserError } from '../../errors/presentation/MissingAuthenticatedUserError.js';
 
 describe(`Test ${NotificationController.name}`, () => {
   function makeSut() {
@@ -88,6 +89,15 @@ describe(`Test ${NotificationController.name}`, () => {
         status: HttpStatusCode.ok,
         data: mockPage,
       });
+    });
+
+    it('should throw MissingAuthenticatedUserError if the user credentials are not provided', async () => {
+      const { notificationService, notificationController, fakeId } = makeSut();
+
+      const httpRequest = createMockHttpRequest({});
+
+      await expect(notificationController.findMy(httpRequest)).rejects.toThrow(MissingAuthenticatedUserError);
+      expect(notificationService.findByUserId).not.toHaveBeenCalled()
     });
   });
 
