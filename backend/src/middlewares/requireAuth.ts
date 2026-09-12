@@ -1,5 +1,5 @@
 import { type NextFunction, type Request, type Response } from 'express';
-import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { JwtPayload } from '../types/JwtPayload.js';
 import dotenv from 'dotenv';
 import { HttpResponseFactory } from '../factories/HttpResponse/HttpResponseFactory.js';
@@ -37,11 +37,11 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
     next();
   } catch (error: any) {
     console.log(error);
-    if (error instanceof TokenExpiredError) {
+    if (error instanceof jwt.TokenExpiredError) {
       throw new UnauthorizedError('Token expired');
     }
 
-    if (error instanceof JsonWebTokenError) {
+    if (error instanceof jwt.JsonWebTokenError) {
       throw new UnauthorizedError('Invalid token');
     }
 
