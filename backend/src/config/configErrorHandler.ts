@@ -3,7 +3,7 @@ import { DomainError } from '../errors/domain/DomainError.js';
 import { BaseHttpError } from '../errors/presentation/BaseHttpError.js';
 
 export function configErrorHandler(app: Application) {
-  app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     console.error(err);
 
     if (err instanceof BaseHttpError) {

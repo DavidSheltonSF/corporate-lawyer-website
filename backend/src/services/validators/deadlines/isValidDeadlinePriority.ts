@@ -1,4 +1,3 @@
-import { InvalidDeadlinePriorityError } from '../../../errors/domain/InvalidDeadlinePriorityError.js';
 import { DeadlinePriority } from '../../../types/DeadLinePriority.js';
 
 export function isValidDeadlinePriority(priority: string): boolean {

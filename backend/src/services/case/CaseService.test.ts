@@ -166,7 +166,7 @@ describe(`Test ${CaseService.name}`, () => {
 
   describe('getStats', () => {
     it('should return the global case statistics', async () => {
-      const { caseRepository, caseService, fakeId } = makeSut();
+      const { caseRepository, caseService } = makeSut();
 
       const expectedStats = { closed: 0, open: 0 };
 

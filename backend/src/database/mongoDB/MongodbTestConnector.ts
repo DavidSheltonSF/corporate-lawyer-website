@@ -14,7 +14,7 @@ export class MongodbTestConnector {
 
   static async connect(workerId: string): Promise<void> {
     try {
-      const connection = await mongoose.connect(getTestURI(workerId));
+      await mongoose.connect(getTestURI(workerId));
     } catch (error) {
       console.log('Database error');
       process.exit(1);

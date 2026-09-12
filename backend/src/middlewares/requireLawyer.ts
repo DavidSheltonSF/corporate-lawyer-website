@@ -3,7 +3,7 @@ import { ForbiddenError } from '../errors/presentation/ForbiddenError.js';
 import { UserRole } from '../types/UserRole.js';
 import { getAuthenticatedUser } from '../controllers/helpers/getAuthenticatedUser.js';
 
-export function requireLawyer(req: Request, res: Response, next: NextFunction) {
+export function requireLawyer(req: Request, _res: Response, next: NextFunction) {
   const authUser = getAuthenticatedUser(req);
 
   if (authUser.role !== UserRole.lawyer) {

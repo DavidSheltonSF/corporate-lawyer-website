@@ -14,7 +14,6 @@ import { generateTemporaryPassword } from '../helpers/generateTemporaryPassword.
 import { validateEmail } from '../validators/users/validateEmail.js';
 import { validateUserPartial } from '../validators/users/validateUserPartial.js';
 import { IUserService } from './IUserService.js';
-import { UserIncludeOptions } from '../../types/UserincludeOptions.js';
 
 export class UserService implements IUserService {
   constructor(

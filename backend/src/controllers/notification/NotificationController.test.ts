@@ -92,12 +92,14 @@ describe(`Test ${NotificationController.name}`, () => {
     });
 
     it('should throw MissingAuthenticatedUserError if the user credentials are not provided', async () => {
-      const { notificationService, notificationController, fakeId } = makeSut();
+      const { notificationService, notificationController } = makeSut();
 
       const httpRequest = createMockHttpRequest({});
 
-      await expect(notificationController.findMy(httpRequest)).rejects.toThrow(MissingAuthenticatedUserError);
-      expect(notificationService.findByUserId).not.toHaveBeenCalled()
+      await expect(notificationController.findMy(httpRequest)).rejects.toThrow(
+        MissingAuthenticatedUserError
+      );
+      expect(notificationService.findByUserId).not.toHaveBeenCalled();
     });
   });
 

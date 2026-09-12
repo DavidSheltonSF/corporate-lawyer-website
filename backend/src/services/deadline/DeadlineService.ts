@@ -4,7 +4,6 @@ import { UpdateDeadlineDTO } from '../../dtos/deadLine/UpdateDeadlineDTO.js';
 import { CaseNotFoundError } from '../../errors/domain/CaseNotFoundError.js';
 import { CaseRepository } from '../../repositories/CaseRepository.js';
 import { DeadlineRepository } from '../../repositories/DeadlineRepository.js';
-import { DeadlineCountingType } from '../../types/DeadlineCountingType.js';
 import { WithId } from '../../types/WithId.js';
 import { toDateOnlyString } from '../../utils/toDateOnly.js';
 import { DeadlineCalculator } from '../helpers/DeadlineCalculator.js';

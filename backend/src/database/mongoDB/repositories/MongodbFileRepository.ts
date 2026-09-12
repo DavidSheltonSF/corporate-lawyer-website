@@ -1,4 +1,3 @@
-import { DeleteResult } from 'mongoose';
 import { CreateFileDTO } from '../../../dtos/caseFile/CreateFileDTO.js';
 import { FileDTO } from '../../../dtos/caseFile/FileDTO.js';
 import { FileMapper } from '../../../mappers/CaseFile/FileMapper.js';

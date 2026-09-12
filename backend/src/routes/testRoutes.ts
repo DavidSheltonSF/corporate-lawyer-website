@@ -5,12 +5,12 @@ import { CaseModel } from '../models/CaseModel.js';
 import { fakeNotifications } from '../tests/fakeDatabase/notifications.js';
 
 export function testRoutes(router: Router) {
-  router.get('/api/test/users/', async (req: Request, res: Response) => {
+  router.get('/api/test/users/', async (_req: Request, res: Response) => {
     const response = await UserModel.find();
     res.status(200).json({ data: response });
   });
 
-  router.get('/api/test/cases/', async (req: Request, res: Response) => {
+  router.get('/api/test/cases/', async (_req: Request, res: Response) => {
     const response = await CaseModel.find();
     res.status(200).json({ data: response });
   });
@@ -22,16 +22,16 @@ export function testRoutes(router: Router) {
     res.status(200).json({ data: response });
   });
 
-  router.get('/api/test/notifications/', async (req: Request, res: Response) => {
+  router.get('/api/test/notifications/', async (_req: Request, res: Response) => {
     const response = await NotificationModel.find();
     res.status(200).json({ data: response });
   });
 
-  router.post('/api/test/notifications/', async (req: Request, res: Response) => {
+  router.post('/api/test/notifications/', async (_req: Request, res: Response) => {
     const response = await NotificationModel.create(fakeNotifications);
     res.status(200).json({ data: response });
   });
-  router.delete('/api/test/notifications/clean', async (req: Request, res: Response) => {
+  router.delete('/api/test/notifications/clean', async (_req: Request, res: Response) => {
     await NotificationModel.deleteMany({});
     res.sendStatus(200);
   });

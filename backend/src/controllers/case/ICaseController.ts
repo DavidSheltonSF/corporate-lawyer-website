@@ -2,7 +2,6 @@ import {
   AddFileResponse,
   CreateResponse,
   DeleteByIdResponse,
-  DeleteFileResponse,
   FindByClientResponse,
   FindByIdResponse,
   FindFilesByCaseId,

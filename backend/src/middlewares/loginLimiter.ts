@@ -4,7 +4,7 @@ import { TooManyRequestsError } from '../errors/presentation/TooManyRequestsErro
 export const loginLimiter = rateLimit({
   windowMs: 30 * 1000,
   max: 10,
-  handler: (req, res) => {
+  handler: () => {
     throw new TooManyRequestsError();
   },
 });

@@ -2,12 +2,11 @@ import { type NextFunction, type Request, type Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { JwtPayload } from '../types/JwtPayload.js';
 import dotenv from 'dotenv';
-import { HttpResponseFactory } from '../factories/HttpResponse/HttpResponseFactory.js';
 import { UnauthorizedError } from '../errors/presentation/UnauthorizedError.js';
 
 dotenv.config();
 
-export function requireAuth(req: Request, res: Response, next: NextFunction) {
+export function requireAuth(req: Request, _res: Response, next: NextFunction) {
   try {
     const token = req.headers.authorization;
 

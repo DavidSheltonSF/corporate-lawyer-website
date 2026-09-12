@@ -131,7 +131,7 @@ export class CaseController implements ICaseController {
     return HttpResponseFactory.makeOk(caseStats);
   };
 
-  getStats = async (httpRequest: HttpRequest) => {
+  getStats = async (_httpRequest: HttpRequest) => {
     const caseStats = await this.caseService.getStats();
     return HttpResponseFactory.makeOk(caseStats);
   };

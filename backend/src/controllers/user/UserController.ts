@@ -29,7 +29,7 @@ export class UserController implements IUserController {
     return HttpResponseFactory.makeCreated(data);
   };
 
-  findAll = async (httpRequest: HttpRequest) => {
+  findAll = async (_httpRequest: HttpRequest) => {
     const data = await this.userService.findAll();
     return HttpResponseFactory.makeOk(data);
   };

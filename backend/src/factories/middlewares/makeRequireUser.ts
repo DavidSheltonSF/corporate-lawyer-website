@@ -4,7 +4,7 @@ import { getAuthenticatedUser } from '../../controllers/helpers/getAuthenticated
 import { UnauthorizedError } from '../../errors/presentation/UnauthorizedError.js';
 
 export function makeRequireUser(userService: IUserService) {
-  return async (req: Request, res: Response, next: NextFunction) => {
+  return async (req: Request, _res: Response, next: NextFunction) => {
     const authUser = getAuthenticatedUser(req);
     const existingUser = await userService.findById(authUser.id);
     if (!existingUser) {

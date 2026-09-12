@@ -2,7 +2,6 @@ import { CreateClientDTO } from '../../dtos/user/CreateClientDTO.js';
 import { UpdateUserDTO } from '../../dtos/user/UpdateUserDTO.js';
 import { UserResponseDTO } from '../../dtos/user/UserResponseDTO.js';
 import { Page } from '../../types/Page.js';
-import { UserIncludeOptions } from '../../types/UserincludeOptions.js';
 import { UserQuery } from '../../types/UserQuery.js';
 import { WithId } from '../../types/WithId.js';
 

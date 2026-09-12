@@ -2,8 +2,7 @@ import { config } from 'dotenv';
 import { MongodbCaseRepository } from './MongodbCaseRepository.js';
 import { CasesStatus } from '../../../types/CasesStatus.js';
 import { UserRole } from '../../../types/UserRole.js';
-import { Types } from 'mongoose';
-import { IUserModel, UserModel } from '../../../models/UserModel.js';
+import { UserModel } from '../../../models/UserModel.js';
 import { BrazilState } from '../../../types/BrazilState.js';
 import { City } from '../../../types/City.js';
 import { UserMocker } from '../../../tests/mocks/entities/UserMocker.js';
@@ -270,7 +269,7 @@ describe('Test CaseRepository', () => {
 
   describe('getStatsByClientId', () => {
     it('should return the case statistics by client id', async () => {
-      const { caseRepository, clientId, lawyerId } = await makeSut();
+      const { caseRepository, clientId } = await makeSut();
 
       const expectedStatistics = { open: 0, closed: 0 };
 

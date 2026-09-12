@@ -1,5 +1,3 @@
-import { FileDTO } from '../dtos/caseFile/FileDTO.js';
-import { CreateFileDTO } from '../dtos/caseFile/CreateFileDTO.js';
 import { CreateCaseDTO } from '../dtos/case/CreateCaseDTO.js';
 import { CaseQuery } from '../types/CaseQuery.js';
 import { CasesStats } from '../types/CasesStats.js';

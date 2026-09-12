@@ -1,6 +1,5 @@
 import { AuthController } from '../../controllers/auth/AuthController.js';
 import { IAuthController } from '../../controllers/auth/IAuthController.js';
-import { MongodbCaseRepository } from '../../database/mongoDB/repositories/MongodbCaseRepository.js';
 import { MongodbUserRepository } from '../../database/mongoDB/repositories/MongodbUserRepository.js';
 import { AuthService } from '../../services/auth/AuthService.js';
 import { IUserService } from '../../services/user/IUserService.js';
