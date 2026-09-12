@@ -1,26 +1,17 @@
 import { describe, expect, it } from 'vitest';
-import { InvalidCPFError } from '../../../errors/domain/InvalidCPFError.js';
-import { getThrownError } from '../../../tests/helpers/getThrownError.js';
 import { validateCPF } from './validateCPF.js';
 
 describe(`Testing ${validateCPF.name}`, () => {
-  it('should not throw error when user CPF is valid', () => {
-    const thrownError1 = getThrownError(() => validateCPF('158.555.555-88'));
-    const thrownError2 = getThrownError(() => validateCPF('15855555588'));
-    const thrownError3 = getThrownError(() => validateCPF('00288544788'));
-    expect(thrownError1).toBeNull();
-    expect(thrownError2).toBeNull();
-    expect(thrownError3).toBeNull();
+  it('should return true when user CPF is valid', () => {
+    expect(validateCPF('158.555.555-88')).toBe(true);
+    expect(validateCPF('15855555588')).toBe(true);
+    expect(validateCPF('00288544788')).toBe(true);
   });
 
-  it('should throw InvalidCPFError if cpf provided is invalid', () => {
-    const thrownError1 = getThrownError(() => validateCPF('jo.com'));
-    const thrownError2 = getThrownError(() => validateCPF('5588844478'));
-    const thrownError3 = getThrownError(() => validateCPF('111.558.777.77'));
-    const thrownError4 = getThrownError(() => validateCPF(''));
-    expect(thrownError1).toBeInstanceOf(InvalidCPFError);
-    expect(thrownError2).toBeInstanceOf(InvalidCPFError);
-    expect(thrownError3).toBeInstanceOf(InvalidCPFError);
-    expect(thrownError4).toBeInstanceOf(InvalidCPFError);
+  it('should return false if cpf provided is invalid', () => {
+    expect(validateCPF('jo.com')).toBe(false);
+    expect(validateCPF('5588844478')).toBe(false);
+    expect(validateCPF('111.558.777.77')).toBe(false);
+    expect(validateCPF('')).toBe(false);
   });
 });

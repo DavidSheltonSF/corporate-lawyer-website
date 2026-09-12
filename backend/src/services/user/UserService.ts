@@ -3,6 +3,7 @@ import { CreateClientResponseDTO } from '../../dtos/user/CreateClientResponseDTO
 import { UpdateUserDTO } from '../../dtos/user/UpdateUserDTO.js';
 import { UserResponseDTO } from '../../dtos/user/UserResponseDTO.js';
 import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError.js';
+import { ValidationError } from '../../errors/presentation/ValidationError.js';
 import { CaseRepository } from '../../repositories/CaseRepository.js';
 import { UserRepository } from '../../repositories/UserRepository.js';
 import { Page } from '../../types/Page.js';
@@ -78,7 +79,11 @@ export class UserService implements IUserService {
   }
 
   async findByEmail(email: string): Promise<WithId<UserResponseDTO> | null> {
-    validateEmail(email);
+    if (!validateEmail(email)) {
+      throw new ValidationError('Invalid user data', {
+        email: `Email '${email}' is invalid. Expected format: example@email.com`,
+      });
+    }
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) {

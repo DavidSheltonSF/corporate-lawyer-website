@@ -1,35 +1,33 @@
 import { describe, expect, it } from 'vitest';
-import { InvalidNameError } from '../../../errors/domain/InvalidNameError.js';
-import { getThrownError } from '../../../tests/helpers/getThrownError.js';
 import { validateUserName } from './validateUserName.js';
 
 describe(`Testing ${validateUserName.name}`, () => {
-  it('should not throw error when name is valid', () => {
-    const thrownError = getThrownError(() => validateUserName('Gustavo'));
-    expect(thrownError).toBeNull();
+  it('should return true if name is valid', () => {
+    const result = validateUserName('Gustavo');
+    expect(result).toBeTruthy();
   });
 
-  it('should throw error when name is less than 3 characters', () => {
-    const thrownError = getThrownError(() => validateUserName('U'));
-    expect(thrownError).toBeInstanceOf(InvalidNameError);
+  it('should return false if name is less than 3 characters', () => {
+    const result = validateUserName('U');
+    expect(result).toBeFalsy();
   });
 
-  it('should throw error when name is more than 100 characters', () => {
+  it('should return false if name is more than 100 characters', () => {
     let bigString = ``;
     for (let i = 0; i < 102; i++) {
       bigString += 'W';
     }
-    const thrownError = getThrownError(() => validateUserName(bigString));
-    expect(thrownError).toBeInstanceOf(InvalidNameError);
+    const result = validateUserName(bigString);
+    expect(result).toBeFalsy();
   });
 
-  it('should throw error when name has any numeric characters', () => {
-    const thrownError = getThrownError(() => validateUserName('Davi4'));
-    expect(thrownError).toBeInstanceOf(InvalidNameError);
+  it('should return false if name has any numeric characters', () => {
+    const result = validateUserName('Davi4');
+    expect(result).toBeFalsy();
   });
 
-  it('should throw error when name has any special characters', () => {
-    const thrownError = getThrownError(() => validateUserName('Davi#'));
-    expect(thrownError).toBeInstanceOf(InvalidNameError);
+  it('should return false if name has any special characters', () => {
+    const result = validateUserName('Davi@');
+    expect(result).toBeFalsy();
   });
 });

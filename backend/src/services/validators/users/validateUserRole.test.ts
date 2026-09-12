@@ -1,20 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { InvalidUserRoleError } from '../../../errors/domain/InvalidUserRoleError.js';
-import { getThrownError } from '../../../tests/helpers/getThrownError.js';
 import { validateUserRole } from './validateUserRole.js';
 
 describe(`Testing ${validateUserRole.name}`, () => {
-  it('should not throw error when user role is valid', () => {
-    const thrownError1 = getThrownError(() => validateUserRole('admin'));
-    const thrownError2 = getThrownError(() => validateUserRole('client'));
-    const thrownError3 = getThrownError(() => validateUserRole('lawyer'));
-    expect(thrownError1).toBeNull();
-    expect(thrownError2).toBeNull();
-    expect(thrownError3).toBeNull();
+  it('should return true when user role is valid', () => {
+    expect(validateUserRole('admin')).toBe(true);
+    expect(validateUserRole('client')).toBe(true);
+    expect(validateUserRole('lawyer')).toBe(true);
   });
 
-  it('should throw InvalidRoleError if role provided is invalid', () => {
-    const thrownError = getThrownError(() => validateUserRole('banana'));
-    expect(thrownError).toBeInstanceOf(InvalidUserRoleError);
+  it('should return false if role provided is invalid', () => {
+    expect(validateUserRole('banana')).toBe(false);
   });
 });
