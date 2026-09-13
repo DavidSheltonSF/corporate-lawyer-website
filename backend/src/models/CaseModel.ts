@@ -1,8 +1,7 @@
 import { Schema, model, Document, Types } from 'mongoose';
-import { CasesStatus } from '../types/CasesStatus.js';
 import { FileSchema, IFileModel } from './FileModel.js';
 import { WithMongoId } from '../database/mongoDB/types/WithMongoId.js';
-import { CaseLocation } from '../types/CaseLocation.js';
+import { CaseLocationDTO } from '../dtos/case/CaseLocationDTO.js';
 
 export interface ICaseModel {
   client: Types.ObjectId;
@@ -14,8 +13,8 @@ export interface ICaseModel {
   courtDivision: string; //vara
   files: WithMongoId<IFileModel>[];
   hearings: Types.ObjectId[];
-  status: CasesStatus;
-  location: CaseLocation;
+  status: string;
+  location: CaseLocationDTO;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -35,7 +34,6 @@ const CaseSchema = new Schema<CaseMongoDocument>(
     hearings: [{ type: Types.ObjectId, ref: 'Hearings', index: true }],
     status: {
       type: String,
-      enum: Object.values(CasesStatus),
       required: true,
     },
     location: {

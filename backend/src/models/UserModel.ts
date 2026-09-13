@@ -1,6 +1,5 @@
 import { Schema, model, Document } from 'mongoose';
 import bcrypt from 'bcrypt';
-import { UserRole } from '../types/UserRole.js';
 
 export interface IUserModel {
   firstName: string;
@@ -9,7 +8,7 @@ export interface IUserModel {
   phone: string;
   cpf: string;
   password: string;
-  role: UserRole;
+  role: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -26,7 +25,6 @@ const UserSchema = new Schema<UserMongoDocument>(
     password: { type: String, required: true },
     role: {
       type: String,
-      enum: Object.values(UserRole),
       required: true,
     },
   },

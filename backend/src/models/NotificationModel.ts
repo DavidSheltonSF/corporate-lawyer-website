@@ -1,11 +1,9 @@
 import { Document, model, Schema, Types } from 'mongoose';
-import { NotificationType } from '../types/NotificationType.js';
-import { NotificationChannel } from '../types/NotificationChannel.js';
 
 export interface INotificationModel {
   userId: Types.ObjectId;
-  type: NotificationType;
-  channels: NotificationChannel[];
+  type: string;
+  channels: string[];
   title: string;
   message: string;
   isRead?: boolean;
@@ -19,8 +17,8 @@ interface NotificationMongoDocument extends Document, INotificationModel {}
 const NotificationSchema = new Schema<NotificationMongoDocument>(
   {
     userId: { type: Types.ObjectId, ref: 'Users', index: true, required: true },
-    type: { type: String, enum: Object.values(NotificationType), required: true },
-    channels: [{ type: String, enum: Object.values(NotificationChannel), required: true }],
+    type: { type: String, required: true },
+    channels: [{ type: String, required: true }],
     title: { type: String, required: true },
     message: { type: String, required: true },
     isRead: { type: Boolean, default: false },

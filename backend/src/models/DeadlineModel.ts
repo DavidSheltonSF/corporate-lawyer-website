@@ -1,24 +1,19 @@
 import { Schema, model, Document, Types } from 'mongoose';
-import { DeadlineType } from '../types/DeadLineType.js';
-import { DeadlinePriority } from '../types/DeadLinePriority.js';
 import { DeadlineStatus } from '../types/DeadLineStatus.js';
-import { DeadlineCountingType } from '../types/DeadlineCountingType.js';
-import { CaseLocation } from '../types/CaseLocation.js';
-import { City } from '../types/City.js';
-import { BrazilState } from '../types/BrazilState.js';
 import { normalizeDate } from '../utils/normalizeDate.js';
+import { CaseLocationDTO } from '../dtos/case/CaseLocationDTO.js';
 
 export interface IDeadlineModel {
   caseId: Types.ObjectId;
   lawyerId: Types.ObjectId;
-  type: DeadlineType;
-  countingType: DeadlineCountingType;
+  type: string;
+  countingType: string;
   intimationDate: string;
   days: number;
   startDate: string;
   dueDate: string;
-  priority: DeadlinePriority;
-  caseLocation: CaseLocation;
+  priority: string;
+  caseLocation: CaseLocationDTO;
 }
 
 interface DeadlineMongoDocument extends IDeadlineModel, Document {}
@@ -29,12 +24,10 @@ const DeadlineSchema = new Schema<DeadlineMongoDocument>(
     lawyerId: { type: Types.ObjectId, ref: 'Users', index: true, required: true },
     type: {
       type: String,
-      enum: Object.values(DeadlineType),
       required: true,
     },
     countingType: {
       type: String,
-      enum: Object.values(DeadlineCountingType),
       required: true,
     },
     intimationDate: { type: String, required: true },
@@ -43,12 +36,11 @@ const DeadlineSchema = new Schema<DeadlineMongoDocument>(
     dueDate: { type: String, required: true },
     priority: {
       type: String,
-      enum: Object.values(DeadlinePriority),
       required: true,
     },
     caseLocation: {
-      city: { type: String, enum: Object.values(City), required: true },
-      state: { type: String, enum: Object.values(BrazilState), requied: true },
+      city: { type: String, required: true },
+      state: { type: String, requied: true },
     },
   },
   {
@@ -67,7 +59,7 @@ DeadlineSchema.virtual('status').get(function (this: DeadlineMongoDocument) {
   if (today > duedate) {
     return DeadlineStatus.VENCIDO;
   }
-  
+
   return DeadlineStatus.EM_ANDAMENTO;
 });
 
