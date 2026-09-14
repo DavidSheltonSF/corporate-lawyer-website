@@ -11,7 +11,7 @@ import { UserQuery } from '../../types/UserQuery.js';
 import { UserRole } from '../../types/UserRole.js';
 import { WithId } from '../../types/WithId.js';
 import { generateTemporaryPassword } from '../helpers/generateTemporaryPassword.js';
-import { validateEmail } from '../validators/users/validateEmail.js';
+import { isValidEmail } from '../validators/users/isValidEmail.js';
 import { validateUserPartial } from '../validators/users/validateUserPartial.js';
 import { IUserService } from './IUserService.js';
 
@@ -78,7 +78,7 @@ export class UserService implements IUserService {
   }
 
   async findByEmail(email: string): Promise<WithId<UserResponseDTO> | null> {
-    if (!validateEmail(email)) {
+    if (!isValidEmail(email)) {
       throw new ValidationError('Invalid user data', {
         email: `Email '${email}' is invalid. Expected format: example@email.com`,
       });
