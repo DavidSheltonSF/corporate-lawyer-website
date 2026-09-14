@@ -2,7 +2,7 @@ import { CreateClientDTO } from '../../dtos/user/CreateClientDTO.js';
 import { CreateClientResponseDTO } from '../../dtos/user/CreateClientResponseDTO.js';
 import { UpdateUserDTO } from '../../dtos/user/UpdateUserDTO.js';
 import { UserResponseDTO } from '../../dtos/user/UserResponseDTO.js';
-import { EntityAlreadyExistsError } from '../../errors/domain/EntityAlreadyExistsError.js';
+import { DuplicatedEmailError } from '../../errors/domain/DuplicatedEmailError.js';
 import { ValidationError } from '../../errors/presentation/ValidationError.js';
 import { CaseRepository } from '../../repositories/CaseRepository.js';
 import { UserRepository } from '../../repositories/UserRepository.js';
@@ -28,7 +28,7 @@ export class UserService implements IUserService {
     const userExists = await this.userRepository.existsByEmail(data.email);
 
     if (userExists) {
-      throw new EntityAlreadyExistsError(`User with email '${data.email}' already exists`);
+      throw new DuplicatedEmailError(email);
     }
 
     const tempPassword = generateTemporaryPassword(8);
