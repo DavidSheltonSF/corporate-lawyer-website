@@ -2,13 +2,18 @@ import { UpdateDeadlineDTO } from '../../../dtos/deadLine/UpdateDeadlineDTO.js';
 import { ValidationError } from '../../../errors/presentation/ValidationError.js';
 import { isValidDateString } from '../isValidDateString.js';
 import { isValidDeadlineCountingType } from './isValidDeadlineCountingType.js';
+import { isValidDeadlineDays } from './isValidDeadlineDays.js';
 import { isValidDeadlinePriority } from './isValidDeadlinePriority.js';
 import { isValidDeadlineType } from './isValidDeadlineType.js';
 
 export function validateDeadlinePartial(data: UpdateDeadlineDTO) {
-  const { type, priority, intimationDate, countingType } = data;
+  const { days, type, priority, intimationDate, countingType } = data;
 
   const invalidFields: Partial<Record<keyof UpdateDeadlineDTO, string>> = {};
+
+  if (days && !isValidDeadlineDays(days)) {
+    invalidFields.days = 'The number of days most a be positive value';
+  }
 
   if (type && !isValidDeadlineType(type)) {
     invalidFields.type = 'Invalid deadline type';

@@ -2,6 +2,7 @@ import { CreateDeadlineDTO } from '../../../dtos/deadLine/CreateDeadlineDTO.js';
 import { ValidationError } from '../../../errors/presentation/ValidationError.js';
 import { isValidDateString } from '../isValidDateString.js';
 import { isValidDeadlineCountingType } from './isValidDeadlineCountingType.js';
+import { isValidDeadlineDays } from './isValidDeadlineDays.js';
 import { isValidDeadlinePriority } from './isValidDeadlinePriority.js';
 import { isValidDeadlineType } from './isValidDeadlineType.js';
 
@@ -9,6 +10,10 @@ export function validateDeadline(data: CreateDeadlineDTO) {
   const { type, priority, intimationDate, countingType, days } = data;
 
   const invalidFields: Partial<Record<keyof CreateDeadlineDTO, string>> = {};
+
+  if (days && !isValidDeadlineDays(days)) {
+    invalidFields.days = 'The number of days most a be positive value';
+  }
 
   if (!isValidDeadlineType(type)) {
     invalidFields.type = 'Invalid deadline type';
@@ -24,10 +29,6 @@ export function validateDeadline(data: CreateDeadlineDTO) {
 
   if (!isValidDateString(intimationDate)) {
     invalidFields.intimationDate = 'Invalid date';
-  }
-
-  if (days <= 0) {
-    invalidFields.days = 'Days should be greater than 0'
   }
 
   if (Object.keys(invalidFields).length > 0) {
