@@ -11,7 +11,7 @@ import { CaseDTO } from '../../dtos/case/CaseDTO.js';
 import { CaseEvent } from '../../events/case/CaseEvents.js';
 import { IEventBus } from '../../events/IEventBus.js';
 import { validateCasePartial } from '../validators/cases/validateCasePartial.js';
-import { DuplicatedProcessNumberError } from '../../errors/domain/DuplicatedProcessNumberError.js';
+import { DuplicatedCaseNumberError } from '../../errors/domain/DuplicatedCaseNumberError.js';
 
 export class CaseService implements ICaseService {
   constructor(
@@ -35,7 +35,7 @@ export class CaseService implements ICaseService {
     } catch (error: any) {
       if (error.code === 11000) {
         console.log(error);
-        throw new DuplicatedProcessNumberError(error.keyValue);
+        throw new DuplicatedCaseNumberError(error.keyValue);
       }
       throw error;
     }
@@ -60,7 +60,7 @@ export class CaseService implements ICaseService {
       return updatedCase;
     } catch (error: any) {
       if (error.code === 11000) {
-        throw new DuplicatedProcessNumberError(error.keyValue);
+        throw new DuplicatedCaseNumberError(error.keyValue);
       }
       throw error;
     }

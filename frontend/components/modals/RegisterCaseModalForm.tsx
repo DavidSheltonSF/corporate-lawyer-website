@@ -29,7 +29,7 @@ export function RegisterCaseModalForm({
   const [requestState, setRequestState] = useState<RequestState<WithId<Case>>>({ status: 'idle' });
   const { formState, clearForm, hasEmptyFields, updateField } = useForm({
     title: '',
-    processNumber: '',
+    caseNumber: '',
     court: '',
     courtDivision: '',
     status: '',
@@ -45,7 +45,7 @@ export function RegisterCaseModalForm({
     if (!userId) {
       throw Error('User id was not provided');
     }
-    
+
     e.preventDefault();
     setRequestState({ status: 'loading' });
 
@@ -93,10 +93,10 @@ export function RegisterCaseModalForm({
         />
         <InputWithLabel
           id="process-number-input"
-          name="processNumber"
+          name="caseNumber"
           label="Número do Processo"
-          value={formState.processNumber}
-          onChange={(e) => updateField('processNumber', e.target.value)}
+          value={formState.caseNumber}
+          onChange={(e) => updateField('caseNumber', e.target.value)}
         />
       </div>
       <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">

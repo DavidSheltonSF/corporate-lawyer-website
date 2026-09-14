@@ -68,7 +68,7 @@ describe(`Test ${CaseController.name}`, () => {
       const { caseController, caseService } = makeSut();
 
       const caseData = CaseMocker.mockCreateCaseDTO();
-      const { processNumber, ...missingFieldData } = caseData;
+      const { caseNumber, ...missingFieldData } = caseData;
 
       const httpRequest = createMockHttpRequest({
         body: missingFieldData,

@@ -15,7 +15,7 @@ export async function createCase<T>(
 ): Promise<ActionResponse<WithId<Case>>> {
   const title = formData.title;
   const description = formData.description;
-  const processNumber = formData.processNumber;
+  const caseNumber = formData.caseNumber;
   const court = formData.court;
   const courtDivision = formData.courtDivision;
   const status = formData.status;
@@ -35,7 +35,7 @@ export async function createCase<T>(
       lawyers: [lawyerId],
       title,
       description,
-      processNumber,
+      caseNumber,
       court,
       courtDivision,
       status: mappedStatus,

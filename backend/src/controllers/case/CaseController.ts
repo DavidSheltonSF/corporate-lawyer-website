@@ -22,7 +22,7 @@ export class CaseController implements ICaseController {
 
     checkMissingFields(body, [
       'title',
-      'processNumber',
+      'caseNumber',
       'court',
       'courtDivision',
       'status',

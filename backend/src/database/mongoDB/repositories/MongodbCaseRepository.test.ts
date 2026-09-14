@@ -54,7 +54,7 @@ describe('Test CaseRepository', () => {
       const caseData = {
         client: clientId.toString(),
         lawyers: [lawyerId.toString()],
-        processNumber: '354435235425623',
+        caseNumber: '354435235425623',
         title: 'Case title',
         description: 'Case description',
         court: 'court', //tribunal
@@ -71,7 +71,7 @@ describe('Test CaseRepository', () => {
       const createdCase = await CaseModel.findById(result.id);
 
       expect(createdCase?.title).toBe(caseData.title);
-      expect(createdCase?.processNumber).toBe(caseData.processNumber);
+      expect(createdCase?.caseNumber).toBe(caseData.caseNumber);
       expect(createdCase?.description).toBe(caseData.description);
       expect(createdCase?.court).toBe(caseData.court);
       expect(createdCase?.courtDivision).toBe(caseData.courtDivision);
@@ -86,7 +86,7 @@ describe('Test CaseRepository', () => {
       const caseData = {
         client: clientId,
         lawyers: [lawyerId],
-        processNumber: '354435235425623',
+        caseNumber: '354435235425623',
         title: 'Case title',
         description: 'Case description',
         court: 'court', //tribunal
@@ -100,13 +100,13 @@ describe('Test CaseRepository', () => {
 
       const caseId = (await CaseModel.create(caseData))._id;
 
-      const updateData = { title: 'Updated-title', processNumber: '2155585885558-updated' };
+      const updateData = { title: 'Updated-title', caseNumber: '2155585885558-updated' };
       await caseRepository.updateById(caseId.toString(), updateData);
 
       const updatedCase = await CaseModel.findById(caseId);
 
       expect(updatedCase?.title).toBe(updateData.title);
-      expect(updatedCase?.processNumber).toBe(updateData.processNumber);
+      expect(updatedCase?.caseNumber).toBe(updateData.caseNumber);
       expect(updatedCase?.description).toBe(caseData.description);
       expect(updatedCase?.court).toBe(caseData.court);
       expect(updatedCase?.courtDivision).toBe(caseData.courtDivision);
@@ -122,7 +122,7 @@ describe('Test CaseRepository', () => {
       const caseData = {
         client: clientId,
         lawyers: [lawyerId],
-        processNumber: '354435235425623',
+        caseNumber: '354435235425623',
         title: 'Case title',
         description: 'Case description',
         court: 'court', //tribunal
@@ -142,7 +142,7 @@ describe('Test CaseRepository', () => {
 
       expect(case1?.client.id).toBe(clientId.toString());
       expect(case1?.lawyers[0]?.id).toBe(lawyerId.toString());
-      expect(case1?.processNumber).toBe(caseData.processNumber);
+      expect(case1?.caseNumber).toBe(caseData.caseNumber);
       expect(case1?.title).toBe(caseData.title);
       expect(case1?.description).toBe(caseData.description);
       expect(case1?.court).toBe(caseData.court);
@@ -158,7 +158,7 @@ describe('Test CaseRepository', () => {
       const caseData = {
         client: clientId,
         lawyers: [lawyerId],
-        processNumber: '354435235425623',
+        caseNumber: '354435235425623',
         title: 'Case title',
         description: 'Case description',
         court: 'court', //tribunal
@@ -188,7 +188,7 @@ describe('Test CaseRepository', () => {
       const caseData = {
         client: clientId,
         lawyers: [lawyerId],
-        processNumber: '354435235425623',
+        caseNumber: '354435235425623',
         title: 'Case title',
         description: 'Case description',
         court: 'court', //tribunal
@@ -208,7 +208,7 @@ describe('Test CaseRepository', () => {
 
       expect(existingCase?.client).toBe(clientId.toString());
       expect(existingCase?.lawyers[0]).toBe(lawyerId.toString());
-      expect(existingCase?.processNumber).toBe(caseData.processNumber);
+      expect(existingCase?.caseNumber).toBe(caseData.caseNumber);
       expect(existingCase?.title).toBe(caseData.title);
       expect(existingCase?.description).toBe(caseData.description);
       expect(existingCase?.court).toBe(caseData.court);
@@ -225,7 +225,7 @@ describe('Test CaseRepository', () => {
       const caseData = {
         client: clientId,
         lawyers: [lawyerId],
-        processNumber: '354435235425623',
+        caseNumber: '354435235425623',
         title: 'Case title',
         description: 'Case description',
         court: 'court', //tribunal
@@ -245,7 +245,7 @@ describe('Test CaseRepository', () => {
 
       expect(existingCase?.client.id).toBe(clientId.toString());
       expect(existingCase?.lawyers[0].id).toBe(lawyerId.toString());
-      expect(existingCase?.processNumber).toBe(caseData.processNumber);
+      expect(existingCase?.caseNumber).toBe(caseData.caseNumber);
       expect(existingCase?.title).toBe(caseData.title);
       expect(existingCase?.description).toBe(caseData.description);
       expect(existingCase?.court).toBe(caseData.court);
@@ -286,7 +286,7 @@ describe('Test CaseRepository', () => {
       const caseData = {
         client: clientId,
         lawyers: [lawyerId],
-        processNumber: '214435235425623',
+        caseNumber: '214435235425623',
         title: 'Case title',
         description: 'Case description',
         court: 'court', //tribunal
@@ -315,7 +315,7 @@ describe('Test CaseRepository', () => {
       const caseData = {
         client: clientId,
         lawyers: [lawyerId],
-        processNumber: '214435235425623',
+        caseNumber: '214435235425623',
         title: 'Case title',
         description: 'Case description',
         court: 'court', //tribunal

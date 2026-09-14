@@ -2,6 +2,8 @@ import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import { configApp } from './config/configApp.js';
 import { MongodbConnector } from './database/mongoDB/MongodbConnector.js';
+import { cleanDatabase } from './tests/cleanDatabase.js';
+import { populateDatabase } from './tests/populateDatabase.js';
 
 dotenv.config();
 
@@ -13,8 +15,8 @@ const port = 3080;
 
 (async () => {
   await MongodbConnector.connect();
-  // await cleanDatabase();
-  // await populateDatabase();
+  await cleanDatabase()
+  await populateDatabase();
 
   app.get('/api', (_req: Request, res: Response) => {
     res.status(200).send({

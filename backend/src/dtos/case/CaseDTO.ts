@@ -11,7 +11,7 @@ export type CaseDTOPopulated = {
 export type CaseDTONonPopulated = { populated: false; client: string; lawyers: string[] };
 
 export type CaseDTO = {
-  processNumber: string;
+  caseNumber: string;
   title: string;
   description: string;
   court: string; //tribunal

@@ -4,7 +4,7 @@ import { toUserIdentity } from '../toUserIdentity.js';
 
 export class CaseMapper {
   static persistenceToPresentation(cas: any, populated: boolean = false): WithId<CaseDTO> {
-    const { title, processNumber, court, courtDivision, status, description, location } = cas;
+    const { title, caseNumber, court, courtDivision, status, description, location } = cas;
 
     const client = populated ? toUserIdentity(cas.client) : cas.client.toString();
     const lawyers = populated
@@ -14,7 +14,7 @@ export class CaseMapper {
     return {
       id: cas._id.toString(),
       title,
-      processNumber,
+      caseNumber,
       court,
       courtDivision,
       status,

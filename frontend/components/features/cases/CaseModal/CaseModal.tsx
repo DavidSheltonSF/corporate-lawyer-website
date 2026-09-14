@@ -70,10 +70,10 @@ export function CaseModal({ payload, close }: GlobalModalProps<Props>) {
       case 'loading':
         return <CaseModalSkeleton />;
       case 'ok':
-        const { title, processNumber } = requestState.data;
+        const { title, caseNumber } = requestState.data;
         return (
           <div className="flex flex-col size-full">
-            <CaseModal.Header title={title} processNumber={processNumber} />
+            <CaseModal.Header title={title} caseNumber={caseNumber} />
             <CaseModal.Content caseData={requestState.data} />
             <CaseModal.Footer
               openFilesModal={() => openCaseFilesModal(caseId)}

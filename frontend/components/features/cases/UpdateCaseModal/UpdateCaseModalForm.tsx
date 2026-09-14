@@ -32,7 +32,7 @@ export function UpdateCaseModalForm({
 
   const { formState, setFormState, hasEmptyFields } = useForm({
     title: '',
-    processNumber: '',
+    caseNumber: '',
     court: '',
     courtDivision: '',
     status: '',
@@ -73,11 +73,11 @@ export function UpdateCaseModalForm({
   }
 
   function fillForm(data: WithId<Case>) {
-    const { title, processNumber, court, courtDivision, status, location, description } = data;
+    const { title, caseNumber, court, courtDivision, status, location, description } = data;
 
     setFormState({
       title: title ?? '',
-      processNumber: processNumber ?? '',
+      caseNumber: caseNumber ?? '',
       court: court ?? '',
       courtDivision: courtDivision ?? '',
       status: status ?? '',
@@ -104,7 +104,7 @@ export function UpdateCaseModalForm({
       return <LoadingModalScreeen />;
 
     case 'ok':
-      const { title, processNumber, court, courtDivision, status, city, state, description } =
+      const { title, caseNumber, court, courtDivision, status, city, state, description } =
         formState;
 
       return (
@@ -119,10 +119,10 @@ export function UpdateCaseModalForm({
             />
             <InputWithLabel
               id="process-number-input"
-              name="processNumber"
+              name="caseNumber"
               label="Número do Processo"
-              value={processNumber}
-              onChange={(e) => updateField('processNumber', e.target.value)}
+              value={caseNumber}
+              onChange={(e) => updateField('caseNumber', e.target.value)}
             />
           </div>
           <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">

@@ -7,7 +7,7 @@ interface UpdateCaseParams {
 }
 
 export async function updateCaseById({ caseId, data }: UpdateCaseParams): Promise<void> {
-  const { title, description, processNumber, court, courtDivision, status, state, city } = data;
+  const { title, description, caseNumber, court, courtDivision, status, state, city } = data;
 
   await apiFetch(`${API_URL}/cases/${caseId}`, {
     headers: {
@@ -17,7 +17,7 @@ export async function updateCaseById({ caseId, data }: UpdateCaseParams): Promis
     body: JSON.stringify({
       title,
       description,
-      processNumber,
+      caseNumber,
       court,
       courtDivision,
       status,

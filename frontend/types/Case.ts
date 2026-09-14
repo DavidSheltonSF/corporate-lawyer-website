@@ -8,7 +8,7 @@ import { WithId } from './WithId';
 export interface Case {
   clientId: string;
   lawyersIds: string[];
-  processNumber: string;
+  caseNumber: string;
   title: string;
   description?: string;
   court: string;

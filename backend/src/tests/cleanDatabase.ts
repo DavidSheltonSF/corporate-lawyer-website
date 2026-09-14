@@ -8,4 +8,9 @@ export async function cleanDatabase() {
   await CaseModel.deleteMany({});
   await FileModel.deleteMany({});
   await NotificationModel.deleteMany({});
+
+  await UserModel.syncIndexes();
+  await CaseModel.syncIndexes();
+  await FileModel.syncIndexes();
+  await NotificationModel.syncIndexes();
 }

@@ -10,7 +10,7 @@ export class CaseMocker {
     return {
       client: GenericMocker.mockMongoId().toString(),
       lawyers: [GenericMocker.mockMongoId().toString()],
-      processNumber: CaseFieldsMocker.mockProcessNumber(),
+      caseNumber: CaseFieldsMocker.mockCaseNumber(),
       title: CaseFieldsMocker.mockCaseTitle(),
       description: CaseFieldsMocker.mockDescription(),
       court: CaseFieldsMocker.mockCaseTitle(), //tribunal
@@ -24,7 +24,7 @@ export class CaseMocker {
     return {
       client: GenericMocker.mockMongoId().toString(),
       lawyers: [GenericMocker.mockMongoId().toString()],
-      processNumber: CaseFieldsMocker.mockProcessNumber(),
+      caseNumber: CaseFieldsMocker.mockCaseNumber(),
       title: CaseFieldsMocker.mockCaseTitle(),
       description: CaseFieldsMocker.mockDescription(),
       court: CaseFieldsMocker.mockCaseTitle(),

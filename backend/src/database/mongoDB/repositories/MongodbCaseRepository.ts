@@ -19,7 +19,7 @@ export class MongodbCaseRepository implements CaseRepository {
     const cas = await CaseModel.create({
       client,
       lawyers,
-      processNumber: data.processNumber,
+      caseNumber: data.caseNumber,
       title: data.title,
       description: data.description,
       court: data.court,
@@ -42,7 +42,7 @@ export class MongodbCaseRepository implements CaseRepository {
     const regex = new RegExp(query || '', 'i');
 
     const filter: Record<string, any> = {
-      $or: [{ title: regex }, { description: regex }, { processNumber: regex }],
+      $or: [{ title: regex }, { description: regex }, { caseNumber: regex }],
     };
 
     if (clientId) {

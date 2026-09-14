@@ -40,7 +40,7 @@ describe(`Test ${CaseService.name}`, () => {
     it('should throw ValidationError if any provided field is invalid', async () => {
       const { caseRepository, caseService } = makeSut();
       const caseData = CaseMocker.mockCreateCaseDTO();
-      caseData.processNumber = 'invalid process number';
+      caseData.caseNumber = 'invalid case number';
 
       await expect(caseService.create(caseData)).rejects.toThrow(ValidationError);
       expect(caseRepository.create).not.toHaveBeenCalled();

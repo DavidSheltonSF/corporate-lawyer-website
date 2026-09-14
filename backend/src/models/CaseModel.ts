@@ -6,7 +6,7 @@ import { CaseLocationDTO } from '../dtos/case/CaseLocationDTO.js';
 export interface ICaseModel {
   client: Types.ObjectId;
   lawyers: Types.ObjectId[];
-  processNumber: string;
+  caseNumber: string;
   title: string;
   description: string;
   court: string; //tribunal
@@ -25,7 +25,7 @@ const CaseSchema = new Schema<CaseMongoDocument>(
   {
     client: { type: Types.ObjectId, ref: 'Users', index: true, required: true },
     lawyers: [{ type: Types.ObjectId, ref: 'Users', index: true, required: true }],
-    processNumber: { type: String, required: true, unique: true },
+    caseNumber: { type: String, required: true, unique: true },
     title: { type: String, required: true },
     description: { type: String, required: true },
     court: { type: String, required: true },

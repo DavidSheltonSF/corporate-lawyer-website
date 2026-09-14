@@ -3,18 +3,18 @@ import { ValidationError } from '../../../errors/presentation/ValidationError.js
 import { CasesStatus } from '../../../types/CasesStatus.js';
 import { validateCaseStatus } from './validateCaseStatus.js';
 import { validateCaseTitle } from './validateCaseTitle.js';
-import { validateProcessNumber } from './validateProcessNumber.js';
+import { validateCaseNumber } from './validateCaseNumber.js';
 
 export function validateCase(data: CreateCaseDTO) {
-  const { title, processNumber, status } = data;
+  const { title, caseNumber, status } = data;
   const invalidFields: Partial<Record<keyof CreateCaseDTO, string>> = {};
 
   if (!validateCaseTitle(title)) {
     invalidFields.title = `Title "${title}" is invalid. Expected a string with between 15 and 100 characters.`;
   }
 
-  if (!validateProcessNumber(processNumber)) {
-    invalidFields.processNumber = `Process number '${processNumber}' is invalid. Expected format: NNNNNNN-DD.AAAA.J.TR.OOOO`;
+  if (!validateCaseNumber(caseNumber)) {
+    invalidFields.caseNumber = `Case number '${caseNumber}' is invalid. Expected format: NNNNNNN-DD.AAAA.J.TR.OOOO`;
   }
 
   if (!validateCaseStatus(status)) {

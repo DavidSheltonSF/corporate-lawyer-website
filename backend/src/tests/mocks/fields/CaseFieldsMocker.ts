@@ -5,13 +5,13 @@ import { BrazilState } from '../../../types/BrazilState.js';
 import { City } from '../../../types/City.js';
 
 export class CaseFieldsMocker {
-  static mockProcessNumber(): string {
-    let processNumber = '';
+  static mockCaseNumber(): string {
+    let caseNumber = '';
     for (let i = 0; i < 20; i++) {
-      processNumber += casual.integer(0, 9).toString();
+      caseNumber += casual.integer(0, 9).toString();
     }
 
-    return processNumber;
+    return caseNumber;
   }
 
   static mockCaseTitle(): string {
