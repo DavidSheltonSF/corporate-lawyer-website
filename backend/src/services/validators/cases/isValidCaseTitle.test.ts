@@ -14,8 +14,8 @@ describe(`Test ${isValidCaseTitle}`, () => {
 
   it('should return false if the case title is more than 100 characters', () => {
     let bigString = '';
-    for (let i = 0; i < 101; i ++) {
-      bigString += 'a'
+    for (let i = 0; i < 101; i++) {
+      bigString += 'a';
     }
     expect(isValidCaseTitle(bigString)).toBeFalsy();
   });
