@@ -181,6 +181,40 @@ describe('Test CaseRepository', () => {
     });
   });
 
+  describe('existsByCaseNumber', () => {
+    it('should return true if case exists, but false if case does not exist', async () => {
+      const { caseRepository, clientId, lawyerId } = await makeSut();
+
+      const caseData = {
+        client: clientId,
+        lawyers: [lawyerId],
+        caseNumber: '354435235425623',
+        title: 'Case title',
+        description: 'Case description',
+        court: 'court', //tribunal
+        courtDivision: 'court division', //vara
+        status: CasesStatus.open,
+        location: {
+          state: BrazilState.RIO_DE_JANEIRO,
+          city: City.DUQUE_DE_CAXIAS,
+        },
+      };
+
+      await CaseModel.create(caseData);
+
+      const existingCaseNumber = caseData.caseNumber;
+      const nonExistingCaseNumber = '224435235425623';
+
+      const existingCase = await caseRepository.existsByCaseNumber(existingCaseNumber.toString());
+      const nonExistingCase = await caseRepository.existsByCaseNumber(
+        nonExistingCaseNumber.toString()
+      );
+
+      expect(existingCase).toBeTruthy();
+      expect(nonExistingCase).toBeFalsy();
+    });
+  });
+
   describe('findById', () => {
     it('should find case by id', async () => {
       const { caseRepository, clientId, lawyerId } = await makeSut();
@@ -205,6 +239,49 @@ describe('Test CaseRepository', () => {
 
       const existingCase = (await caseRepository.findById(existingId.toString())) as any;
       const nonExistingCase = await caseRepository.findById(nonExistingId.toString());
+
+      expect(existingCase?.client).toBe(clientId.toString());
+      expect(existingCase?.lawyers[0]).toBe(lawyerId.toString());
+      expect(existingCase?.caseNumber).toBe(caseData.caseNumber);
+      expect(existingCase?.title).toBe(caseData.title);
+      expect(existingCase?.description).toBe(caseData.description);
+      expect(existingCase?.court).toBe(caseData.court);
+      expect(existingCase?.courtDivision).toBe(caseData.courtDivision);
+      expect(existingCase?.status).toBe(caseData.status);
+      expect(nonExistingCase).toBeNull();
+    });
+  });
+
+  describe('findByCaseNumber', () => {
+    it('should find case by case number', async () => {
+      const { caseRepository, clientId, lawyerId } = await makeSut();
+
+      const caseData = {
+        client: clientId,
+        lawyers: [lawyerId],
+        caseNumber: '354435235425623',
+        title: 'Case title',
+        description: 'Case description',
+        court: 'court', //tribunal
+        courtDivision: 'court division', //vara
+        status: CasesStatus.open,
+        location: {
+          state: BrazilState.RIO_DE_JANEIRO,
+          city: City.DUQUE_DE_CAXIAS,
+        },
+      };
+
+      await CaseModel.create(caseData);
+
+      const existingCaseNumber = caseData.caseNumber;
+      const nonExistingCaseNumber = '224435235425623';
+
+      const existingCase = (await caseRepository.findByCaseNumber(
+        existingCaseNumber.toString()
+      )) as any;
+      const nonExistingCase = await caseRepository.findByCaseNumber(
+        nonExistingCaseNumber.toString()
+      );
 
       expect(existingCase?.client).toBe(clientId.toString());
       expect(existingCase?.lawyers[0]).toBe(lawyerId.toString());

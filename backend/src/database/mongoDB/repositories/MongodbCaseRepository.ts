@@ -96,6 +96,11 @@ export class MongodbCaseRepository implements CaseRepository {
     return CaseMapper.persistenceToPresentation(foundCase);
   }
 
+  async findByCaseNumber(caseNumber: string): Promise<WithId<CaseDTO> | null> {
+    const foundCase = await CaseModel.findOne({ caseNumber }).lean();
+    return foundCase ? CaseMapper.persistenceToPresentation(foundCase) : null;
+  }
+
   async findPopulatedById(id: string): Promise<WithId<CaseDTO> | null> {
     const query = CaseModel.findById(id);
 
@@ -165,6 +170,11 @@ export class MongodbCaseRepository implements CaseRepository {
 
   async existsById(id: string): Promise<boolean> {
     const result = await CaseModel.findById(id);
+    return result !== null;
+  }
+
+  async existsByCaseNumber(caseNumber: string): Promise<boolean> {
+    const result = await this.findByCaseNumber(caseNumber);
     return result !== null;
   }
 }

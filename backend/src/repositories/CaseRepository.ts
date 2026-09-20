@@ -11,10 +11,12 @@ export interface CaseRepository {
   updateById(id: string, user: UpdateCaseDTO): Promise<WithId<CaseDTO> | null>;
   findAll(queryParams?: CaseQuery): Promise<Page<WithId<CaseDTO>>>;
   findById(id: string): Promise<WithId<CaseDTO> | null>;
+  findByCaseNumber(caseNumber: string): Promise<WithId<CaseDTO> | null>;
   findPopulatedById(id: string): Promise<WithId<CaseDTO> | null>;
   getStatsByClientId(clientId: string): Promise<CasesStats>;
   getStats(): Promise<CasesStats>;
   existsById(id: string): Promise<boolean>;
+  existsByCaseNumber(id: string): Promise<boolean>;
   deleteById(id: string): Promise<WithId<CaseDTO> | null>;
   deleteByUserId(id: string): Promise<{
     acknowledged: boolean;
