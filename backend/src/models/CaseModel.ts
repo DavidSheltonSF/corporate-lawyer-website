@@ -1,6 +1,4 @@
 import { Schema, model, Document, Types } from 'mongoose';
-import { FileSchema, IFileModel } from './FileModel.js';
-import { WithMongoId } from '../database/mongoDB/types/WithMongoId.js';
 import { CaseLocationDTO } from '../dtos/case/CaseLocationDTO.js';
 
 export interface ICaseModel {
@@ -11,8 +9,6 @@ export interface ICaseModel {
   description: string;
   court: string; //tribunal
   courtDivision: string; //vara
-  files: WithMongoId<IFileModel>[];
-  hearings: Types.ObjectId[];
   status: string;
   location: CaseLocationDTO;
   createdAt?: Date;
@@ -30,8 +26,6 @@ const CaseSchema = new Schema<CaseMongoDocument>(
     description: { type: String, required: true },
     court: { type: String, required: true },
     courtDivision: { type: String, required: true },
-    files: { type: [FileSchema], default: [] },
-    hearings: [{ type: Types.ObjectId, ref: 'Hearings', index: true }],
     status: {
       type: String,
       required: true,
