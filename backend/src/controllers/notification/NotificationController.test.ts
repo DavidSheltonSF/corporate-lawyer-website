@@ -83,7 +83,6 @@ describe(`Test ${NotificationController.name}`, () => {
       notificationService.findByUserId.mockResolvedValue(mockPage);
 
       const response = await notificationController.findMy(httpRequest);
-      console.log(response);
 
       expect(response).toMatchObject({
         status: HttpStatusCode.ok,
