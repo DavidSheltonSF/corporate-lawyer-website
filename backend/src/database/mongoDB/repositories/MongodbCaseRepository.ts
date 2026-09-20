@@ -86,14 +86,8 @@ export class MongodbCaseRepository implements CaseRepository {
   }
 
   async findById(id: string): Promise<WithId<CaseDTO> | null> {
-    const query = CaseModel.findById(id);
-
-    const foundCase = await query.lean();
-
-    if (!foundCase) {
-      return null;
-    }
-    return CaseMapper.persistenceToPresentation(foundCase);
+    const foundCase = await CaseModel.findById(id).lean();
+    return foundCase ? CaseMapper.persistenceToPresentation(foundCase) : null;
   }
 
   async findByCaseNumber(caseNumber: string): Promise<WithId<CaseDTO> | null> {
