@@ -19,26 +19,24 @@ export class CaseService implements ICaseService {
     private eventBus: IEventBus
   ) {}
   async create(data: CreateCaseDTO): Promise<WithId<CaseDTO>> {
-    try {
-      validateCase(data);
-      const createdCase = await this.caseRepository.create(data);
+    validateCase(data);
 
-      const { id, client, lawyers, title } = createdCase;
-      this.eventBus.publish(CaseEvent.CASE_CREATED, {
-        caseId: id,
-        lawyerId: lawyers[0] || '',
-        clientId: client,
-        caseTitle: title,
-      });
-
-      return createdCase;
-    } catch (error: any) {
-      if (error.code === 11000) {
-        console.log(error);
-        throw new DuplicatedCaseNumberError(error.keyValue);
-      }
-      throw error;
+    const exists = await this.caseRepository.existsByCaseNumber(data.caseNumber);
+    if (exists) {
+      throw new DuplicatedCaseNumberError(data.caseNumber);
     }
+
+    const createdCase = await this.caseRepository.create(data);
+
+    const { id, client, lawyers, title } = createdCase;
+    this.eventBus.publish(CaseEvent.CASE_CREATED, {
+      caseId: id,
+      lawyerId: lawyers[0] || '',
+      clientId: client,
+      caseTitle: title,
+    });
+
+    return createdCase;
   }
 
   async updateById(id: string, data: UpdateCaseDTO): Promise<WithId<CaseDTO> | null> {
