@@ -8,6 +8,7 @@ import { UpdateCaseDTO } from '../../dtos/case/UpdateCaseDTO.js';
 import { CaseFieldsMocker } from '../../tests/mocks/fields/CaseFieldsMocker.js';
 import { createMockPage } from '../../tests/mocks/createMockPage.js';
 import { PageParams } from '../../types/PageParams.js';
+import { DuplicatedCaseNumberError } from '../../errors/domain/DuplicatedCaseNumberError.js';
 
 describe(`Test ${CaseService.name}`, () => {
   function makeSut() {
@@ -43,6 +44,16 @@ describe(`Test ${CaseService.name}`, () => {
       caseData.caseNumber = 'invalid case number';
 
       await expect(caseService.create(caseData)).rejects.toThrow(ValidationError);
+      expect(caseRepository.create).not.toHaveBeenCalled();
+    });
+
+    it('should throw DuplicatedCaseNumberError if the a case with the case number provided already exists', async () => {
+      const { caseRepository, caseService } = makeSut();
+      const caseData = CaseMocker.mockCreateCaseDTO();
+
+      caseRepository.existsByCaseNumber.mockResolvedValue(true);
+
+      await expect(caseService.create(caseData)).rejects.toThrow(DuplicatedCaseNumberError);
       expect(caseRepository.create).not.toHaveBeenCalled();
     });
   });
