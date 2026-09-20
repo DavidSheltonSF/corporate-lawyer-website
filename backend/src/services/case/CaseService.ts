@@ -42,6 +42,16 @@ export class CaseService implements ICaseService {
   async updateById(id: string, data: UpdateCaseDTO): Promise<WithId<CaseDTO> | null> {
     try {
       validateCasePartial(data);
+
+      const { caseNumber } = data;
+      const caseNumberExists = caseNumber
+        ? await this.caseRepository.existsByCaseNumber(caseNumber)
+        : null;
+
+      if (caseNumberExists && caseNumber) {
+        throw new DuplicatedCaseNumberError(caseNumber);
+      }
+
       const updatedCase = await this.caseRepository.updateById(id, data);
       if (!updatedCase) {
         return null;

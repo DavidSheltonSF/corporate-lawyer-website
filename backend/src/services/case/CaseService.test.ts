@@ -86,6 +86,21 @@ describe(`Test ${CaseService.name}`, () => {
       expect(caseRepository.updateById).not.toHaveBeenCalled();
     });
 
+    it('should throw DuplicatedCaseNumberError a case with the case number provided already exists', async () => {
+      const { caseRepository, caseService, fakeId } = makeSut();
+
+      const updateData: UpdateCaseDTO = {
+        caseNumber: CaseFieldsMocker.mockCaseNumber(),
+      };
+
+      caseRepository.existsByCaseNumber.mockResolvedValue(true);
+
+      await expect(caseService.updateById(fakeId, updateData)).rejects.toThrow(
+        DuplicatedCaseNumberError
+      );
+      expect(caseRepository.updateById).not.toHaveBeenCalled();
+    });
+
     it('should return null the case is not found', async () => {
       const { caseRepository, caseService, fakeId } = makeSut();
 
