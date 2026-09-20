@@ -99,11 +99,6 @@ export class MongodbCaseRepository implements CaseRepository {
     const query = CaseModel.findById(id);
 
     query.populate({
-      path: 'files.uploadedBy',
-      select: 'firstName lastName',
-    });
-
-    query.populate({
       path: 'client',
       select: 'firstName lastName',
     });
