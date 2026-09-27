@@ -7,7 +7,8 @@ import { DeadlineMocker } from '../../tests/mocks/entities/DeadlineMocker.js';
 import { UpdateDeadlineDTO } from '../../dtos/deadLine/UpdateDeadlineDTO.js';
 import { ValidationError } from '../../errors/presentation/ValidationError.js';
 import { DeadlineStatus } from '../../types/DeadLineStatus.js';
-import { addDays, getTomorrow } from '../../utils/dateUtils.js';
+import { addDays, getTomorrow, getYesterday } from '../../utils/dateUtils.js';
+import { DeadlineCountingType } from '../../types/DeadlineCountingType.js';
 
 describe(`Test ${DeadlineService.name}`, () => {
   function makeSut() {
@@ -33,15 +34,35 @@ describe(`Test ${DeadlineService.name}`, () => {
     it('should return all deadlines', async () => {
       const { deadlineRepository, deadlineService } = makeSut();
 
-      const expectedDeadlines = [
-        DeadlineMocker.mockDeadlineDTOWithId(),
-        DeadlineMocker.mockDeadlineDTOWithId(),
-      ];
+      // PENDENTE - DIAS CORRIDOS
+      const deadline1 = DeadlineMocker.mockDeadlineDTOWithId();
+      deadline1.startDate = getTomorrow().toString();
+      deadline1.dueDate = addDays(new Date(deadline1.startDate), 5).toString();
+      deadline1.countingType = DeadlineCountingType.DIAS_CORRIDOS;
+
+      //  EM_ANDAMENTO -  DIAS CORRIDOS
+      const deadline2 = DeadlineMocker.mockDeadlineDTOWithId();
+      deadline2.startDate = getYesterday().toString();
+      deadline2.dueDate = addDays(new Date(deadline2.startDate), 5).toString();
+      deadline2.countingType = DeadlineCountingType.DIAS_CORRIDOS;
+
+      const expectedDeadlines = [deadline1, deadline2];
 
       deadlineRepository.findAll.mockResolvedValue(expectedDeadlines);
       const deadlines = await deadlineService.findAll();
 
-      expect(deadlines).toEqual(expectedDeadlines);
+      expect(deadlines).toEqual([
+        expect.objectContaining({
+          ...deadline1,
+          status: DeadlineStatus.PENDENTE,
+          remainingDays: 6,
+        }),
+        expect.objectContaining({
+          ...deadline2,
+          status: DeadlineStatus.EM_ANDAMENTO,
+          remainingDays: 4,
+        }),
+      ]);
     });
   });
 
