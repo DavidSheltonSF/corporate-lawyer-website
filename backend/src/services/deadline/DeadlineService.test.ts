@@ -30,7 +30,7 @@ describe(`Test ${DeadlineService.name}`, () => {
     };
   }
 
-  describe('finAll', () => {
+  describe('findAll', () => {
     it('should return all deadlines', async () => {
       const { deadlineRepository, deadlineService } = makeSut();
 
