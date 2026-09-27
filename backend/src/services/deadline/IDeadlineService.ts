@@ -6,7 +6,7 @@ import { WithId } from '../../types/WithId.js';
 
 export interface IDeadlineService {
   create(data: CreateDeadlineDTO): Promise<WithId<DeadlineDTO>>;
-  findAll(): Promise<WithId<DeadlineDTO>[]>;
+  findAll(): Promise<WithId<DeadlineResponseDTO>[]>;
   findById(id: string): Promise<WithId<DeadlineResponseDTO> | null>;
   findByCaseId(id: string): Promise<WithId<DeadlineDTO>[] | null>;
   updateById(id: string, data: UpdateDeadlineDTO): Promise<WithId<DeadlineDTO> | null>;
