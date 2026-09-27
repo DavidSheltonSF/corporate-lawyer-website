@@ -47,7 +47,6 @@ export class DeadlineMocker {
       startDate: '2025-05-05',
       dueDate: '2025-05-08',
       priority: GenericMocker.mockEnum(DeadlinePriority),
-      status: GenericMocker.mockEnum(DeadlineStatus),
       caseLocation: {
         city: GenericMocker.mockEnum(City),
         state: GenericMocker.mockEnum(BrazilState),
@@ -67,7 +66,6 @@ export class DeadlineMocker {
       startDate: '2025-05-05',
       dueDate: '2025-05-08',
       priority: GenericMocker.mockEnum(DeadlinePriority),
-      status: GenericMocker.mockEnum(DeadlineStatus),
       caseLocation: {
         city: GenericMocker.mockEnum(City),
         state: GenericMocker.mockEnum(BrazilState),
