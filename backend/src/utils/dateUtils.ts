@@ -15,6 +15,6 @@ export function getYesterday() {
 }
 
 export function addDays(date: Date, days: number) {
-  new Date(date).setDate(date.getDate() + days);
-  return date;
+  const result = new Date(date).setDate(date.getDate() + days);
+  return result;
 }
