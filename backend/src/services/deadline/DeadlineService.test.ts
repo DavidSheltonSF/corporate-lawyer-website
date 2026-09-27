@@ -6,6 +6,8 @@ import { BrazilHolidaysProvider } from '../BrazilHolidaysProvider.js';
 import { DeadlineMocker } from '../../tests/mocks/entities/DeadlineMocker.js';
 import { UpdateDeadlineDTO } from '../../dtos/deadLine/UpdateDeadlineDTO.js';
 import { ValidationError } from '../../errors/presentation/ValidationError.js';
+import { DeadlineStatus } from '../../types/DeadLineStatus.js';
+import { addDays, getTomorrow } from '../../utils/dateUtils.js';
 
 describe(`Test ${DeadlineService.name}`, () => {
   function makeSut() {
@@ -40,6 +42,35 @@ describe(`Test ${DeadlineService.name}`, () => {
       const deadlines = await deadlineService.findAll();
 
       expect(deadlines).toEqual(expectedDeadlines);
+    });
+  });
+
+  describe('findById', () => {
+    it('should find a deadline by id', async () => {
+      const { deadlineRepository, deadlineService } = makeSut();
+
+      const expectedDeadline = DeadlineMocker.mockDeadlineDTOWithId();
+      expectedDeadline.startDate = getTomorrow().toString();
+      expectedDeadline.dueDate = addDays(new Date(expectedDeadline.startDate), 5).toString();
+
+      deadlineRepository.findById.mockResolvedValue(expectedDeadline);
+
+      const foundDeadline = await deadlineService.findById(expectedDeadline.id);
+
+      expect(foundDeadline).toMatchObject({
+        caseId: expectedDeadline.caseId,
+        countingType: expectedDeadline.countingType,
+        days: expectedDeadline.days,
+        lawyerId: expectedDeadline.lawyerId,
+        priority: expectedDeadline.priority,
+        status: DeadlineStatus.PENDENTE,
+        type: expectedDeadline.type,
+        startDate: expectedDeadline.startDate,
+        dueDate: expectedDeadline.dueDate,
+        intimationDate: expectedDeadline.intimationDate,
+        caseLocation: expectedDeadline.caseLocation,
+      });
+      expect(foundDeadline?.caseLocation).toMatchObject(expectedDeadline.caseLocation);
     });
   });
 
