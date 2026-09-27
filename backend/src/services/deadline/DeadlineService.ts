@@ -1,5 +1,6 @@
 import { CreateDeadlineDTO } from '../../dtos/deadLine/CreateDeadlineDTO.js';
 import { DeadlineDTO } from '../../dtos/deadLine/DeadlineDTO.js';
+import { DeadlineResponseDTO } from '../../dtos/deadLine/DeadlineResponseDTO.js';
 import { UpdateDeadlineDTO } from '../../dtos/deadLine/UpdateDeadlineDTO.js';
 import { CaseNotFoundError } from '../../errors/domain/CaseNotFoundError.js';
 import { CaseRepository } from '../../repositories/CaseRepository.js';
@@ -64,7 +65,7 @@ export class DeadlineService implements Partial<IDeadlineService> {
     return await this.deadlineRepository.findAll();
   }
 
-  async findById(id: string): Promise<WithId<DeadlineDTO & { remainingDays: number }> | null> {
+  async findById(id: string): Promise<WithId<DeadlineResponseDTO> | null> {
     const deadline = await this.deadlineRepository.findById(id);
     if (!deadline) {
       return null;
