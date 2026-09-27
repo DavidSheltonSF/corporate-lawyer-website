@@ -1,4 +1,4 @@
-import { CaseLocationDTO } from "../case/CaseLocationDTO.js";
+import { CaseLocationDTO } from '../case/CaseLocationDTO.js';
 
 export interface DeadlineDTO {
   caseId: string;
@@ -8,8 +8,7 @@ export interface DeadlineDTO {
   days: number;
   countingType: string;
   priority: string;
-  status: string;
   startDate: string;
   dueDate: string;
-  caseLocation: CaseLocationDTO
+  caseLocation: CaseLocationDTO;
 }
