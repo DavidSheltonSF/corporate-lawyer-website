@@ -66,6 +66,50 @@ describe(`Test ${DeadlineService.name}`, () => {
     });
   });
 
+  describe('findByCaseId', () => {
+    it('should find deadlines by case id', async () => {
+      const { deadlineRepository, caseRepository, deadlineService } = makeSut();
+
+      const caseId = 'fake-id';
+
+      caseRepository.existsById.mockResolvedValue(true);
+
+      // PENDENTE - DIAS CORRIDOS
+      const deadline1 = DeadlineMocker.mockDeadlineDTOWithId();
+      deadline1.startDate = getTomorrow().toString();
+      deadline1.dueDate = addDays(new Date(deadline1.startDate), 5).toString();
+      deadline1.countingType = DeadlineCountingType.DIAS_CORRIDOS;
+      deadline1.caseId = caseId;
+
+      //  EM_ANDAMENTO -  DIAS CORRIDOS
+      const deadline2 = DeadlineMocker.mockDeadlineDTOWithId();
+      deadline2.startDate = getYesterday().toString();
+      deadline2.dueDate = addDays(new Date(deadline2.startDate), 5).toString();
+      deadline2.countingType = DeadlineCountingType.DIAS_CORRIDOS;
+      deadline2.caseId = caseId;
+
+      const expectedDeadlines = [deadline1, deadline2];
+
+      deadlineRepository.findByCaseId.mockResolvedValue(expectedDeadlines);
+      const deadlines = await deadlineService.findByCaseId(caseId);
+
+      expect(caseRepository.existsById).toHaveBeenCalledWith(caseId);
+      expect(deadlineRepository.findByCaseId).toHaveBeenCalledWith(caseId);
+      expect(deadlines).toEqual([
+        expect.objectContaining({
+          ...deadline1,
+          status: DeadlineStatus.PENDENTE,
+          remainingDays: 6,
+        }),
+        expect.objectContaining({
+          ...deadline2,
+          status: DeadlineStatus.EM_ANDAMENTO,
+          remainingDays: 4,
+        }),
+      ]);
+    });
+  });
+
   describe('findById', () => {
     it('should find a deadline by id', async () => {
       const { deadlineRepository, deadlineService } = makeSut();
