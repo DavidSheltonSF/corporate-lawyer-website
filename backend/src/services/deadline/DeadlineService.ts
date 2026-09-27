@@ -105,7 +105,7 @@ export class DeadlineService implements Partial<IDeadlineService> {
     return { ...deadline, status, remainingDays };
   }
 
-  async findByCaseId(id: string): Promise<WithId<DeadlineDTO>[] | null> {
+  async findByCaseId(id: string): Promise<WithId<DeadlineResponseDTO>[] | null> {
     const caseExists = await this.caseRepository.existsById(id);
     if (!caseExists) return null;
 
@@ -114,7 +114,7 @@ export class DeadlineService implements Partial<IDeadlineService> {
     const deadlines = await this.deadlineRepository.findByCaseId(id);
 
     const mappedDeadlines = deadlines.map((deadline) => {
-      const { caseLocation, dueDate } = deadline;
+      const { caseLocation, startDate, dueDate } = deadline;
       const city = getCity(caseLocation.city);
       const state = getBrazilState(caseLocation.state);
       const countingType = getDeadlineCountingType(deadline.countingType);
@@ -122,8 +122,11 @@ export class DeadlineService implements Partial<IDeadlineService> {
         countingType: countingType,
         caseLocation: { city, state },
       };
+
+      const status = getDeadlineStatus(startDate, dueDate);
+
       const remainingDays = deadlineCalculator.getRemainingDays(new Date(dueDate));
-      return { ...deadline, remainingDays };
+      return { ...deadline, status, remainingDays };
     });
 
     return mappedDeadlines;
