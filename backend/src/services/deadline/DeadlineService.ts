@@ -10,6 +10,7 @@ import { DeadlineCalculator } from '../helpers/DeadlineCalculator.js';
 import { getBrazilState } from '../helpers/getBrazilState.js';
 import { getCity } from '../helpers/getCity.js';
 import { getDeadlineCountingType } from '../helpers/getDeadlineCountingType.js';
+import { getDeadlineStatus } from '../helpers/getDeadlineStatus.js';
 import { HolidaysProvider } from '../HolidaysProvider.js';
 import { validateDeadline } from '../validators/deadlines/validateDeadline.js';
 import { validateDeadlinePartial } from '../validators/deadlines/validateDeadlinePartial.js';
@@ -69,6 +70,8 @@ export class DeadlineService implements Partial<IDeadlineService> {
       return null;
     }
 
+    const status = getDeadlineStatus(deadline.startDate, deadline.dueDate);
+
     const { caseLocation, dueDate } = deadline;
     const city = getCity(caseLocation.city);
     const state = getBrazilState(caseLocation.state);
@@ -80,7 +83,7 @@ export class DeadlineService implements Partial<IDeadlineService> {
 
     const remainingDays = deadlineCalculator.getRemainingDays(new Date(dueDate));
 
-    return { ...deadline, remainingDays };
+    return { ...deadline, status, remainingDays };
   }
 
   async findByCaseId(id: string): Promise<WithId<DeadlineDTO>[] | null> {
