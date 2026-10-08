@@ -1,6 +1,7 @@
 import { WithMongoId } from '../../../database/mongoDB/types/WithMongoId.js';
 import { CreateDeadlineDTO } from '../../../dtos/deadLine/CreateDeadlineDTO.js';
 import { DeadlineDTO } from '../../../dtos/deadLine/DeadlineDTO.js';
+import { DeadlineResponseDTO } from '../../../dtos/deadLine/DeadlineResponseDTO.js';
 import { UpdateDeadlineDTO } from '../../../dtos/deadLine/UpdateDeadlineDTO.js';
 import { IDeadlineModel } from '../../../models/DeadlineModel.js';
 import { BrazilState } from '../../../types/BrazilState.js';
@@ -70,6 +71,14 @@ export class DeadlineMocker {
         city: GenericMocker.mockEnum(City),
         state: GenericMocker.mockEnum(BrazilState),
       },
+    };
+  }
+
+  static mockDeadlineResponseDTOWithId(): WithId<DeadlineResponseDTO> {
+    return {
+      ...DeadlineMocker.mockDeadlineDTOWithId(),
+      status: GenericMocker.mockEnum(DeadlineStatus),
+      remainingDays: GenericMocker.mockInteger(),
     };
   }
 
