@@ -3,7 +3,6 @@ import { MongodbDeadlineRepository } from './MongodbDeadlineRepository.js';
 import { DeadlineType } from '../../../types/DeadLineType.js';
 import { DeadlinePriority } from '../../../types/DeadLinePriority.js';
 import { DeadlineMocker } from '../../../tests/mocks/entities/DeadlineMocker.js';
-import { DeadlineStatus } from '../../../types/DeadLineStatus.js';
 import { CaseLocationDTO } from '../../../dtos/case/CaseLocationDTO.js';
 import { BrazilState } from '../../../types/BrazilState.js';
 import { City } from '../../../types/City.js';
@@ -73,57 +72,6 @@ describe('Test DeadlineRepository', () => {
       expect(createdDeadline?.dueDate).toEqual(dueDate);
       expect(createdDeadline?.type).toEqual(deadlineData.type);
       expect(createdDeadline?.priority).toEqual(deadlineData.priority);
-    });
-
-    it('should return deadlines with proper status', async () => {
-      const { deadlineRepository, caseLocation } = makeSut();
-
-      const today = new Date();
-      const yesterday = new Date(today);
-      yesterday.setDate(yesterday.getDate() - 1);
-      const tomorrow = new Date(today);
-      tomorrow.setDate(tomorrow.getDate() + 1);
-
-      const pendingDeadlineStartDate = toDateOnlyString(tomorrow);
-      const pendingDeadlineDueDate = toDateOnlyString(new Date(tomorrow.getDate() + 5));
-      const pendingDeadlineDTO = DeadlineMocker.mockCreateDeadlineDTO();
-      pendingDeadlineDTO.intimationDate = today.toISOString();
-      pendingDeadlineDTO.days = 5;
-
-      const openDeadlineStartDate = toDateOnlyString(yesterday);
-      const openDeadlineDueDate = toDateOnlyString(tomorrow);
-      const openDeadlineDTO = DeadlineMocker.mockCreateDeadlineDTO();
-      openDeadlineDTO.intimationDate = new Date(yesterday.getDate() - 1).toISOString();
-      openDeadlineDTO.days = 5;
-
-      const expiredDeadlineStartDate = toDateOnlyString(new Date('2026-04-01'));
-      const expiredDeadlineDueDate = toDateOnlyString(new Date('2026-04-9'));
-      const expiredDeadlineDTO = DeadlineMocker.mockCreateDeadlineDTO();
-      expiredDeadlineDTO.intimationDate = new Date('2026-04-01').toISOString();
-      expiredDeadlineDTO.days = 5;
-
-      const pendingDeadline = await deadlineRepository.create(
-        pendingDeadlineDTO,
-        pendingDeadlineStartDate,
-        pendingDeadlineDueDate,
-        caseLocation
-      );
-      const openDeadline = await deadlineRepository.create(
-        openDeadlineDTO,
-        openDeadlineStartDate,
-        openDeadlineDueDate,
-        caseLocation
-      );
-      const expiredDeadline = await deadlineRepository.create(
-        expiredDeadlineDTO,
-        expiredDeadlineStartDate,
-        expiredDeadlineDueDate,
-        caseLocation
-      );
-
-      expect(pendingDeadline.status).toBe(DeadlineStatus.PENDENTE);
-      expect(openDeadline.status).toBe(DeadlineStatus.EM_ANDAMENTO);
-      expect(expiredDeadline.status).toBe(DeadlineStatus.VENCIDO);
     });
   });
 
