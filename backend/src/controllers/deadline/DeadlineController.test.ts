@@ -45,7 +45,7 @@ describe(`Test ${DeadlineController.name}`, () => {
       const { deadlineController, deadlineService } = makeSut();
       const httpRequest = createMockHttpRequest();
 
-      const expectedDeadlineList = [DeadlineMocker.mockDeadlineDTOWithId()];
+      const expectedDeadlineList = [DeadlineMocker.mockDeadlineResponseDTOWithId()];
       deadlineService.findAll.mockResolvedValue(expectedDeadlineList);
 
       const response = (await deadlineController.findAll(httpRequest)) as SuccessResponse<
@@ -60,7 +60,7 @@ describe(`Test ${DeadlineController.name}`, () => {
     it('should find a deadline by id', async () => {
       const { deadlineController, deadlineService } = makeSut();
       const id = 'fakeId';
-      const expectedDeadline = DeadlineMocker.mockDeadlineDTOWithId();
+      const expectedDeadline = DeadlineMocker.mockDeadlineResponseDTOWithId();
 
       const httpRequest = createMockHttpRequest({
         params: {
