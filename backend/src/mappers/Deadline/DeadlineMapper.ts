@@ -15,7 +15,6 @@ export class DeadlineMapper {
       countingType,
       startDate,
       dueDate,
-      status,
       caseLocation,
     } = data;
     return {
@@ -29,7 +28,6 @@ export class DeadlineMapper {
       dueDate: dueDate,
       type,
       priority,
-      status,
       caseLocation,
     };
   }
