@@ -1,6 +1,4 @@
 import { Schema, model, Document, Types } from 'mongoose';
-import { DeadlineStatus } from '../types/DeadLineStatus.js';
-import { normalizeDate } from '../utils/normalizeDate.js';
 import { CaseLocationDTO } from '../dtos/case/CaseLocationDTO.js';
 
 export interface IDeadlineModel {
@@ -48,19 +46,5 @@ const DeadlineSchema = new Schema<DeadlineMongoDocument>(
     toObject: { virtuals: true },
   }
 );
-
-DeadlineSchema.virtual('status').get(function (this: DeadlineMongoDocument) {
-  const today = normalizeDate(new Date());
-  if (today < new Date(this.startDate)) {
-    return DeadlineStatus.PENDENTE;
-  }
-
-  const duedate = normalizeDate(new Date(this.dueDate));
-  if (today > duedate) {
-    return DeadlineStatus.VENCIDO;
-  }
-
-  return DeadlineStatus.EM_ANDAMENTO;
-});
 
 export const DeadlineModel = model<DeadlineMongoDocument>('Deadlines', DeadlineSchema);
