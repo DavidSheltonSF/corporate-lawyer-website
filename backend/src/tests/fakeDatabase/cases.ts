@@ -16,8 +16,6 @@ export const fakeCases: ICaseModel[] = [
     court: 'STJ',
     courtDivision: '5ª Vara Cívil',
     status: CasesStatus.open,
-    hearings: [],
-    files: [],
     location: {
       state: BrazilState.RIO_DE_JANEIRO,
       city: City.BELFORD_ROXO,
@@ -35,8 +33,6 @@ export const fakeCases: ICaseModel[] = [
     court: 'TJ-RJ',
     courtDivision: '7ª Vara de Registros Públicos',
     status: CasesStatus.open,
-    hearings: [],
-    files: [],
     location: {
       state: BrazilState.RIO_DE_JANEIRO,
       city: City.BELFORD_ROXO,
@@ -54,8 +50,6 @@ export const fakeCases: ICaseModel[] = [
     court: 'TJ-SP',
     courtDivision: '2ª Vara Cível',
     status: CasesStatus.closed,
-    hearings: [],
-    files: [],
     location: {
       state: BrazilState.RIO_DE_JANEIRO,
       city: City.BELFORD_ROXO,
@@ -73,8 +67,6 @@ export const fakeCases: ICaseModel[] = [
     court: 'TJ-SP',
     courtDivision: '14ª Vara Cível',
     status: CasesStatus.open,
-    hearings: [],
-    files: [],
     location: {
       state: BrazilState.RIO_DE_JANEIRO,
       city: City.BELFORD_ROXO,
@@ -91,8 +83,6 @@ export const fakeCases: ICaseModel[] = [
     court: 'TJ-SP',
     courtDivision: '14ª Vara Cível',
     status: CasesStatus.closed,
-    hearings: [],
-    files: [],
     location: {
       state: BrazilState.RIO_DE_JANEIRO,
       city: City.BELFORD_ROXO,
@@ -109,8 +99,6 @@ export const fakeCases: ICaseModel[] = [
     court: 'TJ-SP',
     courtDivision: '14ª Vara Cível',
     status: CasesStatus.open,
-    hearings: [],
-    files: [],
     location: {
       state: BrazilState.RIO_DE_JANEIRO,
       city: City.BELFORD_ROXO,
@@ -127,8 +115,6 @@ export const fakeCases: ICaseModel[] = [
     court: 'TJ-SP',
     courtDivision: '14ª Vara Cível',
     status: CasesStatus.closed,
-    hearings: [],
-    files: [],
     location: {
       state: BrazilState.RIO_DE_JANEIRO,
       city: City.BELFORD_ROXO,
@@ -146,8 +132,6 @@ export const fakeCases: ICaseModel[] = [
     court: 'TJ-MG',
     courtDivision: '3ª Vara Cível',
     status: CasesStatus.open,
-    hearings: [],
-    files: [],
     location: {
       state: BrazilState.RIO_DE_JANEIRO,
       city: City.BELFORD_ROXO,
@@ -165,8 +149,6 @@ export const fakeCases: ICaseModel[] = [
     court: 'TJ-SP',
     courtDivision: '10ª Vara Cível',
     status: CasesStatus.closed,
-    hearings: [],
-    files: [],
     location: {
       state: BrazilState.RIO_DE_JANEIRO,
       city: City.BELFORD_ROXO,
@@ -183,8 +165,6 @@ export const fakeCases: ICaseModel[] = [
     court: 'TJ-RJ',
     courtDivision: '1ª Vara de Família',
     status: CasesStatus.open,
-    hearings: [],
-    files: [],
     location: {
       state: BrazilState.RIO_DE_JANEIRO,
       city: City.BELFORD_ROXO,
@@ -202,8 +182,6 @@ export const fakeCases: ICaseModel[] = [
     court: 'TJ-MG',
     courtDivision: '2ª Vara de Órfãos e Sucessões',
     status: CasesStatus.closed,
-    hearings: [],
-    files: [],
     location: {
       state: BrazilState.RIO_DE_JANEIRO,
       city: City.BELFORD_ROXO,
@@ -220,8 +198,6 @@ export const fakeCases: ICaseModel[] = [
     court: 'TJ-SP',
     courtDivision: '5ª Vara de Família',
     status: CasesStatus.open,
-    hearings: [],
-    files: [],
     location: {
       state: BrazilState.RIO_DE_JANEIRO,
       city: City.BELFORD_ROXO,
@@ -239,8 +215,6 @@ export const fakeCases: ICaseModel[] = [
     court: 'TJ-RJ',
     courtDivision: '6ª Vara Cível',
     status: CasesStatus.closed,
-    hearings: [],
-    files: [],
     location: {
       state: BrazilState.RIO_DE_JANEIRO,
       city: City.BELFORD_ROXO,
@@ -258,8 +232,6 @@ export const fakeCases: ICaseModel[] = [
     court: 'TJ-SP',
     courtDivision: '8ª Vara de Família',
     status: CasesStatus.open,
-    hearings: [],
-    files: [],
     location: {
       state: BrazilState.RIO_DE_JANEIRO,
       city: City.BELFORD_ROXO,
@@ -277,8 +249,6 @@ export const fakeCases: ICaseModel[] = [
     court: 'TJ-MG',
     courtDivision: '4ª Vara Cível',
     status: CasesStatus.closed,
-    hearings: [],
-    files: [],
     location: {
       state: BrazilState.RIO_DE_JANEIRO,
       city: City.BELFORD_ROXO,
