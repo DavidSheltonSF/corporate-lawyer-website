@@ -10,7 +10,7 @@ import { Page } from '../../types/Page.js';
 import { UserQuery } from '../../types/UserQuery.js';
 import { UserRole } from '../../types/UserRole.js';
 import { WithId } from '../../types/WithId.js';
-import { generateTemporaryPassword } from '../helpers/generateTemporaryPassword.js';
+import { PasswordService } from '../password/PasswordService.js';
 import { isValidEmail } from '../validators/users/isValidEmail.js';
 import { validateUserPartial } from '../validators/users/validateUserPartial.js';
 import { IUserService } from './IUserService.js';
@@ -18,7 +18,8 @@ import { IUserService } from './IUserService.js';
 export class UserService implements IUserService {
   constructor(
     private userRepository: UserRepository,
-    private caseRepository: CaseRepository
+    private caseRepository: CaseRepository,
+    private passwordService: PasswordService
   ) {}
   async createClient(data: CreateClientDTO): Promise<WithId<CreateClientResponseDTO>> {
     const { firstName, lastName, email, phone, cpf } = data;
@@ -31,7 +32,7 @@ export class UserService implements IUserService {
       throw new DuplicatedEmailError(email);
     }
 
-    const tempPassword = generateTemporaryPassword(8);
+    const tempPassword = this.passwordService.generatePassword(8);
 
     const user = await this.userRepository.create({
       firstName,
