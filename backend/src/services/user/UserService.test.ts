@@ -3,23 +3,25 @@ import { UserService } from './UserService.js';
 import { createMockUserRepository } from '../../tests/mocks/repositories/createMockUserRepository.js';
 import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository.js';
 import { UserMocker } from '../../tests/mocks/entities/UserMocker.js';
-import { generateTemporaryPassword } from '../helpers/generateTemporaryPassword.js';
 import { createMockPage } from '../../tests/mocks/createMockPage.js';
 import { UserQuery } from '../../types/UserQuery.js';
 import { UpdateUserDTO } from '../../dtos/user/UpdateUserDTO.js';
 import { UserMapper } from '../../mappers/User/UserMapper.js';
+import { createMockPasswordService } from '../../tests/mocks/services/createMockPasswordService.js';
 
 describe(`Test ${UserService.name}`, () => {
   function makeSut() {
     const userRepository = createMockUserRepository();
     const caseRepository = createMockCaseRepository();
-    const userService = new UserService(userRepository, caseRepository);
+    const passwordService = createMockPasswordService();
+    const userService = new UserService(userRepository, caseRepository, passwordService);
     const fakeId = 'fakeId';
     const fakeEmail = 'fake@email.com';
 
     return {
       userRepository,
       caseRepository,
+      passwordService,
       userService,
       fakeId,
       fakeEmail,
@@ -28,14 +30,13 @@ describe(`Test ${UserService.name}`, () => {
 
   describe('createClient', () => {
     it('should create a new client', async () => {
-      const { userRepository, userService } = makeSut();
+      const { userRepository, userService, passwordService } = makeSut();
 
       const expectedClient = UserMocker.mockUserDTOWithId();
       userRepository.create.mockResolvedValue(expectedClient);
 
       vi.mock('../helpers/generateTemporaryPassword');
-      const test = vi.mocked(generateTemporaryPassword);
-      test.mockReturnValue(expectedClient.password);
+      passwordService.generatePassword.mockReturnValue(expectedClient.password);
 
       const clientData = UserMocker.mockCreateClientDTO();
       const newClient = await userService.createClient(clientData);
