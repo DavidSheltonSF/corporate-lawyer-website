@@ -4,7 +4,7 @@ import { createMockUserRepository } from '../../tests/mocks/repositories/createM
 import { createMockCaseRepository } from '../../tests/mocks/repositories/createMockCaseRepository.js';
 import { UserMocker } from '../../tests/mocks/entities/UserMocker.js';
 import { createMockPage } from '../../tests/mocks/createMockPage.js';
-import { UserQuery } from '../../types/UserQuery.js';
+import { UserQueryParams } from '../../types/UserQueryParams.js';
 import { UpdateUserDTO } from '../../dtos/user/UpdateUserDTO.js';
 import { UserMapper } from '../../mappers/User/UserMapper.js';
 import { createMockPasswordService } from '../../tests/mocks/services/createMockPasswordService.js';
@@ -94,7 +94,7 @@ describe(`Test ${UserService.name}`, () => {
       const mockPage = createMockPage(expectedClients, { limit, page });
       userRepository.findClients.mockResolvedValue(mockPage);
 
-      const userPageParams: UserQuery = { limit, page, query: 'test' };
+      const userPageParams: UserQueryParams = { limit, page, query: 'test' };
       const clientPage = await userService.findClients(userPageParams);
       const clients = clientPage.items;
       const meta = clientPage.meta;

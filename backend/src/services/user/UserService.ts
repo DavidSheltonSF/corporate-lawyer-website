@@ -7,7 +7,7 @@ import { ValidationError } from '../../errors/presentation/ValidationError.js';
 import { CaseRepository } from '../../repositories/CaseRepository.js';
 import { UserRepository } from '../../repositories/UserRepository.js';
 import { Page } from '../../types/Page.js';
-import { UserQuery } from '../../types/UserQuery.js';
+import { UserQueryParams } from '../../types/UserQueryParams.js';
 import { UserRole } from '../../types/UserRole.js';
 import { WithId } from '../../types/WithId.js';
 import { PasswordService } from '../password/PasswordService.js';
@@ -56,7 +56,7 @@ export class UserService implements IUserService {
     });
   }
 
-  async findClients(userQuery: UserQuery): Promise<Page<WithId<UserResponseDTO>>> {
+  async findClients(userQuery: UserQueryParams): Promise<Page<WithId<UserResponseDTO>>> {
     let page = await this.userRepository.findClients(userQuery);
 
     const users = page.items;

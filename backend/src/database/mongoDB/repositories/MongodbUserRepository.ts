@@ -1,7 +1,7 @@
 import { UserRepository } from '../../../repositories/UserRepository.js';
 import { WithId } from '../../../types/WithId.js';
 import { UserModel } from '../../../models/UserModel.js';
-import { UserQuery } from '../../../types/UserQuery.js';
+import { UserQueryParams } from '../../../types/UserQueryParams.js';
 import { Page } from '../../../types/Page.js';
 import { UserRole } from '../../../types/UserRole.js';
 import { UserMapper } from '../../../mappers/User/UserMapper.js';
@@ -19,7 +19,7 @@ export class MongodbUserRepository implements UserRepository {
     return users.map(UserMapper.persistenceToPresentation);
   }
 
-  async findClients(userQuery: UserQuery): Promise<Page<WithId<UserDTO>>> {
+  async findClients(userQuery: UserQueryParams): Promise<Page<WithId<UserDTO>>> {
     const { query, limit = 10, page = 1 } = userQuery;
 
     const regex = new RegExp(query || '', 'i');
