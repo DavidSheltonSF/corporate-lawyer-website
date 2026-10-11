@@ -1,6 +1,6 @@
-export interface CaseQueryParams {
-  limit?: number | undefined;
-  page?: number | undefined;
+import { PageParams } from './PageParams.js';
+
+export interface CaseQueryParams extends PageParams {
   query?: string | undefined;
   clientId?: string | undefined;
   status?: string | undefined;
