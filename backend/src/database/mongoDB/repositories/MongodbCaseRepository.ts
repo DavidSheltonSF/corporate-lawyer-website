@@ -36,8 +36,8 @@ export class MongodbCaseRepository implements CaseRepository {
     if (!cas) return null;
     return CaseMapper.persistenceToPresentation(cas);
   }
-  async findAll(queryParams: CaseQueryParams = {}): Promise<Page<WithId<CaseDTO>>> {
-    const { query, status, limit = 10, page = 1, clientId } = queryParams;
+  async findAll(queryParams: CaseQueryParams): Promise<Page<WithId<CaseDTO>>> {
+    const { query, status, limit, page, clientId } = queryParams;
 
     const regex = new RegExp(query || '', 'i');
 

@@ -136,7 +136,7 @@ describe('Test CaseRepository', () => {
 
       await CaseModel.create(caseData);
 
-      const response = (await caseRepository.findAll()) as any;
+      const response = (await caseRepository.findAll({page: 1, limit: 4})) as any;
       const cases = response.items;
       const case1 = cases[0];
 

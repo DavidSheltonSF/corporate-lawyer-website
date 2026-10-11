@@ -9,7 +9,7 @@ import { CaseDTO } from '../dtos/case/CaseDTO.js';
 export interface CaseRepository {
   create(user: CreateCaseDTO): Promise<WithId<CaseDTO>>;
   updateById(id: string, user: UpdateCaseDTO): Promise<WithId<CaseDTO> | null>;
-  findAll(queryParams?: CaseQueryParams): Promise<Page<WithId<CaseDTO>>>;
+  findAll(queryParams: CaseQueryParams): Promise<Page<WithId<CaseDTO>>>;
   findById(id: string): Promise<WithId<CaseDTO> | null>;
   findByCaseNumber(caseNumber: string): Promise<WithId<CaseDTO> | null>;
   findPopulatedById(id: string): Promise<WithId<CaseDTO> | null>;
