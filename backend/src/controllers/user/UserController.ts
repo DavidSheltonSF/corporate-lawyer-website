@@ -36,7 +36,7 @@ export class UserController implements IUserController {
 
   findClients = async (httpRequest: HttpRequest) => {
     const { query = '' } = httpRequest.query;
-    const { limit, page } = getPagination(httpRequest.query);
+    const { limit = 4, page = 1 } = getPagination(httpRequest.query);
 
     const data = await this.userService.findClients({
       query,
