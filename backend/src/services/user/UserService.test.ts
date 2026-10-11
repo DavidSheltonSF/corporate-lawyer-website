@@ -35,7 +35,6 @@ describe(`Test ${UserService.name}`, () => {
       const expectedClient = UserMocker.mockUserDTOWithId();
       userRepository.create.mockResolvedValue(expectedClient);
 
-      vi.mock('../helpers/generateTemporaryPassword');
       passwordService.generatePassword.mockReturnValue(expectedClient.password);
 
       const clientData = UserMocker.mockCreateClientDTO();
