@@ -1,6 +1,6 @@
 import { CreateCaseDTO } from '../../dtos/case/CreateCaseDTO.js';
 import { CaseRepository } from '../../repositories/CaseRepository.js';
-import { CaseQuery } from '../../types/CaseQuery.js';
+import { CaseQueryParams } from '../../types/CaseQueryParams.js';
 import { CasesStats } from '../../types/CasesStats.js';
 import { Page } from '../../types/Page.js';
 import { WithId } from '../../types/WithId.js';
@@ -74,7 +74,7 @@ export class CaseService implements ICaseService {
     }
   }
 
-  async findAll(queryParams?: CaseQuery): Promise<Page<WithId<CaseDTO>>> {
+  async findAll(queryParams?: CaseQueryParams): Promise<Page<WithId<CaseDTO>>> {
     const casesPage = await this.caseRepository.findAll(queryParams);
     return {
       items: casesPage.items,

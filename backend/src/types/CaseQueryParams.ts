@@ -1,4 +1,4 @@
-export interface CaseQuery {
+export interface CaseQueryParams {
   limit?: number | undefined;
   page?: number | undefined;
   query?: string | undefined;

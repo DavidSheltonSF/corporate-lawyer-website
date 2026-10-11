@@ -1,5 +1,5 @@
 import { CreateCaseDTO } from '../dtos/case/CreateCaseDTO.js';
-import { CaseQuery } from '../types/CaseQuery.js';
+import { CaseQueryParams } from '../types/CaseQueryParams.js';
 import { CasesStats } from '../types/CasesStats.js';
 import { Page } from '../types/Page.js';
 import { WithId } from '../types/WithId.js';
@@ -9,7 +9,7 @@ import { CaseDTO } from '../dtos/case/CaseDTO.js';
 export interface CaseRepository {
   create(user: CreateCaseDTO): Promise<WithId<CaseDTO>>;
   updateById(id: string, user: UpdateCaseDTO): Promise<WithId<CaseDTO> | null>;
-  findAll(queryParams?: CaseQuery): Promise<Page<WithId<CaseDTO>>>;
+  findAll(queryParams?: CaseQueryParams): Promise<Page<WithId<CaseDTO>>>;
   findById(id: string): Promise<WithId<CaseDTO> | null>;
   findByCaseNumber(caseNumber: string): Promise<WithId<CaseDTO> | null>;
   findPopulatedById(id: string): Promise<WithId<CaseDTO> | null>;

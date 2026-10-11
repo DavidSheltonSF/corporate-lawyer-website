@@ -5,7 +5,7 @@ import { CreateCaseDTO } from '../../../dtos/case/CreateCaseDTO.js';
 import { Types } from 'mongoose';
 import { CasesStats } from '../../../types/CasesStats.js';
 import { CasesStatus } from '../../../types/CasesStatus.js';
-import { CaseQuery } from '../../../types/CaseQuery.js';
+import { CaseQueryParams } from '../../../types/CaseQueryParams.js';
 import { Page } from '../../../types/Page.js';
 import { CaseMapper } from '../../../mappers/Case/CaseMapper.js';
 import { UpdateCaseDTO } from '../../../dtos/case/UpdateCaseDTO.js';
@@ -36,7 +36,7 @@ export class MongodbCaseRepository implements CaseRepository {
     if (!cas) return null;
     return CaseMapper.persistenceToPresentation(cas);
   }
-  async findAll(queryParams: CaseQuery = {}): Promise<Page<WithId<CaseDTO>>> {
+  async findAll(queryParams: CaseQueryParams = {}): Promise<Page<WithId<CaseDTO>>> {
     const { query, status, limit = 10, page = 1, clientId } = queryParams;
 
     const regex = new RegExp(query || '', 'i');
