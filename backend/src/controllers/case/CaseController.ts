@@ -81,7 +81,7 @@ export class CaseController implements ICaseController {
 
     const { status, query } = httpRequest.query;
 
-    const { limit, page } = getPagination(httpRequest.query);
+    const { limit = 4, page = 1 } = getPagination(httpRequest.query);
 
     if (!authUser.id) {
       throw new BadRequestError('Missing id param');
