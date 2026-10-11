@@ -1,5 +1,5 @@
-export interface UserQueryParams {
-  limit?: number | undefined;
-  page?: number | undefined;
+import { PageParams } from './PageParams.js';
+
+export interface UserQueryParams extends PageParams {
   query?: string | undefined;
 }
