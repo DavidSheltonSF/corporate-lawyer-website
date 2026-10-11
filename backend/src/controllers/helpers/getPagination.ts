@@ -7,7 +7,10 @@ export function getPagination(query: { limit?: string; page?: string }): PagePar
   const numberLimit = Number(limit);
   const numberPage = Number(page);
 
-  if (Number.isNaN(numberLimit) || Number.isNaN(numberPage)) {
+  const limitIsValid = Number.isInteger(numberLimit) && numberLimit > 0;
+  const pageIsValid = Number.isInteger(numberPage) && numberPage > 0;
+
+  if (!limitIsValid || !pageIsValid) {
     throw new BadRequestError('Invalid pagination paramethers');
   }
 
