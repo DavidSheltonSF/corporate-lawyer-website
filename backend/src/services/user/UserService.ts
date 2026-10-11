@@ -1,6 +1,6 @@
 import { CreateClientDTO } from '../../dtos/user/CreateClientDTO.js';
-import { CreateClientResponseDTO } from '../../dtos/user/CreateClientResponseDTO.js';
 import { UpdateUserDTO } from '../../dtos/user/UpdateUserDTO.js';
+import { UserDTO } from '../../dtos/user/UserDTO.js';
 import { UserResponseDTO } from '../../dtos/user/UserResponseDTO.js';
 import { DuplicatedEmailError } from '../../errors/domain/DuplicatedEmailError.js';
 import { ValidationError } from '../../errors/presentation/ValidationError.js';
@@ -21,7 +21,7 @@ export class UserService implements IUserService {
     private caseRepository: CaseRepository,
     private passwordService: PasswordService
   ) {}
-  async createClient(data: CreateClientDTO): Promise<WithId<CreateClientResponseDTO>> {
+  async createClient(data: CreateClientDTO): Promise<WithId<UserDTO>> {
     const { firstName, lastName, email, phone, cpf } = data;
 
     validateUserPartial(data);
