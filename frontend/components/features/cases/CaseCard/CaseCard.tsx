@@ -1,4 +1,3 @@
-import { formatStringList } from '@/lib/formatStringList';
 import { WithId } from '@/types/WithId';
 import { CaseWithRelations } from '@/types/CaseWithRelations';
 import { Card } from '../../../ui/Card/Card';
@@ -29,9 +28,7 @@ export function CaseCard({ caseData, deleteCase, openUpdateModal }: Props) {
   const { openCaseFilesModal } = useCaseFilesModal();
   const { openConfirmModal } = useConfirmModal();
 
-  const lawyersNames = caseData.lawyers?.map((lawyer) => {
-    return `${lawyer.firstName} ${lawyer.lastName}`;
-  });
+  const lawyerName = `${caseData.lawyer.firstName} ${caseData.lawyer.lastName}`;
 
   function handleUpdate() {
     openUpdateModal(id);
@@ -74,7 +71,7 @@ export function CaseCard({ caseData, deleteCase, openUpdateModal }: Props) {
         <CaseCard.Footer
           status={status}
           clientName={`${firstName} ${lastName}`}
-          lawyerName={formatStringList(lawyersNames)}
+          lawyerName={lawyerName}
         />
       </div>
     </Card>

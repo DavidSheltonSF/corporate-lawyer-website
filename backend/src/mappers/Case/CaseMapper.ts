@@ -7,9 +7,7 @@ export class CaseMapper {
     const { title, caseNumber, court, courtDivision, status, description, location } = cas;
 
     const client = populated ? toUserIdentity(cas.client) : cas.client.toString();
-    const lawyers = populated
-      ? cas.lawyers.map(toUserIdentity)
-      : cas.lawyers.map((lawyer: any) => lawyer.toString());
+    const lawyer = populated ? toUserIdentity(cas.lawyer) : cas.lawyer.toString();
 
     return {
       id: cas._id.toString(),
@@ -20,7 +18,7 @@ export class CaseMapper {
       status,
       description,
       client,
-      lawyers,
+      lawyer,
       location,
       populated,
     };

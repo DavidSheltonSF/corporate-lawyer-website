@@ -27,7 +27,7 @@ export class CaseController implements ICaseController {
       'courtDivision',
       'status',
       'client',
-      'lawyers',
+      'lawyer',
     ]);
 
     const response = await this.caseService.create(body);

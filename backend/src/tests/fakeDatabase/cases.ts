@@ -8,7 +8,7 @@ import { CaseFieldsMocker } from '../mocks/fields/CaseFieldsMocker.js';
 export const fakeCases: ICaseModel[] = [
   {
     client: fakeUserDatabase[3]!._id,
-    lawyers: [fakeUserDatabase[1]!._id],
+    lawyer: fakeUserDatabase[1]!._id,
     caseNumber: CaseFieldsMocker.mockCaseNumber(),
     title: 'Ação de indenização por danos morais',
     description:
@@ -25,7 +25,7 @@ export const fakeCases: ICaseModel[] = [
   },
   {
     client: fakeUserDatabase[3]!._id,
-    lawyers: [fakeUserDatabase[1]!._id],
+    lawyer: fakeUserDatabase[1]!._id,
     caseNumber: CaseFieldsMocker.mockCaseNumber(),
     title: 'Ação de usucapião urbano',
     description:
@@ -42,7 +42,7 @@ export const fakeCases: ICaseModel[] = [
   },
   {
     client: fakeUserDatabase[3]!._id,
-    lawyers: [fakeUserDatabase[0]!._id],
+    lawyer: fakeUserDatabase[0]!._id,
     caseNumber: CaseFieldsMocker.mockCaseNumber(),
     title: 'Ação de cobrança por inadimplência contratual',
     description:
@@ -59,7 +59,7 @@ export const fakeCases: ICaseModel[] = [
   },
   {
     client: fakeUserDatabase[3]!._id,
-    lawyers: [fakeUserDatabase[1]!._id],
+    lawyer: fakeUserDatabase[1]!._id,
     caseNumber: CaseFieldsMocker.mockCaseNumber(),
     title: 'Ação de danos materiais por acidente de trânsito',
     description:
@@ -76,7 +76,7 @@ export const fakeCases: ICaseModel[] = [
   },
   {
     client: fakeUserDatabase[3]!._id,
-    lawyers: [fakeUserDatabase[1]!._id],
+    lawyer: fakeUserDatabase[1]!._id,
     caseNumber: CaseFieldsMocker.mockCaseNumber(),
     title: 'Ação de danos morais',
     description: 'O cliente busca ressarcimento pelos danos morais.',
@@ -92,7 +92,7 @@ export const fakeCases: ICaseModel[] = [
   },
   {
     client: fakeUserDatabase[2]!._id,
-    lawyers: [fakeUserDatabase[0]!._id],
+    lawyer: fakeUserDatabase[0]!._id,
     caseNumber: CaseFieldsMocker.mockCaseNumber(),
     title: 'Ação de danos à imagem',
     description: 'O cliente busca ressarcimento pelos danos causados à sua imagem publica.',
@@ -108,7 +108,7 @@ export const fakeCases: ICaseModel[] = [
   },
   {
     client: fakeUserDatabase[2]!._id,
-    lawyers: [fakeUserDatabase[0]!._id],
+    lawyer: fakeUserDatabase[0]!._id,
     caseNumber: CaseFieldsMocker.mockCaseNumber(),
     title: 'Ação de pensão por morte',
     description: 'O cliente busca pensão pela morte do marido',
@@ -124,7 +124,7 @@ export const fakeCases: ICaseModel[] = [
   },
   {
     client: fakeUserDatabase[4]!._id,
-    lawyers: [fakeUserDatabase[0]!._id],
+    lawyer: fakeUserDatabase[0]!._id,
     caseNumber: CaseFieldsMocker.mockCaseNumber(),
     title: 'Ação de revisão contratual',
     description:
@@ -141,7 +141,7 @@ export const fakeCases: ICaseModel[] = [
   },
   {
     client: fakeUserDatabase[5]!._id,
-    lawyers: [fakeUserDatabase[1]!._id],
+    lawyer: fakeUserDatabase[1]!._id,
     caseNumber: CaseFieldsMocker.mockCaseNumber(),
     title: 'Ação de despejo por falta de pagamento',
     description:
@@ -158,7 +158,7 @@ export const fakeCases: ICaseModel[] = [
   },
   {
     client: fakeUserDatabase[6]!._id,
-    lawyers: [fakeUserDatabase[1]!._id],
+    lawyer: fakeUserDatabase[1]!._id,
     caseNumber: CaseFieldsMocker.mockCaseNumber(),
     title: 'Ação de guarda compartilhada',
     description: 'O cliente busca a guarda compartilhada do filho menor após separação.',
@@ -174,7 +174,7 @@ export const fakeCases: ICaseModel[] = [
   },
   {
     client: fakeUserDatabase[7]!._id,
-    lawyers: [fakeUserDatabase[0]!._id],
+    lawyer: fakeUserDatabase[0]!._id,
     caseNumber: CaseFieldsMocker.mockCaseNumber(),
     title: 'Ação de inventário',
     description:
@@ -191,7 +191,7 @@ export const fakeCases: ICaseModel[] = [
   },
   {
     client: fakeUserDatabase[8]!._id,
-    lawyers: [fakeUserDatabase[0]!._id],
+    lawyer: fakeUserDatabase[0]!._id,
     caseNumber: CaseFieldsMocker.mockCaseNumber(),
     title: 'Ação de alimentos',
     description: 'O cliente busca fixação de pensão alimentícia para o filho menor.',
@@ -207,7 +207,7 @@ export const fakeCases: ICaseModel[] = [
   },
   {
     client: fakeUserDatabase[9]!._id,
-    lawyers: [fakeUserDatabase[0]!._id],
+    lawyer: fakeUserDatabase[0]!._id,
     caseNumber: CaseFieldsMocker.mockCaseNumber(),
     title: 'Ação de rescisão contratual',
     description:
@@ -224,7 +224,7 @@ export const fakeCases: ICaseModel[] = [
   },
   {
     client: fakeUserDatabase[10]!._id,
-    lawyers: [fakeUserDatabase[1]!._id],
+    lawyer: fakeUserDatabase[1]!._id,
     caseNumber: CaseFieldsMocker.mockCaseNumber(),
     title: 'Ação de reconhecimento de união estável',
     description:
@@ -241,7 +241,7 @@ export const fakeCases: ICaseModel[] = [
   },
   {
     client: fakeUserDatabase[11]!._id,
-    lawyers: [fakeUserDatabase[0]!._id],
+    lawyer: fakeUserDatabase[0]!._id,
     caseNumber: CaseFieldsMocker.mockCaseNumber(),
     title: 'Ação de indenização por erro médico',
     description:

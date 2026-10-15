@@ -2,7 +2,7 @@ import { CaseLocationDTO } from './CaseLocationDTO.js';
 
 export interface CreateCaseDTO {
   client: string;
-  lawyers: string[];
+  lawyer: string;
   caseNumber: string;
   title: string;
   description: string;

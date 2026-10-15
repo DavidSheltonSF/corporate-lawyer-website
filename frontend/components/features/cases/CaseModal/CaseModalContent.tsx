@@ -17,9 +17,8 @@ interface Props {
 
 export function CaseModalContent({ caseData }: Props) {
   if (!caseData) return null;
-  const { client, lawyers, status, court, courtDivision, location } = caseData;
+  const { client, lawyer, status, court, courtDivision, location } = caseData;
   const { firstName, lastName } = client;
-  const lawyer = lawyers[0];
 
   let statusColor = '';
   switch (status) {
@@ -49,7 +48,9 @@ export function CaseModalContent({ caseData }: Props) {
         <FieldValue field="cidade" value={CityLabel[location.city]} />
       </div>
       <div className="flex flex-col gap-[8px] p-[24px]">
-        <Text as={'h2'} variant='h2' className="text-2xl font-bold">Resumo</Text>
+        <Text as={'h2'} variant="h2" className="text-2xl font-bold">
+          Resumo
+        </Text>
         <Text>{caseData.description}</Text>
       </div>
     </div>

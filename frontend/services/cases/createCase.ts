@@ -32,7 +32,7 @@ export async function createCase<T>(
     method: 'POST',
     body: JSON.stringify({
       client: clientId,
-      lawyers: [lawyerId],
+      lawyer: lawyerId,
       title,
       description,
       caseNumber,

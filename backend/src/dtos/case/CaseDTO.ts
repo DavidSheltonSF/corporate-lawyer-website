@@ -5,10 +5,10 @@ import { CaseLocationDTO } from './CaseLocationDTO.js';
 export type CaseDTOPopulated = {
   populated: true;
   client: WithId<UserSlice>;
-  lawyers: WithId<UserSlice>[];
+  lawyer: WithId<UserSlice>;
 };
 
-export type CaseDTONonPopulated = { populated: false; client: string; lawyers: string[] };
+export type CaseDTONonPopulated = { populated: false; client: string; lawyer: string };
 
 export type CaseDTO = {
   caseNumber: string;

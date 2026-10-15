@@ -9,7 +9,7 @@ export class CaseMocker {
   static mockCreateCaseDTO(): CreateCaseDTO {
     return {
       client: GenericMocker.mockMongoId().toString(),
-      lawyers: [GenericMocker.mockMongoId().toString()],
+      lawyer: GenericMocker.mockMongoId().toString(),
       caseNumber: CaseFieldsMocker.mockCaseNumber(),
       title: CaseFieldsMocker.mockCaseTitle(),
       description: CaseFieldsMocker.mockDescription(),
@@ -23,7 +23,7 @@ export class CaseMocker {
   static mockCaseDTO(): CaseDTO {
     return {
       client: GenericMocker.mockMongoId().toString(),
-      lawyers: [GenericMocker.mockMongoId().toString()],
+      lawyer: GenericMocker.mockMongoId().toString(),
       caseNumber: CaseFieldsMocker.mockCaseNumber(),
       title: CaseFieldsMocker.mockCaseTitle(),
       description: CaseFieldsMocker.mockDescription(),

@@ -14,11 +14,11 @@ import { CaseDTO } from '../../../dtos/case/CaseDTO.js';
 export class MongodbCaseRepository implements CaseRepository {
   async create(data: CreateCaseDTO): Promise<WithId<CaseDTO>> {
     const client = new Types.ObjectId(data.client);
-    const lawyers = data.lawyers.map((lawyer) => new Types.ObjectId(lawyer));
+    const lawyer = new Types.ObjectId(data.lawyer);
 
     const cas = await CaseModel.create({
       client,
-      lawyers,
+      lawyer,
       caseNumber: data.caseNumber,
       title: data.title,
       description: data.description,
@@ -63,7 +63,7 @@ export class MongodbCaseRepository implements CaseRepository {
         select: 'firstName lastName',
       })
       .populate({
-        path: 'lawyers',
+        path: 'lawyer',
         select: 'firstName lastName',
       })
       .limit(limit)
@@ -104,7 +104,7 @@ export class MongodbCaseRepository implements CaseRepository {
     });
 
     query.populate({
-      path: 'lawyers',
+      path: 'lawyer',
       select: 'firstName lastName',
     });
 

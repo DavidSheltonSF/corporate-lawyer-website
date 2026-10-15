@@ -28,10 +28,10 @@ export class CaseService implements ICaseService {
 
     const createdCase = await this.caseRepository.create(data);
 
-    const { id, client, lawyers, title } = createdCase;
+    const { id, client, lawyer, title } = createdCase;
     this.eventBus.publish(CaseEvent.CASE_CREATED, {
       caseId: id,
-      lawyerId: lawyers[0] || '',
+      lawyerId: lawyer,
       clientId: client,
       caseTitle: title,
     });
@@ -57,10 +57,10 @@ export class CaseService implements ICaseService {
         return null;
       }
 
-      const { client, title, lawyers } = updatedCase;
+      const { client, title, lawyer } = updatedCase;
       this.eventBus.publish(CaseEvent.CASE_UPDATED, {
         caseId: updatedCase.id,
-        lawyerId: lawyers[0] || '',
+        lawyerId: lawyer,
         clientId: client,
         caseTitle: title,
       });
@@ -104,11 +104,11 @@ export class CaseService implements ICaseService {
       return null;
     }
 
-    const { lawyers, title, client } = deletedCase;
+    const { lawyer, title, client } = deletedCase;
 
     this.eventBus.publish(CaseEvent.CASE_DELETED, {
       caseId: deletedCase.id,
-      lawyerId: lawyers[0] || '',
+      lawyerId: lawyer,
       clientId: client,
       caseTitle: title,
     });

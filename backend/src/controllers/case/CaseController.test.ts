@@ -77,6 +77,17 @@ describe(`Test ${CaseController.name}`, () => {
       await expect(caseController.create(httpRequest)).rejects.toThrow(BadRequestError);
       expect(caseService.create).not.toHaveBeenCalled();
     });
+
+    it('should reject a legacy lawyers array without a singular lawyer', async () => {
+      const { caseController, caseService } = makeSut();
+      const { lawyer, ...caseData } = CaseMocker.mockCreateCaseDTO();
+      const httpRequest = createMockHttpRequest({
+        body: { ...caseData, lawyers: [lawyer] },
+      });
+
+      await expect(caseController.create(httpRequest)).rejects.toThrow(BadRequestError);
+      expect(caseService.create).not.toHaveBeenCalled();
+    });
   });
 
   describe('updateById', () => {
