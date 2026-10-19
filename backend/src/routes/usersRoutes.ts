@@ -30,6 +30,13 @@ export function usersRoutes(
     requireLawyer,
     expressHttpAdapter(userController.findById)
   );
+  router.get(
+    '/api/users/email/:email',
+    requireAuth,
+    requireUser,
+    requireLawyer,
+    expressHttpAdapter(userController.findByEmail)
+  );
   router.put(
     '/api/users/:id',
     requireAuth,
