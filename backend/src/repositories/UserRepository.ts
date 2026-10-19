@@ -10,6 +10,7 @@ export interface UserRepository {
   findClients(userQuery: UserQueryParams): Promise<Page<WithId<UserDTO>>>;
   findById(id: string): Promise<WithId<UserDTO> | null>;
   findByEmail(email: string): Promise<WithId<UserDTO> | null>;
+  findClientByEmail(email: string): Promise<WithId<UserDTO> | null>;
   deleteById(id: string): Promise<WithId<UserDTO> | null>;
   updateById(id: string, data: Partial<UpdateUserDTO>): Promise<WithId<UserDTO> | null>;
   existsById(id: string): Promise<boolean>;

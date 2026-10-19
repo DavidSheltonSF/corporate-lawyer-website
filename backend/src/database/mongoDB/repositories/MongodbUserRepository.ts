@@ -71,6 +71,16 @@ export class MongodbUserRepository implements UserRepository {
     return UserMapper.persistenceToPresentation(user);
   }
 
+  async findClientByEmail(email: string): Promise<WithId<UserDTO> | null> {
+    const user = await UserModel.findOne({ email, role: UserRole.client }).lean();
+
+    if (!user) {
+      return null;
+    }
+
+    return UserMapper.persistenceToPresentation(user);
+  }
+
   async deleteById(id: string): Promise<WithId<UserDTO> | null> {
     const result = await UserModel.findOneAndDelete({ _id: id });
     if (!result) return null;
