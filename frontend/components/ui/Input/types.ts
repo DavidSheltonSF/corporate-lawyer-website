@@ -10,6 +10,7 @@ export interface InputProps {
   readOnly?: boolean;
   defaultValue?: string;
   min?: number;
+  disabled?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onClick?: MouseEventHandler<HTMLInputElement>;
 }
