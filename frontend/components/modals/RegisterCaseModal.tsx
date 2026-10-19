@@ -4,13 +4,12 @@ import { FormModal } from '../ui/FormModal/FormModal';
 import { RegisterCaseModalForm } from './RegisterCaseModalForm';
 
 interface Props {
-  clientId: string;
   isOpen: boolean;
   close: () => void;
 }
 
 RegisterCaseModal.Form = RegisterCaseModalForm;
-export function RegisterCaseModal({ isOpen, close, clientId }: Props) {
+export function RegisterCaseModal({ isOpen, close }: Props) {
   const [isReadyToSubmit, setIsReadyToSubmit] = useState(false);
   const formId = 'create-case-form';
 
@@ -28,7 +27,6 @@ export function RegisterCaseModal({ isOpen, close, clientId }: Props) {
           isReadyToSubmit={isReadyToSubmit}
           setIsReadyToSubmit={setIsReadyToSubmit}
           formId={formId}
-          clientId={clientId}
         />
       </FormModal>
     )
