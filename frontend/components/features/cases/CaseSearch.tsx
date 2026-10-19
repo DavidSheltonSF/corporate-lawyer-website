@@ -14,8 +14,11 @@ import { useSuccessModal } from '@/hooks/modals/useSuccessModal';
 import { useUpdateCase } from '@/hooks/fetching/cases/useUpdateCase';
 import { useUpdateCaseModal } from '@/hooks/modals/useUpdateCaseModal';
 import { ButtonWithLoadingEffect } from '@/components/ui/ButtonWithLoadingEffect';
+import { RegisterCaseModal } from '@/components/modals/RegisterCaseModal';
+import { Button } from '@/components/ui/Button/Button';
 
 export default function CaseSearch() {
+  const [registerCaseModalIsOpen, setRegisterCaseModalIsOpen] = useState(false);
   const { search, setSearch, clientId, clearClientFilter, clientName, status, setStatus } =
     useCaseFilters();
   const [searchText, setSearchText] = useState(search);
@@ -27,12 +30,15 @@ export default function CaseSearch() {
   const deleteCaseMutation = useDeleteCase();
   const updateCaseMutation = useUpdateCase();
 
-  const { data, error, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } = useCases(userRole, {
-    status: status || '',
-    search,
-    clientId,
-    limit: 4,
-  });
+  const { data, error, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } = useCases(
+    userRole,
+    {
+      status: status || '',
+      search,
+      clientId,
+      limit: 4,
+    }
+  );
 
   if (error) {
     console.log(error);
@@ -65,6 +71,10 @@ export default function CaseSearch() {
 
   return (
     <section className="flex flex-col w-full md:w-[720px] gap-[40px]">
+      <RegisterCaseModal
+        isOpen={registerCaseModalIsOpen}
+        close={() => setRegisterCaseModalIsOpen(false)}
+      />
       <div className="flex flex-col gap-[40px] size-full">
         <form
           onSubmit={(e) => {
@@ -75,6 +85,12 @@ export default function CaseSearch() {
           <SearchBar value={searchText} onChange={(e) => setSearchText(e.target.value)} />
         </form>
         <div className="flex flex-col md:flex-row gap-[24px] md:items-center">
+          <Button
+            className="p-[16px] bg-color-white text-color-black w-full min-lg:w-fit"
+            onClick={() => setRegisterCaseModalIsOpen(true)}
+          >
+            Novo Processo
+          </Button>
           <SearchFilter
             label="Status"
             itemLabel={CaseStatusLabel}
@@ -84,6 +100,7 @@ export default function CaseSearch() {
           {clientId && <FilterTag label={clientName} onClear={clearClientFilter} />}
         </div>
       </div>
+      <Button />
       {isLoading ? (
         <CasesList.Skeleton />
       ) : (
