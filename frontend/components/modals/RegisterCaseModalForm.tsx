@@ -81,17 +81,16 @@ export function RegisterCaseModalForm({ formId, isReadyToSubmit, setIsReadyToSub
     }
   }, [requestState]);
 
-  useEffect(() => {
-    if (/^[^\s@]+@[^\s@]+\.com+$/.test(formState.clientEmail)) {
+  function validateEmail(email: string) {
+    if (/^[^\s@]+@[^\s@]+\.com+$/.test(email)) {
       setIsEmailValid(true);
     } else {
       setIsEmailValid(false);
     }
-  }, [formState.clientEmail]);
+  }
 
   useEffect(() => {
     async function handleFindClient() {
-      if (!isEmailValid) return;
       const response = await getClientByEmail(formState.clientEmail);
 
       if (!response.success) {
@@ -110,7 +109,7 @@ export function RegisterCaseModalForm({ formId, isReadyToSubmit, setIsReadyToSub
     if (isEmailValid) {
       handleFindClient();
     }
-  }, [isEmailValid]);
+  }, [formState.clientEmail]);
 
   return (
     <form id={formId} className="flex flex-col gap-[16px] w-ful]" onSubmit={registerCase}>
@@ -126,6 +125,7 @@ export function RegisterCaseModalForm({ formId, isReadyToSubmit, setIsReadyToSub
           placeholder="example@email.com"
           onChange={(e) => {
             updateField('clientEmail', e.target.value);
+            validateEmail(e.target.value);
           }}
         />
         <span
