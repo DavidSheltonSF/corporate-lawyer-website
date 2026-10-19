@@ -2,6 +2,7 @@ import {
   CreateResponse,
   DeleteByIdResponse,
   FindAllResponse,
+  FindByEmailResponse,
   FindByIdResponse,
   FindClientsResponse,
   UpdateByIdResponse,
@@ -13,6 +14,7 @@ export interface IUserController {
   findAll: (httpRequest: HttpRequest) => Promise<FindAllResponse>;
   findClients: (httpRequest: HttpRequest) => Promise<FindClientsResponse>;
   findById: (httpRequest: HttpRequest) => Promise<FindByIdResponse>;
+  findByEmail: (httpRequest: HttpRequest) => Promise<FindByEmailResponse>;
   updateById: (httpRequest: HttpRequest) => Promise<UpdateByIdResponse>;
   deleteById: (httpRequest: HttpRequest) => Promise<DeleteByIdResponse>;
 }

@@ -62,6 +62,24 @@ export class UserController implements IUserController {
     return HttpResponseFactory.makeOk(foundUser);
   };
 
+  findByEmail = async (httpRequest: HttpRequest) => {
+    const { email } = httpRequest.params;
+    console.log(httpRequest.params);
+
+    if (!email) {
+      throw new BadRequestError('Missing email param');
+    }
+
+    const foundUser = await this.userService.findByEmail(email);
+
+    if (!foundUser) {
+      throw new NotFoundError(`User with email '${email}' not found`);
+    }
+
+    console.log(foundUser);
+    return HttpResponseFactory.makeOk(foundUser);
+  };
+
   updateById = async (httpRequest: HttpRequest) => {
     const { id } = httpRequest.params;
     if (!id) {
