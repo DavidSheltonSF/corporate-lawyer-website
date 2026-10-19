@@ -93,6 +93,21 @@ export class UserService implements IUserService {
     return userWithoutPassword;
   }
 
+  async findClientByEmail(email: string): Promise<WithId<UserResponseDTO> | null> {
+    if (!isValidEmail(email)) {
+      throw new ValidationError('Invalid user data', {
+        email: `Email '${email}' is invalid. Expected format: example@email.com`,
+      });
+    }
+    const user = await this.userRepository.findClientByEmail(email);
+
+    if (!user) {
+      return null;
+    }
+    const { password, ...userWithoutPassword } = user;
+    return userWithoutPassword;
+  }
+
   async updateById(
     id: string,
     data: Partial<UpdateUserDTO>
