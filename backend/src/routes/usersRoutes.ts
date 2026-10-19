@@ -31,11 +31,11 @@ export function usersRoutes(
     expressHttpAdapter(userController.findById)
   );
   router.get(
-    '/api/users/email/:email',
+    '/api/clients/email/:email',
     requireAuth,
     requireUser,
     requireLawyer,
-    expressHttpAdapter(userController.findByEmail)
+    expressHttpAdapter(userController.findClientByEmail)
   );
   router.put(
     '/api/users/:id',

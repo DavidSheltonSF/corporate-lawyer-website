@@ -62,7 +62,7 @@ export class UserController implements IUserController {
     return HttpResponseFactory.makeOk(foundUser);
   };
 
-  findByEmail = async (httpRequest: HttpRequest) => {
+  findClientByEmail = async (httpRequest: HttpRequest) => {
     const { email } = httpRequest.params;
     console.log(httpRequest.params);
 
@@ -70,7 +70,7 @@ export class UserController implements IUserController {
       throw new BadRequestError('Missing email param');
     }
 
-    const foundUser = await this.userService.findByEmail(email);
+    const foundUser = await this.userService.findClientByEmail(email);
 
     if (!foundUser) {
       throw new NotFoundError(`User with email '${email}' not found`);
