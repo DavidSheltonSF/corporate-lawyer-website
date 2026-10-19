@@ -14,6 +14,7 @@ import { RequestFeedback } from '../ui/Feedback/RequestFeedback';
 import { handleLogout } from '@/lib/handleLogout';
 import { getClientByEmail } from '@/services/users/getClientByEmail';
 import { User } from '@/types/User';
+import { isEmailValid } from '@/lib/isEmailValid';
 
 interface Props {
   formId: string;
@@ -38,7 +39,7 @@ export function RegisterCaseModalForm({ formId, isReadyToSubmit, setIsReadyToSub
     description: '',
   });
   const [clientId, setClientId] = useState('');
-  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [emailIsValid, setEmailIsValid] = useState(false);
 
   const userId = useCurrentUserId();
 
@@ -82,10 +83,10 @@ export function RegisterCaseModalForm({ formId, isReadyToSubmit, setIsReadyToSub
   }, [requestState]);
 
   function validateEmail(email: string) {
-    if (/^[^\s@]+@[^\s@]+\.com+$/.test(email)) {
-      setIsEmailValid(true);
+    if (isEmailValid(email)) {
+      setEmailIsValid(true);
     } else {
-      setIsEmailValid(false);
+      setEmailIsValid(false);
     }
   }
 
@@ -106,7 +107,7 @@ export function RegisterCaseModalForm({ formId, isReadyToSubmit, setIsReadyToSub
       setClientId(user.id);
     }
 
-    if (isEmailValid) {
+    if (emailIsValid) {
       handleFindClient();
     }
   }, [formState.clientEmail]);
@@ -121,7 +122,7 @@ export function RegisterCaseModalForm({ formId, isReadyToSubmit, setIsReadyToSub
           label="Email do cliente"
           value={formState.clientEmail}
           type="email"
-          className={formState.clientEmail && !isEmailValid ? 'border-red-500' : ''}
+          className={formState.clientEmail && !emailIsValid ? 'border-red-500' : ''}
           placeholder="example@email.com"
           onChange={(e) => {
             updateField('clientEmail', e.target.value);
