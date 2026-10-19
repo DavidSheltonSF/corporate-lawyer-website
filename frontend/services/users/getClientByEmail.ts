@@ -6,6 +6,6 @@ import { ActionResponse } from '@/types/ActionResponse';
 import { makeActionResponse } from '@/factories/makeActionResponse';
 
 export async function getClientByEmail(email: string): Promise<ActionResponse<WithId<User>>> {
-  const response = await apiFetch(`${API_URL}/users/email/${encodeURIComponent(email)}`);
+  const response = await apiFetch(`${API_URL}/clients/email/${encodeURIComponent(email)}`);
   return makeActionResponse(response);
 }
