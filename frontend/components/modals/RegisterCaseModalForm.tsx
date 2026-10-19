@@ -15,6 +15,8 @@ import { handleLogout } from '@/lib/handleLogout';
 import { getClientByEmail } from '@/services/users/getClientByEmail';
 import { User } from '@/types/User';
 import { isEmailValid } from '@/lib/isEmailValid';
+import { LoadingIcon } from '../icons/LoadingIcon';
+import { mockPromise } from '@/test/mockPromise';
 
 interface Props {
   formId: string;
@@ -92,6 +94,7 @@ export function RegisterCaseModalForm({ formId, isReadyToSubmit, setIsReadyToSub
 
   useEffect(() => {
     async function handleFindClient() {
+      setFindClientRequest({ status: 'loading' });
       const response = await getClientByEmail(formState.clientEmail);
 
       if (!response.success) {
@@ -129,17 +132,21 @@ export function RegisterCaseModalForm({ formId, isReadyToSubmit, setIsReadyToSub
             validateEmail(e.target.value);
           }}
         />
-        <span
-          className={
-            findClientRequest.status === 'ok'
-              ? 'text-green-500 font-bold'
-              : 'text-red-500 font-bold'
-          }
-        >
-          {findClientRequest.status !== 'idle' && findClientRequest.status !== 'loading'
-            ? findClientRequest.message
-            : ''}
-        </span>
+        <div className="mt-[8px]">
+          {findClientRequest.status === 'loading' ? (
+            <LoadingIcon className="animate-spin color-black-200 size-[24px]" />
+          ) : (
+            <span
+              className={
+                findClientRequest.status === 'ok'
+                  ? 'text-green-500 font-bold'
+                  : 'text-red-500 font-bold'
+              }
+            >
+              {findClientRequest.status !== 'idle' ? findClientRequest.message : ''}
+            </span>
+          )}
+        </div>
       </div>
       <div className="flex flex-col gap-[16px] min-lg:flex-row w-full">
         <InputWithLabel
