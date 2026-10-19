@@ -5,6 +5,7 @@ import { InputProps } from '../types';
 import { useFloating, size, offset, autoUpdate } from '@floating-ui/react';
 import { DropdownInputMenu } from './DropdownInputMenu';
 import { Button } from '../../Button/Button';
+import { twMerge } from 'tailwind-merge';
 
 interface Props {
   setSelectedValue: (value: string) => void;
@@ -74,7 +75,11 @@ export function DropdownInput({
 
         <Button
           type="button"
-          className="flex items-center justify-center size-[32px] bg-color-white brightness-95 hover:brightness-90"
+          disabled={inputProps.disabled}
+          className={twMerge(
+            'flex items-center justify-center size-[32px]',
+            inputProps.disabled ? 'cursor-not-allowed' : 'hover:brightness-90 cursor-pointer'
+          )}
           onClick={() => setListIsOpen(!listIsOpen)}
         >
           <span className={`transition-[rotate] duration-300 ${!listIsOpen && 'rotate-180'}`}>
