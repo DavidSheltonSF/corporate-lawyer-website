@@ -53,11 +53,7 @@ export class DeadlineService implements IDeadlineService {
     return await this.deadlineRepository.create(
       data,
       toDateOnlyString(startDate),
-      toDateOnlyString(dueDate),
-      {
-        state: state,
-        city: city,
-      }
+      toDateOnlyString(dueDate)
     );
   }
 
