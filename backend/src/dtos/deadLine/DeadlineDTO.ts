@@ -1,5 +1,3 @@
-import { CaseLocationDTO } from '../case/CaseLocationDTO.js';
-
 export interface DeadlineDTO {
   caseId: string;
   lawyerId: string;
@@ -10,5 +8,4 @@ export interface DeadlineDTO {
   priority: string;
   startDate: string;
   dueDate: string;
-  caseLocation: CaseLocationDTO;
 }
