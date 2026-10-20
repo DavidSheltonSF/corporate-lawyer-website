@@ -67,9 +67,14 @@ export class DeadlineService implements IDeadlineService {
       return null;
     }
 
+    const deadlineCase = await this.caseRepository.findById(deadline.caseId);
+    if (!deadlineCase) {
+      throw new Error(`Deadline case with id '${deadline.caseId}' is not found`);
+    }
+
     const status = getDeadlineStatus(deadline.startDate, deadline.dueDate);
 
-    const { caseLocation, dueDate } = deadline;
+    const caseLocation = deadlineCase.location;
     const city = getCity(caseLocation.city);
     const state = getBrazilState(caseLocation.state);
     const countingType = getDeadlineCountingType(deadline.countingType);
@@ -78,21 +83,22 @@ export class DeadlineService implements IDeadlineService {
       caseLocation: { city, state },
     });
 
-    const remainingDays = deadlineCalculator.getRemainingDays(new Date(dueDate));
+    const remainingDays = deadlineCalculator.getRemainingDays(new Date(deadline.dueDate));
 
-    return { ...deadline, status, remainingDays };
+    return { ...deadline, status, remainingDays, caseLocation };
   }
 
   async findByCaseId(id: string): Promise<WithId<DeadlineResponseDTO>[] | null> {
-    const caseExists = await this.caseRepository.existsById(id);
-    if (!caseExists) return null;
+    const deadlineCase = await this.caseRepository.findById(id);
+    if (!deadlineCase) return null;
 
     const deadlineCalculator = new DeadlineCalculator(this.holidaysProvider);
 
     const deadlines = await this.deadlineRepository.findByCaseId(id);
 
     const mappedDeadlines = deadlines.map((deadline) => {
-      const { caseLocation, startDate, dueDate } = deadline;
+      const { startDate, dueDate } = deadline;
+      const caseLocation = deadlineCase.location;
       const city = getCity(caseLocation.city);
       const state = getBrazilState(caseLocation.state);
       const countingType = getDeadlineCountingType(deadline.countingType);
@@ -104,7 +110,7 @@ export class DeadlineService implements IDeadlineService {
       const status = getDeadlineStatus(startDate, dueDate);
 
       const remainingDays = deadlineCalculator.getRemainingDays(new Date(dueDate));
-      return { ...deadline, status, remainingDays };
+      return { ...deadline, status, remainingDays, caseLocation };
     });
 
     return mappedDeadlines;

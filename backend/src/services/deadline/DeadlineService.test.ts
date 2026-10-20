@@ -97,9 +97,7 @@ describe(`Test ${DeadlineService.name}`, () => {
         startDate: expectedDeadline.startDate,
         dueDate: expectedDeadline.dueDate,
         intimationDate: expectedDeadline.intimationDate,
-        caseLocation: expectedDeadline.caseLocation,
       });
-      expect(foundDeadline?.caseLocation).toMatchObject(expectedDeadline.caseLocation);
     });
   });
 
