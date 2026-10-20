@@ -5,20 +5,17 @@ import { DeadlineMapper } from '../../../mappers/Deadline/DeadlineMapper.js';
 import { UpdateDeadlineDTO } from '../../../dtos/deadLine/UpdateDeadlineDTO.js';
 import { DeadlineDTO } from '../../../dtos/deadLine/DeadlineDTO.js';
 import { CreateDeadlineDTO } from '../../../dtos/deadLine/CreateDeadlineDTO.js';
-import { CaseLocationDTO } from '../../../dtos/case/CaseLocationDTO.js';
 
 export class MongodbDeadlineRepository implements DeadlineRepository {
   async create(
     data: CreateDeadlineDTO,
     startDate: string,
-    dueDate: string,
-    caseLocation: CaseLocationDTO
+    dueDate: string
   ): Promise<WithId<DeadlineDTO>> {
     const deadline = await DeadlineModel.create({
       ...data,
       startDate: startDate,
       dueDate: dueDate,
-      caseLocation,
     });
     return DeadlineMapper.persistenceToPresentation(deadline);
   }

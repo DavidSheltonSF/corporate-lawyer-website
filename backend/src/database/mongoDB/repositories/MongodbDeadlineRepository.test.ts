@@ -28,20 +28,15 @@ describe('Test DeadlineRepository', () => {
 
   function makeSut() {
     const deadlineRepository = new MongodbDeadlineRepository();
-    const caseLocation: CaseLocationDTO = {
-      state: BrazilState.RIO_DE_JANEIRO,
-      city: City.BELFORD_ROXO,
-    };
 
     return {
       deadlineRepository,
-      caseLocation,
     };
   }
 
   describe('create', () => {
     it('should create a new deadline', async () => {
-      const { deadlineRepository, caseLocation } = makeSut();
+      const { deadlineRepository } = makeSut();
 
       const today = new Date();
       const yesterday = new Date(today);
@@ -57,8 +52,7 @@ describe('Test DeadlineRepository', () => {
       const deadline = await deadlineRepository.create(
         deadlineData,
         startDate.toString(),
-        dueDate.toString(),
-        caseLocation
+        dueDate.toString()
       );
 
       const createdDeadline = await DeadlineModel.findById(deadline.id);
