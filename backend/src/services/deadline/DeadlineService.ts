@@ -81,7 +81,7 @@ export class DeadlineService implements IDeadlineService {
 
     const remainingDays = deadlineCalculator.getRemainingDays(new Date(deadline.dueDate));
 
-    return { ...deadline, status, remainingDays, caseLocation };
+    return { ...deadline, status, remainingDays };
   }
 
   async findByCaseId(id: string): Promise<WithId<DeadlineResponseDTO>[] | null> {
@@ -106,7 +106,7 @@ export class DeadlineService implements IDeadlineService {
       const status = getDeadlineStatus(startDate, dueDate);
 
       const remainingDays = deadlineCalculator.getRemainingDays(new Date(dueDate));
-      return { ...deadline, status, remainingDays, caseLocation };
+      return { ...deadline, status, remainingDays };
     });
 
     return mappedDeadlines;
