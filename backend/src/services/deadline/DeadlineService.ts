@@ -17,7 +17,7 @@ import { validateDeadline } from '../validators/deadlines/validateDeadline.js';
 import { validateDeadlinePartial } from '../validators/deadlines/validateDeadlinePartial.js';
 import { IDeadlineService } from './IDeadlineService.js';
 
-export class DeadlineService implements Partial<IDeadlineService> {
+export class DeadlineService implements IDeadlineService {
   constructor(
     private readonly deadlineRepository: DeadlineRepository,
     private readonly caseRepository: CaseRepository,
