@@ -30,42 +30,6 @@ describe(`Test ${DeadlineService.name}`, () => {
     };
   }
 
-  describe('findAll', () => {
-    it('should return all deadlines', async () => {
-      const { deadlineRepository, deadlineService } = makeSut();
-
-      // PENDENTE - DIAS CORRIDOS
-      const deadline1 = DeadlineMocker.mockDeadlineDTOWithId();
-      deadline1.startDate = getTomorrow().toString();
-      deadline1.dueDate = addDays(new Date(deadline1.startDate), 5).toString();
-      deadline1.countingType = DeadlineCountingType.DIAS_CORRIDOS;
-
-      //  EM_ANDAMENTO -  DIAS CORRIDOS
-      const deadline2 = DeadlineMocker.mockDeadlineDTOWithId();
-      deadline2.startDate = getYesterday().toString();
-      deadline2.dueDate = addDays(new Date(deadline2.startDate), 5).toString();
-      deadline2.countingType = DeadlineCountingType.DIAS_CORRIDOS;
-
-      const expectedDeadlines = [deadline1, deadline2];
-
-      deadlineRepository.findAll.mockResolvedValue(expectedDeadlines);
-      const deadlines = await deadlineService.findAll();
-
-      expect(deadlines).toEqual([
-        expect.objectContaining({
-          ...deadline1,
-          status: DeadlineStatus.PENDENTE,
-          remainingDays: 6,
-        }),
-        expect.objectContaining({
-          ...deadline2,
-          status: DeadlineStatus.EM_ANDAMENTO,
-          remainingDays: 4,
-        }),
-      ]);
-    });
-  });
-
   describe('findByCaseId', () => {
     it('should find deadlines by case id', async () => {
       const { deadlineRepository, caseRepository, deadlineService } = makeSut();

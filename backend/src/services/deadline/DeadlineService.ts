@@ -61,28 +61,6 @@ export class DeadlineService implements Partial<IDeadlineService> {
     );
   }
 
-  async findAll(): Promise<WithId<DeadlineResponseDTO>[]> {
-    const deadlines = await this.deadlineRepository.findAll();
-    return deadlines.map((deadline) => {
-      const { startDate, dueDate, caseLocation } = deadline;
-
-      const countingType = getDeadlineCountingType(deadline.countingType);
-      const city = getCity(caseLocation.city);
-      const state = getBrazilState(caseLocation.state);
-
-      const deadlineCalculator = new DeadlineCalculator(this.holidaysProvider, {
-        countingType,
-        caseLocation: { city, state },
-      });
-
-      const remainingDays = deadlineCalculator.getRemainingDays(new Date(dueDate));
-
-      const status = getDeadlineStatus(startDate, dueDate);
-
-      return { ...deadline, status, remainingDays };
-    });
-  }
-
   async findById(id: string): Promise<WithId<DeadlineResponseDTO> | null> {
     const deadline = await this.deadlineRepository.findById(id);
     if (!deadline) {
