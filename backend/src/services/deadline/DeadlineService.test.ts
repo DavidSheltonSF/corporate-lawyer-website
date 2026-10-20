@@ -9,6 +9,7 @@ import { ValidationError } from '../../errors/presentation/ValidationError.js';
 import { DeadlineStatus } from '../../types/DeadLineStatus.js';
 import { addDays, getTomorrow, getYesterday } from '../../utils/dateUtils.js';
 import { DeadlineCountingType } from '../../types/DeadlineCountingType.js';
+import { CaseMocker } from '../../tests/mocks/entities/CaseMoker.js';
 
 describe(`Test ${DeadlineService.name}`, () => {
   function makeSut() {
@@ -55,9 +56,11 @@ describe(`Test ${DeadlineService.name}`, () => {
       const expectedDeadlines = [deadline1, deadline2];
 
       deadlineRepository.findByCaseId.mockResolvedValue(expectedDeadlines);
+      const expectedCase = CaseMocker.mockCaseDTOWithId();
+      caseRepository.findById.mockResolvedValue(expectedCase);
       const deadlines = await deadlineService.findByCaseId(caseId);
 
-      expect(caseRepository.existsById).toHaveBeenCalledWith(caseId);
+      expect(caseRepository.findById).toHaveBeenCalledWith(caseId);
       expect(deadlineRepository.findByCaseId).toHaveBeenCalledWith(caseId);
       expect(deadlines).toEqual([
         expect.objectContaining({
@@ -76,13 +79,16 @@ describe(`Test ${DeadlineService.name}`, () => {
 
   describe('findById', () => {
     it('should find a deadline by id', async () => {
-      const { deadlineRepository, deadlineService } = makeSut();
+      const { deadlineRepository, caseRepository, deadlineService } = makeSut();
 
       const expectedDeadline = DeadlineMocker.mockDeadlineDTOWithId();
       expectedDeadline.startDate = getTomorrow().toString();
       expectedDeadline.dueDate = addDays(new Date(expectedDeadline.startDate), 5).toString();
 
       deadlineRepository.findById.mockResolvedValue(expectedDeadline);
+
+      const expectedCase = CaseMocker.mockCaseDTOWithId();
+      caseRepository.findById.mockResolvedValue(expectedCase);
 
       const foundDeadline = await deadlineService.findById(expectedDeadline.id);
 
