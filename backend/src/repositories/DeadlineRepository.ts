@@ -11,7 +11,6 @@ export interface DeadlineRepository {
     dueDate: string,
     caseLocation: CaseLocationDTO
   ): Promise<WithId<DeadlineDTO>>;
-  findAll(): Promise<WithId<DeadlineDTO>[]>;
   findById(id: string): Promise<WithId<DeadlineDTO> | null>;
   findByCaseId(id: string): Promise<WithId<DeadlineDTO>[]>;
   deleteById(id: string): Promise<WithId<DeadlineDTO> | null>;

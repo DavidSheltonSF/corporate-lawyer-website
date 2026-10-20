@@ -75,20 +75,6 @@ describe('Test DeadlineRepository', () => {
     });
   });
 
-  describe('findAll', () => {
-    it('should find all deadlines', async () => {
-      // I couldn't mock 'status' field properly since it is calculated using mongodb virtuals
-      const { deadlineRepository } = makeSut();
-      const deadlinePersistence1 = DeadlineMocker.mockDeadlineMongoPersistence();
-      const deadlinePersistence2 = DeadlineMocker.mockDeadlineMongoPersistence();
-
-      await DeadlineModel.create([deadlinePersistence1, deadlinePersistence2]);
-      const deadlines = await deadlineRepository.findAll();
-
-      expect(deadlines.length).toBe(2);
-    });
-  });
-
   describe('findById', () => {
     it('should find deadline by id', async () => {
       const { deadlineRepository } = makeSut();
