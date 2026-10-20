@@ -27,11 +27,6 @@ export class DeadlineController implements IDeadlineController {
     return HttpResponseFactory.makeCreated(response);
   };
 
-  findAll = async (_httpRequest: HttpRequest) => {
-    const data = await this.deadlineService.findAll();
-    return HttpResponseFactory.makeOk(data);
-  };
-
   findById = async (httpRequest: HttpRequest) => {
     const { id } = httpRequest.params;
 

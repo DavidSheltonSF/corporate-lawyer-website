@@ -40,22 +40,6 @@ describe(`Test ${DeadlineController.name}`, () => {
     });
   });
 
-  describe('findAll', () => {
-    it('should find all deadlines', async () => {
-      const { deadlineController, deadlineService } = makeSut();
-      const httpRequest = createMockHttpRequest();
-
-      const expectedDeadlineList = [DeadlineMocker.mockDeadlineResponseDTOWithId()];
-      deadlineService.findAll.mockResolvedValue(expectedDeadlineList);
-
-      const response = (await deadlineController.findAll(httpRequest)) as SuccessResponse<
-        WithId<DeadlineDTO>[]
-      >;
-      expect(deadlineService.findAll).toHaveBeenCalled();
-      expect(response.status).toBe(HttpStatusCode.ok);
-    });
-  });
-
   describe('findById', () => {
     it('should find a deadline by id', async () => {
       const { deadlineController, deadlineService } = makeSut();
