@@ -11,7 +11,6 @@ export interface IDeadlineModel {
   startDate: string;
   dueDate: string;
   priority: string;
-  caseLocation: CaseLocationDTO;
 }
 
 interface DeadlineMongoDocument extends IDeadlineModel, Document {}
@@ -35,10 +34,6 @@ const DeadlineSchema = new Schema<DeadlineMongoDocument>(
     priority: {
       type: String,
       required: true,
-    },
-    caseLocation: {
-      city: { type: String, required: true },
-      state: { type: String, requied: true },
     },
   },
   {
