@@ -44,18 +44,23 @@ export class CaseService implements ICaseService {
       validateCasePartial(data);
 
       const { caseNumber } = data;
-      const caseNumberExists = caseNumber
-        ? await this.caseRepository.existsByCaseNumber(caseNumber)
-        : null;
+      const existingCase = await this.caseRepository.findById(id);
 
-      if (caseNumberExists && caseNumber) {
+      if (!existingCase) {
+        return null;
+      }
+
+      let caseNumberIsChanged = false;
+
+      if (existingCase.caseNumber !== caseNumber) {
+        caseNumberIsChanged = true;
+      }
+
+      if (caseNumberIsChanged && (await this.caseRepository.existsByCaseNumber(caseNumber))) {
         throw new DuplicatedCaseNumberError(caseNumber);
       }
 
-      const updatedCase = await this.caseRepository.updateById(id, data);
-      if (!updatedCase) {
-        return null;
-      }
+      const updatedCase = (await this.caseRepository.updateById(id, data))!;
 
       const { client, title, lawyer } = updatedCase;
       this.eventBus.publish(CaseEvent.CASE_UPDATED, {
