@@ -1,3 +1,3 @@
 import { CreateCaseDTO } from './CreateCaseDTO.js';
 
-export type UpdateCaseDTO = Partial<Omit<CreateCaseDTO, 'client' | 'lawyer'>>;
+export type UpdateCaseDTO = Omit<CreateCaseDTO, 'client' | 'lawyer'>;
