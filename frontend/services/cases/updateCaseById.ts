@@ -1,4 +1,5 @@
 import { API_URL } from '@/config/api';
+import { makeActionResponse } from '@/factories/makeActionResponse';
 import { apiFetch } from '../apiFetch';
 
 interface UpdateCaseParams {
@@ -9,7 +10,7 @@ interface UpdateCaseParams {
 export async function updateCaseById({ caseId, data }: UpdateCaseParams): Promise<void> {
   const { title, description, caseNumber, court, courtDivision, status, state, city } = data;
 
-  await apiFetch(`${API_URL}/cases/${caseId}`, {
+  const response = await apiFetch(`${API_URL}/cases/${caseId}`, {
     headers: {
       'Content-Type': 'application/json',
     },
@@ -27,4 +28,12 @@ export async function updateCaseById({ caseId, data }: UpdateCaseParams): Promis
       },
     }),
   });
+
+  if (!response.ok) {
+    const errorResponse = await makeActionResponse<never>(response);
+    if ('message' in errorResponse) {
+      throw new Error(errorResponse.message);
+    }
+    throw new Error('Unexpected error while updating case');
+  }
 }
